@@ -1,0 +1,5 @@
+CONTAINER_NAME=pingfederate
+# runtime out dir
+OUT_DIR=${RT_ROOT}/${CONTAINER_NAME}/runtime
+PORT_ADMIN=9999
+PORT_HTTP=9031

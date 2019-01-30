@@ -1,0 +1,39 @@
+version: "3.1"
+
+services:
+  pingdatasync:
+    image: pingidentity/pingdatasync:2019salesu
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/arnaudlacour/server-profile-pingdatasync-simplest-sync.git
+    deploy:
+      replicas: 1
+    networks:
+      - pingnet
+    volumes:
+      - /tmp/Swarm/simplest-sync/pingdatasync:/opt/out
+
+  pingdirectory:
+    image: pingidentity/pingdirectory:2019salesu
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/arnaudlacour/server-profile-pingdirectory-simplest-sync.git
+    deploy:
+      replicas: 1
+    ports:
+      - 1636:636
+      - 1443:443
+    networks:
+      - pingnet
+    volumes:
+      - /tmp/Swarm/simplest-sync/pingdirectory:/opt/out
+
+  pingdataconsole:
+    image: pingidentity/pingdataconsole:2019salesu
+    deploy:
+      replicas: 1
+    ports:
+      - 8080:8080
+    networks:
+      - pingnet
+        
+networks:
+    pingnet:

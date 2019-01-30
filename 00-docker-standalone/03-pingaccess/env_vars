@@ -1,0 +1,5 @@
+CONTAINER_NAME=pingaccess
+# runtime out dir
+OUT_DIR=${RT_ROOT}/${CONTAINER_NAME}/runtime
+PORT_ADMIN=9000
+PORT_HTTPS=443

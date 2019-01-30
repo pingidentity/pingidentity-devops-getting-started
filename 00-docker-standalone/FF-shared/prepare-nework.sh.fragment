@@ -1,0 +1,3 @@
+if test -z "$(docker network ls --filter name=${NETWORK_NAME} -q)" ; then
+	docker network create pingnet
+fi

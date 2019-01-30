@@ -1,0 +1,2 @@
+# Purpose
+The goal of the contents of this directory is to demonostrate how to use the docker images in the PingIndentity lineup on docker, independent of any other framework. It should be a journey to take step-by-step in the order of the sub-directories names.

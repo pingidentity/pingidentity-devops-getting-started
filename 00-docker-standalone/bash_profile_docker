@@ -1,0 +1,32 @@
+# Docker
+## container
+alias dce="run docker container exec -it"
+alias dcl="run docker container ls -a"
+alias dcr="run docker container rm -f"
+alias dcp="run docker container prune -f"
+alias dcstop="run docker container stop"
+alias dck="dsstop"
+alias dcstart="run docker container start"
+
+## image
+alias dil="run docker images"
+alias dir="run docker image rm -f"
+alias dip="run docker image prune -f"
+
+## volume
+alias dvp="run docker volume prune -f"
+alias dvl="run docker volume ls"
+
+## network
+alias dnl="run docker network ls"
+
+## service
+alias dsl="run docker service ls"
+alias dss="run docker service scale"
+alias dsr="run docker service rm"
+
+## logs
+alias dlf="run docker logs -f"
+
+## deep clean
+alias ddc="dcp ; dvp ; dip"
