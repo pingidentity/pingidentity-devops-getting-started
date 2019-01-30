@@ -1,5 +1,5 @@
 # Purpose
-This folder provides a few convenience scripts to make it a lot easier to get started with a local pingdirectory container.
+Demonstrate how to stand up a PingAccess container without any framework
 
 ## How to
 Have a look at the `env_vars` file, once you have made your changes run `./docker-run.sh`

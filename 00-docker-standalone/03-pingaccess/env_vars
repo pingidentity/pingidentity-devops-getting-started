@@ -3,3 +3,4 @@ CONTAINER_NAME=pingaccess
 OUT_DIR=${RT_ROOT}/${CONTAINER_NAME}/runtime
 PORT_ADMIN=9000
 PORT_HTTPS=443
+SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingaccess-full-featured

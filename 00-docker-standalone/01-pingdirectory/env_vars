@@ -6,3 +6,4 @@ PORT_LDAPS=1636
 PORT_HTTPS=1443
 PASSWORD_ROOT=2FederateM0re
 PASSWORD_REPLICATION=2Replic@teM0re
+SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-full-featured

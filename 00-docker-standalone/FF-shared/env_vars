@@ -4,3 +4,7 @@ NETWORK_NAME=pingnet
 # This is the local path where runtime data will be persisted for the containers
 # all containers will create their own sub-directory underneath this common base
 RT_ROOT=/tmp/Docker
+
+#
+#
+GIT_REPO=https://github.com/arnaudlacour
