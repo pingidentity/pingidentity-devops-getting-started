@@ -19,7 +19,7 @@ stackFile="${1}"
 stackName=${stackFile%.*}
 
 test -z "${1}" && usage
-for p in access federate directory sync ; do
+for p in access federate directory datasync ; do
     run mkdir -p /tmp/Swarm/${stackName}/ping${p}
 done
 
