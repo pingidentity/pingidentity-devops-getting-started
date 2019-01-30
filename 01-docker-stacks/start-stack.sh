@@ -2,6 +2,11 @@
 cd $( dirname ${0} )
 HERE=$( pwd )
 THIS=$( basename ${0} )
+run ()
+{
+    echo $*
+    $*
+}
 usage ()
 {
     cat <<END
@@ -15,9 +20,8 @@ stackName=${stackFile%.*}
 
 test -z "${1}" && usage
 for p in access federate directory sync ; do
-    echo creating /tmp/Swarm/${stackName}/ping${p}
-    mkdir -p /tmp/Swarm/${stackName}/ping${p}
+    run mkdir -p /tmp/Swarm/${stackName}/ping${p}
 done
 
-echo docker stack deploy -c ${stackFile} ${stackName}
-docker stack deploy -c ${stackFile} ${stackName}
+run docker swarm init
+run docker stack deploy -c ${stackFile} ${stackName}
