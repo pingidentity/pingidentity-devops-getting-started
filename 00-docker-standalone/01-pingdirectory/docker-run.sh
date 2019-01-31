@@ -23,7 +23,6 @@ mkdir -p "${IN_DIR}" "${OUT_DIR}"
 echo "${PASSWORD_ROOT}" > "${IN_DIR}/root-user-password"
 echo "${PASSWORD_REPLICATION}" > "${IN_DIR}/admin-user-password"
 # copy the file from the server profile into the input volume
-cp -rf "${WS}/server-profile/ds/"* "${IN_DIR}"
 
 OPTIONS="-d"
 if test "${1}" = "--debug" ; then
@@ -38,7 +37,7 @@ if test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q )" ; the
 		--publish ${PORT_LDAP}:389 \
 		--publish ${PORT_LDAPS}:636 \
 		--publish ${PORT_HTTPS}:443 \
-		--env ROOT_USER_PASSWORD_FILE=/opt/in/root-user-password \
+		--env SERVER_PROFILE_URL=${SERVER_PROFILE_URL} \
 		--env ADMIN_USER_PASSWORD_FILE=/opt/in/admin-user-password \
 		--volume ${IN_DIR}:/opt/in \
 		--volume ${OUT_DIR}:/opt/out \

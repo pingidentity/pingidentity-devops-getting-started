@@ -12,6 +12,7 @@ alias dcstart="run docker container start"
 alias dil="run docker images"
 alias dir="run docker image rm -f"
 alias dip="run docker image prune -f"
+alias dit="run docker image tag"
 
 ## volume
 alias dvp="run docker volume prune -f"

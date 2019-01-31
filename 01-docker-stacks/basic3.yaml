@@ -1,0 +1,28 @@
+version: "3.1"
+
+#
+# This compose file offers mirrors the configuration provided in
+# 00-docker-standalone/01-pingdirectory "Using a data container"
+# 
+# it should be preceded by following the instructions to create the volume
+#
+networks:
+    pingnet:
+
+volumes:
+  pd-config:
+    external: true
+
+services:
+  pingdirectory:
+    image: pingidentity/pingdirectory
+    deploy:
+      replicas: 1
+    ports:
+      - 5636:636
+      - 5443:443
+    networks:
+      - pingnet
+    volumes:
+      - pd-config:/opt/in
+      - /tmp/Swarm/basic3/pingdirectory:/opt/out
