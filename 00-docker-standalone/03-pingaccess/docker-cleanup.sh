@@ -10,6 +10,7 @@ test -f "${SHARED}/env_vars" && source "${SHARED}/env_vars"
 test -f "${HERE}/env_vars" && source "${HERE}/env_vars"
 
 if ! test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q)" ; then 
+    docker stop ${CONTAINER_NAME}
     docker container rm ${CONTAINER_NAME}
 fi
 
