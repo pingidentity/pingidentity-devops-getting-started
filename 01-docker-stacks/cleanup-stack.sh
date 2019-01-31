@@ -15,6 +15,14 @@ test -z "${1}" && usage
 
 if ! test -z "$( docker stack ls --format '{{.Name}}' | grep ${1} )" ; then
     docker stack rm ${1}
-    echo you may want to remove the runtime state of this stack at /tmp/Swarm/${1}
-    echo rm -rf /tmp/Swarm/${1}
+    echo "Would you like to remove the runtime state of this stack at /tmp/Swarm/${1}? (y/n)"
+    read answer
+    answer=$( echo "${answer}" | tr [A-Z] [a-z] )
+    case "${answer}" in
+        y|yes)
+            rm -rf /tmp/Swarm/${1}
+            ;;
+        *)
+            ;;
+    esac
 fi
