@@ -23,5 +23,4 @@ for p in access federate directory datasync ; do
     run mkdir -p /tmp/Swarm/${stackName}/ping${p}
 done
 
-run docker swarm init
 run docker stack deploy -c ${stackFile} ${stackName}
