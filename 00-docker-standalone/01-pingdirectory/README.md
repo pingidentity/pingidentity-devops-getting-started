@@ -1,6 +1,6 @@
 # Purpose
 This folder provides a few convenience scripts to make it a lot easier to get started with a local pingdirectory container.
-When used on its own, the docker run commands you need to fully customize you containers to taste may get pretty complex.
+When used on its own, the docker run commands you need to fully customize your containers to taste may get pretty complex.
 Let's explore why.
 
 ## How to
