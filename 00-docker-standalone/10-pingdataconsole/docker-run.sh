@@ -6,7 +6,7 @@ SHARED=$( cd ../FF-shared ; pwd )
 # load the shared variables
 test -f "${SHARED}/env_vars" && source "${SHARED}/env_vars"
 
-# load the pingfederate variables
+# load the pingdataconsole variables
 test -f "${HERE}/env_vars" && source "${HERE}/env_vars"
 
 # prepare the docker network (something all our containers have to do)
