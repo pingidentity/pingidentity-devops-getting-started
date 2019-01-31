@@ -38,6 +38,7 @@ if test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q )" ; the
 		--publish ${PORT_LDAPS}:636 \
 		--publish ${PORT_HTTPS}:443 \
 		--env SERVER_PROFILE_URL=${SERVER_PROFILE_URL} \
+		--env ROOT_USER_PASSWORD_FILE=/opt/in/root-user-password \
 		--env ADMIN_USER_PASSWORD_FILE=/opt/in/admin-user-password \
 		--volume ${IN_DIR}:/opt/in \
 		--volume ${OUT_DIR}:/opt/out \
