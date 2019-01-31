@@ -3,6 +3,7 @@ cd $( dirname ${0} )
 HERE=$( pwd )
 SHARED=$( cd ../FF-shared;pwd )
 WS=$( cd ../../.. ; pwd )
+
 # load the shared variables
 test -f "${SHARED}/env_vars" && source "${SHARED}/env_vars"
 

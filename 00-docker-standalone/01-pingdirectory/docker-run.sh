@@ -16,6 +16,7 @@ test -f "${SHARED}/prepare-network.sh.fragment" && source "${SHARED}/prepare-net
 if ! test -z "${IN_DIR}" && ! test "${IN_DIR}" = "/" ; then 
 	test -d "${IN_DIRE}" && rm -rf "${IN_DIR}"
 fi
+
 # prepare the Docker local volume mounts
 mkdir -p "${IN_DIR}" "${OUT_DIR}"
 
