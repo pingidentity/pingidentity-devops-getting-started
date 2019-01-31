@@ -7,7 +7,7 @@ version: "3.1"
 # it should be preceded by following the instructions to clone the server profile
 # rm -rf /tmp/Docker/pd-basic
 # mkdir -p /tmp/Docker/pd-basic
-# git clone https://github.com/arnaudlacour/server-profile-pingdirectory-basic.git /tmp/Docker/pd-basic
+# git clone https://github.com/pingidentity/server-profile-pingdirectory-basic.git /tmp/Docker/pd-basic
 #
 networks:
     pingnet:

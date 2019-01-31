@@ -8,7 +8,7 @@ Let's explore why.
 To run a simple PingDirectory, you could use the command below:
 ```Bash
 docker run -d --publish 1389:389 \
-    --env SERVER_PROFILE_URL=https://github.com/arnaudlacour/server-profile-pingdirectory-basic.git \
+    --env SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingdirectory-basic.git \
     pingidentity/pingdirectory
 ```
 
@@ -16,7 +16,7 @@ docker run -d --publish 1389:389 \
 Another approach you can take is to git clone the repository locally and provide the local files to your container at startup. Try this:
 ```Bash
 mkdir -p /tmp/Docker/pd-basic
-git clone https://github.com/arnaudlacour/server-profile-pingdirectory-basic.git /tmp/Docker/pd-basic
+git clone https://github.com/pingidentity/server-profile-pingdirectory-basic.git /tmp/Docker/pd-basic
 docker run -d --publish 2389:389 \
     -v /tmp/Docker/pd-basic:/opt/in \
     pingidentity/pingdirectory
