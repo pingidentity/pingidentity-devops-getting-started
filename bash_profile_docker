@@ -5,7 +5,7 @@ alias dcl="run docker container ls -a"
 alias dcr="run docker container rm -f"
 alias dcp="run docker container prune -f"
 alias dcstop="run docker container stop"
-alias dck="dsstop"
+alias dck="dcstop"
 alias dcstart="run docker container start"
 
 ## image
