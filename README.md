@@ -1,5 +1,5 @@
 # Purpose
-This directory provides foundational examples to get to understand the various moving parts in the devops toolkit. Throughout this repository, we'll cover the basics of running PingFederate, PingDirectory, PingAccess and more in docker containers. 
+This directory provides foundational examples to get familarized with the various moving parts in the devops toolkit. Throughout this repository, we'll cover the basics of running PingFederate, PingDirectory, PingAccess and more in docker containers. 
 
 ## Contents
 
