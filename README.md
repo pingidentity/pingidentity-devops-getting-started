@@ -11,4 +11,4 @@ This directory provides foundational examples to get familarized with the variou
 * A complete listing of Ping Identity's public images are available at [Docker Hub](https://hub.docker.com/u/pingidentity/)
 
 ## Troubleshooting
-This repoistory is in active development and has not been offically released. If you run into problems, please log an issue.
+This repoistory is in active development and has not been offically released. If you experiece issues with this project, please log an issue.
