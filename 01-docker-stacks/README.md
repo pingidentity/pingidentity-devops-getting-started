@@ -1,4 +1,4 @@
-# Purpose
+# Docker Stacks
 This directory contains some examples that automate the manual steps taken in the Docker standalone directories
 
 ## How to
@@ -8,7 +8,7 @@ Run the `start-stack.sh` script and pass a stack yaml file
 
 For example, `./start-stack.sh fullstack.yaml`
 
-When done with the stack, run `./cleanup-stack.sh [stack name]` to clean up your environment.
+When finished with the stack, run `./cleanup-stack.sh [stack name]` to clean up your environment.
 
 ## Yaml Files
 * `basic1.yaml` - Deploy PingDirectory in a stack
