@@ -3,8 +3,8 @@ This directory provides foundational examples to get familarized with the variou
 
 ## Contents
 
-* `00-docker-standalone/` - build and run Ping Identity standalone products in Docker containers 
-* `01-docker-stacks/` - deploy Ping Identity product stacks using Docker Swarm
+* `00-docker-standalone/` - build and run Ping Identity standalone products in docker containers 
+* `01-docker-stacks/` - deploy Ping Identity product stacks using docker Swarm
 
 ## Docker images
 
