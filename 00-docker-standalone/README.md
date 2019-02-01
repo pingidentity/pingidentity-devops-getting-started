@@ -1,5 +1,5 @@
 # Docker Standalone
-The objective of this directory is to demonostrate how to use the docker images in the PingIndentity lineup on Docker, independent of any other framework. It should be a journey, completed step-by-step in the order of the sub-directories names.
+The objective of this directory is to demonostrate how to use the docker images in the PingIndentity lineup, independent of any other framework. It should be a journey, completed step-by-step in the order of the sub-directories names.
 
 ## Contents
 
