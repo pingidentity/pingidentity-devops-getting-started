@@ -1,3 +1,10 @@
+function run ()
+{
+  date
+  echo $*
+  time $*
+}
+
 # Docker
 ## container
 alias dce="run docker container exec -it"
