@@ -6,7 +6,7 @@ CONTAINER_NAME=pingdirectory
 #################################################################################
 # Server Profile to use to configure container.  Should be a GIT Repo
 #################################################################################
-SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-full-featured
+SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-basic
 
 #################################################################################
 # Directory on local host machine to map in and out directories from container
@@ -44,6 +44,6 @@ POST_INSTRUCTIONS="
 
 # After server server, run:
 
-  docker exec i${CONTAINER_NAME} /opt/server/bin/ldapsearch -p 389 -b "" -s base  objectclass=*
+  docker exec ${CONTAINER_NAME} /opt/server/bin/ldapsearch -p 389 -b "" -s base  objectclass=*
 
 "
