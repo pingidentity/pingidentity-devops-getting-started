@@ -1,23 +1,12 @@
 #################################################################################
 # Name used to name the Docker Container
 #################################################################################
-CONTAINER_NAME=pingfederate
-
-#################################################################################
-# Server Profile to use to configure container.  Should be a GIT Repo
-#################################################################################
-SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingfederate-full-featured
-
-#################################################################################
-# Directory on local host machine to map in and out directories from container
-#################################################################################
-OUT_DIR=${RT_ROOT}/${CONTAINER_NAME}/runtime
+CONTAINER_NAME=pingdataconsole
 
 #################################################################################
 # Specific image/container details (i.e. ports, passwords)
 #################################################################################
-PORT_ADMIN=9999
-PORT_HTTP=9031
+PORT_HTTP=8080
 
 #################################################################################
 # Specific Docker Options for this Container.  Typically this will include
@@ -26,8 +15,7 @@ PORT_HTTP=9031
 #   --env     {environment variable}={environment value}
 #################################################################################
 DOCKER_OPTIONS="
-		--publish ${PORT_HTTP}:9031 \
-		--publish ${PORT_ADMIN}:9999 \
+		--publish ${PORT_HTTP}:8080 
 "
 
 #################################################################################
@@ -35,8 +23,8 @@ DOCKER_OPTIONS="
 #################################################################################
 POST_INSTRUCTIONS="
 
-# After server server, goto:
+# For server started:
 
-     Admin Console:  https://localhost:${PORT_ADMIN}/pingfederate/app
+     Admin Console:  http://localhost:8080/admin-console
 
 "

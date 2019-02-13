@@ -1,9 +1,49 @@
+#################################################################################
+# Name used to name the Docker Container
+#################################################################################
 CONTAINER_NAME=pingdirectory
+
+#################################################################################
+# Server Profile to use to configure container.  Should be a GIT Repo
+#################################################################################
+SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-full-featured
+
+#################################################################################
+# Directory on local host machine to map in and out directories from container
+#################################################################################
 IN_DIR="${RT_ROOT}/${CONTAINER_NAME}/input"
 OUT_DIR="${RT_ROOT}/${CONTAINER_NAME}/runtime"
+
+#################################################################################
+# Specific image/container details (i.e. ports, passwords)
+#################################################################################
 PORT_LDAP=1389
 PORT_LDAPS=1636
 PORT_HTTPS=1443
 PASSWORD_ROOT=2FederateM0re
 PASSWORD_REPLICATION=2Replic@teM0re
-SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-full-featured
+
+#################################################################################
+# Specific Docker Options for this Container.  Typically this will include
+#   --publish {local port}:{docker port}
+#   --volume  {local path}:{docker path}
+#   --env     {environment variable}={environment value}
+#################################################################################
+DOCKER_OPTIONS="
+		--publish ${PORT_LDAP}:389 \
+		--publish ${PORT_LDAPS}:636 \
+		--publish ${PORT_HTTPS}:443 \
+		--env ROOT_USER_PASSWORD_FILE=/opt/in/root-user-password \
+		--env ADMIN_USER_PASSWORD_FILE=/opt/in/admin-user-password \
+"
+
+#################################################################################
+# Once the docker image is run, these are the instructions that will be echoed
+#################################################################################
+POST_INSTRUCTIONS="
+
+# After server server, run:
+
+  docker exec i${CONTAINER_NAME} /opt/server/bin/ldapsearch -p 389 -b "" -s base  objectclass=*
+
+"

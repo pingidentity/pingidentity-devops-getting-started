@@ -1,6 +1,42 @@
+#################################################################################
+# Name used to name the Docker Container
+#################################################################################
 CONTAINER_NAME=pingaccess
-# runtime out dir
+
+#################################################################################
+# Server Profile to use to configure container.  Should be a GIT Repo
+#################################################################################
+SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingaccess-full-featured
+
+#################################################################################
+# Directory on local host machine to map in and out directories from container
+#################################################################################
 OUT_DIR=${RT_ROOT}/${CONTAINER_NAME}/runtime
+
+#################################################################################
+# Specific image/container details (i.e. ports, passwords)
+#################################################################################
 PORT_ADMIN=9000
 PORT_HTTPS=443
-SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingaccess-full-featured
+
+#################################################################################
+# Specific Docker Options for this Container.  Typically this will include
+#   --publish {local port}:{docker port}
+#   --volume  {local path}:{docker path}
+#   --env     {environment variable}={environment value}
+#################################################################################
+DOCKER_OPTIONS="
+		--publish ${PORT_ADMIN}:9000 \
+		--publish ${PORT_HTTPS}:443 \
+"
+#################################################################################
+# Once the docker image is run, these are the instructions that will be echoed
+#################################################################################
+POST_INSTRUCTIONS="
+
+# For server started:
+
+     Admin Console:  https://localhost:${PORT_ADMIN}/
+ Admin API Swagger:  https://localhost:${PORT_HTTPS}/pa-admin-api/v3/api-docs/
+
+"
