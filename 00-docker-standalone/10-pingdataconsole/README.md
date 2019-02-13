@@ -7,5 +7,5 @@ See https://cloud.docker.com/repository/docker/pingidentity/pingdataconsole
 ```Bash
 docker network create pingnet
 docker run -d --network pingnet -p 8080:8080 --name pingdataconsole pingidentity/pingdataconsole
-open https://localhost:8080/admin-console
+open http://localhost:8080/admin-console
 ```
