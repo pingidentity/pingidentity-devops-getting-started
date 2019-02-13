@@ -34,14 +34,16 @@ docker run -d --publish 3389:389 \
 ```
 
 ### Using an output volume
-Now have a look at the `env_vars` file and the `docker-run.sh` script.
+Now have a look at the `env_vars` file and the `docker-run.sh` script in the parent directory.
 
 In particular, in the `docker-run.sh` script you will see that a second volume is mounted to /opt/out.
 
-Then run `./docker-run.sh`
+Then run `../docker-run.sh pingdirectory`
+
 By default this will create a directory under /tmp/Docker/pingdirectory/runtime to persist any mutated data.
 Within the container, the instance is copied to /opt/out which is mounted to /tmp/Docker/pingdirectory/runtime.
 This is useful when working with the product because you may want to have easy access to log files, install custom extensions or velocity templates. Persisting the instance runtime data also allows the container to restart and not be reinstalling from scratch every time.
+
 In production, this pattern is useful to maintain good performance for very large databases and allow quick self-healing without the need to join the replication topology anew with every container restart.
 
-Once you are done with the container, you can run `docker-cleanup.sh` to remove everything safely.
+Once you are done with the container, you can run `../docker-cleanup.sh pingdirectory` in the parent directory to remove everything safely.
