@@ -54,9 +54,9 @@ fi
 DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}"
 
 # check to see if the -d option is passed
-SHARED_DOCKER_OPTIONS="-d" 
+SHARED_DOCKER_OPTIONS=" --detach " 
 if test "${DEBUG}" = "--debug" ; then
-	SHARED_DOCKER_OPTIONS="-it --entrypoint /bin/sh"
+	SHARED_DOCKER_OPTIONS=" -it --entrypoint /bin/sh "
 
 	echo "###########################################################"
 	echo "#         Docker Environment Variables"
@@ -72,7 +72,7 @@ if test "${DEBUG}" = "--debug" ; then
 	echo "###########################################################"
 fi
 
-SHARED_DOCKER_OPTIONS="${SHARED_DOCKER_OPTIONS} 
+SHARED_DOCKER_OPTIONS+="
 		--name ${CONTAINER_NAME} 
 		--network ${NETWORK_NAME} 
 "
