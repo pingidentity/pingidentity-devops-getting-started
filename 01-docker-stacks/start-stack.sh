@@ -1,7 +1,10 @@
 #!/bin/bash
+CMD="${0}"
+STACK_YAML_FILE="${1}"
 cd $( dirname ${0} )
-HERE=$( pwd )
-THIS=$( basename ${0} )
+SCRIPT_NAME=$( basename ${0} )
+STACK_NAME=${STACK_YAML_FILE%.*}
+
 run ()
 {
     echo $*
@@ -10,17 +13,21 @@ run ()
 usage ()
 {
     cat <<END
-usage: ${THIS} <stack-name>.yaml
+
+Usage: ${SCRIPT_NAME} <stack-name>
+
+Example:
+
+   ${SCRIPT_NAME} basic1
+
 END
 exit 79
 }
 
-stackFile="${1}"
-stackName=${stackFile%.*}
+test ! -f "${STACK_YAML_FILE}" && echo "Error: Stack yaml file '${STACK_YAML_FILE}' not found" && usage
 
-test -z "${1}" && usage
-for p in access federate directory datasync ; do
-    run mkdir -p /tmp/Swarm/${stackName}/ping${p}
+for PRODUCT in access federate directory datasync ; do
+    run mkdir -p /tmp/Swarm/${STACK_NAME}/ping${PRODUCT}
 done
 
-run docker stack deploy -c ${stackFile} ${stackName}
+run docker stack deploy -c ${STACK_YAML_FILE} ${STACK_NAME}
