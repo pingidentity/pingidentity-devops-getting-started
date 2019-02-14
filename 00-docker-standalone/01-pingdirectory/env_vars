@@ -44,6 +44,6 @@ POST_INSTRUCTIONS="
 
 # After server starts, run:
 
-  docker exec ${CONTAINER_NAME} /opt/server/bin/ldapsearch -p 389 -b "" -s base  objectclass=*
+  docker exec ${CONTAINER_NAME} /opt/server/bin/ldapsearch -p 389 -b \"\" -s base  objectclass=*
 
 "
