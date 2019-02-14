@@ -42,7 +42,7 @@ DOCKER_OPTIONS="
 #################################################################################
 POST_INSTRUCTIONS="
 
-# After server server, run:
+# After server starts, run:
 
   docker exec ${CONTAINER_NAME} /opt/server/bin/ldapsearch -p 389 -b "" -s base  objectclass=*
 

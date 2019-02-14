@@ -35,7 +35,7 @@ DOCKER_OPTIONS="
 #################################################################################
 POST_INSTRUCTIONS="
 
-# After server server, goto:
+# After server starts, goto:
 
      Admin Console:  https://localhost:${PORT_ADMIN}/pingfederate/app
 
