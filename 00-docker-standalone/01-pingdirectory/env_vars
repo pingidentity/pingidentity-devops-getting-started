@@ -46,4 +46,8 @@ POST_INSTRUCTIONS="
 
   docker exec ${CONTAINER_NAME} /opt/server/bin/ldapsearch -p 389 -b \"\" -s base  objectclass=*
 
+# or goto Directory REST API
+
+  https://localhost:1443/directory/v1/ou=people,dc=example,dc=com/subtree?searchScope=wholesubtree
+
 "

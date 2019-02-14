@@ -1,8 +1,44 @@
 #!/bin/sh
+CMD="${0}"
 CONTAINER="${1}"
 DEBUG="${2}"
 CONTAINER_DIR=$(cd $( dirname ${0} );pwd )
 SHARED_DIR=$( cd FF-shared;pwd )
+
+function usage()
+{
+cat <<EO_USAGE
+
+Usage: ${CMD} { container name } [ --debug ]
+       container_name: pingdirectory
+                       pingfederate
+                       pingaccess
+                       pingdataconsole
+                       all - runs all containers
+
+             --debug : Provide debugging details and drop into container shell
+                       This option is not used in conjunction with all
+Examples
+
+  Run a standalone PingDirectory container
+
+    ${CMD} pingdirectory
+
+  Run a standalone PingFederate container, with debug.  This will start the container
+  and drop the user into the container shell, rather than installing/running the 
+  PingFederate instance
+
+    ${CMD} pingfederate --debug
+
+EO_USAGE
+}
+
+run_cmd() {
+	INSTANCE=$1
+
+	echo "Running ${CMD} ${INSTANCE}..."
+	${CMD} ${INSTANCE}
+}
 
 case ${CONTAINER} in
 	"pingdirectory")
@@ -18,21 +54,13 @@ case ${CONTAINER} in
 		CONTAINER_DIR+="/10-pingdataconsole"
 		;;
 	"all")
-		$0 pingdirectory   ${DEBUG}
-		$0 pingfederate    ${DEBUG}
-		$0 pingaccess      ${DEBUG}
-		$0 pingdataconsole ${DEBUG}
+		run_cmd pingdirectory
+		run_cmd pingfederate
+		run_cmd pingaccess
+		run_cmd pingdataconsole
 		;;
 	*)
-		echo "Usage: ${0} { container name } [ --debug ]"
-		echo
-		echo "	container_name: pingdirectory"
-		echo "	                pingfederate"
-		echo "	                pingaccess"
-		echo "	                pingdataconsole"
-		echo "	                all - runs all containers"
-		echo
-		echo "	      --debug : Provide debugging details and drop into container shell"
+		usage
 		exit
 esac
 	

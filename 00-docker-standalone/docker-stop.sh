@@ -1,7 +1,39 @@
-#!/bin/bash
+#!/bin/sh
+CMD="${0}"
 CONTAINER="${1}"
 CONTAINER_DIR=$(cd $( dirname ${0} );pwd )
 SHARED_DIR=$( cd FF-shared;pwd )
+
+function usage()
+{
+cat <<EO_USAGE
+
+Usage: ${CMD} { container name }
+       container_name: pingdirectory
+                       pingfederate
+                       pingaccess
+                       pingdataconsole
+                       all - runs all containers
+
+Examples
+
+  Stop a standalone PingDirectory container
+
+    ${CMD} pingdirectory
+
+  Stop all containers
+
+    ${CMD} all
+
+EO_USAGE
+}
+
+run_cmd() {
+        INSTANCE=$1
+
+        echo "Running ${CMD} ${INSTANCE}..."
+        ${CMD} ${INSTANCE}
+}
 
 case ${CONTAINER} in
 	"pingdirectory")
@@ -17,20 +49,13 @@ case ${CONTAINER} in
 		CONTAINER_DIR+="/10-pingdataconsole"
 		;;
 	"all")
-		$0 pingdirectory
-		$0 pingfederate
-		$0 pingaccess
-		$0 pingdataconsole
+		run_cmd pingdirectory
+		run_cmd pingfederate
+		run_cmd pingaccess
+		run_cmd pingdataconsole
 		;;
 	*)
-		echo "Usage: ${0} { container name }"
-		echo
-		echo "	container_name: pingdirectory"
-		echo "	                pingfederate"
-		echo "	                pingaccess"
-		echo "	                pingdataconsole"
-		echo "	                all - stops all containers"
-		echo
+		usage
 		exit
 esac
 

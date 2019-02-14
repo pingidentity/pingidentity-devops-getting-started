@@ -26,46 +26,69 @@ Used to run the docker images as individual standalone containers.
 
 ```
 Usage: ./docker-run.sh { container name } [ --debug ]
+       container_name: pingdirectory
+                       pingfederate
+                       pingaccess
+                       pingdataconsole
+                       all - runs all containers
 
-	container_name: pingdirectory
-	                pingfederate
-	                pingaccess
-	                pingdataconsole
-	                all - runs all containers
+             --debug : Provide debugging details and drop into container shell
+                       This option is not used in conjunction with all
+Examples
 
-	      --debug : Provide debugging details and drop into container shell
+  Run a standalone PingDirectory container
+
+    ./docker-run.sh pingdirectory
+
+  Run a standalone PingFederate container, with debug.  This will start the container
+  and drop the user into the container shell, rather than installing/running the
+  PingFederate instance
+
+    ./docker-run.sh pingfederate --debug
 ```
-
-Example: `./docker-run.sh pingdirectory`
 
 ### docker-stop.sh
 Used to stop the docker indiviudal containers.
 
 ```
 Usage: ./docker-stop.sh { container name }
+       container_name: pingdirectory
+                       pingfederate
+                       pingaccess
+                       pingdataconsole
+                       all - runs all containers
 
-	container_name: pingdirectory
-	                pingfederate
-	                pingaccess
-	                pingdataconsole
-	                all - stops all containers
+Examples
+
+  Stop a standalone PingDirectory container
+
+    ./docker-stop.sh pingdirectory
+
+  Stop all containers
+
+    ./docker-stop.sh all
 ```
-
-Example: `./docker-stop.sh pingfederate`
 
 ### docker-cleanup.sh
 Used to cleanup the docker indiviudal containers.
 
 ```
 Usage: ./docker-cleanup.sh { container name } [ --force ]
+       container_name: pingdirectory
+                       pingfederate
+                       pingaccess
+                       pingdataconsole
+                       all - runs all containers
 
-	container_name: pingdirectory
-	                pingfederate
-	                pingaccess
-	                pingdataconsole
-	                all - performs cleanup of all containers
+             --force : Force Cleanup & Removal of IN/OUT directories
 
-	      --force : Force Cleanup & Removal of IN/OUT directories
+Examples
+
+  Cleanup a standalone PingDirectory container
+
+    ./docker-cleanup.sh pingdirectory
+
+  Cleanup all containers and force the cleanup, no questions are asked
+
+    ./docker-cleanup.sh all --force
 ```
-
-Example: `./docker-cleanup.sh all --force`

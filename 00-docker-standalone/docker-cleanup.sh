@@ -1,8 +1,42 @@
-#!/bin/bash
+#!/bin/sh
+CMD="${0}"
 CONTAINER="${1}"
 FORCE="${2}"
 CONTAINER_DIR=$(cd $( dirname ${0} );pwd )
 SHARED_DIR=$( cd FF-shared;pwd )
+
+function usage()
+{
+cat <<EO_USAGE
+
+Usage: ${CMD} { container name } [ --force ]
+       container_name: pingdirectory
+                       pingfederate
+                       pingaccess
+                       pingdataconsole
+                       all - runs all containers
+
+             --force : Force Cleanup & Removal of IN/OUT directories
+
+Examples
+
+  Cleanup a standalone PingDirectory container
+
+    ${CMD} pingdirectory
+
+  Cleanup all containers and force the cleanup, no questions are asked
+
+    ${CMD} all --force
+
+EO_USAGE
+}
+
+run_cmd() {
+        INSTANCE=$1
+
+        echo "Running ${CMD} ${INSTANCE} ${FORCE}..."
+        ${CMD} ${INSTANCE} ${FORCE}
+}
 
 case ${CONTAINER} in
 	"pingdirectory")
@@ -18,22 +52,13 @@ case ${CONTAINER} in
 		CONTAINER_DIR+="/10-pingdataconsole"
 		;;
 	"all")
-		$0 pingdirectory   ${FORCE}
-		$0 pingfederate    ${FORCE}
-		$0 pingaccess      ${FORCE}
-		$0 pingdataconsole ${FORCE}
+		run_cmd pingdirectory
+		run_cmd pingfederate
+		run_cmd pingaccess
+		run_cmd pingdataconsole
 		;;
 	*)
-		echo "Usage: ${0} { container name } [ --force ]"
-		echo
-		echo "	container_name: pingdirectory"
-		echo "	                pingfederate"
-		echo "	                pingaccess"
-		echo "	                pingdataconsole"
-		echo "	                all - performs cleanup of all containers"
-		echo
-		echo "	      --force : Force Cleanup & Removal of IN/OUT directories"
-		echo
+		usage
 		exit
 esac
 
@@ -48,18 +73,20 @@ if ! test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q)" ; th
 fi
 
 for directory in "${IN_DIR}" "${OUT_DIR}" "${RT_ROOT}/${CONTAINER_NAME}"; do 
-    if [ "${FORCE}" == "--force" ]; then
-       rm -rf ${directory}
-    else
-       echo -n "Would you like to remove the input directory ${directory} (y/n) ? "
-       read answer
-       answer=$( echo "${answer}" | tr [A-Z] [a-z] )
-       case "${answer}" in
-           y|yes)
-               rm -rf ${directory}
-               ;;
-           *)
-               ;;
-       esac
+    if ! test -z ${directory}; then
+       if [ "${FORCE}" == "--force" ]; then
+          rm -rf ${directory}
+       else
+         echo -n "Would you like to remove the input directory ${directory} (y/n) ? "
+         read answer
+         answer=$( echo "${answer}" | tr [A-Z] [a-z] )
+         case "${answer}" in
+             y|yes)
+                 rm -rf ${directory}
+                 ;;
+             *)
+                 ;;
+         esac
+       fi
     fi
 done
