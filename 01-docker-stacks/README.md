@@ -4,13 +4,13 @@ This directory contains some examples that automate the manual steps taken in th
 ## How to
 Note: ensure you have started docker swarm before deploying the stack by running `docker swarm init`
 
-Run the `start-stack.sh` script and pass a stack yaml file
+Run the `stack-start.sh` script and pass a stack yaml file
 
-For example, `./start-stack.sh fullstack.yaml`
+For example, `./stack-start.sh fullstack.yaml`
 
-When finished with the stack, run `./cleanup-stack.sh` script and pass a stack yaml file to clean up your environment.
+When finished with the stack, run `./stack-cleanup.sh` script and pass a stack yaml file to clean up your environment.
 
-For example, `./cleanup-stack.sh fullstack.yaml`
+For example, `./stack-cleanup.sh fullstack.yaml`
 
 ## Yaml Files
 * `basic1.yaml` - Deploy PingDirectory in a stack with mounted out volume

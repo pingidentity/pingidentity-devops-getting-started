@@ -14,11 +14,11 @@ usage ()
 {
     cat <<END
 
-Usage: ${SCRIPT_NAME} <stack-name>
+Usage: ${SCRIPT_NAME} <stack-name>.yaml
 
 Example:
 
-   ${SCRIPT_NAME} basic1
+   ${SCRIPT_NAME} basic1.yaml
 
 END
 exit 79
