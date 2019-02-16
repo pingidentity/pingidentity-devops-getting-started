@@ -1,0 +1,43 @@
+version: "3.1"
+
+services:
+  pingfederate:
+    image: pingidentity/pingfederate
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingfederate-full-featured.git
+      - SERVER_PROFILE_BRANCH=cprice
+    deploy:
+      replicas: 1
+    ports:
+      - 9031:9031
+      - 9999:9999
+    networks:
+      - pingnet
+
+  pingdirectory:
+    image: pingidentity/pingdirectory
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingdirectory-full-featured.git
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    ports:
+      - 1636:636
+      - 1443:443
+    networks:
+      - pingnet
+    volumes:
+      - /tmp/Compose/pingdirectory:/opt/out
+
+  pingdataconsole:
+    image: pingidentity/pingdataconsole
+    deploy:
+      replicas: 0
+    ports:
+      - 8080:8080
+    networks:
+      - pingnet
+        
+networks:
+    pingnet:
