@@ -12,21 +12,31 @@ alias dcl="run docker container ls -a"
 alias dcr="run docker container rm -f"
 alias dcp="run docker container prune -f"
 alias dcstop="run docker container stop"
+alias dct="run docker container top"
 alias dck="dcstop"
 alias dcstart="run docker container start"
 
-## image
+## image  
+alias dib="run docker image build"
+alias dii="run docker image inspect"
 alias dil="run docker images"
 alias dir="run docker image rm -f"
 alias dip="run docker image prune -f"
 alias dit="run docker image tag"
 
 ## volume
-alias dvp="run docker volume prune -f"
+alias dvc="run docker volume create"
+alias dvi="run docker volume inspect"
 alias dvl="run docker volume ls"
+alias dvp="run docker volume prune -f"
 
 ## network
+alias dnc="run docker network create"
+alias dni="run docker network inspect"
 alias dnl="run docker network ls"
+alias dnp="run docker network prune -f"
+alias dnr="run docker network rm"
+
 
 ## service
 alias dsl="run docker service ls"
