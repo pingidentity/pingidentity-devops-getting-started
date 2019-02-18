@@ -11,6 +11,8 @@ You should have a look.
 This is a mechanism we provide to make joining replication topologies robust.
 A very important aspect of this approach is idem-potency.
 
+As you can probably tell by now, the fact that the file has harcoded hostnames doesn't bode well for dynamic environments, and you'd be right, we'll see how we can use a template to generate the topology file as we scale an environment in a later tutorial.
+
 ## Using the containers
 Make a change to a user entry on one of the containers 
 To look at the containers that docker-compose started: 
