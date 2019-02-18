@@ -1,0 +1,12 @@
+version: "3.1"
+
+services:
+  pingdirectory:
+    image: pingidentity/pingdirectory
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/arnaudlacour/server-profile-pingdirectory-replicated-pair.git
+    networks:
+      - pingnet
+              
+networks:
+    pingnet:
