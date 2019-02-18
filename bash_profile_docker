@@ -8,6 +8,7 @@ function run ()
 # Docker
 ## container
 alias dce="run docker container exec -it"
+alias dci="run docker container inspect"
 alias dcl="run docker container ls -a"
 alias dcr="run docker container rm -f"
 alias dcp="run docker container prune -f"
