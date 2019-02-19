@@ -10,12 +10,41 @@ Watch the directories initialize with:
 `docker-compose logs -f`
 
 ## The interesting bit
-The interesting piece of the puzzle here is the topology.json file.
-You should have a look.
+The interesting piece of the puzzle here is the topology.json] file located within the server-profile.
+Have a look:
+```
+{
+    "serverInstances" : [
+        {
+            "instanceName" : "02-replicated-pair_pingdirectory_1",
+            "hostname" : "02-replicated-pair_pingdirectory_1",
+            "location" : "docker",
+            "ldapPort" : 389,
+            "ldapsPort" : 636,
+            "replicationPort" : 989,
+            "startTLSEnabled" : true,
+            "preferredSecurity" : "SSL",
+            "product" : "DIRECTORY"
+        },
+        {
+            "instanceName" : "02-replicated-pair_pingdirectory_2",
+            "hostname" : "02-replicated-pair_pingdirectory_2",
+            "location" : "docker",
+            "ldapPort" : 389,
+            "ldapsPort" : 636,
+            "replicationPort" : 989,
+            "startTLSEnabled" : true,
+            "preferredSecurity" : "SSL",
+            "product" : "DIRECTORY"
+        }
+    ]
+}
+```
+
 This is a mechanism we provide to make joining replication topologies robust.
 A very important aspect of this approach is idempotence.
 
-As you can probably tell by now, the fact that the file has harcoded hostnames doesn't bode well for dynamic environments, and you'd be right, we'll see how we can use a template to generate the topology file as we scale an environment in a later tutorial.
+As you can see, the fact that the file has harcoded hostnames doesn't bode well for dynamic environments, as such, in a later tutorial we'll see how we can use a template to generate the topology file while scaling an environment.
 
 ## Using the containers
 Make a change to a user entry on one of the containers. 
