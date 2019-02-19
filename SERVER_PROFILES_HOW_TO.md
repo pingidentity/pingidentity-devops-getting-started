@@ -8,9 +8,20 @@ Server profiles aim at providing a common convention to adapt the common images 
 ### PingFederate
 - instance
     Place any file that need to be present with the runtime of the product, abiding with the file layout of the product.
+    - Some useful examples:
+        - instance/server/default/data/drop-in-deployer/data.zip may be used to apply a configuration archive exported to a container.
+        This may be really convenient for going from a PingFederate instance to deployed PingFederate containers
+        - server/default/deploy/OAuthPlayground.war
+        automatically deploy the OAuthPlayground web application
+        - instance/server/default/conf/pingfederate.lic
+        inject a PingFederate license into the running container
+        - instance/server/default/conf/META-INF/hivemodule.xml
+        apply a hivemodule configuration to the container
+
 ### PingAccess
 - instance
     Place any file that need to be present with the runtime of the product, abiding with the file layout of the product.
+
 ### PingDirectory
 - dsconfig
     Provide dsconfig configuration fragments.
