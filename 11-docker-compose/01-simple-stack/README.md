@@ -6,9 +6,13 @@ First off, create a local directory that is going to be used to persist the muta
 
   `mkdir /tmp/Compose/pingdirectory`
 
-Then compose the software stack up with:
+Start compose wih:
 
-  `docker-compose up`
+  `docker-compose up -d`
+
+View container logs with: 
+
+`docker-compose logs`
 
 ## Using the containers
 At this poing you should see docker-compose create the services for a PingFederate instance and a PingDirectory instance.  Note that
