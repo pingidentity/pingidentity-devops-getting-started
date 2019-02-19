@@ -1,7 +1,7 @@
 # Purpose
 
 ## Getting started
-The command to stand up this stack is a little different from the previous one we saw as it requires the use of `--scale` argument to `docker-compose up`
+The command to stand up this stack is a little different from the previous one we saw as it uses the `--scale` argument to `docker-compose up`
 Do this:
 `docker-compose up --scale pingdirectory=2`
 
@@ -14,7 +14,7 @@ A very important aspect of this approach is idem-potency.
 As you can probably tell by now, the fact that the file has harcoded hostnames doesn't bode well for dynamic environments, and you'd be right, we'll see how we can use a template to generate the topology file as we scale an environment in a later tutorial.
 
 ## Using the containers
-Make a change to a user entry on one of the containers 
+Make a change to a user entry on one of the containers. 
 To look at the containers that docker-compose started: 
 `docker container ls` 
 
