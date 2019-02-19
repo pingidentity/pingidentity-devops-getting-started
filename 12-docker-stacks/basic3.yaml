@@ -2,7 +2,7 @@ version: "3.1"
 
 #
 # This compose file offers mirrors the configuration provided in
-# 00-docker-standalone/01-pingdirectory "Using a data container"
+# 10-docker-standalone/01-pingdirectory "Using a data container"
 # 
 # it should be preceded by following the instructions to create the volume
 #
