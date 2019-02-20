@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 CMD="${0}"
 CONTAINER="${1}"
 FORCE="${2}"
