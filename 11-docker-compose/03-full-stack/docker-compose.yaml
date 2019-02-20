@@ -4,7 +4,8 @@ services:
   pingaccess:
     image: pingidentity/pingaccess
     environment: 
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingaccess-full-featured.git
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-group-pingidentity-getting-started.git
+      - SERVER_PROFILE_PATH=pingaccess
     ports:
       - 443:443
       - 9000:9000
@@ -14,7 +15,8 @@ services:
   pingfederate:
     image: pingidentity/pingfederate
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingfederate-full-featured.git
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-group-pingidentity-getting-started.git
+      - SERVER_PROFILE_PATH=pingfederate
     ports:
       - 9031:9031
       - 9999:9999
@@ -24,7 +26,8 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingdirectory-full-featured.git
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-group-pingidentity-getting-started.git
+      - SERVER_PROFILE_PATH=pingdirectory
     ports:
       - 1636:636
       - 1443:443
