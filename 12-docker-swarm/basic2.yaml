@@ -1,0 +1,27 @@
+version: "3.1"
+
+#
+# This compose file offers mirrors the configuration provided in
+# 10-docker-standalone/01-pingdirectory "Using local volume"
+# 
+# it should be preceded by following the instructions to clone the server profile
+# rm -rf /tmp/Docker/pd-basic
+# mkdir -p /tmp/Docker/pd-basic
+# git clone https://github.com/pingidentity/server-profile-pingdirectory-basic.git /tmp/Docker/pd-basic
+#
+networks:
+    pingnet:
+
+services:
+  pingdirectory:
+    image: pingidentity/pingdirectory
+    deploy:
+      replicas: 1
+    ports:
+      - 5636:636
+      - 5443:443
+    networks:
+      - pingnet
+    volumes:
+      - /tmp/Docker/pd-basic:/opt/in
+      - /tmp/Swarm/basic2/pingdirectory:/opt/out
