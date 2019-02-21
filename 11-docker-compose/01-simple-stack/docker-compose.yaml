@@ -22,8 +22,6 @@ services:
       - 1443:443
     networks:
       - pingnet
-    volumes:
-      - /tmp/Compose/pingdirectory:/opt/out
-              
+                    
 networks:
     pingnet:
