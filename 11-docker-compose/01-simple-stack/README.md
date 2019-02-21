@@ -24,9 +24,13 @@ Once the PingDirectory instance is up,
 * Click on ```implicit``` 
 * Log in with user.0 / 2FederateM0re
 
-The PingFederate management console is avaiable at:  https://localhost:9999/pingfederate/app
+The PingFederate management console
+
+* Goto: https://localhost:9999/pingfederate/app
+* Log in with Administrator / 2FederateM0re
 
 PingDirectory exposes LDAP traffic via an LDAPS port 1636. 
+* Navigate to https://localhost:1636/dc=example,dc=com
 
 ## More exploration
 You can take a look at the files in /tmp/Compose/pingdirectory for details about what the PingDirectory persists to the volume mount
