@@ -9,7 +9,7 @@ Included are the following stack deployment yaml files that can be used in a
 * basic2.yaml        - Deploy PingDirectory in a stack with mounted in/out volumes
 * basic3.yaml        - Deploy PingDirectory in a stack with extenally mounted volumes
 * fullstack.yaml     - Deploy PingFederate, PingDirectory, PingDataConsole and PingAccess in a networked stack
-* simplest-sync.yaml - Deploy PingDirectory, PingDataSync and PingDataConsole in a networked stack
+* simple-sync.yaml   - Deploy PingDirectory, PingDataSync and PingDataConsole in a networked stack
 
 ## HowTo
 Ensure that you have started docker swarm before deploying the stack by running:
