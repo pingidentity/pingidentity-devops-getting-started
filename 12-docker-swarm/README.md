@@ -1,7 +1,7 @@
-# Docker Stacks
+# Docker Swarm
 This directory contains some examples that automate the manual steps taken in the Docker standalone directories
 
-## Example Docke Stack Deployment Yaml Files
+## Example Docker Swarm Stack Deployment Files
 Included are the following stack deployment yaml files that can be used in a
 `docker stack deploy -c stack.yaml stack-name`
 
@@ -16,26 +16,26 @@ Ensure that you have started docker swarm before deploying the stack by running:
 
 `docker swarm init`
 
-There are a 2 shell scripts that can be used to start and cleanup the example stacks.
+There are a 2 shell scripts that can be used to start and cleanup the example swarms.
 
-### stack-start.sh
-Used to start the docker stack in docker swarm environment.
+### swarm-start.sh
+Used to start the stack in docker swarm environment.
 
 ```
-Usage: stack-start.sh <stack-name>.yaml
+Usage: swarm-start.sh <stack-name>.yaml
 
 Example:
 
-   stack-start.sh basic1.yaml
+   swarm-start.sh basic1.yaml
 ```
 
-### stack-cleanup.sh
+### swarm-cleanup.sh
 Used to cleanup the docker stack in docker swarm environment.
 
 ```
-Usage: stack-cleanup.sh <stack-name>.yaml
+Usage: swarm-cleanup.sh <stack-name>.yaml
 
 Example:
 
-   stack-cleanup.sh basic1.yaml
+   swarm-cleanup.sh basic1.yaml
 ```

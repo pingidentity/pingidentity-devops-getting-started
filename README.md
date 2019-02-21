@@ -7,7 +7,7 @@ running PingFederate, PingDirectory, PingAccess and more in docker containers.
 
 * 10-docker-standalone - Run Ping Identity standalone products in docker containers 
 * 11-docker-compose    - Define and run multi-container Ping Identity docker images with Docker Compose
-* 12-docker-stacks     - Deploy Ping Identity product stacks using Docker Swarm
+* 12-docker-swarm      - Deploy Ping Identity product stacks using Docker Swarm
 
 ## Bash profile docker helper aliases
 Several aliases are available in the utility `bash_profile_docker` to perform common 
