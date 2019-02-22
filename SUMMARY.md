@@ -1,0 +1,15 @@
+# Table of contents
+
+* [Ping Identity DevOps - Getting Started](README.md)
+* [Docker Standalone](10-docker-standalone/README.md)
+  * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
+  * [01-pingdirectory](10-docker-standalone/01-pingdirectory/README.md)
+  * [02-pingfederate](10-docker-standalone/02-pingfederate/README.md)
+  * [03-pingaccess](10-docker-standalone/03-pingaccess/README.md)
+  * [10-pingdataconsole](10-docker-standalone/10-pingdataconsole/README.md)
+* [Docker Compose](11-docker-compose/README.md)
+  * [01-simple-stack](11-docker-compose/01-simple-stack/README.md)
+  * [02-replicated-pair](11-docker-compose/02-replicated-pair/README.md)
+* [Contributing to the Ping Identity DevOps Getting Started Project](CONTRIBUTING.md)
+* [Docker Swarm](12-docker-swarm/README.md)
+* [How To: Server Profiles](./SERVER_PROFILES_HOW_TO.md)
