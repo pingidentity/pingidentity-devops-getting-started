@@ -10,7 +10,7 @@ services:
       - 443:443
       - 9000:9000
     networks:
-      - pingnet
+      - pingnet-dmz
 
   pingfederate:
     image: pingidentity/pingfederate
@@ -21,7 +21,8 @@ services:
       - 9031:9031
       - 9999:9999
     networks:
-      - pingnet
+      - pingnet-dmz
+      - pingnet-internal
 
   pingdirectory:
     image: pingidentity/pingdirectory
@@ -32,14 +33,15 @@ services:
       - 1636:636
       - 1443:443
     networks:
-      - pingnet
+      - pingnet-internal
   
   pingdataconsole:
     image: pingidentity/pingdataconsole
     ports:
       - 8080:8080
     networks: 
-      - pingnet  
+      - pingnet-internal
               
 networks:
-    pingnet:
+    pingnet-internal:
+    pingnet-dmz:
