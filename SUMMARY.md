@@ -10,6 +10,6 @@
 * [Docker Compose](11-docker-compose/README.md)
   * [01-simple-stack](11-docker-compose/01-simple-stack/README.md)
   * [02-replicated-pair](11-docker-compose/02-replicated-pair/README.md)
-* [Contributing to the Ping Identity DevOps Getting Started Project](contributing.md)
-* [Docker Swarm](12-docker-swarm.md)
+* [Contributing to the Ping Identity DevOps Getting Started Project](CONTRIBUTING.md)
+* [Docker Swarm](12-docker-swarm/README.md)
 * [How To: Server Profiles](server_profiles_how_to.md)
