@@ -10,7 +10,7 @@ Watch the directories initialize with:
 `docker-compose logs -f`
 
 ## The interesting bit
-The interesting piece of the puzzle here is the topology.json] file located within the server-profile.
+The interesting piece of the puzzle here is the topology.json file located within the server-profile.
 Have a look:
 ```
 {

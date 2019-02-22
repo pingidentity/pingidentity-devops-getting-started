@@ -7,3 +7,10 @@ A simple stack with a PingFederate container and a PingDirectory container
 
 ## 02-replicated-pair
 An example of a replicated pair of PingDirectory instances
+
+## 03-full-stack
+A stack with PingDirectory, PingFederate, PingAccess, PingDataConsole. 
+>Also note the multiple networks to represent where each would be deployed.
+
+## 04-simple-sync
+Showing PingDataSync in action connected to a PingDirectory container.

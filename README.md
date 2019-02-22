@@ -7,7 +7,15 @@ running PingFederate, PingDirectory, PingAccess and more in docker containers.
 
 * 10-docker-standalone - Run Ping Identity standalone products in docker containers 
 * 11-docker-compose    - Define and run multi-container Ping Identity docker images with Docker Compose
-* 12-docker-stacks     - Deploy Ping Identity product stacks using Docker Swarm
+* 12-docker-swarm      - Deploy Ping Identity product stacks using Docker Swarm
+
+## ldapsdk Tool
+Use the `ldapsdk` tool in the top level directory to startup an `ldap-sdk-tools` container
+allowing for easy access to the LDAP SDK Tools (i.e. ldapsearch, ldapmodify, ...)
+
+Running `ldapsdk` the first time will help configure your settings.  After that, you
+simply run.  To edit the settings in the future, simply user the configure opton:
+`ldapsdk configure`.
 
 ## Bash profile docker helper aliases
 Several aliases are available in the utility `bash_profile_docker` to perform common 

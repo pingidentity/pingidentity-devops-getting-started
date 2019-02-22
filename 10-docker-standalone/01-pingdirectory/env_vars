@@ -4,9 +4,13 @@
 CONTAINER_NAME=pingdirectory
 
 #################################################################################
-# Server Profile to use to configure container.  Should be a GIT Repo
+# Server Profile to use to configure container. 
+#
+#     SERVER_PROFILE_URL - Should be a GIT Repo (REQUIRED)
+#  SERVER_PROFILE_BRANCH - Checkout a branch from repo (Optional)
+#    SERVER_PROFILE_PATH - Path to use within repo (Optional)
 #################################################################################
-SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-basic
+SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-basic.git
 
 #################################################################################
 # Directory on local host machine to map in and out directories from container

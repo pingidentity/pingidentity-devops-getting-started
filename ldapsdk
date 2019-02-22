@@ -1,0 +1,111 @@
+#!/bin/bash
+THIS=`basename ${0}`
+CMD="${1}"
+
+################################################################################
+# Check for a .pingidentity directory with ldapsdk.properties
+################################################################################
+LDAPSDK_PROPS="${HOME}/.pingidentity/ldapsdk.properties"
+test -f "${LDAPSDK_PROPS}" && source "${LDAPSDK_PROPS}"
+
+
+################################################################################
+# Print usage information
+################################################################################
+function usage()
+{
+cat <<EO_USAGE
+
+Usage: ${THIS} [ configure ]
+
+       Available options include:
+
+            configure: Prompts user for questions to write properties into
+                       '${LDAPSDK_PROPS}' file 
+
+Examples
+
+  Configure the settings for ldapsdk properties
+
+    ${THIS} configure
+
+EO_USAGE
+
+  exit
+}
+
+################################################################################
+# Allow the user to interactively provide configuraiton information to be 
+# set to .pingidentity/ldapsdk.properties file
+################################################################################
+function configure()
+{
+  echo "
+###############################################################################################
+#                                 ${THIS} Configuration
+###############################################################################################
+#
+# This will create properties in ${LDAPSDK_PROPS}
+# and they will be used to run this command providing the defaults provided here.
+#
+# To edit these in the future simply run: ${THIS} configure
+# or edit the property file directory.
+###############################################################################################
+"
+  DOCKER_IMAGE=${DOCKER_IMAGE:-pingidentity/ldap-sdk-tools:latest}
+  DOCKER_NETWORK=${DOCKER_NETWORK:-pingnet}
+
+  echo -n "Docker LDAP SDK Tools Image [${DOCKER_IMAGE}] ? "
+  read answer
+  ! test -z "${answer}" && DOCKER_IMAGE="${answer}"
+  echo -n "Docker Network [${DOCKER_NETWORK}] ? "
+  read answer
+  ! test -z "${answer}" && DOCKER_NETWORK="${answer}"
+
+  ! test -z "${DOCKER_IMAGE}" && echo "DOCKER_IMAGE=${DOCKER_IMAGE}" > ${LDAPSDK_PROPS}
+  ! test -z "${DOCKER_NETWORK}" && echo "DOCKER_NETWORK=${DOCKER_NETWORK}" >> ${LDAPSDK_PROPS}
+
+}
+
+################################################################################
+# Startup the docker container and drop the user into it.
+################################################################################
+run_interactive()
+{
+  DOCKER_OPTIONS=" -it --rm "
+  ! test -z "${DOCKER_NETWORK}" && DOCKER_OPTIONS+=" --network ${DOCKER_NETWORK} "
+
+  DOCKER_CMD="docker run ${DOCKER_OPTIONS} ${DOCKER_IMAGE} /bin/sh"
+
+  echo "
+###############################################################################################
+# Running: ${DOCKER_CMD}
+# 
+# You will be dropped into an ${DOCKER_IMAGE} container to run ldapsdk tools
+# upon exiting (exit or ctrl-D) the container will be destroyed.
+#
+# Example Commands:
+#  List of ldapsdk binaries: ls
+#  Get ldapsearch help docs: ./ldapsearch --help
+#  Query directory root DSE: ./ldapsearch -h pingdirectory -p 389 -b "" -s base objectclass=*
+###############################################################################################
+"
+  ${DOCKER_CMD}
+
+  exit
+}
+
+if [ -z "${DOCKER_NETWORK}" -o  -z "${DOCKER_IMAGE}" ] ; then
+  configure
+fi
+
+test -z "${CMD}" && run_interactive
+
+case ${CMD} in
+	"configure")
+		configure
+		;;
+	*)
+		usage
+		;;
+esac

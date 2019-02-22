@@ -89,13 +89,15 @@ if test "${DEBUG}" = "--debug" ; then
 	echo "###########################################################"
 	echo "#         Docker Environment Variables"
 	echo "#    "
-	echo "#       CONTAINER_NAME : ${CONTAINER_NAME}"
-	echo "#         NETWORK_NAME : ${NETWORK_NAME}"
-	echo "#   SERVER_PROFILE_URL : ${SERVER_PROFILE_URL}"
-	echo "#         DOCKER_IMAGE : ${DOCKER_IMAGE}"
+	echo "#        CONTAINER_NAME : ${CONTAINER_NAME}"
+	echo "#          NETWORK_NAME : ${NETWORK_NAME}"
+	echo "#    SERVER_PROFILE_URL : ${SERVER_PROFILE_URL}"
+	echo "# SERVER_PROFILE_BRANCH : ${SERVER_PROFILE_BRANCH}"
+	echo "#   SERVER_PROFILE_PATH : ${SERVER_PROFILE_PATH}"
+	echo "#          DOCKER_IMAGE : ${DOCKER_IMAGE}"
 	echo "#    "
-	echo "#               IN_DIR : ${IN_DIR}"
-	echo "#              OUT_DIR : ${OUT_DIR}"
+	echo "#                IN_DIR : ${IN_DIR}"
+	echo "#               OUT_DIR : ${OUT_DIR}"
 	echo "#    "
 	echo "###########################################################"
 fi
@@ -107,6 +109,14 @@ SHARED_DOCKER_OPTIONS+="
 
 if ! test -z "${SERVER_PROFILE_URL}" ; then 
 	SHARED_DOCKER_OPTIONS+=" --env SERVER_PROFILE_URL=${SERVER_PROFILE_URL} "
+fi
+
+if ! test -z "${SERVER_PROFILE_BRANCH}" ; then 
+	SHARED_DOCKER_OPTIONS+=" --env SERVER_PROFILE_BRANCH=${SERVER_PROFILE_BRANCH} "
+fi
+
+if ! test -z "${SERVER_PROFILE_PATH}" ; then 
+	SHARED_DOCKER_OPTIONS+=" --env SERVER_PROFILE_PATH=${SERVER_PROFILE_PATH} "
 fi
 
 if ! test -z "${IN_DIR}" ; then 

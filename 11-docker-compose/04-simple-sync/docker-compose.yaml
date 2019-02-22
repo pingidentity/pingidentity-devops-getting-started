@@ -1,0 +1,34 @@
+version: "3.1"
+
+services:
+  pingdirectory:
+    image: pingidentity/pingdirectory
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-group-pingidentity-simple-sync.git
+      - SERVER_PROFILE_PATH=pingdirectory
+    ports:
+      - 1636:636
+      - 1443:443
+    networks:
+      - pingnet
+
+  pingdatasync:
+    image: pingidentity/pingdatasync
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-group-pingidentity-simple-sync.git
+      - SERVER_PROFILE_PATH=pingdatasync
+    ports:
+      - 2636:636
+      - 2443:443
+    networks:
+      - pingnet
+  
+  pingdataconsole:
+    image: pingidentity/pingdataconsole
+    ports:
+      - 8080:8080
+    networks: 
+      - pingnet  
+              
+networks:
+    pingnet:
