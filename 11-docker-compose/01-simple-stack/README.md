@@ -6,6 +6,9 @@ First off, create a local directory that is going to be used to persist the muta
 
   `mkdir /tmp/Compose/pingdirectory`
 
+The images are updated very frequently, sometimes multiple times a day, make sure you have the latest version of the images with:
+  `docker-compose pull`
+  
 Start compose wih:
 
   `docker-compose up -d`

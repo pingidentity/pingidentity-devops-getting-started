@@ -2,6 +2,9 @@
 This is an example of how to start multiple instances of PingDirectory from a single docker-compose file.
 
 ## Getting started
+The images are updated very frequently, sometimes multiple times a day, make sure you have the latest version of the images with:
+  `docker-compose pull`  
+
 To stand up multiple containers with a single command add the `--scale` argument to `docker-compose up`:
 
 `docker-compose up -d --scale pingdirectory=2`
