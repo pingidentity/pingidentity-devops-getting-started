@@ -10,8 +10,8 @@ CONTAINER_NAME=pingdirectory
 #  SERVER_PROFILE_BRANCH - Checkout a branch from repo (Optional)
 #    SERVER_PROFILE_PATH - Path to use within repo (Optional)
 #################################################################################
-SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingdirectory-basic.git
-
+SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingidentity-getting-started.git
+SERVER_PROFILE_PATH=pingdirectory
 #################################################################################
 # Directory on local host machine to map in and out directories from container
 #################################################################################
