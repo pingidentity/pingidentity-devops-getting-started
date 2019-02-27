@@ -4,7 +4,7 @@ services:
   pingdatasync:
     image: pingidentity/pingdatasync
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-group-pingidentity-simple-sync.git
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-simple-sync.git
       - SERVER_PROFILE_PATH=pingdatasync
     deploy:
       replicas: 1
@@ -16,7 +16,7 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-group-pingidentity-simple-sync.git
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-simple-sync.git
       - SERVER_PROFILE_PATH=pingdirectory
     deploy:
       replicas: 1
