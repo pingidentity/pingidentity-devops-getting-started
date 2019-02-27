@@ -7,20 +7,20 @@ For help, use this
 
 # Dry run
 For a dry-run that will simply output the URL to get the bits
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectory --version 7.2.0.0 --dry-run`
+`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectory --dry-run`
 
 # Examples
-## Download PingFederate 9.2 to your home Downloads folder (mac)
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingfederate --version 9.2.0 -c`
+## Download latest PingFederate to your home Downloads folder (mac)
+`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingfederate -c`
 
-## Download PingAccess 5.2
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingaccess --version 5.2.0 -c`
+## Download latest PingAccess
+`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingaccess -c`
 
-## Download PingDirectory 7.2
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectory --version 7.2.0.0 -c`
+## Download latest PingDirectory
+`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectory -c`
 
-## Download PingDirectoryProxy
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectoryproxy --version 7.2.0.0 -c`
+## Download latest PingDirectoryProxy
+`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectoryproxy -c`
 
-## Download PingDataSync
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdatasync --version 7.2.0.0 -c`
+## Download latest PingDataSync
+`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdatasync -c`
