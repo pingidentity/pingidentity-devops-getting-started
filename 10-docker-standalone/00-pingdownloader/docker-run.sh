@@ -3,6 +3,7 @@
 
 ###
 ### For help, use this
+docker pull pingidentity/pingdownloader
 docker run --rm -i pingidentity/pingdownloader --help
 
 ###
