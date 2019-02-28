@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${PINGDIRECTORY_SERVICE_NAME}
+  labels:
+    app: ${PINGDIRECTORY_SET_NAME}
+spec:
+  ports:
+  - port: 636
+    name: ds
+  clusterIP: None
+  selector:
+    app: ${PINGDIRECTORY_SET_NAME}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ${PINGDIRECTORY_SET_NAME}
+  labels:
+    app: ${PINGDIRECTORY_SET_NAME}
+spec:
+  serviceName: ${PINGDIRECTORY_SERVICE_NAME}
+  replicas: ${PINGDIRECTORY_REPLICAS} 
+  selector:
+    matchLabels:
+      app: ${PINGDIRECTORY_SET_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${PINGDIRECTORY_SET_NAME}
+    spec:
+      volumes:
+      - name: in-dir
+        configMap:
+          name: server-profile-pingdirectory-kubernetes
+      - name: out-dir 
+        persistentVolumeClaim:
+          claimName: out-dir
+      terminationGracePeriodSeconds: 300
+      containers:
+      - name: ds
+        image: pingidentity/pingdirectory
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 636
+          name: ds
+        env:
+        - name: LOCATION
+          value: "${LOCATION}"
+        - name: SERVER_PROFILE_URL
+          value: https://github.com/pingidentity/server-profile-pingidentity-baseline.git
+        - name: SERVER_PROFILE_PATH
+          value: pingdirectory
+        - name: TOPOLOGY_SIZE
+          value: ${PINGDIRECTORY_REPLICAS}
+        - name: TOPOLOGY_PREFIX
+          value: ${PINGDIRECTORY_SET_NAME}
+        - name: TOPOLOGY_SUFFIX
+          value: ${PINGDIRECTORY_SERVICE_NAME}
+        volumeMounts:
+        - name: in-dir
+          mountPath: /opt/in
+          readOnly: true
+        - name: out-dir
+          mountPath: /opt/out
+        readinessProbe:
+          exec:
+            command: [ /opt/liveness.sh ]
+        livenessProbe:
+          exec:
+            command: [ /opt/liveness.sh ]
+          initialDelaySeconds: 300
+          periodSeconds: 30
+        lifecycle:
+          preStop:
+            exec:
+              command: 
+              - /bin/sh
+              - -c
+              - /preStop.sh
+  volumeClaimTemplates:
+  - metadata:
+      name: out-dir
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
