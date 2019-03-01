@@ -1,19 +1,17 @@
-#!/bin/bash
-cd $( dirname ${0} )
-SCRIPT_HOME=$( pwd )
+#!/usr/bin/env sh
+cd "$( dirname "${0}" )" || exit 1
 set -o allexport
-source env_vars
+. env_vars
 set +o allexport
 
-source utils.sh
+. utils.sh
 
 install_envsubst
 
 # Generate topology file based on variables and number of replicas
-WORKSPACE=/tmp/Kubernetes/pingdirectory
-PD_SP=${WORKSPACE}/server-profile/
-TOP_FILE=${PD_SP}/topology.json
-mkdir -p ${PD_SP}
+WORKSPACE="/tmp/Kubernetes/pingdirectory"
+PD_SP="${WORKSPACE}/server-profile/"
+mkdir -p "${PD_SP}"
 
 # clean up anything left from previous runs
 sh k8s-cleanup.sh
@@ -24,5 +22,5 @@ kubectl create configmap server-profile-pingdirectory-kubernetes --from-file=${P
 kubectl label configmap server-profile-pingdirectory-kubernetes app=${PINGDIRECTORY_SET_NAME} 
 
 # Create the pingdirectory topology
-/tmp/envsubst < deployment.yaml.template > ${WORKSPACE}/deployment.yaml
-kubectl apply -f ${WORKSPACE}/deployment.yaml
+/tmp/envsubst < deployment.yaml.template > "${WORKSPACE}/deployment.yaml"
+kubectl apply -f "${WORKSPACE}/deployment.yaml"

@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/usr/bin/env sh 
 # A simple example of how to call the pingdownloader image to get the PingDirectory 7.2.0.0 bits
 
 ###

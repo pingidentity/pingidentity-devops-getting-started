@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env sh
 CMD="${0}"
 CONTAINER="${1}"
 FORCE="${2}"
-CONTAINER_DIR=$(cd $( dirname ${0} ) && pwd )
+CONTAINER_DIR=$(cd "$( dirname "${0}" )" && pwd )
 SHARED_DIR=$( cd FF-shared && pwd )
 
 usage()
@@ -40,16 +40,16 @@ run_cmd() {
 
 case ${CONTAINER} in
 	"pingdirectory")
-		CONTAINER_DIR+="/01-pingdirectory"
+		CONTAINER_DIR="${CONTAINER_DIR}/01-pingdirectory"
 		;;
 	"pingfederate")
-		CONTAINER_DIR+="/02-pingfederate"
+		CONTAINER_DIR="${CONTAINER_DIR}/02-pingfederate"
 		;;
 	"pingaccess")
-		CONTAINER_DIR+="/03-pingaccess"
+		CONTAINER_DIR="${CONTAINER_DIR}/03-pingaccess"
 		;;
 	"pingdataconsole")
-		CONTAINER_DIR+="/10-pingdataconsole"
+		CONTAINER_DIR="${CONTAINER_DIR}/10-pingdataconsole"
 		;;
 	"all")
 		run_cmd pingdirectory
@@ -70,6 +70,7 @@ test -f "${SHARED_DIR}/env_vars" && . "${SHARED_DIR}/env_vars"
 #shellcheck source=/dev/null
 test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 
+# shellcheck disable=2086
 if ! test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q)" ; then 
     docker container rm "${CONTAINER_NAME}" "${FORCE}"
 fi
@@ -79,8 +80,9 @@ for directory in "${IN_DIR}" "${OUT_DIR}" "${RT_ROOT}/${CONTAINER_NAME}"; do
        if test "${FORCE}" = "--force" ; then
           rm -rf "${directory}"
        else
-         echo -n "Would you like to remove the input directory ${directory} (y/n) ? "
+         printf "Would you like to remove the input directory %s (y/n) ? " "${directory}"
          read -r answer
+         # shellcheck disable=2060
          answer=$( echo "${answer}" | tr [A-Z] [a-z] )
          case "${answer}" in
              y|yes)

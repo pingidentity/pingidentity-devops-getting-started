@@ -1,10 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env sh
 CMD="${0}"
 CONTAINER="${1}"
-CONTAINER_DIR=$(cd $( dirname ${0} );pwd )
+# shellcheck disable=2164
+CONTAINER_DIR=$(cd "$( dirname "${0}" )";pwd )
+# shellcheck disable=2164
 SHARED_DIR=$( cd FF-shared;pwd )
 
-function usage()
+usage ()
 {
 cat <<EO_USAGE
 
@@ -28,7 +30,7 @@ Examples
 EO_USAGE
 }
 
-run_cmd() {
+run_cmd () {
         INSTANCE=$1
 
         echo "Running ${CMD} ${INSTANCE}..."
@@ -37,16 +39,16 @@ run_cmd() {
 
 case ${CONTAINER} in
 	"pingdirectory")
-		CONTAINER_DIR+="/01-pingdirectory"
+		CONTAINER_DIR="${CONTAINER_DIR}/01-pingdirectory"
 		;;
 	"pingfederate")
-		CONTAINER_DIR+="/02-pingfederate"
+		CONTAINER_DIR="${CONTAINER_DIR}/02-pingfederate"
 		;;
 	"pingaccess")
-		CONTAINER_DIR+="/03-pingaccess"
+		CONTAINER_DIR="${CONTAINER_DIR}/03-pingaccess"
 		;;
 	"pingdataconsole")
-		CONTAINER_DIR+="/10-pingdataconsole"
+		CONTAINER_DIR="${CONTAINER_DIR}/10-pingdataconsole"
 		;;
 	"all")
 		run_cmd pingdirectory
@@ -60,15 +62,19 @@ case ${CONTAINER} in
 esac
 
 # load the shared variables
-test -f "${SHARED_DIR}/env_vars" && source "${SHARED_DIR}/env_vars"
+# shellcheck source=FF-shared/env_vars
+test -f "${SHARED_DIR}/env_vars" && . "${SHARED_DIR}/env_vars"
 
 # load the pingdirectory variables
-test -f "${CONTAINER_DIR}/env_vars" && source "${CONTAINER_DIR}/env_vars"
+# shellcheck source=/dev/null
+test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 
+# shellcheck disable=2086
 if ! test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q)" ; then 
     docker container rm ${CONTAINER_NAME} -f
 fi
 
+# shellcheck disable=2086
 if ! test -z "$(docker container ls --filter name=${CONTAINER_NAME} -q)" ; then 
     docker container stop ${CONTAINER_NAME}
 fi

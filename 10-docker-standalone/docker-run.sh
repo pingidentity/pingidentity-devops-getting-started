@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env sh
 CMD="${0}"
 CONTAINER="${1}"
 DEBUG="${2}"
-CONTAINER_DIR=$(cd $( dirname "${0}" ) && pwd )
+CONTAINER_DIR=$(cd "$( dirname "${0}" )" && pwd )
 SHARED_DIR=$( cd FF-shared && pwd )
 
 usage()
@@ -34,10 +34,10 @@ EO_USAGE
 }
 
 run_cmd() {
-    INSTANCE=$1
+    INSTANCE="${1}"
 
     echo "Running ${CMD} ${INSTANCE}..."
-    ${CMD} ${INSTANCE}
+    ${CMD} "${INSTANCE}"
 }
 
 case ${CONTAINER} in
@@ -73,13 +73,13 @@ test -f "${SHARED_DIR}/env_vars" && . "${SHARED_DIR}/env_vars"
 test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 
 # prepare the docker network (something all our containers have to do)
-#shellcheck source=/dev/null
+#shellcheck source=FF-shared/prepare-network.sh.fragment
 test -f "${SHARED_DIR}/prepare-network.sh.fragment" && . "${SHARED_DIR}/prepare-network.sh.fragment"
 
 # wipe the input dir
-if ! test -z "${IN_DIR}" && ! test "${IN_DIR}" = "/" ; then 
-    test -d "${IN_DIRE}" && rm -rf "${IN_DIR}"
-fi
+# if ! test -z "${IN_DIR}" && ! test "${IN_DIR}" = "/" ; then 
+#     test -d "${IN_DIRE}" && rm -rf "${IN_DIR}"
+# fi
 
 # Docker Imange that will be run
 DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}"
@@ -134,6 +134,7 @@ if ! test -z "${OUT_DIR}" ; then
 fi
 
 # pull, run or start the container
+# shellcheck disable=2086
 if test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q )" ; then
     docker pull "${DOCKER_IMAGE}"
 

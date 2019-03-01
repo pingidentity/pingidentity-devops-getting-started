@@ -1,15 +1,15 @@
-#!/bin/bash -x
+#!/usr/bin/env sh
+set -x
 
-cd $( dirname ${0} )
-HERE=$( pwd )
+# shellcheck disable=2046
+cd $( dirname "${0}" ) || exit 1
+
+# shellcheck disable=2164
 SHARED=$( cd ../FF-shared;pwd )
-WS=$( cd ../../.. ; pwd )
 
 # load the shared variables
-test -f "${SHARED}/env_vars" && source "${SHARED}/env_vars"
-
-# load the environment variables
-test -f "${HERE}/env_vars" && source "${HERE}/env_vars"
+# shellcheck source=../FF-shared/env_vars
+test -f "${SHARED}/env_vars" && . "${SHARED}/env_vars"
 
 for container in logspout logstash kibana elasticsearch stash_config ; do
     if ! test -z "$( docker container ls -q --filter name=${container} )" ; then

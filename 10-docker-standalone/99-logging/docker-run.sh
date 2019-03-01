@@ -1,18 +1,17 @@
-#!/bin/bash -x
+#!/usr/bin/env sh
 
-cd $( dirname ${0} )
+cd "$( dirname ${0} )"
 HERE=$( pwd )
 SHARED=$( cd ../FF-shared;pwd )
 WS=$( cd ../../.. ; pwd )
 
 # load the shared variables
-test -f "${SHARED}/env_vars" && source "${SHARED}/env_vars"
-
-# load the environment variables
-test -f "${HERE}/env_vars" && source "${HERE}/env_vars"
+# shellcheck source=../FF-shared/env_vars
+test -f "${SHARED}/env_vars" && . "${SHARED}/env_vars"
 
 # prepare the docker network (something all our containers have to do)
-test -f "${SHARED}/prepare-network.sh.fragment" && source "${SHARED}/prepare-network.sh.fragment"
+# shellcheck source=../FF-shared/prepare-network.sh.fragment
+test -f "${SHARED}/prepare-network.sh.fragment" && . "${SHARED}/prepare-network.sh.fragment"
 
 # start elastic serach
 ES_CONTAINER=elasticsearch

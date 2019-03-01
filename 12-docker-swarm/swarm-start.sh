@@ -1,9 +1,8 @@
 #!/bin/bash
-CMD="${0}"
 STACK_YAML_FILE="${1}"
-cd $( dirname ${0} )
-SCRIPT_NAME=$( basename ${0} )
+SCRIPT_NAME=$( basename "${0}" )
 STACK_NAME=${STACK_YAML_FILE%.*}
+cd "$( dirname "${0}" )" || exit 1
 
 run ()
 {
@@ -21,13 +20,14 @@ Example:
    ${SCRIPT_NAME} basic1.yaml
 
 END
-exit 79
+    exit 79
 }
 
 test ! -f "${STACK_YAML_FILE}" && echo "Error: Stack yaml file '${STACK_YAML_FILE}' not found" && usage
 
 for PRODUCT in access federate directory datasync ; do
-    run mkdir -p /tmp/Swarm/${STACK_NAME}/ping${PRODUCT}
+    run mkdir -p "/tmp/Swarm/${STACK_NAME}/ping${PRODUCT}"
 done
 
-run docker stack deploy -c ${STACK_YAML_FILE} ${STACK_NAME}
+# shellcheck disable=2086
+run docker stack deploy -c "${STACK_YAML_FILE}" ${STACK_NAME}
