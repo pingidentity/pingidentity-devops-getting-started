@@ -12,7 +12,7 @@
   * [02-replicated-pair](11-docker-compose/02-replicated-pair/README.md)
 * [Docker Swarm](12-docker-swarm/README.md)
 * [Kubernetes Minikube](20-kubernetes-minikube/README.md)
-* [Kubernetes AWS](20-kubernetes-amazon/README.md)
+* [Kubernetes AWS](21-kubernetes-amazon/README.md)
 * [Contributing to the Ping Identity DevOps Getting Started Project](CONTRIBUTING.md)
 * [Docker Swarm](12-docker-swarm/README.md)
 * [How To: Server Profiles](./SERVER_PROFILES_HOW_TO.md)
