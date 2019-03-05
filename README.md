@@ -29,5 +29,7 @@ from you bash startup file (i.e. .bash_profile) to make easy use of these alias.
 * A complete listing of Ping Identity's public images used in these examples are available at [Docker Hub](https://hub.docker.com/u/pingidentity/)
 
 ## Troubleshooting
+> This repository is based on Ping Identity's images hosted on Docker hub. These images are currently receiving iterative updates. Please prune images as a first step if noticing issues with the included samples. 
+
 This repoistory is in active development and has not been offically released. 
 If you experiece issues with this project, please feel free to log it by opening an issue.
