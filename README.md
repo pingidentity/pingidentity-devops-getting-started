@@ -3,6 +3,8 @@ Provides foundational examples to get familarized with the various moving parts
 in the devops toolkit. Throughout this repository, we'll cover the basics of 
 running PingFederate, PingDirectory, PingAccess and more in docker containers. 
 
+To view the documentation only, check out [gitbook](https://pingidentity-devops.gitbook.io/devops/)
+
 ## Contents
 
 * 10-docker-standalone    - Run Ping Identity standalone products in docker containers 
