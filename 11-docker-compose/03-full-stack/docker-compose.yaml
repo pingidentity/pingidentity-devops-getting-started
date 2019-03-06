@@ -3,6 +3,7 @@ version: "3.1"
 services:
   pingaccess:
     image: pingidentity/pingaccess
+    command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
       - SERVER_PROFILE_PATH=pingaccess
@@ -14,6 +15,7 @@ services:
 
   pingfederate:
     image: pingidentity/pingfederate
+    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
       - SERVER_PROFILE_PATH=pingfederate
@@ -23,6 +25,8 @@ services:
     networks:
       - pingnet-dmz
       - pingnet-internal
+          # aliases: 
+          #   - pingfederate-admin
 
   pingdirectory:
     image: pingidentity/pingdirectory
@@ -30,9 +34,10 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
       - SERVER_PROFILE_PATH=pingdirectory
       - TOPOLOGY_PREFIX=03-full-stack_pingdirectory_
+      - VERBOSE=true
     ports:
-      - 1636:636
-      - 1443:443
+      - 1636-1646:636
+      - 1443-1453:443
     networks:
       - pingnet-internal
   
