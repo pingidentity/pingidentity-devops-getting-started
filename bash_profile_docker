@@ -6,6 +6,8 @@ function run ()
 }
 
 # Docker
+alias dps="run docker ps"
+
 ## container
 alias dce="run docker container exec -it"
 alias dci="run docker container inspect"
