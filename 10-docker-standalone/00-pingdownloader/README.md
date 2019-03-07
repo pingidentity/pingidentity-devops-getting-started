@@ -2,25 +2,54 @@
 A simple example of how to call the pingdownloader image
 
 ## Help
-For help, use this
-`docker run --rm -i pingidentity/pingdownloader --help`
+For help, simply pass the `--help` parameter to the docker run and obtain the usage.
+```
+$ docker run --rm pingidentity/pingdownloader --help
+Usage: get-bits.sh {options}
+    where {options} include:
+        *-p, --product:	the name of the product to download
+                        one of:
+                            pingdirectory
+                            pingdatasync
+                            pingaccess
+                            pingdatagovernance
+                            pingdirectoryproxy
+                            pingfederate
+                            ldapsdk
+                            delegator
+        -v, --version: the version of the product to download.
+                       by default, the downloader will pull the latest version
+        -c, --conserve-name: use this option to conserve the original file name
+                             by default, the downloader will rename the file product.zip
+        -n, --dry-run:	this will cause the URL to be displayed but the
+                        the bits not to be downloaded
+```
 
 # Dry run
-For a dry-run that will simply output the URL to get the bits
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectory --dry-run`
+For a dry-run that will simply **output the URL** to get the bits for **pingdirectory** use the following command.
+```
+docker run --rm pingidentity/pingdownloader \
+       --product pingdirectory \
+       --dry-run
+```
+
+# Alias the docker run
+To make it easier to run the docker command with a oneword command, create the folowing alias.
+This will:
+* `--rm` | remove the container when complete
+* `-v ~/Downloads:/tmp` | mount a volume in the containers /tmp to the users Download directory
+```
+alias pingdownloader='docker run --rm -v ~/Downloads:/tmp pingidentity/pingdownloader'
+```
 
 # Examples
-## Download latest PingFederate to your home Downloads folder (mac)
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingfederate -c`
 
-## Download latest PingAccess
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingaccess -c`
+## Download PingFederate
+Download latest PingFederate to your home Downloads folder (mac)
 
-## Download latest PingDirectory
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectory -c`
+```
+# Using the pingdownloader alias defined above
+  
+pingdownloader --product pingfederate --conserve-name
+```
 
-## Download latest PingDirectoryProxy
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdirectoryproxy -c`
-
-## Download latest PingDataSync
-`docker run --rm -i -v ~/Downloads:/tmp pingidentity/pingdownloader --product pingdatasync -c`

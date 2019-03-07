@@ -5,6 +5,9 @@ function run ()
   time $*
 }
 
+# PingDownloader alias
+alias pingdownloader="docker run --rm -v ~/Downloads:/tmp pingidentity/pingdownloader"
+
 # Docker
 alias dps="run docker ps"
 
