@@ -18,7 +18,7 @@ sub-directories.
 
 ## HowTo
 
-There are a 3 shell scripts that can be used to run, cleanup and stop docker containers for the PingIdentity
+There are a 3 shell scripts that can be used to run, cleanup and stop docker containers for the Ping Identity
 Docker Images.
 
 ### docker-run.sh
