@@ -1,37 +1,34 @@
 # Ping Identity DevOps - Getting Started
-Provides foundational examples to get familarized with the various moving parts 
-in the devops toolkit. Throughout this repository, we'll cover the basics of 
-running PingFederate, PingDirectory, PingAccess and more in docker containers. 
+Provides foundational examples to get familiar with the DevOps toolkit. In this repository, we'll cover the basics of 
+running PingFederate, PingDirectory, PingAccess, and more in Docker containers. 
 
 To view the documentation only, check out [gitbook](https://pingidentity-devops.gitbook.io/devops/)
 
 ## Contents
 
-* 10-docker-standalone    - Run Ping Identity standalone products in docker containers 
-* 11-docker-compose       - Define and run multi-container Ping Identity docker images with Docker Compose
+* 10-docker-standalone    - Run Ping Identity standalone products in Docker containers 
+* 11-docker-compose       - Define and run multi-container Ping Identity Docker images with Docker Compose
 * 12-docker-swarm         - Deploy Ping Identity product stacks using Docker Swarm
-* 20-kubernetes-minikube  - Deploy PingDirectory in a local minikube environment
+* 20-kubernetes-minikube  - Deploy PingDirectory in a local Minikube environment
 * 21-kubernetes-amazon    - Deploy PingDirectory in AWS using Kubernetes
 
-## ldapsdk Tool
+## ldapsdk tool
 Use the `ldapsdk` tool in the top level directory to startup an `ldap-sdk-tools` container
-allowing for easy access to the LDAP SDK Tools (i.e. ldapsearch, ldapmodify, ...)
+allowing for easy access to the LDAP SDK Tools (such as ldapsearch, ldapmodify, and other tools).
 
 Running `ldapsdk` the first time will help configure your settings.  After that, you
-simply run.  To edit the settings in the future, simply user the configure opton:
+simply run.  To edit the settings in the future, use the configure option:
 `ldapsdk configure`.
 
-## Bash profile docker helper aliases
+## Bash profile Docker helper aliases
 Several aliases are available in the utility `bash_profile_docker` to perform common 
-docker commands with containers, images, services, etc...  You can easily source this
-from you bash startup file (i.e. .bash_profile) to make easy use of these alias.
+Docker commands with containers, images, services, and so on.  You can easily source this
+from your bash startup file (i.e. .bash_profile) to make easy use of these alias.
 
 ## Docker images
 
-* A complete listing of Ping Identity's public images used in these examples are available at [Docker Hub](https://hub.docker.com/u/pingidentity/)
+* A complete listing of Ping Identity's public images used in these examples is available at [Docker Hub](https://hub.docker.com/u/pingidentity/)
 
 ## Troubleshooting
-> This repository is based on Ping Identity's images hosted on Docker hub. These images are currently receiving iterative updates. Please prune images as a first step if noticing issues with the included samples. 
-
-This repoistory is in active development and has not been offically released. 
-If you experiece issues with this project, please feel free to log it by opening an issue.
+This repository is in active development and has not been officially released. 
+If you experience issues with this project, please feel free to log it by opening an issue.
