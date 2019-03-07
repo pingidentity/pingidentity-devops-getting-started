@@ -16,7 +16,7 @@ docker run -d \
 open http://localhost:8080/admin-console
 ```
 
-If you are using the pingdirectory container from this these standalong images, you should be able to login with
+If you are using the PingDirectory container from these standalone images, you should be able to login with
 
 ```
      Server: localhost:636
