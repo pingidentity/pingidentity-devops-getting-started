@@ -54,7 +54,7 @@ Usage: ./docker-stop.sh { container name }
                        pingfederate
                        pingaccess
                        pingdataconsole
-                       all - runs all containers
+                       all - stops all containers
 
 Examples
 
@@ -76,7 +76,7 @@ Usage: ./docker-cleanup.sh { container name } [ --force ]
                        pingfederate
                        pingaccess
                        pingdataconsole
-                       all - runs all containers
+                       all - cleanup all containers
 
              --force : Force Cleanup & Removal of IN/OUT directories
 

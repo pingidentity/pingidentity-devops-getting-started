@@ -14,7 +14,7 @@ Usage: ${CMD} { container name } [ --force ]
                        pingfederate
                        pingaccess
                        pingdataconsole
-                       all - runs all containers
+                       all - cleanup all containers
 
              --force : Force Cleanup & Removal of IN/OUT directories
 

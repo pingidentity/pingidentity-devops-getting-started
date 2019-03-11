@@ -15,7 +15,7 @@ Usage: ${CMD} { container name }
                        pingfederate
                        pingaccess
                        pingdataconsole
-                       all - runs all containers
+                       all - stops all containers
 
 Examples
 
