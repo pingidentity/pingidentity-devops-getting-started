@@ -63,8 +63,8 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
       - name: pingdirectory-container
-        image: ${REGISTRY}pingidentity/pingdirectory:ubuntu
-        # imagePullPolicy: Always
+        image: ${IMAGE}
+        imagePullPolicy: Always
         ports:
         - containerPort: 636
           name: ldaps
