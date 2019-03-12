@@ -19,6 +19,6 @@ tag=${2:-ubuntu}
 for i in access federate directory datasync ; do
     name=${c}${i}
     image=${p}/${name}:${tag}
-    docker image tag ${image} ${registry}/${image}
-    docker push ${registry}/${image}
+    docker image tag ${image} ${registry}/${name}:${tag}
+    docker push ${registry}/${name}:${tag}
 done

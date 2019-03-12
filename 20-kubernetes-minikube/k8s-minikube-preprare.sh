@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 test ! -z "${VERBOSE}" && ${VERBOSE} && set -x
+
 usage ()
 {
     cat <<END
@@ -37,4 +38,4 @@ while test ! -z "$@" ; do
     esac
 done
 
-minikube start ${driver}  --memory ${memory} --insecure-registry ${REGISTRY%/} --in--alsologtostderr
+minikube start ${driver}  --memory ${memory} --insecure-registry ${REGISTRY%/} --alsologtostderr
