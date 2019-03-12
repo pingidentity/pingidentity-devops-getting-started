@@ -8,6 +8,17 @@ You will need:
 - Minikube: [installation instructions](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 - kubectl: [installation instructions](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
+## Configuration for local development
+  At present, you must use the ubuntu-based docker images for DNS discovery to work properly in kubernetes.
+  Steps to get through the scenario
+  - build images locally with `./build.sh`
+  - manually push the images to the registry `./k8s-registry-prepare.sh`
+  - start minikube `./k8s-minikube-prepare.sh`
+  - run the service `./k8s-run.sh`
+  - stop the service `./k8s-cleanup.sh`
+  - Stop minikube `./k8s-minikube-cleanup.sh`
+
+
 ## What to look at
 - env_vars: environment variable that will be expanded from template to produce a working deployment
-- 
+

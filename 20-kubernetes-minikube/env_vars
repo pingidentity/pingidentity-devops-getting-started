@@ -1,6 +1,8 @@
+# The location for the PingDirectory instances
 LOCATION=Minikube
 
 # the number of instances in the PingDirectory service
-PINGDIRECTORY_REPLICAS=2
-PINGDIRECTORY_SET_NAME=pingdirectory
-PINGDIRECTORY_SERVICE_NAME=${USER}-${PINGDIRECTORY_SET_NAME}-svc
+PINGDIRECTORY_TOPOLOGY_SIZE=2
+
+REGISTRY=""
+REGISTRY="192.68.99.1:5000/"
