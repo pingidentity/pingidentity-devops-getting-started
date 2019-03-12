@@ -3,6 +3,7 @@ version: "3.1"
 services:
   pingfederate:
     image: pingidentity/pingfederate
+    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
       - SERVER_PROFILE_PATH=pingfederate
@@ -17,6 +18,7 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
       - SERVER_PROFILE_PATH=pingdirectory
+      # - VERBOSE=true
     ports:
       - 1636:636
       - 1443:443
