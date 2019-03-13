@@ -1,5 +1,5 @@
 #!/usr/bin/env sh 
-# A simple example of how to call the pingdownloader image to get the PingDirectory latest bits
+# A simple example of how to call the pingdownloader image to get fetch latest product bits
 
 ###
 ### For help, use this

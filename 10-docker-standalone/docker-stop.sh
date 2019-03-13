@@ -71,10 +71,12 @@ test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 
 # shellcheck disable=2086
 if ! test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q)" ; then 
-    docker container rm ${CONTAINER_NAME} -f
+    echo "Removing container ${CONTAINER_NAME}"
+		docker container rm ${CONTAINER_NAME} -f
 fi
 
 # shellcheck disable=2086
 if ! test -z "$(docker container ls --filter name=${CONTAINER_NAME} -q)" ; then 
+    echo "Stoping container ${CONTAINER_NAME}"
     docker container stop ${CONTAINER_NAME}
 fi

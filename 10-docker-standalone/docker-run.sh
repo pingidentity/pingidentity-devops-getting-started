@@ -81,10 +81,10 @@ test -f "${SHARED_DIR}/prepare-network.sh.fragment" && . "${SHARED_DIR}/prepare-
 #     test -d "${IN_DIRE}" && rm -rf "${IN_DIR}"
 # fi
 
-# Docker Imange that will be run
+# Docker Image that will be run
 DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}"
 
-# check to see if the -d option is passed
+# check to see if the debug option is passed
 SHARED_DOCKER_OPTIONS=" --detach " 
 if test "${DEBUG}" = "--debug" ; then
     SHARED_DOCKER_OPTIONS=" -it --entrypoint /bin/sh "

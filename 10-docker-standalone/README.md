@@ -1,14 +1,14 @@
 # Docker Standalone
-The objective of this directory is to demonstrate how to use the Docker images in the PingIdentity lineup, independent of any other framework. It should be completed step-by-step in the order of the sub-directories.
+The objective of this directory is to demonstrate how to use the Docker images in the Ping Identity lineup, independent of any other framework. It should be completed step-by-step in the order of the sub-directories.
 
-## PingIdentity Docker images
+## Ping Identity Docker images
 
 * 01-pingdirectory    - Standalone PingDirectory container with a nice configuration supplied
 * 02-pingfederate     - Standalone PingFederate container
 * 03-pingaccess       - Standalone PingAccess container
 * 10-pingdataconsole  - Standalone PingDataConsole Container running in a Tomcat instance
 
-## PingIdentity utilities
+## Ping Identity utilities
 
 * 00-pingdownloader   - Utility container used for downloading Ping Identity product artifacts
 * 99-logging          - Sample technique to aggregate logs across containers
