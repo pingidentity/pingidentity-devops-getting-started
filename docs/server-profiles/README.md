@@ -1,4 +1,4 @@
-# Purpose
+# Ping Identity Server Profiles
 This document explains how server profiles work for Ping Identity Docker images
 
 ## What's in it?
