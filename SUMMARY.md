@@ -1,6 +1,5 @@
 # Table of contents
 
-## 
 
 * [Ping Identity DevOps](docs/README.md)
 * [Getting Started](docs/getting-started/README.md)
@@ -33,7 +32,7 @@
   * [Ping DataConsole](docs/docker-builds/PING_DATA_CONSOLE.md)
   * [Ping Downloader](docs/docker-builds/PING_DOWNLOADER.md)
 
-## 
+## --
 
 * [License](LICENSE)
 * [Contributing](CONTRIBUTING.md)
