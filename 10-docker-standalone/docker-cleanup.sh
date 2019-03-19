@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
-CMD="${0}"
+CMD="$( basename "${0}" )"
 CONTAINER="${1}"
 FORCE="${2}"
-CONTAINER_DIR=$(cd "$( dirname "${0}" )" && pwd )
+cd "$( dirname "${0}" )"
+CONTAINER_DIR=$( pwd )
 SHARED_DIR=$( cd FF-shared && pwd )
 
 usage()
