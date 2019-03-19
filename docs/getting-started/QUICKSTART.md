@@ -1,12 +1,12 @@
 # Ping Identity DevOps - Quick Start
 
 This is a document to help with a quick-start demo of the available 
-Ping Identity Docker Images and basic getting started server profiles.
+Ping Identity Docker Images and basic 'getting started' server profiles.
 
 The intent is to help get a running set of Ping Identity components on
-your local box in a docker enviornment.
+your local machine in a docker enviornment.
 
-Note: This quickstart and tools were built and tested on Mac OSX.
+Note: The quickstart guide and tools were built and tested on Mac OSX.
 
 ## Pre-Requisites
 In order to successfully run this quickstart, the following pre-requisites
@@ -15,6 +15,7 @@ should be completed.
 **Required**
 * Mac OSX Host (any Linux varient should also work, however little testing)
 * Install Docker ([link to download](https://hub.docker.com/editions/community/docker-ce-desktop-mac))
+* Install GitHub ([link to download](https://git-scm.com/downloads))
 
 **Optional**
 * Install Apache Directory Studio ([link to download](https://directory.apache.org/studio/download/download-macosx.html))
@@ -24,11 +25,12 @@ should be completed.
 All the scripts and examples used in this quick-start are provided in
 the [pingidentity-devops-getting-started Github repo](https://github.com/pingidentity/pingidentity-devops-getting-started.git).
 
-Using the git utilility on your machine, in a terminal window checkout the 
-contents using the example below.
+Using the git utility on your machine, in a terminal window checkout the 
+contents of the getting-started repo using the command below.
 
 ```
 $ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+
 Cloning into 'pingidentity-devops-getting-started'...
 remote: Enumerating objects: 301, done.
 remote: Counting objects: 100% (301/301), done.
@@ -43,15 +45,16 @@ You should now see a directory called ``pingidentity-devops-getting-started``.
 ## Run a Docker Standalone Image - Ping Federate
 Now, we will run a standalone image in a docker container.  In other words, 
 we will run one of the Ping Identity docker images locally in a docker
-container on our local machine.
+container on your local machine.
 
-In a terminal window run, see the example below to change the proper
-directory and startup the Ping Federate image.
+In a terminal window run, see the example below to navigate to the proper
+directory and startup the PingFederate image.
 
 ```
 $ cd pingidentity-devops-getting-started
 $ cd 10-docker-standalone
 $ ./docker-run.sh pingfederate
+
 Using default tag: latest
 latest: Pulling from pingidentity/pingfederate
 8e402f1a9c57: Pull complete
@@ -87,8 +90,8 @@ container is persisted.  This will allow for the image to be
 stopped and re-started keeping the last known state.
 
 In the example above, the image is first pulled down from Docker Hub
-and cached in your local docker registry.  The container then run, 
-followed by some helper commands to checkout the logs.
+and cached in your local docker registry.  The container is then started, 
+followed by some sample commands to view the application logs.
 
 To see the status of your container (notice the ``health`` status) you can use the example below:
 
@@ -98,18 +101,19 @@ CONTAINER ID        IMAGE                       COMMAND                  CREATED
 13453a051295        pingidentity/pingfederate   "entrypoint.sh start…"   4 minutes ago       Up 4 minutes (healthy)   0.0.0.0:9031->9031/tcp, 0.0.0.0:9999->9999/tcp   pingfederate
 ```
 
-And to login to this new Ping Federate continer you can goto:
+And to login to this new PingFederate continer you can navigate in your web browser to:
 
 * https://localhost:9999/pingfederate/app
   * Username: Administrator
   * Passowrd: 2FederateM0re
 
 ##  Run a Docker Standalone Image - Ping Directory
-Now, let's run a second docker container for Ping Directory.  Simply
+Now, let's run a second docker container for PingDirectory.  Simply
 follow the example below.
 
 ```
 $ ./docker-run.sh pingdirectory
+
 Using default tag: latest
 latest: Pulling from pingidentity/pingdirectory
 8e402f1a9c57: Already exists
@@ -141,13 +145,13 @@ docker container exec -it pingdirectory /bin/sh
   https://localhost:1443/directory/v1/ou=people,dc=example,dc=com/subtree?searchScope=wholesubtree
 ```
 
-Once you have created the Ping Directory container, the same can be done
-for the Ping Dataconsole and Ping Access.
+Once you have started the PingDirectory container, the same can be done
+for the PingDataconsole and PingAccess.
 
-For more information on all these docker images, you can review the 
+For more information on these docker images, you can review the 
 [Ping Identity Docker Images](../docker-builds/README.md) documentation.
 
-## Remving and Cleaning up Standalone Images
+## Removing and Cleaning up Standalone Images
 Once you are finished with your docker containers, you can stop/start
 the continers, and ultimately remove them.
 
@@ -155,6 +159,7 @@ To stop the container, use the example below.
 
 ```
 > ./docker-stop.sh pingdirectory
+
 Removing container pingdirectory
 pingdirectory
 ```
@@ -166,6 +171,7 @@ avaiable, and use that.
 
 ```
 $ ./docker-run.sh pingdirectory
+
 Using default tag: latest
 latest: Pulling from pingidentity/pingdirectory
 Digest: sha256:faa997a15d06d7989d957d181cb7b272fed6ee785b2921594187de0c9d1b0ca0
@@ -182,6 +188,7 @@ the end of this quickstart to clean everything up.
 
 ```
 $ ./docker-cleanup.sh all --force
+
 Running ./docker-cleanup.sh pingdirectory --force...
 pingdirectory
 Running ./docker-cleanup.sh pingfederate --force...
