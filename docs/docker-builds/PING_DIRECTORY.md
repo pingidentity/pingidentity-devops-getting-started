@@ -53,7 +53,7 @@ Connection a REST client from Postman or a browser.
 |                 |                                   |
 | --------------: | --------------------------------- |
 | URL             | https://localhost:8443/scim/Users |
-| Username        |cn=administrator                   |
+| Username        | cn=administrator                   |
 | Password        | 2PingDirectory                    |
 
 ## Stopping/Removing the container
