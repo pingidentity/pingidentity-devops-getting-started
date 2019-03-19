@@ -1,6 +1,6 @@
 # Ping Identity DevOps - Quick Start
 
-This is a document to help with a quick-start demo of the available 
+This document aims to help with a quick-start demo of the available
 Ping Identity Docker Images and basic 'getting started' server profiles.
 
 The intent is to help get a running set of Ping Identity components on
