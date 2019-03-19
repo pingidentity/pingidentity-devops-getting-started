@@ -1,7 +1,10 @@
 # Table of contents
 
-* [Ping Identity DevOps](docs/PING_DEVOPS_MAIN.md)
-* [Getting Started](README.md)
+## Main Content
+
+* [Ping Identity DevOps](docs/README.md)
+* [Getting Started](docs/getting-started/README.md)
+  * [Quick Start](docs/getting-started/QUICKSTART.md)
   * [Docker Standalone](10-docker-standalone/README.md)
     * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
     * [01-pingdirectory](10-docker-standalone/01-pingdirectory/README.md)
@@ -15,10 +18,22 @@
   * [Kubernetes Minikube](20-kubernetes-minikube/README.md)
   * [Kubernetes AWS](21-kubernetes-amazon/README.md)
 * [Server Profiles](docs/SERVER_PROFILES.md)
-* [Docker Builds](docs/DOCKER_BUILDS_MAIN.md)
+  * [Quick Start](docs/server-profiles/QUICKSTART.md)
+  * [Getting Started](docs/server-profiles/GETTING_STARTED.md)
+  * [Baseline](docs/server-profiles/BASELINE.md)
+  * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md)
+* [Docker Builds](docs/docker-builds/README.md)
+  * [Quick Start](docs/docker-builds/QUICKSTART.md)
   * [Docker Builds - Hooks](docs/DOCKER_BUILDS_HOOKS.md)
+  * [Ping Federate](docs/docker-builds/PING_FEDERATE.md)
+  * [Ping Access](docs/docker-builds/PING_ACCESS.md)
+  * [Ping Directory](docs/docker-builds/PING_DIRECTORY.md)
+  * [Ping DataSync](docs/docker-builds/PING_DATASYNC.md)
+  * [ldap-sdk-tools](docs/docker-builds/LDAP_SDK_TOOLS.md)
+  * [Ping DataConsole](docs/docker-builds/PING_DATA_CONSOLE.md)
+  * [Ping Downloader](docs/docker-builds/PING_DOWNLOADER.md)
 
-# Other Documents
+## Other Documents
 
 * [License](LICENSE)
 * [Contributing](CONTRIBUTING.md)
