@@ -1,3 +1,49 @@
+##############################################################################
+# Aliases of commonly used docker commands and those related to the
+# Ping Identity DevOps Program.
+#
+# Recommend that you source this file from your ~/.bash_profile or ~/.bashrc
+# Just add following line without the preceeding comment
+#
+#  . {path to this directory}/bash_profile_docker
+#
+##############################################################################
+## dhelp
+function dhelp () 
+{
+cat <<EOHELP
++----------------------------------------------------------------------------+
+|                   Ping Identity DevOps Helper Aliases                      |
++----------------------------------------------------------------------------+
+ Container                                 Image
+ -------------------------------------     ----------------------------------
+ dce - execute commands (i.e. /bin/sh)     dib - build 
+ dci - inspect                             dii - inspect
+ dcl - list                                dil - list 
+ dcr - remove forcefully                   dir - remove forcefully
+ dcp - prune                               dip - prune 
+ dct - run top                             dit - tag 
+ dstop  - stop                             diw - remove pingidentity images
+ dstart - start                            
+ dck    - stop
+ dlogs  - tail logs              
+                                          
+ Volume               Network                Service 
+ -------------------  ---------------------  ----------------------------
+ dvc - create         dnc - create           dsl - list 
+ dvi - inspect        dni - inspect          dss - scale 
+ dvl - list           dnl - list             dsr - remove 
+ dvp - prune          dnp - prune             
+ dvr - remove         dnr - remove         
+
+ Special
+ ----------------------------------------------------------------------------
+ ddc - deep clean (cont, vol, net)
+ pingdownload - download prodcut to ~/Downloads
+------------------------------------------------------------------------------
+EOHELP
+}
+
 function run ()
 {
   date
@@ -5,8 +51,8 @@ function run ()
   time $*
 }
 
-# PingDownloader alias
-alias pingdownloader="docker run --rm -v ~/Downloads:/tmp pingidentity/pingdownloader"
+# PingDownload alias
+alias pingdownload="docker run --rm -v ~/Downloads:/tmp pingidentity/pingdownloader"
 
 # Docker
 alias dps="run docker ps"
@@ -21,6 +67,7 @@ alias dcstop="run docker container stop"
 alias dct="run docker container top"
 alias dck="dcstop"
 alias dcstart="run docker container start"
+alias dlogs="run docker logs -f"
 
 ## image  
 alias dib="run docker image build"
@@ -29,12 +76,14 @@ alias dil="run docker images"
 alias dir="run docker image rm -f"
 alias dip="run docker image prune -f"
 alias dit="run docker image tag"
+alias diw="run docker rmi \$(docker images 'pingidentity/*' -q)"
 
 ## volume
 alias dvc="run docker volume create"
 alias dvi="run docker volume inspect"
 alias dvl="run docker volume ls"
 alias dvp="run docker volume prune -f"
+alias dvr="run docker volume rm"
 
 ## network
 alias dnc="run docker network create"
