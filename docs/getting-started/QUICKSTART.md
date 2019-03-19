@@ -165,7 +165,7 @@ time, it will notice that you have a ``/tmp/Docker/pingdirectory`` runtime
 avaiable, and use that.
 
 ```
-> ./docker-run.sh pingdirectory
+$ ./docker-run.sh pingdirectory
 Using default tag: latest
 latest: Pulling from pingidentity/pingdirectory
 Digest: sha256:faa997a15d06d7989d957d181cb7b272fed6ee785b2921594187de0c9d1b0ca0
@@ -181,7 +181,7 @@ containers and remove their persisted state.  It's good to run this at
 the end of this quickstart to clean everything up.
 
 ```
-> ./docker-cleanup.sh all --force
+$ ./docker-cleanup.sh all --force
 Running ./docker-cleanup.sh pingdirectory --force...
 pingdirectory
 Running ./docker-cleanup.sh pingfederate --force...
