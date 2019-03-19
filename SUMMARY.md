@@ -23,7 +23,7 @@
   * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md)
 * [Docker Builds](docs/docker-builds/README.md)
   * [Quick Start](docs/docker-builds/QUICKSTART.md)
-  * [Docker Builds - Hooks](docs/DOCKER_BUILDS_HOOKS.md)
+  * [Docker Builds - Hooks](docs/docker-builds/DOCKER_BUILDS_HOOKS.md)
   * [Ping Federate](docs/docker-builds/PING_FEDERATE.md)
   * [Ping Access](docs/docker-builds/PING_ACCESS.md)
   * [Ping Directory](docs/docker-builds/PING_DIRECTORY.md)

@@ -14,7 +14,7 @@ The full ordered list of scripts that are called depending on what type of image
 
 ![images/DOCKER_BUILDS_HOOKS_1.png]
 
-[images/DOCKER_BUILDS_HOOKS_1.png]: images/DOCKER_BUILDS_HOOKS_1.png
+[images/DOCKER_BUILDS_HOOKS_1.png]: ../images/DOCKER_BUILDS_HOOKS_1.png
 
 ## List of Hooks
 
