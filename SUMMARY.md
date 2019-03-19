@@ -17,6 +17,6 @@
 * [Server Profiles](docs/SERVER_PROFILES.md)
 * [Docker Builds](docs/DOCKER_BUILDS_MAIN.md)
   * [Docker Builds - Hooks](docs/DOCKER_BUILDS_HOOKS.md)
-* [License](LICENSE.md)
+* [License](LICENSE)
 * [Contributing](CONTRIBUTING.md)
-* [Disclaimer](DISCLAIMER.md)
+* [Disclaimer](DISCLAIMER)
