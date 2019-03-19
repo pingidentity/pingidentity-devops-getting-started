@@ -17,11 +17,11 @@ application demand.
 
 ## Documentation Sets
 
-| Document                                | Audience                       |
-| --------------------------------------- | ------------------------------ |
-| [Getting Started](../README.md)         | Operations, Administrators     |
-| [Server Profiles](SERVER_PROFILES.md)   | Developers                     |
-| [Docker Builds](DOCKER_BUILDS_MAIN.md)  | DevOps Experts                 |
+| Document                                       | Audience                       |
+| ---------------------------------------------- | ------------------------------ |
+| [Getting Started](../README.md)                | Operations, Administrators     |
+| [Server Profiles](server-profiles/README.md)   | Developers                     |
+| [Docker Builds](docker-builds/README.md)       | DevOps Experts                 |
 
 ## Commercial Support
 Documents, scripts, docker images are not currently considered stable
