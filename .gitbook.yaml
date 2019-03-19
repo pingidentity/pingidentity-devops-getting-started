@@ -1,5 +1,5 @@
 root: ./
 
 structure:
-  readme: README.md
+  readme: ./docs/PING_DEVOPS_MAIN.md
   summary: SUMMARY.md
