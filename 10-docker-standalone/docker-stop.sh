@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-CMD="${0}"
+CMD="$( basename "${0}" )"
 CONTAINER="${1}"
-# shellcheck disable=2164
-CONTAINER_DIR=$(cd "$( dirname "${0}" )";pwd )
+cd "$( dirname "${0}" )"
+CONTAINER_DIR=$( pwd )
 # shellcheck disable=2164
 SHARED_DIR=$( cd FF-shared;pwd )
 
