@@ -31,6 +31,7 @@
   * [ldap-sdk-tools](docs/docker-builds/LDAP_SDK_TOOLS.md)
   * [Ping DataConsole](docs/docker-builds/PING_DATA_CONSOLE.md)
   * [Ping Downloader](docs/docker-builds/PING_DOWNLOADER.md)
+* [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
 
 ## --
 
