@@ -14,7 +14,7 @@ Steps:
 
 2. Log in to github.com and fork https://github.com/pingidentity/server-profile-pingidentity-getting-started
 
-![fork_a_repo](/docs/images/fork_a_repo.png "fork a repo")
+![fork_a_repo](/docs/images/fork_a_repo.png)
 
 3. Open a terminal. Then: 
    ```
