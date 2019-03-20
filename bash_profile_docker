@@ -8,14 +8,18 @@
 #  . {path to this directory}/bash_profile_docker
 #
 ##############################################################################
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+
 ## dhelp
 function dhelp () 
 {
 cat <<EOHELP
 +----------------------------------------------------------------------------+
-|                   Ping Identity DevOps Helper Aliases                      |
+|                   ${bold}Ping Identity DevOps Helper Aliases${normal}                      |
 +----------------------------------------------------------------------------+
- Container                                 Image
+ ${bold}Container${normal}                                 ${bold}Image${normal}
  -------------------------------------     ----------------------------------
  dce - execute commands (i.e. /bin/sh)     dib - build 
  dci - inspect                             dii - inspect
@@ -28,27 +32,28 @@ cat <<EOHELP
  dck    - stop
  dlogs  - tail logs              
                                           
- Volume               Network                Service 
- -------------------  ---------------------  ----------------------------
- dvc - create         dnc - create           dsl - list 
- dvi - inspect        dni - inspect          dss - scale 
- dvl - list           dnl - list             dsr - remove 
- dvp - prune          dnp - prune             
- dvr - remove         dnr - remove         
+ ${bold}Volume${normal}                    ${bold}Network${normal}                   ${bold}Service${normal}
+ ------------------------  ------------------------  ------------------------
+ dvc - create              dnc - create              dsl - list
+ dvi - inspect             dni - inspect             dss - scale
+ dvl - list                dnl - list                dsr - remove
+ dvp - prune               dnp - prune
+ dvr - remove              dnr - remove
 
- Special
+ ${bold}Special${normal}
  ----------------------------------------------------------------------------
  ddc - deep clean (cont, vol, net)
  pingdownload - download prodcut to ~/Downloads
-------------------------------------------------------------------------------
+ ----------------------------------------------------------------------------
 EOHELP
 }
 
 function run ()
 {
-  date
-  echo $*
-  time $*
+  #date
+  echo "Alias Expansion: ${bold}$*${normal}"
+  #time $*
+  $*
 }
 
 # PingDownload alias
