@@ -3,7 +3,7 @@ The goal of Ping Identity DevOps is to enable DevOps, administrators and
 developers with tools, frameworks, blueprints and reference architectues 
 to deploy Ping Identity software in the cloud.
 
-## Why
+## Why Containerization?
 **Deployments with Confidence** - Maintain all configurations and depenencies 
 ensuring consitent environments.  Eliminate the "it works on my machine" 
 problem.
