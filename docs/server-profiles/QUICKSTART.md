@@ -13,6 +13,7 @@ Steps:
    > Make sure this is exported as a .zip rather than compressing/zipping yourself
 
 2. Log in to github.com and fork https://github.com/pingidentity/server-profile-pingidentity-getting-started
+![alt text](https://github.com/pingidentity/server-profile-pingidentity-getting-started/docs/images/fork_a_repo.png)
 
 3. Open a terminal. Then: 
    ```
