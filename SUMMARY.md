@@ -29,7 +29,7 @@
   * [Getting Started](docs/server-profiles/GETTING_STARTED.md)
   * [Baseline](docs/server-profiles/BASELINE.md)
   * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md)
-* [Building Your Own Docker Images](docs/docker-builds/README.md)
+* [Build Your Own Docker Images](docs/docker-builds/README.md)
   * [Quick Start](docs/docker-builds/QUICKSTART.md)
   * [Docker Builds - Hooks](docs/docker-builds/DOCKER_BUILDS_HOOKS.md)
 * [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
