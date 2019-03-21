@@ -18,17 +18,17 @@ Steps:
 
 3. Open a terminal. Then:
    ```
-   $ mkdir /tmp/pf_to_docker
+   mkdir /tmp/pf_to_docker
    
-   $ cd /tmp/pf_to_docker
+   cd /tmp/pf_to_docker
    
-   $ git clone https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git
+   git clone https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git
    
-   $ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+   git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
    ```
 4. From here, you can use two terminal windows, one for each of the new directories:
     ```shell
-    $  ls
+    ls
     ######OUTPUTS#######
     # pingidentity-devops-getting-started         
     # server-profile-pingidentity-getting-started
