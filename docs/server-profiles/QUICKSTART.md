@@ -1,6 +1,6 @@
 # Ping Identity Server Profiles - Quick Start
 
-Let's walk through a common sample use case together: taking a traditional PF server and moving it into a docker container. 
+Let's walk through a common sample use case together: taking a traditional PF server and moving it into a docker container.
 
 Pre-requisites: 
 * GitHub Account
@@ -9,88 +9,99 @@ In this example we will take a Configuration Archive of your current (possibly f
 
 Steps:
 
-1. Export a Configuration Archive from a PingFederate instance into a location on your local machine. 
+1. Export a Configuration Archive from a PingFederate instance into a location on your local machine.
    > Make sure this is exported as a .zip rather than compressing/zipping yourself
 
 2. Log in to github.com and fork https://github.com/pingidentity/server-profile-pingidentity-getting-started
 
 ![fork_a_repo](/docs/images/fork_a_repo.png)
 
-3. Open a terminal. Then: 
+3. Open a terminal. Then:
    ```
-   ➜ mkdir /tmp/pf_to_docker
+   $ mkdir /tmp/pf_to_docker
    
-   ➜ cd /tmp/pf_to_docker
+   $ cd /tmp/pf_to_docker
    
-   ➜ git clone https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git
+   $ git clone https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git
    
-   ➜ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+   $ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
    ```
 4. From here, you can use two terminal windows, one for each of the new directories:
     ```shell
-    ➜  ls
-    pingidentity-devops-getting-started         server-profile-pingidentity-getting-started
+    $  ls
+    ######OUTPUTS#######
+    # pingidentity-devops-getting-started         
+    # server-profile-pingidentity-getting-started
+    ####################
     ```
 
-5. From the window with server-profile:
+5. From the window for server-profile:
     ```shell
-    ➜  pf_to_docker cd server-profile-pingidentity-getting-started/pingfederate/instance/server/default/data/drop-in-deployer 
-    ➜  drop-in-deployer git:(master) ✗
-   
-    ➜  drop-in-deployer git:(master) ✗ rm data.zip
+    cd server-profile-pingidentity-getting-started/pingfederate/instance/server/default/data/drop-in-deployer
+    
+    rm data.zip
 
-    ➜  drop-in-deployer git:(master) ✗ cp <path_to_your_configuration_archive>/data.zip .
+    cp <path_to_your_configuration_archive>/data.zip .
     ```
 
-6. Now we have a 'Server Profile' that we can point to when starting a PingFederate container so ... let's do that! In order to use this server profile from the Ping DevOps Getting Started examples, we will push to github. 
+6. Now we have a 'Server Profile' that we can point to when starting a PingFederate container so ... let's do that! In order to use this server profile from the 'Ping DevOps Getting Started' examples, we will push to github. 
 
    ``` shell
-   ➜ drop-in-deployer git:(master) ✗ git status
-   On branch master
-   Your branch is ahead of 'origin/master' by 2 commits.
-   (use "git push" to publish your local commits)
+   git status
 
-   Changes not staged for commit:
-   (use "git add/rm <file>..." to update what will be committed)
-   (use "git checkout -- <file>..." to discard changes in working directory)
-
-	 deleted:    data.zip
-
-   Untracked files:
-   (use "git add <file>..." to include in what will be committed)
-
-	idp_data.zip
-
-   no changes added to commit (use "git add" and/or "git commit -a")
+   ######OUTPUTS######
+   # On branch master
+   # Your branch is ahead of 'origin/master' by 2 commits.
+   # (use "git push" to publish your local commits)
+   #
+   # Changes not staged for commit:
+   # (use "git add/rm <file>..." to update what will be committed)
+   # (use "git checkout -- <file>..." to discard changes in working directory)
+   #
+   # deleted:    data.zip
+   #
+   # Untracked files:
+   # (use "git add <file>..." to include in what will be committed)
+   #
+   # idp_data.zip
+   #
+   # no changes added to commit (use "git add" and/or "git commit -a")
+   ##################
    ```
 
     ```shell
-    ➜ drop-in-deployer git:(master) ✗ git add .
+    git add .
 
-    ➜ drop-in-deployer git:(master) ✗ git status
-    On branch master
-    Your branch is ahead of 'origin/master' by 2 commits.
-      (use "git push" to publish your local commits)
-
-    Changes to be committed:
-      (use "git reset HEAD <file>..." to unstage)
-
-      deleted:    data.zip
-      new file:   idpdata.zip
-
-    ➜  drop-in-deployer git:(master) ✗ git commit -m "updated with custom Configuration Archive"
-
-    ➜  drop-in-deployer git:(master) ✗ git push origin master
+    git status
     ```
-7. Now let's tell our getting started example to point to this server profile. open `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate/env_vars` in a text editor. Then change `SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingidentity-getting-started.git` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git`
+    ```
+    #####OUTPUTS#####
+    # On branch master
+    # Your branch is ahead of 'origin/master' by 2 commits.
+    #  (use "git push" to publish your local commits)
+    #
+    # Changes to be committed:
+    #  (use "git reset HEAD <file>..." to unstage)
+    #
+    #  deleted:    data.zip
+    #  new file:   idpdata.zip
+    #################
+    ```
+    ```
+    git commit -m "updated with custom Configuration Archive"
+
+    git push origin master
+    ```
+7. Now let's tell our getting started example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate/env_vars` in a text editor. Then change `SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingidentity-getting-started.git` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git`
 
 8. Now.. Run! From the terminal pointed at `pingidentity-devops-getting-started` :
 
-    ```
-    ➜  pingidentity-devops-getting-started git:(master) ✗ cd 10-docker-standalone
+    ```shell
+    cd 10-docker-standalone
 
-    ➜  10-docker-standalone git:(master) ✗ ./docker-run.sh pingfederate
+    ./docker-run.sh pingfederate
     ```
+
 9. The container should now have started in the background. run `docker container logs -f pingfederate` to watch the logs. To be sure your config is properly applied look for: 
 
     ```shell
