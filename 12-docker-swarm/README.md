@@ -40,7 +40,7 @@ Example:
    swarm-cleanup.sh basic1.yaml
 ```
 
-
+## Console Application
 If you are using the PingDirectory container from these standalone images, you should be able to login with
 
 ```
