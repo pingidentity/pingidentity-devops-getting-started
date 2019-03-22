@@ -5,7 +5,7 @@ Let's walk through a common sample use case together: taking a traditional PF se
 Pre-requisites: 
 * GitHub Account
 
-In this example we will take a Configuration Archive of your current (possibly favorite) PingFederate server and push it into a 'server profile'. Then we will start a PingFederate Docker container that pulls in this configuration.
+In this example we will take a Configuration Archive of your current (possibly favorite) _development_ PingFederate server and push it into a 'server profile'. Then we will start a PingFederate Docker container that pulls in this configuration. This is recommended for development and demonstration only.
 
 Steps:
 
