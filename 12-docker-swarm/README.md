@@ -41,7 +41,7 @@ Example:
 ```
 
 ## Console Application
-If you are using the PingDirectory container from these swarm images, you should be able to login with
+If you are using the PingDataConsole container from these swarm images, you should be able to login with
 
 http://localhost:8080/admin-console/
 
