@@ -43,6 +43,8 @@ Example:
 ## Console Application
 If you are using the PingDirectory container from these standalone images, you should be able to login with
 
+http://localhost:8080/admin-console/
+
 ```
      Server: pingdirectory:636
    Username: administrator
