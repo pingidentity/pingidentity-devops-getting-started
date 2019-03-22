@@ -39,3 +39,12 @@ Example:
 
    swarm-cleanup.sh basic1.yaml
 ```
+
+
+If you are using the PingDirectory container from these standalone images, you should be able to login with
+
+```
+     Server: pingdirectory:636
+   Username: administrator
+   Password: 2FederateM0re
+```
