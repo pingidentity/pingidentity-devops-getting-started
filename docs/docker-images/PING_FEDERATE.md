@@ -5,12 +5,35 @@ Before running the PingFederate Docker image, you must obtain a PingFederate Lic
 
 https://www.pingidentity.com/en/account/request-license-key.html
 
-Upon receiving your license file, run the ```docker run``` command, substituting the license filename with the file that you've saved the license to.
+## Run
+To run a PingFederate container: 
 
-## How to
-To build the PingFederate Docker image
+```shell
+  docker run \
+           --name pingfederate \
+           --publish 9999:9999 \
+           --detach \
+           --env SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-getting-started.git \
+           --env SERVER_PROFILE_PATH=pingfederate \
+           pingidentity/pingfederate
 ```
-docker build -t [image_name] .
+
+Follow Docker logs with:
+
+```
+docker logs -f pingfederate
+```
+
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
+* https://localhost:9999/pingfederate/app
+  * Username: Administrator
+  * Passowrd: 2FederateM0re
+
+
+You can open a shell into the container with: 
+
+```
+docker container exec -it pingfederate sh
 ```
 
 ## Documentation

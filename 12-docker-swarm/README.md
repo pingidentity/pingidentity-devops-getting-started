@@ -39,3 +39,22 @@ Example:
 
    swarm-cleanup.sh basic1.yaml
 ```
+
+## Console Application
+If you are using the PingDataConsole container from these swarm images, you should be able to login with
+
+http://localhost:8080/admin-console/
+
+### PingDirectory
+```
+     Server: pingdirectory:636
+   Username: administrator
+   Password: 2FederateM0re
+```
+
+### PingDirectorySync
+```
+     Server: pingdirectorysync:636
+   Username: administrator
+   Password: 2FederateM0re
+```
