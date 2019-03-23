@@ -1,22 +1,28 @@
 # Docker Standalone
-The objective of this directory is to demonstrate how to use the Docker images in the Ping Identity lineup, independent of any other framework. It should be completed step-by-step in the order of the sub-directories.
+A great way to learn about the most simple steps of running a Ping Identity Docker
+image is to run them as individual containers.  A good plan is to run through
+each of these images in a step-by-step order.
 
 ## Ping Identity Docker images
 
-* 01-pingdirectory    - Standalone PingDirectory container with a nice configuration supplied
-* 02-pingfederate     - Standalone PingFederate container
-* 03-pingaccess       - Standalone PingAccess container
-* 10-pingdataconsole  - Standalone PingDataConsole Container running in a Tomcat instance
+| Image               | Description  
+| ------------------- | ------------ 
+| 01-pingdirectory    | Standalone PingDirectory container with a basic config
+| 02-pingfederate     | Standalone PingFederate container
+| 03-pingaccess       | Standalone PingAccess container
+| 10-pingdataconsole  | Standalone PingDataConsole Container running in a Tomcat instance
 
 ## Ping Identity utilities
 
-* 00-pingdownloader   - Utility container used for downloading Ping Identity product artifacts
-* 99-logging          - Sample technique to aggregate logs across containers
-* FF-shared           - Shared environment variables used in above containers
+| Image               | Description  
+| ------------------- | ------------ 
+| 00-pingdownloader   | Utility container used for downloading Ping Identity product artifacts
+| 99-logging          | Sample technique to aggregate logs across containers
+| FF-shared           | Shared environment variables used in above containers
 
-## How to
+## Easy Scripts to Run Images
 
-There are a 3 shell scripts that can be used to run, cleanup and stop docker containers for the Ping Identity
+There are a 3 shell scripts that can be used to run, stop and cleanup and docker containers for the Ping Identity
 Docker Images.
 
 ### docker-run.sh

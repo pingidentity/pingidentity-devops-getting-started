@@ -1,11 +1,44 @@
 ## Purpose
 This delivers PingAccess anywhere you need to protect resources.
 
-## How to
-To build the PingAccess Docker image
+## PingAccess License
+Before running the PingAccess Docker image, you must obtain a PingAccess License. Please visit:
+
+https://www.pingidentity.com/en/account/request-license-key.html
+
+## Run
+To run a PingAccess container: 
+
+```shell
+  docker run \
+           --name pingaccess \
+           --publish 9000:9000 \
+           --publish 443:443 \
+           --detach \
+           --env SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-getting-started.git \
+           --env SERVER_PROFILE_PATH=pingaccess \
+           pingidentity/pingaccess
 ```
-docker build -t [image_name] .
+
+
+Follow Docker logs with:
+
 ```
+docker logs -f pingaccess
+```
+
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
+* https://localhost:9000
+  * Username: Administrator
+  * Passowrd: 2FederateM0re
+
+
+You can open a shell into the container with: 
+
+```
+docker container exec -it pingfederate sh
+```
+
 
 ## Documentation
 https://support.pingidentity.com/s/pingaccess-help

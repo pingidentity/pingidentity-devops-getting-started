@@ -36,7 +36,7 @@ run_cmd() {
         INSTANCE=$1
 
         echo "Running ${CMD} ${INSTANCE} ${FORCE}..."
-        ${CMD} "${INSTANCE}" "${FORCE}"
+        ./${CMD} "${INSTANCE}" "${FORCE}"
 }
 
 case ${CONTAINER} in

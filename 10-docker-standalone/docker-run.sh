@@ -38,7 +38,7 @@ run_cmd() {
     INSTANCE="${1}"
 
     echo "Running ${CMD} ${INSTANCE}..."
-    ${CMD} "${INSTANCE}"
+    ./${CMD} "${INSTANCE}"
 }
 
 case ${CONTAINER} in

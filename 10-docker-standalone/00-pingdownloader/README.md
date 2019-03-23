@@ -1,5 +1,5 @@
-# Purpose
-A simple example of how to call the pingdownloader image
+# Running PingDownloader Image
+A simple example of how to call the pingdownloader docker image
 
 ## Help
 For help, simply pass the `--help` parameter to the docker run and obtain the usage.
