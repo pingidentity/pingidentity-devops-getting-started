@@ -11,8 +11,6 @@ To run a PingDataConsole container:
            --name pingdataconsole \
            --publish 8080:8080 \
            --detach \
-           --env SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-getting-started.git \
-           --env SERVER_PROFILE_PATH=pingdataconsole \
            pingidentity/pingdataconsole
 ```
 
