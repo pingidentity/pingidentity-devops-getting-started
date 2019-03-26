@@ -107,4 +107,4 @@ alias dsr="run docker service rm"
 alias dlf="run docker logs -f"
 
 ## deep clean
-alias ddc="dcp ; dvp ; dip"
+alias ddc="dcp ; dvp ; dip; dnp"
