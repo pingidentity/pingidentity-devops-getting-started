@@ -27,8 +27,8 @@ cat <<EOHELP
  dcr - remove forcefully                   dir - remove forcefully
  dcp - prune                               dip - prune 
  dct - run top                             dit - tag 
- dstop  - stop                             diw - remove pingidentity images
- dstart - start                            
+ dcstop  - stop                            diw - remove pingidentity images
+ dcstart - start                            
  dck    - stop
  dlogs  - tail logs              
                                           
