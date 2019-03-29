@@ -3,6 +3,7 @@ version: "3.1"
 services:
   pingaccess:
     image: pingidentity/pingaccess
+    command: ["sh", "-c", "wait-for pingfederate:9031 -t 700 -- entrypoint.sh start-server"]
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
       - SERVER_PROFILE_PATH=pingaccess
@@ -13,23 +14,42 @@ services:
       - 9000:9000
     networks:
       - pingnet
-    volumes:
-      - /tmp/Swarm/fullstack/pingaccess:/opt/out
+  #  volumes:
+  #    - /tmp/Swarm/fullstack/pingaccess:/opt/out
 
-  pingfederate:
+  pingfederate-admin:
     image: pingidentity/pingfederate
+    command: ["sh", "-c", "wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server"]
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
       - SERVER_PROFILE_PATH=pingfederate
+      - DISCOVERY_INITIAL_HOST=pingfederate-admin[7600]
+      - OPERATIONAL_MODE=CLUSTERED_CONSOLE
+      - CLUSTER_BIND_ADDRESS=match-address:10.10.10.\*
+    deploy:
+      replicas: 1
+    ports:
+      - 9999:9999
+    networks:
+      - pingnet
+
+  pingfederate:
+    image: pingidentity/pingfederate
+    command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
+      - SERVER_PROFILE_PATH=pingfederate
+      - DISCOVERY_INITIAL_HOST=pingfederate-admin[7600]
+      - OPERATIONAL_MODE=CLUSTERED_ENGINE
+      - CLUSTER_BIND_ADDRESS=match-address:10.10.10.\*
     deploy:
       replicas: 1
     ports:
       - 9031:9031
-      - 9999:9999
     networks:
       - pingnet
-    volumes:
-      - /tmp/Swarm/fullstack/pingfederate:/opt/out
+    # volumes:
+    #  - /tmp/Swarm/fullstack/pingfederate:/opt/out
 
   pingdirectory:
     image: pingidentity/pingdirectory
@@ -43,8 +63,8 @@ services:
       - 1443:443
     networks:
       - pingnet
-    volumes:
-      - /tmp/Swarm/fullstack/pingdirectory:/opt/out
+  #  volumes:
+  #    - /tmp/Swarm/fullstack/pingdirectory:/opt/out
 
   pingdelegator:
     image: pingidentity/pingdelegator
@@ -63,6 +83,9 @@ services:
       - 8080:8080
     networks:
       - pingnet
-        
+
 networks:
-    pingnet:
+  pingnet:
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
