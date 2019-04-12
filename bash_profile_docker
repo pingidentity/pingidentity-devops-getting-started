@@ -81,7 +81,7 @@ alias dil="run docker images"
 alias dir="run docker image rm -f"
 alias dip="run docker image prune -f"
 alias dit="run docker image tag"
-alias diw="run docker rmi \$(docker images 'pingidentity/*' -q)"
+alias diw="dip; dir \$(docker images 'pingidentity/*' -q|sort|uniq)"
 
 ## volume
 alias dvc="run docker volume create"
