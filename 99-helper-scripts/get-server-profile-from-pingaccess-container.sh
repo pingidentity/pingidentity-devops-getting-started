@@ -27,5 +27,5 @@ if docker container ls --format '{{.ID}}' --filter id=${containerId} |grep "${co
     unzip -d "${serverPofilePath}" /tmp/latest.data.zip
 else
     echo the provided container ID ${containerId} does not appear to be running locally
-    exit 5cd 
+    exit 5
 fi
