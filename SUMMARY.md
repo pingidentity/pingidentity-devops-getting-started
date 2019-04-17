@@ -25,7 +25,7 @@
   * [Kubernetes Minikube](20-kubernetes-minikube/README.md)
   * [Kubernetes AWS](21-kubernetes-amazon/README.md)
 * [Server Profiles](docs/server-profiles/README.md)
-  * [Definitions](docs/server-profiles/ADMINISTRATION.md)
+  * [Administration](docs/server-profiles/ADMINISTRATION.md)
   * [Quick Start](docs/server-profiles/QUICKSTART.md)
   * [Getting Started](docs/server-profiles/GETTING_STARTED.md)
   * [Baseline](docs/server-profiles/BASELINE.md)
