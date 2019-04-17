@@ -19,5 +19,5 @@ as they are often one off examples of different concepts.  Some of these product
 
 | Server Profile            | Description                                         |
 |---------------------------|-----------------------------------------------------|
-| [PingFed Cluster](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/getting-started-pingfederate-cluster/pingfederate)           | Configuring a PingFed cluster with admin/engine nodes | 
+| [PingFed Cluster](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/getting-started-pingfederate-cluster)           | Configuring a PingFed cluster with admin/engine nodes | 
 | [PingOne for Customer](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/pingone-cloud) | Use cases around PingOne for Customer |
