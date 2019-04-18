@@ -40,6 +40,13 @@ cat <<EOHELP
  dvp - prune               dnp - prune
  dvr - remove              dnr - remove
 
+ ${bold}Docker Compose${normal}
+ ------------------------
+ dpu - up (detached)
+ dpd - down
+ dpp - ps
+ dpl - logs (w/ -f)
+
  ${bold}Special${normal}
  ----------------------------------------------------------------------------
  ddc - deep clean (cont, vol, net)
@@ -102,6 +109,12 @@ alias dnr="run docker network rm"
 alias dsl="run docker service ls"
 alias dss="run docker service scale"
 alias dsr="run docker service rm"
+
+## docker-compose
+alias dpu="run docker-compose up -d"
+alias dpd="run docker-compose down"
+alias dpp="run docker-compose ps"
+alias dpl="run docker-compose logs -f"
 
 ## logs
 alias dlf="run docker logs -f"
