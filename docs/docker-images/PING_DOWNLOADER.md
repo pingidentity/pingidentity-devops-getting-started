@@ -14,6 +14,22 @@ docker run pingidentity/pingdownloader -p <product_name>
 -n, --dry-run:	this will cause the URL to be displayed but the the bits not to be downloaded
 
 ```
+## Examples
+Download the latest PingDirectory
+```
+docker run pingidentity/pingdownloader -p PingDirectory
+```
+
+Download a specific version of PingDirectory
+```
+docker run pingidentity/pingdownloader -p PingDirectory -v 7.2.0.1
+```
+
+Download a product to /tmp on the host, as opposed to /tmp in the PingDownloader container
+```
+docker run --rm -v /tmp:/tmp pingidentity/pingdownloader -p PingFederate
+```
+
 
 
 ## Commercial Support
