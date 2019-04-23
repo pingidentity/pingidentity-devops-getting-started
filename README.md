@@ -8,11 +8,11 @@ running PingFederate, PingDirectory, PingAccess, and more in Docker containers.
 
 ## Contents
 
-* 10-docker-standalone    - Run Ping Identity standalone products in Docker containers 
-* 11-docker-compose       - Define and run multi-container Ping Identity Docker images with Docker Compose
-* 12-docker-swarm         - Deploy Ping Identity product stacks using Docker Swarm
-* 20-kubernetes-minikube  - Deploy PingDirectory in a local Minikube environment
-* 21-kubernetes-amazon    - Deploy PingDirectory in AWS using Kubernetes
+* [10-docker-standalone](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/10-docker-standalone)    - Run Ping Identity standalone products in Docker containers 
+* [11-docker-compose](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose)       - Define and run multi-container Ping Identity Docker images with Docker Compose
+* [12-docker-swarm](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/12-docker-swarm)         - Deploy Ping Identity product stacks using Docker Swarm
+* [20-kubernetes-minikube](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/20-kubernetes-minikube)  - Deploy PingDirectory in a local Minikube environment
+* [21-kubernetes-amazon](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/10-docker-standalone)    - Deploy PingDirectory in AWS using Kubernetes
 
 ## ldapsdk tool
 Use the `ldapsdk` tool in the top level directory to startup an `ldap-sdk-tools` container
