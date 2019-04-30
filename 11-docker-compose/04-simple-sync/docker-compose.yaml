@@ -23,7 +23,7 @@ services:
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync
       - SERVER_PROFILE_PARENT=LICENSE
       - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdatasync
+      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
     ports:
       - 2636:636
       - 2443:443
