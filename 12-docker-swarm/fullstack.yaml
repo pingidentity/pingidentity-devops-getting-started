@@ -5,8 +5,11 @@ services:
     image: pingidentity/pingaccess
     command: ["sh", "-c", "wait-for pingfederate:9031 -t 700 -- entrypoint.sh start-server"]
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
-      - SERVER_PROFILE_PATH=pingaccess
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingaccess
+      - SERVER_PROFILE_PARENT=LICENSE
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_PATH=licenses/pingaccess
     deploy:
       replicas: 1
     ports:
@@ -21,8 +24,11 @@ services:
     image: pingidentity/pingfederate
     command: ["sh", "-c", "wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server"]
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
-      - SERVER_PROFILE_PATH=pingfederate
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingfederate
+      - SERVER_PROFILE_PARENT=LICENSE
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_PATH=licenses/pingfederate
       - DISCOVERY_INITIAL_HOST=pingfederate-admin[7600]
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
       - CLUSTER_BIND_ADDRESS=match-address:10.10.10.\*
@@ -37,8 +43,11 @@ services:
     image: pingidentity/pingfederate
     command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
-      - SERVER_PROFILE_PATH=pingfederate
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingfederate
+      - SERVER_PROFILE_PARENT=LICENSE
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_PATH=licenses/pingfederate
       - DISCOVERY_INITIAL_HOST=pingfederate-admin[7600]
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
       - CLUSTER_BIND_ADDRESS=match-address:10.10.10.\*
@@ -54,8 +63,11 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-baseline.git
-      - SERVER_PROFILE_PATH=pingdirectory
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingdirectory
+      - SERVER_PROFILE_PARENT=LICENSE
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
     deploy:
       replicas: 1
     ports:
