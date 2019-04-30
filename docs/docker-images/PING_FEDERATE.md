@@ -13,8 +13,11 @@ To run a PingFederate container:
            --name pingfederate \
            --publish 9999:9999 \
            --detach \
-           --env SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-getting-started.git \
-           --env SERVER_PROFILE_PATH=pingfederate \
+           --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+           --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+           --env SERVER_PROFILE_PARENT=LICENSE \
+           --env SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+           --env SERVER_PROFILE_LICENSE_PATH=licenses/pingfederate \
            pingidentity/pingfederate
 ```
 

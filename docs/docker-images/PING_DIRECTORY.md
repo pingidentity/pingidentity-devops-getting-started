@@ -9,8 +9,11 @@ The easiest way to test test a simple standalone image of PingDirectory is to cu
            --publish 1389:389 \
            --publish 8443:443 \
            --detach \
-           --env SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-getting-started.git \
-           --env SERVER_PROFILE_PATH=pingdirectory \
+           --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+           --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
+           --env SERVER_PROFILE_PARENT=LICENSE \
+           --env SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+           --env SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory \
            pingidentity/pingdirectory
 ```
 

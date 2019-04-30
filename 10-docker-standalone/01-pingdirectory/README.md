@@ -13,8 +13,11 @@ used to provide the detailed configuration to build out the PingDirectory.
 
 ```Bash
 docker run -d --publish 1389:389 \
-    --env SERVER_PROFILE_URL=https://github.com/pingidentity/server-profile-pingidentity-getting-started.git \
-    --env SERVER_PROFILE_PATH=pingdirectory \
+    --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+    --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
+    --env SERVER_PROFILE_PARENT=LICENSE \
+    --env SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+    --env SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory \
     pingidentity/pingdirectory
 ```
 
@@ -25,9 +28,9 @@ docker volume. Try this:
 
 ```Bash
 mkdir -p /tmp/Docker/pd-basic
-git clone https://github.com/pingidentity/server-profile-pingidentity-getting-started.git /tmp/Docker/pd-basic
+git clone https://github.com/pingidentity/pingidentity-server-profiles.git /tmp/Docker/pd-basic
 docker run -d --publish 2389:389 \
-    -v /tmp/Docker/pd-basic/pingdirectory:/opt/in \
+    -v /tmp/Docker/pd-basic/getting-started/pingdirectory:/opt/in \
     pingidentity/pingdirectory
 ```
 
@@ -39,7 +42,7 @@ in the previous step
 
 ```Bash
 docker create -v /opt --name pd-config busybox
-docker cp /tmp/Docker/pd-basic/. pd-config:/opt/in
+docker cp /tmp/Docker/pd-basic/getting-started/pingdirectory. pd-config:/opt/in
 docker run -d --publish 3389:389 \
     --volumes-from pd-config \
     pingidentity/pingdirectory

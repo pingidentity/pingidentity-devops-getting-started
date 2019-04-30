@@ -12,7 +12,7 @@ Steps:
 1. Export a Configuration Archive from a PingFederate instance into a location on your local machine.
    > Make sure this is exported as a .zip rather than compressing/zipping yourself
 
-2. Log in to github.com and fork https://github.com/pingidentity/server-profile-pingidentity-getting-started
+2. Log in to github.com and fork https://github.com/pingidentity/pingidentity-server-profiles
 
 ![fork_a_repo](/docs/images/fork_a_repo.png)
 
@@ -22,7 +22,7 @@ Steps:
    
    cd /tmp/pf_to_docker
    
-   git clone https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git
+   git clone https://github.com/pingidentity/pingidentity-server-profiles.git
    
    git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
    ```
@@ -37,7 +37,7 @@ Steps:
 
 5. From the window for server-profile:
     ```shell
-    cd server-profile-pingidentity-getting-started/pingfederate/instance/server/default/data/drop-in-deployer
+    cd pingidentity-server-profiles/getting-started/pingfederate/instance/server/default/data/drop-in-deployer
     
     rm data.zip
 
@@ -92,7 +92,7 @@ Steps:
 
     git push origin master
     ```
-7. Now let's tell our getting started example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate/env_vars` in a text editor. Then change `SERVER_PROFILE_URL=${GIT_REPO}/server-profile-pingidentity-getting-started.git` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/server-profile-pingidentity-getting-started.git`
+7. Now let's tell our getting started example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate/env_vars` in a text editor. Then change `SERVER_PROFILE_URL=${GIT_REPO}/pingidentity-server-profiles.git` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/pingidentity-server-profiles.git`
 
 8. Now.. Run! From the terminal pointed at `pingidentity-devops-getting-started` :
 
