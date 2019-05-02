@@ -33,7 +33,7 @@ docker logs -f pingaccess
 If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
 * https://localhost:9000
   * Username: Administrator
-  * Passowrd: 2FederateM0re
+  * Password: 2FederateM0re
 
 
 You can open a shell into the container with: 
