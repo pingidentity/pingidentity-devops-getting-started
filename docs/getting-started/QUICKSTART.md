@@ -105,7 +105,7 @@ And to login to this new PingFederate continer you can navigate in your web brow
 
 * https://localhost:9999/pingfederate/app
   * Username: Administrator
-  * Passowrd: 2FederateM0re
+  * Password: 2FederateM0re
 
 ##  Run a Docker Standalone Image - Ping Directory
 Now, let's run a second docker container for PingDirectory.  Simply
