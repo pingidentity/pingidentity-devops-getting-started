@@ -1,0 +1,7 @@
+#
+# Set an alias for pingdirectory's administrator to have a
+# console login experience consistent with that of pingfederate
+#
+dsconfig set-root-dn-user-prop \
+    --user-name "Directory Manager"  \
+    --add alternate-bind-dn:cn=administrator

@@ -1,0 +1,86 @@
+dn: ${USER_BASE_DN}
+objectClass: top
+objectClass: organization
+o: data
+aci: (targetattr!="userPassword")(version 3.0; acl "Allow anonymous read access for anyone"; allow (read,search,compare) userdn="ldap:///anyone";)
+aci: (targetattr="*")(version 3.0; acl "Allow users to update their own entries"; allow (write) userdn="ldap:///self";)
+
+dn: ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: source
+
+dn: ou=destination,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: destination
+
+dn: ou=people,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=people,ou=destination,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=groups,ou=destination,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=user.0,ou=People,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: uidObject
+sn: Brooke
+cn: Raeann Brooke
+uid: user.0
+userPassword: 2FederateM0re
+
+dn: uid=user.1,ou=People,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: uidObject
+sn: Seawell
+cn: Esko Seawell
+uid: user.1
+userPassword: 2FederateM0re
+
+dn: uid=user.2,ou=People,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: uidObject
+sn: Tancordo
+cn: Sidonia Tancordo
+uid: user.2
+userPassword: 2FederateM0re
+
+dn: uid=user.3,ou=People,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: uidObject
+sn: Knio
+cn: Pierre-Marc Knio
+uid: user.3
+userPassword: 2FederateM0re
+
+dn: cn=group.0,ou=groups,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: group.0
+member: uid=user.0,ou=People,ou=source,${USER_BASE_DN}
+member: uid=user.1,ou=People,ou=source,${USER_BASE_DN}
+
+dn: cn=group.1,ou=groups,ou=source,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: group.1
+member: uid=user.2,ou=People,ou=source,${USER_BASE_DN}
+member: uid=user.3,ou=People,ou=source,${USER_BASE_DN}

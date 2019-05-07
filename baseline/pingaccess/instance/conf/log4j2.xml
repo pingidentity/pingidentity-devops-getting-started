@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4J2 Configuration                                                 -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!--
+   | For more configuration information and examples see the Apache Log4j2
+   | website: http://logging.apache.org/log4j/2.x/
+ -->
+
+<!--
+   | Due to a bug in Log4J2, there will a message "ERROR appender <Failover-Appender> has no parameter that matches element Failovers" upon startup
+   | if Failover Appenders are enabled.  The failover appenders are configured correctly and are functional. Please disregard the error message.
+   |
+   | monitorInterval - the number of seconds before Log4J2 detects changes to the configuration file and reconfigures itself.
+ -->
+<Configuration monitorInterval="30" shutdownHook="enable" packages="com.pingidentity.pa.cli.logging.appenders.log4j2,com.pingidentity.pa.cli.logging.layouts.log4j2">
+    <Appenders>
+        <!-- ============================== -->
+        <!-- Append messages to the console -->
+        <!-- ============================== -->
+        <!-- To use, uncomment the appenderRef under "com.pingidentity" Logger -->
+
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+        </Console>
+
+        <!-- ================================= -->
+        <!-- Preserve messages in a local file -->
+        <!-- ================================= -->
+
+        <!-- Main log : A size based file rolling appender -->
+        <RollingFile name="File"
+                     fileName="${sys:pa.home}/log/pingaccess.log"
+                     filePattern="${sys:pa.home}/log/pingaccess.log.%i"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding. -->
+                <!--
+                <charset>UTF-8</charset>
+                -->
+                <!--
+                    To Activate location information uncomment the following pattern,
+                    comment out the current pattern and set "includeLocation" to true
+                    in "com.pingidentity" async logger.
+                -->
+                <!--
+                <pattern>%d{ISO8601} %5p [%X{exchangeId}] %c:%L - %m%n</pattern>
+                -->
+                <pattern>%d{ISO8601} %5p [%X{exchangeId}] %c - %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100000 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <!-- API auditing asynchronous file logging configuration-->
+        <RollingFile name="APIAuditLog-File"
+                     fileName="${sys:pa.home}/log/pingaccess_api_audit.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_api_audit.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding. -->
+                <!--
+                <charset>UTF-8</charset>
+                -->
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <!-- API Audit log : JDBC appender template for Oracle
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'ApiAuditLog-Database-Failover' for the 'apiaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the Oracle JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="ApiAuditLog-Database" tableName="api_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2OracleConnectionFactory" method="getAPIAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <Column name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <Column name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <Column name="SUBJECT" pattern="%X{AUDIT.subject}" />
+            <Column name="AUTH_MECH" pattern="%X{AUDIT.authMech}" />
+            <Column name="SCOPES" pattern="%X{AUDIT.scopes}" />
+            <Column name="CLIENT" pattern="%X{AUDIT.client}" />
+            <Column name="METHOD" pattern="%X{AUDIT.method}" />
+            <Column name="REQUEST_URI" pattern="%X{AUDIT.requestUri}" isClob="true"/>
+            <Column name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" />
+        </PingAccessJDBC>
+        <RollingFile name="ApiAuditLog-Database-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_api_audit_oracle_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_api_audit_oracle_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="ApiAuditLog-Database-Failover" primary="ApiAuditLog-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="ApiAuditLog-Database-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- API Audit log : JDBC appender template for Microsoft SQL Server
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'ApiAuditLog-SQLServer-Database-Failover' for the 'apiaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the SQL Server JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="ApiAuditLog-SQLServer-Database" tableName="api_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2SqlServerConnectionFactory" method="getAPIAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <Column name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <Column name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <Column name="SUBJECT" pattern="%X{AUDIT.subject}" />
+            <Column name="AUTH_MECH" pattern="%X{AUDIT.authMech}" />
+            <Column name="SCOPES" pattern="%X{AUDIT.scopes}" />
+            <Column name="CLIENT" pattern="%X{AUDIT.client}" />
+            <Column name="METHOD" pattern="%X{AUDIT.method}" />
+            <Column name="REQUEST_URI" pattern="%X{AUDIT.requestUri}"/>
+            <Column name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" />
+        </PingAccessJDBC>
+        <RollingFile name="ApiAuditLog-SQLServer-Database-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_api_audit_sqlserver_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_api_audit_sqlserver_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="ApiAuditLog-SQLServer-Database-Failover" primary="ApiAuditLog-SQLServer-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="ApiAuditLog-SQLServer-Database-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- API Audit log : JDBC appender template for PostgreSQL
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'ApiAuditLog-PostgreSQL' for the 'apiaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the PostgreSQL JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="ApiAuditLog-PostgreSQL-Database" tableName="api_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2PostgreSQLConnectionFactory" method="getAPIAuditConnection"/>
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <ColumnMapping name="EXCHANGE_ID" pattern="%X{exchangeId}"/>
+            <ColumnMapping name="TRACKING_ID" pattern="%X{AUDIT.trackingId}"/>
+            <ColumnMapping name="SUBJECT" pattern="%X{AUDIT.subject}"/>
+            <ColumnMapping name="AUTH_MECH" pattern="%X{AUDIT.authMech}"/>
+            <ColumnMapping name="SCOPES" pattern="%X{AUDIT.scopes}"/>
+            <ColumnMapping name="CLIENT" pattern="%X{AUDIT.client}"/>
+            <ColumnMapping name="METHOD" pattern="%X{AUDIT.method}"/>
+            <ColumnMapping name="REQUEST_URI" pattern="%X{AUDIT.requestUri}"/>
+            <ColumnMapping name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" type="java.lang.Integer"/>
+        </PingAccessJDBC>
+        <RollingFile name="ApiAuditLog-PostgreSQL-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_api_audit_postgresql_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_api_audit_postgresql_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="ApiAuditLog-PostgreSQL" primary="ApiAuditLog-PostgreSQL-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="ApiAuditLog-PostgreSQL-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- API Audit log for Splunk: A time/date based rolling appender
+
+        NOTES:
+
+        You must also uncomment the reference to this appender in "apiaudit" (under "Loggers" below)
+        before it can be used.
+
+        If you want to use UTF-8 encoding instead of system's default encoding add
+        the following line to "PatternLayout"
+        <charset>UTF-8</charset>
+        -->
+        <!--
+        <RollingFile name="ApiAudit2Splunk"
+                     fileName="${sys:pa.home}/log/pingaccess_api_audit_splunk.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_api_audit_splunk.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601} exchangeId="%X{exchangeId}" trackingId="%X{AUDIT.trackingId}" subject="%X{AUDIT.subject}" authMech="%X{AUDIT.authMech}" scopes="%X{AUDIT.scopes}" client="%X{AUDIT.client}" method="%X{AUDIT.method}" requestUri="%X{AUDIT.requestUri}" responseCode="%X{AUDIT.responseCode}" %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        -->
+
+        <!-- Engine auditing asynchronous file logging configuration-->
+        <!-- Additional Engine Audit values available:-->
+        <!-- | %X{AUDIT.failedRuleClass}-->
+        <!-- | %X{AUDIT.failedRuleSetName}-->
+        <!-- | %X{AUDIT.host}-->
+        <!-- | %X{AUDIT.targetHost}-->
+        <!-- | %X{AUDIT.reqReceivedMillisec}-->
+        <!-- | %X{AUDIT.reqSentMillisec}-->
+        <!-- | %X{AUDIT.respReceivedMillisec}-->
+        <!-- | %X{AUDIT.respSentMillisec}-->
+        <!-- | %X{AUDIT.userInfoReqSentMillisec}-->
+        <!-- | %X{AUDIT.userInfoRespReceivedMillisec}-->
+        <!-- | %X{AUDIT.applicationId}-->
+        <!-- | %X{AUDIT.resourceId}-->
+        <RollingFile name="EngineAuditLog-File"
+                     fileName="${sys:pa.home}/log/pingaccess_engine_audit.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_engine_audit.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding. -->
+                <!--
+                <charset>UTF-8</charset>
+                -->
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.proxyRoundTripMS} ms| %X{AUDIT.userInfoRoundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.failedRuleType}| %X{AUDIT.failedRuleName}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <!-- Engine Audit log : JDBC appender template for Oracle
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'EngineAuditLog-Database-Failover' for the 'engineaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the Oracle JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="EngineAuditLog-Database" tableName="engine_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2OracleConnectionFactory" method="getEngineAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <Column name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <Column name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <Column name="ROUND_TRIP_MS" pattern="%X{AUDIT.roundTripMS}" />
+            <Column name="PROXY_ROUND_TRIP_MS" pattern="%X{AUDIT.proxyRoundTripMS}" />
+            <Column name="USER_INFO_ROUND_TRIP_MS" pattern="%X{AUDIT.userInfoRoundTripMS}" />
+            <Column name="REQUESTED_RESOURCE" pattern="%X{AUDIT.resource}" />
+            <Column name="SUBJECT" pattern="%X{AUDIT.subject}" />
+            <Column name="AUTH_MECH" pattern="%X{AUDIT.authMech}" />
+            <Column name="SCOPES" pattern="%X{AUDIT.scopes}" />
+            <Column name="CLIENT" pattern="%X{AUDIT.client}" />
+            <Column name="METHOD" pattern="%X{AUDIT.method}" />
+            <Column name="REQUEST_URI" pattern="%X{AUDIT.requestUri}" isClob="true"/>
+            <Column name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" />
+            <Column name="FAILED_RULE_TYPE" pattern="%X{AUDIT.failedRuleType}" />
+            <Column name="FAILED_RULE_NAME" pattern="%X{AUDIT.failedRuleName}" />
+            <Column name="FAILED_RULE_CLASS" pattern="%X{AUDIT.failedRuleClass}" />
+            <Column name="APPLICATION_NAME" pattern="%X{AUDIT.applicationName}" />
+            <Column name="RESOURCE_NAME" pattern="%X{AUDIT.resourceName}" />
+            <Column name="PATH_PREFIX" pattern="%X{AUDIT.pathPrefix}" />
+        </PingAccessJDBC>
+        <RollingFile name="EngineAuditLog-Database-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_engine_audit_oracle_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_engine_audit_oracle_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.proxyRoundTripMS} ms| %X{AUDIT.userInfoRoundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.failedRuleType}| %X{AUDIT.failedRuleName}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="EngineAuditLog-Database-Failover" primary="EngineAuditLog-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="EngineAuditLog-Database-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- Engine Audit log : JDBC appender template for Microsoft SQL Server
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'EngineAuditLog-SQLServer-Database-Failover' for the 'engineaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the SQL Server JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="EngineAuditLog-SQLServer-Database" tableName="engine_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2SqlServerConnectionFactory" method="getEngineAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <Column name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <Column name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <Column name="ROUND_TRIP_MS" pattern="%X{AUDIT.roundTripMS}" />
+            <Column name="PROXY_ROUND_TRIP_MS" pattern="%X{AUDIT.proxyRoundTripMS}" />
+            <Column name="USER_INFO_ROUND_TRIP_MS" pattern="%X{AUDIT.userInfoRoundTripMS}" />
+            <Column name="REQUESTED_RESOURCE" pattern="%X{AUDIT.resource}" />
+            <Column name="SUBJECT" pattern="%X{AUDIT.subject}" />
+            <Column name="AUTH_MECH" pattern="%X{AUDIT.authMech}" />
+            <Column name="SCOPES" pattern="%X{AUDIT.scopes}" />
+            <Column name="CLIENT" pattern="%X{AUDIT.client}" />
+            <Column name="METHOD" pattern="%X{AUDIT.method}" />
+            <Column name="REQUEST_URI" pattern="%X{AUDIT.requestUri}"/>
+            <Column name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" />
+            <Column name="FAILED_RULE_TYPE" pattern="%X{AUDIT.failedRuleType}" />
+            <Column name="FAILED_RULE_NAME" pattern="%X{AUDIT.failedRuleName}" />
+            <Column name="FAILED_RULE_CLASS" pattern="%X{AUDIT.failedRuleClass}" />
+            <Column name="APPLICATION_NAME" pattern="%X{AUDIT.applicationName}" />
+            <Column name="RESOURCE_NAME" pattern="%X{AUDIT.resourceName}" />
+            <Column name="PATH_PREFIX" pattern="%X{AUDIT.pathPrefix}" />
+        </PingAccessJDBC>
+        <RollingFile name="EngineAuditLog-SQLServer-Database-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_engine_audit_sqlserver_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_engine_audit_sqlserver_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.proxyRoundTripMS} ms| %X{AUDIT.userInfoRoundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.failedRuleType}| %X{AUDIT.failedRuleName}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="EngineAuditLog-SQLServer-Database-Failover" primary="EngineAuditLog-SQLServer-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="EngineAuditLog-SQLServer-Database-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- Engine Audit log : JDBC appender template for PostgreSQL
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'EngineAuditLog-PostgreSQL' for the 'engineaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the PostgreSQL JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="EngineAuditLog-PostgreSQL-Database" tableName="engine_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2PostgreSQLConnectionFactory" method="getEngineAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <ColumnMapping name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <ColumnMapping name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <ColumnMapping name="ROUND_TRIP_MS" pattern="%X{AUDIT.roundTripMS}" type="java.lang.Integer"/>
+            <ColumnMapping name="PROXY_ROUND_TRIP_MS" pattern="%X{AUDIT.proxyRoundTripMS}" type="java.lang.Integer"/>
+            <ColumnMapping name="USER_INFO_ROUND_TRIP_MS" pattern="%X{AUDIT.userInfoRoundTripMS}" type="java.lang.Integer"/>
+            <ColumnMapping name="REQUESTED_RESOURCE" pattern="%X{AUDIT.resource}" />
+            <ColumnMapping name="SUBJECT" pattern="%X{AUDIT.subject}" />
+            <ColumnMapping name="AUTH_MECH" pattern="%X{AUDIT.authMech}" />
+            <ColumnMapping name="SCOPES" pattern="%X{AUDIT.scopes}" />
+            <ColumnMapping name="CLIENT" pattern="%X{AUDIT.client}" />
+            <ColumnMapping name="METHOD" pattern="%X{AUDIT.method}" />
+            <ColumnMapping name="REQUEST_URI" pattern="%X{AUDIT.requestUri}"/>
+            <ColumnMapping name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" type="java.lang.Integer"/>
+            <ColumnMapping name="FAILED_RULE_TYPE" pattern="%X{AUDIT.failedRuleType}" />
+            <ColumnMapping name="FAILED_RULE_NAME" pattern="%X{AUDIT.failedRuleName}" />
+            <ColumnMapping name="FAILED_RULE_CLASS" pattern="%X{AUDIT.failedRuleClass}" />
+            <ColumnMapping name="APPLICATION_NAME" pattern="%X{AUDIT.applicationName}" />
+            <ColumnMapping name="RESOURCE_NAME" pattern="%X{AUDIT.resourceName}" />
+            <ColumnMapping name="PATH_PREFIX" pattern="%X{AUDIT.pathPrefix}" />
+        </PingAccessJDBC>
+        <RollingFile name="EngineAuditLog-PostgreSQL-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_engine_audit_postgresql_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_engine_audit_postgresql_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.proxyRoundTripMS} ms| %X{AUDIT.userInfoRoundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.subject}| %X{AUDIT.authMech}| %X{AUDIT.scopes}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.failedRuleType}| %X{AUDIT.failedRuleName}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="EngineAuditLog-PostgreSQL" primary="EngineAuditLog-PostgreSQL-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="EngineAuditLog-PostgreSQL-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- Engine Audit log for Splunk: A time/date based rolling appender
+
+        NOTES:
+
+        You must also uncomment the reference to this appender in "engineaudit" (under "Loggers" below)
+        before it can be used.
+
+        If you want to use UTF-8 encoding instead of system's default encoding add
+        the following line to "PatternLayout"
+        <charset>UTF-8</charset>
+        -->
+        <!--
+        <RollingFile name="EngineAudit2Splunk"
+                     fileName="${sys:pa.home}/log/pingaccess_engine_audit_splunk.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_engine_audit_splunk.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d exchangeId="%X{exchangeId}" trackingId="%X{AUDIT.trackingId}" roundTripMS="%X{AUDIT.roundTripMS}" proxyRoundTripMS="%X{AUDIT.proxyRoundTripMS}" userInfoRoundTripMS="%X{AUDIT.userInfoRoundTripMS}" resource="%X{AUDIT.resource}" subject="%X{AUDIT.subject}" authMech="%X{AUDIT.authMech}" scopes="%X{AUDIT.scopes}" client="%X{AUDIT.client}" method="%X{AUDIT.method}" requestUri="%X{AUDIT.requestUri}" responseCode="%X{AUDIT.responseCode}" failedRuleType="%X{AUDIT.failedRuleType}" failedRuleName="%X{AUDIT.failedRuleName}" failedRuleClass="%X{AUDIT.failedRuleClass}" applicationName="%X{AUDIT.applicationName}" resourceName="%X{AUDIT.resourceName}" pathPrefix="%X{AUDIT.pathPrefix}" %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        -->
+
+        <!-- Agent auditing asynchronous file logging configuration-->
+        <!-- Additional Engine Audit values available:-->
+        <!-- | %X{AUDIT.failedRuleClass}-->
+        <!-- | %X{AUDIT.failedRuleSetName}-->
+        <!-- | %X{AUDIT.host}-->
+        <!-- | %X{AUDIT.roundTripMS}-->
+        <!-- | %X{AUDIT.reqReceivedMillisec}-->
+        <!-- | %X{AUDIT.respSentMillisec}-->
+        <!-- | %X{AUDIT.applicationId}-->
+        <!-- | %X{AUDIT.resourceId}-->
+        <RollingFile name="AgentAuditLog-File"
+                     fileName="${sys:pa.home}/log/pingaccess_agent_audit.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_agent_audit.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <!-- Uncomment this if you want to use UTF-8 encoding instead of system's default encoding. -->
+                <!--
+                <charset>UTF-8</charset>
+                -->
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <!-- Agent Audit log : JDBC appender template for Oracle
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'AgentAuditLog-Database-Failover' for the 'agentaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the Oracle JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="AgentAuditLog-Database" tableName="agent_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2OracleConnectionFactory" method="getAgentAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <Column name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <Column name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <Column name="ROUND_TRIP_MS" pattern="%X{AUDIT.roundTripMS}" />
+            <Column name="REQUESTED_RESOURCE" pattern="%X{AUDIT.resource}" />
+            <Column name="CLIENT" pattern="%X{AUDIT.client}" />
+            <Column name="METHOD" pattern="%X{AUDIT.method}" />
+            <Column name="REQUEST_URI" pattern="%X{AUDIT.requestUri}" isClob="true"/>
+            <Column name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" />
+            <Column name="APPLICATION_NAME" pattern="%X{AUDIT.applicationName}" />
+            <Column name="RESOURCE_NAME" pattern="%X{AUDIT.resourceName}" />
+            <Column name="PATH_PREFIX" pattern="%X{AUDIT.pathPrefix}" />
+        </PingAccessJDBC>
+        <RollingFile name="AgentAuditLog-Database-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_agent_audit_oracle_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_agent_audit_oracle_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="AgentAuditLog-Database-Failover" primary="AgentAuditLog-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="AgentAuditLog-Database-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- Agent Audit log : JDBC appender template for Microsoft SQL Server
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'AgentAuditLog-SQLServer-Database-Failover' for the 'agentaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the SQL Server JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="AgentAuditLog-SQLServer-Database" tableName="agent_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2SqlServerConnectionFactory" method="getAgentAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <Column name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <Column name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <Column name="ROUND_TRIP_MS" pattern="%X{AUDIT.roundTripMS}" />
+            <Column name="REQUESTED_RESOURCE" pattern="%X{AUDIT.resource}" />
+            <Column name="CLIENT" pattern="%X{AUDIT.client}" />
+            <Column name="METHOD" pattern="%X{AUDIT.method}" />
+            <Column name="REQUEST_URI" pattern="%X{AUDIT.requestUri}"/>
+            <Column name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" />
+            <Column name="APPLICATION_NAME" pattern="%X{AUDIT.applicationName}" />
+            <Column name="RESOURCE_NAME" pattern="%X{AUDIT.resourceName}" />
+            <Column name="PATH_PREFIX" pattern="%X{AUDIT.pathPrefix}" />
+        </PingAccessJDBC>
+        <RollingFile name="AgentAuditLog-SQLServer-Database-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_agent_audit_sqlserver_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_agent_audit_sqlserver_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="AgentAuditLog-SQLServer-Database-Failover" primary="AgentAuditLog-SQLServer-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="AgentAuditLog-SQLServer-Database-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- Agent Audit log : JDBC appender template for PostgreSQL
+
+        To enable:
+          1) Uncomment the PingAccessJDBC, RollingFile and PingAccessFailover elements below
+          2) Uncomment the reference to 'AgentAuditLog-PostgreSQL' for the 'agentaudit' Logger (in the 'Loggers' section)
+          3) Ensure that the 'log4j2.db.properties' file is populated with valid values
+          4) Ensure that the PostgreSQL JDBC driver JAR file is in the /lib directory
+
+        Note:
+          In PingAccessFailover, the 'retryIntervalSeconds' attribute may be added to specify the number of seconds that must
+          pass before retrying the primary JDBC appender.
+        -->
+        <!--
+        <PingAccessJDBC name="AgentAuditLog-PostgreSQL-Database" tableName="agent_audit_log" ignoreExceptions="false" bufferSize="256">
+            <ConnectionFactory class="com.pingidentity.pa.cli.logging.database.Log4j2PostgreSQLConnectionFactory" method="getAgentAuditConnection" />
+            <Column name="D_TIME" isEventTimestamp="true"/>
+            <ColumnMapping name="EXCHANGE_ID" pattern="%X{exchangeId}" />
+            <ColumnMapping name="TRACKING_ID" pattern="%X{AUDIT.trackingId}" />
+            <ColumnMapping name="ROUND_TRIP_MS" pattern="%X{AUDIT.roundTripMS}" type="java.lang.Integer"/>
+            <ColumnMapping name="REQUESTED_RESOURCE" pattern="%X{AUDIT.resource}" />
+            <ColumnMapping name="CLIENT" pattern="%X{AUDIT.client}" />
+            <ColumnMapping name="METHOD" pattern="%X{AUDIT.method}" />
+            <ColumnMapping name="REQUEST_URI" pattern="%X{AUDIT.requestUri}"/>
+            <ColumnMapping name="RESPONSE_CODE" pattern="%X{AUDIT.responseCode}" type="java.lang.Integer"/>
+            <ColumnMapping name="APPLICATION_NAME" pattern="%X{AUDIT.applicationName}" />
+            <ColumnMapping name="RESOURCE_NAME" pattern="%X{AUDIT.resourceName}" />
+            <ColumnMapping name="PATH_PREFIX" pattern="%X{AUDIT.pathPrefix}" />
+        </PingAccessJDBC>
+        <RollingFile name="AgentAuditLog-PostgreSQL-Failover-File"
+                     fileName="${sys:pa.home}/log/pingaccess_agent_audit_postgresql_failover.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_agent_audit_postgresql_failover.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d{ISO8601}| %X{exchangeId}| %X{AUDIT.trackingId}| %X{AUDIT.roundTripMS} ms| %X{AUDIT.resource}| %X{AUDIT.client}| %X{AUDIT.method}| %X{AUDIT.requestUri}| %X{AUDIT.responseCode}| %X{AUDIT.applicationName}| %X{AUDIT.resourceName}| %X{AUDIT.pathPrefix} %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <PingAccessFailover name="AgentAuditLog-PostgreSQL" primary="AgentAuditLog-PostgreSQL-Database" error="File">
+            <Failovers>
+                <AppenderRef ref="AgentAuditLog-PostgreSQL-Failover-File"/>
+            </Failovers>
+        </PingAccessFailover>
+        -->
+
+        <!-- Agent Audit log for Splunk: A time/date based rolling appender
+
+        NOTES:
+
+        You must also uncomment the reference to this appender in "agentaudit" (under "Loggers" below)
+        before it can be used.
+
+        If you want to use UTF-8 encoding instead of system's default encoding add
+        the following line to "PatternLayout"
+        <charset>UTF-8</charset>
+        -->
+        <!--
+        <RollingFile name="AgentAudit2Splunk"
+                     fileName="${sys:pa.home}/log/pingaccess_agent_audit_splunk.log"
+                     filePattern="${sys:pa.home}/log/pingaccess_agent_audit_splunk.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="false">
+            <PatternLayout>
+                <pattern>%d exchangeId="%X{exchangeId}" trackingId="%X{AUDIT.trackingId}" roundTripMS="%X{AUDIT.roundTripMS}" resource="%X{AUDIT.resource}" client="%X{AUDIT.client}" method="%X{AUDIT.method}" requestUri="%X{AUDIT.requestUri}" responseCode="%X{AUDIT.responseCode}" applicationName="%X{AUDIT.applicationName}" resourceName="%X{AUDIT.resourceName}" pathPrefix="%X{AUDIT.pathPrefix}" %n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        -->
+
+        <!-- ================================================= -->
+        <!--                   Syslog Appender                 -->
+        <!-- ================================================= -->
+        <!-- To use, uncomment the appenderRef under "com.pingidentity" Logger -->
+
+        <!-- Syslog events - Custom pattern
+        <Socket name="SYSLOG" host="localhost" port="514" protocol="UDP">
+            <PingSyslogLayout facility="LOCAL0">
+                <PatternLayout>
+                    <pattern>%d{ABSOLUTE} %5p %c:%L - %m%n</pattern>
+                </PatternLayout>
+            </PingSyslogLayout>
+        </Socket>
+        -->
+    </Appenders>
+
+    <Loggers>
+        <!-- PingAccess Loggers-->
+        <AsyncLogger name="com.pingidentity" level="INFO" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+            <!--<AppenderRef ref="CONSOLE" />-->
+            <!--<AppenderRef ref="SYSLOG" />-->
+        </AsyncLogger>
+
+        <!-- Logs details/ordering of service proxies -->
+        <AsyncLogger name="com.pingidentity.pa.core.proxies.ProxyInfoLogger" level="INFO"/>
+
+        <!-- Log incoming and outgoing cookies-->
+        <!--
+        <AsyncLogger name="com.pingidentity.pa.core.interceptor.CookieLoggingInterceptor" level="TRACE" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        -->
+
+        <!-- Audit Log Configuration-->
+        <Logger name="apiaudit" level="INFO" additivity="false">
+            <AppenderRef ref="APIAuditLog-File"/>
+            <!--<AppenderRef ref="ApiAuditLog-Database-Failover"/>-->
+            <!--<AppenderRef ref="ApiAuditLog-SQLServer-Database-Failover"/>-->
+            <!--<AppenderRef ref="ApiAuditLog-PostgreSQL"/>-->
+            <!--<AppenderRef ref="ApiAudit2Splunk"/>-->
+        </Logger>
+        <Logger name="engineaudit" level="INFO" additivity="false">
+            <AppenderRef ref="EngineAuditLog-File"/>
+            <!--<AppenderRef ref="EngineAuditLog-Database-Failover"/>-->
+            <!--<AppenderRef ref="EngineAuditLog-SQLServer-Database-Failover"/>-->
+            <!--<AppenderRef ref="EngineAuditLog-PostgreSQL"/>-->
+            <!--<AppenderRef ref="EngineAudit2Splunk"/>-->
+        </Logger>
+        <Logger name="agentaudit" level="INFO" additivity="false">
+            <AppenderRef ref="AgentAuditLog-File"/>
+            <!--<AppenderRef ref="AgentAuditLog-Database-Failover"/>-->
+            <!--<AppenderRef ref="AgentAuditLog-SQLServer-Database-Failover"/>-->
+            <!--<AppenderRef ref="AgentAuditLog-PostgreSQL"/>-->
+            <!--<AppenderRef ref="AgentAudit2Splunk"/>-->
+        </Logger>
+
+        <!--Third-party dependencies-->
+        <AsyncLogger name="com.netflix" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="com.netflix.config.sources.URLConfigurationSource" level="FATAL" additivity="false"
+                     includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="net.sf.ehcache" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="net.sf.ehcache.config.CacheConfiguration" level="ERROR" additivity="false"
+                     includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.springframework" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.springframework.orm.jpa" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.hibernate" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory" level="ERROR" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.hibernate.jpa.internal.util.LogHelper" level="FATAL" additivity="false"
+                     includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.apache.http" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="java.sql.DatabaseMetaData" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="com.wordnik.swagger" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="io.netty" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.jose4j.jwe.kdf" level="WARN" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+        <AsyncLogger name="org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator" level="ERROR" additivity="false" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncLogger>
+
+        <!-- Root Logger-->
+        <AsyncRoot level="INFO" includeLocation="false">
+            <AppenderRef ref="File"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

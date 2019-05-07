@@ -1,0 +1,10 @@
+#
+# Make the sync log more explicit
+#
+dsconfig set-log-publisher-prop \
+	--publisher-name "File-Based Sync Logger" \
+	--remove logged-message-type:change-applied \
+	--remove logged-message-type:change-detected \
+	--add logged-message-type:change-applied-detailed \
+	--add logged-message-type:change-detected-detailed \
+	--add logged-message-type:entry-mapping-details

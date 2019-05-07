@@ -1,0 +1,27 @@
+#
+# Configure the automatic purging of expired session groups
+#    
+dsconfig create-plugin \
+    --plugin-name ExpiredSessionAutoPurge  \
+    --type purge-expired-data  \
+    --set enabled:true  \
+    --set datetime-attribute:pf-authn-session-group-expiry-time  \
+    --set "expiration-offset:1 h"  \
+    --set purge-behavior:subtree-delete-entries  \
+    --set base-dn:ou=sessions,${USER_BASE_DN}  \
+    --set "filter:(objectClass=pf-authn-session-groups)"  \
+    --set "polling-interval:20 m"
+
+#
+# Configure the automatic purging of sessions idle for over a week
+#
+dsconfig create-plugin \
+    --plugin-name IdleSessionAutoPurge  \
+    --type purge-expired-data  \
+    --set enabled:true  \
+    --set datetime-attribute:pf-authn-session-group-last-activity-time  \
+    --set "expiration-offset:1 w"  \
+    --set purge-behavior:subtree-delete-entries  \
+    --set base-dn:ou=sessions,${USER_BASE_DN}\
+    --set "filter:(objectClass=pf-authn-session-groups)"  \
+    --set "polling-interval:1 d"

@@ -1,0 +1,34 @@
+#
+# NOTICE: the values in this file will override the values provided to the container
+#         
+#         if that is not the intent, and a default value should be set instead
+#         use a syntax like:
+#         export MY_ENVIRONMENT_VARIABLE_0=${MY_ENVIRONMENT_VARIABLE_0:=myDefaultValue}
+#                or
+#         export MY_ENVIRONMENT_VARIABLE_1=${MY_ENVIRONMENT_VARIABLE_1:-wasNotSetElsewhere}
+# The path to the root user password file
+# This does not necessarily need to be passed in to the container
+# Default to /usr/local/secret to be passed via docker secrets
+# Retrieve from a vault ideally instead of this
+export ROOT_USER_PASSWORD_FILE=${ROOT_USER_PASSWORD_FILE:-${BASE}/staging/pwd}
+
+# The location should be provided
+# it defaults to Docker
+export LOCATION=${LOCATION:-Orlando}
+
+
+USER_BASE_DN=o=sync
+
+# The root user may be provided (Default: cn=directory manager)
+#ROOT_USER_DN=cn=administrator
+
+# The Java heap size may be provided
+# MAX_HEAP_SIZE=384m
+
+# The server certificate alias to use
+# Customize this if you are providing a keystore in instance/config/keystore (for JKS)
+# or instance/config/keystore.p12 (for PKCS#12)
+# and the server certificate alias is not the default server-cert
+# CERTIFICATE_NICKNAME=server-cert
+
+#TAIL_LOG_FILES="${SERVER_ROOT_DIR}/logs/sync ${SERVER_ROOT_DIR}/logs/errors"

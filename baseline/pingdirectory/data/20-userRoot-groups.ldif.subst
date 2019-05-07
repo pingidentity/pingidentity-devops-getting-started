@@ -1,0 +1,36 @@
+dn: cn=group.0,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: group.0
+member: uid=user.0,ou=people,${USER_BASE_DN}
+
+dn: cn=group.1,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: group.1
+member: uid=user.1,ou=people,${USER_BASE_DN}
+
+dn: cn=PFAdminGroup,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: PFAdminGroup
+member: uid=administrator,ou=people,${USER_BASE_DN}
+member: uid=access2federate,ou=People,${USER_BASE_DN}
+
+dn: cn=PFCryptoGroup,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: PFCryptoGroup
+member: uid=administrator,ou=people,${USER_BASE_DN}
+
+dn: cn=PFAuditorGroup,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: PFAuditorGroup
+member: uid=auditor,ou=people,${USER_BASE_DN}
+
+dn: cn=PFUserAdminGroup,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: PFUserAdminGroup
+member: uid=administrator,ou=people,${USER_BASE_DN}

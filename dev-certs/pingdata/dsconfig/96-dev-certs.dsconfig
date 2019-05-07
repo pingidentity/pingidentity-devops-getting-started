@@ -1,0 +1,8 @@
+dsconfig set-key-manager-provider-prop \
+    --provider-name JKS  \
+    --set key-store-file:dev-docker.jks  \
+    --set key-store-pin-file:dev-docker.pin
+dsconfig set-trust-manager-provider-prop \
+    --provider-name JKS  \
+    --set trust-store-file:dev-config.jks  \
+    --set trust-store-pin-file:dev-docker.pin

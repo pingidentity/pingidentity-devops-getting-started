@@ -1,0 +1,41 @@
+
+#
+# Configure the sync pipe end-to-end
+#
+dsconfig create-external-server \
+    --server-name pingdirectory \
+    --type ping-identity-ds \
+	--set server-host-name:pingdirectory \
+	--set location:${LOCATION} \
+	--set bind-dn:cn=sync \
+	--set "password:AABkwRkIRfApR+R1uZPSciaUPmtEtTzjC/4=" \
+	--set initial-connections:1 \
+	--set max-connections:4
+dsconfig create-sync-source \
+    --source-name pingdirectory_source  \
+    --type ping-identity  \
+    --set base-dn:ou=source,${USER_BASE_DN}  \
+    --set server:pingdirectory  \
+    --set use-changelog-batch-request:true
+dsconfig create-sync-destination \
+	--destination-name pingdirectory_destination \
+	--type ping-identity \
+	--set base-dn:ou=destination,${USER_BASE_DN} \
+	--set server:pingdirectory
+dsconfig create-sync-pipe \
+    --pipe-name pingdirectory_source-to-pingdirectory_destination  \
+    --set sync-source:pingdirectory_source  \
+    --set sync-destination:pingdirectory_destination  \
+    --set "change-detection-polling-interval:1 s"  \
+    --set num-worker-threads:1
+dsconfig create-dn-map \
+    --map-name source_to_destination  \
+    --set 'from-dn-pattern:**,ou=source,${USER_BASE_DN}'  \
+    --set "to-dn-pattern:{1},ou=destination,${USER_BASE_DN}"
+dsconfig create-sync-class \
+    --pipe-name pingdirectory_source-to-pingdirectory_destination  \
+    --class-name everythin_as_is  \
+    --set dn-map:source_to_destination  \
+    --set ignore-zero-length-values:true  \
+    --set modifies-as-creates:true  \
+    --set creates-as-modifies:true

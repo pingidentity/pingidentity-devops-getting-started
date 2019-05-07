@@ -1,0 +1,15 @@
+dsconfig create-request-criteria \
+    --criteria-name pingid-criteria \
+    --type simple \
+    --set operation-type:bind \
+    --set operation-origin:external-request \
+    --set included-target-entry-dn:ou=people,${USER_BASE_DN}
+
+dsconfig create-plugin \
+    --plugin-name pingid-plugin \
+    --type third-party \
+    --set enabled:false \
+    --set plugin-type:preparsebind \
+    --set request-criteria:pingid-criteria \
+    --set extension-class:com.pingidentity.ds.plugin.PingIDOnSimpleBind \
+    --set extension-argument:pingid-properties-file=/opt/in/pingid.properties

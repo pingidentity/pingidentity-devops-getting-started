@@ -1,0 +1,17 @@
+define suffix=${USER_BASE_DN}
+define maildomain=example.com
+define numusers=${MAKELDIF_USERS}
+
+branch: ou=people,[suffix]
+subordinateTemplate: benchy:[numusers]
+
+template: benchy
+rdnAttr: uid
+objectClass: top
+objectClass: person
+objectClass: uidObject
+uid: benchy.<sequential:0>
+sn: user
+cn: benchmark
+userPassword: 2FederateM0re
+description: This is the description for {uid}

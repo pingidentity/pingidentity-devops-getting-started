@@ -1,0 +1,15 @@
+ID=1214442
+Product=PingFederate
+Version=9.2
+IssueDate=2019-05-4
+EnforcementType=1
+ExpirationDate=2019-05-11
+ConnectionLimit=3
+NodeLimit=3
+Tier=Free
+SaasProvisioning=true
+WSTrustSTS=true
+OAuth=true
+GracePeriod=0
+SignCode=FF1F
+Signature=302C0214469F165C62F540FBF7B134A4C3CEB9A50B2722EA021433AD3A517EEA56ED6E46E4619C1A417F9B093184

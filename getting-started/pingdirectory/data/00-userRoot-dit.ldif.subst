@@ -1,0 +1,11 @@
+dn: ${USER_BASE_DN}
+objectClass: top
+objectClass: domain
+dc: example
+aci: (targetattr!="userPassword")(version 3.0; acl "Allow anonymous read access for anyone"; allow (read,search,compare) userdn="ldap:///anyone";)
+aci: (targetattr="*")(version 3.0; acl "Allow users to update their own entries"; allow (write) userdn="ldap:///self";)
+
+dn: ou=people,${USER_BASE_DN}
+objectClass: top
+objectClass: organizationalUnit
+ou: people

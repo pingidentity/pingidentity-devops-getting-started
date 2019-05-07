@@ -1,0 +1,6 @@
+#
+# Turn the audit log (this tiny container is probably just for demo)
+#
+dsconfig set-log-publisher-prop \
+    --publisher-name "Data Recovery Log"  \
+    --set enabled:false

@@ -1,0 +1,4 @@
+dsconfig create-subtree-view \
+    --view-name pingdirectory  \
+    --set base-dn:${USER_BASE_DN}  \
+    --set request-processor:pingdirectory

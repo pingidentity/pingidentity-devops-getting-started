@@ -1,0 +1,6 @@
+
+# Enabling the changelog allows the use of Sync
+dsconfig set-backend-prop \
+    --backend-name changelog \
+    --set enabled:true \
+    --set "changelog-maximum-age:2 h"

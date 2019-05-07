@@ -1,0 +1,5 @@
+dsconfig create-load-balancing-algorithm \
+    --algorithm-name pingdirectory \
+    --type fewest-operations \
+    --set enabled:true \
+    --set backend-server:pingdirectory

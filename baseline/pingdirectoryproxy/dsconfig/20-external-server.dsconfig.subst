@@ -1,0 +1,7 @@
+dsconfig create-external-server \
+    --server-name pingdirectory  \
+    --type ping-identity-ds  \
+    --set server-host-name:pingdirectory  \
+    --set location:Docker  \
+    --set bind-dn:cn=pingdirectoryproxy  \
+    --set password<${ROOT_USER_PASSWORD_FILE}

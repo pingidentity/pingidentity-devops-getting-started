@@ -1,0 +1,14 @@
+#
+# Ping Data Sync User
+#
+dsconfig create-root-dn-user \
+    --user-name "Ping Data Sync"  \
+    --set alternate-bind-dn:cn=sync  \
+    --set alternate-bind-dn:cn=datasync  \
+    --set inherit-default-root-privileges:false  \
+    --set password:2FederateM0re  \
+    --set privilege:bypass-acl  \
+    --set privilege:bypass-pw-policy  \
+    --set privilege:config-read  \
+    --set privilege:password-reset  \
+    --set privilege:unindexed-search

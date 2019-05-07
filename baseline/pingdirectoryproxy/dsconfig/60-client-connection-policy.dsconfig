@@ -1,0 +1,3 @@
+dsconfig set-client-connection-policy-prop \
+    --policy-name default  \
+    --set subtree-view:pingdirectory
