@@ -5,10 +5,10 @@ services:
     image: pingidentity/pingaccess:edge
     command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
     environment: 
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_URL=https://github.com/jblantz/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=getting-started/pingaccess
       - SERVER_PROFILE_PARENT=LICENSE
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/jblantz/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_LICENSE_PATH=licenses/pingaccess
     ports:
       - 443:443
@@ -20,10 +20,10 @@ services:
     image: pingidentity/pingfederate:edge
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_URL=https://github.com/jblantz/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
       - SERVER_PROFILE_PARENT=LICENSE
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/jblantz/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_LICENSE_PATH=licenses/pingfederate
     ports:
       - 9031:9031
@@ -37,10 +37,10 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory:edge
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_URL=https://github.com/jblantz/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
       - SERVER_PROFILE_PARENT=LICENSE
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/jblantz/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
       - TOPOLOGY_PREFIX=03-full-stack_pingdirectory_
       - VERBOSE=true
