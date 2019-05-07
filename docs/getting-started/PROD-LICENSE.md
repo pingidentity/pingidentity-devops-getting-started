@@ -18,10 +18,10 @@ Ping Identity will provide a DevOps Key to any user registered as a
 developer with Ping Idenitity.
 You must follow the steps listed below to obtain a Ping Identity DevOps User and Key
 
-* Login to your [Ping Identity Account](https://www.pingidentity.com/content/ping/en/account.html).
-  * If you don't have an account, create one.
+* Ensure you are enrolled in the Ping Identtiy Developer Program.  Not sure, click the link for [Join developer program](https://www.pingidentity.com/en/account/register.html?type=developer) and follow instructions.  
+  * If you don't have an account, please create one.
+  * Otherwise, sign-in.
   * Your DEVOPS-USER is your email.
-* Ensure you are enrolled in the Developer Program.  If not, click the link for [Join developer program](https://www.pingidentity.com/en/account/register.html?type=developer) and follow instructions.
 * Request your DEVOPS-KEY from the [FORM](...).
 
 You should now have a DEVOPS-USER and DEVOPS-KEY.
