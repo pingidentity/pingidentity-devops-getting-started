@@ -2,7 +2,7 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
-* [Product Licenses](docs/getting-started/PROD-LICENSE.md)
+* [Product Licenses](docs/PROD-LICENSE.md)
 * [Docker Images](docs/docker-images/README.md)
   * [Ping Federate](docs/docker-images/PING_FEDERATE.md)
   * [Ping Access](docs/docker-images/PING_ACCESS.md)
