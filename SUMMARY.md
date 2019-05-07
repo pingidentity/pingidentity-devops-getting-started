@@ -2,6 +2,7 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
+* [Product Licenses](docs/getting-started/PROD-LICENSE.md)
 * [Docker Images](docs/docker-images/README.md)
   * [Ping Federate](docs/docker-images/PING_FEDERATE.md)
   * [Ping Access](docs/docker-images/PING_ACCESS.md)
@@ -11,7 +12,6 @@
   * [Ping DataConsole](docs/docker-images/PING_DATA_CONSOLE.md)
   * [Ping Downloader](docs/docker-images/PING_DOWNLOADER.md)
 * [Getting Started Examples](docs/getting-started/README.md)
-  * [Obtain Product License](docs/getting-started/PROD-LICENSE.md)
   * [Quick Start](docs/getting-started/QUICKSTART.md)
   * [Docker Standalone](10-docker-standalone/README.md)
     * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
