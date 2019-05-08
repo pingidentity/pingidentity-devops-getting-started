@@ -1,0 +1,71 @@
+version: "3.1"
+
+services:
+  pingdirectoryproxy:
+    image: pingidentity/pingdirectoryproxy:edge
+    volumes:
+      # you need to have your pingid.properties file in this directory on your host
+      - /tmp/pingid:/opt/in
+    environment:
+      - VERBOSE=true
+      # this server profile installs and configures the PingID extension
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=pingid-ldap-proxy/pingdirectoryproxy
+      - SERVER_PROFILE_PARENT=BASELINE
+      # this server profile configures proxy to operate with pingdirectory
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingdirectoryproxy
+      - SERVER_PROFILE_BASELINE_PARENT=LICENSE
+      # this server profile delivers the license
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
+      - SERVER_PROFILE_LICENSE_PARENT=CERTS
+      # this server profile provides our dev certificates
+      - SERVER_PROFILE_CERTS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_CERTS_PATH=dev-certs/pingdata
+    ports:
+      - 2636:636
+      - 2389:389
+      - 2443:443
+      - 2005:5005
+    networks:
+      - pingnet-internal
+
+
+  pingdirectory:
+    image: pingidentity/pingdirectory:edge
+    environment:
+      - VERBOSE=false
+      # This server profile delivers extensions
+      - SERVER_PROFILE_URL=https://github.com/arnaudlacour/pingidentity-autoinstall-extensions.git
+      - SERVER_PROFILE_PATH=pingdirectory
+      - SERVER_PROFILE_PARENT=BASELINE
+      # This server profile delivers the bulk of the configuration
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingdirectory
+      - SERVER_PROFILE_BASELINE_PARENT=LICENSE
+      # this server profile delivers the license
+      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
+      - SERVER_PROFILE_LICENSE_PARENT=CERTS
+      # this server profile provides our dev certificates
+      - SERVER_PROFILE_CERTS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_CERTS_PATH=dev-certs/pingdata
+    ports:
+      - 1636:636
+      - 1389:389
+      - 1443:443
+      - 5005:5005
+    networks:
+      - pingnet-internal
+
+  pingdataconsole:
+    image: pingidentity/pingdataconsole:edge
+    ports:
+      - 8080:8080
+      - 8443:8443
+    networks: 
+      - pingnet-internal
+
+networks:
+    pingnet-internal:
