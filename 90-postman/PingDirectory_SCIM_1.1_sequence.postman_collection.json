@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "c5be6ccc-1bde-4f57-8327-3063a3cf197b",
+		"name": "PingDirectory SCIM 1.1 sequence",
+		"description": "This collection demonstrates a sequence of [SCIM 1.1](https://www.pingidentity.com/content/developer/en/resources/scim-1-1-developers-guide.html) calls that leave the target PingDirectory or PingDirectoryProxy unchanged and can be repeated. It does the following:\n # create a group\n # create a user\n # update the user\n # add the user to the group\n # remove the user from the group\n # delete the user\n # delete the group",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SCIM create group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be4f3f3c-2456-4833-b90b-be7b0a48a128",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"groupId\", jsonData.id);",
+							"console.log(\"group id: \"+jsonData.id)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f9095bb1-3fe2-43fa-aa2f-1ddbd944cebc",
+						"exec": [
+							"// Generate a random group ID (one in 10,000,000 chance of collision)",
+							"pm.variables.set(\"groupRandom\", _.random(0,9999999));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"displayName\": \"postman.group.{{groupRandom}}\"\n}"
+				},
+				"url": {
+					"raw": "{{groupUrl}}",
+					"host": [
+						"{{groupUrl}}"
+					]
+				},
+				"description": "Create an empty group so that users can later be grouped together. The resulting id is saved into an environment varable for reuse later in the sequence. Look in the \"Tests\" tab to see how this is done."
+			},
+			"response": []
+		},
+		{
+			"name": "SCIM create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74ac1c37-e2a4-4ee4-b12b-5148e8bdf788",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"userId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "05480a39-d759-4d82-9673-2cbd5fbcaa25",
+						"exec": [
+							"// Generate a random user ID (one in 10,000,000 chance of collision)",
+							"pm.variables.set(\"userRandom\", _.random(0,9999999));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:scim:schemas:core:1.0\"\n    ],\n    \"urn:scim:schemas:core:1.0\": {\n        \"name\": {\n            \"formatted\": \"Postman User.{{userRandom}}\",\n            \"givenName\": \"User.{{userRandom}}\",\n            \"familyName\": \"Postman\"\n        },\n        \"addresses\": [\n            {\n                \"streetAddress\": \"01781 Fourteenth Street\",\n                \"formatted\": \"Aundrea Royster\\n01781 Fourteenth Street\\nAmarillo, CT  80163\",\n                \"postalCode\": \"80163\",\n                \"locality\": \"Amarillo\",\n                \"region\": \"CT\",\n                \"type\": \"work\"\n            }\n        ],\n        \"phoneNumbers\": [\n            {\n                \"value\": \"tel:+1-088-520-6630\",\n                \"type\": \"work\"\n            },\n            {\n                \"value\": \"tel:+1-159-300-3603\",\n                \"type\": \"mobile\"\n            },\n            {\n                \"value\": \"tel:+1-698-047-7770\",\n                \"type\": \"home\"\n            }\n        ],\n        \"userName\": \"postman.user.{{userRandom}}\",\n        \"emails\": [\n            {\n                \"value\": \"postman.user.{{userRandom}}@example.com\",\n                \"type\": \"work\"\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "{{userUrl}}",
+					"host": [
+						"{{userUrl}}"
+					]
+				},
+				"description": "Create a sample user. This is to demonstrate the payload in the POST body.The resulting id is saved into a environment vairable for reuse later in the sequence."
+			},
+			"response": []
+		},
+		{
+			"name": "SCIM update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74ac1c37-e2a4-4ee4-b12b-5148e8bdf788",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:scim:schemas:core:1.0\"\n    ],\n    \"urn:scim:schemas:core:1.0\": {\n        \"emails\": [\n            {\n                \"value\": \"postman.user.{{userRandom}}.external@example.com\",\n                \"type\": \"work\"\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "{{userUrl}}/{{userId}}",
+					"host": [
+						"{{userUrl}}"
+					],
+					"path": [
+						"{{userId}}"
+					]
+				},
+				"description": "Update the user information. This is demonstrate the payload in the PATCH body. This also shows how to reference the userId environment variable saved in a previous step of the sequence. "
+			},
+			"response": []
+		},
+		{
+			"name": "SCIM add user to group",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:scim:schemas:core:1.0\"\n    ],\n    \"members\": [\n        {\n            \"value\": \"{{userId}}\",\n            \"operation\": \"add\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{groupUrl}}/{{groupId}}",
+					"host": [
+						"{{groupUrl}}"
+					],
+					"path": [
+						"{{groupId}}"
+					]
+				},
+				"description": "Adds the newly created user into the group created in the first step of the sequence, reusing the id of the group and the id of the user."
+			},
+			"response": []
+		},
+		{
+			"name": "SCIM remove user from group",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:scim:schemas:core:1.0\"\n    ],\n    \"members\": [\n        {\n            \"value\": {{userId}},\n            \"operation\": \"delete\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{groupUrl}}/{{groupId}}",
+					"host": [
+						"{{groupUrl}}"
+					],
+					"path": [
+						"{{groupId}}"
+					]
+				},
+				"description": "This steps shows how to remove a member from a group."
+			},
+			"response": []
+		},
+		{
+			"name": "SCIM delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74ac1c37-e2a4-4ee4-b12b-5148e8bdf788",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "2FederateM0re",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cn=administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"schemas\": [\n        \"urn:scim:schemas:core:1.0\"\n    ],\n    \"urn:scim:schemas:core:1.0\": \n        {\n            \"name\": {\n                \"formatted\": \"Postman.User.0\",\n                \"givenName\": \"User.0\",\n                \"familyName\": \"Postman\"\n            },\n            \"addresses\": [\n                {\n                    \"streetAddress\": \"01781 Fourteenth Street\",\n                    \"formatted\": \"Aundrea Royster\\n01781 Fourteenth Street\\nAmarillo, CT  80163\",\n                    \"postalCode\": \"80163\",\n                    \"locality\": \"Amarillo\",\n                    \"region\": \"CT\",\n                    \"type\": \"work\"\n                }\n            ],\n            \"phoneNumbers\": [\n                {\n                    \"value\": \"tel:+1-088-520-6630\",\n                    \"type\": \"work\"\n                },\n                {\n                    \"value\": \"tel:+1-159-300-3603\",\n                    \"type\": \"mobile\"\n                },\n                {\n                    \"value\": \"tel:+1-698-047-7770\",\n                    \"type\": \"home\"\n                }\n            ],\n            \"userName\": \"postman.user.0\",\n            \"emails\": [\n                {\n                    \"value\": \"postman.user.0@example.com\",\n                    \"type\": \"work\"\n                }\n            ]\n        }\n}"
+				},
+				"url": {
+					"raw": "{{userUrl}}/{{userId}}",
+					"host": [
+						"{{userUrl}}"
+					],
+					"path": [
+						"{{userId}}"
+					]
+				},
+				"description": "This step reuses the userId environment variable to delete the user"
+			},
+			"response": []
+		},
+		{
+			"name": "SCIM delete group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be4f3f3c-2456-4833-b90b-be7b0a48a128",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"displayName\": \"postman.group.0\"\n}"
+				},
+				"url": {
+					"raw": "{{groupUrl}}/{{groupId}}",
+					"host": [
+						"{{groupUrl}}"
+					],
+					"path": [
+						"{{groupId}}"
+					]
+				},
+				"description": "This step deletes the group to leave the target server in the same state it was found."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{user}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3bc59c3d-4674-4702-a028-9c3efb3bd530",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "cb1ed193-6629-4e91-ad8c-d5abab4c2dfe",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Success\",function(){pm.response.to.be.success});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "adb912d0-1602-400a-ac2a-b08f9a03ccd5",
+			"key": "user",
+			"value": "cn=administrator",
+			"type": "string"
+		},
+		{
+			"id": "2fad1a65-f847-4ce8-9932-fc74c319cfdc",
+			"key": "password",
+			"value": "2FederateM0re",
+			"type": "string"
+		},
+		{
+			"id": "59b2fdfa-534a-4340-b6a9-6fc4ff7102f1",
+			"key": "host",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"id": "3147a0a9-2903-4fcb-9d6d-ecbb27ec3525",
+			"key": "port",
+			"value": "8443",
+			"type": "string"
+		},
+		{
+			"id": "a0c139a4-065b-4ce0-b7b6-f1b3b2785b79",
+			"key": "protocol",
+			"value": "https",
+			"type": "string"
+		},
+		{
+			"id": "be3fb66d-8e2a-4227-869b-782c5e488f0f",
+			"key": "scimUrl",
+			"value": "{{protocol}}://{{host}}:{{port}}/scim",
+			"type": "string"
+		},
+		{
+			"id": "08e351cd-3377-4ba0-b7f9-a1be03e40c24",
+			"key": "groupUrl",
+			"value": "{{scimUrl}}/Groups",
+			"type": "string"
+		},
+		{
+			"id": "83ccfceb-ba8c-4538-ac6b-fd8b80928b27",
+			"key": "userUrl",
+			"value": "{{scimUrl}}/Users",
+			"type": "string"
+		}
+	]
+}
