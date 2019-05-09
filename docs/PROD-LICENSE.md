@@ -15,10 +15,10 @@ to run the images:
 
 ## Obtaining a Ping Identity DevOps User and Key
 Ping Identity will provide a DevOps Key to any user registered as a 
-developer with Ping Idenitity.
+developer with Ping Identity.
 You must follow the steps listed below to obtain a Ping Identity DevOps User and Key
 
-* Ensure you are enrolled in the Ping Identtiy Developer Program.  Not sure, click the link for [Join developer program](https://www.pingidentity.com/en/account/register.html?type=developer) and follow instructions.  
+* Ensure you are enrolled in the Ping Identity Developer Program.  Not sure, click the link for [Join developer program](https://www.pingidentity.com/en/account/register.html?type=developer) and follow instructions.
   * If you don't have an account, please create one.
   * Otherwise, sign-in.
   * Your DEVOPS-USER is your email.
@@ -41,7 +41,7 @@ export PING_IDENTITY_DEVOPS_KEY=<your DEVOPS-KEY>
 ## Using your DevOps User/Key
 When starting an image, you can provide your
 DevOps User/Key via environment variables.  The
-example .yaml files are setup to automatically 
+example .yaml files are set up to automatically
 get your DevOps User/Key from the environment 
 variables provided in the previous section.
 
@@ -95,4 +95,4 @@ ignore the DevOps User/Key.
 * PingDataSync - `instance/PingDirectory.lic`
 
 ## Troubleshooting
-If you are any quesitons or issues, please contact [devops_program@pingidentity.com](mailto:devops_program@pingidentity.com).
+If you have any quesitons or issues, please contact [devops_program@pingidentity.com](mailto:devops_program@pingidentity.com).
