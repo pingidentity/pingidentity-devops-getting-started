@@ -58,6 +58,7 @@ services:
       - 8443:8443
     networks: 
       - pingnet-internal
+      - pingnet-dmz
               
 networks:
     pingnet-internal:
