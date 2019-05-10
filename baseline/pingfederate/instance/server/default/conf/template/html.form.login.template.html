@@ -52,7 +52,7 @@ is not recommended as it may interfere with expected server behavior.
     #end
 </head>
 
-<body style="background-image:url('assets/images/boeing2.jpg');background-position:center;background-size: 100%;" onload="setFocus()">
+<body onload="setFocus();">
 
 <div class="ping-container ping-signin login-template">
 
@@ -61,7 +61,7 @@ is not recommended as it may interfere with expected server behavior.
     then 'has-logo' class should be added to 'ping-header' container.
     -->
     <div class="ping-header">
-        <span class="company-logo">"assets/images/boeing1.jpeg"</span>
+        <span class="company-logo"><!-- client company logo here --></span>
         $templateMessages.getMessage($messageKeyPrefix, "title")
     </div>
     <!-- .ping-header -->
