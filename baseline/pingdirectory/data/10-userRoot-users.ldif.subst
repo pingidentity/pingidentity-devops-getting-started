@@ -68,6 +68,7 @@ sn: PingFederate
 cn: Administrator
 uid: administrator
 userPassword: 2FederateM0re
+ds-privilege-name: proxied-auth
 pf-connected-identity: auth-source=pf-local-identity:user-id=administrator
 
 dn: uid=access2federate,ou=People,${USER_BASE_DN}
