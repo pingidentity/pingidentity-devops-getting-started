@@ -1,0 +1,95 @@
+#!/bin/bash
+cd "$( dirname "${0}" )"
+THIS="$( basename "${0}" )"
+THIS_DIR=`pwd`
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo "
+
+################################################################################
+
+                     Welcome to Ping Identity DevOps!
+
+  We will run through a few setup items to make your experiance as easy as 
+  possible.  If we have recommendations along the way, we'll provide that
+  also.
+"
+
+echo "
+####################### bash_profile_docker ####################################"
+
+grep "bash_profile_docker" ~/.bash_profile > /dev/null
+
+if test "${?}" == "1"; then
+  echo "  First, let's add a bunch of DevOps helper alias' and functions to your
+  shell.  We are assuming you use bash and will add these to your .bash_profile
+"
+
+
+  echo -n "  OK if we source our bash_profile_docker commands to your .bash_profile (y/n) [y] ? "
+  read answer
+
+  if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
+    echo "
+# Ping Identity DevOps Aliases - Added with setup on `date`
+source ${THIS_DIR}/bash_profile_docker" >> ~/.bash_profile
+    echo -e "  ${GREEN}OK, we got you setup.  You can get help with 'dhelp' command${NC}"
+  fi
+else
+  echo -e "  ${GREEN}OK, you already have bash_profile_docker in your .bash_profile${NC}"
+fi
+
+echo "
+####################### docker #################################################"
+
+echo "  Let's check your docker version installed...
+------"
+docker -v
+RESULT=$?
+echo "------"
+if [ "${RESULT}" == "127" ]; then
+  echo -e "  ${RED}docker not found.${NC}
+  You can download from:
+      https://hub.docker.com/editions/community/docker-ce-desktop-mac
+"
+else
+  echo -e "  ${GREEN}OK, we found docker.  Simply validate that it's version 18.09 or later.${NC}"
+fi
+
+echo "
+####################### jq #####################################################"
+
+echo "  Let's check your jq utility (used to parse json files)...
+------"
+jq -V
+RESULT=$?
+echo "------"
+if [ "${RESULT}" == "127" ]; then
+  echo -e "  ${RED}jq not found.${NC}
+  You can download from:
+      https://stedolan.github.io/jq/download
+"      
+else
+  echo -e "  ${GREEN}OK, we found jq.${NC}"
+fi
+
+echo "
+####################### setup complete #########################################
+
+  If there were items to resolve, please complete those now.  Simply 
+  rerun '${THIS}' again to validate all steps are complete.
+
+  Some great commands to see sample docker or PingOne For Customer commands
+  can be found with:
+
+    dhelp     # DevOps Help
+    p1help    # PineOne Help
+    piconfig  # Ping Identity Configuration Setup
+
+  Drop us a line, let us know how it's going:
+
+    devops_program@pingidentity.com
+"
