@@ -22,7 +22,7 @@ You must follow the steps listed below to obtain a Ping Identity DevOps User and
   * If you don't have an account, please create one.
   * Otherwise, sign-in.
   * Your DEVOPS-USER is your email.
-  ![images/PROD_LICENSE_1.png]
+  ![images/PROD_LICENSE_1.png](images/PROD_LICENSE_1.png)
 * Request your DEVOPS-KEY from the [FORM](https://docs.google.com/forms/d/e/1FAIpQLSdgEFvqQQNwlsxlT6SaraeDMBoKFjkJVCyMvGPVPKcrzT3yHA/viewform).
 
 You should now have a DEVOPS-USER and DEVOPS-KEY.
@@ -32,19 +32,23 @@ Example:
 * `PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2`
 
 ## Saving your DevOps User/Key
-Many of the examples and scripts in the Ping Identity DevOps Program make use of these DevOps User and Key via environment variables on your host.  The best way is to set these environment variables in your environment via your .bash_profile or whatever enviornment startup scripts you use.  You need to embed them like the example below:
+The best way to save your DevOps User/Key is to use the Ping Identity Config command ``piconfig``.  You can run this
+if you have setup your environment using the ``setup`` command that comes with the ``pingidentity-devops-getting-started``
+github repo.  More details on this can be found in that [quickstart](getting-started/QUICKSTART.md).
+
+Simpy run:
 
 ```
-export PING_IDENTITY_DEVOPS_USER=<your DEVOPS-USER>
-export PING_IDENTITY_DEVOPS_KEY=<your DEVOPS-KEY>
+piconfig
 ```
+
+and answer the propmpt with your DEVOPS User/Key.  You can view these settings with the ``denv`` command after you've
+configured them.
 
 ## Using your DevOps User/Key
-When starting an image, you can provide your
-DevOps User/Key via environment variables.  The
-example .yaml files are set up to automatically
-get your DevOps User/Key from the environment 
-variables provided in the previous section.
+When starting an image, you can provide your devops property file ``~/.pingidentity/devops`` or using
+the individual environment variables.  For more detail, run the ``denv`` to get your devops environment
+information.  
 
 ### Example with docker run command
 An example of running a docker image using the
@@ -59,8 +63,7 @@ docker run \
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
-           --env PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER} \
-           --env PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY} \
+           --env-file ~/.pingidentity/devops \
            pingidentity/pingdirectory
 ```
 
@@ -73,11 +76,11 @@ starting with **PING_IDENTITY_DEVOPS**):
 ...
   pingdirectory:
     image: pingidentity/pingdirectory
+    env_file:
+      - ${HOME}/.pingidentity/devops
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=getting-started/pingdirectory
-      - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
-      - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
 ...
 ``` 
 
