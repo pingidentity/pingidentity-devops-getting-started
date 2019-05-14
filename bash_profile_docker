@@ -19,6 +19,10 @@ cat <<EOHELP
 +----------------------------------------------------------------------------+
 |                   ${bold}Ping Identity DevOps Helper Aliases${normal}                      |
 +----------------------------------------------------------------------------+
+ ${bold}DevOps Information${normal}                        ${bold}Configuration${normal}
+ -------------------------------------     -----------------------------------
+ denv - get devops details                 piconfig - Ping Identity Config
+ 
  ${bold}Container${normal}                                 ${bold}Image${normal}
  -------------------------------------     ----------------------------------
  dce - execute commands (i.e. /bin/sh)     dib - build 
@@ -50,9 +54,36 @@ cat <<EOHELP
  ${bold}Special${normal}
  ----------------------------------------------------------------------------
  ddc - deep clean (cont, vol, net)
- pingdownload - download prodcut to ~/Downloads
+ pingdownload - download product or license to ~/Downloads
  ----------------------------------------------------------------------------
 EOHELP
+}
+
+## denv
+function denv () 
+{
+    sourcePingIdentityFiles
+
+cat <<EOP1ENV
++-----------------------------------------------------------------------------------------+
+|             ${bold}Ping Identity DevOps Information${normal}
+|             ${bold}Sourced from ~/.pingidentity/devops${normal}
++-----------------------------------------------------------------------------------------+
+|          PING_IDENTITY_DEVOPS_USER: ${PING_IDENTITY_DEVOPS_USER}
+|          PING_IDENTITY_DEVOPS_KEY : ${PING_IDENTITY_DEVOPS_KEY}
++-----------------------------------------------------------------------------------------+
+ To use with 'docker run command'
+     docker run 
+        ... 
+        --env-file ~/.pingidentity/devops
+        ...
+
+ To use with '.yaml' file (use snippet below)
+     pingdirectry:
+       env_file:
+         - $HOME/.pingidentity/devops
++-----------------------------------------------------------------------------------------+
+EOP1ENV
 }
 
 function run ()
@@ -121,3 +152,273 @@ alias dlf="run docker logs -f"
 
 ## deep clean
 alias ddc="dcp ; dvp ; dip; dnp"
+
+##############################################################################
+# Aliases of commonly used PingOne For Customer commands
+##############################################################################
+
+## p1help
+function p1help () 
+{
+cat <<EOP1HELP
++----------------------------------------------------------------------------+
+|                  ${bold}Ping One for Customer Helper Aliases${normal}                      |
++----------------------------------------------------------------------------+
+ ${bold}Setup/Authentcation${normal}                       ${bold}Configuration${normal}
+ ----------------------------------------------------------------------------
+ p1env - get setup details                 piconfig - Ping Identity Config
+ p1auth - get authentication token
+ 
+ ${bold}Environment${normal}                               ${bold}Populations${normal}
+ -------------------------------------     ----------------------------------
+ p1e - environment details                 p1p - population details 
+ p1en - environment name                   p1pn - population name
+                                           p1pc - population user count
+ 
+  ${bold}Users${normal}                                    ${bold}Applications${normal}
+ -------------------------------------     ----------------------------------
+ p1u - users details (first 100)           p1a - aplication details 
+ p1ui - users ids (first 100)              p1an - aplication name
+
+  ${bold}Generic Call${normal}             
+ -------------------------------------     
+ p1fc - Generic Call (any URI after environments/env-guid)
+
+ Examples:
+   p1fc /populations | jq 'del(._links)'    # Gets Populations, removing the _links{..}
+   p1fc /passwordPolicies                   # Get Password passwordPolicies
+   p1fc /users?limit=5                      # Get a page of 5 users
+   p1fc /users | jq '._links.next.href'     # Get the link for next page of users
+
+EOP1HELP
+}
+
+## sourcePingIdentityFiles
+function sourcePingIdentityFiles () 
+{
+    test -f ~/.pingidentity/devops && \
+        . ~/.pingidentity/devops && \
+        export $(grep --regexp ^[A-Z] ~/.pingidentity/devops | cut -d= -f1)
+    test -f ~/.pingidentity/p1fc  && \
+        . ~/.pingidentity/p1fc && \
+        export $(grep --regexp ^[A-Z] ~/.pingidentity/p1fc | cut -d= -f1)
+    test -f ~/.pingidentity/p1fc.access_token  && \
+        . ~/.pingidentity/p1fc.access_token && \
+        export $(grep --regexp ^[A-Z] ~/.pingidentity/p1fc.access_token | cut -d= -f1)
+}
+
+## p1env
+function p1env () 
+{
+    sourcePingIdentityFiles
+
+cat <<EOP1ENV
++-----------------------------------------------------------------------------------------+
+|             ${bold}Ping One for Environment${normal}
+|             ${bold}Sourced from ~/.pingidentity/p1fc.*${normal}
++-----------------------------------------------------------------------------------------+
+|             Environment: ${PING_ONE_ENVIRONMENT_ID}
+|              Population: ${PING_ONE_POPULATION_ID}
+|             Application: ${PING_ONE_CLIENT_ID}
++-----------------------------------------------------------------------------------------+
+|   Auth URL: ${PING_ONE_AUTH_URL}
+|    API URL: ${PING_ONE_API_URL}
+! Auth Token: `grep "# Expires" ~/.pingidentity/p1fc.access_token`
++-----------------------------------------------------------------------------------------+
+EOP1ENV
+}
+
+## _p1fc
+function _p1fc()
+{
+  _RESOURCE="$1"
+  _ATTR="$2"
+  _ID="$3"  
+
+  sourcePingIdentityFiles
+
+  test -z "$PING_ONE_AUTH_TOKEN" && echo "No PingOne For Customer Auth Token found, please authenticate with 'p1auth'"
+
+  test -z "${_ATTR}" && _JQ_OPT="."
+  test ! -z "${_ATTR}" && _JQ_OPT="-r .${_ATTR}"
+  _URL="${PING_ONE_API_URL}"
+
+  case ${_RESOURCE} in
+    environments)
+        ;;
+    populations)
+        _URL+="/populations/${PING_ONE_POPULATION_ID}"
+        ;;
+    applications)
+        _URL+="/applications/${PING_ONE_CLIENT_ID}"
+        ;;
+    users)
+        _URL+="/users"
+        ;;
+    *)
+        _URL+="${_RESOURCE}"
+        ;;
+  esac
+  test ! -z ${_ID} && _URL+="/${_ID}"
+  # echo "PingOne For Customer URL: ${bold}$_URL ${normal}"
+  curl -X GET -H "Authorization: Bearer $PING_ONE_AUTH_TOKEN" "${_URL}" \
+    2>/dev/null | jq $_JQ_OPT  
+}
+
+function p1auth()
+{
+  sourcePingIdentityFiles
+
+  _AUTH=$( curl -X POST $PING_ONE_AUTH_URL/as/token \
+    -H "Content-Type: application/x-www-form-urlencoded" \
+    -d "grant_type=client_credentials&client_id=${PING_ONE_CLIENT_ID}&client_secret=${PING_ONE_CLIENT_SECRET}" \
+    2> /dev/null )
+
+  _TOKEN=$( echo ${_AUTH} | jq -r '.access_token' ) 
+  _EXPIRES=$( echo ${_AUTH} | jq -r '.expires_in' ) 
+ 
+  echo "########################################################################
+# Ping One Access Token
+#
+# Created: `date`
+# Expires: `date -v+${_EXPIRES}S`
+########################################################################
+PING_ONE_AUTH_TOKEN=$_TOKEN" > ~/.pingidentity/p1fc.access_token
+
+  . ~/.pingidentity/p1fc.access_token
+
+  p1env
+}
+
+
+alias p1e="_p1fc environments" 
+alias p1en="_p1fc environments name"
+
+alias p1p="_p1fc populations" 
+alias p1pn="_p1fc populations name"
+alias p1pc="_p1fc populations userCount"
+
+alias p1a="_p1fc applications"
+alias p1an="_p1fc applications name"
+
+alias p1u="_p1fc users"
+alias p1ui="_p1fc users _embedded.users[].id"
+
+alias p1fc="_p1fc"
+
+##############################################################################
+# Aliases of commonly used PingIdentity For Customer commands
+##############################################################################
+
+## _piaddconfig
+function _piaddconfig()
+{
+  PROPS_FILE="${1}" && shift
+  VAR_TO_SET="${1}" && shift
+  VAR_DEFAULT="${1}" && shift
+  VAR_PROMPT="${*}"
+
+  test -z "${!VAR_TO_SET}" && eval "export \${VAR_TO_SET}=\${VAR_DEFAULT}"
+
+  echo -n "${VAR_PROMPT} [${!VAR_TO_SET}] ? "
+  read answer
+  if test ! -z "${answer}"; then
+    if test "${!VAR_TO_SET}" == "-"; then
+      eval "unset \${VAR_TO_SET}"
+      echo "${VAR_TO_SET}=" >> ${PROPS_FILE}
+    else
+      eval "export \${VAR_TO_SET}=${answer}"
+      echo "${VAR_TO_SET}=${!VAR_TO_SET}" >> ${PROPS_FILE}
+    fi
+  else
+    echo "${VAR_TO_SET}=${!VAR_TO_SET}" >> ${PROPS_FILE}
+  fi
+}
+
+
+## _piaddcomment
+function _piaddcomment()
+{
+  _TFILE="${1}" && shift
+  _MSG="${@}"
+
+  echo ${_MSG}
+  echo ${_MSG} >> ${_TFILE}
+}
+
+## piconfig
+function piconfig()
+{
+  DOT_PINGIDENTITY="${HOME}/.pingidentity"
+  ################################################################################
+  # Check for a .pingidentity directory with propertyfile
+  ################################################################################
+  test -d "${DOT_PINGIDENTITY}" || mkdir -p "${DOT_PINGIDENTITY}"
+
+  _DOFILE="${DOT_PINGIDENTITY}/devops"
+  test -f "${_DOFILE}" && source "${_DOFILE}" && mv "${_DOFILE}" "${_DOFILE}".prev
+
+  _P1FILE="${DOT_PINGIDENTITY}/p1fc"
+  test -f "${_P1FILE}" && source "${_P1FILE}" && mv "${_P1FILE}" "${_P1FILE}".prev
+
+  echo "
+###############################################################################################
+#                         Ping Identity Property Files
+###############################################################################################
+This will create Ping Identity Propery files}
+and they will be used as environment variables for scripts, .yamls, etc...
+
+To edit these in the future simply 'piconfig' edit the property file directory."
+
+  echo "
+###############################################################################################
+# Configuring Property Files for: ${_DOFILE}
+###############################################################################################"
+
+  echo "########################################################################
+# PingIdentity DevOps client_credentials
+########################################################################
+" >> ${_DOFILE}
+  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_USER"               "" "Ping Identity DevOps User"
+  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_KEY"                "" "Ping Identity DevOps Key"
+
+  echo "
+###############################################################################################
+# Configuring Property Files for: ${_P1FILE}
+###############################################################################################"
+
+  echo "########################################################################
+# PingOne For Customer Credentials
+########################################################################
+" >> "${_P1FILE}"
+  _piaddconfig "${_P1FILE}" "PING_ONE_ENVIRONMENT_ID"                 "" "PingOne EnvironmentID"
+  _piaddconfig "${_P1FILE}" "PING_ONE_POPULATION_ID"                  "" "PingOne PopulationID"
+  _piaddconfig "${_P1FILE}" "PING_ONE_CLIENT_ID"                      "" "PingOne ClientID"
+  _piaddconfig "${_P1FILE}" "PING_ONE_CLIENT_SECRET"                  "" "PingOne ClientSecret"
+  _piaddcomment "${_P1FILE}" ""
+  echo "########################################################################
+# PingOne For Customer URLs
+########################################################################
+
+PING_ONE_AUTH_URL=https://auth.pingone.com/${PING_ONE_ENVIRONMENT_ID}
+PING_ONE_API_URL=https://api.pingone.com/v1/environments/${PING_ONE_ENVIRONMENT_ID}" >> "${_P1FILE}"
+
+  sourcePingIdentityFiles
+
+  grep "sourcePingIdentityFiles" ~/.bash_profile >/dev/null
+
+  if test "$?" == "1"; then
+    echo "
+We recommend that your source your .pingidentity files with the command 'sourcePingIdentityFiles'
+in your ~/.bash_profile.
+"
+    echo -n "Would you like to add this to your ~/.bash_profile (y/n) [n]? "
+    read answer
+    if [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
+      echo "
+# Source PingIdentity Files - Added with piconfig on `date`
+sourcePingIdentityFiles" >> ~/.bash_profile
+    fi
+  fi
+
+}
