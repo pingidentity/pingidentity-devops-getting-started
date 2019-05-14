@@ -182,13 +182,13 @@ cat <<EOP1HELP
 
   ${bold}Generic Call${normal}             
  -------------------------------------     
- p1fc - Generic Call (any URI after environments/env-guid)
+ p14c - Generic Call (any URI after environments/env-guid)
 
  Examples:
-   p1fc /populations | jq 'del(._links)'    # Gets Populations, removing the _links{..}
-   p1fc /passwordPolicies                   # Get Password passwordPolicies
-   p1fc /users?limit=5                      # Get a page of 5 users
-   p1fc /users | jq '._links.next.href'     # Get the link for next page of users
+   p14c /populations | jq 'del(._links)'    # Gets Populations, removing the _links{..}
+   p14c /passwordPolicies                   # Get Password passwordPolicies
+   p14c /users?limit=5                      # Get a page of 5 users
+   p14c /users | jq '._links.next.href'     # Get the link for next page of users
 
 EOP1HELP
 }
@@ -199,12 +199,12 @@ function sourcePingIdentityFiles ()
     test -f ~/.pingidentity/devops && \
         . ~/.pingidentity/devops && \
         export $(grep --regexp ^[A-Z] ~/.pingidentity/devops | cut -d= -f1)
-    test -f ~/.pingidentity/p1fc  && \
-        . ~/.pingidentity/p1fc && \
-        export $(grep --regexp ^[A-Z] ~/.pingidentity/p1fc | cut -d= -f1)
-    test -f ~/.pingidentity/p1fc.access_token  && \
-        . ~/.pingidentity/p1fc.access_token && \
-        export $(grep --regexp ^[A-Z] ~/.pingidentity/p1fc.access_token | cut -d= -f1)
+    test -f ~/.pingidentity/p14c  && \
+        . ~/.pingidentity/p14c && \
+        export $(grep --regexp ^[A-Z] ~/.pingidentity/p14c | cut -d= -f1)
+    test -f ~/.pingidentity/p14c.access_token  && \
+        . ~/.pingidentity/p14c.access_token && \
+        export $(grep --regexp ^[A-Z] ~/.pingidentity/p14c.access_token | cut -d= -f1)
 }
 
 ## p1env
@@ -215,7 +215,7 @@ function p1env ()
 cat <<EOP1ENV
 +-----------------------------------------------------------------------------------------+
 |             ${bold}Ping One for Environment${normal}
-|             ${bold}Sourced from ~/.pingidentity/p1fc.*${normal}
+|             ${bold}Sourced from ~/.pingidentity/p14c.*${normal}
 +-----------------------------------------------------------------------------------------+
 |             Environment: ${PING_ONE_ENVIRONMENT_ID}
 |              Population: ${PING_ONE_POPULATION_ID}
@@ -223,13 +223,13 @@ cat <<EOP1ENV
 +-----------------------------------------------------------------------------------------+
 |   Auth URL: ${PING_ONE_AUTH_URL}
 |    API URL: ${PING_ONE_API_URL}
-! Auth Token: `grep "# Expires" ~/.pingidentity/p1fc.access_token`
+! Auth Token: `grep "# Expires" ~/.pingidentity/p14c.access_token`
 +-----------------------------------------------------------------------------------------+
 EOP1ENV
 }
 
-## _p1fc
-function _p1fc()
+## _p14c
+function _p14c()
 {
   _RESOURCE="$1"
   _ATTR="$2"
@@ -283,28 +283,28 @@ function p1auth()
 # Created: `date`
 # Expires: `date -v+${_EXPIRES}S`
 ########################################################################
-PING_ONE_AUTH_TOKEN=$_TOKEN" > ~/.pingidentity/p1fc.access_token
+PING_ONE_AUTH_TOKEN=$_TOKEN" > ~/.pingidentity/p14c.access_token
 
-  . ~/.pingidentity/p1fc.access_token
+  . ~/.pingidentity/p14c.access_token
 
   p1env
 }
 
 
-alias p1e="_p1fc environments" 
-alias p1en="_p1fc environments name"
+alias p1e="_p14c environments" 
+alias p1en="_p14c environments name"
 
-alias p1p="_p1fc populations" 
-alias p1pn="_p1fc populations name"
-alias p1pc="_p1fc populations userCount"
+alias p1p="_p14c populations" 
+alias p1pn="_p14c populations name"
+alias p1pc="_p14c populations userCount"
 
-alias p1a="_p1fc applications"
-alias p1an="_p1fc applications name"
+alias p1a="_p14c applications"
+alias p1an="_p14c applications name"
 
-alias p1u="_p1fc users"
-alias p1ui="_p1fc users _embedded.users[].id"
+alias p1u="_p14c users"
+alias p1ui="_p14c users _embedded.users[].id"
 
-alias p1fc="_p1fc"
+alias p14c="_p14c"
 
 ##############################################################################
 # Aliases of commonly used PingIdentity For Customer commands
@@ -358,7 +358,7 @@ function piconfig()
   _DOFILE="${DOT_PINGIDENTITY}/devops"
   test -f "${_DOFILE}" && source "${_DOFILE}" && mv "${_DOFILE}" "${_DOFILE}".prev
 
-  _P1FILE="${DOT_PINGIDENTITY}/p1fc"
+  _P1FILE="${DOT_PINGIDENTITY}/p14c"
   test -f "${_P1FILE}" && source "${_P1FILE}" && mv "${_P1FILE}" "${_P1FILE}".prev
 
   echo "

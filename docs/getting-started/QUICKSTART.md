@@ -62,8 +62,8 @@ piconfig
 The files include:
 
 * ``devops`` - Includes DevOps related credientals (i.e. DevOps-User and DevOps-Key)
-* ``p1fc`` - Includes PingOne For Customers properties used to connect
-* ``p1fc.access_token`` - Keeps the access token after a asking for a token with ``p1auth``
+* ``p14c`` - Includes PingOne For Customers properties used to connect
+* ``p14c.access_token`` - Keeps the access token after a asking for a token with ``p1auth``
 
 ## Run a Docker Standalone Image - Ping Federate
 Now, we will run a standalone image in a docker container.  In other words, 
