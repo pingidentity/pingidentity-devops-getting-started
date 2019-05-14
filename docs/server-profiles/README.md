@@ -10,7 +10,7 @@ They are outlined in the table below.
 |---------------------------|-----------------------------------------------------|
 | [Getting Started](https://github.com/pingidentity/server-profile-pingidentity-getting-started)           | Ping Identity products with basic install/config | 
 | [Baseline](https://github.com/pingidentity/server-profile-pingidentity-baseline)                  | Ping Identity procucts with full integration |
-| [Simple Sync](https://github.com/pingidentity/server-profile-pingidentity-simple-sync)               | DataSync server sync'ing between two Ping Directory trees |
+| [Simple Sync](https://github.com/pingidentity/server-profile-pingidentity-simple-sync)               | DataSync server sync'ing between two PingDirectory trees |
 
 ## Playground Server Profiles
 There is a Github Repository containing samples, experimental, training types of server profiles that

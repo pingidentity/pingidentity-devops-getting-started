@@ -65,7 +65,7 @@ The files include:
 * ``p14c`` - Includes PingOne For Customers properties used to connect
 * ``p14c.access_token`` - Keeps the access token after a asking for a token with ``p1auth``
 
-## Run a Docker Standalone Image - Ping Federate
+## Run a Docker Standalone Image - PingFederate
 Now, we will run a standalone image in a docker container.  In other words, 
 we will run one of the Ping Identity docker images locally in a docker
 container on your local machine.
@@ -130,7 +130,7 @@ And to login to this new PingFederate continer you can navigate in your web brow
   * Username: Administrator
   * Password: 2FederateM0re
 
-##  Run a Docker Standalone Image - Ping Directory
+##  Run a Docker Standalone Image - PingDirectory
 Now, let's run a second docker container for PingDirectory.  Simply
 follow the example below.
 
