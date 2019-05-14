@@ -19,9 +19,9 @@ echo "
 "
 
 echo "
-####################### bash_profile_docker ####################################"
+####################### bash_profile_devops ####################################"
 
-grep "bash_profile_docker" ~/.bash_profile > /dev/null
+grep "bash_profile_devops" ~/.bash_profile > /dev/null
 
 if test "${?}" == "1"; then
   echo "  First, let's add a bunch of DevOps helper alias' and functions to your
@@ -29,17 +29,17 @@ if test "${?}" == "1"; then
 "
 
 
-  echo -n "  OK if we source our bash_profile_docker commands to your .bash_profile (y/n) [y] ? "
+  echo -n "  OK if we source our bash_profile_devops commands to your .bash_profile (y/n) [y] ? "
   read answer
 
   if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
     echo "
 # Ping Identity DevOps Aliases - Added with setup on `date`
-source ${THIS_DIR}/bash_profile_docker" >> ~/.bash_profile
+source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
     echo -e "  ${GREEN}OK, we got you setup.  You can get help with 'dhelp' command${NC}"
   fi
 else
-  echo -e "  ${GREEN}OK, you already have bash_profile_docker in your .bash_profile${NC}"
+  echo -e "  ${GREEN}OK, you already have bash_profile_devops in your .bash_profile${NC}"
 fi
 
 echo "

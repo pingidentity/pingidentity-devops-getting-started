@@ -5,7 +5,7 @@
 # Recommend that you source this file from your ~/.bash_profile or ~/.bashrc
 # Just add following line without the preceeding comment
 #
-#  . {path to this directory}/bash_profile_docker
+#  . {path to this directory}/bash_profile_devops
 #
 ##############################################################################
 

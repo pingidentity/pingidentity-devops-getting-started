@@ -23,7 +23,7 @@ simply run.  To edit the settings in the future, use the configure option:
 `ldapsdk configure`.
 
 ## Bash profile Docker helper aliases
-Several aliases are available in the utility `bash_profile_docker` to perform common 
+Several aliases are available in the utility `bash_profile_devops` to perform common 
 Docker commands with containers, images, services, and so on.  You can easily source this
 from your bash startup file (i.e. .bash_profile) to make easy use of these alias.
 
