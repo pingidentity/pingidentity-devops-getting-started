@@ -44,7 +44,7 @@ To do this simply run ``setup``
 
 ```
 cd pingidentity-devops-getting-started
-setup
+./setup
 ```
 
 Now, you can type in commands like ``dhelp``, ``p1help`` to get help with the many alias'
