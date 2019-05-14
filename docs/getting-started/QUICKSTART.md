@@ -32,15 +32,27 @@ contents of the getting-started repo using the command below.
 $ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
 
 Cloning into 'pingidentity-devops-getting-started'...
-remote: Enumerating objects: 301, done.
-remote: Counting objects: 100% (301/301), done.
-remote: Compressing objects: 100% (207/207), done.
-remote: Total 901 (delta 145), reused 219 (delta 83), pack-reused 600
-Receiving objects: 100% (901/901), 428.39 KiB | 2.73 MiB/s, done.
-Resolving deltas: 100% (469/469), done.
 ```
 
 You should now see a directory called ``pingidentity-devops-getting-started``.
+
+## Setup you environment for Ping Identity DevOps projects
+A ``setup`` script is available to help you get your envionment to make quick and
+easy use of the Ping Identity DevOps projects.
+
+To do this simply run ``setup``
+
+```
+cd pingidentity-devops-getting-started
+setup
+```
+
+Now, you can type in commands like ``dhelp``, ``p1help`` to get help with the many alias'
+created to help you with the DevOps Docker and Ping One For Customer commands.
+
+The command ``picofig`` (Ping Identity Config) will help you setup some 
+property files located in ``~/.pingidentity`` to drive other devops related
+utilities.
 
 ## Run a Docker Standalone Image - Ping Federate
 Now, we will run a standalone image in a docker container.  In other words, 
