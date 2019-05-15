@@ -36,6 +36,8 @@ if test "${?}" == "1"; then
     echo "
 # Ping Identity DevOps Aliases - Added with setup on `date`
 source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
+
+
     echo -e "  ${GREEN}OK, we got you setup.  You can get help with 'dhelp' command${NC}"
   fi
 else
@@ -76,11 +78,19 @@ else
   echo -e "  ${GREEN}OK, we found jq.${NC}"
 fi
 
-echo "
+echo -e "
 ####################### setup complete #########################################
 
   If there were items to resolve, please complete those now.  Simply 
   rerun '${THIS}' again to validate all steps are complete.
+
+  ${GREEN}NOTE: In order to get the new aliases, you should restart your shell
+  or simply source the bash_profile_devops file.  Just cut/paste the following
+  command:
+
+    source ${THIS_DIR}/bash_profile_devops${NC}
+
+################################################################################
 
   Some great commands to see sample docker or PingOne For Customer commands
   can be found with:
