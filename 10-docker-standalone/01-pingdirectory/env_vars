@@ -20,9 +20,6 @@ CONTAINER_NAME=pingdirectory
 #################################################################################
 SERVER_PROFILE_URL=${GIT_REPO}/pingidentity-server-profiles.git
 SERVER_PROFILE_PATH=getting-started/pingdirectory
-SERVER_PROFILE_PARENT=LICENSE
-SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
 #################################################################################
 # Directory on local host machine to map in and out directories from container
 #################################################################################

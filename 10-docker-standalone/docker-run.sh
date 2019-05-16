@@ -5,6 +5,7 @@ DEBUG="${2}"
 cd "$( dirname "${0}" )"
 CONTAINER_DIR=$( pwd )
 SHARED_DIR=$( cd FF-shared && pwd )
+DEVOPS_PROPS="${HOME}/.pingidentity/devops"
 
 usage()
 {
@@ -83,7 +84,7 @@ test -f "${SHARED_DIR}/prepare-network.sh.fragment" && . "${SHARED_DIR}/prepare-
 # fi
 
 # Docker Image that will be run
-DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}"
+DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}:edge"
 
 # check to see if the debug option is passed
 SHARED_DOCKER_OPTIONS=" --detach " 
@@ -111,6 +112,10 @@ SHARED_DOCKER_OPTIONS="
         --name ${CONTAINER_NAME} 
         --network ${NETWORK_NAME} 
 "
+
+if test -f ${DEVOPS_PROPS} ; then
+    SHARED_DOCKER_OPTIONS="${SHARED_DOCKER_OPTIONS}  --env-file ${DEVOPS_PROPS} "
+fi
 
 if ! test -z "${SERVER_PROFILE_URL}" ; then 
     SHARED_DOCKER_OPTIONS="${SHARED_DOCKER_OPTIONS}  --env SERVER_PROFILE_URL=${SERVER_PROFILE_URL} "
