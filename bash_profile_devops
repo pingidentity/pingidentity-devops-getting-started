@@ -185,7 +185,6 @@ cat <<EOP1HELP
  p14c - Generic Call (any URI after environments/env-guid)
 
  Examples:
-   p14c /populations | jq 'del(._links)'    # Gets Populations, removing the _links{..}
    p14c /passwordPolicies                   # Get Password passwordPolicies
    p14c /users?limit=5                      # Get a page of 5 users
    p14c /users | jq '._links.next.href'     # Get the link for next page of users
