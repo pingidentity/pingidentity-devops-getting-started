@@ -2,14 +2,11 @@ version: "3.1"
 
 services:
   pingfederate:
-    image: pingidentity/pingfederate
+    image: pingidentity/pingfederate:edge
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
-      - SERVER_PROFILE_PARENT=LICENSE
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_LICENSE_PATH=licenses/pingfederate
     ports:
       - 9031:9031
       - 9999:9999
@@ -17,14 +14,10 @@ services:
       - pingnet
 
   pingdirectory:
-    image: pingidentity/pingdirectory
+    image: pingidentity/pingdirectory:edge
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
-      - SERVER_PROFILE_PARENT=LICENSE
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
-      # - VERBOSE=true
     ports:
       - 1636:636
       - 1443:443

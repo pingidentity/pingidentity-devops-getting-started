@@ -10,11 +10,6 @@ services:
       # this server profile configures proxy to operate with pingdirectory
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectoryproxy
-      - SERVER_PROFILE_PARENT=LICENSE
-      # this server profile delivers the license
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
-      - SERVER_PROFILE_LICENSE_PARENT=CERTS
       # this server profile provides our dev certificates
       - SERVER_PROFILE_CERTS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_CERTS_PATH=dev-certs/pingdata
@@ -37,11 +32,7 @@ services:
       # This server profile delivers the bulk of the configuration
       - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_BASELINE_PATH=baseline/pingdirectory
-      - SERVER_PROFILE_BASELINE_PARENT=LICENSE
-      # this server profile delivers the license
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
-      - SERVER_PROFILE_LICENSE_PARENT=CERTS
+      - SERVER_PROFILE_BASELINE_PARENT=CERTS
       # this server profile provides our dev certificates
       - SERVER_PROFILE_CERTS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_CERTS_PATH=dev-certs/pingdata
