@@ -5,16 +5,15 @@ version: "3.1"
 # 10-docker-standalone/01-pingdirectory "Using local volume"
 # 
 # it should be preceded by following the instructions to clone the server profile
-# rm -rf /tmp/Docker/pd-basic
-# mkdir -p /tmp/Docker/pd-basic
-# git clone https://github.com/pingidentity/pingidentity-server-profiles.git /tmp/Docker/pd-basic
+# rm -rf /tmp/Swarm/pingidentity-server-profiles
+# git clone https://github.com/pingidentity/pingidentity-server-profiles.git /tmp/Swarm/pingidentity-server-profiles
 #
 networks:
     pingnet:
 
 services:
   pingdirectory:
-    image: pingidentity/pingdirectory
+    image: pingidentity/pingdirectory:edge
     deploy:
       replicas: 1
     ports:
@@ -23,5 +22,5 @@ services:
     networks:
       - pingnet
     volumes:
-      - /tmp/Docker/pd-basic/pingdirectory:/opt/in
+      - /tmp/Swarm/pingidentity-server-profiles/getting-started/pingdirectory:/opt/in
       - /tmp/Swarm/basic2/pingdirectory:/opt/out

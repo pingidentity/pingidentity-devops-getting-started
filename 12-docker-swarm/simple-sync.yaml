@@ -6,24 +6,18 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync
-      - SERVER_PROFILE_PARENT=LICENSE
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
     deploy:
       replicas: 1
     networks:
       - pingnet
-    volumes:
-      - /tmp/Swarm/simple-sync/pingdatasync:/opt/out
+    # volumes:
+    #   - /tmp/Swarm/simple-sync/pingdatasync:/opt/out
 
   pingdirectory:
     image: pingidentity/pingdirectory
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
-      - SERVER_PROFILE_PARENT=LICENSE
-      - SERVER_PROFILE_LICENSE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_LICENSE_PATH=licenses/pingdirectory
     deploy:
       replicas: 1
     ports:
@@ -31,8 +25,8 @@ services:
       - 1443:443
     networks:
       - pingnet
-    volumes:
-      - /tmp/Swarm/simple-sync/pingdirectory:/opt/out
+    # volumes:
+    #   - /tmp/Swarm/simple-sync/pingdirectory:/opt/out
 
   pingdataconsole:
     image: pingidentity/pingdataconsole

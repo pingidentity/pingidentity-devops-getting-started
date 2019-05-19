@@ -4,18 +4,22 @@ version: "3.1"
 # This compose file offers mirrors the configuration provided in
 # 10-docker-standalone/01-pingdirectory "Using a data container"
 # 
-# it should be preceded by following the instructions to create the volume
+# it should be preceded by following the instructions to clone the server profile
+# and create the docker volume
+# rm -rf /tmp/Swarm/pingidentity-server-profiles
+# git clone https://github.com/pingidentity/pingidentity-server-profiles.git /tmp/Swarm/pingidentity-server-profiles
+# 
 #
 networks:
     pingnet:
 
 volumes:
-  pd-config:
+  pingdirectory-config:
     external: true
 
 services:
   pingdirectory:
-    image: pingidentity/pingdirectory
+    image: pingidentity/pingdirectory:edge
     deploy:
       replicas: 1
     ports:
@@ -24,5 +28,5 @@ services:
     networks:
       - pingnet
     volumes:
-      - pd-config:/opt/in
+      - pingdirectory-config:/opt/in
       - /tmp/Swarm/basic3/pingdirectory:/opt/out
