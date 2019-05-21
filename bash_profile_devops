@@ -213,18 +213,19 @@ function p1env ()
 
 cat <<EOP1ENV
 +-----------------------------------------------------------------------------------------+
-|             ${bold}Ping One for Environment${normal}
-|             ${bold}Sourced from ~/.pingidentity/p14c.*${normal}
+              ${bold}Ping One for Environment${normal}
+              ${bold}Sourced from ~/.pingidentity/p14c.*${normal}
 +-----------------------------------------------------------------------------------------+
-|             Environment: ${PING_ONE_ENVIRONMENT_ID}
-|              Population: ${PING_ONE_POPULATION_ID}
-|             Application: ${PING_ONE_CLIENT_ID}
+              Environment: ${PING_ONE_ENVIRONMENT_ID}
+               Population: ${PING_ONE_POPULATION_ID}
+              Application: ${PING_ONE_CLIENT_ID}
 +-----------------------------------------------------------------------------------------+
-|   Auth URL: ${PING_ONE_AUTH_URL}
-|    API URL: ${PING_ONE_API_URL}
-! Auth Token: `grep "# Expires" ~/.pingidentity/p14c.access_token`
-+-----------------------------------------------------------------------------------------+
+    Auth URL: ${PING_ONE_AUTH_URL}
+     API URL: ${PING_ONE_API_URL}
+  Auth Token: `grep "# Expires" ~/.pingidentity/p14c.access_token`
 EOP1ENV
+    which pyjwt >/dev/null && pyjwt decode --no-verify ${PING_ONE_AUTH_TOKEN} | jq
+    echo "+-----------------------------------------------------------------------------------------+"
 }
 
 ## _p14c

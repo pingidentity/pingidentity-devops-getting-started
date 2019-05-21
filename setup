@@ -10,6 +10,16 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 NC='\033[0m'
 
+echo_red()
+{
+    echo -e "${RED}$*${NC}"
+}
+
+echo_green()
+{
+    echo -e "${GREEN}$*${NC}"
+}
+
 echo "
 
 ################################################################################
@@ -41,44 +51,64 @@ if test "${?}" == "1"; then
 source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
 
 
-    echo -e "  ${GREEN}OK, we got you setup.  You can get help with 'dhelp' command${NC}"
+    echo_green "  OK, we got you setup.  You can get help with 'dhelp' command"
   fi
 else
-  echo -e "  ${GREEN}OK, you already have bash_profile_devops in your .bash_profile${NC}"
+  echo_green "  OK, you already have bash_profile_devops in your .bash_profile"
 fi
 
 echo "
 ####################### docker #################################################"
 
-echo "  Let's check your docker version installed...
+UTIL="docker"
+echo "  Let's check your ${UTIL} version installed...
 ------"
-docker -v
+${UTIL} -v
 RESULT=$?
 echo "------"
 if [ "${RESULT}" == "127" ]; then
-  echo -e "  ${RED}docker not found.${NC}
-  You can download from:
+  echo_red"  ${UTIL} not found."
+  echo "  You can download from:
       https://hub.docker.com/editions/community/docker-ce-desktop-mac
 "
 else
-  echo -e "  ${GREEN}OK, we found docker.  Simply validate that it's version 18.09 or later.${NC}"
+  echo_green "  OK, we found ${UTIL}.  Simply validate that it's version 18.09 or later."
 fi
 
 echo "
 ####################### jq #####################################################"
 
-echo "  Let's check your jq utility (used to parse json files)...
+UTIL="jq"
+echo "  Let's check your ${UTIL} utility (used to parse json files)...
 ------"
-jq -V
+${UTIL} -V
 RESULT=$?
 echo "------"
 if [ "${RESULT}" == "127" ]; then
-  echo -e "  ${RED}jq not found.${NC}
-  You can download from:
+  echo_red "  ${UTIL} not found."
+  echo "  You can download from:
       https://stedolan.github.io/jq/download
 "      
 else
-  echo -e "  ${GREEN}OK, we found jq.${NC}"
+  echo_green "  OK, we found ${UTIL}."
+fi
+
+echo "
+####################### pyjwt ##################################################"
+
+UTIL="pyjwt"
+echo "  Let's check your ${UTIL} utility (used to parse jwt tokens)...
+------"
+${UTIL} -v
+RESULT=$?
+echo "------"
+if [ "${RESULT}" == "127" ]; then
+  echo_rede "  ${UTIL} not found."
+  echo "  You can install with from:
+      pip install ${UTIL}   # You may need to sudo
+"      
+else
+  echo_green "  OK, we found ${UTIL}."
 fi
 
 echo -e "
