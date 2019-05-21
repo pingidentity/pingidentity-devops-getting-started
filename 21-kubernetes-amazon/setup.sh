@@ -1,0 +1,26 @@
+#!/bin/bash
+cd $( dirname ${0} )
+SCRIPT_HOME=$( pwd )
+
+source ./lib.sh
+
+set -o allexport
+source "./env_vars"
+set +o allexport
+
+kubectl_apply "k8s/namespace.yaml"    "Making namesapce ${USER}" 
+
+kubectl config set-context $(kubectl config current-context) --namespace ${USER}
+
+# Cleanup before we start - make sure start from clean slate
+sh teardown.sh
+
+kubectl_apply "k8s/console.yaml"      "Creating PingDataConsole" 
+kubectl_apply "k8s/ds-topology.yaml"  "Creating PingDirectory"
+
+echo_header "Getting Everything"
+
+kubectl get all,pv,pvc,configmap,secret,endpoints \
+ --show-labels \
+ -o wide
+

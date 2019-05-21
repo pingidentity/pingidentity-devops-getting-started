@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingdataconsole
+  labels:
+    app: ds-topology
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      name: pingdataconsole
+  selector:
+    role: ds-topology
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingdataconsole
+  labels:
+    app: ds-topology
+    role: ds-topology
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ds-topology
+  template:
+    metadata:
+      name: pingdataconsole
+      labels:
+        app: ds-topology
+        role: ds-topology
+    spec:
+      containers:
+      - name: pingdataconsole
+        image: pingidentity/pingdataconsole:edge
+        ports:
+        - containerPort: 8080
+          name: pingdataconsole
