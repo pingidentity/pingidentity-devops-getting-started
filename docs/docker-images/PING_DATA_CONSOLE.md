@@ -22,7 +22,7 @@ docker logs -f pingdataconsole
 ```
 
 If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
-* http://localhost:8080/admin-console/login
+* http://localhost:8080/console/login
 ```
 Server: localhost:636
 Username: administrator
