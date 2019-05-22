@@ -6,8 +6,12 @@ metadata:
     usecase: fullstack
 spec:
   ports:
-  - port: 636
-    name: ds
+    - port: 636
+      name: ldaps
+    - port:  443
+      name: ssl
+    - port:  389
+      name: ldap
   clusterIP: None
   selector:
     usecase: fullstack
@@ -58,7 +62,11 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 636
-          name: ds
+          name: ldaps
+        - containerPort:  443
+          name: ssl
+        - containerPort:  389
+          name: ldap
         resources:
           requests:
             memory: "0"

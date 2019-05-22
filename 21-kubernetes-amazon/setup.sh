@@ -15,10 +15,11 @@ kubectl config set-context $(kubectl config current-context) --namespace ${USER}
 # Cleanup before we start - make sure start from clean slate
 sh teardown.sh
 
-kubectl_apply "fullstack/pingdataconsole.yaml"      "Creating PingDataConsole"
-kubectl_apply "fullstack/pingdirectory.yaml"        "Creating PingDirectory"
-kubectl_apply "fullstack/pingfederate.yaml"         "Creating PingFederate"
-kubectl_apply "fullstack/pingaccess.yaml"         "Creating PingAccess"
+kubectl_apply "fullstack/pingdataconsole.yaml"          "Creating PingDataConsole"
+kubectl_apply "fullstack/pingdirectory.yaml"            "Creating PingDirectory"
+kubectl_apply "fullstack/pingfederate_admin.yaml"       "Creating PingFederate-Admin"
+kubectl_apply "fullstack/pingfederate_engine.yaml"      "Creating PingFederate-Engine"
+kubectl_apply "fullstack/pingaccess.yaml"               "Creating PingAccess"
 
 echo_header "Getting Everything"
 

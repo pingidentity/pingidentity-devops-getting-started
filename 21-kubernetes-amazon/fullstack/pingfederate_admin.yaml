@@ -1,23 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pingfederate
+  name: pingfederate-admin
   labels:
     usecase: fullstack
 spec:
   type: LoadBalancer
   ports:
     - port: 9999
-      name: pfadminport
-    - port: 9031
-      name: pingfederate
+      name: pf-admin-port
   selector:
     usecase: fullstack
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pingfederate
+  name: pingfederate-admin
   labels:
     usecase: fullstack
 spec:
@@ -27,20 +25,24 @@ spec:
       usecase: fullstack
   template:
     metadata:
-      name: pingfederate
+      name: pingfederate-admin
       labels:
         usecase: fullstack
     spec:
       containers:
-      - name: pingfederate
+      - name: pingfederate-admin
         image: pingidentity/pingfederate:edge
         ports:
         - containerPort: 9999
-          name: pfadminport
-        - containerPort: 9031
-          name: pingfederate
+          name: pf-admin-port
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
           value: "baseline/pingfederate"
+        - name: "DISCOVERY_INITIAL_HOST"
+          value: "pingfederate-admin[7600]"
+        - name: OPERATIONAL_MODE
+          value: "CLUSTERED_CONSOLE"
+        - name: "CLUSTER_BIND_ADDRESS"
+          value: "match-address:192.168.0.0.\\*"
