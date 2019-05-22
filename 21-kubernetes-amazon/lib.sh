@@ -30,7 +30,7 @@ echo_header()
   do
     _msg=${1} && shift
 
-    echo "#    ${_msg}"
+    echo "#   ${_msg}"
   done
 
   echo "##################################################################################"
@@ -43,18 +43,72 @@ exit_error()
     exit 1
 }
 
-
-kubectl_apply()
+# exit, print an error message & usage
+exit_usage()
 {
-    _yaml="${1}" && shift
-    _msg="${1}"
+    echo_red "$*"
+    echo
+    usage
+    exit 1
+}
 
-    test ! -f ${_yaml} && exit_error "File '${_yaml}' not found"
+# echo a message stdout and indent 4 spaces
+echo_indent ()
+{
+    echo "${1}" | sed 's/^/    /'
+}
 
-    echo_header "${_msg}"
+# echo a header
+echo_header()
+{
+  echo "##################################################################################"
 
-    envsubst < "${_yaml}" > "${_yaml}.tmp"
-    kubectl apply -f "${_yaml}.tmp"
+  while (test ! -z "${1}")
+  do
+    _msg=${1} && shift
 
-    rm "${_yaml}.tmp"
+    echo "#    ${_msg}"
+  done
+
+  echo "##################################################################################"
+}
+
+
+#
+create_namespace()
+{
+    test -z "${1}" && echo "Need a namespace passed" && exit
+    namespace="${1}"
+
+    namespaceFile="/tmp/k8s.namespace.${namespace}.yaml"
+
+    echo "
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $USER
+" >> "${namespaceFile}"
+
+    res=$( kubectl apply -f "${namespaceFile}" )
+
+    rm "${namespaceFile}"
+
+    
+    res=$( kubectl config set-context $(kubectl config current-context) --namespace ${namespace} )
+}
+
+#
+echo_environment()
+{
+    k8sContext=$( kubectl config current-context )
+    k8sNamespace=$( kubectl config view | grep namespace: | sed 's/.*namespace: //' )
+
+    echo "
+##################################################################################
+#        Ping Identity DevOps Kubernetes Setup Tool
+#
+#        Kubernets Context: ${k8sContext}
+#                Namespace: ${k8sNamespace}
+##################################################################################
+"
 }

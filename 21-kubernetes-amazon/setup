@@ -1,0 +1,85 @@
+#!/bin/bash
+cd $( dirname ${0} )
+SCRIPT_HOME=$( pwd )
+
+source ./lib.sh
+
+set -o allexport
+source "./env_vars"
+set +o allexport
+
+#
+# Usage printing function
+#
+usage ()
+{
+cat <<END_USAGE
+Usage: build.sh {options}
+    where {options} include:
+
+    *-u, --usecase
+        The usecase to setup.  These are immediate directories containing
+        kubernetes .yaml files
+    -n, --namespace
+        The kubernets namespace to use.  Defaults to: ${USER}
+    --help
+        Display general usage information
+END_USAGE
+exit 99
+}
+
+usecase=""
+namespace="${USER}"
+#
+# Parse the provided arguments, if any
+#
+while ! test -z "${1}" ; do
+    case "${1}" in
+        -n|--namespace)
+            shift
+            if test -z "${1}" ; then
+                exit_usage "Error: You must provide a namespace string"
+            fi
+            namespace="${1}"
+            ;;
+
+        -u|--usecase)
+            shift
+            if test -z "${1}" ; then
+                exit_usage "Error: You must provide a usecase"
+            fi
+            usecase="${1}"
+
+            test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found."
+            ;;
+
+        --help)
+            usage
+            ;;
+        *)
+            exit_usage "Unrecognized option"
+            ;;
+    esac
+    shift
+done
+
+test -z "${usecase}" && exit_usage "Error: A valid usecase directory is required."
+
+
+create_namespace "${namespace}"
+
+echo_environment
+
+for yamlFile in ${usecase}/*.yaml ; do
+    echo "--- ${yamlFile}"
+
+    envsubst < "${yamlFile}" > "${yamlFile}.tmp"
+    kubectlResult=$( kubectl apply -f "${yamlFile}.tmp" )
+
+    echo_indent "${kubectlResult}"
+
+    rm "${yamlFile}.tmp"
+done
+
+
+
