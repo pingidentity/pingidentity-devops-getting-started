@@ -8,15 +8,17 @@ set -o allexport
 source "./env_vars"
 set +o allexport
 
-kubectl_apply "k8s/namespace.yaml"    "Making namesapce ${USER}" 
+kubectl_apply "fullstack/namespace.yaml"    "Making namesapce ${USER}"
 
 kubectl config set-context $(kubectl config current-context) --namespace ${USER}
 
 # Cleanup before we start - make sure start from clean slate
 sh teardown.sh
 
-kubectl_apply "k8s/console.yaml"      "Creating PingDataConsole" 
-kubectl_apply "k8s/ds-topology.yaml"  "Creating PingDirectory"
+kubectl_apply "fullstack/pingdataconsole.yaml"      "Creating PingDataConsole"
+kubectl_apply "fullstack/pingdirectory.yaml"        "Creating PingDirectory"
+kubectl_apply "fullstack/pingfederate.yaml"         "Creating PingFederate"
+kubectl_apply "fullstack/pingaccess.yaml"         "Creating PingAccess"
 
 echo_header "Getting Everything"
 

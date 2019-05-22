@@ -3,33 +3,31 @@ kind: Service
 metadata:
   name: pingdataconsole
   labels:
-    app: ds-topology
+    usecase: fullstack
 spec:
   type: LoadBalancer
   ports:
     - port: 8080
       name: pingdataconsole
   selector:
-    role: ds-topology
+    usecase: fullstack
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingdataconsole
   labels:
-    app: ds-topology
-    role: ds-topology
+    usecase: fullstack
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ds-topology
+      usecase: fullstack
   template:
     metadata:
       name: pingdataconsole
       labels:
-        app: ds-topology
-        role: ds-topology
+        usecase: fullstack
     spec:
       containers:
       - name: pingdataconsole

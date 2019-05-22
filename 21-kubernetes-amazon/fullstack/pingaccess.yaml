@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingaccess
+  labels:
+    usecase: fullstack
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9000
+      name: adminport
+    - port: 443
+      name: paport
+  selector:
+    usecase: fullstack
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingaccess
+  labels:
+    usecase: fullstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      usecase: fullstack
+  template:
+    metadata:
+      name: pingaccess
+      labels:
+        usecase: fullstack
+    spec:
+      containers:
+      - name: pingaccess
+        image: pingidentity/pingaccess:edge
+        ports:
+        - containerPort: 9000
+          name: adminport
+        - containerPort: 443
+          name: paport
+        env:
+        - name: SERVER_PROFILE_URL
+          value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+        - name: SERVER_PROFILE_PATH
+          value: "getting-started/pingaccess"

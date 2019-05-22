@@ -12,10 +12,10 @@ set +o allexport
 
 echo_header "Tearing down 
         namespace=${USER}
-            label=app=ds-topology"
+            label=usecase=fullstack"
 
 # Clean up anything from a prior run
 kubectl delete configmaps,secrets,jobs,statefulsets,deployments,persistentvolumes,persistentvolumeclaims,services,pods \
-  -l "app=ds-topology" \
+  -l "usecase=fullstack" \
   -n "${USER}" \
   --grace-period=0 --force

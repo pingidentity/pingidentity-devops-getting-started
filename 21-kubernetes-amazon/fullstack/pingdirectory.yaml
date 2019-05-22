@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ds-topology
+  name: pingdirectory
   labels:
-    app: ds-topology
+    usecase: fullstack
 spec:
   ports:
   - port: 636
     name: ds
   clusterIP: None
   selector:
-    app: ds-topology
+    usecase: fullstack
 #---
 #apiVersion: v1
 #kind: Secret
 #metadata:
   #name: passwords
   #labels:
-    #app: ds-topology
+    #usecase: fullstack
 #type: Opaque
 #data:
   #root-user-password: "2FederateM0re"
@@ -28,17 +28,17 @@ kind: StatefulSet
 metadata:
   name: ds
   labels:
-    app: ds-topology
+    usecase: fullstack
 spec:
-  serviceName: ds-topology
+  serviceName: pingdirectory
   replicas: 1
   selector:
     matchLabels:
-      app: ds-topology
+      usecase: fullstack
   template:
     metadata:
       labels:
-        app: ds-topology
+        usecase: fullstack
     spec:
       #volumes:
       #- name: server-profile-ds
@@ -53,7 +53,7 @@ spec:
           #claimName: out-dir
       terminationGracePeriodSeconds: 300
       containers:
-      - name: ds
+      - name: pingdirectory
         image: pingidentity/pingdirectory:edge
         imagePullPolicy: Always
         ports:
