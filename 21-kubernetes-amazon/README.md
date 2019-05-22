@@ -1,5 +1,5 @@
 # Amazon Elastic Container Service for Kubernetes (Amazon EKS)
-This directory scripts and depoyment files to help with the deployment, management and scaling of 
+This directory contains scripts and deployment files to help with the deployment, management and scaling of 
 Ping Identity DevOps Docker Images to AWS using Kubernetes
 
 ## Getting started
@@ -39,8 +39,8 @@ the output:
 
 To see all the options when creating a cluster, simply run `eksctl create cluster -h`.
 
-## Getting information created cluster
-Once they are created, some helpful commands to see the customer details and nodegroup 
+## Retrieving cluster information
+Once created, some helpful commands to see the cluster details and nodegroup 
 details using eksctl:
 
 * `eksctl get cluster   --name=ping-devops-test`
