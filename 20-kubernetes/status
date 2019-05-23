@@ -2,7 +2,7 @@
 cd $( dirname ${0} )
 SCRIPT_HOME=$( pwd )
 
-source ./lib.sh
+source ./utils/k8sUtils.sh
 
 # Export environment variables
 ENV_VARS_FILE=env_vars

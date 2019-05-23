@@ -1,8 +1,10 @@
 #!/bin/bash
 cd $( dirname ${0} )
+SCRIPT=$( basename ${0} )
 SCRIPT_HOME=$( pwd )
+cd ${SCRIPT_HOME}
 
-source ./lib.sh
+source ./utils/k8sUtils.sh
 
 set -o allexport
 source "./env_vars"
@@ -14,16 +16,23 @@ set +o allexport
 usage ()
 {
 cat <<END_USAGE
-Usage: build.sh {options}
+Usage: ${SCRIPT} {options}
     where {options} include:
 
-    *-u, --usecase
-        The usecase to setup.  These are immediate directories containing
-        kubernetes .yaml files
+    *-u, --usecase {use-case-name}
+        The usecase to setup.  These are directories in usecases containing
+        kubernetes .yaml files (i.e. fullstack)
     -n, --namespace
         The kubernets namespace to use.  Defaults to: ${USER}
     --help
         Display general usage information
+
+    Example:
+      Deploy the fullstack usecase
+
+      ${SCRIPT} -u fullstack
+
+    * Required option
 END_USAGE
 exit 99
 }
@@ -48,7 +57,7 @@ while ! test -z "${1}" ; do
             if test -z "${1}" ; then
                 exit_usage "Error: You must provide a usecase"
             fi
-            usecase="${1}"
+            usecase="usecases/${1}"
 
             test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found."
             ;;
