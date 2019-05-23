@@ -77,20 +77,14 @@ spec:
           value: "https://github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
           value: baseline/pingdirectory
-        - name: SERVER_PROFILE_PARENT
-          value: LICENSE
-        - name: SERVER_PROFILE_LICENSE_URL
-          value: "https://github.com/pingidentity/pingidentity-server-profiles.git"
-        - name: SERVER_PROFILE_LICENSE_PATH
-          value: licesnses/pingdirectory
         - name: TOPOLOGY_SIZE
           value: "${PINGDIRECTORY_TOPOLOGY_SIZE}"
         - name: TOPOLOGY_PREFIX
           value: "pingdirectory-instance-"
         - name: TOPOLOGY_SUFFIX
           value: "pingdirectory"
-        - name: VERBOSE
-          value: "true"
+        # - name: VERBOSE
+        #   value: "true"
         # volumeMounts:
         # - name: in-dir
         #   mountPath: /opt/in

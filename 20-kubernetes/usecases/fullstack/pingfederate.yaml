@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingfederate
+  labels:
+    app: pingfederate
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9999
+      name: pf-admin
+  selector:
+    app: pingfederate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingfederate
+  labels:
+    app: pingfederate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingfederate
+  template:
+    metadata:
+      name: pingfederate
+      labels:
+        app: pingfederate
+    spec:
+      containers:
+      - name: pingfederate
+        image: pingidentity/pingfederate:edge
+        ports:
+        - containerPort: 9999
+        env:
+        - name: SERVER_PROFILE_URL
+          value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+        - name: SERVER_PROFILE_PATH
+          value: "baseline/pingfederate"
