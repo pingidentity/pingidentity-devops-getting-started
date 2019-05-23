@@ -4,6 +4,37 @@ THIS="$( basename "${0}" )"
 THIS_DIR=`pwd`
 
 
+numTools=0
+numOk=0
+numMissing=0
+
+# function to check for the existence of a tool command
+check_tool()
+{
+    toolName="${1}" && shift
+    toolCmd="${1}" && shift
+    toolMsg="${1}" && shift
+    
+    numTools=$((numTools + 1))
+    ${toolCmd} 2>/dev/null >/dev/null
+    RESULT=$?
+
+    pad=$(printf '%0.1s' "."{1..80})
+    printf "%s" "${toolName}"
+    printf "%*.*s" 0 $((72-${#toolName}-3)) "${pad}"
+
+    if [ "${RESULT}" == "127" ]; then
+        echo -e "[ ${RED}MISSING${NC} ]"
+        echo "INFO: ${toolMsg}" | sed 's/^/      /'
+        echo ""
+        numMissing=$((numMissing + 1))
+    else
+        echo -e "[   ${GREEN}OK${NC}    ]"
+        numOk=$((numOk + 1))
+    fi
+}
+
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -42,7 +73,7 @@ if test "${?}" == "1"; then
 "
 
 
-  echo -n "  OK if we source our bash_profile_devops commands to your .bash_profile (y/n) [y] ? "
+  echo -n "  OK if we add a 'source bash_profile_devops' commands to your .bash_profile (y/n) [y] ? "
   read answer
 
   if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
@@ -54,65 +85,40 @@ source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
     echo_green "  OK, we got you setup.  You can get help with 'dhelp' command"
   fi
 else
-  echo_green "  OK, you already have bash_profile_devops in your .bash_profile"
+  echo_green "  Great! You already have bash_profile_devops in your .bash_profile"
 fi
 
 echo "
-####################### docker #################################################"
+####################### Checking Tools #########################################"
 
-UTIL="docker"
-echo "  Let's check your ${UTIL} version installed...
-------"
-${UTIL} -v
-RESULT=$?
-echo "------"
-if [ "${RESULT}" == "127" ]; then
-  echo_red"  ${UTIL} not found."
-  echo "  You can download from:
-      https://hub.docker.com/editions/community/docker-ce-desktop-mac
-"
-else
-  echo_green "  OK, we found ${UTIL}.  Simply validate that it's version 18.09 or later."
-fi
+#echo "####################### Utilities ##############################################"
 
-echo "
-####################### jq #####################################################"
+check_tool "jq"       "jq -V"           "https://stedolan.github.io/jq/download"
+check_tool "pyjwt"    "pyjwt -V"        "https://pyjwt.readthedocs.io/"
 
-UTIL="jq"
-echo "  Let's check your ${UTIL} utility (used to parse json files)...
-------"
-${UTIL} -V
-RESULT=$?
-echo "------"
-if [ "${RESULT}" == "127" ]; then
-  echo_red "  ${UTIL} not found."
-  echo "  You can download from:
-      https://stedolan.github.io/jq/download
-"      
-else
-  echo_green "  OK, we found ${UTIL}."
-fi
+#echo "####################### Docker #################################################"
+check_tool "docker"   "docker -v"       "https://hub.docker.com/editions/community/docker-ce-desktop-mac"
 
-echo "
-####################### pyjwt ##################################################"
+#echo "####################### Amazon #################################################"
 
-UTIL="pyjwt"
-echo "  Let's check your ${UTIL} utility (used to parse jwt tokens)...
-------"
-${UTIL} -v
-RESULT=$?
-echo "------"
-if [ "${RESULT}" == "127" ]; then
-  echo_rede "  ${UTIL} not found."
-  echo "  You can install with from:
-      pip install ${UTIL}   # You may need to sudo
-"      
-else
-  echo_green "  OK, we found ${UTIL}."
-fi
+check_tool "aws"      "aws --version"   "https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html"
+check_tool "eksctl"   "eksctl version"  "https://eksctl.io/"
+
+#echo "####################### Google #################################################"
+
+check_tool "gcloud"    "gcloud -v"      "https://cloud.google.com/sdk/gcloud/"
+
+#echo "####################### Microsoft ##############################################"
+
+check_tool "az"       "az -V"           "https://docs.microsoft.com/cli/azure/install-azure-cli"
+
+echo ""
 
 echo -e "
-####################### setup complete #########################################
+####################### RESULTS ################################################
+
+ ${GREEN}     OK: $numOk${NC}
+ ${RED}MISSING: $numMissing${NC}
 
   If there were items to resolve, please complete those now.  Simply 
   rerun '${THIS}' again to validate all steps are complete.
