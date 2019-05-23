@@ -3,38 +3,37 @@ kind: Service
 metadata:
   name: pingfederate-admin
   labels:
-    usecase: fullstack
+    app: pingfedereate-admin
 spec:
   type: LoadBalancer
   ports:
     - port: 9999
-      name: pf-admin-port
+      name: pf-admin
   selector:
-    usecase: fullstack
+    app: pingfedereate-admin
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingfederate-admin
   labels:
-    usecase: fullstack
+    app: pingfedereate-admin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      usecase: fullstack
+      app: pingfedereate-admin
   template:
     metadata:
       name: pingfederate-admin
       labels:
-        usecase: fullstack
+        app: pingfedereate-admin
     spec:
       containers:
       - name: pingfederate-admin
         image: pingidentity/pingfederate:edge
         ports:
         - containerPort: 9999
-          name: pf-admin-port
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"

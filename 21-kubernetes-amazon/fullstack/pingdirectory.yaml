@@ -12,7 +12,7 @@ spec:
       name: ldap
   clusterIP: None
   selector:
-    usecase: ds1234
+    app: pingdirectory
 #---
 #apiVersion: v1
 #kind: Secret
@@ -34,11 +34,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      usecase: ds1234
+      app: pingdirectory
   template:
     metadata:
       labels:
-        usecase: ds1234
+        app: pingdirectory
     spec:
       #volumes:
       #- name: server-profile-ds
@@ -58,11 +58,8 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 636
-          name: ldaps
         - containerPort:  443
-          name: ssl
         - containerPort:  389
-          name: ldap
         resources:
           requests:
             memory: "0"
@@ -71,8 +68,6 @@ spec:
             memory: "0"
             cpu: "0"
         env:
-        #- name: K8S_SERVICE_NAME
-        #  value: "ds-topology"
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH

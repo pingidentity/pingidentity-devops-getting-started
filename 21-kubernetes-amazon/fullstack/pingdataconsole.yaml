@@ -3,35 +3,36 @@ kind: Service
 metadata:
   name: pingdataconsole
   labels:
-    usecase: fullstack
+    app: pingdataconsole
 spec:
   type: LoadBalancer
+  sessionAffinity: ClientIP
   ports:
-    - port: 8080
-      name: pingdataconsole
+    - port: 80
+      name: http
+      targetPort: 8080
   selector:
-    usecase: fullstack
+    app: pingdataconsole
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingdataconsole
   labels:
-    usecase: fullstack
+    app: pingdataconsole
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      usecase: fullstack
+      app: pingdataconsole
   template:
     metadata:
       name: pingdataconsole
       labels:
-        usecase: fullstack
+        app: pingdataconsole
     spec:
       containers:
       - name: pingdataconsole
         image: pingidentity/pingdataconsole:edge
         ports:
         - containerPort: 8080
-          name: pingdataconsole

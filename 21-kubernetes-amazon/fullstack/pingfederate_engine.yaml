@@ -3,38 +3,37 @@ kind: Service
 metadata:
   name: pingfederate-engine
   labels:
-    usecase: fullstack
+    app: pingfederate-engine
 spec:
   type: LoadBalancer
   ports:
     - port: 9031
-      name: pf-port
+      name: pf-app
   selector:
-    usecase: fullstack
+    app: pingfederate-engine
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingfederate-engine
   labels:
-    usecase: fullstack
+    app: pingfederate-engine
 spec:
   replicas: 1
   selector:
     matchLabels:
-      usecase: fullstack
+      app: pingfederate-engine
   template:
     metadata:
       name: pingfederate-engine
       labels:
-        usecase: fullstack
+        app: pingfederate-engine
     spec:
       containers:
       - name: pingfederate-engine
         image: pingidentity/pingfederate:edge
         ports:
         - containerPort: 9031
-          name: pf-port
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"

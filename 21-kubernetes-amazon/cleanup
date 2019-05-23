@@ -16,6 +16,6 @@ echo_header "Tearing down
 
 # Clean up anything from a prior run
 kubectl delete configmaps,secrets,jobs,statefulsets,deployments,persistentvolumes,persistentvolumeclaims,services,pods \
-  -l "usecase=fullstack" \
   -n "${USER}" \
-  --grace-period=0 --force
+  --grace-period=0 --force --all
+  #-l "usecase=fullstack" \
