@@ -6,7 +6,6 @@ metadata:
     app: pingdataconsole
 spec:
   type: LoadBalancer
-  sessionAffinity: ClientIP
   ports:
     - port: 80
       name: http
