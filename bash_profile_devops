@@ -310,6 +310,15 @@ alias p14c="_p14c"
 # Aliases of commonly used PingIdentity For Customer commands
 ##############################################################################
 
+get_value ()
+{
+    # the following will preserve spaces in the printf
+    IFS="%%"
+    eval printf '%s' "\${${1}}"
+    unset IFS
+}
+
+
 ## _piaddconfig
 function _piaddconfig()
 {
@@ -318,20 +327,21 @@ function _piaddconfig()
   VAR_DEFAULT="${1}" && shift
   VAR_PROMPT="${*}"
 
-  test -z "${VAR_TO_SET}" && eval "export \${VAR_TO_SET}=\${VAR_DEFAULT}"
+  CURRENT_VALUE=$(get_value ${VAR_TO_SET})
+  test -z "${CURRENT_VALUE}" && CURRENT_VALUE="${VAR_DEFAULT}"
 
-  echo -n "${VAR_PROMPT} [${VAR_TO_SET}] ? "
+  echo -n "${VAR_PROMPT} [${CURRENT_VALUE}] ? "
   read answer
   if test ! -z "${answer}"; then
-    if test "${VAR_TO_SET}" == "-"; then
+    if test "${answer}" = "-"; then
       eval "unset \${VAR_TO_SET}"
       echo "${VAR_TO_SET}=" >> ${PROPS_FILE}
     else
       eval "export \${VAR_TO_SET}=${answer}"
-      echo "${VAR_TO_SET}=${VAR_TO_SET}" >> ${PROPS_FILE}
+      echo "${VAR_TO_SET}=${answer}" >> ${PROPS_FILE}
     fi
   else
-    echo "${VAR_TO_SET}=${VAR_TO_SET}" >> ${PROPS_FILE}
+    echo "${VAR_TO_SET}=${CURRENT_VALUE}" >> ${PROPS_FILE}
   fi
 }
 
@@ -407,7 +417,7 @@ PING_ONE_API_URL=https://api.pingone.com/v1/environments/${PING_ONE_ENVIRONMENT_
 
   grep "sourcePingIdentityFiles" ~/.bash_profile >/dev/null
 
-  if test "$?" == "1"; then
+  if test "$?" = "1"; then
     echo "
 We recommend that your source your .pingidentity files with the command 'sourcePingIdentityFiles'
 in your ~/.bash_profile.
