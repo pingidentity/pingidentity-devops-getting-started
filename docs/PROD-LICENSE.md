@@ -6,8 +6,8 @@ to run the images:
 
 * Eval License - By providing your Ping Identity DevOps User and Key
   * [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
-  * [Saving your DevOps User/Key](#saving-your-devops-user/key)
-  * [Using your DevOps User/Key](#using-your-devops-user/key)
+  * [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
+  * [Using your DevOps User/Key](#using-your-devops-user-and-key)
 * Existing license - By embedding into your Server Profile
   * Obtaining an evaluation license via your Ping Identity Account Profile
   * [Use an existing license file (Current customers)](#using-an-existing-product-license-file)
@@ -31,7 +31,7 @@ Example:
 * `PING_IDENTITY_DEVOPS_USER=jsmith@example.com`
 * `PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2`
 
-## Saving your DevOps User/Key
+## Saving your DevOps User and Key
 The best way to save your DevOps User/Key is to use the Ping Identity Config command ``piconfig``.  You can run this
 if you have setup your environment using the ``setup`` command that comes with the ``pingidentity-devops-getting-started``
 github repo.  More details on this can be found in that [quickstart](getting-started/QUICKSTART.md).
@@ -44,7 +44,7 @@ piconfig
 
 and answer the prompts with your DEVOPS User/Key.  You can view these settings with the ``denv`` command after you've configured them.
 
-## Using your DevOps User/Key
+## Using your DevOps User and Key
 When starting an image, you can provide your devops property file ``~/.pingidentity/devops`` or using
 the individual environment variables.  For more detail, run the ``denv`` to get your devops environment
 information.  
