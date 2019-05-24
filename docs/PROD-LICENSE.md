@@ -5,12 +5,12 @@ required.  There are several ways to obtain a product license
 to run the images:
 
 * Eval License - By providing your Ping Identity DevOps User and Key
-  * Obtaining a Ping Identity DevOps User and Key
-  * Saving your DevOps User/Key
-  * Using your DevOps User/Key
+  * [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
+  * [Saving your DevOps User/Key](#saving-your-devops-user/key)
+  * [Using your DevOps User/Key](#using-your-devops-user/key)
 * Existing license - By embedding into your Server Profile
   * Obtaining an evaluation license via your Ping Identity Account Profile
-  * Use an existing license file (Current customers)
+  * [Use an existing license file (Current customers)](#using-an-existing-product-license-file)
 
 
 ## Obtaining a Ping Identity DevOps User and Key
@@ -42,8 +42,7 @@ Simpy run:
 piconfig
 ```
 
-and answer the propmpt with your DEVOPS User/Key.  You can view these settings with the ``denv`` command after you've
-configured them.
+and answer the prompts with your DEVOPS User/Key.  You can view these settings with the ``denv`` command after you've configured them.
 
 ## Using your DevOps User/Key
 When starting an image, you can provide your devops property file ``~/.pingidentity/devops`` or using
