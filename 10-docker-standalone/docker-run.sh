@@ -78,11 +78,6 @@ test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 #shellcheck source=FF-shared/prepare-network.sh.fragment
 test -f "${SHARED_DIR}/prepare-network.sh.fragment" && . "${SHARED_DIR}/prepare-network.sh.fragment"
 
-# wipe the input dir
-# if ! test -z "${IN_DIR}" && ! test "${IN_DIR}" = "/" ; then 
-#     test -d "${IN_DIRE}" && rm -rf "${IN_DIR}"
-# fi
-
 # Docker Image that will be run
 DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}:edge"
 
