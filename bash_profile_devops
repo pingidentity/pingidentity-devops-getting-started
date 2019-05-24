@@ -318,20 +318,20 @@ function _piaddconfig()
   VAR_DEFAULT="${1}" && shift
   VAR_PROMPT="${*}"
 
-  test -z "${!VAR_TO_SET}" && eval "export \${VAR_TO_SET}=\${VAR_DEFAULT}"
+  test -z "${VAR_TO_SET}" && eval "export \${VAR_TO_SET}=\${VAR_DEFAULT}"
 
-  echo -n "${VAR_PROMPT} [${!VAR_TO_SET}] ? "
+  echo -n "${VAR_PROMPT} [${VAR_TO_SET}] ? "
   read answer
   if test ! -z "${answer}"; then
-    if test "${!VAR_TO_SET}" == "-"; then
+    if test "${VAR_TO_SET}" == "-"; then
       eval "unset \${VAR_TO_SET}"
       echo "${VAR_TO_SET}=" >> ${PROPS_FILE}
     else
       eval "export \${VAR_TO_SET}=${answer}"
-      echo "${VAR_TO_SET}=${!VAR_TO_SET}" >> ${PROPS_FILE}
+      echo "${VAR_TO_SET}=${VAR_TO_SET}" >> ${PROPS_FILE}
     fi
   else
-    echo "${VAR_TO_SET}=${!VAR_TO_SET}" >> ${PROPS_FILE}
+    echo "${VAR_TO_SET}=${VAR_TO_SET}" >> ${PROPS_FILE}
   fi
 }
 
