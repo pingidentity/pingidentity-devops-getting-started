@@ -1,12 +1,18 @@
-# Ping Downloader
-Docker image to download Ping Identity products
+
+# Ping Identity Docker Image - `pingdownloader`
+
+This docker image provides an alpine image to help with the download of
+Ping product images and licenses.
+
+## Related Docker Images
+- `alpine` - Parent Image
 
 ## Usage
 ```shell
 docker run pingidentity/pingdownloader -p <product_name>
 ```
 ### Options
-```shell 
+```shell
 -v, --version: the version of the product to download. by default, the downloader will pull the latest version
 
 -c, --conserve-name: use this option to conserve the original file name. By   default, the downloader will rename the file product.zip
@@ -30,12 +36,7 @@ Download a product to /tmp on the host, as opposed to /tmp in the PingDownloader
 docker run --rm -v /tmp:/tmp pingidentity/pingdownloader -p PingFederate
 ```
 
+---
+This document auto-generated from _[pingidentity/pingdownloader Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdownloader/Dockerfile)_
 
-
-## Commercial Support
-These images are not currently considered stable and are subject to changes without notification.
-Please contact devops_program@pingidentity.com for details
-
-
-## Copyright
-Copyright © 2019 Ping Identity. All rights reserved.
+Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

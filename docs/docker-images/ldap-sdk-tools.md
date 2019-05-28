@@ -1,3 +1,20 @@
+
+# Ping Identity Docker Image - `pingdataconsole`
+
+This docker image provides an apine image with the LDAP Client
+SDK tools to be used against other PingDirectory instances.
+
+## Related Docker Images
+- `pingidentity/pingdownloader` - Image used to download ping product
+- `openjdk:8-jre8-alpine` - Alpine server to run LDAP SDK Tools from
+
+## Environment Variables
+The following environment `ENV` variables can be used with 
+this image. 
+
+| ENV Variable  | Default     | Description
+| ------------: | ----------- | -------
+| PATH  | /opt/tools:${PATH}  | 
 ## List all available tools
 `docker run -it --rm pingidentity/ldap-sdk-tools ls`
 
@@ -42,9 +59,8 @@ keytool -list \
   -keystore /tmp/hibp/hibp-2019.jks \
   -storepass ${PWD}
 ```
-## Commercial Support
-These images are not currently considered stable and are subject to changes without notification.
-Please contact devops_program@pingidentity.com for details
 
-## Copyright
-Copyright © 2019 Ping Identity. All rights reserved.
+---
+This document auto-generated from _[pingidentity/ldap-sdk-tools Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/ldap-sdk-tools/Dockerfile)_
+
+Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
