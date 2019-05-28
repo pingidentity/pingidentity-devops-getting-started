@@ -21,12 +21,11 @@ should be completed.
 * Install Apache Directory Studio ([link to download](https://directory.apache.org/studio/download/download-macosx.html))
 * Postman ([link to download](https://www.getpostman.com/downloads/))
 
-## Checkout Github pingidentity-devops-getting-started
+## Clone Github pingidentity-devops-getting-started
 All the scripts and examples used in this quick-start are provided in
 the [pingidentity-devops-getting-started Github repo](https://github.com/pingidentity/pingidentity-devops-getting-started.git).
 
-Using the git utility on your machine, in a terminal window checkout the 
-contents of the getting-started repo using the command below.
+Make a local copy of the repo on your machine
 
 ```
 $ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
@@ -100,7 +99,7 @@ docker container exec -it pingfederate /bin/sh
 
 
 
-# After server starts, goto:
+# After server starts, go to:
 
      Admin Console:  https://localhost:9999/pingfederate/app
 
@@ -116,7 +115,7 @@ In the example above, the image is first pulled down from Docker Hub
 and cached in your local docker registry.  The container is then started, 
 followed by some sample commands to view the application logs.
 
-To see the status of your container (notice the ``health`` status) you can use the example below:
+To see the `health` status of your containers run:
 
 ```
 > docker container ls -a
@@ -124,7 +123,7 @@ CONTAINER ID        IMAGE                       COMMAND                  CREATED
 13453a051295        pingidentity/pingfederate   "entrypoint.sh start…"   4 minutes ago       Up 4 minutes (healthy)   0.0.0.0:9031->9031/tcp, 0.0.0.0:9999->9999/tcp   pingfederate
 ```
 
-And to login to this new PingFederate continer you can navigate in your web browser to:
+Once you see a `(healthy)` PingFederate continer you can navigate in your web browser to:
 
 * https://localhost:9999/pingfederate/app
   * Username: Administrator

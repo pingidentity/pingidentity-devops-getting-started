@@ -6,16 +6,20 @@ PingFederate and PingDirectory.
 Please refer to the [Docker Compose Overview](../README.md) for details on how to 
 start, stop, cleanup stacks. 
 
-To stand up multiple containers with a single command add the `--scale` argument to `docker-compose up`:
+To start the stack, from this directory run:
 
-  `docker-compose up`
+  `docker-compose up -d`
 
 Watch the directories initialize with:
 
   `docker-compose logs -f`
 
+To stand up multiple containers, run compose with the `--scale` argument: 
+
+`docker-compose up --scale pingdirectory=3 --pingfederate=2`
+
 ## Using the containers
-At this point you should see docker-compose create the services for a PingFederate instance and a PingDirectory instance. Note that these services are started up in the foreground.  Upon exiting (ctrl-C), the services will be stopped.
+Once you see that the containers are healthy in `docker ps`
 
 Once the PingDirectory instance is up, 
 
