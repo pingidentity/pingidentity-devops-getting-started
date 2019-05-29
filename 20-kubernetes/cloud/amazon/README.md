@@ -184,7 +184,7 @@ aws ec2 authorize-security-group-ingress \
 
 ## Startup up PingFederate service in ECS Cluster
 
-PingFederate Docker Compose .yaml (docker-compose.yaml)
+PingFederate Docker Compose .yaml (docker-compose.yml)
 ```
 version: "3"
 
@@ -205,7 +205,7 @@ services:
         awslogs-stream-prefix: ping-devops
 ```
 
-ECS Params .yaml (ecs-params.yaml)
+ECS Params .yaml (ecs-params.yml)
 ```
 version: 1
 task_definition:
