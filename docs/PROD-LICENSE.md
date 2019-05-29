@@ -33,8 +33,8 @@ Example:
 
 ## Saving your DevOps User and Key
 The best way to save your DevOps User/Key is to use the Ping Identity Config command ``piconfig``.  You can run this
-if you have setup your environment using the ``setup`` command that comes with the ``pingidentity-devops-getting-started``
-github repo.  More details on this can be found in that [quickstart](getting-started/QUICKSTART.md).
+if you have set up your environment using the ``setup`` command that comes with the ``pingidentity-devops-getting-started``
+GitHub repo.  More details on this can be found in that [quickstart](getting-started/QUICKSTART.md).
 
 Simpy run:
 
@@ -90,8 +90,25 @@ starting with **PING_IDENTITY_DEVOPS**):
 ...
 ``` 
 
+### Example with .yaml file and inline environment variables
+An example of running a docker image using any docker .yaml file
+would look like the following example (See the 2 environment variables
+starting with **PING_IDENTITY_DEVOPS**):
+
+```
+...
+  pingdirectory:
+    image: pingidentity/pingdirectory
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=getting-started/pingdirectory
+      - PING_IDENTITY_DEVOPS_USER=jsmith@example.com
+      - PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
+...
+```
+
 ## Using an existing Product License file
-You can also use an existing valid product licsen file the the product/version combo
+You can also use an existing valid product license file the product/version combo
 you are running, by placing them into the proper directory of your server profile.
 The default server profile location and file name for each product are as follows:
 
