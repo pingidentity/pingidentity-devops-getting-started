@@ -183,8 +183,15 @@ aws ec2 authorize-security-group-ingress \
 ```
 
 ## Startup up PingFederate service in ECS Cluster
+Now you can create a PingFederate service in an ECS Cluster using the example `docker-compose.yml` and
+`ecs-params.yml` files below.
 
-PingFederate Docker Compose .yaml (docker-compose.yml)
+Details on these files imputs can be found at:
+
+* [Using Docker Compose File Syntax](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-parameters.html)
+* [Using Amazon ECS Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-ecsparams.html)
+
+Example PingFederate Docker Compose .yaml (docker-compose.yml)
 ```
 version: "3"
 
@@ -205,7 +212,7 @@ services:
         awslogs-stream-prefix: ping-devops
 ```
 
-ECS Params .yaml (ecs-params.yml)
+Example ECS Params .yaml (ecs-params.yml)
 ```
 version: 1
 task_definition:
@@ -225,6 +232,9 @@ run_params:
       assign_public_ip: ENABLED
 ```
 
+Placing these into a directory named `ping-devops-ecs-service` and running the following command
+in that directory will startup a PingFederate instance.  You will need to look at the task infomation
+from an AWS Console to see the External IP to login to PingFederate.
 
 ```
 ecs-cli compose service up \
