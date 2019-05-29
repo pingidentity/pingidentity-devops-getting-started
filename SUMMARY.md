@@ -2,8 +2,7 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
-* [Product Licenses](docs/PROD-LICENSE.md)
-* [Docker Builds](docs/docker-images/README.md)
+* [Docker Images](docs/docker-images/README.md)
   * [PingFederate](docs/docker-images/pingfederate.md)
   * [PingAccess](docs/docker-images/pingaccess.md)
   * [PingDirectory](docs/docker-images/pingdirectory.md)
@@ -15,7 +14,7 @@
   * [PingCommon](docs/docker-images/pingcommon.md)
   * [PingDataCommon](docs/docker-images/pingdatacommon.md)
   * [Apache JMeter](docs/docker-images/apache-jmeter.md)
-* [Getting Started Examples](docs/getting-started/README.md)
+* [Examples](docs/getting-started/README.md)
   * [Quick Start](docs/getting-started/QUICKSTART.md)
   * [Docker Standalone](10-docker-standalone/README.md)
     * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
@@ -26,6 +25,7 @@
   * [Docker Compose](11-docker-compose/README.md)
     * [01-simple-stack](11-docker-compose/01-simple-stack/README.md)
     * [02-replicated-pair](11-docker-compose/02-replicated-pair/README.md)
+    * [03-full-stack](11-docker-compose/03-full-stack/README.md)
   * [Docker Swarm](12-docker-swarm/README.md)
   * [Kubernetes](20-kubernetes/README.md)
     * [Azure](20-kubernetes/cloud/azure/README.md)
@@ -35,12 +35,13 @@
 * [Server Profiles](docs/server-profiles/README.md)
   * [Administration](docs/server-profiles/ADMINISTRATION.md)
   * [Quick Start](docs/server-profiles/QUICKSTART.md)
-  * [Getting Started](docs/server-profiles/GETTING_STARTED.md)
+  <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md)
   * [Baseline](docs/server-profiles/BASELINE.md)
-  * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md)
+  * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->
 * [Build Your Own Docker Images](docs/docker-builds/README.md)
-  * [Quick Start](docs/docker-builds/QUICKSTART.md)
+  <!--- * [Quick Start](docs/docker-builds/QUICKSTART.md) --->
   * [Docker Builds - Hooks](docs/docker-builds/DOCKER_BUILDS_HOOKS.md)
+* [Obtain and Use Product Licenses](docs/PROD-LICENSE.md)
 * [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
 
 ## --
