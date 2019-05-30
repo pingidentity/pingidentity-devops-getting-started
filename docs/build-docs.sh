@@ -1,17 +1,38 @@
 #!/usr/bin/env sh
+cd "$( dirname "${0}" )"
+THIS="$( basename "${0}" )"
+THIS_DIR=`pwd`
+
 
 DOCKER_BUILD_DIR="${HOME}/projects/devops/pingidentity-docker-builds"
 
 #
+# Usage printing function
 #
-#
-append_doc()
+usage ()
 {
-    echo "$*" >> "${DOCFILE}"
+cat <<END_USAGE
+Usage: ${THIS} {options}
+    where {options} include:
+
+    -d, --docker-image {docker-image}
+        The name of the docker image to build dos for
+    -h, --help
+        Display general usage information
+END_USAGE
+exit 99
 }
 
 #
+# Append all arguments to the end of the current markdown document file
 #
+append_doc()
+{
+    echo "$*" >> "${_docFile}"
+}
+
+#
+# Append a header
 #
 append_header()
 {
@@ -19,29 +40,21 @@ append_header()
 }
 
 #
-#
+# Append a footer including a link to the source file
 #
 append_footer()
 {
+    _srcFile="${1}"
+
     append_doc ""
     append_doc "---"
-    append_doc "This document auto-generated from _[pingidentity/${DOCKERIMAGE} Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/${DOCKERIMAGE}/Dockerfile)_"
+    append_doc "This document auto-generated from _[${_srcFile}](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/${_srcFile})_"
     append_doc ""
     append_doc "Copyright (c)  2019 Ping Identity Corporation. All rights reserved."
 }
 
 #
-#
-#
-parse_description()
-{
-    grep "^#-desc " "${DOCKERFILE}" | while read -r line ; do
-        append_doc $(echo "$line" | sed 's/^#-desc //')
-    done
-}
-
-#
-#
+# Start the section on environment variables
 #
 append_env_table_header()
 {
@@ -54,7 +67,7 @@ append_env_table_header()
         append_doc ""
 
         append_doc "| ENV Variable  | Default     | Description"
-        append_doc "| ------------: | ----------- | -------"
+        append_doc "| ------------: | ----------- | ---------------------------------"
     fi
 }
 
@@ -91,23 +104,75 @@ append_expose_ports()
 #
 #
 #
+parse_hooks()
+{
+    _dockerImage="${1}"
+    _hooksDir="${DOCKER_BUILD_DIR}/${_dockerImage}/hooks"
+
+    mkdir -p "docker-images/${_dockerImage}/hooks"
+
+    echo "Parsing hooks for ${_dockerImage}..."
+    
+    _hookFiles=""
+
+    for _hookFile in $(ls ${_hooksDir}); do
+        _hookFiles="${_hookFiles} ${_hookFile}"
+        _docFile="docker-images/${_dockerImage}/hooks/${_hookFile}.md"
+        rm -f "${_docFile}"
+        echo "  parsing hook ${_hookFile}"
+        append_header
+        append_doc "# Ping Identity DevOps \`${_dockerImage}\` Hook - \`${_hookFile}\`"
+
+        cat "${_hooksDir}/${_hookFile}" | while read -r line ; do
+            #
+            # Parse the remaining lines for "#-"
+            #
+            if [ "$(echo "${line}" | cut -c-2)" = "#-" ] ; then
+                md=$(echo "$line" | sed \
+                 -e 's/^\#- //' \
+                 -e 's/^\#-$//')
+
+                append_doc "$md"
+            fi
+        done
+
+        append_footer "${_dockerImage}/hooks/${_hookFile}"
+    done
+
+
+    _docFile="docker-images/${_dockerImage}/hooks/README.md"
+    rm -f ${_docFile}
+    append_header
+    append_doc "# Ping Identity DevOps \`${_dockerImage}\` Hooks"
+    append_doc "List of available hooks:"
+    for _hookFile in ${_hookFiles}; do
+        append_doc "* [${_hookFile}](${_hookFile}.md)"
+    done
+    append_footer "${_dockerImage}/hooks"
+}
+
+#
+#
+#
 parse_dockerfile()
 {
-    DOCKERFILE="${1}"
-    DOCKERIMAGE=$(basename "$(dirname "${DOCKERFILE}")")
+    _dockerImage="${1}"
+    _dockerFile="${DOCKER_BUILD_DIR}/${_dockerImage}/Dockerfile"
+ 
+    mkdir -p "docker-images/${_dockerImage}"
 
-    DOCFILE="docker-images/${DOCKERIMAGE}.md"
-    rm "${DOCFILE}"
+    _docFile="docker-images/${_dockerImage}/README.md"
+    rm -f "${_docFile}"
 
-    echo "Parsing Dockerfile ${DOCKERIMAGE}..."
+    echo "Parsing Dockerfile ${_dockerImage}..."
         
     append_header
 
-    cat "${DOCKERFILE}" | while read -r line ; do
+    cat "${_dockerFile}" | while read -r line ; do
         
         #
         # Parse the ENV Description
-        #   Example: $-env This is the description
+        #   Example: $-- This is the description
         #
         if [ "$(echo "${line}" | cut -c-3)" = "#--" ]; then
             ENV_DESCRIPTION="${ENV_DESCRIPTION}$(echo "${line}" | cut -c5-) "
@@ -158,12 +223,50 @@ parse_dockerfile()
         fi
     done
 
-    append_footer
+    append_doc "## Docker Container Hook Scripts"
+    append_doc "Please go [here](hooks/README.md) for details on all `${_dockerImage}` hook scripts"
+    append_footer "${_dockerImage}/Dockerfile"
 }
 
-DFILES=$(find "${DOCKER_BUILD_DIR}" -print | grep Dockerfile)
+#
+# main
+#
+dockerImages="pingaccess pingfederate pingdirectory pingdatasync
+pingbase pingcommon pingdatacommon
+pingdataconsole pingdownloader ldap-sdk-tools 
+pingdirectoryproxy pingdelegator apache-jmeter"
+#
+# Parse the provided arguments, if any
+#
+while ! test -z "${1}" ; do
+    case "${1}" in
+        -d|--docker-image)
+            shift
+            if test -z "${1}" ; then
+                echo "You must provide name of docker-image(s)"
+                usage
+            fi
+            dockerImages="${1}"
+            ;;
+        
+        --help)
+            usage
+            ;;
+        *)
+            echo "Unrecognized option"
+            usage
+            ;;
+    esac
+    shift
+done
 
-for DFILE in ${DFILES}
+for dockerImage in ${dockerImages}
 do
-    parse_dockerfile "${DFILE}"
+    echo "Creating docs for '${dockerImage}'"
+
+    test ! -d "${DOCKER_BUILD_DIR}/${dockerImage}" \
+        && echo "Docker Image '${dockerImage}' not found"
+
+    parse_dockerfile "${dockerImage}"
+    parse_hooks "${dockerImage}"
 done

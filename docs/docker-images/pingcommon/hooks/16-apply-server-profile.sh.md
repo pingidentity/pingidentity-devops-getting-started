@@ -1,0 +1,7 @@
+
+# Ping Identity DevOps `pingcommon` Hook - `16-apply-server-profile.sh`
+
+---
+This document auto-generated from _[pingcommon/hooks/16-apply-server-profile.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/hooks/16-apply-server-profile.sh)_
+
+Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
