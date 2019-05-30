@@ -18,18 +18,21 @@ application demand.
 ## Before You Begin - Choose Your Path
 There are different goals that you may have as you approach these docs. Here are some suggested paths, based on your goals: 
 * **Learn to use Ping Identity provided images** - if you are looking to learn how to use docker images that are *built and maintained* by Ping to achieve the mentioned benefits of containerization: 
+
   1. Get an [evaluation license](#../PROD-LICENSE.md#evaluation-license) or use an [existing one](#../PROD-LICENSE.md#existing-license)
   2. Go through the [examples](https://pingidentity-devops.gitbook.io/devops/getting-started-examples) as tutorials. Start with [quickstart](./getting-started/QUICKSTART.md) as it contains important setup and background. Then skip ahead if you are comfortable.
   3. Make sure you stop by and understand how to use [server profiles](https://pingidentity-devops.gitbook.io/devops/server-profiles). Certain profiles are provided as samples. Once you begin customizing to your purpose, you'll want to create your own server profiles.
 
 * **Quickly Evaluate a Ping Identity software product** - if you heard this is the fastest way test out product features (especially for integrated cases) and want minimum interaction with outside tooling. 
+
   1. Get an [evaluation license](#../PROD-LICENSE.md#evaluation-license)
-  2. Save your DevOps User and Key in a text file. Example file **BE SURE TO USE THESE VARIABLE NAMES**: 
+  2. Save your DevOps User and Key in a text file. Example file:
       ```
       PING_IDENTITY_DEVOPS_USER=jsmith@example.com
       PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
       ```
       >Be sure to use the exact variable names. 
+
   3. Achieve these pre-reqs on your machine: 
       * Install [Docker CE](https://docs.docker.com/v17.12/install/). [If using a mac](https://docs.docker.com/v17.12/docker-for-mac/install/) 
       * Install [Git](https://git-scm.com/downloads) and run `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
