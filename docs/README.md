@@ -25,9 +25,7 @@ There are different goals that you may have as you approach these docs. Here are
   2. Go through the [examples](https://pingidentity-devops.gitbook.io/devops/getting-started-examples) as tutorials. Start with [quickstart](./getting-started/QUICKSTART.md) as it contains important setup and background. Then skip ahead if you are comfortable.
 <br/>
   3. Make sure you stop by and understand how to use [server profiles](https://pingidentity-devops.gitbook.io/devops/server-profiles). Certain profiles are provided as samples. Once you begin customizing to your purpose, you'll want to create your own server profiles.
-
-<br/><br/>
-
+<br/>
 * **Quickly Evaluate a Ping Identity software product** - if you heard this is the fastest way test out product features (especially for integrated cases) and want minimum interaction with outside tooling. 
 <br/>
   1. Get an [evaluation license](#../PROD-LICENSE.md#evaluation-license)
@@ -46,7 +44,7 @@ There are different goals that you may have as you approach these docs. Here are
   4. Deploy the software [full-stack](https://pingidentity-devops.gitbook.io/devops/getting-started-examples/11-docker-compose/03-full-stack). 
   <br/>
   5. Make sure to persist your work by [mounting to a local volume.](https://pingidentity-devops.gitbook.io/devops/getting-started-examples/11-docker-compose#persisting-container-state-and-data)
-  <br/><br/>
+  <br/>
 * **Build your own images** - if your organization has certain requirements that are not met by the maintained images, you can use the Docker Builds for the maintained images as a baseline to create your own: 
 <br/>
   1. Look through the [Ping Identity Docker Builds](https://github.com/pingidentity/pingidentity-docker-builds) repo
