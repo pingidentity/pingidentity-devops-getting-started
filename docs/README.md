@@ -36,7 +36,7 @@ There are different goals that you may have as you approach these docs. Here are
       PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
       ```
       >Be sure to use the exact variable names. 
-  <br/>
+
   3. Achieve these pre-reqs on your machine: 
       * Install [Docker CE](https://docs.docker.com/v17.12/install/). [If using a mac](https://docs.docker.com/v17.12/docker-for-mac/install/) 
       * Install [Git](https://git-scm.com/downloads) and run `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
