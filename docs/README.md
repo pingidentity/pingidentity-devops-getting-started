@@ -25,7 +25,9 @@ There are different goals that you may have as you approach these docs. Here are
   2. Go through the [examples](https://pingidentity-devops.gitbook.io/devops/getting-started-examples) as tutorials. Start with [quickstart](./getting-started/QUICKSTART.md) as it contains important setup and background. Then skip ahead if you are comfortable.
 <br/>
   3. Make sure you stop by and understand how to use [server profiles](https://pingidentity-devops.gitbook.io/devops/server-profiles). Certain profiles are provided as samples. Once you begin customizing to your purpose, you'll want to create your own server profiles.
+
 <br/><br/>
+
 * **Quickly Evaluate a Ping Identity software product** - if you heard this is the fastest way test out product features (especially for integrated cases) and want minimum interaction with outside tooling. 
 <br/>
   1. Get an [evaluation license](#../PROD-LICENSE.md#evaluation-license)
