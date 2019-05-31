@@ -41,7 +41,7 @@ To run a PingFederate container:
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-           pingidentity/pingfederate
+           pingidentity/pingfederate:edge
 ```
 
 Follow Docker logs with:

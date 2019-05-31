@@ -50,7 +50,7 @@ The easiest way to test test a simple standalone image of PingDirectory is to cu
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
-          pingidentity/pingdirectory
+          pingidentity/pingdirectory:edge
 ```
 
 You can view the Docker logs with the command:
