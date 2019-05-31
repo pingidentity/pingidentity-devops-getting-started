@@ -3,7 +3,7 @@
 
 This docker image includes the Ping Identity PingFederate product binaries
 and associated hook scripts to create and run both PingFederate Admin and
-Engine nodes.
+Engine nodes. 
 
 ## Related Docker Images
 - pingidentity/pingbase - Parent Image
@@ -32,7 +32,7 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | 
 ## Running a PingFederate container
-To run a PingFederate container:
+To run a PingFederate container: 
 
 ```shell
   docker run \
@@ -50,12 +50,12 @@ Follow Docker logs with:
 docker logs -f pingfederate
 ```
 
-If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
 * https://localhost:9999/pingfederate/app
   * Username: Administrator
   * Password: 2FederateM0re
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](hooks/README.md) for details on all pingfederate hook scripts
 
 ---
 This document auto-generated from _[pingfederate/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingfederate/Dockerfile)_

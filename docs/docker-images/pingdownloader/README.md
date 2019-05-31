@@ -12,7 +12,7 @@ Ping product images and licenses.
 docker run pingidentity/pingdownloader -p <product_name>
 ```
 ### Options
-```shell
+```shell 
 -v, --version: the version of the product to download. by default, the downloader will pull the latest version
 
 -c, --conserve-name: use this option to conserve the original file name. By   default, the downloader will rename the file product.zip
@@ -36,7 +36,7 @@ Download a product to /tmp on the host, as opposed to /tmp in the PingDownloader
 docker run --rm -v /tmp:/tmp pingidentity/pingdownloader -p PingFederate
 ```
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](hooks/README.md) for details on all pingdownloader hook scripts
 
 ---
 This document auto-generated from _[pingdownloader/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdownloader/Dockerfile)_

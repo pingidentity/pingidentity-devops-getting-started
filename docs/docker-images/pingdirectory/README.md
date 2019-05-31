@@ -2,7 +2,7 @@
 # Ping Identity DevOps Docker Image - `pingdirectory`
 
 This docker image includes the Ping Identity PingDirectory product binaries
-and associated hook scripts to create and run a PingDirectory instance or
+and associated hook scripts to create and run a PingDirectory instance or 
 instances.
 
 ## Related Docker Images
@@ -107,7 +107,7 @@ To remove the container:
   docker container rm -f pingdirectory
 ```
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](hooks/README.md) for details on all pingdirectory hook scripts
 
 ---
 This document auto-generated from _[pingdirectory/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/Dockerfile)_
