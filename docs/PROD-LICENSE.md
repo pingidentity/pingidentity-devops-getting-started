@@ -8,6 +8,7 @@ to run the images:
   * [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
   * [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
   * [Using your DevOps User/Key](#using-your-devops-user-and-key)
+  <br/>
 #### Existing license
   * Obtaining an evaluation license via your Ping Identity Account Profile
   * [Use an existing license file (Current customers)](#using-an-existing-product-license-file)

@@ -20,7 +20,7 @@ There are different goals that you may have as you approach these docs. Here are
 
 * **Learn to use Ping Identity provided images** - if you are looking to learn how to use docker images that are *built and maintained* by Ping to achieve the mentioned benefits of containerization: 
 <br/>
-  1. Get an [evaluation license](#../PROD-LICENSE.md#evaluation-license) or use an [existing one](#../PROD-LICENSE.md#existing-license)
+  1. Get an [evaluation license](https://pingidentity-devops.gitbook.io/devops/prod-license#obtaining-a-ping-identity-devops-user-and-key) or use an [existing one](https://pingidentity-devops.gitbook.io/devops/prod-license#using-an-existing-product-license-file)
 <br/>
   2. Go through the [examples](https://pingidentity-devops.gitbook.io/devops/getting-started-examples) as tutorials. Start with [quickstart](./getting-started/QUICKSTART.md) as it contains important setup and background. Then skip ahead if you are comfortable.
 <br/>
@@ -28,7 +28,7 @@ There are different goals that you may have as you approach these docs. Here are
 <br/>
 * **Quickly Evaluate a Ping Identity software product** - if you heard this is the fastest way test out product features (especially for integrated cases) and want minimum interaction with outside tooling. 
 <br/>
-  1. Get an [evaluation license](#../PROD-LICENSE.md#evaluation-license)
+  1. Get an [evaluation license](https://pingidentity-devops.gitbook.io/devops/prod-license#obtaining-a-ping-identity-devops-user-and-key)
   <br/>
   2. Save your DevOps User and Key in a text file. Example file:
       ```
