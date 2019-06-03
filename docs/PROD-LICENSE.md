@@ -12,7 +12,8 @@ to run the images:
  
 #### Existing license
 <br/>
-  * Obtaining an evaluation license via your Ping Identity Account Profile
+
+  <!-- * Obtaining an evaluation license via your Ping Identity Account Profile   -->
   * [Use an existing license file (Current customers)](#using-an-existing-product-license-file)
 
 
