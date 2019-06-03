@@ -9,8 +9,11 @@ to run the images:
   * [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
   * [Using your DevOps User/Key](#using-your-devops-user-and-key)
   <br/>
+ 
 #### Existing license
-  * Obtaining an evaluation license via your Ping Identity Account Profile
+<br/>
+
+  <!-- * Obtaining an evaluation license via your Ping Identity Account Profile   -->
   * [Use an existing license file (Current customers)](#using-an-existing-product-license-file)
 
 
