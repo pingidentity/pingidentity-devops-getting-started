@@ -6,7 +6,7 @@ and default entrypoint.sh used throughout the Ping Identity DevOps product image
 
 
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all pingcommon hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingcommon hook scripts
 
 ---
 This document auto-generated from _[pingcommon/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/Dockerfile)_

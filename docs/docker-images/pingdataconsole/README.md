@@ -41,7 +41,7 @@ Password: 2FederateM0re
 ```
 >make sure you have a PingDirectory running
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all pingdataconsole hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingdataconsole hook scripts
 
 ---
 This document auto-generated from _[pingdataconsole/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdataconsole/Dockerfile)_

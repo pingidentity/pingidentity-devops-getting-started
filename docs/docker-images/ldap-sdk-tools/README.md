@@ -60,7 +60,7 @@ keytool -list \
   -storepass ${PWD}
 ```
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all ldap-sdk-tools hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all ldap-sdk-tools hook scripts
 
 ---
 This document auto-generated from _[ldap-sdk-tools/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/ldap-sdk-tools/Dockerfile)_

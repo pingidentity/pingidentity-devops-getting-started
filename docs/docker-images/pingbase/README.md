@@ -64,7 +64,7 @@ this image.
 | PING_IDENTITY_EVAL_USER  | PingIdentityDevOpsEval  | 
 | PING_IDENTITY_EVAL_KEY  | e30a780b-481b-46dc-a47e-ac26d9457221  | 
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all pingbase hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingbase hook scripts
 
 ---
 This document auto-generated from _[pingbase/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingbase/Dockerfile)_

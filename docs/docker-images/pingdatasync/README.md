@@ -41,7 +41,7 @@ used, then it may come from a parent container
            --env SERVER_PROFILE_PATH=simple-sync/pingdatasync \
            pingidentity/pingdatasync
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all pingdatasync hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingdatasync hook scripts
 
 ---
 This document auto-generated from _[pingdatasync/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatasync/Dockerfile)_
