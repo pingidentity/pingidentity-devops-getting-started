@@ -36,7 +36,7 @@ Download a product to /tmp on the host, as opposed to /tmp in the PingDownloader
 docker run --rm -v /tmp:/tmp pingidentity/pingdownloader -p PingFederate
 ```
 ## Docker Container Hook Scripts
-Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingdownloader hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdownloader/hooks/README.md) for details on all pingdownloader hook scripts
 
 ---
 This document auto-generated from _[pingdownloader/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdownloader/Dockerfile)_

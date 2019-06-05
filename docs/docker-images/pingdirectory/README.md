@@ -107,7 +107,7 @@ To remove the container:
   docker container rm -f pingdirectory
 ```
 ## Docker Container Hook Scripts
-Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingdirectory hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdirectory/hooks/README.md) for details on all pingdirectory hook scripts
 
 ---
 This document auto-generated from _[pingdirectory/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/Dockerfile)_

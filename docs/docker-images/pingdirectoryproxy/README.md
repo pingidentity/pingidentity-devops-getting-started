@@ -39,7 +39,7 @@ used, then it may come from a parent container
 - 5005
 
 ## Docker Container Hook Scripts
-Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingdirectoryproxy hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdirectoryproxy/hooks/README.md) for details on all pingdirectoryproxy hook scripts
 
 ---
 This document auto-generated from _[pingdirectoryproxy/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectoryproxy/Dockerfile)_

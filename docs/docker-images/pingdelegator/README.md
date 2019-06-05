@@ -10,7 +10,7 @@ PingFederate products.
 - `nginx:alpine` - Alpine Nginx server to serve PingDelegator .war file
 
 ## Docker Container Hook Scripts
-Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingdelegator hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdelegator/hooks/README.md) for details on all pingdelegator hook scripts
 
 ---
 This document auto-generated from _[pingdelegator/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdelegator/Dockerfile)_

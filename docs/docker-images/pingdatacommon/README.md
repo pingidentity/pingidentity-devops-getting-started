@@ -9,7 +9,7 @@ the Ping Identity DevOps PingData product images.
 - `pingidentity/pingcommon` - Parent Image
 
 ## Docker Container Hook Scripts
-Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images//hooks/README.md) for details on all pingdatacommon hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatacommon/hooks/README.md) for details on all pingdatacommon hook scripts
 
 ---
 This document auto-generated from _[pingdatacommon/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/Dockerfile)_
