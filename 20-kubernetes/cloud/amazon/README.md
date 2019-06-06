@@ -237,16 +237,21 @@ in that directory will startup a PingFederate instance.  You will need to look a
 from an AWS Console to see the External IP to login to PingFederate.
 
 ```
-ecs-cli compose service up \
-    --create-log-groups \
-    --cluster-config ping-devops-ecs-config
+ecs-cli compose --project-name pingfederate-devops \
+    service up \
+    --cluster ping-devops-ecs-cluster #\on first run add:
+    #--create-log-groups
+```
+
+## View Service Status
+```
+ecs-cli compose --project-name pingfederate-devops service ps
 ```
 
 ## To Bring Service Down
 
 ```
-ecs-cli compose service down \
-    --cluster-config ping-devops-ecs-config
+ecs-cli compose service down
 ```
 
 ## To Delete cluster
