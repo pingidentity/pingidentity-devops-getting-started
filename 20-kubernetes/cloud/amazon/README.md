@@ -72,7 +72,7 @@ When you want to delete the cluster, you can do so with the command:
 
 # Steps for running Ping Identity DevOps Containers with ECS CLI
 
-## Installing and Configuring ECS CLI
+## 1. Installing and Configuring ECS CLI
 The easiest way to create a cluster on Amazon ECS is with the `ecs-cli` CLI tool.  The
 examples below assume you have first downloaded and installed:
 
@@ -127,10 +127,10 @@ clusters:
     default_launch_type: FARGATE
 ```
 
-## Give your user access to CloudWatch Logs
+## 2. Give your user access to CloudWatch Logs
 
 > snippet from AWS (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html): 
-### Step 1: Create the Task Execution IAM Role
+### Create the Task Execution IAM Role
 
 Amazon ECS needs permissions so that your Fargate task can store logs in CloudWatch. These permissions are covered by the task execution IAM role. For more information, see Amazon ECS Task Execution IAM Role.
 
@@ -163,11 +163,11 @@ aws iam --region us-west-2 attach-role-policy --role-name ecsTaskExecutionRole -
 ```
 
 
-## Creating a cluster on ECS
+## 3. Create a cluster on ECS
 We need to create an ECS cluster to host services and containers on. With `ecs-cli` you can create all related aspects of a cluster (VPC, Subnets, Security-groups) during cluster creation, or you can leverage existing resources. Examples for both are shown below:
 Option 1 [Create VPC, Subnets, and Security Groups](#option-1). Option 2 [Use Existing Resources](#option-2)
 
-## Option 1
+### Option 1
 **Create VPC, subnets, security-groups**
 
 >Note: Your AWS ID/Role needs to have the authorization created within AWS to create a 
@@ -191,7 +191,7 @@ ecs-cli up
 
 >Note: Capture the VPC and Subnet ID's to be used in future steps
 
-### Creating a Security Group for the Cluster
+#### Creating a Security Group for the Cluster
 Now that we have brought a cluster up, you should create a security group to protect the VPC.
 
 >Note: Again, your AWS ID/Role needs to have the authorization created within AWS to create a 
@@ -231,7 +231,7 @@ ecs-cli up --vpc <vpc-id> --security-group <security-group-id> --subnets <requir
 
 >Ensure the typical PingFederate ports 9031 and 9999 are part of your security group if you wish to use them. 
 
-## Startup up PingFederate service in ECS Cluster
+## 4. Work with PingFederate as service in an ECS Cluster
 Use the following two files (`docker-compose.yml`, `ecs-params.yml`) as sampples to create in a directory.
 >Be sure to update your specific information 
 
@@ -283,7 +283,7 @@ run_params:
 
 After creating these files, `cd` to that directory. Then: 
 
-## To Start a Service
+### To Start a Service
 
 ```
 ecs-cli compose --project-name pingfederate-devops \
@@ -292,18 +292,18 @@ ecs-cli compose --project-name pingfederate-devops \
     #--create-log-groups
 ```
 
-## View Service Status
+### View Service Status
 ```
 ecs-cli compose --project-name pingfederate-devops service ps
 ```
 
-## To Bring Service Down
+### To Bring Service Down
 
 ```
 ecs-cli compose service down
 ```
 
-## To Delete cluster
+### To Delete cluster
 When you want to delete the cluster, you can do so with the command:
 
 ```
