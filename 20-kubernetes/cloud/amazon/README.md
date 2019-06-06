@@ -163,7 +163,7 @@ aws iam --region us-west-2 attach-role-policy --role-name ecsTaskExecutionRole -
 ```
 
 
-## 3. Creating a cluster on ECS
+## 3. Create a cluster on ECS
 We need to create an ECS cluster to host services and containers on. With `ecs-cli` you can create all related aspects of a cluster (VPC, Subnets, Security-groups) during cluster creation, or you can leverage existing resources. Examples for both are shown below:
 Option 1 [Create VPC, Subnets, and Security Groups](#option-1). Option 2 [Use Existing Resources](#option-2)
 
