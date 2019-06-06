@@ -232,7 +232,7 @@ ecs-cli up --vpc <vpc-id> --security-group <security-group-id> --subnets <requir
 >Ensure the typical PingFederate ports 9031 and 9999 are part of your security group if you wish to use them. 
 
 ## Startup up PingFederate service in ECS Cluster
-Use the following two files (`docker-compose.yml`, `ecs-params.yml`) as ecamples to create in a directory.
+Use the following two files (`docker-compose.yml`, `ecs-params.yml`) as sampples to create in a directory.
 >Be sure to update your specific information 
 
 Details on these files imputs can be found at:
