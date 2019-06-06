@@ -127,9 +127,48 @@ clusters:
     default_launch_type: FARGATE
 ```
 
+## Give your user access to CloudWatch Logs
+
+> snippet from AWS (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html): 
+### Step 1: Create the Task Execution IAM Role
+
+Amazon ECS needs permissions so that your Fargate task can store logs in CloudWatch. These permissions are covered by the task execution IAM role. For more information, see Amazon ECS Task Execution IAM Role.
+
+To create the task execution IAM role using the AWS CLI Create a file named `task-execution-assume-role.json` with the following contents:
+
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "",
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "ecs-tasks.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    }
+
+Create the task execution role:
+
+```
+aws iam --region us-west-2 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json
+```
+
+Attach the task execution role policy:
+
+```
+aws iam --region us-west-2 attach-role-policy --role-name ecsTaskExecutionRole --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+```
+
+
 ## Creating a cluster on ECS
-Now that we have created the credentials and config for a cluster, we can now bring
-the cluster up.
+We need to create an ECS cluster to host services and containers on. With `ecs-cli` you can create all related aspects of a cluster (VPC, Subnets, Security-groups) during cluster creation, or you can leverage existing resources. Examples for both are shown below:
+Option 1 [Create VPC, Subnets, and Security Groups](#option-1). Option 2 [Use Existing Resources](#option-2)
+
+## Option 1
+**Create VPC, subnets, security-groups**
 
 >Note: Your AWS ID/Role needs to have the authorization created within AWS to create a 
 cluster (`ecs:CreateCluster`) to perform this step.  If you have a role that is used
@@ -150,9 +189,9 @@ ecs-cli up
 ###############
 ```
 
->Note: Capture the VPC and Subnet ID's to be used in fute steps
+>Note: Capture the VPC and Subnet ID's to be used in future steps
 
-## Creating a Security Group for the Cluster
+### Creating a Security Group for the Cluster
 Now that we have brought a cluster up, you should create a security group to protect the VPC.
 
 >Note: Again, your AWS ID/Role needs to have the authorization created within AWS to create a 
@@ -182,16 +221,26 @@ aws ec2 authorize-security-group-ingress \
     --group-id "<sg-id-created-above>"
 ```
 
+## Option 2
+**Create Cluster with Existing Resources**
+
+```
+ecs-cli up --vpc <vpc-id> --security-group <security-group-id> --subnets <required-subnet-1>,<required-subnet-2>
+```
+>Note: two subnets related to the VPC is required
+
+>Ensure the typical PingFederate ports 9031 and 9999 are part of your security group if you wish to use them. 
+
 ## Startup up PingFederate service in ECS Cluster
-Now you can create a PingFederate service in an ECS Cluster using the example `docker-compose.yml` and
-`ecs-params.yml` files below.
+Use the following two files (`docker-compose.yml`, `ecs-params.yml`) as ecamples to create in a directory.
+>Be sure to update your specific information 
 
 Details on these files imputs can be found at:
 
 * [Using Docker Compose File Syntax](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-parameters.html)
 * [Using Amazon ECS Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-ecsparams.html)
 
-Example PingFederate Docker Compose .yaml (docker-compose.yml)
+Example PingFederate `docker-compose.yml`
 ```
 version: "3"
 
@@ -212,7 +261,7 @@ services:
         awslogs-stream-prefix: ping-devops
 ```
 
-Example ECS Params .yaml (ecs-params.yml)
+Example `ecs-params.yml`
 ```
 version: 1
 task_definition:
@@ -232,9 +281,9 @@ run_params:
       assign_public_ip: ENABLED
 ```
 
-Placing these into a directory named `ping-devops-ecs-service` and running the following command
-in that directory will startup a PingFederate instance.  You will need to look at the task infomation
-from an AWS Console to see the External IP to login to PingFederate.
+After creating these files, `cd` to that directory. Then: 
+
+## To Start a Service
 
 ```
 ecs-cli compose --project-name pingfederate-devops \
