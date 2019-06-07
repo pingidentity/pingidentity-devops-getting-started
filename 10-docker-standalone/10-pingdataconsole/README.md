@@ -18,13 +18,13 @@ docker run -d \
        --name pingdataconsole \
        pingidentity/pingdataconsole
        
-open http://localhost:8080/admin-console
+open http://localhost:8080/console
 ```
 
 If you are using the PingDirectory container from these standalone images, you should be able to login with
 
 ```
-     Server: pingdirectory:636
+     Server: pingdirectory
    Username: administrator
    Password: 2FederateM0re
 ```

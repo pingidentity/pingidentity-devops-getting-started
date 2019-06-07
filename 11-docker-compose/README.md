@@ -111,7 +111,7 @@ Then, add a `volumes` section to a service in your `docker-compose.yaml` file li
        - /tmp/compose/pingdirectory_1:/opt/out
 ```
 
-When the stack is run, this will mount `/tmp/compose/pingdirectory_1` to the `/opt/out` directory
+When the stack is running, this will mount `/tmp/compose/pingdirectory_1` to the `/opt/out` directory
 in the container, which is the location the applications/data are installed.  In fact, once started
 you can see everything installed and look at logs, etc by going directly to the local directory, in 
 this case `/tmp/compose/pingdirectory_1`

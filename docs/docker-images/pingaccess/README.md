@@ -56,7 +56,7 @@ If using the command above with the embedded [server profile](../server-profiles
   * Username: Administrator
   * Password: 2Access
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](hooks/README.md) for details on all hook scripts
 
 ---
 This document auto-generated from _[pingaccess/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/Dockerfile)_

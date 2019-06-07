@@ -3,12 +3,13 @@ This directory contains examples that automate the manual steps taken in the Doc
 
 Ensure that you have started Docker Swarm (this only needs to be done one
 time) before deploying the stack by running:
-
 `docker swarm init`
+
 
 ## Example Docker Swarm Stack Deployment Files
 Included are the following stack deployment yaml files that can be used in the following command:
 `docker stack deploy -c stack.yaml stack-name`
+
 
 > Note: Many of these examples include mounted local volumes to as examples of how to pull in configurations from files, rather than git repos, as well as persisting the
 resulting running configurations to an out volume.
@@ -57,7 +58,7 @@ docker stack rm basic1
 ###################
 ```
 
-Import to understand that stopping the swarm will still leave the persisted directory
+It is important to understand that stopping the swarm will still leave the persisted directory
 created intact on the host machine in the directory that we created earlier.  If 
 you restarted the swarm again, it would simply startup the PingDirectory with the
 same configuration.  To wipe out the created directory on the host machine, simply
@@ -66,7 +67,7 @@ remove that directory:
 `rm -rf /tmp/Swarm/basic1`
 
 ## Example - basic2.yaml
-This example deploys a PingDirectory with a mounted `out` volume that will persist the deployed PingDirectory, as well as a mounted `in` volume.  Much liek the first example
+This example deploys a PingDirectory with a mounted `out` volume that will persist the deployed PingDirectory, as well as a mounted `in` volume.  Much like the first example
 this deployment will add a mount to a location used as the input configuration of
 the PingDirectory, instead of a git repo that was used in the first example. 
 
@@ -155,18 +156,18 @@ Example:
 ## Console Application
 If you are using the PingDataConsole container from these swarm images, you should be able to login with
 
-http://localhost:8080/admin-console/
+http://localhost:8080/console/
 
 ### PingDirectory
 ```
-     Server: pingdirectory:636
+     Server: pingdirectory
    Username: administrator
    Password: 2FederateM0re
 ```
 
 ### PingDirectorySync
 ```
-     Server: pingdirectorysync:636
+     Server: pingdirectorysync
    Username: administrator
    Password: 2FederateM0re
 ```
