@@ -33,6 +33,6 @@ POST_INSTRUCTIONS="
 
 # For server started:
 
-     Admin Console:  http://localhost:8080/admin-console
+     Admin Console:  http://localhost:8080/
 
 "
