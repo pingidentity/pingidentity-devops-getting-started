@@ -22,7 +22,7 @@ each of these images in a step-by-step order.
 
 ## Easy Scripts to Run Images
 
-There are a 3 shell scripts that can be used to run, stop and cleanup and docker containers for the Ping Identity
+There are 3 shell scripts that can be used to run, stop and cleanup docker containers for the Ping Identity
 Docker Images.
 
 ### docker-run.sh

@@ -1,5 +1,5 @@
 # Docker Compose Example - Replicated Pair
-This is an example of a multiple PingDirectory instances replicating between
+This is an example of multiple PingDirectory instances replicating between
 one another.
 
 

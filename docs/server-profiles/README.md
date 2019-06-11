@@ -14,7 +14,7 @@ They are outlined in the table below.
 
 ## Playground Server Profiles
 There is a Github Repository containing samples, experimental, training types of server profiles that
-may be created to help with examples and getting started projects.  These are guarenteed to be documented
+may be created to help with examples and getting started projects.  These are guaranteed to be documented
 as they are often one off examples of different concepts.  Some of these products include:
 
 | Server Profile            | Description                                         |

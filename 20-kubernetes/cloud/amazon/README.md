@@ -50,7 +50,7 @@ To see all the options when creating a cluster, simply run `eksctl create cluste
 
 ## Retrieving cluster information
 Once created, some helpful commands to see the cluster details and nodegroup 
-details using eksctl:
+details using eksctl include:
 
 * `eksctl get cluster   --name=ping-devops-test`
 * `eksctl get nodegroup --cluster=ping-devops-test`
@@ -172,7 +172,7 @@ Option 1 [Create VPC, Subnets, and Security Groups](#option-1). Option 2 [Use Ex
 
 >Note: Your AWS ID/Role needs to have the authorization created within AWS to create a 
 cluster (`ecs:CreateCluster`) to perform this step.  If you have a role that is used
-witnin your `.aws/config` you may add a parameters `--aws-profile <profile-name>`
+within your `.aws/config` you may add the parameter `--aws-profile <profile-name>`
 
 ```
 ecs-cli up
@@ -196,7 +196,7 @@ Now that we have brought a cluster up, you should create a security group to pro
 
 >Note: Again, your AWS ID/Role needs to have the authorization created within AWS to create a 
 security group (`CreateSecurityGroup`) to perform this step.  If you have a role that is used
-witnin your `.aws/config` you may add a parameters `--profile <profile-name>`
+witnin your `.aws/config` you may add the parameter `--profile <profile-name>`
 
 ```
 aws ec2 create-security-group \

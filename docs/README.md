@@ -5,7 +5,7 @@ to deploy Ping Identity software in the cloud.
 
 ## Why Containerization?
 **Deployments with Confidence** - Maintain all configurations and depenencies 
-ensuring consitent environments.  Eliminate the "it works on my machine" 
+ensuring consistent environments.  Eliminate the "it works on my machine" 
 problem.
 
 **Cloud Flexibility** - Containers are portable.  All major cloud providers

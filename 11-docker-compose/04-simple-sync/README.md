@@ -23,7 +23,7 @@ In one terminal window, tail the logs from the PingDataSync server:
 
 `docker logs 04-simple-sync_pingdatasync_1 -f`
 
-Then in a second window, make a change the `ou=source,o=sync` tree:
+Then in a second window, make a change to the `ou=source,o=sync` tree:
 
 ```
 docker container exec -it 04-simple-sync_pingdirectory_1 /opt/out/instance/bin/ldapmodify
@@ -35,9 +35,9 @@ description: Change to source user.0
 <Ctrl-D>
 ```
 
-And you will see some messages back in the PingDatasync log showing and ADD/MODIFY
-of the user and it will be sync'd to the `ou=destination,o=sync` tree.  To 
-very this (with example output):
+You will see some messages back in the PingDatasync log showing `ADD/MODIFY`
+of the user sync'd to the `ou=destination,o=sync` tree.  To 
+verify this (with example output):
 
 ```
 docker container exec -it 04-simple-sync_pingdirectory_1 /opt/out/instance/bin/ldapsearch -b uid=user.0,ou=people,ou=destination,o=sync -s base '(&)' description
