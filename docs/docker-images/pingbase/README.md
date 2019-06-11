@@ -11,7 +11,7 @@ include:
 
 ## Related Docker Images
 - `openjdk:8-jre-alpine` - Parent Image for `SHIM=alpine`
-- `centos` - Parent Image for `SHIM=centos`
+- `centos` - Parent Image for `SHIM=cenots`
 - `ubuntu:disco` - Parent Image for `SHIM=ubuntu`
 
 ## Environment Variables

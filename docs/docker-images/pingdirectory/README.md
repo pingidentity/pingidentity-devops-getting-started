@@ -40,7 +40,7 @@ used, then it may come from a parent container
 
 ## Running a PingDirectory container
 
-The easiest way to test a simple standalone image of PingDirectory is to cut/paste the following command into a terminal on a machine with docker.
+The easiest way to test test a simple standalone image of PingDirectory is to cut/paste the following command into a terminal on a machine with docker.
 
 ```
   docker run \
@@ -59,7 +59,7 @@ You can view the Docker logs with the command:
   docker logs -f pingdirectory
 ```
 
-You should see the ouptut from a PingDirectory install and configuration, ending with a message the the PingDirectory has started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` after, to stop tailing the logs.
+You should see the ouptut from a PingDirectory install and configuration, ending with a message the the PingDirectory has started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` afer to stop tailing the logs.
 
 ## Running a sample 100/sec search rate test
 With the PingDirectory running from the pevious section, you can run a ``searchrate`` job that will send load to the directory at a rate if 100/sec using the following command.
