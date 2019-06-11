@@ -1,4 +1,4 @@
-# Microsoft Azure Kubernets Service (AKS)
+# Microsoft Azure Kubernetes Service (AKS)
 This directory contains scripts and deployment files to help with the deployment, management and scaling of 
 Ping Identity DevOps Docker Images to Microsoft Azure Kubernets Service
 
@@ -7,6 +7,8 @@ Ping Identity DevOps Docker Images to Microsoft Azure Kubernets Service
 * [Microsoft Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
 
 # Steps for setting up AKS Environment
+
+> Pre-req: Azure CLI: https://docs.microsoft.com/cli/azure/install-azure-cli
 
 ## Creating an Azure Resource Group
 Create an Azure Resource Group to put all resources into.
