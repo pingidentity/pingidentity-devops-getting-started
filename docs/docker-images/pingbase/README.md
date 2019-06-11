@@ -1,7 +1,7 @@
 
 # Ping Identity Docker Image - `pingbase`
 
-This docker image provides a base image for all Ping Identity DevOps
+This docker image provides a base image for all Ping Identity DevOps 
 product images.  Primarly, the builder can provide an argument, `SHIM`,
 that will be used to determine the base OS used when building.  The options
 include:
@@ -20,7 +20,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in image/container 
+| BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in  image/container 
 | IN_DIR  | ${BASE}/in  | Location of a local server-profile volume 
 | OUT_DIR  | ${BASE}/out  | Path to the runtime volume 
 | BAK_DIR  | ${BASE}/backup  | Path to a volume generically used to export or backup data 
@@ -35,10 +35,10 @@ this image.
 | SERVER_PROFILE_UPDATE  | false  | Whether to update the server profile upon container restart 
 | SERVER_ROOT_DIR  | ${OUT_DIR}/instance  | Path from which the runtime executes 
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}  | License directory and filename 
-| STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to instantiate the container 
-| STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container 
-| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container 
-| TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container standard output 
+| STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to  instantiate the container 
+| STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the foreground. This is the  normal start flow for the container 
+| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the background. This is the  debug start flow for the container 
+| TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container  standard output 
 | LOCATION  | Docker  | Location default value 
 | MAX_HEAP_SIZE  | 384m  | Heap size (for java products) 
 | JVM_TUNING  | AGGRESSIVE  | 
@@ -64,7 +64,7 @@ this image.
 | PING_IDENTITY_EVAL_USER  | PingIdentityDevOpsEval  | 
 | PING_IDENTITY_EVAL_KEY  | e30a780b-481b-46dc-a47e-ac26d9457221  | 
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 
 ---
 This document auto-generated from _[pingbase/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingbase/Dockerfile)_

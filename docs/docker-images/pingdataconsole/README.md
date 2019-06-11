@@ -15,7 +15,7 @@ used, then it may come from a parent container
 - 8443
 
 ## Run
-To run a PingDataConsole container:
+To run a PingDataConsole container: 
 
 ```shell
   docker run \
@@ -32,7 +32,7 @@ Follow Docker logs with:
 docker logs -f pingdataconsole
 ```
 
-If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
 * http://localhost:8080/console/login
 ```
 Server: pingdirectory
@@ -41,7 +41,7 @@ Password: 2FederateM0re
 ```
 >make sure you have a PingDirectory running
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdataconsole/hooks/README.md) for details on all pingdataconsole hook scripts
 
 ---
 This document auto-generated from _[pingdataconsole/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdataconsole/Dockerfile)_

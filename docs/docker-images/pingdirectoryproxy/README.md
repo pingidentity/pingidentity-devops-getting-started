@@ -2,7 +2,7 @@
 # Ping Identity DevOps Docker Image - `pingdirectoryproxy`
 
 This docker image includes the Ping Identity PingDirectoryProxy product binaries
-and associated hook scripts to create and run a PingDirectoryProxy instance or
+and associated hook scripts to create and run a PingDirectoryProxy instance or 
 instances.
 
 ## Related Docker Images
@@ -39,7 +39,7 @@ used, then it may come from a parent container
 - 5005
 
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdirectoryproxy/hooks/README.md) for details on all pingdirectoryproxy hook scripts
 
 ---
 This document auto-generated from _[pingdirectoryproxy/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectoryproxy/Dockerfile)_

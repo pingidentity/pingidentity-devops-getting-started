@@ -14,7 +14,7 @@ this image.
 | ------------: | ----------- | ---------------------------------
 | ENV BASE "/opt"  | ENV BASE "/opt"  | 
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/apache-jmeter/hooks/README.md) for details on all apache-jmeter hook scripts
 
 ---
 This document auto-generated from _[apache-jmeter/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/apache-jmeter/Dockerfile)_

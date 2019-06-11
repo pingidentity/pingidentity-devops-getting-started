@@ -2,7 +2,7 @@
 # Ping Identity DevOps Docker Image - `pingdirectory`
 
 This docker image includes the Ping Identity PingDirectory product binaries
-and associated hook scripts to create and run a PingDirectory instance or
+and associated hook scripts to create and run a PingDirectory instance or 
 instances.
 
 ## Related Docker Images
@@ -50,7 +50,7 @@ The easiest way to test a simple standalone image of PingDirectory is to cut/pas
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
-          pingidentity/pingdirectory
+          pingidentity/pingdirectory:edge
 ```
 
 You can view the Docker logs with the command:
@@ -107,7 +107,7 @@ To remove the container:
   docker container rm -f pingdirectory
 ```
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all  hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdirectory/hooks/README.md) for details on all pingdirectory hook scripts
 
 ---
 This document auto-generated from _[pingdirectory/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/Dockerfile)_

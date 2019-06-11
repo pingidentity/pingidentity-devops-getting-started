@@ -1,21 +1,84 @@
-#!/bin/sh 
-SCRIPT_HOME=$(dirname $0)
+#!/bin/bash
+cd $( dirname ${0} )
+SCRIPT=$( basename ${0} )
+SCRIPT_HOME=$( pwd )
+cd ${SCRIPT_HOME}
 
 source ./utils/k8sUtils.sh
 
-# Export environment variables
-ENV_VARS_FILE="${SCRIPT_HOME}/env_vars"
-
 set -o allexport
-source "${ENV_VARS_FILE}"
+source "./env_vars"
 set +o allexport
+
+#
+# Usage printing function
+#
+usage ()
+{
+cat <<END_USAGE
+Usage: ${SCRIPT} {options}
+    where {options} include:
+
+    *-u, --usecase {use-case-name}
+        The usecase to setup.  These are directories in usecases containing
+        kubernetes .yaml files (i.e. fullstack)
+    -n, --namespace
+        The kubernets namespace to use.  Defaults to: ${USER}
+    --help
+        Display general usage information
+
+    Example:
+      Deploy the fullstack usecase
+
+      ${SCRIPT} -u fullstack
+
+    * Required option
+END_USAGE
+exit 99
+}
+
+usecase=""
+namespace="${USER}"
+#
+# Parse the provided arguments, if any
+#
+while ! test -z "${1}" ; do
+    case "${1}" in
+        -n|--namespace)
+            shift
+            if test -z "${1}" ; then
+                exit_usage "Error: You must provide a namespace string"
+            fi
+            namespace="${1}"
+            ;;
+
+        -u|--usecase)
+            shift
+            if test -z "${1}" ; then
+                exit_usage "Error: You must provide a usecase"
+            fi
+            usecase="${1}"
+
+            test ! -d "usecases/${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found."
+            ;;
+
+        --help)
+            usage
+            ;;
+        *)
+            exit_usage "Unrecognized option"
+            ;;
+    esac
+    shift
+done
+
+test -z "${usecase}" && exit_usage "Error: A valid usecase directory is required."
 
 echo_header "Tearing down 
         namespace=${USER}
-            label=usecase=fullstack"
+            label=usecase=${usecase}"
 
 # Clean up anything from a prior run
 kubectl delete configmaps,secrets,jobs,statefulsets,deployments,persistentvolumes,persistentvolumeclaims,services,pods \
   -n "${USER}" \
   --grace-period=0 --force --all
-  #-l "usecase=fullstack" \

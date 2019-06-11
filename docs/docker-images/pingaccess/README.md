@@ -3,7 +3,7 @@
 
 This docker image includes the Ping Identity PingAccess product binaries
 and associated hook scripts to create and run both PingAccess Admin and
-Engine nodes.
+Engine nodes. 
 
 ## Related Docker Images
 - pingidentity/pingbase - Parent Image
@@ -31,7 +31,7 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
 ## Running a PingDirectory container
-To run a PingAccess container:
+To run a PingAccess container: 
 
 ```shell
   docker run \
@@ -41,7 +41,7 @@ To run a PingAccess container:
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingaccess \
-           pingidentity/pingaccess
+           pingidentity/pingaccess:edge
 ```
 
 
@@ -51,12 +51,12 @@ Follow Docker logs with:
 docker logs -f pingaccess
 ```
 
-If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
 * https://localhost:9000
   * Username: Administrator
   * Password: 2Access
 ## Docker Container Hook Scripts
-Please go [here](hooks/README.md) for details on all hook scripts
+Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingaccess/hooks/README.md) for details on all pingaccess hook scripts
 
 ---
 This document auto-generated from _[pingaccess/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/Dockerfile)_

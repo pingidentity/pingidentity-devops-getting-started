@@ -1,4 +1,4 @@
-# Getting Started Examples usign Docker Compose
+# Getting Started Examples using Docker Compose
 This folder is intended to demonstrate how to use Docker Compose to assemble several images, each with their own role, into a functioning deployed set of containers. Docker Compose can be useful for local development as it does not require an external orchestrator such as Docker Swarm or Kubernetes. Unlike with Swarm or Kubernetes, Compose deploys containers locally, not on remote machines.
 
 ## Example Stacks
