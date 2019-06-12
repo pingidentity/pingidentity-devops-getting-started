@@ -12,9 +12,7 @@ Steps:
 1. Export a Configuration Archive from a PingFederate instance into a location on your local machine.
    > Make sure this is exported as a .zip rather than compressing/zipping yourself
 
-2. Log in to github.com and fork https://github.com/pingidentity/pingidentity-server-profiles 
-
-![fork_a_repo](/docs/images/fork_a_repo.png)
+2. Log in to github.com and fork https://github.com/pingidentity/pingidentity-server-profiles
 
 3. Open a terminal. Then:
    ```
