@@ -1,5 +1,5 @@
 # Locally Developing Server Profiles
-You can develop and work with server-profiles from your local machine instead of pushing everything to Github.
+You can develop and work with server-profiles from your local machine in addition to pushing to Github.
 
 ## All-Powerful Directories
 To develop effectively, be aware of two directories in all Ping Images. 
@@ -68,7 +68,7 @@ docker logs pingfederate-local
 ```
 
 ### Additional Notes: 
-* This is a helpful example to user when your containers cannot reach Github. 
+* This is helpful when developing locally and configuration is not ready for GitHub
 * Docker recommends to never use bind-mounts in production. Hence, this example is good for *developing* server profiles. 
 * Mounted volumes (`docker volume create pf-local`), preferred method, can be used instead. Be sure the volume is empty when mounting to /opt/out
 * Be sure to look at [server-profiles administration](./ADMINISTRATION.md) to see what can go in to each product's `/opt/in`. 
