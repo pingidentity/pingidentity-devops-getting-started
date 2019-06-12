@@ -34,7 +34,7 @@ run_cmd () {
         INSTANCE=$1
 
         echo "Running ${CMD} ${INSTANCE}..."
-        ${CMD} ${INSTANCE}
+        sh ${CMD} ${INSTANCE}
 }
 
 case ${CONTAINER} in
@@ -70,13 +70,15 @@ test -f "${SHARED_DIR}/env_vars" && . "${SHARED_DIR}/env_vars"
 test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 
 # shellcheck disable=2086
+if ! test -z "$(docker container ls --filter name=${CONTAINER_NAME} -q)" ; then 
+    echo "Stoping container ${CONTAINER_NAME}"
+    docker container stop ${CONTAINER_NAME}
+fi
+
+# shellcheck disable=2086
 if ! test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q)" ; then 
     echo "Removing container ${CONTAINER_NAME}"
 		docker container rm ${CONTAINER_NAME} -f
 fi
 
-# shellcheck disable=2086
-if ! test -z "$(docker container ls --filter name=${CONTAINER_NAME} -q)" ; then 
-    echo "Stoping container ${CONTAINER_NAME}"
-    docker container stop ${CONTAINER_NAME}
-fi
+
