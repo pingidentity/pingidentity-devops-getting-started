@@ -14,8 +14,6 @@ Steps:
 
 2. Log in to github.com and fork https://github.com/pingidentity/pingidentity-server-profiles
 
-    ![fork_a_repo](/docs/images/fork_a_repo.png)
-
 3. Open a terminal. Then:
    ```
    mkdir /tmp/pf_to_docker
@@ -92,7 +90,7 @@ Steps:
 
     git push origin master
     ```
-7. Now let's tell our "getting started" example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/ff-shared/env-vars` in a text editor. Then change `GIT_REPO=<your-git-repo>` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/pingidentity-server-profiles`
+7. Now let's tell our "getting started" example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/FF-shared/env-vars` in a text editor. Then change `GIT_REPO=<your-git-repo>` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/pingidentity-server-profiles`
 
 8. Now.. Run! From the terminal pointed at `pingidentity-devops-getting-started` :
 
