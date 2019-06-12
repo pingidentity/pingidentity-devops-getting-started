@@ -67,7 +67,7 @@ docker logs pingfederate-local
 # ----- Starting hook: /opt/staging/hooks/01-start-server.sh
 ```
 
-Additional Notes: 
+### Additional Notes: 
 * This is a helpful example to user when your containers cannot reach Github. 
 * Docker recommends to never use bind-mounts in production. Hence, this example is good for *developing* server profiles. 
 * Mounted volumes (`docker volume create pf-local`), preferred method, can be used instead. Be sure the volume is empty when mounting to /opt/out
