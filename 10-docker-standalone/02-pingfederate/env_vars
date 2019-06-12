@@ -18,7 +18,7 @@ CONTAINER_NAME=pingfederate
 #  SERVER_PROFILE_BRANCH - Checkout a branch from repo (Optional)
 #    SERVER_PROFILE_PATH - Path to use within repo (Optional)
 #################################################################################
-SERVER_PROFILE_URL=${GIT_REPO}/pingidentity-server-profiles.git
+SERVER_PROFILE_URL=${GIT_REPO}
 SERVER_PROFILE_PATH=getting-started/pingfederate
 
 #################################################################################

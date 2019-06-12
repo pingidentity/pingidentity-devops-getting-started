@@ -7,4 +7,4 @@ RT_ROOT=/tmp/Docker
 
 #
 #
-GIT_REPO=https://github.com/pingidentity
+GIT_REPO=https://github.com/pingidentity/pingidentity-server-profiles

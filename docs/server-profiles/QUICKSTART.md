@@ -92,7 +92,7 @@ Steps:
 
     git push origin master
     ```
-7. Now let's tell our getting started example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate/env_vars` in a text editor. Then change `SERVER_PROFILE_URL=${GIT_REPO}/pingidentity-server-profiles.git` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/pingidentity-server-profiles.git`
+7. Now let's tell our getting started example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/FF-shared/env_vars` in a text editor. Then change `SERVER_PROFILE_URL=${GIT_REPO}` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/pingidentity-server-profiles.git`
 
 8. Now.. Run! From the terminal pointed at `pingidentity-devops-getting-started` :
 
