@@ -1,9 +1,12 @@
-Locally Developing Server Profiles
-While developing server profiles, you will likely want to work on your local workstation and watch changes happen as you make them. 
+# Locally Developing Server Profiles
+You can develop and work with server-profiles from your local machine instead of pushing everything to Github.
 
-To do this effectively, be aware of two directories in all Ping Images. 
+## All-Powerful Directories
+To develop effectively, be aware of two directories in all Ping Images. 
 
-/opt/out - all changes and running configurations during container runtime (i.e. "persisted data") are captured here. For example: On the PingFederate image /opt/out/instance equates the typical PingFederate root directory: 
+### /opt/out
+
+All configurations and changes during container runtime (i.e. "persisted data") are captured here. For example: On the PingFederate image `/opt/out/instance` contains much of the typical PingFederate root directory: 
 ```
 .
 ├── README.md
@@ -22,10 +25,11 @@ To do this effectively, be aware of two directories in all Ping Images.
 └── work
 ```
 
-/opt/in - a Ping Identity container will look in this directory for any provided server-profile structures or other relevant files. This is in contrast to a server-profile provided via Github URL in an environment variable. 
+### /opt/in
+A Ping Identity container will look in this directory for any provided server-profile structures or other relevant files. This is in contrast to a server-profile provided via Github URL in an environment variable. 
 
-How to use these directories: 
-these directories are usefule for building and working with local server-profiles. /opt/in is especially valuable if  you do not want your containers to reach out to the public github. Here is an example: 
+## How to Use: 
+These directories are useful for building and working with local server-profiles. `/opt/in` is especially valuable if you do not want your containers to reach out to Github. Here is an example: 
 1. start with a vanilla PingFederate and bind-mount /opt/out to local directory: 
 ```shell
 docker run \
@@ -68,3 +72,28 @@ Additional Notes:
 * Docker recommends to never use bind-mounts in production. Hence, this example is good for *developing* server profiles. 
 * Mounted volumes (`docker volume create pf-local`), preferred method, can be used instead. Be sure the volume is empty when mounting to /opt/out
 * Be sure to look at [server-profiles administration](./ADMINISTRATION.md) to see what can go in to each product's `/opt/in`. 
+
+### Use Github!
+A fun way to watch exactly which files change as you make configurations (using the example above): 
+
+```
+cd /tmp/docker
+
+git init
+
+# start container. make changes
+
+git status
+
+git diff HEAD
+
+#complete changes. Stop container
+
+#save config
+git add .
+git commit -m "added new connection"
+
+#push to github to use as a environment variable server profile in the future
+git remote add origin <your-github-repo>
+git push origin master
+```
