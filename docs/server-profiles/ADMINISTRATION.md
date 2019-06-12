@@ -1,5 +1,5 @@
 # Ping Identity Server Profiles
-This document explains how server profiles work for Ping Identity Docker images
+This document explains how server profiles work for specific Ping Identity Docker images
 
 ## What's in it?
 Server profiles aim at providing a common convention to adapt the common images into workable containers in all circumstances.

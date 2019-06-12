@@ -33,8 +33,9 @@
     * [Google](20-kubernetes/cloud/google/README.md)
     * [Minikube](20-kubernetes/cloud/minikube/README.md)
 * [Server Profiles](docs/server-profiles/README.md)
-  * [Administration](docs/server-profiles/ADMINISTRATION.md)
   * [Quick Start](docs/server-profiles/QUICKSTART.md)
+  * [Develop Locally](docs/server-profiles/LOCAL-WORKSPACE.md)
+  * [Administration](docs/server-profiles/ADMINISTRATION.md)
   <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md)
   * [Baseline](docs/server-profiles/BASELINE.md)
   * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->
