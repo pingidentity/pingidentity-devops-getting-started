@@ -79,23 +79,23 @@ docker logs pingfederate-local
 A fun way to watch exactly which files change as you make configurations (using the example above): 
 
 ```
-cd /tmp/docker
+  cd /tmp/docker
 
-git init
+  git init
 
-# start container. make changes
+  # start container. make changes
 
-git status
+  git status
 
-git diff HEAD
+  git diff HEAD
 
-#complete changes. Stop container
+  #complete changes. Stop container
 
-#save config
-git add .
-git commit -m "added new connection"
+  #save config
+  git add .
+  git commit -m "added new connection"
 
-#push to github to use as a environment variable server profile in the future
-git remote add origin <your-github-repo>
-git push origin master
+  #push to github to use as a environment variable server profile in the future
+  git remote add origin <your-github-repo>
+  git push origin master
 ```
