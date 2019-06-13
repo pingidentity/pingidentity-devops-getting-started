@@ -104,7 +104,7 @@ Simply chose a location to persist your data.  For the example, assume `/tmp/com
 
 Then, add a `volumes` section to a service in your `docker-compose.yaml` file like:
 
-```json
+```yaml
   pingdirectory:
     ...
     volumes:

@@ -33,13 +33,14 @@
     * [Google](20-kubernetes/cloud/google/README.md)
     * [Minikube](20-kubernetes/cloud/minikube/README.md)
 * [Server Profiles](docs/server-profiles/README.md)
-  * [Administration](docs/server-profiles/ADMINISTRATION.md)
   * [Quick Start](docs/server-profiles/QUICKSTART.md)
-  <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md)
-  * [Baseline](docs/server-profiles/BASELINE.md)
-  * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->
+  * [Develop Locally](docs/server-profiles/LOCAL-WORKSPACE.md)
+  * [Administration](docs/server-profiles/ADMINISTRATION.md)
+  <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md) -->
+  <!-- * [Baseline](docs/server-profiles/BASELINE.md) -->
+  <!-- * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->
 * [Build Your Own Docker Images](docs/docker-builds/README.md)
-  <!--- * [Quick Start](docs/docker-builds/QUICKSTART.md) --->
+  <!-- * [Quick Start](docs/docker-builds/QUICKSTART.md) -->
   * [Docker Builds - Hooks](docs/docker-builds/DOCKER_BUILDS_HOOKS.md)
 * [Obtain and Use Product Licenses](docs/PROD-LICENSE.md)
 * [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
