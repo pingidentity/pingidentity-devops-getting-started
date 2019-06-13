@@ -32,17 +32,17 @@ A Ping Identity container will look in this directory for any provided server-pr
 These directories are useful for building and working with local server-profiles. `/opt/in` is especially valuable if you do not want your containers to reach out to Github. Here is an example: 
 <br/>
 1. start with a vanilla PingFederate and bind-mount /opt/out to local directory: 
-```shell
-docker run \
-          --name pingfederate \
-          --publish 9999:9999 \
-          --detach \
-          --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-          --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-          -v /tmp/docker/pf:/opt/out \
-          pingidentity/pingfederate:edge
-```
-> Make sure the locally mounted directory (e.g.`/tmp/docker/pf`) is not created. /opt/out expects to create the directory. 
+  ```shell
+  docker run \
+            --name pingfederate \
+            --publish 9999:9999 \
+            --detach \
+            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+            --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+            -v /tmp/docker/pf:/opt/out \
+            pingidentity/pingfederate:edge
+  ```
+  > Make sure the locally mounted directory (e.g.`/tmp/docker/pf`) is not created. /opt/out expects to create the directory. 
 
 2. Make some configuration changes via PingFederate UI. As you make changes, you can see the files in the local directory change. For PingFederate, a folder `instance` is created. This is a server-profile. You could push this to Github for use as an environment variable, but here we will use it as a local server-profile. 
 
