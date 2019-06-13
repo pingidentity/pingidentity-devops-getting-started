@@ -30,6 +30,7 @@ A Ping Identity container will look in this directory for any provided server-pr
 
 ## How to Use: 
 These directories are useful for building and working with local server-profiles. `/opt/in` is especially valuable if you do not want your containers to reach out to Github. Here is an example: 
+<br/>
 1. start with a vanilla PingFederate and bind-mount /opt/out to local directory: 
 ```shell
 docker run \
