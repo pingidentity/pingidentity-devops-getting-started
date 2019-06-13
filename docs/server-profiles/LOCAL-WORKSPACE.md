@@ -30,44 +30,45 @@ A Ping Identity container will look in this directory for any provided server-pr
 
 ## How to Use: 
 These directories are useful for building and working with local server-profiles. `/opt/in` is especially valuable if you do not want your containers to reach out to Github. Here is an example: 
-1. start with a vanilla PingFederate and bind-mount /opt/out to local directory: 
-```shell
-docker run \
-          --name pingfederate \
-          --publish 9999:9999 \
-          --detach \
-          --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-          --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-          -v /tmp/docker/pf:/opt/out \
-          pingidentity/pingfederate:edge
-```
-> Make sure the locally mounted directory (e.g.`/tmp/docker/pf`) is not created. /opt/out expects to create the directory. 
 
-2. Make some configuration changes via PingFederate UI. As you make changes, you can see the files in the local directory change. For PingFederate, a folder `instance` is created. This is a server-profile. You could push this to Github for use as an environment variable, but here we will use it as a local server-profile. 
+  1. start with a vanilla PingFederate and bind-mount /opt/out to local directory: 
+    ```shell
+      docker run \
+                --name pingfederate \
+                --publish 9999:9999 \
+                --detach \
+                --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+                --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+                -v /tmp/docker/pf:/opt/out \
+                pingidentity/pingfederate:edge
+    ```
+    > Make sure the locally mounted directory (e.g.`/tmp/docker/pf`) is not created. /opt/out expects to create the directory. 
+
+  2. Make some configuration changes via PingFederate UI. As you make changes, you can see the files in the local directory change. For PingFederate, a folder `instance` is created. This is a server-profile. You could push this to Github for use as an environment variable, but here we will use it as a local server-profile. 
 
 
-3. Stop the container and start a new one with the local config:
+  3. Stop the container and start a new one with the local config:
 
-```shell
-docker container stop pingfederate
+  ```shell
+    docker container stop pingfederate
 
-docker run \
-          --name pingfederate-local \
-          --publish 9999:9999 \
-          --detach \
-          -v /tmp/docker/pf:/opt/in \
-          pingidentity/pingfederate:edge
-```
+    docker run \
+              --name pingfederate-local \
+              --publish 9999:9999 \
+              --detach \
+              -v /tmp/docker/pf:/opt/in \
+              pingidentity/pingfederate:edge
+  ```
 
-in the logs you can see where `/opt/in` is used: 
+  in the logs you can see where `/opt/in` is used: 
 
-```shell
-docker logs pingfederate-local
-# Output:
-# ----- Starting hook: /opt/entrypoint.sh
-# copying local IN_DIR files (/opt/in) to STAGING_DIR (/opt/staging)
-# ----- Starting hook: /opt/staging/hooks/01-start-server.sh
-```
+  ```shell
+    docker logs pingfederate-local
+    # Output:
+    # ----- Starting hook: /opt/entrypoint.sh
+    # copying local IN_DIR files (/opt/in) to STAGING_DIR (/opt/staging)
+    # ----- Starting hook: /opt/staging/hooks/01-start-server.sh
+  ```
 
 ### Additional Notes: 
 * This is helpful when developing locally and configuration is not ready for GitHub
