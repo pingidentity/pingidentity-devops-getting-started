@@ -30,43 +30,45 @@ A Ping Identity container will look in this directory for any provided server-pr
 
 ## How to Use: 
 These directories are useful for building and working with local server-profiles. `/opt/in` is especially valuable if you do not want your containers to reach out to Github. Here is an example: 
-<br/>
-1. start with a vanilla PingFederate and bind-mount /opt/out to local directory: 
+
+  1. start with a vanilla PingFederate and bind-mount /opt/out to local directory: 
+    ```shell
+      docker run \
+                --name pingfederate \
+                --publish 9999:9999 \
+                --detach \
+                --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+                --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+                -v /tmp/docker/pf:/opt/out \
+                pingidentity/pingfederate:edge
+    ```
+    > Make sure the locally mounted directory (e.g.`/tmp/docker/pf`) is not created. /opt/out expects to create the directory. 
+
+  2. Make some configuration changes via PingFederate UI. As you make changes, you can see the files in the local directory change. For PingFederate, a folder `instance` is created. This is a server-profile. You could push this to Github for use as an environment variable, but here we will use it as a local server-profile. 
+
+
+  3. Stop the container and start a new one with the local config:
+
   ```shell
-  docker run \
-            --name pingfederate \
-            --publish 9999:9999 \
-            --detach \
-            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-            --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-            -v /tmp/docker/pf:/opt/out \
-            pingidentity/pingfederate:edge
+    docker container stop pingfederate
+
+    docker run \
+              --name pingfederate-local \
+              --publish 9999:9999 \
+              --detach \
+              -v /tmp/docker/pf:/opt/in \
+              pingidentity/pingfederate:edge
   ```
-  > Make sure the locally mounted directory (e.g.`/tmp/docker/pf`) is not created. /opt/out expects to create the directory. 
 
-2. Make some configuration changes via PingFederate UI. As you make changes, you can see the files in the local directory change. For PingFederate, a folder `instance` is created. This is a server-profile. You could push this to Github for use as an environment variable, but here we will use it as a local server-profile. 
+  in the logs you can see where `/opt/in` is used: 
 
-
-3. Stop the container and start a new one with the local config:
-```
-docker container stop pingfederate
-
-docker run \
-          --name pingfederate-local \
-          --publish 9999:9999 \
-          --detach \
-          -v /tmp/docker/pf:/opt/in \
-          pingidentity/pingfederate:edge
-```
-
-in the logs you can see where `/opt/in` is used: 
-```
-docker logs pingfederate-local
-# Output:
-# ----- Starting hook: /opt/entrypoint.sh
-# copying local IN_DIR files (/opt/in) to STAGING_DIR (/opt/staging)
-# ----- Starting hook: /opt/staging/hooks/01-start-server.sh
-```
+  ```shell
+    docker logs pingfederate-local
+    # Output:
+    # ----- Starting hook: /opt/entrypoint.sh
+    # copying local IN_DIR files (/opt/in) to STAGING_DIR (/opt/staging)
+    # ----- Starting hook: /opt/staging/hooks/01-start-server.sh
+  ```
 
 ### Additional Notes: 
 * This is helpful when developing locally and configuration is not ready for GitHub
@@ -78,23 +80,23 @@ docker logs pingfederate-local
 A fun way to watch exactly which files change as you make configurations (using the example above): 
 
 ```
-cd /tmp/docker
+  cd /tmp/docker
 
-git init
+  git init
 
-# start container. make changes
+  # start container. make changes
 
-git status
+  git status
 
-git diff HEAD
+  git diff HEAD
 
-#complete changes. Stop container
+  #complete changes. Stop container
 
-#save config
-git add .
-git commit -m "added new connection"
+  #save config
+  git add .
+  git commit -m "added new connection"
 
-#push to github to use as a environment variable server profile in the future
-git remote add origin <your-github-repo>
-git push origin master
+  #push to github to use as a environment variable server profile in the future
+  git remote add origin <your-github-repo>
+  git push origin master
 ```
