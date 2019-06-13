@@ -47,7 +47,8 @@ docker run \
 
 
 3. Stop the container and start a new one with the local config:
-```
+
+```shell
 docker container stop pingfederate
 
 docker run \
@@ -59,7 +60,8 @@ docker run \
 ```
 
 in the logs you can see where `/opt/in` is used: 
-```
+
+```shell
 docker logs pingfederate-local
 # Output:
 # ----- Starting hook: /opt/entrypoint.sh
