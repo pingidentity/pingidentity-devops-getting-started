@@ -31,12 +31,11 @@ There are different goals that you may have as you approach these docs. Here are
   1. Get an [evaluation license](https://pingidentity-devops.gitbook.io/devops/prod-license#obtaining-a-ping-identity-devops-user-and-key)
   <br/>
   2. Save your DevOps User and Key in a text file. Example file:
-      ```
-      PING_IDENTITY_DEVOPS_USER=jsmith@example.com
-      PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
-      ```
+    ```shell
+    PING_IDENTITY_DEVOPS_USER=jsmith@example.com
+    PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
+    ```
       >Be sure to use the exact variable names. 
-
   3. Achieve these pre-reqs on your machine: 
       * Install [Docker CE](https://docs.docker.com/v17.12/install/). [If using a mac](https://docs.docker.com/v17.12/docker-for-mac/install/) 
       * Install [Git](https://git-scm.com/downloads) and run `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
