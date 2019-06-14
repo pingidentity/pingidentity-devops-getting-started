@@ -7,6 +7,7 @@ Engine nodes.
 
 ## Related Docker Images
 - pingidentity/pingbase - Parent Image
+	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**
 - pingidentity/pingcommon - Common Ping files (i.e. hook scripts)
 - pingidentity/pingdownloader - Used to download product bits
 
@@ -17,7 +18,8 @@ used, then it may come from a parent container
 - 9999
 
 ## Environment Variables
-The following environment `ENV` variables can be used with 
+In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
+the following environment `ENV` variables can be used with 
 this image. 
 
 | ENV Variable  | Default     | Description
