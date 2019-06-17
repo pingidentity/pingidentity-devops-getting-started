@@ -60,9 +60,9 @@ There are different goals that you may have as you approach these docs. Here are
 | [Docker Builds](docker-builds/README.md)       | DevOps Experts                 |
 
 ## Commercial Support
-Documents, scripts, docker images are not currently considered stable
-and are subject to changes without notification.
-Please contact devops_program@pingidentity.com for details.
+THE SOFTWARE PROVIDED HEREUNDER IS PROVIDED ON AN "AS IS" BASIS, WITHOUT ANY WARRANTIES OR REPRESENTATIONS EXPRESS, IMPLIED OR STATUTORY.
+
+Please contact devops_program@pingidentity.com for details
 
 ## Copyright
 Copyright © 2019 Ping Identity. All rights reserved.
