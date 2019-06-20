@@ -79,28 +79,35 @@ test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 test -f "${SHARED_DIR}/prepare-network.sh.fragment" && . "${SHARED_DIR}/prepare-network.sh.fragment"
 
 # Docker Image that will be run
-DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}:edge"
+DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}${PING_IDENTITY_DEVOPS_TAG}"
 
 # check to see if the debug option is passed
 SHARED_DOCKER_OPTIONS=" --detach " 
 if test "${DEBUG}" = "--debug" ; then
     SHARED_DOCKER_OPTIONS=" -it --entrypoint /bin/sh "
-
-    echo "###########################################################"
-    echo "#         Docker Environment Variables"
-    echo "#    "
-    echo "#        CONTAINER_NAME : ${CONTAINER_NAME}"
-    echo "#          NETWORK_NAME : ${NETWORK_NAME}"
-    echo "#    SERVER_PROFILE_URL : ${SERVER_PROFILE_URL}"
-    echo "# SERVER_PROFILE_BRANCH : ${SERVER_PROFILE_BRANCH}"
-    echo "#   SERVER_PROFILE_PATH : ${SERVER_PROFILE_PATH}"
-    echo "#          DOCKER_IMAGE : ${DOCKER_IMAGE}"
-    echo "#    "
-    echo "#                IN_DIR : ${IN_DIR}"
-    echo "#               OUT_DIR : ${OUT_DIR}"
-    echo "#    "
-    echo "###########################################################"
 fi
+
+echo "
+###########################################################
+#         Docker Environment Variables
+#    
+#              DOCKER_IMAGE : ${DOCKER_IMAGE}
+#              NETWORK_NAME : ${NETWORK_NAME}
+#        SERVER_PROFILE_URL : ${SERVER_PROFILE_URL}
+#     SERVER_PROFILE_BRANCH : ${SERVER_PROFILE_BRACH}
+#       SERVER_PROFILE_PATH : ${SERVER_PROFILE_PATH}
+#              DOCKER_IMAGE : ${DOCKER_IMAGE}
+#    
+#                    IN_DIR : ${IN_DIR}
+#                   OUT_DIR : ${OUT_DIR}
+#
+#   (Following items are set using 'piconfig' command)
+#
+# PING_IDENTITY_DEVOPS_USER : ${PING_IDENTITY_DEVOPS_USER}
+#  PING_IDENTITY_DEVOPS_TAG : ${PING_IDENTITY_DEVOPS_TAG}
+#    
+###########################################################
+"
 
 SHARED_DOCKER_OPTIONS="
         ${SHARED_DOCKER_OPTIONS} 
@@ -144,7 +151,7 @@ fi
 
 # pull, run or start the container
 # shellcheck disable=2086
-if test -z "$(docker container ls -a --filter name=${CONTAINER_NAME} -q )" ; then
+if test -z "$(docker container ls -a --filter name=^${CONTAINER_NAME}$ -q )" ; then
     docker pull "${DOCKER_IMAGE}"
 
     docker run  \
