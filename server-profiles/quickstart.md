@@ -22,8 +22,9 @@ Steps:
 
    cd /tmp/pf_to_docker
 
-   # Clone Server Profiles from your repository, substitute the name of your GitHub account
-   git clone https://github.com/<your github username>y/pingidentity-server-profiles.git
+   # Clone Server Profiles from your repository
+   # Substitute the name of your GitHub account
+   git clone https://github.com/<github username>/pingidentity-server-profiles.git
 
    # Clone from Ping Identity repository
    git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
