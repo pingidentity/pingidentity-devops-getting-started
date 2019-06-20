@@ -14,7 +14,7 @@ Steps:
 
    > Make sure this is exported as a .zip rather than compressing/zipping yourself
 
-2. Log in to github.com and fork [https://github.com/pingidentity/pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles)
+2. Log in to github.com and fork [https://github.com/pingidentity/pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) into your own GitHub repository.
 3. Open a terminal. Then:
 
    ```text
@@ -22,8 +22,10 @@ Steps:
 
    cd /tmp/pf_to_docker
 
-   git clone https://github.com/pingidentity/pingidentity-server-profiles.git
+   # Clone Server Profiles from your repository, substitute the name of your GitHub account
+   git clone https://github.com/<your github username>y/pingidentity-server-profiles.git
 
+   # Clone from Ping Identity repository
    git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
    ```
 
