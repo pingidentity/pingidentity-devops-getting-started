@@ -385,19 +385,27 @@ To edit these in the future simply 'piconfig' edit the property file directory."
 # Configuring Property Files for: ${_DOFILE}
 ###############################################################################################"
 
-  echo "########################################################################
+  echo "
+########################################################################
 # PingIdentity DevOps client_credentials
 ########################################################################
 " >> ${_DOFILE}
-  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_USER"               "" "Ping Identity DevOps User"
-  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_KEY"                "" "Ping Identity DevOps Key"
+  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_USER"               ""      "Ping Identity DevOps User"
+  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_KEY"                ""      "Ping Identity DevOps Key"
+  echo "
+########################################################################
+# PingIdentity DevOps Project Variables
+########################################################################
+" >> ${_DOFILE}
+  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_TAG"                ":edge" "Ping Identity DevOps Tag (ensure starts with colon ':'.  i.e. :1906)"
 
   echo "
 ###############################################################################################
 # Configuring Property Files for: ${_P1FILE}
 ###############################################################################################"
 
-  echo "########################################################################
+  echo "
+########################################################################
 # PingOne For Customer Credentials
 ########################################################################
 " >> "${_P1FILE}"
