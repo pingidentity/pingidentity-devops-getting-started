@@ -15,7 +15,7 @@
   * [PingDataCommon](docs/docker-images/pingdatacommon/README.md)
   * [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
 * [Examples](docs/getting-started/README.md)
-  * [Quick Start](docs/getting-started/QUICKSTART.md)
+  * [Quick Start](docs/QUICKSTART.md)
   * [Docker Standalone](10-docker-standalone/README.md)
     * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
     * [01-pingdirectory](10-docker-standalone/01-pingdirectory/README.md)
