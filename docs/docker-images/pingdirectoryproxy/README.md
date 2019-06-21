@@ -18,7 +18,7 @@ this image.
 | ------------: | ----------- | ---------------------------------
 | LICENSE_FILE_NAME  | PingDirectory.lic  | 
 | LICENSE_SHORT_NAME  | PD  | 
-| LICENSE_VERSION  | 7.2  | 
+| LICENSE_VERSION  | 7.3  | 
 | REPLICATION_PORT  | 8989  | 
 | PING_PRODUCT  | PingDirectoryProxy  | 
 | ADMIN_USER_NAME  | admin  | 
