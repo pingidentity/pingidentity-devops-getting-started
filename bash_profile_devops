@@ -34,7 +34,9 @@ cat <<EOHELP
  dcstop  - stop                            diw - remove pingidentity images
  dcstart - start                            
  dck    - stop
- dlogs  - tail logs              
+ dlogs  - tail logs
+ dsa - docker stop all
+ dra - docker remove all              
                                           
  ${bold}Volume${normal}                    ${bold}Network${normal}                   ${bold}Service${normal}
  ------------------------  ------------------------  ------------------------
@@ -101,6 +103,8 @@ alias pingdownload="docker run --rm -v ~/Downloads:/tmp pingidentity/pingdownloa
 alias dps="run docker ps"
 
 ## container
+dsa() { echo "Alias Expansion: ${bold}docker stop all containers${normal}"; docker stop $(docker ps -a -q); }
+dra() { echo "Alias Expansion: ${bold}docker remove all containers${normal}"; docker container rm $(docker ps -a -q); }
 alias dce="run docker container exec -it"
 alias dci="run docker container inspect"
 alias dcl="run docker container ls -a"
