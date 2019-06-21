@@ -201,13 +201,13 @@ function sourcePingIdentityFiles ()
 {
     test -f ~/.pingidentity/devops && \
         . ~/.pingidentity/devops && \
-        export $(grep --regexp ^[A-Z] ~/.pingidentity/devops | cut -d= -f1)
+        export $(grep "^[A-Z]" ~/.pingidentity/devops | cut -d= -f1)
     test -f ~/.pingidentity/p14c  && \
         . ~/.pingidentity/p14c && \
-        export $(grep --regexp ^[A-Z] ~/.pingidentity/p14c | cut -d= -f1)
+        export $(grep "^[A-Z]" ~/.pingidentity/p14c | cut -d= -f1)
     test -f ~/.pingidentity/p14c.access_token  && \
         . ~/.pingidentity/p14c.access_token && \
-        export $(grep --regexp ^[A-Z] ~/.pingidentity/p14c.access_token | cut -d= -f1)
+        export $(grep "^[A-Z]" ~/.pingidentity/p14c.access_token | cut -d= -f1)
 }
 
 ## p1env
