@@ -10,14 +10,14 @@ In this example we will take a Configuration Archive of your current \(possibly 
 
 Steps:
 
-1. Export a Configuration Archive from a PingFederate instance into a location on your local machine.
+1. Export a [Configuration Archive](https://support.pingidentity.com/s/document-item?bundleId=pingfederate-84&topicId=adminGuide%2Fpf_c_configurationArchive.html) from a PingFederate instance into a location on your local machine.
 
    > Make sure this is exported as a .zip rather than compressing/zipping yourself
 
 2. Log in to github.com and fork [https://github.com/pingidentity/pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) into your own GitHub repository.
 3. Open a terminal. Then:
 
-   ```text
+   ```shell
    mkdir /tmp/pf_to_docker
 
    cd /tmp/pf_to_docker
@@ -25,22 +25,9 @@ Steps:
    # Clone Server Profiles from your repository
    # Substitute the name of your GitHub account
    git clone https://github.com/<github username>/pingidentity-server-profiles.git
-
-   # Clone from Ping Identity repository
-   git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
    ```
 
-4. From here, you can use two terminal windows, one for each of the new directories:
-
-   ```text
-    ls
-    ######OUTPUTS#######
-    # pingidentity-devops-getting-started         
-    # server-profile-pingidentity-getting-started
-    ####################
-   ```
-
-5. From the window for server-profile:
+4. Copy your exported data.zip to replace `data.zip` in the [vanilla sample server-profile](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started)
 
    ```text
     cd pingidentity-server-profiles/getting-started/pingfederate/instance/server/default/data/drop-in-deployer
@@ -50,7 +37,7 @@ Steps:
     cp <path_to_your_configuration_archive>/data.zip .
    ```
 
-6. Now we have a 'Server Profile' that we can point to when starting a PingFederate container so ... let's do that! In order to use this server profile from the 'Ping DevOps Getting Started' examples, we will push to github.
+5. Now we have a local Server-Profile. We will push this to Github then use it via a docker environment variable. 
 
    ```text
    git status
@@ -78,54 +65,42 @@ Steps:
    ```text
     git add .
 
-    git status
-   ```
-
-   ```text
-    #####OUTPUTS#####
-    # On branch master
-    # Your branch is ahead of 'origin/master' by 2 commits.
-    #  (use "git push" to publish your local commits)
-    #
-    # Changes to be committed:
-    #  (use "git reset HEAD <file>..." to unstage)
-    #
-    #  deleted:    data.zip
-    #  new file:   idpdata.zip
-    #################
-   ```
-
-   ```text
     git commit -m "updated with custom Configuration Archive"
 
     git push origin master
    ```
+    > Make sure you are pushing to your forked repo.
+    >```
+    >   git remote set-url origin <https://github.com/<your_username/pingidentity-server-profiles
+    >```
 
-7. Now let's tell our "getting started" example to point to this server profile. Open `pingidentity-devops-getting-started/10-docker-standalone/FF-shared/env-vars` in a text editor. Then change `GIT_REPO=<your-git-repo>` to point at your forked repo. Should look like: `https://github.com/<YOUR_USERNAME>/pingidentity-server-profiles`
-8. Now.. Run! From the terminal pointed at `pingidentity-devops-getting-started` :
-
-   ```text
-    cd 10-docker-standalone
-
-    ./docker-run.sh pingfederate
-   ```
-
-9. The container should now have started in the background. run `docker container logs -f pingfederate` to watch the logs. To be sure your config is properly applied look for:
+6. Now.. Run! :
 
    ```text
-    2019-03-20 20:12:48,841  INFO  [org.eclipse.jetty.server.Server] Started @53553ms
-    2019-03-20 20:12:53,206  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataDeployer] Deploying: /opt/out/instance/server/default/data/drop-in-deployer/data.zip
-    2019-03-20 20:12:53,217  INFO  [com.pingidentity.configservice.ConfigUpdateCoordinator] Configuration update is in progress…
-    2019-03-20 20:12:53,244  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataDeployer] Deploying: /opt/out/instance/server/default/conf/data-default.zip
-    ##Watch your configuration happen!!##
-    2019-03-20 20:12:56,531  INFO  [com.pingidentity.configservice.ConfigUpdateCoordinator] Configuration update has finished or was terminated.
+        docker run \
+           --name pingfederate \
+           --publish 9999:9999 \
+           --detach \
+           --env SERVER_PROFILE_URL=https://github.com/samirgandhi19/pingidentity-server-profiles.git \
+           --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+           pingidentity/pingfederate:edge
    ```
 
-10. Finally, browse to `https://localhost:9999/pingfederate/app`
+7. The container should now have started in the background. run `docker container logs -f pingfederate` to watch the logs. To be sure your config is properly applied look for:
+
+   ```text
+        2019-03-20 20:12:48,841  INFO  [org.eclipse.jetty.server.Server] Started @53553ms
+        2019-03-20 20:12:53,206  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataDeployer] Deploying: /opt/out/instance/server/default/data/drop-in-deployer/data.zip
+        2019-03-20 20:12:53,217  INFO  [com.pingidentity.configservice.ConfigUpdateCoordinator] Configuration update is in progress…
+        2019-03-20 20:12:53,244  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataDeployer] Deploying: /opt/out/instance/server/default/conf/data-default.zip
+        ##Watch your configuration happen!!##
+        2019-03-20 20:12:56,531  INFO  [com.pingidentity.configservice.ConfigUpdateCoordinator] Configuration update has finished or was terminated.
+   ```
+
+8. Finally, browse to `https://localhost:9999/pingfederate/app`
 
 ## Some additional notes regarding persistence and ongoing usage:
 
-* The getting started example we used to start the container \( `./docker-run.sh pingfederate` \) bind-mounts the container to your local storage in: `/tmp/Docker/pingfederate`. As such, you can work in your PingFederate container like you would on any development server. You will see `server.log` in `/tmp/Docker/pingfederate/runtime/instance/log`
-* You can use `./docker-stop.sh pingfederate` to stop the container and `./docker-run.sh pingfederate` to start it again. If you don't use `./docker-cleanup.sh pingfederate`, all of your changes will be persisted. Use cleanup if you want to go back
+* With the way we are running this container, any changes you make will be lost once you stop the container. To save your changes add `-v /some/local/path:/opt/out` to the `docker run` command. Look at the [develop locally](./local-workspace.md) doc
 * The PingFederate license is located in `tmp/pf_to_docker/server-profile-pingidentity-getting-started/pingfederate/instance/server/default/conf`. The default license will quickly expire. You can upload your own license, but be careful to not push this license to a public github. For Ping employees, you can host private repositories on Gitlab. Otherwise, you can keep your own license in your local version of the repository.
 
