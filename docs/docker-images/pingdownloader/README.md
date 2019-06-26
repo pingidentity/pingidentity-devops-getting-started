@@ -28,7 +28,7 @@ docker run pingidentity/pingdownloader -p PingDirectory
 
 Download a specific version of PingDirectory
 ```
-docker run pingidentity/pingdownloader -p PingDirectory -v 7.2.0.1
+docker run pingidentity/pingdownloader -p PingDirectory -v 7.3.0.0
 ```
 
 Download a product to /tmp on the host, as opposed to /tmp in the PingDownloader container
