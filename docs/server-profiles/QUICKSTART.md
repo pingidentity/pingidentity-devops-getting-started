@@ -81,7 +81,7 @@ Steps:
            --name pingfederate \
            --publish 9999:9999 \
            --detach \
-           --env SERVER_PROFILE_URL=https://github.com/samirgandhi19/pingidentity-server-profiles.git \
+           --env SERVER_PROFILE_URL=https://github.com/<your_username>/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingfederate \
            pingidentity/pingfederate:edge
    ```
