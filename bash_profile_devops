@@ -17,7 +17,7 @@ function dhelp ()
 {
 cat <<EOHELP
 +----------------------------------------------------------------------------+
-|                   ${bold}Ping Identity DevOps Helper Aliases${normal}                      |
+|                   ${bold}Ping Identity Docker Helper Aliases${normal}                      |
 +----------------------------------------------------------------------------+
  ${bold}DevOps Information${normal}                        ${bold}Configuration${normal}
  -------------------------------------     -----------------------------------
@@ -152,6 +152,60 @@ alias dlf="run docker logs -f"
 
 ## deep clean
 alias ddc="dcp ; dvp ; dip; dnp"
+
+## kenv
+function kenv () 
+{
+    sourcePingIdentityFiles
+
+cat <<EOP1ENV
++-----------------------------------------------------------------------------------------+
+|             ${bold}Ping Identity DevOps Kubernetes Information${normal}
+|             ${bold}Sourced from ~/.pingidentity/devops${normal}
++-----------------------------------------------------------------------------------------+
+|          PING_IDENTITY_DEVOPS_USER: ${PING_IDENTITY_DEVOPS_USER}
+|          PING_IDENTITY_DEVOPS_KEY : ${PING_IDENTITY_DEVOPS_KEY}
++-----------------------------------------------------------------------------------------+
+ To use with '.yaml' files (use snippet below)
+     env:
+        - name: PING_IDENTITY_DEVOPS_USER
+          value: "${PING_IDENTITY_DEVOPS_USER}"
+        - name: PING_IDENTITY_DEVOPS_KEY
+          value: "${PING_IDENTITY_DEVOPS_KEY}"
++-----------------------------------------------------------------------------------------+
+EOP1ENV
+}
+
+## khelp
+function khelp () 
+{
+cat <<EOHELP
++----------------------------------------------------------------------------+
+|                   ${bold}Ping Identity DevOps Kubernetes Aliases${normal}                      |
++----------------------------------------------------------------------------+
+ ${bold}DevOps Information${normal}                        ${bold}Configuration${normal}
+ -------------------------------------     -----------------------------------
+ kenv - get kubernets info                 piconfig - Ping Identity Config
+ 
+ ${bold}Pods${normal}                      
+ -------------------------------------     
+ kpe - execute commands (i.e. /bin/sh)      
+ kpd - describe                            
+ kpl - list                                 
+ klogs  - tail logs              
+
+ ${bold}Special${normal}
+ ----------------------------------------------------------------------------
+ pingdownload - download product or license to ~/Downloads
+ ----------------------------------------------------------------------------
+EOHELP
+}
+
+## container
+alias kpe="k exec -it"
+alias kpd="k describe"
+alias kpl="k get pods"
+alias klogs="k logs -f "
 
 ##############################################################################
 # Aliases of commonly used PingOne For Customer commands

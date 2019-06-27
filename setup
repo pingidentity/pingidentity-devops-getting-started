@@ -89,26 +89,31 @@ else
 fi
 
 echo "
-####################### Checking Tools #########################################"
+####################### Checking Tools #########################################
+"
 
 #echo "####################### Utilities ##############################################"
 
+echo "####################### Docker #################################################"
+check_tool "docker"   "docker -v"       "https://hub.docker.com/editions/community/docker-ce-desktop-mac"
 check_tool "jq"       "jq -V"           "https://stedolan.github.io/jq/download"
+
+echo "####################### PingOne For Customer ###################################"
 check_tool "pyjwt"    "pyjwt -V"        "https://pyjwt.readthedocs.io/"
 
-#echo "####################### Docker #################################################"
-check_tool "docker"   "docker -v"       "https://hub.docker.com/editions/community/docker-ce-desktop-mac"
+echo "####################### Kubeernetes ############################################"
+check_tool "kubectl"  "kubectl version" "https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos"
 
-#echo "####################### Amazon #################################################"
+echo "####################### Amazon #################################################"
 
 check_tool "aws"      "aws --version"   "https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html"
 check_tool "eksctl"   "eksctl version"  "https://eksctl.io/"
 
-#echo "####################### Google #################################################"
+echo "####################### Google #################################################"
 
 check_tool "gcloud"    "gcloud -v"      "https://cloud.google.com/sdk/gcloud/"
 
-#echo "####################### Microsoft ##############################################"
+echo "####################### Microsoft ##############################################"
 
 check_tool "az"       "az -V"           "https://docs.microsoft.com/cli/azure/install-azure-cli"
 
@@ -135,6 +140,7 @@ echo -e "
   can be found with:
 
     dhelp     # DevOps Help
+    khelp     # Kubernetes Help
     p1help    # PineOne Help
     piconfig  # Ping Identity Configuration Setup
 
