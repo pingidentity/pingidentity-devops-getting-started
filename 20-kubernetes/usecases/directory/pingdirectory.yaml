@@ -4,6 +4,7 @@ metadata:
   name: ds-load-balancer
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
   labels:
     app: pd-label
 spec:
@@ -116,7 +117,9 @@ spec:
           value: "pd73"
         - name: ORCHESTRATION_TYPE
           value: kubernetes
-        - name: ORCHESTRATION_SERVICE_NAME
+        - name: K8S_STATEFUL_SET_NAME
+          value: "ds"
+        - name: K8S_STATEFUL_SET_SERVICE_NAME
           value: "pd-service-name"
         - name: TAIL_LOG_FILES
           value: ""
@@ -129,19 +132,25 @@ spec:
           mountPath: /opt/out
         readinessProbe:
           exec:
-            command: [ /opt/liveness.sh ]
-        livenessProbe:
-          exec:
-            command: [ /opt/liveness.sh ]
-          initialDelaySeconds: 300
-          periodSeconds: 30
-        lifecycle:
-          preStop:
-            exec:
-              command: 
+            command: 
               - /bin/sh
               - -c
-              - /preStop.sh
+              - /opt/liveness.sh
+          # initialDelaySeconds: 60
+          # periodSeconds: 30
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #       - /bin/sh
+        #       - -c
+        #       - /opt/liveness.sh
+        # lifecycle:
+        #   preStop:
+        #     exec:
+        #       command: 
+        #       - /bin/sh
+        #       - -c
+        #       - /preStop.sh
   volumeClaimTemplates:
   - metadata:
       name: out-dir

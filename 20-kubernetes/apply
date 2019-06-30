@@ -72,7 +72,7 @@ while ! test -z "${1}" ; do
     shift
 done
 
-test -z "${usecase}" && exit_usage "Error: A valid usecase directory is required."
+test -z "${usecase}" && exit_usage "Error: A valid usecase directory is required. Usecases found:\n$(ls usecases)"
 
 
 create_namespace "${namespace}"

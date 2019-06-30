@@ -79,6 +79,6 @@ echo_header "Tearing down
             label=usecase=${usecase}"
 
 # Clean up anything from a prior run
-kubectl delete configmaps,secrets,jobs,statefulsets,deployments,persistentvolumes,persistentvolumeclaims,services,pods \
+kubectl delete pods,configmaps,secrets,jobs,statefulsets,deployments,persistentvolumes,persistentvolumeclaims,services \
   -n "${USER}" \
   --grace-period=0 --force --all
