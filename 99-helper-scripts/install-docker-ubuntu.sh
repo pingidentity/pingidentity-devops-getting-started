@@ -19,7 +19,7 @@ echo_green()
     echo "${GREEN}$*${NC}"
 }
 
-# function to check for the existence of a tool command
+# Check for the existence of a tool command
 check_for_tool()
 {
     toolName="${1}" && shift
@@ -139,9 +139,9 @@ install_kubectl()
 clone_devops_projects()
 {
     DIR_NAME="/home/ubuntu/projects/devops"
-    # Determine if projects already exist
 
-    if test -d "${DIR_NAME}" ; then 
+    # Determine if projects already exist
+    if test -d "${DIR_NAME}"; then 
         echo_green "Ping Identity Devops GitHub projects already available @ $DIR_NAME"
     else
         echo_green "Cloning Ping Identity Github repos..."
