@@ -34,6 +34,7 @@ spec:
   clusterIP: None
   selector:
     app: pd-label
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -69,7 +70,6 @@ metadata:
       app: pd-label
 spec:
   serviceName: pd-service-name
-  replicas: 1
   selector:
     matchLabels:
       app: pd-label
@@ -104,10 +104,9 @@ spec:
         resources:
           requests:
             memory: "4Gi"
-            cpu: "0"
+            cpu: "1"
           limits:
-            memory: "4Gi"
-            cpu: "0"
+            cpu: "1"
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"

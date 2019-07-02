@@ -38,7 +38,7 @@ exit 99
 }
 
 usecase=""
-namespace="${USER}"
+namespace=""
 #
 # Parse the provided arguments, if any
 #
@@ -59,7 +59,7 @@ while ! test -z "${1}" ; do
             fi
             usecase="usecases/${1}"
 
-            test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found."
+            test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found. Usecase options:\n$(ls usecases)"
             ;;
 
         --help)
@@ -72,10 +72,15 @@ while ! test -z "${1}" ; do
     shift
 done
 
-test -z "${usecase}" && exit_usage "Error: A valid usecase directory is required. Usecases found:\n$(ls usecases)"
-
-
-create_namespace "${namespace}"
+#if no namespace provided, nor found.. create one!
+if test -z "${namespace}" ; then
+    if test "$(kubectl config view | grep -q namespace:)" ; then
+    echo "no namespace found, creating..."
+    create_namespace "${USER}"
+    else
+        namespace=$(kubectl config view | sed -n -e 's/.*namespace\://p')
+    fi
+fi
 
 echo_environment
 
@@ -83,12 +88,10 @@ for yamlFile in ${usecase}/*.yaml ; do
     echo "--- ${yamlFile}"
 
     envsubst < "${yamlFile}" > "${yamlFile}.tmp"
+    echo "applying ${yamlFile}"
     kubectlResult=$( kubectl apply -f "${yamlFile}.tmp" )
 
     echo_indent "${kubectlResult}"
 
     rm "${yamlFile}.tmp"
 done
-
-
-

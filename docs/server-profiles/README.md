@@ -8,9 +8,9 @@ There are several Ping Identity Server Profiles available in the Ping Identity G
 
 | Server Profile | Description |
 | :--- | :--- |
-| [Getting Started](https://github.com/pingidentity/server-profile-pingidentity-getting-started) | Ping Identity products with basic install/config |
-| [Baseline](https://github.com/pingidentity/server-profile-pingidentity-baseline) | Ping Identity procucts with full integration |
-| [Simple Sync](https://github.com/pingidentity/server-profile-pingidentity-simple-sync) | DataSync server sync'ing between two PingDirectory trees |
+| [Getting Started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) | Ping Identity products with basic install/config |
+| [Baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) | Ping Identity procucts with full integration |
+| [Simple Sync](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/simple-sync) | DataSync server sync'ing between two PingDirectory trees |
 
 ## Playground Server Profiles
 
@@ -20,4 +20,3 @@ There is a Github Repository containing samples, experimental, training types of
 | :--- | :--- |
 | [PingFed Cluster](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/getting-started-pingfederate-cluster) | Configuring a PingFed cluster with admin/engine nodes |
 | [PingOne for Customer](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/pingone-cloud) | Use cases around PingOne for Customer |
-

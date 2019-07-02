@@ -20,10 +20,11 @@ Usage: ${SCRIPT} {options}
     where {options} include:
 
     *-u, --usecase {use-case-name}
-        The usecase to setup.  These are directories in usecases containing
-        kubernetes .yaml files (i.e. fullstack)
+        The usecase to tear down and remove. Must be one in ./usecases (i.e. fullstack, directory)
     -n, --namespace
         The kubernets namespace to use.  Defaults to: ${USER}
+    --all
+        clean entire kubernetes environment related to namespace. Defaults to: (${USER})
     --help
         Display general usage information
 
@@ -38,7 +39,7 @@ exit 99
 }
 
 usecase=""
-namespace="${USER}"
+namespace=""
 #
 # Parse the provided arguments, if any
 #
@@ -57,11 +58,16 @@ while ! test -z "${1}" ; do
             if test -z "${1}" ; then
                 exit_usage "Error: You must provide a usecase"
             fi
-            usecase="${1}"
+            usecase="usecases/${1}"
 
-            test ! -d "usecases/${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found."
+            test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found. Usecase options:\n$(ls usecases)"
             ;;
-
+        --all)
+            delete_all=true
+            ;;
+        --force)
+            force_all=true
+            ;;
         --help)
             usage
             ;;
@@ -72,13 +78,47 @@ while ! test -z "${1}" ; do
     shift
 done
 
-test -z "${usecase}" && exit_usage "Error: A valid usecase directory is required."
+#if no namespace provided, nor found.. create one!
+if test -z "${namespace}" ; then
+    if test "$(kubectl config view | grep -q namespace:)" ; then
+    echo "no namespace found, creating..."
+    create_namespace "${USER}"
+    else
+        namespace=$(kubectl config view | sed -n -e 's/.*namespace\://p')
+        echo "using namespace:${namespace}"
+    fi   
+fi
 
-echo_header "Tearing down 
-        namespace=${USER}
+echo_environment
+
+#show what we are deleting
+if test "${delete_all}" = "true"; then
+    echo_header "Removing everything (except persistent volumes) related to namespace:${namespace}"
+    echo "NOTE: Persistent volumes are not deleted as they are shared amongst namespaces."    
+    echo "To delete persistent volumes run \`kubectl -n _namespace_ delete persistentvolumes --grace-period=0 --force --all\` "
+    kubectl delete pods,configmaps,secrets,jobs,statefulsets,deployments,persistentvolumeclaims,services \
+        -n "${namespace}" \
+        --grace-period=0 --force --all
+    exit 0
+else 
+    echo_header "Tearing down 
+        namespace=${namespace}
             label=usecase=${usecase}"
+fi
 
-# Clean up anything from a prior run
-kubectl delete pods,configmaps,secrets,jobs,statefulsets,deployments,persistentvolumes,persistentvolumeclaims,services \
-  -n "${USER}" \
-  --grace-period=0 --force --all
+for yamlFile in ${usecase}/*.yaml ; do
+    echo "--- ${yamlFile}"
+
+    envsubst < "${yamlFile}" > "${yamlFile}.tmp"
+    echo "deleting ${yamlFile}"
+
+    if ${force_all} = "true" ; then
+    kubectlResult=$( kubectl delete -f "${yamlFile}.tmp --force" )
+    else 
+    kubectlResult=$( kubectl delete -f "${yamlFile}.tmp" )
+    fi
+
+    echo_indent "${kubectlResult}"
+
+    rm "${yamlFile}.tmp"
+done
