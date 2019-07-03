@@ -81,7 +81,7 @@ cat <<EOP1ENV
         ...
 
  To use with '.yaml' file (use snippet below)
-     pingdirectry:
+     pingdirectory:
        env_file:
          - $HOME/.pingidentity/devops
 +-----------------------------------------------------------------------------------------+
