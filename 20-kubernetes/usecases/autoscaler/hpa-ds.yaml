@@ -9,4 +9,4 @@ spec:
     name: ds
   minReplicas: 2
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 20
+  targetCPUUtilizationPercentage: 40
