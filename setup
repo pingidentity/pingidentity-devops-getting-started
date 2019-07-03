@@ -74,40 +74,34 @@ add_bash_aliases()
     grep "bash_profile_devops" ~/.bash_profile > /dev/null
 
     if test "${?}" == "1"; then
-        echo "  Let's add a bunch of DevOps helper alias' and functions to your
-  shell.  We are assuming you use bash and will add these to your .bash_profile
+        echo "Let's add helper alias' and functions to your shell.  
+We are assuming you use bash and will add these to your .bash_profile
 "
 
-        echo -n "  OK if we add a 'source bash_profile_devops' commands to your .bash_profile (y/n) [y] ? "
+        echo -n "  OK if we add a 'source bash_profile_devops' command to your .bash_profile (y/n) [y] ? "
         read answer
 
         if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
             echo "
 # Ping Identity DevOps Aliases - Added with setup on `date`
 source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
-
-            echo_green "  OK, we got you setup.  You can get help with 'dhelp' command"
         fi
     else
-        echo_green "  Great! You already have bash_profile_devops in your .bash_profile"
+        echo_green "  Great! You already have 'source bash_profile_devops' in your .bash_profile"
     fi
 
     grep "sourcePingIdentityFiles" ~/.bash_profile >/dev/null
 
     if test "$?" = "1"; then
-        echo "
-We recommend that your source your .pingidentity files with the command 'sourcePingIdentityFiles'
-in your ~/.bash_profile.
-"
-        echo -n "Would you like to add this to your ~/.bash_profile (y/n) [n]? "
+        echo -n "  OK if we add a 'sourcePingIdentityFiles' command to your .bash_profile (y/n) [y] ? "
         read answer
-        if [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
+        if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
             echo "
 # Source PingIdentity Files - Added with piconfig on `date`
 sourcePingIdentityFiles" >> ~/.bash_profile
         fi
     else
-        echo_green "  Great! You already have ${_DOFILE} in your .bash_profile"
+        echo_green "  Great! You already have 'sourcePingIdentityFiles' in your .bash_profile"
     fi
 }
 
@@ -163,7 +157,8 @@ function devops_setup()
 ################################################################################
 This will create Ping Identity DevOps Property file (${_DOFILE})
 and they will be used as environment variables for scripts, .yamls, etc...
-################################################################################"
+################################################################################
+"
 
   echo "
 ########################################################################
@@ -203,22 +198,7 @@ and they will be used as environment variables for scripts, .yamls, etc...
 
   sourcePingIdentityFiles
 
-  grep "sourcePingIdentityFiles" ~/.bash_profile >/dev/null
-
-  if test "$?" = "1"; then
-    echo "
-We recommend that your source your .pingidentity files with the command 'sourcePingIdentityFiles'
-in your ~/.bash_profile.
-"
-    echo -n "Would you like to add this to your ~/.bash_profile (y/n) [n]? "
-    read answer
-    if [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
-      echo "
-# Source PingIdentity Files - Added with piconfig on `date`
-sourcePingIdentityFiles" >> ~/.bash_profile
-    fi
-  fi
-
+  add_bash_aliases
 }
 
 
@@ -261,9 +241,13 @@ echo "
   If we have recommendations along the way, we'll provide that
   also.
 "
+
+# Source aliases that will be used throughout the setup
+
+source ${THIS_DIR}/bash_profile_devops
+
 devops_setup
 
-add_bash_aliases
 
 echo "
 ################################################################################
