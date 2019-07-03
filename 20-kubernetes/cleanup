@@ -112,10 +112,10 @@ for yamlFile in ${usecase}/*.yaml ; do
     envsubst < "${yamlFile}" > "${yamlFile}.tmp"
     echo "deleting ${yamlFile}"
 
-    if ${force_all} = "true" ; then
-    kubectlResult=$( kubectl delete -f "${yamlFile}.tmp --force" )
+    if test "${force_all}" = "true" ; then
+        kubectlResult=$( kubectl delete -f "${yamlFile}.tmp --force" )
     else 
-    kubectlResult=$( kubectl delete -f "${yamlFile}.tmp" )
+        kubectlResult=$( kubectl delete -f "${yamlFile}.tmp" )
     fi
 
     echo_indent "${kubectlResult}"
