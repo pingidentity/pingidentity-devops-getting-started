@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   pingdatasync:
-    image: pingidentity/pingdatasync
+    image: pingidentity/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync
@@ -14,7 +14,7 @@ services:
     #   - /tmp/Swarm/simple-sync/pingdatasync:/opt/out
 
   pingdirectory:
-    image: pingidentity/pingdirectory
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
@@ -29,7 +29,7 @@ services:
     #   - /tmp/Swarm/simple-sync/pingdirectory:/opt/out
 
   pingdataconsole:
-    image: pingidentity/pingdataconsole
+    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     deploy:
       replicas: 1
     ports:

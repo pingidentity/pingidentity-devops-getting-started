@@ -33,7 +33,7 @@ services:
 
 
   pingdirectory:
-    image: pingidentity/pingdirectory:edge
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - VERBOSE=false
       # This server profile delivers extensions
@@ -60,7 +60,7 @@ services:
       - pingnet-internal
 
   pingdataconsole:
-    image: pingidentity/pingdataconsole:edge
+    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - 8080:8080
       - 8443:8443

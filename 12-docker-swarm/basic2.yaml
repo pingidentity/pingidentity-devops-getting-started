@@ -13,7 +13,7 @@ networks:
 
 services:
   pingdirectory:
-    image: pingidentity/pingdirectory:edge
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     deploy:
       replicas: 1
     ports:
