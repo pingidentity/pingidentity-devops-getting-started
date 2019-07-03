@@ -19,9 +19,9 @@ cat <<EOHELP
 +----------------------------------------------------------------------------+
 |                   ${bold}Ping Identity Docker Helper Aliases${normal}                      |
 +----------------------------------------------------------------------------+
- ${bold}DevOps Information${normal}                        ${bold}Configuration${normal}
- -------------------------------------     -----------------------------------
- denv - get devops details                 piconfig - Ping Identity Config
+ ${bold}DevOps Information${normal}
+ -------------------------------------
+ denv - get devops details
  
  ${bold}Container${normal}                                 ${bold}Image${normal}
  -------------------------------------     ----------------------------------
@@ -72,8 +72,12 @@ cat <<EOP1ENV
 |             ${bold}Sourced from ~/.pingidentity/devops${normal}
 +-----------------------------------------------------------------------------------------+
 |          PING_IDENTITY_DEVOPS_USER: ${PING_IDENTITY_DEVOPS_USER}
-|          PING_IDENTITY_DEVOPS_KEY : ${PING_IDENTITY_DEVOPS_KEY}
+|           PING_IDENTITY_DEVOPS_KEY: ${PING_IDENTITY_DEVOPS_KEY}
+|           PING_IDENTITY_DEVOPS_TAG: ${PING_IDENTITY_DEVOPS_TAG}
 +-----------------------------------------------------------------------------------------+
+ To update, run Ping Identity DevOps Setup 
+    (found in your the pingidentity-devops-getting-started git repo)/setup
+
  To use with 'docker run command'
      docker run 
         ... 
@@ -187,9 +191,9 @@ cat <<EOHELP
 +----------------------------------------------------------------------------+
 |                   ${bold}Ping Identity DevOps Kubernetes Aliases${normal}                      |
 +----------------------------------------------------------------------------+
- ${bold}DevOps Information${normal}                        ${bold}Configuration${normal}
- -------------------------------------     -----------------------------------
- kenv - get kubernets info                 piconfig - Ping Identity Config
+ ${bold}DevOps Information${normal}
+ -------------------------------------
+ kenv - get kubernets info
  
  ${bold}Pods${normal}                      
  -------------------------------------     
@@ -222,9 +226,9 @@ cat <<EOP1HELP
 +----------------------------------------------------------------------------+
 |                  ${bold}Ping One for Customer Helper Aliases${normal}                      |
 +----------------------------------------------------------------------------+
- ${bold}Setup/Authentcation${normal}                       ${bold}Configuration${normal}
- ----------------------------------------------------------------------------
- p1env - get setup details                 piconfig - Ping Identity Config
+ ${bold}Setup/Authentcation${normal}
+ -------------------------------------
+ p1env - get setup details
  p1auth - get authentication token
  
  ${bold}Environment${normal}                               ${bold}Populations${normal}
@@ -377,124 +381,3 @@ get_value ()
 }
 
 
-## _piaddconfig
-function _piaddconfig()
-{
-  PROPS_FILE="${1}" && shift
-  VAR_TO_SET="${1}" && shift
-  VAR_DEFAULT="${1}" && shift
-  VAR_PROMPT="${*}"
-
-  CURRENT_VALUE=$(get_value ${VAR_TO_SET})
-  test -z "${CURRENT_VALUE}" && CURRENT_VALUE="${VAR_DEFAULT}"
-
-  echo -n "${VAR_PROMPT} [${CURRENT_VALUE}] ? "
-  read answer
-  if test ! -z "${answer}"; then
-    if test "${answer}" = "-"; then
-      eval "unset \${VAR_TO_SET}"
-      echo "${VAR_TO_SET}=" >> ${PROPS_FILE}
-    else
-      eval "export \${VAR_TO_SET}=${answer}"
-      echo "${VAR_TO_SET}=${answer}" >> ${PROPS_FILE}
-    fi
-  else
-    echo "${VAR_TO_SET}=${CURRENT_VALUE}" >> ${PROPS_FILE}
-  fi
-}
-
-
-## _piaddcomment
-function _piaddcomment()
-{
-  _TFILE="${1}" && shift
-  _MSG="${@}"
-
-  echo ${_MSG}
-  echo ${_MSG} >> ${_TFILE}
-}
-
-## piconfig
-function piconfig()
-{
-  DOT_PINGIDENTITY="${HOME}/.pingidentity"
-  ################################################################################
-  # Check for a .pingidentity directory with propertyfile
-  ################################################################################
-  test -d "${DOT_PINGIDENTITY}" || mkdir -p "${DOT_PINGIDENTITY}"
-
-  _DOFILE="${DOT_PINGIDENTITY}/devops"
-  test -f "${_DOFILE}" && source "${_DOFILE}" && mv "${_DOFILE}" "${_DOFILE}".prev
-
-  _P1FILE="${DOT_PINGIDENTITY}/p14c"
-  test -f "${_P1FILE}" && source "${_P1FILE}" && mv "${_P1FILE}" "${_P1FILE}".prev
-
-  echo "
-###############################################################################################
-#                         Ping Identity Property Files
-###############################################################################################
-This will create Ping Identity Propery files}
-and they will be used as environment variables for scripts, .yamls, etc...
-
-To edit these in the future simply 'piconfig' edit the property file directory."
-
-  echo "
-###############################################################################################
-# Configuring Property Files for: ${_DOFILE}
-###############################################################################################"
-
-  echo "
-########################################################################
-# PingIdentity DevOps client_credentials
-########################################################################
-" >> ${_DOFILE}
-  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_USER"               ""      "Ping Identity DevOps User"
-  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_KEY"                ""      "Ping Identity DevOps Key"
-  echo "
-########################################################################
-# PingIdentity DevOps Project Variables
-########################################################################
-" >> ${_DOFILE}
-  _piaddconfig "${_DOFILE}" "PING_IDENTITY_DEVOPS_TAG"                ":edge" "Ping Identity DevOps Tag (ensure starts with colon ':'.  i.e. :1906)"
-
-  echo "
-###############################################################################################
-# Configuring Property Files for: ${_P1FILE}
-###############################################################################################"
-
-  echo "
-########################################################################
-# PingOne For Customer Credentials
-########################################################################
-" >> "${_P1FILE}"
-  _piaddconfig "${_P1FILE}" "PING_ONE_ENVIRONMENT_ID"                 "" "PingOne EnvironmentID"
-  _piaddconfig "${_P1FILE}" "PING_ONE_POPULATION_ID"                  "" "PingOne PopulationID"
-  _piaddconfig "${_P1FILE}" "PING_ONE_CLIENT_ID"                      "" "PingOne ClientID"
-  _piaddconfig "${_P1FILE}" "PING_ONE_CLIENT_SECRET"                  "" "PingOne ClientSecret"
-  _piaddcomment "${_P1FILE}" ""
-  echo "########################################################################
-# PingOne For Customer URLs
-########################################################################
-
-PING_ONE_AUTH_URL=https://auth.pingone.com/${PING_ONE_ENVIRONMENT_ID}
-PING_ONE_API_URL=https://api.pingone.com/v1/environments/${PING_ONE_ENVIRONMENT_ID}" >> "${_P1FILE}"
-
-  sourcePingIdentityFiles
-
-  grep "sourcePingIdentityFiles" ~/.bash_profile >/dev/null
-
-  if test "$?" = "1"; then
-    echo "
-We recommend that your source your .pingidentity files with the command 'sourcePingIdentityFiles'
-in your ~/.bash_profile.
-"
-    echo -n "Would you like to add this to your ~/.bash_profile (y/n) [n]? "
-    read answer
-    if [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
-      echo "
-# Source PingIdentity Files - Added with piconfig on `date`
-sourcePingIdentityFiles" >> ~/.bash_profile
-    fi
-  fi
-
-}
