@@ -1,0 +1,76 @@
+##########################################################################################
+# In this example deployment, PingFederate cluster management/discovery is facilitated
+# by using an AWS S3 bucket. For in-depth details on this cluster model, please view the 
+# PingFederate documentation located at 
+# https://docs.pingidentity.com/bundle/pf_sm_deployPingFederateInClusteredEnvironment_pf82/page/task/pf_t_enableDynamicDiscoveryClustering.html
+#
+# Please note that you will have to supply your AWS storage location name, access key
+# and secret for this example to function properly
+##########################################################################################
+version: "3.1"
+
+services:
+  pingfederate-admin:
+    image: pingidentity/pingfederate:edge
+    command: ["sh", "-c", "wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server"]
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=pf-aws-s3-clustering/pingfederate
+      - SERVER_PROFILE_PARENT=BASELINE
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingfederate
+      - OPERATIONAL_MODE=CLUSTERED_CONSOLE
+      - CLUSTER_BIND_ADDRESS=LINK_LOCAL
+      # AWS S3 Bucket details
+      # Add your storage location name and credentials to the variables listed below
+      - DISCOVERY_S3_LOCATION=${DISCOVERY_S3_LOCATION}
+      - DISCOVERY_S3_ACCESS_KEY=${DISCOVERY_S3_ACCESS_KEY}
+      - DISCOVERY_S3_SECRET_KEY=${DISCOVERY_S3_SECRET_KEY}
+    deploy:
+      replicas: 1
+    ports:
+      - 9999:9999
+    networks:
+      - pingnet
+ 
+  pingfederate:
+    image: pingidentity/pingfederate:edge
+    command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=pf-aws-s3-clustering/pingfederate
+      - SERVER_PROFILE_PARENT=BASELINE
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingfederate
+      - OPERATIONAL_MODE=CLUSTERED_ENGINE
+      - CLUSTER_BIND_ADDRESS=LINK_LOCAL
+      # AWS S3 Bucket details
+      # Add your storage location name and credentials to the variables listed below
+      - DISCOVERY_S3_LOCATION=${DISCOVERY_S3_LOCATION}
+      - DISCOVERY_S3_ACCESS_KEY=${DISCOVERY_S3_ACCESS_KEY}
+      - DISCOVERY_S3_SECRET_KEY=${DISCOVERY_S3_SECRET_KEY}
+    deploy:
+      replicas: 1
+    ports:
+      - 9031:9031
+    networks:
+      - pingnet
+
+  pingdirectory:
+    image: pingidentity/pingdirectory:edge
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingdirectory
+    deploy:
+      replicas: 1
+    ports:
+      - 1636:636
+      - 1443:443
+    networks:
+      - pingnet
+
+networks:
+  pingnet:
+    ipam:
+      config:
+        - subnet: 169.254.1.0/24
