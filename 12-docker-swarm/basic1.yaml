@@ -14,6 +14,9 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=getting-started/pingdirectory
+      # Variables are added to ~/.pingidentity/devops and sourced by .bash_profile when setup.sh
+      # (Getting-started project root directory) is first run to configure your environment.
+      # Used to generate just-in-time evaluation licenses
       - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
       - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
     deploy:
