@@ -23,6 +23,7 @@ this image.
 | BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in  image/container 
 | IN_DIR  | ${BASE}/in  | Location of a local server-profile volume 
 | OUT_DIR  | ${BASE}/out  | Path to the runtime volume 
+| SERVER_BITS_DIR  | ${BASE}/server  | Path to the server bits 
 | BAK_DIR  | ${BASE}/backup  | Path to a volume generically used to export or backup data 
 | SECRETS_DIR  | /usr/local/secrets  | Default path to the secrets 
 | STAGING_DIR  | ${BASE}/staging  | Path to the staging area where the remote and local server profiles can be merged 
@@ -40,18 +41,18 @@ this image.
 | STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the background. This is the  debug start flow for the container 
 | TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container  standard output 
 | LOCATION  | Docker  | Location default value 
+| LOCATION_VALIDATION  | true|Any string denoting a logical/physical location|Must be a string  | 
 | MAX_HEAP_SIZE  | 384m  | Heap size (for java products) 
 | JVM_TUNING  | AGGRESSIVE  | 
 | VERBOSE  | false  | Triggers verbose messages in scripts using the set -x option. 
 | PING_DEBUG  | false  | Set the server in debug mode, with increased output 
 | PING_PRODUCT  |   | The name of Ping product.  Should be overridden by child images. 
+| PING_PRODUCT_VALIDATION  | true|i.e. PingFederate,PingDirectory|Must be a valid Ping prouduct type  | 
 | LDAP_PORT  | 389  | Port over which to communicate for LDAP 
 | LDAPS_PORT  | 636  | Port over which to communicate for LDAPS 
 | HTTPS_PORT  | 443  | Port over which to communicate for HTTPS 
 | JMX_PORT  | 689  | Port for monitoring over JMX protocol 
-| TOPOLOGY_SIZE  | 1  | 
-| TOPOLOGY_PREFIX  |   | 
-| TOPOLOGY_SUFFIX  |   | 
+| ORCHESTRATION_TYPE  |   | The type of orchestration tool used to run the container, normally set in the deployment (.yaml) file.  Expected values include: - compose - swarm - kubernetes Defaults to blank (i.e. No type is set) 
 | USER_BASE_DN  | dc=example,dc=com  | 
 | DOLLAR  | '$'  | 
 | PD_ENGINE_PUBLIC_HOSTNAME  | localhost  | 
