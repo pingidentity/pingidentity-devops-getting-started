@@ -83,7 +83,7 @@ test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 test -f "${SHARED_DIR}/prepare-network.sh.fragment" && . "${SHARED_DIR}/prepare-network.sh.fragment"
 
 # Docker Image that will be run
-DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}:${PING_IDENTITY_DEVOPS_TAG}"
+DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}:${PING_IDENTITY_DEVOPS_TAG:-edge}"
 
 # check to see if the debug option is passed
 SHARED_DOCKER_OPTIONS=" --detach " 
