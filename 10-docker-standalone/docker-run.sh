@@ -65,7 +65,11 @@ case ${CONTAINER} in
         usage
         exit
 esac
-    
+
+# load the devops variables
+#shellcheck source=/dev/null
+test -f "${DEVOPS_PROPS}" && . "${DEVOPS_PROPS}"
+
 # lood the shared variables
 #shellcheck source=/dev/null
 test -f "${SHARED_DIR}/env_vars" && . "${SHARED_DIR}/env_vars"
@@ -79,7 +83,7 @@ test -f "${CONTAINER_DIR}/env_vars" && . "${CONTAINER_DIR}/env_vars"
 test -f "${SHARED_DIR}/prepare-network.sh.fragment" && . "${SHARED_DIR}/prepare-network.sh.fragment"
 
 # Docker Image that will be run
-DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}${PING_IDENTITY_DEVOPS_TAG}"
+DOCKER_IMAGE="pingidentity/${CONTAINER_NAME}:${PING_IDENTITY_DEVOPS_TAG}"
 
 # check to see if the debug option is passed
 SHARED_DOCKER_OPTIONS=" --detach " 
@@ -94,14 +98,13 @@ echo "
 #              DOCKER_IMAGE : ${DOCKER_IMAGE}
 #              NETWORK_NAME : ${NETWORK_NAME}
 #        SERVER_PROFILE_URL : ${SERVER_PROFILE_URL}
-#     SERVER_PROFILE_BRANCH : ${SERVER_PROFILE_BRACH}
 #       SERVER_PROFILE_PATH : ${SERVER_PROFILE_PATH}
-#              DOCKER_IMAGE : ${DOCKER_IMAGE}
+#     SERVER_PROFILE_BRANCH : ${SERVER_PROFILE_BRACH}
 #    
 #                    IN_DIR : ${IN_DIR}
 #                   OUT_DIR : ${OUT_DIR}
 #
-#   (Following items are set using 'piconfig' command)
+#   (Following items are set using 'setup' command)
 #
 # PING_IDENTITY_DEVOPS_USER : ${PING_IDENTITY_DEVOPS_USER}
 #  PING_IDENTITY_DEVOPS_TAG : ${PING_IDENTITY_DEVOPS_TAG}

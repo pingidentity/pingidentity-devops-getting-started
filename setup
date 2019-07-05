@@ -3,6 +3,18 @@ cd "$( dirname "${0}" )"
 THIS="$( basename "${0}" )"
 THIS_DIR=`pwd`
 
+DOT_PINGIDENTITY="${HOME}/.pingidentity"
+################################################################################
+# Check for a .pingidentity directory with propertyfile
+################################################################################
+test -d "${DOT_PINGIDENTITY}" || mkdir -p "${DOT_PINGIDENTITY}"
+
+_DOFILE="${DOT_PINGIDENTITY}/devops"
+test -f "${_DOFILE}" && source "${_DOFILE}" && mv "${_DOFILE}" "${_DOFILE}".prev
+
+# _P1FILE="${DOT_PINGIDENTITY}/p14c"
+# test -f "${_P1FILE}" && source "${_P1FILE}" && mv "${_P1FILE}" "${_P1FILE}".prev
+
 
 numTools=0
 numOk=0
@@ -34,6 +46,162 @@ check_tool()
     fi
 }
 
+################################################################################
+# get_value (variable)
+#
+# Get the value of a vaiable, preserving the spaces
+################################################################################
+get_value ()
+{
+    IFS="%%"
+    eval printf '%s' "\${${1}}"
+    unset IFS
+}
+
+################################################################################
+# add_bash_aliases
+#
+# Ensure that the bash_alias file is a part of .bash_profile
+################################################################################
+add_bash_aliases()
+{
+
+    echo "
+################################################################################
+#                         Ping Identity DevOps Alias Files
+################################################################################"
+
+    grep "bash_profile_devops" ~/.bash_profile > /dev/null
+
+    if test "${?}" == "1"; then
+        echo "Let's add helper alias' and functions to your shell.  
+We are assuming you use bash and will add these to your .bash_profile
+"
+
+        echo -n "  OK if we add a 'source bash_profile_devops' command to your .bash_profile (y/n) [y] ? "
+        read answer
+
+        if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
+            echo "
+# Ping Identity DevOps Aliases - Added with setup on `date`
+source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
+        fi
+    else
+        echo_green "  Great! You already have 'source bash_profile_devops' in your .bash_profile"
+    fi
+
+    grep "sourcePingIdentityFiles" ~/.bash_profile >/dev/null
+
+    if test "$?" = "1"; then
+        echo -n "  OK if we add a 'sourcePingIdentityFiles' command to your .bash_profile (y/n) [y] ? "
+        read answer
+        if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
+            echo "
+# Source PingIdentity Files - Added with piconfig on `date`
+sourcePingIdentityFiles" >> ~/.bash_profile
+        fi
+    else
+        echo_green "  Great! You already have 'sourcePingIdentityFiles' in your .bash_profile"
+    fi
+}
+
+################################################################################
+# devops_add_config (file, variable, default, prompt)
+#
+# Add a config variale to the devops file
+################################################################################
+function devops_add_config()
+{
+  PROPS_FILE="${1}" && shift
+  VAR_TO_SET="${1}" && shift
+  VAR_DEFAULT="${1}" && shift
+  VAR_PROMPT="${*}"
+
+  CURRENT_VALUE=$(get_value ${VAR_TO_SET})
+  test -z "${CURRENT_VALUE}" && CURRENT_VALUE="${VAR_DEFAULT}"
+
+  echo -n "${VAR_PROMPT} [${CURRENT_VALUE}] ? "
+  read answer
+  if test ! -z "${answer}"; then
+    if test "${answer}" = "-"; then
+      eval "unset \${VAR_TO_SET}"
+      echo "${VAR_TO_SET}=" >> ${PROPS_FILE}
+    else
+      eval "export \${VAR_TO_SET}=${answer}"
+      echo "${VAR_TO_SET}=${answer}" >> ${PROPS_FILE}
+    fi
+  else
+    echo "${VAR_TO_SET}=${CURRENT_VALUE}" >> ${PROPS_FILE}
+  fi
+}
+
+################################################################################
+# devops_add_comment (file, message)
+#
+# Add a comment to the devops file
+################################################################################
+function devops_add_comment()
+{
+  _TFILE="${1}" && shift
+  _MSG="${@}"
+
+  echo ${_MSG}
+  echo ${_MSG} >> ${_TFILE}
+}
+
+function devops_setup()
+{
+  echo "
+################################################################################
+#                         Ping Identity Property Files
+################################################################################
+This will create Ping Identity DevOps Property file (${_DOFILE})
+and they will be used as environment variables for scripts, .yamls, etc...
+################################################################################
+"
+
+  echo "
+########################################################################
+# PingIdentity DevOps client_credentials
+########################################################################
+" >> ${_DOFILE}
+  devops_add_config "${_DOFILE}" "PING_IDENTITY_DEVOPS_USER"               ""      "Ping Identity DevOps User"
+  devops_add_config "${_DOFILE}" "PING_IDENTITY_DEVOPS_KEY"                ""      "Ping Identity DevOps Key"
+  echo "
+########################################################################
+# PingIdentity DevOps Project Variables
+########################################################################
+" >> ${_DOFILE}
+  devops_add_config "${_DOFILE}" "PING_IDENTITY_DEVOPS_TAG"                "edge" "Ping Identity DevOps Tag (i.e. edge, 1906)"
+
+#   echo "
+# ###############################################################################################
+# # Configuring Property Files for: ${_P1FILE}
+# ###############################################################################################"
+
+#   echo "
+# ########################################################################
+# # PingOne For Customer Credentials
+# ########################################################################
+# " >> "${_P1FILE}"
+#   devops_add_config "${_P1FILE}" "PING_ONE_ENVIRONMENT_ID"                 "" "PingOne EnvironmentID"
+#   devops_add_config "${_P1FILE}" "PING_ONE_POPULATION_ID"                  "" "PingOne PopulationID"
+#   devops_add_config "${_P1FILE}" "PING_ONE_CLIENT_ID"                      "" "PingOne ClientID"
+#   devops_add_config "${_P1FILE}" "PING_ONE_CLIENT_SECRET"                  "" "PingOne ClientSecret"
+#   devops_add_comment "${_P1FILE}" ""
+#   echo "########################################################################
+# # PingOne For Customer URLs
+# ########################################################################
+
+# PING_ONE_AUTH_URL=https://auth.pingone.com/${PING_ONE_ENVIRONMENT_ID}
+# PING_ONE_API_URL=https://api.pingone.com/v1/environments/${PING_ONE_ENVIRONMENT_ID}" >> "${_P1FILE}"
+
+  sourcePingIdentityFiles
+
+  add_bash_aliases
+}
+
+
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -51,6 +219,9 @@ echo_green()
     echo -e "${GREEN}$*${NC}"
 }
 
+################################################################################
+# main
+################################################################################
 echo "
 
 ################################################################################
@@ -58,41 +229,31 @@ echo "
                      Welcome to Ping Identity DevOps!
 
   We will run through a few setup items to make your experiance as easy as 
-  possible.  If we have recommendations along the way, we'll provide that
+  possible.  These include:
+  
+    - Adding bash_profile_devops to your .bash_profile
+    - Setting up your default .pingidentity/devops settings
+    - Checking for required tools used in the DevOps project
+    
+  You may run this setup script anytime in the future to change 
+  settings and check for tools.
+  
+  If we have recommendations along the way, we'll provide that
   also.
 "
 
-echo "
-####################### bash_profile_devops ####################################"
+# Source aliases that will be used throughout the setup
 
-grep "bash_profile_devops" ~/.bash_profile > /dev/null
+source ${THIS_DIR}/bash_profile_devops
 
-if test "${?}" == "1"; then
-  echo "  First, let's add a bunch of DevOps helper alias' and functions to your
-  shell.  We are assuming you use bash and will add these to your .bash_profile
-"
+devops_setup
 
-
-  echo -n "  OK if we add a 'source bash_profile_devops' commands to your .bash_profile (y/n) [y] ? "
-  read answer
-
-  if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
-    echo "
-# Ping Identity DevOps Aliases - Added with setup on `date`
-source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
-
-
-    echo_green "  OK, we got you setup.  You can get help with 'dhelp' command"
-  fi
-else
-  echo_green "  Great! You already have bash_profile_devops in your .bash_profile"
-fi
 
 echo "
-####################### Checking Tools #########################################
+################################################################################
+#                         Ping Identity DevOps Tools
+################################################################################
 "
-
-#echo "####################### Utilities ##############################################"
 
 echo "####################### Docker #################################################"
 check_tool "docker"   "docker -v"       "https://hub.docker.com/editions/community/docker-ce-desktop-mac"
@@ -101,7 +262,7 @@ check_tool "jq"       "jq -V"           "https://stedolan.github.io/jq/download"
 echo "####################### PingOne For Customer ###################################"
 check_tool "pyjwt"    "pyjwt -V"        "https://pyjwt.readthedocs.io/"
 
-echo "####################### Kubeernetes ############################################"
+echo "####################### Kubernetes #############################################"
 check_tool "kubectl"  "kubectl version" "https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos"
 
 echo "####################### Amazon #################################################"
@@ -141,8 +302,6 @@ echo -e "
 
     dhelp     # DevOps Help
     khelp     # Kubernetes Help
-    p1help    # PineOne Help
-    piconfig  # Ping Identity Configuration Setup
 
   Drop us a line, let us know how it's going:
 
