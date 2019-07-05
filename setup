@@ -97,7 +97,7 @@ source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
         read answer
         if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
             echo "
-# Source PingIdentity Files - Added with piconfig on `date`
+# Source PingIdentity Files Alias - Added with setup on `date`
 sourcePingIdentityFiles" >> ~/.bash_profile
         fi
     else
