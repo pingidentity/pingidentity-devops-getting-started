@@ -115,6 +115,10 @@ spec:
           value: "getting-started/pingdirectory"
         - name: SERVER_PROFILE_BRANCH
           value: "pd73"
+        - name: PING_IDENTITY_DEVOPS_USER
+          value: ${PING_IDENTITY_DEVOPS_USER}
+        - name: PING_IDENTITY_DEVOPS_KEY
+          value: ${PING_IDENTITY_DEVOPS_KEY}
         - name: ORCHESTRATION_TYPE
           value: kubernetes
         - name: K8S_STATEFUL_SET_NAME
@@ -161,3 +165,4 @@ spec:
       resources:
         requests:
           storage: 8Gi
+
