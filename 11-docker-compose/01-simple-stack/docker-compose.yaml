@@ -2,12 +2,16 @@ version: "2"
 
 services:
   pingfederate:
-    image: pingidentity/pingfederate${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
-       - VERBOSE=false
+      - VERBOSE=false
+    env_file:
+      # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
+      # devops user/key details for evaluation licenses and for docker image/git tags
+      - ~/.pingidentity/devops
     ports:
       - 9031:9031
       - 9999:9999
@@ -15,10 +19,12 @@ services:
       - pingnet
 
   pingdirectory:
-    image: pingidentity/pingdirectory${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
+    env_file:
+      - ~/.pingidentity/devops
     ports:
       - 1636:636
       - 1443:443
@@ -26,7 +32,7 @@ services:
       - pingnet
                     
   pingdataconsole:
-    image: pingidentity/pingdataconsole${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - 8080:8080
       - 8443:8443

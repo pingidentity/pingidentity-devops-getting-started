@@ -46,21 +46,7 @@ cd pingidentity-devops-getting-started
 ./setup
 ```
 
-Now, you can type in commands like `dhelp`, `p1help` to get help with the many alias' created to help you with the DevOps Docker and Ping One For Customer commands.
-
-## Configure your environment for Ping Identity DevOps projects
-
-The command `piconfig` \(Ping Identity Config\) will help you setup some property files located in `~/.pingidentity` to drive other devops related utilities. This command can be used at anytime to update your property files.
-
-```text
-piconfig
-```
-
-The files include:
-
-* `devops` - Includes DevOps related credientals \(i.e. DevOps-User and DevOps-Key\)
-* `p14c` - Includes PingOne For Customers properties used to connect
-* `p14c.access_token` - Keeps the access token after a asking for a token with `p1auth`
+Now, you can use the `dhelp` alias to get help with your DevOps Docker commands.
 
 ## Run a Docker Standalone Image - PingFederate
 
