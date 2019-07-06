@@ -40,6 +40,7 @@ this image.
 | STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the foreground. This is the  normal start flow for the container 
 | STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the background. This is the  debug start flow for the container 
 | TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container  standard output 
+| COLORIZE_LOGS  | true  | If 'true', the output logs will be colorized with GREENs and REDs, otherwise, no colorization will be done.  This is good for tools that monitor logs and colorization gets in the way. 
 | LOCATION  | Docker  | Location default value 
 | LOCATION_VALIDATION  | true|Any string denoting a logical/physical location|Must be a string  | 
 | MAX_HEAP_SIZE  | 384m  | Heap size (for java products) 
