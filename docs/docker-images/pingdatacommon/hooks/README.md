@@ -3,7 +3,6 @@
 List of available hooks:
 * [03-build-run-plan.sh](03-build-run-plan.sh.md)
 * [18-setup-sequence.sh](18-setup-sequence.sh.md)
-* [182-template-to-ldif.sh](182-template-to-ldif.sh.md)
 * [183-run-setup.sh](183-run-setup.sh.md)
 * [185-apply-tools-properties.sh](185-apply-tools-properties.sh.md)
 * [186-install-extensions.sh](186-install-extensions.sh.md)
