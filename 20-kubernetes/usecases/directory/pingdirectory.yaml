@@ -95,7 +95,9 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
       - name: ds
-        image: 574076504146.dkr.ecr.us-east-2.amazonaws.com/terrysigle/pd73-test:edge
+        image: pingidentity/pingdirectory:edge
+        # command: ["/opt/entrypoint.sh"]
+        # args: ["start-server", "tail", "-f", "/dev/null"]
         imagePullPolicy: Always
         ports:
         - containerPort: 636
@@ -113,8 +115,6 @@ spec:
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
           value: "getting-started/pingdirectory"
-        - name: SERVER_PROFILE_BRANCH
-          value: "pd73"
         - name: PING_IDENTITY_DEVOPS_USER
           value: ${PING_IDENTITY_DEVOPS_USER}
         - name: PING_IDENTITY_DEVOPS_KEY
