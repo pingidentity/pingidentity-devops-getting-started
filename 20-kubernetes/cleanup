@@ -84,7 +84,7 @@ if test -z "${namespace}" ; then
     echo "no namespace found, creating..."
     create_namespace "${USER}"
     else
-        namespace=$(kubectl config view | sed -n -e 's/.*namespace\://p')
+        namespace=$(kubectl config view | sed -n -e 's/.*namespace\://p' | cut -c 2-)
         echo "using namespace:${namespace}"
     fi   
 fi
