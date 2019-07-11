@@ -87,7 +87,7 @@ docker container exec -it pingfederate /bin/sh
 
 This script also creates `/tmp/Docker/*`, a set of directories for the different products where the runtime of the container is persisted. This will allow for the image to be stopped and re-started keeping the last known state. 
 
-> If you want to start from scratch again, run `./cleanup.sh pingfederate` and follow the prompts
+> If you want to start from scratch again, use `./docker-cleanup.sh pingfederate` and follow the prompts
 
 In the example above, the image is first pulled down from Docker Hub and cached in your local docker registry. The container is then started, followed by some sample commands to view the application logs.
 
