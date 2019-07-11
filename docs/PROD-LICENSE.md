@@ -37,7 +37,7 @@ The best way to save your DevOps User/Key is to use the Ping Identity DevOps uti
 Simpy run:
 
 ```text
-setup
+./setup
 ```
 
 and answer the prompts with your DEVOPS User/Key. 
