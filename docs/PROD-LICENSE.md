@@ -4,13 +4,13 @@ In order to run the Ping Identity DevOps images, a valid product license is requ
 
 #### Evaluation License
 
-* [Obtaining a Ping Identity DevOps User and Key](prod-license.md#obtaining-a-ping-identity-devops-user-and-key)
-* [Saving your DevOps User/Key](prod-license.md#saving-your-devops-user-and-key)
-* [Using your DevOps User/Key](prod-license.md#using-your-devops-user-and-key)
+* [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
+* [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
+* [Using your DevOps User/Key](#using-your-devops-user-and-key)
 
 #### Existing license
 
-* [Use an existing license file \(Current customers\)](prod-license.md#using-an-existing-product-license-file)
+* [Use an existing license file \(Current customers\)](#using-an-existing-product-license-file)
 
 ## Obtaining a Ping Identity DevOps User and Key
 
