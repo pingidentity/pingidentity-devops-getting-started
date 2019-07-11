@@ -15,6 +15,7 @@ In order to successfully run this quickstart, the following pre-requisites shoul
 * Mac OSX Host \(any Linux varient should also work, however little testing\)
 * Install Docker \([link to download](https://hub.docker.com/editions/community/docker-ce-desktop-mac)\)
 * Install GitHub \([link to download](https://git-scm.com/downloads)\)
+* [Obtain a DevOps User and Key](https://app.gitbook.com/@pingidentity-devops/s/devops/v/sg-docs/prod-license#obtaining-a-ping-identity-devops-user-and-key)
 
 **Optional**
 
@@ -39,20 +40,18 @@ You should now see a directory called `pingidentity-devops-getting-started`.
 
 A `setup` script is available to help you get your envionment to make quick and easy use of the Ping Identity DevOps projects.
 
-To do this simply run `setup`
-
 ```text
 cd pingidentity-devops-getting-started
 ./setup
 ```
 
-Now, you can use the `dhelp` alias to get help with your DevOps Docker commands.
+> Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubernetes commands.
 
 ## Run a Docker Standalone Image - PingFederate
 
-Now, we will run a standalone image in a docker container. In other words, we will run one of the Ping Identity docker images locally in a docker container on your local machine.
+Now, we will run one of the Ping Identity docker images locally in a standalone docker container on your local machine.
 
-In a terminal window run, see the example below to navigate to the proper directory and startup the PingFederate image.
+A script (`docker-run.sh`) is provided to help avoid remembering syntax for the `docker run` command. 
 
 ```text
 $ cd pingidentity-devops-getting-started
@@ -86,7 +85,9 @@ docker container exec -it pingfederate /bin/sh
      Admin Console:  https://localhost:9999/pingfederate/app
 ```
 
-The `docker-run.sh` script is a helper script to run a standalone docker image locally. It also creates a `/tmp/Docker/*` set of directories for the different products where the runtime of the container is persisted. This will allow for the image to be stopped and re-started keeping the last known state.
+This script also creates `/tmp/Docker/*`, a set of directories for the different products where the runtime of the container is persisted. This will allow for the image to be stopped and re-started keeping the last known state. 
+
+> If you want to start from scratch again, use `./docker-cleanup.sh pingfederate` and follow the prompts
 
 In the example above, the image is first pulled down from Docker Hub and cached in your local docker registry. The container is then started, followed by some sample commands to view the application logs.
 
