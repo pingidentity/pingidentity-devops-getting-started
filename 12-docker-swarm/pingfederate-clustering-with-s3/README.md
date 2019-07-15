@@ -38,10 +38,10 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 1. This layer contains only the `tcp.xml.subst` file that is used to configure clustering
 1. In your browser, navigate to the [server profile](https://github.com/pingidentity/pingidentity-server-profiles/blob/master/pf-aws-s3-clustering/pingfederate/instance/server/default/conf/tcp.xml.subst)
 1. Scroll down to approx line 45
-![TCP_XML S3 Cluster Variables](../docs/images/TCP_XML_S3_CLUSTER_VARS.png)
+![TCP_XML S3 Cluster Variables](../../docs/images/TCP_XML_S3_CLUSTER_VARS.png)
 1. Notice the 3 variables for location (S3 bucket name), key and secret
 1. Back in your text editor scroll down and update the values for `DISCOVERY_S3_LOCATION`, `DISCOVERY_S3_ACCESS_KEY`, and `DISCOVERY_S3_SECRET_KEY` with the values from the above section steps
-![TCP_XML S3 Cluster Variables](../docs/images/PF_CLUSTER_VARS_YAML.png)
+![TCP_XML S3 Cluster Variables](../../docs/images/PF_CLUSTER_VARS_YAML.png)
 1. Remember to enter your values in both PingFederate service (Admin and Engine) sections.
 1. Save the yaml file
 
@@ -53,7 +53,7 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 1. Once all services have launched, open your browser and navigate to `https://localhost:9999/pingfederate/app`
 1. Click on `System->Cluster Management`
 1. You should now see that your Engine node has attached to the Admin Console
- ![Cluster Management Console](../docs/images/PF_CLUSTER_CONSOLE.png)
+ ![Cluster Management Console](../../docs/images/PF_CLUSTER_CONSOLE.png)
 
 ## Scaling Out
 
@@ -62,4 +62,4 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 1. Run the following command to scale the number of Engine nodes to 2 `$ docker service scale pingfederate_clustering_with_S3_discovery_pingfederate=2`
 1. After a minute or two, refresh your PingFederate browser window
 1. The second Engine is now attached
-![Two PingFederate engine nodes](../docs/images/PF_CLUSTER_TWO_ENGINE_NODES.png)
+![Two PingFederate engine nodes](../../docs/images/PF_CLUSTER_TWO_ENGINE_NODES.png)
