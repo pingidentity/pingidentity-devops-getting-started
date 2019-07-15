@@ -6,7 +6,7 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 
 ## AWS S3 Bucket Creation and Permissions
 
-1. Log into your AWS console and navigate to the S3 service.
+1. Log into your AWS console and navigate to the S3 service
 1. Click the `+ Create bucket` button
 1. Give your bucket a name and select a region
 1. Click `Next`
@@ -17,7 +17,7 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 
 ## Create AWS User
 
-1. Navigate to the IAM service within AWS
+1. Navigate to the `IAM service` within AWS
 1. Click the `Create individual IAM users` dropdown, the `Manage Users`
 1. Click the `Add User` button
 1. Give your user a name, then select `Programmatic access` for the `Access type`
@@ -34,10 +34,10 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 
 1. Open the `pingfederate_clustering_with_S3_discovery.yaml` file in the editor of your choice
 1. Notice that the PingFederate services each use two server profiles. This layering approach allows you to build up their profile to avoid building from scratch for each use case.
-1. For this example, the `baseline server profile` acts as the foundation and `pf-aws-s3-clustering/pingfederate` is the top layer.
+1. For this example, the `baseline server profile` acts as the foundation and `pf-aws-s3-clustering/pingfederate` for the top layer.
 1. This layer contains only the `tcp.xml.subst` file that is used to configure clustering
-1. In your browser, navigate to the server profile [Link].
-1. Scroll down to approx line 45.
+1. In your browser, navigate to the [server profile](https://github.com/pingidentity/pingidentity-server-profiles/blob/master/pf-aws-s3-clustering/pingfederate/instance/server/default/conf/tcp.xml.subst)
+1. Scroll down to approx line 45
 1. Notice the 3 variables for location (S3 bucket name), key and secret
 1. Back in your text editor scroll down and update the values for `DISCOVERY_S3_LOCATION`, `DISCOVERY_S3_ACCESS_KEY`, and `DISCOVERY_S3_SECRET_KEY` with the values from the above section steps
 1. Remember to enter your values in both PingFederate service (Admin and Engine) sections.
@@ -49,7 +49,7 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 1. Start the swarm services `$ docker service init`
 1. Deploy the yaml file `$ ./swarm-start.sh pingfederate_clustering_with_S3_discovery.yaml`
 1. Once all services have launched, open your browser and navigate to `https://localhost:9999/pingfederate/app`
-1. Click on System->Cluster Management
+1. Click on `System->Cluster Management`
 1. You should now see that your Engine node has attached to the Admin Console
 
 ## Scaling Out
