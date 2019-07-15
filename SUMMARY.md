@@ -27,6 +27,7 @@
     * [02-replicated-pair](11-docker-compose/02-replicated-pair/README.md)
     * [03-full-stack](11-docker-compose/03-full-stack/README.md)
   * [Docker Swarm](12-docker-swarm/README.md)
+    * [PingFederate Clustering with S3](12-docker-swarm/pingfederate-clustering-with-s3/README.md)
   * [Kubernetes](20-kubernetes/README.md)
     * [Amazon](20-kubernetes/cloud/amazon/README.md)
     * [Azure](20-kubernetes/cloud/azure/README.md)
