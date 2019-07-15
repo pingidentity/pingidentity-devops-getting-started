@@ -2,11 +2,16 @@ version: "3.1"
 
 services:
   pingaccess:
-    image: pingidentity/pingaccess:edge
+    image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     command: ["sh", "-c", "wait-for pingfederate:9031 -t 700 -- entrypoint.sh start-server"]
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingaccess
+      # Variables are added to ~/.pingidentity/devops and sourced by .bash_profile when setup.sh
+      # (Getting-started project root directory) is first run to configure your environment.
+      # Used to generate just-in-time evaluation licenses
+      - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
+      - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
     deploy:
       replicas: 1
     ports:
@@ -18,7 +23,7 @@ services:
   #    - /tmp/Swarm/fullstack/pingaccess:/opt/out
 
   pingfederate-admin:
-    image: pingidentity/pingfederate:edge
+    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: ["sh", "-c", "wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server"]
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -26,6 +31,8 @@ services:
       - DISCOVERY_INITIAL_HOST=pingfederate-admin[7600]
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
       - CLUSTER_BIND_ADDRESS=match-address:10.10.10.\*
+      - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
+      - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
     deploy:
       replicas: 1
     ports:
@@ -34,7 +41,7 @@ services:
       - pingnet
 
   pingfederate:
-    image: pingidentity/pingfederate:edge
+    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -42,6 +49,8 @@ services:
       - DISCOVERY_INITIAL_HOST=pingfederate-admin[7600]
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
       - CLUSTER_BIND_ADDRESS=match-address:10.10.10.\*
+      - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
+      - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
     deploy:
       replicas: 1
     ports:
@@ -52,10 +61,12 @@ services:
     #  - /tmp/Swarm/fullstack/pingfederate:/opt/out
 
   pingdirectory:
-    image: pingidentity/pingdirectory:edge
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
+      - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
+      - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
     deploy:
       replicas: 1
     ports:
@@ -66,17 +77,8 @@ services:
   #  volumes:
   #    - /tmp/Swarm/fullstack/pingdirectory:/opt/out
 
-  pingdelegator:
-    image: pingidentity/pingdelegator
-    deploy:
-      replicas: 0
-    ports:
-      - 80:80
-    networks:
-      - pingnet
-
   pingdataconsole:
-    image: pingidentity/pingdataconsole
+    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     deploy:
       replicas: 1
     ports:

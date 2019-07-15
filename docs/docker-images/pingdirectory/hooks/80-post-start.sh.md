@@ -2,7 +2,8 @@
 # Ping Identity DevOps `pingdirectory` Hook - `80-post-start.sh`
 This hook runs after the PingDirectory service has been started and is running.  It
 will determine if it is part of a directory replication topology by the presence
-of a TOPOLOGY_FILE.  If not present, then replication will not be enabled.  Otherwise,
+of a TOPOLOGY_SERVICE_BAME .  If not present, then replication will not be enabled.  
+Otherwise,
 it will perform the following steps regarding replication.
 
 - Wait for DNS lookups to work, sleeping until successful

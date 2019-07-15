@@ -4,13 +4,13 @@ In order to run the Ping Identity DevOps images, a valid product license is requ
 
 #### Evaluation License
 
-* [Obtaining a Ping Identity DevOps User and Key](prod-license.md#obtaining-a-ping-identity-devops-user-and-key)
-* [Saving your DevOps User/Key](prod-license.md#saving-your-devops-user-and-key)
-* [Using your DevOps User/Key](prod-license.md#using-your-devops-user-and-key)
+* [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
+* [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
+* [Using your DevOps User/Key](#using-your-devops-user-and-key)
 
 #### Existing license
 
-* [Use an existing license file \(Current customers\)](prod-license.md#using-an-existing-product-license-file)
+* [Use an existing license file \(Current customers\)](#using-an-existing-product-license-file)
 
 ## Obtaining a Ping Identity DevOps User and Key
 
@@ -32,26 +32,35 @@ Example:
 
 ## Saving your DevOps User and Key
 
-The best way to save your DevOps User/Key is to use the Ping Identity Config command `piconfig`. You can run this if you have set up your environment using the `setup` command that comes with the `pingidentity-devops-getting-started` GitHub repo. More details on this can be found in that [quickstart](examples/quickstart.md).
+The best way to save your DevOps User/Key is to use the Ping Identity DevOps utility `setup`. 
+
+>More details on `setup` can be found in the [quickstart](examples/quickstart.md).
 
 Simpy run:
 
 ```text
-piconfig
+./pingidentity-devops-getting-started/setup
 ```
 
-and answer the prompts with your DEVOPS User/Key. You can view these settings with the `denv` command after you've configured them.
+and answer the prompts with your DEVOPS User/Key. 
 
-Alternatively, you can save your devops user and key in a text file. Be sure to note the file path and replace as needed in any following commands. Example file **BE SURE TO USE THESE VARIABLE NAMES**:
+This will place your DEVOPS USER/KEY in to a Ping Identity property file found at
+`~/.pingidentity/devops`.  with the following variable names set (see example below).
 
 ```text
       PING_IDENTITY_DEVOPS_USER=jsmith@example.com
       PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
 ```
+You can always view these settings with the `denv` command after you've configured them.
 
 ## Using your DevOps User and Key
 
-When starting an image, you can provide your devops property file `~/.pingidentity/devops` or using the individual environment variables. For more detail, run the `denv` to get your devops environment information.
+When starting an image, you can provide your devops property file `~/.pingidentity/devops` or using the individual environment variables. 
+
+>The examples provided for standalone and docker-compose 
+are set up to use this property file by default.
+
+For more detail, run the `denv` to get your devops environment information.
 
 ### Example with docker run command
 
@@ -73,6 +82,9 @@ docker run \
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
 
+>Note: Docker Compose is able to make use of this format.  See next section for example if using
+Docker Swarm.
+
 ```text
 ...
   pingdirectory:
@@ -88,6 +100,9 @@ An example of running a docker image using any docker .yaml file would look like
 ### Example with .yaml file and inline environment variables
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
+
+>Note: Docker Swarm requires this format.  See previous section for example if using
+Docker Swarm.
 
 ```text
 ...

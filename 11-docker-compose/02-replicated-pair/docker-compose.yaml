@@ -2,12 +2,16 @@ version: "3.1"
 
 services:
   pingdirectory:
-    image: pingidentity/pingdirectory:edge
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
       - TOPOLOGY_SIZE=2
       - TOPOLOGY_PREFIX=02-replicated-pair_pingdirectory_
+    env_file:
+      # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
+      # devops user/key details for evaluation licenses and for docker image/git tags
+      - ~/.pingidentity/devops
     networks:
       - pingnet
     ports:
@@ -16,7 +20,7 @@ services:
       - 1443-1453:443
       
   pingdataconsole:
-    image: pingidentity/pingdataconsole
+    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - 8080:8080
       - 8443:8443

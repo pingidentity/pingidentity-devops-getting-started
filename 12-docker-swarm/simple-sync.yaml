@@ -2,10 +2,15 @@ version: "3.1"
 
 services:
   pingdatasync:
-    image: pingidentity/pingdatasync
+    image: pingidentity/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync
+      # Variables are added to ~/.pingidentity/devops and sourced by .bash_profile when setup.sh
+      # (Getting-started project root directory) is first run to configure your environment.
+      # Used to generate just-in-time evaluation licenses
+      - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
+      - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}    
     deploy:
       replicas: 1
     networks:
@@ -14,10 +19,12 @@ services:
     #   - /tmp/Swarm/simple-sync/pingdatasync:/opt/out
 
   pingdirectory:
-    image: pingidentity/pingdirectory
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
+      - PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER}
+      - PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
     deploy:
       replicas: 1
     ports:
@@ -29,7 +36,7 @@ services:
     #   - /tmp/Swarm/simple-sync/pingdirectory:/opt/out
 
   pingdataconsole:
-    image: pingidentity/pingdataconsole
+    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     deploy:
       replicas: 1
     ports:

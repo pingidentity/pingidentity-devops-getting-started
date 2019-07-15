@@ -105,7 +105,7 @@ echo_environment()
 
     echo "
 ##################################################################################
-#        Ping Identity DevOps Kubernetes Setup Tool
+#        Ping Identity DevOps Kubernetes Tool
 #
 #       Kubernetes Context: ${k8sContext}
 #                Namespace: ${k8sNamespace}
