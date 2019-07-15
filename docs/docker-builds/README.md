@@ -18,5 +18,5 @@ There are several image builds provided, including `Dockerfile`, `README.md` and
 
 ## Hook Scripts Used by Docker Builds
 
-There are several hook scripts used by the docker builds. Full details on these hooks are included in the [Docker Builds Hooks Document](docker_builds_hooks.md)
+There are several hook scripts used by the docker builds. Full details on these hooks are included in the [Docker Builds Hooks Document](DOCKER_BUILDS_HOOKS.md)
 
