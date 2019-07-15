@@ -52,6 +52,8 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 1. Click on `System->Cluster Management`
 1. You should now see that your Engine node has attached to the Admin Console
 
+ ![Cluster Management Console](../docs/images/PF_CLUSTER_CONSOLE.png)
+
 ## Scaling Out
 
 1. Back in your terminal
