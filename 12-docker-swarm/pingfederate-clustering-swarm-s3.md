@@ -38,6 +38,7 @@ For this exercise, please reference the `pingfederate_clustering_with_S3_discove
 1. This layer contains only the `tcp.xml.subst` file that is used to configure clustering
 1. In your browser, navigate to the [server profile](https://github.com/pingidentity/pingidentity-server-profiles/blob/master/pf-aws-s3-clustering/pingfederate/instance/server/default/conf/tcp.xml.subst)
 1. Scroll down to approx line 45
+![Cluster Management Console](../docs/images/TCP_XML_S3_CLUSTER_VARS.png)
 1. Notice the 3 variables for location (S3 bucket name), key and secret
 1. Back in your text editor scroll down and update the values for `DISCOVERY_S3_LOCATION`, `DISCOVERY_S3_ACCESS_KEY`, and `DISCOVERY_S3_SECRET_KEY` with the values from the above section steps
 1. Remember to enter your values in both PingFederate service (Admin and Engine) sections.
