@@ -42,9 +42,9 @@ There are different goals that you may have as you approach these docs. Here are
 
 | Document | Audience |
 | :--- | :--- |
-| [Getting Started](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/586b6b3e00fd57716847a6575f07ddf5dd347b34/README.md) | Operations, Administrators |
-| [Server Profiles](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/docs/server-profiles/README.md) | Developers |
-| [Docker Builds](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/docs/docker-builds/README.md) | DevOps Experts |
+| [Getting Started](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/README.md) | Operations, Administrators |
+| [Server Profiles](https://app.gitbook.com/@pingidentity-devops/s/devops/server-profiles) | Developers |
+| [Docker Builds](https://app.gitbook.com/@pingidentity-devops/s/devops/docker-builds) | DevOps Experts |
 
 ## Commercial Support
 
@@ -55,4 +55,3 @@ Please contact devops\_program@pingidentity.com for details
 ## Copyright
 
 Copyright © 2019 Ping Identity. All rights reserved.
-
