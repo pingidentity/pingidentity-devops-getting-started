@@ -43,8 +43,8 @@ There are different goals that you may have as you approach these docs. Here are
 | Document | Audience |
 | :--- | :--- |
 | [Getting Started](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/586b6b3e00fd57716847a6575f07ddf5dd347b34/README.md) | Operations, Administrators |
-| [Server Profiles](../server-profiles/) | Developers |
-| [Docker Builds](../docker-builds/) | DevOps Experts |
+| [Server Profiles](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/docs/server-profiles/README.md) | Developers |
+| [Docker Builds](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/docs/docker-builds/README.md) | DevOps Experts |
 
 ## Commercial Support
 
