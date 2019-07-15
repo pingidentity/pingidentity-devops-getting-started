@@ -4,13 +4,13 @@ In order to run the Ping Identity DevOps images, a valid product license is requ
 
 #### Evaluation License
 
-* [Obtaining a Ping Identity DevOps User and Key](prod-license.md#obtaining-a-ping-identity-devops-user-and-key)
-* [Saving your DevOps User/Key](prod-license.md#saving-your-devops-user-and-key)
-* [Using your DevOps User/Key](prod-license.md#using-your-devops-user-and-key)
+* [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
+* [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
+* [Using your DevOps User/Key](#using-your-devops-user-and-key)
 
 #### Existing license
 
-* [Use an existing license file \(Current customers\)](prod-license.md#using-an-existing-product-license-file)
+* [Use an existing license file \(Current customers\)](#using-an-existing-product-license-file)
 
 ## Obtaining a Ping Identity DevOps User and Key
 
@@ -32,12 +32,14 @@ Example:
 
 ## Saving your DevOps User and Key
 
-The best way to save your DevOps User/Key is to use the Ping Identity DevOps utility `setup`. You can run this if you have set up your environment with the `pingidentity-devops-getting-started` GitHub repo. More details on this can be found in that [quickstart](examples/quickstart.md).
+The best way to save your DevOps User/Key is to use the Ping Identity DevOps utility `setup`. 
+
+>More details on `setup` can be found in the [quickstart](examples/quickstart.md).
 
 Simpy run:
 
 ```text
-setup
+./pingidentity-devops-getting-started/setup
 ```
 
 and answer the prompts with your DEVOPS User/Key. 
@@ -53,8 +55,10 @@ You can always view these settings with the `denv` command after you've configur
 
 ## Using your DevOps User and Key
 
-When starting an image, you can provide your devops property file `~/.pingidentity/devops` or using the individual environment variables. The examples provided for standalong and docker compose 
-have all be setup to use this property file by default.
+When starting an image, you can provide your devops property file `~/.pingidentity/devops` or using the individual environment variables. 
+
+>The examples provided for standalone and docker-compose 
+are set up to use this property file by default.
 
 For more detail, run the `denv` to get your devops environment information.
 
