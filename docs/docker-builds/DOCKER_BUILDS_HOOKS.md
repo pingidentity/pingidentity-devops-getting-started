@@ -8,7 +8,7 @@ Included with the base docker images, there is an example/stub provided for all 
 
 The full ordered list of scripts that are called depending on what type of image \(i.e. pingdirectory or pingdatasync\) are:
 
-![](../images/docker_builds_hooks_1.png)
+![](../images/DOCKER_BUILDS_HOOKS_1.png)
 
 ## Hooks Details
 Details on hooks can be found within the code of each hook in the [docker-builds repo](https://github.com/pingidentity/pingidentity-docker-builds) as well in `pingidentity-devops-getting-started/docs/docker-images/<image_name>/hooks` for each of the products images. 
