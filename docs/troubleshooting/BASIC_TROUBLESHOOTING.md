@@ -2,8 +2,8 @@
 
 ## Contents:
 
-* [Quickstart Examples](basic_troubleshooting.md#quickstart-examples)
-* Server Profiles \(coming soong\)
+* Quickstart Examples
+* Server Profiles \(coming soon\)
 * Docker Builds \(coming soon\)
 
 ## Quickstart Examples
