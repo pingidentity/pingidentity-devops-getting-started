@@ -145,7 +145,7 @@ docker container exec -it pingdirectory /bin/sh
 
 Once you have started the PingDirectory container, the same can be done for the PingDataconsole and PingAccess.
 
-For more information on these docker images, you can review the [Ping Identity Docker Images](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-builds/README.md) documentation.
+For more information on these docker images, you can review the [Ping Identity Docker Images](./docker-builds/README.md) documentation.
 
 ## Removing and Cleaning up Standalone Images
 
