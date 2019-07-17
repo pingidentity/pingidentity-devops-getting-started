@@ -8,10 +8,10 @@ Here are some of the example stacks available to help understand Docker Compose
 
 | Example | Description |
 | :--- | :--- |
-| [01-simple-stack](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/b9d580025bf8cd1cd403d21bc9888ef0431b4681/11-docker-compose/01-simple-stack/README.md) | A simple stack with a PingFederate container and a PingDirectory container |
-| [02-replicated-pair](02-replicated-pair.md) | An example of a replicated pair of PingDirectory instances |
-| [03-full-stack](03-full-stack.md) | A stack with PingDirectory, PingFederate, PingAccess, PingDataConsole. |
-| [04-simple-sync](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/b9d580025bf8cd1cd403d21bc9888ef0431b4681/11-docker-compose/04-simple-sync/README.md) | A stack with PingDirectory, PingDataSync. |
+| [01-simple-stack](./01-simple-stack/README.md) | A simple stack with a PingFederate container and a PingDirectory container |
+| [02-replicated-pair](./02-replicated-pair/README.md) | An example of a replicated pair of PingDirectory instances |
+| [03-full-stack](./03-full-stack/README.md) | A stack with PingDirectory, PingFederate, PingAccess, PingDataConsole. |
+| [04-simple-sync](./04-simple-sync/README.md) | A stack with PingDirectory, PingDataSync. |
 
 ## Docker Compose Basics
 
