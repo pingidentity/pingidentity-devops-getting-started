@@ -32,7 +32,7 @@ Follow Docker logs with:
 docker logs -f pingdataconsole
 ```
 
-If using the command above with the embedded [server profile](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/server-profiles/README.md), log in with: 
+If using the command above with the embedded [server profile](../../server-profiles/README.md), log in with: 
 * http://localhost:8080/console/login
 ```
 Server: pingdirectory
