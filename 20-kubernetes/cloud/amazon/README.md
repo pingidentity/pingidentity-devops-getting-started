@@ -4,8 +4,8 @@
 
 This directory contains scripts and deployment files to help with the deployment, management and scaling of Ping Identity DevOps Docker Containers to AWS using:
 
-* [Elastic Container Service for Kubernetes \(EKS\)](amazon.md#creating-a-cluster-on-eks)
-* [Elastic Container Service \(ECS\)](amazon.md#steps-for-running-ping-identity-devops-containers-with-ecs-cli)
+* [Elastic Container Service for Kubernetes \(EKS\)](#creating-a-cluster-on-eks)
+* [Elastic Container Service \(ECS\)](#steps-for-running-ping-identity-devops-containers-with-ecs-cli)
   * Using Fargate Task
   * Using EC2 Task
 
@@ -19,7 +19,7 @@ We highly recommend you read the AWS articles on:
 
 ## Steps for running Ping Identity DevOps Containers with EKS CLI
 
-### Creating a cluster on EKS
+### Creating a cluster on EKS 
 
 The easiest way to create a cluster on Amazon EKS is with the `eksctl` CLI tool. The examples below assume you have first downloaded and installed:
 
@@ -71,7 +71,7 @@ When you want to delete the cluster, you can do so with the command:
 
 * `eksctl delete cluster --name=ping-devops-test`
 
-## Steps for running Ping Identity DevOps Containers with ECS CLI
+## Steps for running Ping Identity DevOps Containers with ECS CLI 
 
 ### 1. Installing and Configuring ECS CLI
 
