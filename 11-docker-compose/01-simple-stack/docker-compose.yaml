@@ -12,6 +12,13 @@ services:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
       # devops user/key details for evaluation licenses and for docker image/git tags
       - ~/.pingidentity/devops
+    # Example: Examples below for mounting local directories for inbound server profile and persisting
+    #          server build.  The local /opt/out directory must be empty when building new server
+    #             /opt/out - Resulting server build
+    #             /opt/in  - Inbound server-profile detail in liue of SERVER_PROFILE_URL (must be commented out)
+    #volumes:
+    #   - ${HOME}/projects/devops/volumes/simple-sync.pingfederate:/opt/out
+    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
     ports:
       - 9031:9031
       - 9999:9999
@@ -25,6 +32,10 @@ services:
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     env_file:
       - ~/.pingidentity/devops
+    #volumes:
+    #   - ${HOME}/projects/devops/volumes/simple-sync.pingdirectory:/opt/out
+    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
+
     ports:
       - 1636:636
       - 1443:443
