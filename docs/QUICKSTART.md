@@ -15,7 +15,7 @@ In order to successfully run this quickstart, the following pre-requisites shoul
 * Mac OSX Host \(any Linux varient should also work, however little testing\)
 * Install Docker \([link to download](https://hub.docker.com/editions/community/docker-ce-desktop-mac)\)
 * Install GitHub \([link to download](https://git-scm.com/downloads)\)
-* [Obtain a DevOps User and Key](https://app.gitbook.com/@pingidentity-devops/s/devops/v/sg-docs/prod-license#obtaining-a-ping-identity-devops-user-and-key)
+* [Obtain a DevOps User and Key](https://pingidentity-devops.gitbook.io/devops/prod-license#obtaining-a-ping-identity-devops-user-and-key)
 
 **Optional**
 
