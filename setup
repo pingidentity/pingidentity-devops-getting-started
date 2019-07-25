@@ -71,37 +71,42 @@ add_bash_aliases()
 #                         Ping Identity DevOps Alias Files
 ################################################################################"
 
-    grep "bash_profile_devops" ~/.bash_profile > /dev/null
+    # Touch the .bash_profile incase it's not setup yet
+    BASH_PROFILE="${HOME}/.bash_profile"
+
+    touch "${BASH_PROFILE}"
+
+    grep "bash_profile_devops" "${BASH_PROFILE}" > /dev/null
 
     if test "${?}" == "1"; then
         echo "Let's add helper alias' and functions to your shell.  
-We are assuming you use bash and will add these to your .bash_profile
+We are assuming you use bash and will add these to your ${BASH_PROFILE}
 "
 
-        echo -n "  OK if we add a 'source bash_profile_devops' command to your .bash_profile (y/n) [y] ? "
+        echo -n "  OK if we add a 'source bash_profile_devops' command to your ${BASH_PROFILE} (y/n) [y] ? "
         read answer
 
         if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
             echo "
 # Ping Identity DevOps Aliases - Added with setup on `date`
-source ${THIS_DIR}/bash_profile_devops" >> ~/.bash_profile
+source ${THIS_DIR}/bash_profile_devops" >> "${BASH_PROFILE}"
         fi
     else
-        echo_green "  Great! You already have 'source bash_profile_devops' in your .bash_profile"
+        echo_green "  Great! You already have 'source bash_profile_devops' in your ${BASH_PROFILE}"
     fi
 
-    grep "sourcePingIdentityFiles" ~/.bash_profile >/dev/null
+    grep "sourcePingIdentityFiles" "${BASH_PROFILE}" >/dev/null
 
     if test "$?" = "1"; then
-        echo -n "  OK if we add a 'sourcePingIdentityFiles' command to your .bash_profile (y/n) [y] ? "
+        echo -n "  OK if we add a 'sourcePingIdentityFiles' command to your ${BASH_PROFILE} (y/n) [y] ? "
         read answer
         if [ "${answer}" == "" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "y" ]; then
             echo "
 # Source PingIdentity Files Alias - Added with setup on `date`
-sourcePingIdentityFiles" >> ~/.bash_profile
+sourcePingIdentityFiles" >> "${BASH_PROFILE}"
         fi
     else
-        echo_green "  Great! You already have 'sourcePingIdentityFiles' in your .bash_profile"
+        echo_green "  Great! You already have 'sourcePingIdentityFiles' in your ${BASH_PROFILE}"
     fi
 }
 
@@ -172,6 +177,7 @@ and they will be used as environment variables for scripts, .yamls, etc...
 # PingIdentity DevOps Project Variables
 ########################################################################
 " >> ${_DOFILE}
+  devops_add_config "${_DOFILE}" "PING_IDENTITY_DEVOPS_HOME"               "${HOME}/projects/devops" "Ping Identity DevOps Home"
   devops_add_config "${_DOFILE}" "PING_IDENTITY_DEVOPS_TAG"                "edge" "Ping Identity DevOps Tag (i.e. edge, 1906)"
 
 #   echo "

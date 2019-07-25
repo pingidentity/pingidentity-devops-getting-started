@@ -72,8 +72,10 @@ cat <<EOP1ENV
 |             ${bold}Sourced from ~/.pingidentity/devops${normal}
 +-----------------------------------------------------------------------------------------+
 |          PING_IDENTITY_DEVOPS_USER: ${PING_IDENTITY_DEVOPS_USER}
-|           PING_IDENTITY_DEVOPS_KEY: ${PING_IDENTITY_DEVOPS_KEY}
-|           PING_IDENTITY_DEVOPS_TAG: ${PING_IDENTITY_DEVOPS_TAG}
+|          PING_IDENTITY_DEVOPS_KEY : ${PING_IDENTITY_DEVOPS_KEY}
+|
+|          PING_IDENTITY_DEVOPS_HOME: ${PING_IDENTITY_DEVOPS_HOME}
+|          PING_IDENTITY_DEVOPS_TAG : ${PING_IDENTITY_DEVOPS_TAG}
 +-----------------------------------------------------------------------------------------+
  To update, run Ping Identity DevOps Setup 
     (found in your the pingidentity-devops-getting-started git repo)/setup
