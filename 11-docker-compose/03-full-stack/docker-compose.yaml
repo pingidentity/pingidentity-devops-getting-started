@@ -33,8 +33,8 @@ services:
     env_file:
       - ~/.pingidentity/devops
     #volumes:
-    #  - ${HOME}/project/devops/volumes/full-stack.pingfederate:/opt/out
-    #  - ${HOME}/project/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
+    #  - ${HOME}/projects/devops/volumes/full-stack.pingfederate:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
     ports:
       - 9031:9031
       - 9999:9999
@@ -51,8 +51,8 @@ services:
     env_file:
       - ~/.pingidentity/devops
     #volumes:
-    #  - ${HOME}/project/devops/volumes/full-stack.pingdirectory:/opt/out
-    #  - ${HOME}/project/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
+    #  - ${HOME}/projects/devops/volumes/full-stack.pingdirectory:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
     ports:
       - 1636-1646:636
       - 1443-1453:443
