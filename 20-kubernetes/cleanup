@@ -23,6 +23,9 @@ Usage: ${SCRIPT} {options}
         The usecase to tear down and remove. Must be one in ./usecases (i.e. fullstack, directory)
     -n, --namespace
         The kubernets namespace to use.  Defaults to: ${USER}
+    -p, --path {path}
+        Path to resources to remove. This is a directory containing 
+        k8s .yaml files (e.g. usecases/fullstack)
     --all
         clean entire kubernetes environment related to namespace. Defaults to: (${USER})
     --help
@@ -62,6 +65,15 @@ while ! test -z "${1}" ; do
 
             test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found. Usecase options:\n$(ls usecases)"
             ;;
+        -p|--path)
+            shift
+            if test -z "${1}" ; then
+                exit_usage "Error: You must provide a path to a directory"
+            fi
+            usecase="${1}"
+
+            test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found."
+            ;;
         --all)
             delete_all=true
             ;;
@@ -84,7 +96,7 @@ if test -z "${namespace}" ; then
     echo "no namespace found, creating..."
     create_namespace "${USER}"
     else
-        namespace=$(kubectl config view | sed -n -e 's/.*namespace\://p' | cut -c 2-)
+        namespace=$(kubectl config view | sed -n -e 's/.*namespace\://p')
         echo "using namespace:${namespace}"
     fi   
 fi
@@ -113,9 +125,9 @@ for yamlFile in ${usecase}/*.yaml ; do
     echo "deleting ${yamlFile}"
 
     if test "${force_all}" = "true" ; then
-        kubectlResult=$( kubectl delete -f "${yamlFile}.tmp --force" )
+        kubectlResult=$( kubectl delete -f "${yamlFile}.tmp -n ${namespace} --force" )
     else 
-        kubectlResult=$( kubectl delete -f "${yamlFile}.tmp" )
+        kubectlResult=$( kubectl delete -f "${yamlFile}.tmp" -n "${namespace}" )
     fi
 
     echo_indent "${kubectlResult}"

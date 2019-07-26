@@ -22,8 +22,11 @@ Usage: ${SCRIPT} {options}
     *-u, --usecase {use-case-name}
         The usecase to setup.  These are directories in usecases containing
         kubernetes .yaml files (i.e. fullstack)
-    -n, --namespace
-        The kubernets namespace to use.  Defaults to: ${USER}
+    -n, --namespace {namespace}
+        The kubernetes namespace to use.  Defaults to: ${USER}
+    -p, --path {path}
+        Path to resources to deploy. This is a directory containing 
+        k8s .yaml files (e.g. usecases/fullstack)
     --help
         Display general usage information
 
@@ -61,7 +64,17 @@ while ! test -z "${1}" ; do
 
             test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found. Usecase options:\n$(ls usecases)"
             ;;
+        
+        -p|--path)
+            shift
+            if test -z "${1}" ; then
+                exit_usage "Error: You must provide a path to a directory"
+            fi
+            usecase="${1}"
 
+            test ! -d "${usecase}" && exit_usage "Error: A valid usecase directory is required: ${usecase} not found."
+            ;;
+            
         --help)
             usage
             ;;
