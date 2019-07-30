@@ -101,14 +101,14 @@ metadata:
 echo_environment()
 {
     k8sContext=$( kubectl config current-context )
-    k8sNamespace=$( kubectl config view | grep namespace: | sed 's/.*namespace: //' )
+    # k8sNamespace=$( kubectl config view | grep namespace: | sed 's/.*namespace: //' )
 
     echo "
 ##################################################################################
 #        Ping Identity DevOps Kubernetes Tool
 #
 #       Kubernetes Context: ${k8sContext}
-#                Namespace: ${k8sNamespace}
+#                Namespace: ${namespace}
 ##################################################################################
 "
 }

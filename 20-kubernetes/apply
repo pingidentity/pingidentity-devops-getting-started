@@ -87,11 +87,11 @@ done
 
 #if no namespace provided, nor found.. create one!
 if test -z "${namespace}" ; then
-    if test "$(kubectl config view | grep -q namespace:)" ; then
+    if test "$(kubectl get sa default -o jsonpath='{.metadata.namespace}')" ; then
     echo "no namespace found, creating..."
     create_namespace "${USER}"
     else
-        namespace=$(kubectl config view | sed -n -e 's/.*namespace\://p')
+        namespace=$(kubectl get sa default -o jsonpath='{.metadata.namespace}')
     fi
 fi
 
