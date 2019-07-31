@@ -20,6 +20,8 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version, set by build process of the docker build 
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  | Image git revision, set by build process of the docker build 
 | BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in  image/container 
 | IN_DIR  | ${BASE}/in  | Location of a local server-profile volume 
 | OUT_DIR  | ${BASE}/out  | Path to the runtime volume 
@@ -63,8 +65,6 @@ this image.
 | PA_ADMIN_PUBLIC_HOSTNAME  | localhost  | 
 | ROOT_USER_DN  | cn=administrator  | the default administrative user for PingData 
 | PATH  | ${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  | 
-| PING_IDENTITY_EVAL_USER  | PingIdentityDevOpsEval  | 
-| PING_IDENTITY_EVAL_KEY  | e30a780b-481b-46dc-a47e-ac26d9457221  | 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 
