@@ -1,0 +1,34 @@
+
+{
+    "example" : [
+        {
+            "validFrom": 20190101,
+            "validTo": 20191231,
+            "subject": "Example Subject",
+            "message": ["Example Message Line # 1",
+                        "Example Message Line # 2"]
+        }
+    ],
+    "devops" : [
+        {
+            "validFrom": 20190803,
+            "validTo": 20190815,
+            "subject": "DEVOPS-USER and DEVOPS-KEY Required after Aug 15th, 2019",
+            "message": ["Currently, if no PINGIDENTITY_DEVOPS_USER or PINGIDENTITY_DEVOPS_KEY",
+                        "are provided, a default evaluation user/key is used.",
+                        "",
+                        "After August 15th, 2019, the evaluation user/key will no longer be ",
+                        "available, and a personal DEVOPS_USER/DEVOPS_KEY wil be required.",
+                        "",
+                        "Details on obtaining these can be found at:",
+                        "",
+                        "    https://pingidentity-devops.gitbook.io/devops/prod-license"]
+        }
+    ],
+    "pingaccess" : [],
+    "pingdatagovernance" : [],
+    "pingdatasync" : [],
+    "pingdirectory" : [],
+    "pingdirectoryproxy" : [],
+    "pingfederate" : []
+}
