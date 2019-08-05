@@ -12,7 +12,7 @@
     "devops" : [
         {
             "validFrom": 20190803,
-            "validTo": 20190815,
+            "validTo": 20190826,
             "subject": "DEVOPS-USER and DEVOPS-KEY Required after Aug 19th, 2019",
             "message": ["Currently, if no PINGIDENTITY_DEVOPS_USER or PINGIDENTITY_DEVOPS_KEY",
                         "are provided, a default evaluation user/key is used.",
