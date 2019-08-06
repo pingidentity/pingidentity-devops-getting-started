@@ -27,6 +27,7 @@ this image.
 | OUT_DIR  | ${BASE}/out  | Path to the runtime volume 
 | SERVER_BITS_DIR  | ${BASE}/server  | Path to the server bits 
 | BAK_DIR  | ${BASE}/backup  | Path to a volume generically used to export or backup data 
+| LOGS_DIR  | ${BASE}/logs  | Path to a volume generically used for logging 
 | SECRETS_DIR  | /usr/local/secrets  | Default path to the secrets 
 | STAGING_DIR  | ${BASE}/staging  | Path to the staging area where the remote and local server profiles can be merged 
 | TOPOLOGY_FILE  | ${STAGING_DIR}/topology.json  | Path to the topology file 
@@ -65,6 +66,8 @@ this image.
 | PA_ADMIN_PUBLIC_HOSTNAME  | localhost  | 
 | ROOT_USER_DN  | cn=administrator  | the default administrative user for PingData 
 | PATH  | ${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  | 
+| ENV  | ${BASE}/.profile  | 
+| MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 
