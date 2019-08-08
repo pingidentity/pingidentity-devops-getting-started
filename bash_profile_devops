@@ -12,6 +12,16 @@
 bold=$(tput bold)
 normal=$(tput sgr0)
 
+function pdo() 
+{ 
+    run cd ${PING_IDENTITY_DEVOPS_HOME}/$* 
+}
+
+alias pdog="pdo pingidentity-devops-getting-started"
+alias pdob="pdo pingidentity-docker-builds"
+alias pdos="pdo pingidentity-server-profiles"
+
+
 ## dhelp
 function dhelp () 
 {
@@ -175,6 +185,9 @@ cat <<EOP1ENV
 +-----------------------------------------------------------------------------------------+
 |          PING_IDENTITY_DEVOPS_USER: ${PING_IDENTITY_DEVOPS_USER}
 |          PING_IDENTITY_DEVOPS_KEY : ${PING_IDENTITY_DEVOPS_KEY}
+|
+|               Current k8s Context : $(kubectl config current-context)
+|             Current k8s Namespace : $(kubectl config view --minify --output 'jsonpath={..namespace}')
 +-----------------------------------------------------------------------------------------+
  To use with '.yaml' files (use snippet below)
      env:
@@ -195,7 +208,9 @@ cat <<EOHELP
 +----------------------------------------------------------------------------+
  ${bold}DevOps Information${normal}
  -------------------------------------
- kenv - get kubernets info
+ kenv - get kubernetes info
+ kubectx - get kubernetes context info
+ kubens - get kubernetes namespace info
  
  ${bold}Pods${normal}                      
  -------------------------------------     

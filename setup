@@ -270,6 +270,7 @@ check_tool "pyjwt"    "pyjwt -V"        "https://pyjwt.readthedocs.io/"
 
 echo "####################### Kubernetes #############################################"
 check_tool "kubectl"  "kubectl version" "https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos"
+check_tool "kubectx"  "kubectl version" "brew install kubectx"
 
 echo "####################### Amazon #################################################"
 
