@@ -206,17 +206,21 @@ cat <<EOHELP
 +----------------------------------------------------------------------------+
 |                   ${bold}Ping Identity DevOps Kubernetes Aliases${normal}                      |
 +----------------------------------------------------------------------------+
- ${bold}DevOps Information${normal}
+ ${bold}DevOps k8s Information${normal}
  -------------------------------------
  kenv - get kubernetes info
  kubectx - get kubernetes context info
  kubens - get kubernetes namespace info
+
+ ${bold}General Info${normal}       
+ ------------------------------------- 
+ kall - get everything in namespace  
+ kdescribe - describe
  
- ${bold}Pods${normal}                      
- -------------------------------------     
- kpe - execute commands (i.e. /bin/sh)      
- kpd - describe                            
- kpl - list                                 
+ ${bold}Pods${normal}                                      ${bold}Nodes${normal}
+ -------------------------------------     ----------------------------------
+ kpe - execute commands (i.e. /bin/sh)     
+ kpl - list                                knl - list
  klogs  - tail logs              
 
  ${bold}Special${normal}
@@ -226,11 +230,30 @@ cat <<EOHELP
 EOHELP
 }
 
-## container
+## kubernetes
+function k () {
+   _kubeCTX=$(kubectl config current-context)
+   _kubeNS=$(kubectl config view --minify --output 'jsonpath={..namespace}')
+
+   echo "Alias Expansion: ${bold}kubectl $* -n ${_kubeNS}${normal}"
+   echo "    k8s Context: ${bold}${_kubeCTX}${normal}"
+   echo "  k8s Namespace: ${bold}${_kubeNS}${normal}"
+   echo "--------------------------------------"
+
+   kubectl $* -n ${_kubeNS}
+}
+
+## kubernetes general aliases
+alias kall="k get all"
+alias kdescribe="k describe"
+
+## kubernetes pod aliases
 alias kpe="k exec -it"
-alias kpd="k describe"
 alias kpl="k get pods"
 alias klogs="k logs -f "
+
+## kubernetes nodes aliases
+alias knl="k get nodes"
 
 ##############################################################################
 # Aliases of commonly used PingOne For Customer commands
