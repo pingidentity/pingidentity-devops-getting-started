@@ -67,6 +67,9 @@ cat <<EOHELP
  ----------------------------------------------------------------------------
  ddc - deep clean (cont, vol, net)
  pingdownload - download product or license to ~/Downloads
+ pdog - cd to 'pingidentity-devops-getting-started' directory
+ pdob - cd to 'pingidentity-docker-builds' directory
+ pdos - cd to 'pingidentity-server-profiles' directory
  ----------------------------------------------------------------------------
 EOHELP
 }
