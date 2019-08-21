@@ -34,7 +34,7 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | 
 ## Running a PingFederate container
-To run a PingFederate container: 
+To run a PingFederate container:
 
 ```shell
   docker run \
