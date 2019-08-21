@@ -9,7 +9,7 @@ spec:
   ports:
     - port: 80
       name: http
-      targetPort: 8080
+      targetPort: 8443
   selector:
     app: pingdataconsole
 ---
@@ -34,4 +34,4 @@ spec:
       - name: pingdataconsole
         image: pingidentity/pingdataconsole:edge
         ports:
-        - containerPort: 8080
+        - containerPort: 8443

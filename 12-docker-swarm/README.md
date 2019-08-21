@@ -141,7 +141,7 @@ Example:
 
 If you are using the PingDataConsole container from these swarm images, you should be able to login with
 
-[http://localhost:8080/console/](http://localhost:8080/console/)
+[https://localhost:8443/console/](https://localhost:8443/console/)
 
 ### PingDirectory
 

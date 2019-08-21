@@ -62,7 +62,6 @@ services:
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
-      - 8080:8080
       - 8443:8443
     networks: 
       - pingnet-internal
