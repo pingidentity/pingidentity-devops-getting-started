@@ -22,7 +22,7 @@ Ping Identity will provide a DevOps Key to any user registered with Ping Identit
   * If you don't have an account, please create one.
   * Otherwise, sign-in.
   * Your DEVOPS-USER is your email.
-
+  * Request your DEVOPS-KEY from the [FORM](https://docs.google.com/forms/d/e/1FAIpQLSdgEFvqQQNwlsxlT6SaraeDMBoKFjkJVCyMvGPVPKcrzT3yHA/viewform).
 
 Typically, within a few business hours, your personal DEVOPS-USER and DEVOPS-KEY will be 
 sent to your eamil.
