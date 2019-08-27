@@ -13,11 +13,11 @@ docker network create pingnet
 
 docker run -d \
        --network pingnet \
-       --publish 8080:8080 \
+       --publish 8443:8443 \
        --name pingdataconsole \
        pingidentity/pingdataconsole
 
-open http://localhost:8080/console
+open https://localhost:8443/console
 ```
 
 If you are using the PingDirectory container from these standalone images, you should be able to login with

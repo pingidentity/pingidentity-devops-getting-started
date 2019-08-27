@@ -80,6 +80,7 @@ Steps:
         docker run \
            --name pingfederate \
            --publish 9999:9999 \
+           --publish 9031:9031 \
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/<your_username>/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingfederate \

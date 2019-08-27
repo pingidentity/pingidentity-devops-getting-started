@@ -14,7 +14,7 @@ CONTAINER_NAME=pingdataconsole
 #################################################################################
 # Specific image/container details (i.e. ports, passwords)
 #################################################################################
-PORT_HTTP=8080
+PORT_HTTP=8443
 
 #################################################################################
 # Specific Docker Options for this Container.  Typically this will include
@@ -23,7 +23,7 @@ PORT_HTTP=8080
 #   --env     {environment variable}={environment value}
 #################################################################################
 DOCKER_OPTIONS="
-		--publish ${PORT_HTTP}:8080 
+		--publish ${PORT_HTTP}:8443
 "
 
 #################################################################################
@@ -33,6 +33,6 @@ POST_INSTRUCTIONS="
 
 # For server started:
 
-     Admin Console:  http://localhost:8080/
+     Admin Console:  https://localhost:8443/
 
 "

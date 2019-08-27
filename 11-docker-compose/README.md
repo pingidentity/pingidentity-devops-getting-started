@@ -62,7 +62,7 @@ docker-compose ps
 #              Name                            Command                  State                                        Ports
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------
 # 03-full-stack_pingaccess_1        entrypoint.sh wait-for pin ...   Up (healthy)   3000/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:9000->9000/tcp
-# 03-full-stack_pingdataconsole_1   catalina.sh run                  Up (healthy)   0.0.0.0:8080->8080/tcp, 0.0.0.0:8443->8443/tcp
+# 03-full-stack_pingdataconsole_1   catalina.sh run                  Up (healthy)   0.0.0.0:8443->8443/tcp
 # 03-full-stack_pingdirectory_1     entrypoint.sh start-server       Up (healthy)   389/tcp, 0.0.0.0:1443->443/tcp, 5005/tcp, 0.0.0.0:1636->636/tcp, 689/tcp
 # 03-full-stack_pingfederate_1      entrypoint.sh wait-for pin ...   Up (healthy)   0.0.0.0:9031->9031/tcp, 0.0.0.0:9999->9999/tcp
 ###################

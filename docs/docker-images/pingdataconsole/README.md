@@ -11,7 +11,6 @@ deployed to be used in configuration of the PingData products.
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
-- 8080
 - 8443
 
 ## Run
@@ -20,7 +19,7 @@ To run a PingDataConsole container:
 ```shell
   docker run \
            --name pingdataconsole \
-           --publish 8080:8080 \
+           --publish 8443:8443 \
            --detach \
            pingidentity/pingdataconsole
 ```
@@ -33,7 +32,7 @@ docker logs -f pingdataconsole
 ```
 
 If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
-* http://localhost:8080/console/login
+* http://localhost:8443/console/login
 ```
 Server: pingdirectory
 Username: administrator

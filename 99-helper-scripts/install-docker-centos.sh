@@ -1,54 +1,185 @@
 #!/usr/bin/env sh
+#################################################################################
+# Utility script to install dependencies used in DevOps environment on Centos 7.6
+# Tools installed: 
+#   - Docker
+#   - docker-compose
+#   - jq
+#   - jwt
+#   - AWS CLI
+#   - Google Cloud SDK
+#   - Azure CLI
+#   - Ping Identity DevOps Repos
 #
-# Execute this file with sudo
-#   then log out of the host so that the group change can take effect
-#   in the next time a session is started
-#
-#
-#
+# Execute this script using sudo
+# Ex. sudo ./install-devops-tooling-centos.sh
+#################################################################################
+GREEN='\033[0;32m'
+NC='\033[0m'
 
-yum update -y \
-    && yum upgrade -y \
-    && yum install -y yum-utils device-mapper-persistent-data lvm2 curl unzip ca-certificates git java-1.8.0-openjdk-devel
+echo_header() 
+{
+    echo "########################################################"
+    echo "# $*"
+    echo "########################################################"
+}
 
-# for certbot
-yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional \
-    && yum install -y certbot
-#certbot certonly --standalone -d example.com -d www.example.com --server https://acme-v02.api.letsencrypt.org/directory
-#certbot certonly --standalone -d docker-centos.pingidentity.space
+# Check for the existence of a tool command
+check_for_tool()
+{
+    toolName="${1}" && shift
+    toolCmd="${1}" && shift
+    installFunction="${1}" && shift
+    
+    ${toolCmd} 2>/dev/null >/dev/null
+    RESULT=$?
 
-if grep "Amazon Linux" /etc/os-release  >/dev/null ; then
-    amazon-linux-extras install -y docker
-    service docker start
+    if test "${RESULT}" = '127'; then
+        # Tool does not exist, install
+        $installFunction
+    else
+        echo_header " $toolName already installed"
+    fi
+}
 
-    for nvmeID in $( lsblk | awk '$1 ~ /^nvme/ && $1 !~ /nvme0/ {print $1}' ) ; do
-        if test -n "${nvmeID}" ; then
-            mkfs.ext4 /dev/${nvmeID}
-            mkdir -p /fast/${nvmeID}
-            mount /dev/${nvmeID} /fast/${nvmeID}
-            chgrp -R docker /fast
-            chmod -R 770 /fast
-        fi
-    done
-    OS_USER=ec2-user
-else
-    # for docker
-    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo \
-        && yum install -y docker-ce docker-ce-cli containerd.io \
-        && systemctl start docker
-        OS_USER=centos
-fi
-usermod -a -G docker ${OS_USER}
-curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose
-curl -L https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-$(uname -s)-$(uname -m) -o /tmp/docker-machine &&
-    install /tmp/docker-machine /usr/local/bin/docker-machine
+install_docker()
+{
+    # Install Docker
+    echo_header " Installing Docker..."
+    sudo yum update
+    sudo yum install yum-utils device-mapper-persistent-data lvm2
+    sudo yum install docker-ce
+}
 
-curl -s -X POST -H 'Content-type: application/json' --data '{"text": "docker starting in scalr ('${HOSTNAME}')" }' https://hooks.slack.com/services/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
+install_docker_compose()
+{
+    #Current docker-compose version
+    dc_version=1.24.1
+    # Install docker-compose
+    echo_header " Installing docker-compose..."
+    sudo curl -L "https://github.com/docker/compose/releases/download/${dc_version}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+}
 
-cat <<END >>/etc/security/limits.conf
-${OS_USER} soft    nproc   16384
-${OS_USER} hard    nproc   16384
-${OS_USER} soft    nofile   65536
-${OS_USER} hard    nofile   65536
-END
+install_jq()
+{
+    # Install jq
+    echo_header " Installing jq..."
+    sudo yum install jq -y
+}
+
+install_jwt()
+{
+    # Install jwt
+    echo_header " Installing jwt..."
+    sudo yum install python-jwt -y
+}
+
+install_aws_cli()
+{
+    # Install aws cli
+    echo_header " Installing AWS CLI..."
+    sudo pip install --upgrade pip
+    sudo pip install awscli
+    pip install awscli --upgrade --user
+}
+
+install_eksctl()
+{
+    # Install eksctl
+    echo_header " Installing eksctl..."
+    echo "Downloading eksctl"
+    curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+    echo "Moving eksctl to /usr/local/bin"
+    sudo mv /tmp/eksctl /usr/local/bin
+}
+
+install_gcloud_sdk()
+{
+    # Install gcloud sdk
+    # Add the Cloud SDK distribution URI as a package source
+    echo_header " Installing Google Cloud SDK..."
+    cat <<EOF > /etc/yum.repos.d/google-cloud-sdk.repo  
+[google-cloud-sdk]
+name=Google Cloud SDK
+baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+    sudo yum install google-cloud-sdk -y
+}
+
+install_azure_cli()
+{
+    # Install Azure CLI
+    echo_header " Installing Azure CLI..."
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+    sudo yum install azure-cli -y
+}
+
+install_kubectl() 
+{
+    # Install kubectl
+    echo_header " Installing kubectl..."
+   cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+    sudo yum install -y kubelet kubeadm kubectl
+    systemctl enable --now kubelet
+}
+
+function install_pip()
+{
+    # Install pip
+    echo_header " Installing PIP..."
+    sudo yum install epel-release
+    sudo yum install -y python-pip
+    #upgrade pip
+    sudo pip install --upgrade pip
+}
+
+clone_devops_projects()
+{
+    DIR_NAME="/home/centos/projects/devops"
+    BASH_PROFILE="/home/centos/.bash_profile"
+
+    # Determine if projects already exist
+    if test -d "${DIR_NAME}"; then 
+        echo_header " Ping Identity Devops GitHub projects already available @ ${DIR_NAME}"
+    else
+        echo_header " Cloning Ping Identity Github repos..."
+        mkdir -p ${DIR_NAME}
+        cd ${DIR_NAME}
+
+        git clone "https://github.com/pingidentity/pingidentity-devops-getting-started.git" 
+        git clone "https://github.com/pingidentity/pingidentity-docker-builds.git"
+        git clone "https://github.com/pingidentity/pingidentity-server-profiles.git"
+    fi
+}
+
+# Install Docker if not already present
+check_for_tool "PIP" "pip --version" "install_pip"
+check_for_tool "Docker" "docker -v" "install_docker"
+check_for_tool "Docker-compose" "docker-compose -v" "install_docker_compose"
+check_for_tool "JQ" "jq -V" "install_jq"
+check_for_tool "JWT" "pyjwt -V" "install_jwt"
+check_for_tool "AWS CLI" "aws --version" "install_aws_cli"
+check_for_tool "Eksctl" "eksctl version" "install_eksctl"
+check_for_tool "GCloud SDK" "gcloud -v" "install_gcloud_sdk"
+check_for_tool "Azure CLI" "az -V" "install_azure_cli"
+check_for_tool "Kubectl" "kubectl version" "install_kubectl"
+
+# Clone Ping Identity Repos, setup docker aliases
+clone_devops_projects

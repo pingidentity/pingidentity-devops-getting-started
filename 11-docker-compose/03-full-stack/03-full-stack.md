@@ -42,7 +42,7 @@ To see the PingAccess management console
 
 To see the PingDirectory management console
 
-* Go to [http://localhost:8080/console](http://localhost:8080/console)
+* Go to [https://localhost:8443/console](https://localhost:8443/console)
 * Log in with `Administrator / 2FederateM0re`
 
 PingDirectory exposes LDAP traffic via an LDAPS port 1636.

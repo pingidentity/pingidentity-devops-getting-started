@@ -28,13 +28,13 @@ this image.
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  | 
 | LICENSE_FILE_NAME  | pingfederate.lic  | 
 | LICENSE_SHORT_NAME  | PF  | 
-| LICENSE_VERSION  | 9.3.0  | 
+| LICENSE_VERSION  | 9.3  | 
 | OPERATIONAL_MODE  | STANDALONE  | 
 | CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | 
 ## Running a PingFederate container
-To run a PingFederate container: 
+To run a PingFederate container:
 
 ```shell
   docker run \

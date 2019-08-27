@@ -14,14 +14,15 @@ In order to run the Ping Identity DevOps images, a valid product license is requ
 
 ## Obtaining a Ping Identity DevOps User and Key
 
-Ping Identity will provide a DevOps Key to any user registered as a developer with Ping Identity. You must follow the steps listed below to obtain a Ping Identity DevOps User and Key
+>**Notice**: Currently, if no PINGIDENTITY_DEVOPS_USER or PINGIDENTITY_DEVOPS_KEY is provided, a default evaluation user/key is used. After **August 19th, 2019**, the evaluation user/key will no longer be available, and a personal DEVOPS_USER/DEVOPS_KEY will be required if you do not provide a valid product license.
 
-* Ensure you are enrolled in the Ping Identity Developer Program.  Not sure, click the link for [Join developer program](https://www.pingidentity.com/en/account/register.html?type=developer) and follow instructions.
+Ping Identity will provide a DevOps Key to any user registered with Ping Identity. You must follow the steps listed below to obtain a Ping Identity DevOps User and Key
+
+* Ensure you have a registered account with Ping Identity.  Not sure, click the link to [Sign On](https://www.pingidentity.com/en/account/sign-on.html) and follow instructions.
   * If you don't have an account, please create one.
   * Otherwise, sign-in.
   * Your DEVOPS-USER is your email.
-  ![](images/PROD_LICENSE_1.png)
-* Request your DEVOPS-KEY from the [FORM](https://docs.google.com/forms/d/e/1FAIpQLSdgEFvqQQNwlsxlT6SaraeDMBoKFjkJVCyMvGPVPKcrzT3yHA/viewform).
+  * Request your DEVOPS-KEY from the [FORM](https://docs.google.com/forms/d/e/1FAIpQLSdgEFvqQQNwlsxlT6SaraeDMBoKFjkJVCyMvGPVPKcrzT3yHA/viewform).
 
 Typically, within a few business hours, your personal DEVOPS-USER and DEVOPS-KEY will be 
 sent to your eamil.

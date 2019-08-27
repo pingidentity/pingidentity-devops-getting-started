@@ -18,7 +18,7 @@ Watch the directories initialize with:
 
 To see the PingDirectory management console
 
-* Go to [http://localhost:8080/console](http://localhost:8080/console)
+* Go to [https://localhost:8443/console](https://localhost:8443/console)
 * Log in with `Administrator / 2FederateM0re`
 
 Make a change to a user entry on one of the containers. To look at the containers that docker-compose started:
