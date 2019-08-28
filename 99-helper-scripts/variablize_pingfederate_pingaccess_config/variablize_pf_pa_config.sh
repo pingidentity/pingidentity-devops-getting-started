@@ -1,6 +1,16 @@
 #!/usr/bin/env sh
-# set -x
+set -x
+get_abs_filename() {
+  # $1 : relative filename
+  filename=$1
+  parentdir=$(dirname "${filename}")
 
+  if [ -d "${filename}" ]; then
+      echo "$(cd "${filename}" && pwd)"
+  elif [ -d "${parentdir}" ]; then
+    echo "$(cd "${parentdir}" && pwd)/$(basename "${filename}")"
+  fi
+}
 usage ()
 {
 cat <<END_USAGE
@@ -63,7 +73,8 @@ while ! test -z ${1} ; do
       env_file=${1};;
     -p|--path)
       shift
-      in_data_config_fpath="${1}"
+      in_data_config_fpath=$( get_abs_filename "${1}" )
+      echo ${in_data_config_fpath}
       in_data_config_dir=$( dirname "${in_data_config_fpath}" )
       in_data_config_name=$( basename "${in_data_config_fpath}" ) ;;
     -B|--backup)
@@ -251,7 +262,7 @@ variablize() {
     find "${data_tmp_dir}" -name '*.subst' -print0 | xargs -0 sed -i '' "s/${source_host}/\\$\{${dest_var}\}/g"
     if test "${rename_datazip}" = "true" ; then
       if ! test -d "${in_data_config_fpath}.bak" -o -f "${in_data_config_fpath}.bak" ; then
-        cp -r -n "${in_data_config_fpath}" "${in_data_config_fpath}".bak
+        cp -r -n "${in_data_config_fpath}" "${in_data_config_fpath}.bak"
       else 
         echo " found .bak, avoiding overwrite "
       fi
