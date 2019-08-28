@@ -86,6 +86,7 @@ Steps:
            --env SERVER_PROFILE_PATH=getting-started/pingfederate \
            pingidentity/pingfederate:edge
    ```
+   Note: If your GitHub server-profile repo is private, use the `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git` URL format so your container can access it.
 
 7. The container should now have started in the background. run `docker container logs -f pingfederate` to watch the logs. To be sure your config is properly applied look for:
 
