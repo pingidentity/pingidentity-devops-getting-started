@@ -37,7 +37,7 @@ To see the PingFederate management console
 To see the PingAccess management console
 
 * Go to [https://localhost:9000](https://localhost:9000)
-* Log in with `Administrator / 2Access`
+* Log in with `Administrator / 2FederateM0re`
 * Note: You will be asked to accept license agreement and change password
 
 To see the PingDirectory management console
