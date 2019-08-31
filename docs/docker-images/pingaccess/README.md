@@ -32,7 +32,6 @@ this image.
 | LICENSE_VERSION  | 5.2  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
-| INITIAL_ADMIN_PASSWORD  | 2FederateM0re  | 
 ## Running a PingDirectory container
 To run a PingAccess container: 
 
