@@ -1,6 +1,6 @@
 # Ping Identity DevOps
 
-The goal of Ping Identity DevOps is to enable DevOps, administrators and developers with tools, frameworks, blueprints and reference architectues to deploy Ping Identity software in the cloud.
+The goal of Ping Identity DevOps is to enable DevOps, administrators and developers with tools, frameworks, blueprints and reference architectures to deploy Ping Identity software in the cloud.
 
 ## Why Containerization?
 
@@ -8,7 +8,7 @@ The goal of Ping Identity DevOps is to enable DevOps, administrators and develop
 
 **Cloud Flexibility** - Containers are portable. All major cloud providers have embraced containers and have added support.
 
-**Right-Size** - Orchestration alows businesses to increase fault tolerance, availability and cost management by auto scaling to application demand.
+**Right-Size** - Orchestration allows businesses to increase fault tolerance, availability and cost management by auto-scaling to application demand.
 
 ## Before You Begin - Choose Your Path
 
@@ -29,7 +29,7 @@ There are different goals that you may have as you approach these docs. Here are
 
      > Be sure to use the exact variable names.
 
-  3. Achieve these pre-reqs on your machine: 
+  3. Achieve these prereqs on your machine:
      * Install [Docker CE](https://docs.docker.com/v17.12/install/). [If using a mac](https://docs.docker.com/v17.12/docker-for-mac/install/) 
      * Install [Git](https://git-scm.com/downloads) and run `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
   4. Deploy the software [full-stack](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose/03-full-stack). 
