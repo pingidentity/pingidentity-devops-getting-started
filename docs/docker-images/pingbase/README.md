@@ -68,6 +68,7 @@ this image.
 | PATH  | ${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  | 
 | ENV  | ${BASE}/.profile  | 
 | MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json 
+| ONBUILD ENV TINI_VERSION v0.18.0  | ONBUILD ENV TINI_VERSION v0.18.0  | Default shell prompt (i.e. productName:hostname:workingDir) 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 
