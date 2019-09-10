@@ -30,6 +30,7 @@ this image.
 | LICENSE_FILE_NAME  | pingaccess.lic  | 
 | LICENSE_SHORT_NAME  | PA  | 
 | LICENSE_VERSION  | 5.2  | 
+| INITIAL_ADMIN_PASSWORD  | 2FederateM0re  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
 ## Running a PingDirectory container
@@ -56,7 +57,7 @@ docker logs -f pingaccess
 If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
 * https://localhost:9000
   * Username: Administrator
-  * Password: 2Access
+  * Password: 2FederateM0re
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingaccess/hooks/README.md) for details on all pingaccess hook scripts
 
