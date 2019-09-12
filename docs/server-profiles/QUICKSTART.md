@@ -5,8 +5,13 @@ Let's walk through a common sample use case together: taking a traditional PF se
 Pre-requisites:
 
 * GitHub Account
+* Git CLI
+* Docker
 
-In this example we will take a Configuration Archive of your current \(possibly favorite\) _development_ PingFederate server and push it into a 'server profile'. Then we will start a PingFederate Docker container that pulls in this configuration. This is recommended for development and demonstration only.
+Recommended: 
+* Env has been through [./setup](https://pingidentity-devops.gitbook.io/devops/examples/quickstart#setup-you-environment-for-ping-identity-devops-projects)
+
+In this example we will take a Configuration Archive of your current \(possibly favorite\) _development_ PingFederate server and push it into a 'server profile'. Then we will start a PingFederate Docker container that pulls in this configuration.
 
 Steps:
 
@@ -27,14 +32,14 @@ Steps:
    git clone https://github.com/<github username>/pingidentity-server-profiles.git
    ```
 
-4. Copy your exported data.zip to replace `data.zip` in the [vanilla sample server-profile](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started)
+4. Replace the config `/data` directory in the [vanilla sample server-profile](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) with your own. 
 
    ```text
-    cd pingidentity-server-profiles/getting-started/pingfederate/instance/server/default/data/drop-in-deployer
+    cd pingidentity-server-profiles/getting-started/pingfederate/instance/server/default
 
-    rm data.zip
+    rm -rf data
 
-    cp <path_to_your_configuration_archive>/data.zip .
+    unzip -qd data <path_to_your_configuration_archive>/data.zip
    ```
 
 5. Now we have a local Server-Profile. We will push this to Github then use it via a docker environment variable. 
@@ -44,21 +49,21 @@ Steps:
 
    ######OUTPUTS######
    # On branch master
-   # Your branch is ahead of 'origin/master' by 2 commits.
-   # (use "git push" to publish your local commits)
-   #
+   # Your branch is up to date with 'origin/master'.
+   # 
    # Changes not staged for commit:
-   # (use "git add/rm <file>..." to update what will be committed)
-   # (use "git checkout -- <file>..." to discard changes in working directory)
-   #
-   # deleted:    data.zip
-   #
+   #   (use "git add <file>..." to update what will be committed)
+   #   (use "git checkout -- <file>..." to discard changes in working directory)
+   # 
+   #         modified:   data/pf.jwk
+   #         modified:   data/ping-ssl-client-trust-cas.jks
+   # 
    # Untracked files:
-   # (use "git add <file>..." to include in what will be committed)
-   #
-   # idp_data.zip
-   #
-   # no changes added to commit (use "git add" and/or "git commit -a")
+   #   (use "git add <file>..." to include in what will be committed)
+   # 
+   #         data/authn-api-config.xml
+   #         data/config-store/audit-log-config.xml
+   #         ...
    ##################
    ```
 
@@ -84,24 +89,21 @@ Steps:
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/<your_username>/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-           --env PING_IDENTITY_DEVOPS_USER=<your_devops_user> \
-           --env PING_IDENTITY_DEVOPS_KEY=<your_devops_key> \
+           --env-file ~/.pingidentity/devops \
            pingidentity/pingfederate:edge
    ```
-   Note: If your GitHub server-profile repo is private, use the username:token format so your conatiner can access it.
+   > Note: if you haven't run [`./setup`](https://pingidentity-devops.gitbook.io/devops/examples/quickstart#setup-you-environment-for-ping-identity-devops-projects), you'll need to include environment variables for DevOps User and Key.
 
+   > Note: If your GitHub server-profile repo is private, use the username:token format so your conatiner can access it.
    > `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`
    >
 
 7. The container should now have started in the background. run `docker container logs -f pingfederate` to watch the logs. To be sure your config is properly applied look for:
 
    ```text
-        2019-03-20 20:12:48,841  INFO  [org.eclipse.jetty.server.Server] Started @53553ms
-        2019-03-20 20:12:53,206  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataDeployer] Deploying: /opt/out/instance/server/default/data/drop-in-deployer/data.zip
-        2019-03-20 20:12:53,217  INFO  [com.pingidentity.configservice.ConfigUpdateCoordinator] Configuration update is in progress…
-        2019-03-20 20:12:53,244  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataDeployer] Deploying: /opt/out/instance/server/default/conf/data-default.zip
-        ##Watch your configuration happen!!##
-        2019-03-20 20:12:56,531  INFO  [com.pingidentity.configservice.ConfigUpdateCoordinator] Configuration update has finished or was terminated.
+      2019-09-12 22:23:28,318  INFO  [org.eclipse.jetty.server.AbstractConnector] Started ServerConnector@3a022576{SSL,[ssl, http/1.1]}{0.0.0.0:9999}
+      2019-09-12 22:23:28,318  INFO  [org.eclipse.jetty.server.Server] Started @12189ms
+      2019-09-12 22:23:28,321  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] PingFederate started in 9s:843ms
    ```
 
 8. Finally, browse to `https://localhost:9999/pingfederate/app`
