@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-set -x
+# set -x
 ## init vars
 get_abs_filename() {
   # $1 : relative filename
@@ -15,8 +15,10 @@ get_abs_filename() {
 _pwd=${PWD}
 data_tmp_dir="/tmp/data_archive"
 dest_var="SET_HOSTNAME"
-
-
+#TODO add interactive mode
+    # -I, --interactive
+    #     be asked before confirming replacement.
+    #     ignored if using -e, --env_file
 usage ()
 {
 cat <<END_USAGE
@@ -37,9 +39,8 @@ Usage:  {options}
     -B, --backup
         create config.bak for backup
         HINT: might as well always do this...
-    -I, --interactive
-        be asked before confirming replacement.
-        ignored if using -e, --env_file
+    -o, --output
+        define output name. if 
     -h, --help
         Use for instructions on usage
 
@@ -87,18 +88,15 @@ while ! test -z ${1} ; do
       output_name="${1}";;
     -B|--backup)
       backup_config="true" ;;
-    -I|--interactive)
-      is_interactive="true" ;;
+    # -I|--interactive)
+    #   is_interactive="true" ;;
     -h|--help)
-      exit_usage "The goal of this script is to take a PF or PA
-  configuration archive and replace hostnames with variables.
-  This is useful when putting the config into a docker server-profile.
+      exit_usage "The goal of this script find and replace 
+  hostnames with variables on a PF or PA config archive
+  This is helpful when using the config in a docker server-profile.
   More info on server-profiles:
   https://pingidentity-devops.gitbook.io/devops/server-profiles
-  This can accept config exports from either PingFederate or PingAccess. 
-  However the file or directory MUST be named:
-  For PA: 'data.json' or 'data.json.subst'
-  For PF: 'data.zip', 'data.zip.subst', '_data.zip_' (directory), 'data' (directory)
+  This can accept config exports from either PingFederate or PingAccess.   
   
   The BEST way to use this script is to:
   1. place all hosts and output_variables in a txt file. Like so:
@@ -109,7 +107,23 @@ while ! test -z ${1} ; do
   hostname variable_to_replace_it_with
 
   2. run command like so:
-  ./variablize_pf_pa_config.sh -p path/to/data.zip -e /path/to/env_hosts -R
+  ./variablize_pf_pa_config.sh -p path/to/data.zip -e /path/to/env_hosts -B
+
+  Alternatively, you can look for a single hostname:
+  ./variablize_pf_pa_config.sh -p path/to/data.zip -s fed.dev.pingidentity.com \\
+    -d PF_HOSTNAME -B
+
+  NOTE: the standard output with return the same file type with added suffix: .subst
+  You can override this to change the file name to something more friendly to server-profiles
+  examples:
+    ./variablize_pf_pa_config.sh -p path/to/pingfederate-data-09-16-2019.zip \\
+      -e /path/to/env_hosts -B -o data
+    this will output a substed data directory. 
+
+    ./variablize_pf_pa_config.sh -p path/to/pa-data-09-16-2019.16.28.30.json \\
+       -e /path/to/env_hosts -B -o data.json.subst
+    this will output data.json.subst
+
                    ";;
     *)
       exit_usage "Unrecognized Option" ;;
@@ -150,107 +164,6 @@ prep_variablize(){
   else
     exit_usage "invalid file to variablize or not found."
   fi
-
-  # # Prep data_to_config
-  # if test "${in_data_config_name}" = "data.zip" -o "${in_data_config_name}" = "data.zip.subst" ; then
-  #   if test -f "${in_data_config_fpath}" ; then
-  #     unzip -qd "${data_tmp_dir}/data" "${in_data_config_fpath}"
-  #     data_to_config="${data_tmp_dir}/data"
-  #   elif test -f "${in_data_config_name}.subst" ; then
-  #     if test "${is_interactive}" = "true" ; then
-  #       use_subst="y"
-  #       echo "Config file not found, use ${in_data_config_name}.subst instead? y/n [y]"
-  #       read use_subst
-  #       if test "${use_subst}" = "y" ; then
-  #         echo "using subst instead"
-  #         cp "${in_data_config_fpath}.subst" "${data_tmp_dir}/."
-  #         data_to_config="${data_tmp_dir}/${in_data_config_name}.subst"
-  #       else
-  #         exit_usage "please enter a valid config path"
-  #       fi
-  #     else
-  #       echo "using subst instead"
-  #       unzip -qd "${data_tmp_dir}/data" "${in_data_config_fpath}.subst"
-  #       data_to_config="${data_tmp_dir}/data"
-  #     fi
-  #   elif test ! -f "${in_data_config_name}" ; then
-  #     if test -d "${in_data_config_dir}/_data.zip_" ; then
-  #       if test "${is_interactive}" = "true" ; then
-  #         use_subst="y"
-  #         echo "Config file not found, use ${in_data_config_dir}/_data.zip_ instead? y/n [y]"
-  #         read use_subst
-  #         if test "${use_subst}" = "y" ; then
-  #           echo "using _data.zip_ instead"
-  #           cp -r "${in_data_config_dir}/_data.zip_" "${data_tmp_dir}/data"
-  #           data_to_config="${data_tmp_dir}/data"
-  #         else
-  #           exit_usage "please enter a valid config path"
-  #         fi
-  #       else
-  #         echo "using _data.zip_ instead"
-  #         cp -r "${in_data_config_dir}/_data.zip_" "${data_tmp_dir}/data"
-  #           data_to_config="${data_tmp_dir}/data"
-  #       fi
-  #     else
-  #       exit_usage "Error - invalid config, or does not exist: ${in_data_config_fpath}"
-  #     fi
-  #   else
-  #     exit_usage "Error - config file not found: ${in_data_config_fpath} "
-  #   fi
-  #   # in_data_config_dir=$(echo "${in_data_config_fpath}" | sed 's/\/data\.zip$//')
-  # elif test "${in_data_config_name}" = "data" -o "${in_data_config_name}" = "_data.zip_" ; then
-  #   if test -d "${in_data_config_fpath}" ; then
-  #     cp -r "${in_data_config_fpath}" "${data_tmp_dir}/data"
-  #     data_to_config="${data_tmp_dir}/data"
-  #   elif test -d "${in_data_config_dir}/_data.zip_" ; then
-  #       if test "${is_interactive}" = "true" ; then
-  #         use_subst="y"
-  #         echo "Config not found, use ${in_data_config_dir}/_data.zip_ instead? y/n [y]"
-  #         read use_subst
-  #         if test "${use_subst}" = "y" ; then
-  #           echo "using _data.zip_ instead"
-  #           cp -r "${in_data_config_dir}/_data.zip_" "${data_tmp_dir}/data"
-  #           data_to_config="${data_tmp_dir}/data"
-  #         else
-  #           exit_usage "please enter a valid config path"
-  #         fi
-  #       else
-  #         echo "using _data.zip_ instead"
-  #         cp -r "${in_data_config_dir}/_data.zip_" "${data_tmp_dir}/data"
-  #         data_to_config="${data_tmp_dir}/data"
-  #       fi
-  #   else
-  #     exit_usage "Error - invalid config, or does not exist: ${in_data_config_fpath}"
-  #   fi
-  #   # in_data_config_dir=$(echo "${in_data_config_fpath}" | sed 's/\/data$//')
-  # elif test "${in_data_config_name}" = "data.json" -o "${in_data_config_name}" = "data.json.subst" ; then
-  #   if test ! -f "${in_data_config_fpath}" ; then 
-  #     if test -f "${in_data_config_fpath}.subst" ; then
-  #       if test "${is_interactive}" = "true" ; then
-  #         use_subst="y"
-  #         echo "Config file not found, use ${in_data_config_name}.subst instead? y/n [y]"
-  #         read use_subst
-  #         if test "${use_subst}" = "y" ; then
-  #           echo "using subst instead"
-  #           cp "${in_data_config_fpath}.subst" "${data_tmp_dir}/."
-  #           data_to_config="${data_tmp_dir}/${in_data_config_name}.subst"
-  #         fi
-  #       else
-  #         echo "using subst instead"
-  #         cp "${in_data_config_fpath}.subst" "${data_tmp_dir}/."
-  #         data_to_config="${data_tmp_dir}/${in_data_config_name}.subst"
-  #       fi
-  #     else 
-  #       exit_usage "Error - invalid config, or does not exist: ${in_data_config_fpath}"
-  #     fi
-  #   else
-  #     cp "${in_data_config_fpath}" "${data_tmp_dir}/."
-  #     data_to_config="${data_tmp_dir}/${in_data_config_name}"
-  #   fi
-  # else 
-  #     exit_usage "Error - invalid config, or does not exist: ${in_data_config_fpath}"
-  # fi
-    # anything to change?
 }
 
 check_variablize() {
@@ -306,8 +219,6 @@ variablize() {
 }
 
 return_data() {
-  # if test -d "${in_data_config_fpath}" -o -f "${in_data_config_fpath}" ; then
-
   # to zip or not to zip
   if test ! -z "${output_name}" ; then
     case "${output_name}" in
@@ -321,8 +232,8 @@ return_data() {
         esac
       ;;
       *)
-        if test ! "${data_to_config}" = "${data_tmp_dir}/${output_name}" ; then
-          mv "${data_to_config}" "${data_tmp_dir}/${output_name}"
+        if test ! "${data_to_return}" = "${data_tmp_dir}/${output_name}" ; then
+          mv "${data_to_return}" "${data_tmp_dir}/${output_name}"
         fi
         data_to_return="${data_tmp_dir}/${output_name}"
       ;;
@@ -343,22 +254,6 @@ return_data() {
     fi
     cp -fr "${data_to_return}" "${in_data_config_dir}"
   fi
-  # else
-    # echo "error with subst"
-    # exit 1
-  # fi
-  #   if test "${data_tmp_dir}/data" = "${data_to_config}" ; then
-  #     rm -rf "${in_data_config_dir}/_data.zip_"
-  #     rm -rf "${in_data_config_dir}/data"
-  #     mv "${data_to_config}" "${in_data_config_dir}/data"
-  #   elif test -f "${data_to_config}.subst" ; then
-  #     mv "${data_to_config}.subst" "${in_data_config_dir}/."
-  #   elif test -f "${data_to_config}" ; then
-  #     mv "${data_to_config}" "${in_data_config_dir}/."
-  #   else 
-  #     echo "error with subst"
-  #     exit 1
-  # fi
     cd "${_pwd}"
     rm -rf "${data_tmp_dir}"
 }
