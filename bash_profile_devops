@@ -125,13 +125,13 @@ alias dps="run docker ps"
 dsa() 
 { 
     echo "Alias Expansion: ${bold}docker stop all containers${normal}";
-    c=$(docker ps -a -q) && test ${c} && docker stop ${c};
+    c=$(docker ps -a -q) && test -n "${c}" && docker stop ${c};
 }
 
 dra() 
 {
     echo "Alias Expansion: ${bold}docker remove all containers${normal}";
-    c=$(docker ps -a -q) && test ${c} && docker container rm ${c};
+    c=$(docker ps -a -q) && test -n "${c}" && docker container rm ${c};
 }
 alias dce="run docker container exec -it"
 alias dci="run docker container inspect"
@@ -151,7 +151,7 @@ alias dil="run docker images"
 alias dir="run docker image rm -f"
 alias dip="run docker image prune -f"
 alias dit="run docker image tag"
-alias diw="dip; i=\$(docker images 'pingidentity/*' -q|sort|uniq) && test ${i} && dir ${i}"
+alias diw="dip; i=\$(docker images 'pingidentity/*' -q|sort|uniq) && test -n \"${i}\" && dir ${i}"
 # docker image nuke -- wipes ALL images
 alias din="i=\$( docker images --format '{{.ID}}' ) && test ${i} && dir ${i}"
 
