@@ -132,6 +132,32 @@ Note: You do not need to do this if you are using your DevOps User/Key. If you h
 * PingDirectory - `instance/PingDirectory.lic`
 * PingDataSync - `instance/PingDirectory.lic`
 
+## Using an existing Proguct License file with mounted /opt/in volume
+
+You can pass the license file to a container via mounting the container's `/opt/in` directory.
+
+Note: You do not need to do this if you are using your DevOps User/Key. If you have provided license files via the volume mount and a DevOps User/Key, it will ignore the DevOps User/Key.
+
+The `/opt/in` volume overlays files onto the products runtime filesystem, the license needs to be in the exact location the product checks for valid licenses.
+
+### Example Mounts
+
+**PingFederate**
+* License file located at: /tmp/pingfederate/instance/server/default/conf/pingfederate.lic
+* Mount: /tmp/pingfederate:/opt/in
+
+**PingAccess**
+* License file located at: /tmp/pingaccess/instance/conf/pingaccess.lic
+* Mount: /tmp/pingaccess:/opt/in
+
+**PingDirectory**
+* License file located at: /tmp/pingdirectory/instance/PingDirectory.lic
+* Mount: /tmp/pingdirectory:/opt/in
+
+**PingDataSync**
+* License file located at: /tmp/pingdatasync/instance/PingDirectory.lic
+* Mount: /tmp/pingdatasync:/opt/in
+
 ## Troubleshooting
 
 If you have any quesitons or issues, please contact [devops\_program@pingidentity.com](mailto:devops_program@pingidentity.com).
