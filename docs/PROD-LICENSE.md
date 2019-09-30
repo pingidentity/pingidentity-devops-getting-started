@@ -132,7 +132,7 @@ Note: You do not need to do this if you are using your DevOps User/Key. If you h
 * PingDirectory - `instance/PingDirectory.lic`
 * PingDataSync - `instance/PingDirectory.lic`
 
-## Using an existing Proguct License file (Mounted /opt/in volume)
+## Using an existing Product License file (Mounted /opt/in volume)
 
 You can pass the license file to a container via mounting the container's `/opt/in` directory.
 
