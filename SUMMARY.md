@@ -39,7 +39,7 @@
   * [Quick Start](docs/server-profiles/QUICKSTART.md)
   * [Develop Locally](docs/server-profiles/LOCAL-WORKSPACE.md)
   * [Administration](docs/server-profiles/ADMINISTRATION.md)
-  * [GitHub Private Repos](docs/server-profiles/PRIVATE_REPOS.md)
+  * [Private GitHub Repos](docs/server-profiles/PRIVATE_REPOS.md)
   <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md) -->
   <!-- * [Baseline](docs/server-profiles/BASELINE.md) -->
   <!-- * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->
