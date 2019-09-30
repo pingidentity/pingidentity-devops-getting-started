@@ -121,7 +121,7 @@ Docker Swarm.
 ...
 ```
 
-## Using an existing Product License file
+## Using an existing Product License file (Server-Profile)
 
 You can also use an existing valid product license file the product/version combo you are running, by placing them into the proper directory of your server profile. The default server profile location and file name for each product are as follows:
 
@@ -132,7 +132,7 @@ Note: You do not need to do this if you are using your DevOps User/Key. If you h
 * PingDirectory - `instance/PingDirectory.lic`
 * PingDataSync - `instance/PingDirectory.lic`
 
-## Using an existing Proguct License file with mounted /opt/in volume
+## Using an existing Proguct License file (Mounted /opt/in volume)
 
 You can pass the license file to a container via mounting the container's `/opt/in` directory.
 
