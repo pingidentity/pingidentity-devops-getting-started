@@ -1,6 +1,6 @@
 # Private GitHub Repos
 
-Most often you will not want to expose your server profiles publically to all users but rather persist your server profiles in private GitHub repositories. In this document, we'll cover how to generate GitHub access tokens and how to update your YAML files to access private repos.
+Most often you will not want to expose your Server Profiles publically but rather persist your product configuration in private GitHub repositories. In this document, we'll cover how to generate GitHub access tokens and how to update your YAML files to access private repos.
 
 ## Create an Access Token
 
