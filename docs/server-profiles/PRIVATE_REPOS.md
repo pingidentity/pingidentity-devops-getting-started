@@ -4,7 +4,7 @@ Most often you will not want to expose your Server Profiles publically but rathe
 
 ## Create an Access Token
 
-### In GitHub: ###
+### In GitHub
 
 * Navigate to '**Settings**' -> '**Developer Settings**' -> '**Personal access tokens**'
 * From `Personal access tokens' click the button to '**Generate new token**'
@@ -18,15 +18,15 @@ Most often you will not want to expose your Server Profiles publically but rathe
 ```Note: Copy the token to a secure location as you will not be able to view the token again.```
 
 
-## Using the token
+## Using the token in YAML
 
 To use the token within your YAML file, update the Server Profile to use the following format
 
-* `https://GIT_HUB_USERNAME:GITHUB_TOKEN@github.com/PATH_TO_REPO.git`
+* https://**GIT_HUB_USERNAME**:**GITHUB_TOKEN**@github.com/**PATH_TO_REPO**.git
 
-### Example URL ###
+### Example URL
 
-* SERVER_PROFILE_URL=`https://github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva@github.com/pingidentity/server_profile.git`
+* SERVER_PROFILE_URL=https:\//github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva@github.com/pingidentity/server_profile.git
 
 
 
