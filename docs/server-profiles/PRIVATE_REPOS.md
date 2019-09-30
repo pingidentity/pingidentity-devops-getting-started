@@ -22,11 +22,11 @@ Most often you will not want to expose your Server Profiles publically but rathe
 
 To use the token within your YAML file, update the Server Profile to use the following format
 
-* https://**GIT_HUB_USERNAME**:**GITHUB_TOKEN**@github.com/**PATH_TO_REPO**.git
+* https://GIT_HUB_USERNAME:GITHUB_TOKEN@github.com/PATH_TO_REPO.git
 
 ### Example URL
 
-* SERVER_PROFILE_URL=https:\//github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva@github.com/pingidentity/server_profile.git
+* SERVER_PROFILE_URL=https://github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva@github.com/pingidentity/server_profile.git
 
 
 
