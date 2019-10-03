@@ -6,8 +6,8 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
-      - TOPOLOGY_SIZE=2
-      - TOPOLOGY_PREFIX=02-replicated-pair_pingdirectory_
+      - ORCHESTRATION_TYPE=compose
+      - COMPOSE_SERVICE_NAME=02-replicated-pair_pingdirectory
     env_file:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
       # devops user/key details for evaluation licenses and for docker image/git tags
