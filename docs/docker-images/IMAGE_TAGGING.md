@@ -22,7 +22,7 @@ Eg. **pingaccess:1908-alpine-5.3.0**
 * **alpine**: Container Operating System (Available OS: Alpine/CentOS/Ubuntu)
 * **5.3.0**: PingAccess product version
 
-### Tag: product:edge
+### product:edge
 
 Eg. **pingaccess:edge**
 
