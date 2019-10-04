@@ -1,5 +1,3 @@
-## Ping Identity Image Tagging
-
 Ping Identity provides multiple tags for each released product image. Within Docker Hub, you can view the available tags for each image.
 
 View Docker Image Tags here:
