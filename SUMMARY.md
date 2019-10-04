@@ -15,6 +15,7 @@
   * [PingCommon](docs/docker-images/pingcommon/README.md)
   * [PingDataCommon](docs/docker-images/pingdatacommon/README.md)
   * [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
+  * [Image Tagging](docs/docker-images/IMAGE_TAGGING.md)
 * [Examples](docs/getting-started/README.md)
   * [Quick Start](docs/QUICKSTART.md)
   * [Docker Standalone](10-docker-standalone/README.md)
