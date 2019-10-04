@@ -14,14 +14,6 @@ View Docker Image Tags here:
 
 Ping Identity uses a number of standardized naming conventions
 
-### product:ImageVersion-ContainerOS-ProductVersion
-
-Eg. **pingaccess:1908-alpine-5.3.0**
-
-* **1908**: Version of our underlaying Docker Image (YYMM)
-* **alpine**: Container Operating System (Available OS: Alpine/CentOS/Ubuntu)
-* **5.3.0**: PingAccess product version
-
 ### product:edge
 
 Eg. **pingaccess:edge**
@@ -34,6 +26,14 @@ Eg. **pingaccess:5.3.0-edge**
 
 * **5.3.0**: PingAccess product version
 * **edge**: Latest enhancements of our Docker Image
+
+### product:ImageVersion-ContainerOS-ProductVersion
+
+Eg. **pingaccess:1908-alpine-5.3.0**
+
+* **1908**: Version of our underlaying Docker Image (YYMM)
+* **alpine**: Container Operating System (Available OS: Alpine/CentOS/Ubuntu)
+* **5.3.0**: PingAccess product version
 
 ## When Selecting an Image Tag
 
