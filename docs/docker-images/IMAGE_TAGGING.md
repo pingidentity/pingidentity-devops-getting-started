@@ -26,7 +26,7 @@ Eg. **pingaccess:1908-alpine-5.3.0**
 
 Eg. **pingaccess:edge**
 
-The **edge** tag includes the latest product version and the latest enhancements of our Docker Image running on the Alpine OS.
+The **edge** tag includes the latest product version and the latest enhancements of our Docker Image running on Alpine OS.
 
 ### product:ProductVersion-edge
 
@@ -43,9 +43,9 @@ Eg. **pingaccess:5.3.0-edge**
   * The image digest version can be found either on Docker Hub or by running the command: `docker image inspect <image-id>`
 
 * Use the image digest in your deployment YAML Eg.
-   `from pingidentity/pingfederate@sha256:1d797fdd0d0dcd57e6873c8b8e1f58da661c677940cbe18de818003bd2d345b6`
+   `pingidentity/pingfederate@sha256:1d797fdd0d0dcd57e6873c8b8e1f58da661c677940cbe18de818003bd2d345b6`
 
-> **NOTE**: Docker Images produced before Oct 1, 2019 that have a tag format of **:product-edge** or **:productVersion:edge** will not receive further updates.
+> **NOTE**: Docker Images produced before Oct 1, 2019 having a tag format of **:product-edge** or **:productVersion:edge** will not receive further updates.
 
 ## Container OS
 
