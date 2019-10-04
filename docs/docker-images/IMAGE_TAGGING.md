@@ -37,7 +37,7 @@ Eg. **pingaccess:1908-alpine-5.3.0**
 
 ## When Selecting an Image Tag
 
-* **Edge** tags are typically not suited for production use cases as the unlying product/image version is not locked in and is subject to change.
+* **Edge** tags are typically not suited for production use cases as the unlying product/image version is not locked in and is subject to change. As enhancements are made to the base image, backwards-compatibility is not guaranteed.
 * **Image Digest** When an image is built, an immutable digest is attached to the build. Using the image digest ensures that your deployed versions will _not_ change when the tag is updated.
   * EG. pingfederate:9.3.1-alpine-edge has am image digest of sha256:1d797fdd0d0dcd57e6873c8b8e1f58da661c677940cbe18de818003bd2d345b6
   * The image digest version can be found either on Docker Hub or by running the command: `docker image inspect <image-id>`
