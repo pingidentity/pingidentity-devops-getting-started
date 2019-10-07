@@ -12,19 +12,27 @@ View Docker Image Tags here:
 
 ## Tagging Format
 
-Ping Identity uses a number of standardized naming conventions
+Ping Identity uses a number of standardized naming conventions.
 
 ### product:edge
 
 Eg. **pingaccess:edge**
 
-The **edge** tag includes the latest product version and the latest enhancements of our Docker Image running on Alpine OS.
+The **edge** tag includes:
+
+* Latest product version
+* Docker Image enhancements/fixes from our current sprint
+* Running on Alpine OS.
 
 ### product:latest
 
 Eg. **pingfederate:latest**
 
-The **latest** tag includes the latest product version and the most recent stable build of our Docker Image running on Alpine OS.
+The **latest** tag includes:
+
+* The latest product version
+* Docker Image: All completed and qualified enhacements/fixes from our previous monthly sprint
+* Running on Alpine OS.
 
 ### product:ProductVersion-edge
 
@@ -33,7 +41,7 @@ Eg. **pingaccess:5.3.0-edge**
 ProductVersion-edge tags use Alpine for the container OS.
 
 * **5.3.0**: PingAccess product version
-* **edge**: Latest enhancements of our Docker Image
+* **edge**: Docker Image enhancements/fixes from our current sprint
 
 ### product:ImageVersion-ContainerOS-ProductVersion
 
@@ -53,7 +61,15 @@ Eg. **pingaccess:1908-alpine-5.3.0**
 * Use the image digest in your deployment YAML Eg.
    `pingidentity/pingfederate@sha256:1d797fdd0d0dcd57e6873c8b8e1f58da661c677940cbe18de818003bd2d345b6`
 
-> **NOTE**: Docker Images produced before Oct 1, 2019 having a tag format of **:product-edge** or **:productVersion:edge** will not receive further updates.
+## Docker Image Versioning
+
+* Versions follow a YYMM format
+  * Eg. 1909 is the build for September 2019
+* Build is reflective of the Sprint work completed for that month
+* Build is generated at the end of the sprint/month
+  * Eg. 1909 - is built at the end of September, made available first week of October
+
+> **NOTE**: Docker Images produced before September 1, 2019 having a tag format of **:product-edge** or **:productVersion:edge** will not receive further updates.
 
 ## Container OS
 
