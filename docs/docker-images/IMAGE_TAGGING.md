@@ -24,6 +24,8 @@ The **edge** tag includes the latest product version and the latest enhancements
 
 Eg. **pingaccess:5.3.0-edge**
 
+ProductVersion-edge tags use Alpine for the container OS.
+
 * **5.3.0**: PingAccess product version
 * **edge**: Latest enhancements of our Docker Image
 
