@@ -20,6 +20,12 @@ Eg. **pingaccess:edge**
 
 The **edge** tag includes the latest product version and the latest enhancements of our Docker Image running on Alpine OS.
 
+### product:latest
+
+Eg. **pingfederate:latest**
+
+The **latest** tag includes the latest product version and the most recent stable build of our Docker Image running on Alpine OS.
+
 ### product:ProductVersion-edge
 
 Eg. **pingaccess:5.3.0-edge**
