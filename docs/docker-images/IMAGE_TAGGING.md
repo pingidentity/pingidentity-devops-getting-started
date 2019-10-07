@@ -65,7 +65,7 @@ Eg. **pingaccess:1908-alpine-5.3.0**
 
 * Versions follow a YYMM format
   * Eg. 1909 is the build for September 2019
-* Build is reflective of the Sprint work completed for that month
+* Build is reflective of the sprint work completed for that month
 * Build is generated at the end of the sprint/month
   * Eg. 1909 - is built at the end of September, made available first week of October
 
