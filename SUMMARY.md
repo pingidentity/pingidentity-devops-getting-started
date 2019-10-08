@@ -15,6 +15,7 @@
   * [PingCommon](docs/docker-images/pingcommon/README.md)
   * [PingDataCommon](docs/docker-images/pingdatacommon/README.md)
   * [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
+  * [Image Tagging](docs/docker-images/IMAGE_TAGGING.md)
 * [Examples](docs/getting-started/README.md)
   * [Quick Start](docs/QUICKSTART.md)
   * [Docker Standalone](10-docker-standalone/README.md)
@@ -39,6 +40,7 @@
   * [Quick Start](docs/server-profiles/QUICKSTART.md)
   * [Develop Locally](docs/server-profiles/LOCAL-WORKSPACE.md)
   * [Administration](docs/server-profiles/ADMINISTRATION.md)
+  * [Private GitHub Repos](docs/server-profiles/PRIVATE_REPOS.md)
   <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md) -->
   <!-- * [Baseline](docs/server-profiles/BASELINE.md) -->
   <!-- * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->

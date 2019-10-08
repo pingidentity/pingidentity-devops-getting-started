@@ -121,7 +121,7 @@ Docker Swarm.
 ...
 ```
 
-## Using an existing Product License file
+## Using an existing Product License file (Server-Profile)
 
 You can also use an existing valid product license file the product/version combo you are running, by placing them into the proper directory of your server profile. The default server profile location and file name for each product are as follows:
 
@@ -131,6 +131,32 @@ Note: You do not need to do this if you are using your DevOps User/Key. If you h
 * PingAccess - `instance/conf/pingaccess.lic`
 * PingDirectory - `instance/PingDirectory.lic`
 * PingDataSync - `instance/PingDirectory.lic`
+
+## Using an existing Product License file (Mounted /opt/in volume)
+
+You can pass the license file to a container via mounting the container's `/opt/in` directory.
+
+Note: You do not need to do this if you are using your DevOps User/Key. If you have provided license files via the volume mount and a DevOps User/Key, it will ignore the DevOps User/Key.
+
+The `/opt/in` volume overlays files onto the products runtime filesystem, the license needs to be in the exact location the product checks for valid licenses.
+
+### Example Mounts
+
+**PingFederate**
+* License file located at: /tmp/pingfederate/instance/server/default/conf/pingfederate.lic
+* Mount: /tmp/pingfederate:/opt/in
+
+**PingAccess**
+* License file located at: /tmp/pingaccess/instance/conf/pingaccess.lic
+* Mount: /tmp/pingaccess:/opt/in
+
+**PingDirectory**
+* License file located at: /tmp/pingdirectory/instance/PingDirectory.lic
+* Mount: /tmp/pingdirectory:/opt/in
+
+**PingDataSync**
+* License file located at: /tmp/pingdatasync/instance/PingDirectory.lic
+* Mount: /tmp/pingdatasync:/opt/in
 
 ## Troubleshooting
 
