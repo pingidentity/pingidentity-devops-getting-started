@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
+# this script must be executed as a privileged user
+
+### Get latest packages
 yum -y update
 yum -y upgrade
 yum -y install yum-utils device-mapper-persistent-data lvm2 dstat
