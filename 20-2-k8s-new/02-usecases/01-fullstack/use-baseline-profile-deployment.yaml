@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingaccess
+spec:
+  template:
+    spec:
+      containers:
+      - env:
+        - name: SERVER_PROFILE_PATH
+          value: "baseline/pingaccess"
