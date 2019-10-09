@@ -6,8 +6,9 @@ metadata:
     app: pingaccessengine
 spec:
   ports:
-    - port: 3000
+    - port: 443
       name: pa-engine
+      targetPort: 3000
   selector:
     app: pingaccessengine
 ---
@@ -31,8 +32,7 @@ spec:
       containers:
       - name: pingaccessengine
         image: pingidentity/pingaccess:5.2.3-edge
-        ports:
-        - containerPort: 443
+        ports:        
         - containerPort: 3000
         env:
         - name: SERVER_PROFILE_URL

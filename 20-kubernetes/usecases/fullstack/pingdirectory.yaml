@@ -72,6 +72,9 @@ spec:
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
           value: "baseline/pingdirectory"
+        envFrom:
+        - secretRef:
+            name: devops-secret
         #- name: TOPOLOGY_PREFIX
           #value: "ds-topology-"
         #- name: TOPOLOGY_SIZE
