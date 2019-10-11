@@ -1,0 +1,143 @@
+#!/bin/bash
+cd "$( dirname "${0}" )"
+THIS="$( basename "${0}" )"
+THIS_DIR=`pwd`
+
+. ../../99-helper-scripts/setup_utils.sh
+
+DOT_PINGIDENTITY="${HOME}/.pingidentity"
+################################################################################
+# Check for a .pingidentity directory with propertyfile
+################################################################################
+test -d "${DOT_PINGIDENTITY}" || mkdir -p "${DOT_PINGIDENTITY}"
+
+_PROP_FILE="${DOT_PINGIDENTITY}/aws-eks"
+test -f "${_PROP_FILE}" && source "${_PROP_FILE}" && mv "${_PROP_FILE}" "${_PROP_FILE}".prev
+
+
+function aws_eks_setup()
+{
+  echo "
+################################################################################
+#                         Ping Identity Property Files
+################################################################################
+This will create Ping Identity DevOps Property file (${_PROP_FILE})
+and they will be used as environment variables for scripts, .yamls, etc...
+################################################################################
+"
+
+  echo "
+########################################################################
+# PingIdentity AWS EKS Variables
+########################################################################
+" >> ${_PROP_FILE}
+  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_NAME"          ""      "Kubernetes Cluster Name"
+  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_DOMAIN"        ""      "Kubernetes Cluster Domain"
+  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_NAMESPACE"             ""      "Kubernetes Namespace"
+  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_REGION"                ""      "AWS Region hosting cluster"
+}
+
+################################################################################
+# main
+################################################################################
+echo "
+
+################################################################################
+
+                     Welcome to Ping Identity DevOps (AWS-EKS)!
+
+  We will run through a few setup items to make your experiance as easy as 
+  possible.  These include:
+  
+    - Checking for required tools used run kubernetes in AWS EKS
+    - Adding ${_PROP_FILE} to your .bash_profile
+    - Setting up your default ${_PROP_FILE} settings
+    
+  You may run this setup script anytime in the future to change 
+  settings and check for tools.
+  
+  If we have recommendations along the way, we'll provide that
+  also.
+"
+
+# Source aliases that will be used throughout the setup
+
+source ../../bash_profile_devops
+
+aws_eks_setup
+
+
+echo "
+################################################################################
+#                         Ping Identity AWS K8S Tools
+################################################################################
+"
+
+check_tool "openssl"  "brew install openssl"
+check_tool "base64"    "brew install base64"
+check_tool "kustomize" "brew install base64"
+check_tool "kubectl"   "https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos"
+check_tool "kubectx"   "brew install kubectx"
+check_tool "envsubst"  "brew install envsubst"
+
+check_tool "aws"      "https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html"
+
+echo ""
+
+echo -e "
+####################### RESULTS ################################################
+
+ ${GREEN}     OK: $numOk${NC}
+ ${RED}MISSING: $numMissing${NC}
+
+  If there were items to resolve, please complete those now.  Simply 
+  rerun '${THIS}' again to validate all steps are complete.
+
+  ${PURPLE}NOTE: In order to get the new aliases, you should restart your shell
+  or simply source the bash_profile_devops file.  Just cut/paste the following
+  command:
+
+    source ${THIS_DIR}/bash_profile_devops${NC}
+
+################################################################################
+
+  Some great commands to see sample docker or kubectl commands
+  can be found with:
+
+    dhelp     # DevOps Help
+    khelp     # Kubernetes Help
+
+  Drop us a line, let us know how it's going:
+
+    devops_program@pingidentity.com
+"
+
+echo "
+################################################################################
+
+  Follow these commands to continue setting up your envionment to use the
+  kubernetes cluster.
+
+  1. Following sets up your AWS credentials
+
+aws configure --profile ${PING_IDENTITY_AWS_NAMESPACE}
+
+  2. Following adds the new kubernetes context to your .kube/config
+
+aws eks update-kubeconfig \\
+  --profile ${PING_IDENTITY_AWS_NAMESPACE} \\
+  --region ${PING_IDENTITY_AWS_REGION} \\
+  --name ${PING_IDENTITY_K8S_CLUSTER_NAME} \\
+  --alias ${PING_IDENTITY_K8S_CLUSTER_NAME}
+
+  3. Following changes your shell to the new context and namespace
+
+kubectx ${PING_IDENTITY_K8S_CLUSTER_NAME}
+
+kubens ping-cloud-${PING_IDENTITY_AWS_NAMESPACE}
+
+  4. To get details about your setup
+
+kenv
+
+"
