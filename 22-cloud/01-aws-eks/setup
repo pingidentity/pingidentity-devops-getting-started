@@ -111,3 +111,28 @@ echo -e "
 
     devops_program@pingidentity.com
 "
+
+echo "
+################################################################################
+
+  Follow these commands to continue setting up your envionment to use the
+  kubernetes cluster.
+
+  1. Following sets up your AWS credentials
+
+aws configure --profile ${PING_IDENTITY_AWS_NAMESPACE}
+
+  2. Following adds the new kubernetes context to your .kube/config
+
+aws eks update-kubeconfig \\
+  --profile ${PING_IDENTITY_AWS_NAMESPACE} \\
+  --region ${PING_IDENTITY_AWS_REGION} \\
+  --name ${PING_IDENTITY_K8S_CLUSTER_NAME} \\
+  --alias ${PING_IDENTITY_K8S_CLUSTER_NAME}
+
+  3. Following changes your shell to the new context and namespace
+
+kubectx ${PING_IDENTITY_K8S_CLUSTER_NAME}
+
+kubens ping-cloud-${PING_IDENTITY_AWS_NAMESPACE}
+"
