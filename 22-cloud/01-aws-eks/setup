@@ -135,4 +135,9 @@ aws eks update-kubeconfig \\
 kubectx ${PING_IDENTITY_K8S_CLUSTER_NAME}
 
 kubens ping-cloud-${PING_IDENTITY_AWS_NAMESPACE}
+
+  4. To get details about your setup
+
+kenv
+
 "
