@@ -228,9 +228,6 @@ cat <<EOP1ENV
 +-----------------------------------------------------------------------------------------+
 |          PING_IDENTITY_DEVOPS_USER: ${PING_IDENTITY_DEVOPS_USER}
 |          PING_IDENTITY_DEVOPS_KEY : ${PING_IDENTITY_DEVOPS_KEY}
-|
-|               Current k8s Context : $(kubectl config current-context)
-|             Current k8s Namespace : $(kubectl config view --minify --output 'jsonpath={..namespace}')
 +-----------------------------------------------------------------------------------------+
  To use with '.yaml' files (use snippet below)
      env:
@@ -238,6 +235,23 @@ cat <<EOP1ENV
           value: "${PING_IDENTITY_DEVOPS_USER}"
         - name: PING_IDENTITY_DEVOPS_KEY
           value: "${PING_IDENTITY_DEVOPS_KEY}"
++-----------------------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------------------------+
+|             ${bold}Ping Identity AWS EKS Information${normal}
+|             ${bold}Sourced from ~/.pingidentity/aws-eks${normal}
++-----------------------------------------------------------------------------------------+
+|    PING_IDENTITY_K8S_CLUSTER_NAME : ${PING_IDENTITY_K8S_CLUSTER_NAME}
+|  PING_IDENTITY_K8S_CLUSTER_DOMAIN : ${PING_IDENTITY_K8S_CLUSTER_DOMAIN}
+|       PING_IDENTITY_AWS_NAMESPACE : ${PING_IDENTITY_AWS_NAMESPACE}
+|          PING_IDENTITY_AWS_REGION : ${PING_IDENTITY_AWS_REGION}
++-----------------------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------------------------+
+|             ${bold}Current Kubernetes Context/Namespace${normal}
++-----------------------------------------------------------------------------------------+
+|               Current k8s Context : $(kubectl config current-context)
+|             Current k8s Namespace : $(kubectl config view --minify --output 'jsonpath={..namespace}')
 +-----------------------------------------------------------------------------------------+
 EOP1ENV
 }
@@ -343,6 +357,9 @@ function sourcePingIdentityFiles ()
     test -f ~/.pingidentity/devops && \
         . ~/.pingidentity/devops && \
         export $(grep "^[A-Z]" ~/.pingidentity/devops | cut -d= -f1)
+    test -f ~/.pingidentity/aws-eks && \
+        . ~/.pingidentity/aws-eks && \
+        export $(grep "^[A-Z]" ~/.pingidentity/aws-eks | cut -d= -f1)
     test -f ~/.pingidentity/p14c  && \
         . ~/.pingidentity/p14c && \
         export $(grep "^[A-Z]" ~/.pingidentity/p14c | cut -d= -f1)
