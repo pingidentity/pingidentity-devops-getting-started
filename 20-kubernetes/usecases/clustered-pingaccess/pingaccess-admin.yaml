@@ -8,8 +8,8 @@ spec:
   ports:
     - port: 9000
       name: pa-admin
-    - port: 443
-      name: pa-app
+    - port: 9090
+      name: pa-cluster
   selector:
     app: pingaccess
 ---
@@ -32,15 +32,19 @@ spec:
     spec:
       containers:
       - name: pingaccess
-        image: pingidentity/pingaccess:edge
+        image: pingidentity/pingaccess:5.2.3-edge
         ports:
         - containerPort: 9000
-        - containerPort: 443
+        - containerPort: 9090
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
-          value: "baseline/pingaccess"
+          value: "pa-clustering/pingaccess"
+        - name: OPERATIONAL_MODE
+          value: "CLUSTERED_CONSOLE"
+        - name: PA_CONSOLE_HOST
+          value: pingaccess
         envFrom:
         - secretRef:
             name: devops-secret

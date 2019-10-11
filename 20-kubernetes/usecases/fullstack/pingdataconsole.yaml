@@ -5,11 +5,9 @@ metadata:
   labels:
     app: pingdataconsole
 spec:
-  type: LoadBalancer
   ports:
-    - port: 80
+    - port: 8080
       name: http
-      targetPort: 8443
   selector:
     app: pingdataconsole
 ---
@@ -34,4 +32,4 @@ spec:
       - name: pingdataconsole
         image: pingidentity/pingdataconsole:edge
         ports:
-        - containerPort: 8443
+        - containerPort: 8080

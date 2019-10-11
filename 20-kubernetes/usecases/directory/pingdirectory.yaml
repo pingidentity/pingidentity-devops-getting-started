@@ -8,7 +8,6 @@ metadata:
   labels:
     app: pd-label
 spec:
-  type: LoadBalancer
   ports:
   - name: ldap
     port: 389
