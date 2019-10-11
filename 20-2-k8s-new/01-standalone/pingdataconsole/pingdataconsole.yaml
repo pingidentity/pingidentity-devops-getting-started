@@ -6,9 +6,8 @@ metadata:
     app: pingdataconsole
 spec:
   ports:
-    - port: 8443
+    - port: 8080
       name: http
-      targetPort: 8443
   selector:
     app: pingdataconsole
 ---
@@ -32,6 +31,5 @@ spec:
       containers:
       - name: pingdataconsole
         image: pingidentity/pingdataconsole:edge
-        imagePullPolicy: Always
         ports:
-        - containerPort: 8443
+        - containerPort: 8080

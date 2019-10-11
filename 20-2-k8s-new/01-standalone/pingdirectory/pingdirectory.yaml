@@ -28,7 +28,7 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: ds
+  name: pingdirectory
 spec:
   serviceName: pingdirectory
   replicas: 1
@@ -51,7 +51,7 @@ spec:
       #- name: out-dir 
         #persistentVolumeClaim:
           #claimName: out-dir
-      # terminationGracePeriodSeconds: 300
+      terminationGracePeriodSeconds: 300
       containers:
       - name: pingdirectory
         image: pingidentity/pingdirectory:edge
@@ -71,22 +71,26 @@ spec:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
-          value: "getting-started/pingaccess"
-        # the following must be replaced manually or via envsubst  
-        - name: PING_IDENTITY_DEVOPS_USER
-          value: ${PING_IDENTITY_DEVOPS_USER}
-        - name: PING_IDENTITY_DEVOPS_KEY
-          value: ${PING_IDENTITY_DEVOPS_USER}
+          value: "getting-started/pingdirectory"
+        envFrom:
+        - secretRef:
+            name: devops-secret
         #- name: TOPOLOGY_PREFIX
           #value: "ds-topology-"
         #- name: TOPOLOGY_SIZE
           #value: "2"
         readinessProbe:
           exec:
-            command: [ /opt/liveness.sh ]
+            command: 
+              - /bin/sh
+              - -c
+              - /opt/liveness.sh
         livenessProbe:
           exec:
-            command: [ /opt/liveness.sh ]
+            command:
+              - /bin/sh
+              - -c
+              - /opt/liveness.sh
           initialDelaySeconds: 300
           periodSeconds: 30
         lifecycle:

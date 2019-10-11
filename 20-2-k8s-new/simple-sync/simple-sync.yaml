@@ -37,13 +37,6 @@ spec:
         - containerPort: 636
         - containerPort: 443
         - containerPort: 389
-        resources:
-          requests:
-            memory: "4Gi"
-            cpu: "0"
-          limits:
-            memory: "4Gi"
-            cpu: "0"
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"

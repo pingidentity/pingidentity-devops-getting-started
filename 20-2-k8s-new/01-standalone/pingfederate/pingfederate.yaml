@@ -8,8 +8,6 @@ spec:
   ports:
     - port: 9999
       name: pf-admin
-    - port: 9031
-      name: pf-runtime
   selector:
     app: pingfederate
 ---
@@ -35,14 +33,11 @@ spec:
         image: pingidentity/pingfederate:edge
         ports:
         - containerPort: 9999
-        - containerPort: 9031
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
-          value: "getting-started/pingaccess"
-        # the following must be replaced manually or via envsubst  
-        - name: PING_IDENTITY_DEVOPS_USER
-          value: ${PING_IDENTITY_DEVOPS_USER}
-        - name: PING_IDENTITY_DEVOPS_KEY
-          value: ${PING_IDENTITY_DEVOPS_USER}
+          value: "getting-started/pingfederate"
+        envFrom:
+        - secretRef:
+            name: devops-secret
