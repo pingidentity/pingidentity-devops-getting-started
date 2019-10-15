@@ -98,11 +98,11 @@ sourcePingIdentityFiles" >> "${BASH_PROFILE}"
 }
 
 ################################################################################
-# devops_add_config (file, variable, default, prompt)
+# add_config (file, variable, default, prompt)
 #
 # Add a config variale to the devops file
 ################################################################################
-function devops_add_config()
+function add_config()
 {
   PROPS_FILE="${1}" && shift
   VAR_TO_SET="${1}" && shift
@@ -128,11 +128,11 @@ function devops_add_config()
 }
 
 ################################################################################
-# devops_add_comment (file, message)
+# add_comment (file, message)
 #
 # Add a comment to the devops file
 ################################################################################
-function devops_add_comment()
+function add_comment()
 {
   _TFILE="${1}" && shift
   _MSG="${@}"

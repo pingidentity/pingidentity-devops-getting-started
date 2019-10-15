@@ -31,10 +31,20 @@ and they will be used as environment variables for scripts, .yamls, etc...
 # PingIdentity AWS EKS Variables
 ########################################################################
 " >> ${_PROP_FILE}
-  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_NAME"          ""      "Kubernetes Cluster Name"
-  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_DOMAIN"        ""      "Kubernetes Cluster Domain"
-  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_NAMESPACE"             ""      "Kubernetes Namespace"
-  devops_add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_REGION"                ""      "AWS Region hosting cluster"
+  add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_NAME"          ""      "Kubernetes Cluster Name"
+  add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_DOMAIN"        ""      "Kubernetes Cluster Domain"
+  add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_NAMESPACE"             ""      "Kubernetes Namespace"
+  add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_REGION"                ""      "AWS Region hosting cluster"
+
+echo "
+########################################################################
+# Additional temporary variables used with ping-cloud-base dev-env.sh script
+########################################################################
+TENANT_NAME="${PING_IDENTITY_K8S_CLUSTER_NAME}"
+TENANT_DOMAIN="${PING_IDENTITY_K8S_CLUSTER_DOMAIN}"
+ENVIRONMENT="${PING_IDENTITY_AWS_NAMESPACE}"
+REGION="${PING_IDENTITY_AWS_REGION}"
+" >> ${_PROP_FILE}
 }
 
 ################################################################################
@@ -75,7 +85,7 @@ echo "
 
 check_tool "openssl"  "brew install openssl"
 check_tool "base64"    "brew install base64"
-check_tool "kustomize" "brew install base64"
+check_tool "kustomize" "brew install kustomize"
 check_tool "kubectl"   "https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos"
 check_tool "kubectx"   "brew install kubectx"
 check_tool "envsubst"  "brew install envsubst"
