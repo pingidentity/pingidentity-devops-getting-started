@@ -31,10 +31,14 @@ and they will be used as environment variables for scripts, .yamls, etc...
 # PingIdentity AWS EKS Variables
 ########################################################################
 " >> ${_PROP_FILE}
+  add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_IAM_USER"              ""      "AWS IAM User"
+
+PING_IDENTITY_K8S_NAMESPACE="ping-cloud-${PING_IDENTITY_AWS_IAM_USER}"
+
+  add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_REGION"                ""      "AWS Region hosting cluster"
   add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_NAME"          ""      "Kubernetes Cluster Name"
   add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_CLUSTER_DOMAIN"        ""      "Kubernetes Cluster Domain"
-  add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_NAMESPACE"             ""      "Kubernetes Namespace"
-  add_config "${_PROP_FILE}" "PING_IDENTITY_AWS_REGION"                ""      "AWS Region hosting cluster"
+  add_config "${_PROP_FILE}" "PING_IDENTITY_K8S_NAMESPACE"             ""      "Kubernetes Namespace"
 
 echo "
 ########################################################################
@@ -42,7 +46,7 @@ echo "
 ########################################################################
 TENANT_NAME="${PING_IDENTITY_K8S_CLUSTER_NAME}"
 TENANT_DOMAIN="${PING_IDENTITY_K8S_CLUSTER_DOMAIN}"
-ENVIRONMENT="${PING_IDENTITY_AWS_NAMESPACE}"
+ENVIRONMENT="${PING_IDENTITY_K8S_NAMESPACE}"
 REGION="${PING_IDENTITY_AWS_REGION}"
 " >> ${_PROP_FILE}
 }
@@ -130,12 +134,12 @@ echo "
 
   1. Following sets up your AWS credentials
 
-aws configure --profile ${PING_IDENTITY_AWS_NAMESPACE}
+aws configure --profile ${PING_IDENTITY_AWS_IAM_USER}
 
   2. Following adds the new kubernetes context to your .kube/config
 
 aws eks update-kubeconfig \\
-  --profile ${PING_IDENTITY_AWS_NAMESPACE} \\
+  --profile ${PING_IDENTITY_AWS_IAM_USER} \\
   --region ${PING_IDENTITY_AWS_REGION} \\
   --name ${PING_IDENTITY_K8S_CLUSTER_NAME} \\
   --alias ${PING_IDENTITY_K8S_CLUSTER_NAME}
@@ -144,7 +148,7 @@ aws eks update-kubeconfig \\
 
 kubectx ${PING_IDENTITY_K8S_CLUSTER_NAME}
 
-kubens ping-cloud-${PING_IDENTITY_AWS_NAMESPACE}
+kubens ping-cloud-${PING_IDENTITY_K8S_NAMESPACE}
 
   4. To get details about your setup
 

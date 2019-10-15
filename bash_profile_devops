@@ -241,10 +241,11 @@ cat <<EOP1ENV
 |             ${bold}Ping Identity AWS EKS Information${normal}
 |             ${bold}Sourced from ~/.pingidentity/aws-eks${normal}
 +-----------------------------------------------------------------------------------------+
+|        PING_IDENTITY_AWS_IAM_USER : ${PING_IDENTITY_AWS_IAM_USER}
+|          PING_IDENTITY_AWS_REGION : ${PING_IDENTITY_AWS_REGION}
 |    PING_IDENTITY_K8S_CLUSTER_NAME : ${PING_IDENTITY_K8S_CLUSTER_NAME}
 |  PING_IDENTITY_K8S_CLUSTER_DOMAIN : ${PING_IDENTITY_K8S_CLUSTER_DOMAIN}
-|       PING_IDENTITY_AWS_NAMESPACE : ${PING_IDENTITY_AWS_NAMESPACE}
-|          PING_IDENTITY_AWS_REGION : ${PING_IDENTITY_AWS_REGION}
+|       PING_IDENTITY_K8S_NAMESPACE : ${PING_IDENTITY_K8S_NAMESPACE}
 +-----------------------------------------------------------------------------------------+
 
 +-----------------------------------------------------------------------------------------+
