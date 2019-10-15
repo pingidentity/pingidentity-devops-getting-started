@@ -21,7 +21,7 @@ patches:
       value: baseline/pingfederate
 - target:
     kind: Deployment
-    name: pingdataconsole
+    name: pingdatagovernance
   patch: |-
     - op: replace
       path: /spec/template/spec/containers/0/env/1/value
