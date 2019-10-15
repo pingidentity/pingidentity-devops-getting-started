@@ -28,7 +28,7 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: ds
+  name: pingdirectory
 spec:
   serviceName: pingdirectory
   replicas: 1
@@ -71,7 +71,7 @@ spec:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
-          value: "baseline/pingdirectory"
+          value: "getting-started/pingdirectory"
         envFrom:
         - secretRef:
             name: devops-secret
@@ -81,10 +81,16 @@ spec:
           #value: "2"
         readinessProbe:
           exec:
-            command: [ /opt/liveness.sh ]
+            command: 
+              - /bin/sh
+              - -c
+              - /opt/liveness.sh
         livenessProbe:
           exec:
-            command: [ /opt/liveness.sh ]
+            command:
+              - /bin/sh
+              - -c
+              - /opt/liveness.sh
           initialDelaySeconds: 300
           periodSeconds: 30
         lifecycle:

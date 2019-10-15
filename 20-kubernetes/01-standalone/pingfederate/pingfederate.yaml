@@ -37,7 +37,7 @@ spec:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
-          value: "baseline/pingfederate"
+          value: "getting-started/pingfederate"
         envFrom:
         - secretRef:
             name: devops-secret

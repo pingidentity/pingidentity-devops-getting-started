@@ -1,0 +1,35 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+- ../01-standalone
+
+patches:
+- target:
+    kind: Deployment
+    name: pingaccess
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/env/1/value
+      value: baseline/pingaccess
+- target:
+    kind: Deployment
+    name: pingfederate
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/env/1/value
+      value: baseline/pingfederate
+- target:
+    kind: Deployment
+    name: pingdatagovernance
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/env/1/value
+      value: baseline/pingdatagovernance
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/env/1/value
+      value: baseline/pingdirectory

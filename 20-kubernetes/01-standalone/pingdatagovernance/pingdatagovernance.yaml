@@ -1,46 +1,46 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pingaccess
+  name: pingdatagovernance
   labels:
-    app: pingaccess
+    app: pingdatagovernance
 spec:
   ports:
-    - port: 9000
-      name: pa-admin
+    - port: 80
+      name: http
     - port: 443
-      name: pa-app
+      name: https
   selector:
-    app: pingaccess
+    app: pingdatagovernance
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pingaccess
+  name: pingdatagovernance
   labels:
-    app: pingaccess
+    app: pingdatagovernance
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pingaccess
+      app: pingdatagovernance
   template:
     metadata:
-      name: pingaccess
+      name: pingdatagovernance
       labels:
-        app: pingaccess
+        app: pingdatagovernance
     spec:
       containers:
-      - name: pingaccess
-        image: pingidentity/pingaccess:edge
+      - name: pingdatagovernance
+        image: pingidentity/pingdatagovernance:edge
         ports:
-        - containerPort: 9000
+        - containerPort: 80
         - containerPort: 443
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
         - name: SERVER_PROFILE_PATH
-          value: "baseline/pingaccess"
+          value: "getting-started/pingdatagovernance"
         envFrom:
         - secretRef:
             name: devops-secret

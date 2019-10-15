@@ -1,0 +1,72 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+- ../01-standalone/pingdataconsole
+- ../01-standalone/pingdirectory
+- storage.yaml
+
+patches:
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/replicas
+      value: 2
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/volumeMounts
+      value: [{"name":"out-dir","mountParth":"/opt/out"}]
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/volumeClaimTeplates
+      value: [{"metadata": {"name": "out-dir"},"spec": {"accessModes": ["ReadWriteOnce"],"storageClassName": "pingdirectory-gp2","resources": {"requests": {"storage": "8Gi"}}}}]
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/template/spec/volumes
+      value: [{"name":"out-dir","persistentVolumeClaim":{"claimName":"out-dir"}}]
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value: {"name": "ORCHESTRATION_TYPE","value":"kubernetes"}
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value: {"name": "K8S_STATEFUL_SET_NAME","value":"pingdirectory"}
+- target:
+    kind: StatefulSet
+    name: pingdirectory 
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value: {"name": "K8S_STATEFUL_SET_SERVICE_NAME","value":"pingdirectory"}
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value: {"name": "TAIL_LOG_FILES","value":""}
+- target:
+    kind: StatefulSet
+    name: pingdirectory
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value: {"name": "MAKELDIF_USERS","value":"1000"}
