@@ -28,7 +28,7 @@ this image.
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  | 
 | LICENSE_FILE_NAME  | pingfederate.lic  | 
 | LICENSE_SHORT_NAME  | PF  | 
-| LICENSE_VERSION  | 9.3  | 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | 
 | OPERATIONAL_MODE  | STANDALONE  | 
 | CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 

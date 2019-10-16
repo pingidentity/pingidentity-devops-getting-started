@@ -18,10 +18,10 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| PING_PRODUCT  | PingDataGovernance  | Ping product name 
+| PING_PRODUCT  | PingDataGovernance  | PingIdentity license version Ping product name 
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 
-| LICENSE_VERSION  | 7.3  | Version used when retrieving license from License Server 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 

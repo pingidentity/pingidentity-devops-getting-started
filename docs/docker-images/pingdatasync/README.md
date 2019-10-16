@@ -17,10 +17,10 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | 
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | PingIdentity license version 
 | LICENSE_FILE_NAME  | PingDirectory.lic  | 
 | LICENSE_SHORT_NAME  | PD  | 
-| LICENSE_VERSION  | 7.3  | 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | 
 | PING_PRODUCT  | PingDataSync  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | 

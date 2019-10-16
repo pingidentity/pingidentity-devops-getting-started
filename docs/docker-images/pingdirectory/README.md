@@ -18,10 +18,10 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| PING_PRODUCT  | PingDirectory  | Ping product name 
+| PING_PRODUCT  | PingDirectory  | PingIdentity license version Ping product name 
 | LICENSE_FILE_NAME  | PingDirectory.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PD  | Shortname used when retrieving license from License Server 
-| LICENSE_VERSION  | 7.3  | Version used when retrieving license from License Server 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
 | REPLICATION_PORT  | 8989  | Default PingDirectory Replication Port 
 | ADMIN_USER_NAME  | admin  | Replication administrative user 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 

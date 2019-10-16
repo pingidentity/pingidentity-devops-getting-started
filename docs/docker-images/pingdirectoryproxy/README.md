@@ -16,9 +16,9 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| LICENSE_FILE_NAME  | PingDirectory.lic  | 
+| LICENSE_FILE_NAME  | PingDirectory.lic  | PingIdentity license version 
 | LICENSE_SHORT_NAME  | PD  | 
-| LICENSE_VERSION  | 7.3  | 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | 
 | REPLICATION_PORT  | 8989  | 
 | PING_PRODUCT  | PingDirectoryProxy  | 
 | ADMIN_USER_NAME  | admin  | 
