@@ -229,12 +229,11 @@ cat <<EOP1ENV
 |          PING_IDENTITY_DEVOPS_USER: ${PING_IDENTITY_DEVOPS_USER}
 |          PING_IDENTITY_DEVOPS_KEY : ${PING_IDENTITY_DEVOPS_KEY}
 +-----------------------------------------------------------------------------------------+
- To use with '.yaml' files (use snippet below)
-     env:
-        - name: PING_IDENTITY_DEVOPS_USER
-          value: "${PING_IDENTITY_DEVOPS_USER}"
-        - name: PING_IDENTITY_DEVOPS_KEY
-          value: "${PING_IDENTITY_DEVOPS_KEY}"
+ To use with a Kubernetes Secret devops-secret
+
+ k create secret generic devops-secret  \\
+   --from-literal=PING_IDENTITY_DEVOPS_USER=${PING_IDENTITY_DEVOPS_USER} \\
+   --from-literal=PING_IDENTITY_DEVOPS_KEY=${PING_IDENTITY_DEVOPS_KEY}
 +-----------------------------------------------------------------------------------------+
 
 +-----------------------------------------------------------------------------------------+
@@ -273,8 +272,16 @@ cat <<EOHELP
  ${bold}General Info${normal}       
  ------------------------------------- 
  kall - get everything in namespace  
- kdescribe - describe
+ kd, kdescribe - describe
  
+ ${bold}Get${normal}                                       ${bold}Describe${normal}
+ -------------------------------------     ----------------------------------
+ kg, kget - get {type}                     kd, kdescribe - describe {type}
+ kgp - get pods                            kdp - describe pods
+ kgs - get services                        kds - describe services
+ kgi - get ingresses                       
+ kgn - get nodes                           kdn - describe nodes
+
  ${bold}Pods${normal}                                      ${bold}Nodes${normal}
  -------------------------------------     ----------------------------------
  kpe - execute commands (i.e. /bin/sh)     
@@ -303,7 +310,19 @@ function k () {
 
 ## kubernetes general aliases
 alias kall="k get all"
+
+alias kget="k get"
+alias kg="kget"
+alias kgp="kg pods"
+alias kgs="kg services"
+alias kgi="kg ingresses"
+alias kgn="kg nodes"
+
 alias kdescribe="k describe"
+alias kd="kdescribe"
+alias kdp="kd pods"
+alias kds="kd services"
+alias kdn="kd nodes"
 
 ## kubernetes pod aliases
 alias kpe="k exec -it"
