@@ -75,6 +75,7 @@ spec:
         envFrom:
         - secretRef:
             name: devops-secret
+            optional: true
         #- name: TOPOLOGY_PREFIX
           #value: "ds-topology-"
         #- name: TOPOLOGY_SIZE
