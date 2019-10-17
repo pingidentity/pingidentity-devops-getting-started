@@ -39,10 +39,10 @@ spec:
         resources:
           requests:
             memory: "2Gi"
-            cpu: "200m"
+            cpu: "1"
           limits:
             memory: "2Gi"
-            cpu: "200m"
+            cpu: "1"
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"

@@ -38,11 +38,11 @@ spec:
         - containerPort: 443
         resources:
           requests:
-            memory: "1Gi"
-            cpu: "200m"
+            memory: "1.5Gi"
+            cpu: "1"
           limits:
-            memory: "1Gi"
-            cpu: "200m"
+            memory: "1.5Gi"
+            cpu: "1"
         env:
         - name: SERVER_PROFILE_URL
           value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
