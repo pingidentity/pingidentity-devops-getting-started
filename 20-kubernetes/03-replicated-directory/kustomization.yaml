@@ -20,7 +20,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/template/spec/containers/0/volumeMounts
-      value: [{"name":"out-dir","mountParth":"/opt/out"}]
+      value: [{"name":"out-dir","mountPath":"/opt/out"}]
 - target:
     kind: StatefulSet
     name: pingdirectory
