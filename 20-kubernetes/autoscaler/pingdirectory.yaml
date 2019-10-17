@@ -38,14 +38,12 @@ spec:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: io1
+  name: pingdirectory-gp2
   labels:
-    app: pd-label
+    app: pingdirectory
 provisioner: kubernetes.io/aws-ebs
 parameters:
-  type: io1
-  fsType: ext4
-  iopsPerGB: "50"
+  type: gp2
 mountOptions:
   - discard
 ---
@@ -156,7 +154,7 @@ spec:
     spec:
       accessModes:
       - ReadWriteOnce
-      storageClassName: io1
+      storageClassName: pingdirectory-gp2
       resources:
         requests:
           storage: 8Gi
