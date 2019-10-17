@@ -9,7 +9,7 @@ There are several Ping Identity Server Profiles available in the Ping Identity G
 | Server Profile | Description |
 | :--- | :--- |
 | [Getting Started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) | Ping Identity products with basic install/config |
-| [Baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) | Ping Identity procucts with full integration |
+| [Baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) | Ping Identity products with full integration |
 | [Simple Sync](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/simple-sync) | DataSync server sync'ing between two PingDirectory trees |
 
 ## Playground Server Profiles
