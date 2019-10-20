@@ -126,7 +126,7 @@ First, let's add our license profile
 ```
 The SERVER_PROFILE_ variables support URL, PATH, BRANCH and PARENT values
 
-By using the SERVER_PROFILE_PARENT we can instruct the image to retrieve its parent configuration
+By using the SERVER_PROFILE_PARENT variable we can instruct the container to retrieve its parent configuration
 
 For this example, we will specify the `extensions` profile as the parent
 
