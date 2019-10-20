@@ -12,9 +12,9 @@ In a typical organization, you may have multiple deployments of Ping Identity pr
 
 * Server Profiles can be layered by specifying a parent profile (SERVER_PROFILE_PARENT=**LAYER_NAME**)
 * Declare the parent layer using the following naming convention:
-  * SERVER_PROFILE_**LAYER_NAME**_URL
-  * SERVER_PROFILE_**LAYER_NAME**_PATH
-  * SERVER_PROFILE_**LAYER_NAME**_PARENT
+  * SERVER_PROFILE_LAYER_NAME_URL
+  * SERVER_PROFILE_LAYER_NAME_PATH
+  * SERVER_PROFILE_LAYER_NAME_PARENT
 * You can have as many layers as needed
 * Each layer of the configuration is copied on top of the container's filesystem (not merged)
 * View a working example [here](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles )
@@ -195,4 +195,4 @@ environment:
 
 Once you have committed your profiles to GitHub and reference your repo's URLs within the docker-compose file, you're set to run the example.
 
-To view this example in its entirety, view the profiles and source at https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles 
+To view this example in its entirety, including profiles and docker-compose.yaml visit https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles
