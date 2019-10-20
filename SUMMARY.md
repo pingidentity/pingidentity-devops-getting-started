@@ -40,6 +40,7 @@
   * [Quick Start](docs/server-profiles/QUICKSTART.md)
   * [Develop Locally](docs/server-profiles/LOCAL-WORKSPACE.md)
   * [Administration](docs/server-profiles/ADMINISTRATION.md)
+  * [Layering Profiles](docs/server-profiles/LAYERING_SERVER_PROFILES.md)
   * [Private GitHub Repos](docs/server-profiles/PRIVATE_REPOS.md)
   <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md) -->
   <!-- * [Baseline](docs/server-profiles/BASELINE.md) -->
