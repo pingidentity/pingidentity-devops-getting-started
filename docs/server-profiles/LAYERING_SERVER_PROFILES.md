@@ -6,7 +6,7 @@ In this example, we'll walkthrough breaking up PingFederate's configuration into
 
 ## Benefits of Layering Profiles
 
-In a typical organization, you may have multiple versions of Ping Identity products running with slightly different configurations applied to each. By layering the profiles, you can reuse the configurations that are common across environments, leading to fewer configurations to manage.
+In a typical organization, you may have multiple deployments of Ping Identity products running with slightly different configurations applied to each. By layering the profiles, you can reuse the configurations that are common across environments, leading to fewer configurations to manage.
 
 ## TL;DR
 
