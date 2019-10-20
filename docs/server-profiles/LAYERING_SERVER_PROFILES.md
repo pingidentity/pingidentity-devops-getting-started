@@ -77,10 +77,10 @@ Your license profile should now look like this
 
 ### Building the PingFederate Extensions layer
 
-* Navigate to the layered-profiles extensions directory
+* Navigate to the layered-profiles `extensions` directory
 * Create directory `pingfederate`
 
-Extensions are placed within the `/instance/server/default/deploy` folder. 
+Extensions are placed within the `/instance/server/default/deploy` folder.
 
 * `mkdir -p /instance/server/default/deploy`
 * Place the extensions you want to be available within PingFederate
@@ -101,7 +101,7 @@ The extensions profile should now look similar to this (extensions will vary bas
 
 ### Building the PingFederate OAuth layer
 
-PingFederate's OAuth Playground is placed within the deploy folder like other extensions so the same steps as above apply. For this example, we've broken out the OAuth Playground into its own layer is that we may not want to make it available on all deployments of PingFederate.
+PingFederate's OAuth Playground is placed within the `/instance/server/default/deploy` directory, like other extensions, so the same steps as above apply. For this example, we've broken out OAuth Playground into its own layer as that we may not want to make it available within all deployments of PingFederate.
 
 Your oauth layer should now look like this
 
@@ -117,7 +117,7 @@ Your oauth layer should now look like this
 
 ### Building the PingFederate Deployment File
 
-For this example, we'll be using docker-compose, however, this technique can be applied to any Docker deployment (Docker Run, Swarm, Kubernetes etc)
+For this example, we'll use docker-compose, however, this technique can be applied to any Docker deployment (Docker Run, Swarm, Kubernetes etc)
 
 First, let's add our license profile
 ```
@@ -195,4 +195,4 @@ environment:
 
 Once you have committed your profiles to GitHub and reference your repo's URLs within the docker-compose file, you're set to run the example.
 
-To view this example in its entirety, including profiles and docker-compose.yaml visit https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles
+To view this example in its entirety, including profile layers and docker-compose.yaml visit https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles
