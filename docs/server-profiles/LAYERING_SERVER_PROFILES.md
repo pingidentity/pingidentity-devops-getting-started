@@ -10,11 +10,11 @@ In a typical organization, you may have multiple deployments of Ping Identity pr
 
 ## TL;DR
 
-* Server Profiles can be layered by specifying a parent profile (SERVER_PROFILE_PARENT=**<LAYER_NAME>**)
+* Server Profiles can be layered by specifying a parent profile (SERVER_PROFILE_PARENT=**LAYER_NAME**)
 * Declare the parent layer using the following naming convention:
-  * SERVER_PROFILE_**<LAYER_NAME>**_URL
-  * SERVER_PROFILE_**<LAYER_NAME>**_PATH
-  * SERVER_PROFILE_**<LAYER_NAME>**_PARENT
+  * SERVER_PROFILE_**LAYER_NAME**_URL
+  * SERVER_PROFILE_**LAYER_NAME**_PATH
+  * SERVER_PROFILE_**LAYER_NAME**_PARENT
 * You can have as many layers as needed
 * Each layer of the configuration is copied on top of the container's filesystem (not merged)
 * View a working example [here](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles )
