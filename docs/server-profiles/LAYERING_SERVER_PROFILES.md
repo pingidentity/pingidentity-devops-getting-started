@@ -134,7 +134,7 @@ For this example, we will specify the `extensions` profile as the parent
     - SERVER_PROFILE_PARENT=EXTENSIONS
 ```
 
-The SERVER_PROFILE variable can be extended to use reference profiles. Since we said the parent to the license profile is EXTENSIONS. The EXTENSIONS profile can be declared as
+The SERVER_PROFILE variable can be extended to use reference additional profiles. Since we specified license profile's parent as EXTENSIONS, the EXTENSIONS profile can be declared as
 
 ```
     - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -143,7 +143,7 @@ The SERVER_PROFILE variable can be extended to use reference profiles. Since we 
 
 Note: the name of the PARENT is inserted into the SERVER_PROFILE variable Eg. SERVER_PROFILE_**EXTENSIONS**_URL
 
-Next, let's set EXTENSIONS parent to OAUTH
+Next, set EXTENSIONS parent to OAUTH
 
 ```
     - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
