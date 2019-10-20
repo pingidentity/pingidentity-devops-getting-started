@@ -37,7 +37,7 @@ See completed layered profile example [here](https://github.com/pingidentity/pin
 
 As PingFederate's configuration is file-based, layering configuration works by copying configuration on top of the Docker container’s filesystem. It is important to note that files are not merged when layering so it is best practice to only layer items that won't be impacted by other configuration files.
 
-### Creating the base folders
+### Creating the Base Folders
 
 In this example we will use one GitHub repository for simplicity, however, you can span configurations across multiple repositories if desired.
 
@@ -56,7 +56,7 @@ Once completed your directory structure should be
     └── oauth
 ```
 
-### Constructing the PingFederate License layer
+### Constructing PingFederate's License Layer
 
 * Navigate to the license directory
 * Create directory `pingfederate`
@@ -75,7 +75,7 @@ Your license profile should now look like this
                         └── pingfederate.lic
 ```
 
-### Building the PingFederate Extensions layer
+### Building PingFederate's Extensions Layer
 
 * Navigate to the layered-profiles `extensions` directory
 * Create directory `pingfederate`
@@ -99,7 +99,7 @@ The extensions profile should now look similar to this (extensions will vary bas
                         └── pf-slack-quickconnection-3.0.jar
 ```
 
-### Building the PingFederate OAuth layer
+### Building PingFederate's OAuth Layer
 
 PingFederate's OAuth Playground is placed within the `/instance/server/default/deploy` directory, like other extensions, so the same steps as above apply. For this example, we've broken out OAuth Playground into its own layer as that we may not want to make it available within all deployments of PingFederate.
 
