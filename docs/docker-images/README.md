@@ -60,7 +60,7 @@ Each of the tags above has additional variations to provide flexibility for your
 These variations include adding `{{productVersion}}`, `{{operatingSystem}}`, or a combination. 
 
 #### `{{product}}:{{productVersion}}-{{baseTag}}`
-> NOTE: order of {{productVersion}}-{{baseTag}} is important and slightly different depending on the base tag. 
+> NOTE: order of `{{productVersion}}-{{baseTag}}` is important and slightly different depending on the base tag. 
 
 Examples: 
 ```
@@ -73,7 +73,7 @@ Each of these tags reference a specific product version, and specific [base tag]
 ProductVersion-edge tags use Alpine for the container OS.
 
 #### `{{product}}:{{os}}-{{baseTag}}`
-> NOTE: order of {{os}}-{{baseTag}} is important and slightly different depending on the base tag. 
+> NOTE: order of `{{os}}-{{baseTag}}` is important and slightly different depending on the base tag. 
 Examples:
 ```
 pingaccess:alpine-edge
@@ -83,7 +83,7 @@ pingfederate:1909-centos
 Each of these tags reference a specific operating system, and specific [base tag](#base-tags). Without specifying the product version, the latest available is used. 
 
 #### `{{product}}:{{productVersion}-{{os}}-{{baseTag}}`
-> NOTE: order of {{os}}-{{baseTag}} is important and slightly different depending on the base tag. 
+> NOTE: order of `{{os}}-{{baseTag}}` is important and slightly different depending on the base tag. 
 Examples:
 ```
 pingaccess:5.3.0-alpine-edge
