@@ -125,9 +125,11 @@ alias dps="run docker ps"
 dsa() 
 { 
   echo "Running command to: ${bold}Stop all running containers${normal}";
-  c=$(docker ps -q);
-  if [ ! -z "${c}" ]; then
-    run docker stop ${c}
+  c=$(docker container ls -a -q)
+  if ! test -z $c ; then
+    docker container stop $(docker container ls -a -q)
+  else
+    echo "No containers found to stop"
   fi
 }
 
@@ -135,9 +137,11 @@ dsa()
 dra() 
 {
   echo "Running command to: ${bold}Remove all stopped containers${normal}";
-  c=$(docker ps -a -q);
-  if [ ! -z "${c}" ]; then
-    run docker container rm ${c}
+  c=$(docker container ls -a -q)
+  if ! test -z $c ; then
+    docker container stop $(docker container ls -a -q)
+  else
+    echo "No containers found to remove"
   fi
 }
 alias dce="run docker container exec -it"
