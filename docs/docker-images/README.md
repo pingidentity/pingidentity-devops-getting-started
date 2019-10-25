@@ -68,9 +68,7 @@ pingaccess:5.3.0-edge
 pingaccess:5.3.0-latest
 pingaccess:1909-5.3.0
 ```
-Each of these tags reference a specific product version, and specific [base tag](#base-tags). Without specifying the OS, alpine is used. 
-
-ProductVersion-edge tags use Alpine for the container OS.
+> Each of these tags reference a specific product version, and specific [base tag](#base-tags). Without specifying the OS, alpine is used. ProductVersion-edge tags use Alpine for the container OS.
 
 #### `{{product}}:{{os}}-{{baseTag}}`
 > NOTE: order of `{{os}}-{{baseTag}}` is important and slightly different depending on the base tag. 
@@ -80,7 +78,7 @@ pingaccess:alpine-edge
 pingaccess:ubuntu-latest
 pingfederate:1909-centos
 ```
-Each of these tags reference a specific operating system, and specific [base tag](#base-tags). Without specifying the product version, the latest available is used. 
+> Each of these tags reference a specific operating system, and specific [base tag](#base-tags). Without specifying the product version, the latest available is used. 
 
 #### `{{product}}:{{productVersion}-{{os}}-{{baseTag}}`
 > NOTE: order of `{{os}}-{{baseTag}}` is important and slightly different depending on the base tag. 
