@@ -72,6 +72,7 @@ pingaccess:1909-5.3.0
 
 #### `{{product}}:{{os}}-{{baseTag}}`
 > NOTE: order of `{{os}}-{{baseTag}}` is important and slightly different depending on the base tag. 
+
 Examples:
 ```
 pingaccess:alpine-edge
@@ -82,6 +83,7 @@ pingfederate:1909-centos
 
 #### `{{product}}:{{productVersion}-{{os}}-{{baseTag}}`
 > NOTE: order of `{{os}}-{{baseTag}}` is important and slightly different depending on the base tag. 
+
 Examples:
 ```
 pingaccess:5.3.0-alpine-edge
