@@ -370,7 +370,7 @@ function kdelall() {
   echo "Running command to: ${bold}Delete all ${1}${normal}";
   resource_types="pods|deployments|services|ingresses"
   case "${1}" in
-    "${resource_types}")
+    pods|deployments|services|ingresses)
       kubectl delete ${1} --all --force --grace-period=0 -n "$(kubectl get sa default -o jsonpath='{.metadata.namespace}')"
     ;;
     *)
