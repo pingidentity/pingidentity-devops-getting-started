@@ -35,7 +35,7 @@
                     "pingaccess:edge. ",
                     "For PingAccess, it is recommended to always use pingaccess:<version>-edge instead.",
                     "For all tagging best practices please visit: ",
-                    "https://pingidentity-devops.gitbook.io/devops/docker-images",
+                    "https://pingidentity-devops.gitbook.io/devops/docker-images"
                     ]
     }],
     "pingdatagovernance" : [],
