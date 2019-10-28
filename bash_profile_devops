@@ -139,7 +139,7 @@ dra()
   echo "Running command to: ${bold}Remove all stopped containers${normal}";
   c=$(docker container ls -a -q)
   if ! test -z $c ; then
-    docker container stop $(docker container ls -a -q)
+    docker container rm $(docker container ls -a -q)
   else
     echo "No containers found to remove"
   fi
@@ -275,7 +275,7 @@ cat <<EOHELP
 
  ${bold}General Info${normal}       
  ------------------------------------- 
- kall - get everything in namespace  
+ kall - get k8s objects in namespace  
  kd, kdescribe - describe
  
  ${bold}Get${normal}                                       ${bold}Describe${normal}
@@ -290,7 +290,12 @@ cat <<EOHELP
  -------------------------------------     ----------------------------------
  kpe - execute commands (i.e. /bin/sh)     
  kpl - list                                knl - list
- klogs  - tail logs              
+ klogs  - tail logs for a pod              
+
+ ${bold}Delete${normal}                      
+ -------------------------------------
+ knuke [option] - delete ${bold}all${normal} resources in a namespace, defaults to current namespace
+      
 
  ${bold}Special${normal}
  ----------------------------------------------------------------------------
@@ -298,6 +303,10 @@ cat <<EOHELP
  ----------------------------------------------------------------------------
 EOHELP
 }
+
+#TODO: add:
+# kdelpo - delete all pods in namespace     
+# kdelall [option]- delete all [option] (pods, deployments, services) in namespace
 
 ## kubernetes
 function k () {
@@ -335,6 +344,40 @@ alias klogs="k logs -f "
 
 ## kubernetes nodes aliases
 alias knl="k get nodes"
+
+function knuke() {
+  if ! test -z "${1}"; then
+    ns="${1}"
+  else
+    ns="$(kubectl get sa default -o jsonpath='{.metadata.namespace}')"
+  fi
+  echo "Are you sure you want to force-delete EVERYTHING in namespace: ${ns}. y/n"
+  read nuke
+  if test "${nuke}" = "y" || test "${nuke}" = "yes"; then
+    echo "${bold}deploy nuke${normal}";
+    kubectl delete pods,configmaps,secrets,jobs,cronjobs,statefulsets,deployments,persistentVolumes,persistentvolumeclaims,services,ingresses -n "$(kubectl get sa default -o jsonpath='{.metadata.namespace}')" --grace-period=0 --force --all
+  else 
+    echo "crisis averted"
+  fi
+}
+
+function kdelpo() {
+  echo "Running command to: ${bold}Delete all pods${normal}";
+  kubectl delete pods --all --force --grace-period=0 -n "$(kubectl get sa default -o jsonpath='{.metadata.namespace}')"
+}
+
+function kdelall() {
+  echo "Running command to: ${bold}Delete all ${1}${normal}";
+  resource_types="pods|deployments|services|ingresses"
+  case "${1}" in
+    "${resource_types}")
+      kubectl delete ${1} --all --force --grace-period=0 -n "$(kubectl get sa default -o jsonpath='{.metadata.namespace}')"
+    ;;
+    *)
+      echo "please pass a parameter: $resource_types"
+    ;;
+  esac
+}
 
 ##############################################################################
 # Aliases of commonly used PingOne For Customer commands
