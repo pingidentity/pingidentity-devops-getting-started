@@ -25,9 +25,9 @@ Ping Identity uses a number of standardized naming conventions.
 #### edge
 
 Eg. `pingaccess:edge`
-</br> 
+
 "Bleeding edge" - similar to an alpha release. This _sliding_ tag includes the absolute latest hooks and scripts, but is considered highly unstable. 
-</br>
+
 The `edge` tag includes:
 
 * Latest product version
@@ -37,7 +37,7 @@ The `edge` tag includes:
 #### latest
 
 Eg. `pingfederate:latest`
-</br>
+
 The "latest" stable release - This is a _sliding_ tag that marks the latest sprint. 
 
 The `latest` tag includes:
