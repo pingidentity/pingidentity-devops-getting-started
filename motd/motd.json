@@ -25,7 +25,18 @@
                         "    https://pingidentity-devops.gitbook.io/devops/prod-license"]
         }
     ],
-    "pingaccess" : [],
+    "pingaccess" : [{
+        "validFrom": 20191026,
+        "validTo": 20191031,
+        "subject": "*******pingaccess:edge MOVING FROM 5.3.0 TO 5.3.1*******",
+        "message": ["Currently, pingaccess:edge uses product version 5.3.0.",
+                    "Configurations (data.json, PingAccess.mv.db) are tightly linked to versions.",
+                    "This version change WILL BREAK your current deployments if you are using",
+                    "pingaccess:edge. ",
+                    "For PingAccess, it is recommended to always use pingaccess:<version>-edge instead.",
+                    "For all tagging best practices please visit: ",
+                    "https://pingidentity-devops.gitbook.io/devops/docker-images"]
+    }],
     "pingdatagovernance" : [],
     "pingdatasync" : [],
     "pingdirectory" : [],
