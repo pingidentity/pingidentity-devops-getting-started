@@ -108,7 +108,7 @@ if test "${delete_all}" = "true"; then
     echo_header "Removing everything (except persistent volumes) related to namespace:${namespace}"
     echo "NOTE: Persistent volumes are not deleted as they are shared amongst namespaces."    
     echo "To delete persistent volumes run \`kubectl -n _namespace_ delete persistentvolumes --grace-period=0 --force --all\` "
-    kubectl delete pods,configmaps,secrets,jobs,statefulsets,deployments,persistentvolumeclaims,services \
+    kubectl delete pods,configmaps,secrets,jobs,cronjobs,statefulsets,deployments,persistentVolumes,persistentvolumeclaims,services \
         -n "${namespace}" \
         --grace-period=0 --force --all
     exit 0
