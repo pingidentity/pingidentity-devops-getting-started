@@ -22,7 +22,7 @@ Watch the directories initialize with:
 
 To stand up multiple PingFederate engine nodes, run compose with the `--scale` argument:
 
-`docker-compose up --scale --pingfederate=2`
+`docker-compose up -d --scale --pingfederate=2`
 
 ## Using the containers
 
