@@ -54,6 +54,6 @@
 
 ## --
 
-* [License](LICENSE)
+* [License](LICENSE.md)
 * [Contributing](CONTRIBUTING.md)
-* [Disclaimer](DISCLAIMER)
+* [Disclaimer](DISCLAIMER.md)
