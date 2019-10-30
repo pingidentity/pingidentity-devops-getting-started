@@ -33,12 +33,3 @@ directory.dev.pingidentity.com PD_HOSTNAME
 directory.prod.pingidentity.com PD_HOSTNAME
 hostname variable_name
 ```
-
-
-
-
-TODO: docker-compose examples per environment. 
-
-TODO: additional considerations: maintain each env jwks file
-
-TODO: challenges yet to overcome. this does currently suggest using the same jwks file for each environment
