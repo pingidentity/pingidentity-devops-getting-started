@@ -170,7 +170,7 @@ diw()
   dip;
   i=$(docker images 'pingidentity/*' -q|sort|uniq);
   if [ ! -z "${i}" ]; then
-    run docker image rm ${i};
+    run docker image rm docker rmi -f $(docker image ls --format '{{.Repository}} {{.ID}}' "pingidentity/*");
   else
     echo "***No Ping Identity images present to remove***"
   fi

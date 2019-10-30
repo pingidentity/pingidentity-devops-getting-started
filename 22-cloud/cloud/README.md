@@ -9,13 +9,12 @@ In the repository you will find:
 ├── cloud #Create k8s clusters in different cloud providers
 │   ├── amazon
 │   ├── azure
-│   ├── google
-│   └── minikube #sample scripts to use with minikube
+│   └── google
 ```
 
-## Development Environments
+<!-- ## Development Environments
 
-* [minikube](minikube/README.md)
+* [minikube](minikube/README.md) -->
 
 ## Public Clouds
 
