@@ -5,7 +5,6 @@ It can be challenging to manage promoting configurations through environments (e
 One part of the the challenge is the various hostnames and what they may be configured to in each environment. To overcome this, you can: 1. variablize the the exported configuration archive 2. set the variables per deployment.
 The following will cover: 
   - Recommended path to promote configurations. 
-  - 
 
 TODO: recommended path to promote configurations. repo, branches, one env_hosts file. do not fork, use blue-green for deployment. 
 
