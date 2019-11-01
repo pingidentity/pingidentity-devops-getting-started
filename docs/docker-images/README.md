@@ -105,11 +105,11 @@ Eg. `pingaccess:1908-alpine-5.3.0`
 
 All images should be tested in development before deploying to production. It is also best practice to use a _full tag_ variation like `pingaccess:5.3.0-alpine-edge` over `pingaccess:edge` to avoid dependency conflicts in profiles.  Beyond this consideration, the general recommendation is:
 
--  Use the `edge` [base tag](#base-tags) for demos and testing latest features. `edge` is not suited for production use cases as the underlying image is subject to change and backwards-compatibility is not guaranteed. 
+-  Use the `edge` [base tag](#edge) for demos and testing latest features. `edge` is not suited for production use cases as the underlying image is subject to change and backwards-compatibility is not guaranteed. 
 
-- Use the `sprint` [base tag](#base-tags) for development and production. The `sprint` tag is the _ONLY_ tag that is guaranteed to not change and as such provides the most stability for repeatable deployment in development and  production environments.
+- Use the `sprint` [base tag](#sprint) for development and production. The `sprint` tag is the _ONLY_ tag that is guaranteed to not change and as such provides the most stability for repeatable deployment in development and  production environments.
 
-- The `latest` [base tag](#base-tags) may be used in rare scenarios that require stability between sprints, but can accept a sliding tag.
+- The `latest` [base tag](#latest) may be used in rare scenarios that require stability between sprints, but can accept a sliding tag.
 
 ## Docker Image Versioning
 
