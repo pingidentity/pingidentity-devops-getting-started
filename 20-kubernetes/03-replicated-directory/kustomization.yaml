@@ -26,8 +26,8 @@ patches:
     name: pingdirectory
   patch: |-
     - op: add
-      path: /spec/volumeClaimTeplates
-      value: [{"metadata": {"name": "out-dir"},"spec": {"accessModes": ["ReadWriteOnce"],"storageClassName": "pingdirectory-gp2","resources": {"requests": {"storage": "8Gi"}}}}]
+      path: /spec/volumeClaimTemplates
+      value: [{"metadata":{"name":"out-dir"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"5Gi"}},"storageClassName":"pingdirectory-gp2"}}]
 - target:
     kind: StatefulSet
     name: pingdirectory
