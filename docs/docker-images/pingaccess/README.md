@@ -30,7 +30,7 @@ this image.
 | LICENSE_FILE_NAME  | pingaccess.lic  | 
 | LICENSE_SHORT_NAME  | PA  | 
 | LICENSE_VERSION  | 5.2  | 
-| INITIAL_ADMIN_PASSWORD  | 2FederateM0re  | 
+| INITIAL_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD:-2FederateM0re}  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
 ## Running a PingDirectory container
