@@ -32,7 +32,7 @@ this image.
 | ENCRYPTION_PASSWORD_FILE  | ${SECRETS_DIR}/encryption-password  | 
 | TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/access \  | Files tailed once container has started 
 | MAKELDIF_USERS  | 0  | Number of users to auto-populate using make-ldif templates 
-| RETRY_TIMEOUT_SECONDS  | 120  | The default retry timeout in seconds for dsreplication and remove-defunct-server 
+| RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
