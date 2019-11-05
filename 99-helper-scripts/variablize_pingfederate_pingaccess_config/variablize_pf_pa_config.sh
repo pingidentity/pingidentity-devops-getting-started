@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# set -x
+set -x
 ## init vars
 get_abs_filename() {
   # $1 : relative filename
@@ -28,7 +28,7 @@ Usage:  {options}
 
     *-p, --path {path/to/data.zip}
         path to the data.zip file must be named 'data.zip' (e.g. ~/pf/instance/data/data.zip)
-    *-s, --source {source_host}
+    -s, --source {source_host}
         The hostname to search for. (e.g. devops.pingidentity.com)
     -v, --variable (destination_variable)
         The variable name that will replace source 
@@ -196,7 +196,9 @@ variablize() {
     # dest_var=$( echo "${dest_var}" | sed 's/\$/\\$/g' ) 
     echo "dest_var=${dest_var}"
     source_host=$( echo "${source_host}" | sed 's/-/\\-/g' )
+    source_host=$( echo "${source_host}" | sed 's/_/\\_/g' )
     source_host=$( echo "${source_host}" | sed 's/\./\\./g' )
+    source_host=$( echo "${source_host}" | sed 's/\:/\\:/g' )
     echo "source_hostname=${source_host}"
     json=.json  
     xml=.xml
@@ -232,7 +234,7 @@ return_data() {
         esac
       ;;
       *)
-        if test ! "${data_to_return}" = "${data_tmp_dir}/${output_name}" ; then
+        if test ! "${data_to_return}" = "${data_tmp_dir}/${output_name}"  && test ! -z "${data_to_return}"; then
           mv "${data_to_return}" "${data_tmp_dir}/${output_name}"
         fi
         data_to_return="${data_tmp_dir}/${output_name}"
