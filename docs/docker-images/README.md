@@ -111,6 +111,8 @@ All images should be tested in development before deploying to production. It is
 
 - The `latest` [base tag](#latest) may be used in rare scenarios that require stability between sprints, but can accept a sliding tag.
 
+- But what if I want bleeding edge features, and a stable image tag!? For this, the best option is to periodically pull images with the base tag and store them in a local/private repository. 
+
 ## Docker Image Versioning
 
 * Versions follow a YYMM format
