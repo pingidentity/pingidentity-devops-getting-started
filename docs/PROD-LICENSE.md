@@ -4,6 +4,8 @@ In order to run the Ping Identity DevOps images, a valid product license is requ
 
 #### Evaluation License
 
+By registering for Ping Identity's DevOps program, you will be issued credentials that will automate the process of retreiving evalution product licensea. Please note that evalution licenses are short lived and should **not** be used in production deployments.
+
 * [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
 * [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
 * [Using your DevOps User/Key](#using-your-devops-user-and-key)
