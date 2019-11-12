@@ -111,5 +111,5 @@ Steps:
 ## Some additional notes regarding persistence and ongoing usage:
 
 * With the way we are running this container, any changes you make will be lost once you stop the container. To save your changes add `-v /some/local/path:/opt/out` to the `docker run` command. Look at the [develop locally](./local-workspace.md) doc
-* The PingFederate license is located in `tmp/pf_to_docker/server-profile-pingidentity-getting-started/pingfederate/instance/server/default/conf`. The default license will quickly expire. You can upload your own license, but be careful to not push this license to a public github. For Ping employees, you can host private repositories on Gitlab. Otherwise, you can keep your own license in your local version of the repository.
+* The PingFederate license is located in `tmp/pf_to_docker/server-profile-pingidentity-getting-started/pingfederate/instance/server/default/conf` directory. The default license will quickly expire. You can upload your own license, but be careful to not push this license to a public github. For Ping employees, you can host private repositories on Gitlab. Otherwise, you can keep your own license in your local version of the repository.
 
