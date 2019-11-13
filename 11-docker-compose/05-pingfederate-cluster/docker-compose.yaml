@@ -44,8 +44,9 @@ services:
       
       # PingFederate Settings
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
-      - CLUSTER_BIND_ADDRESS=COMPOSE_PF_CLUSTER
-     
+      - CLUSTER_BIND_ADDRESS=LINK_LOCAL
+      - PF_CLUSTER_NAME=COMPOSE_PF_CLUSTER
+
       # AWS S3 Bucket details
       - DISCOVERY_S3_LOCATION=
       - DISCOVERY_S3_ACCESS_KEY=
