@@ -20,7 +20,7 @@ docker run -d \
 open https://localhost:8443/console
 ```
 
-If you are using the PingDirectory container from these standalone images, you should be able to login with
+If you are using the PingDirectory container from these standalone images, you can login with the following credentials
 
 ```text
      Server: pingdirectory
