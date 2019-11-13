@@ -43,6 +43,7 @@
   * [Administration](docs/server-profiles/ADMINISTRATION.md)
   * [Layering Profiles](docs/server-profiles/LAYERING_SERVER_PROFILES.md)
   * [Private GitHub Repos](docs/server-profiles/PRIVATE_REPOS.md)
+  * [Message of the Day](motd/README.md)
   <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md) -->
   <!-- * [Baseline](docs/server-profiles/BASELINE.md) -->
   <!-- * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->
