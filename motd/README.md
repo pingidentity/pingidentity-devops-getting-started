@@ -6,7 +6,7 @@ The name and location of the file should be in the Github `pingidentity-devops-g
 `motd/motd.json` file.
 
 Additionally, if there is a `motd` file in the top level of the server-profile, this will simply 
-be appended to the `/etc/moted` file of the image.
+be appended to the `/etc/motd` file of the image.
 
 Upon changing this file, the author can test the new messages using the `test-motd.sh` script.
 
