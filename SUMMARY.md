@@ -32,7 +32,7 @@
     * [05-pingfederate-cluster](11-docker-compose/05-pingfederate-cluster/README.md)
   * [Docker Swarm](12-docker-swarm/README.md)
     * [PingFederate Cluster with S3](12-docker-swarm/pingfederate-clustering-with-s3/README.md)
-  * [Kubernetes](22-cloud/README.md)
+  * [Kubernetes](20-kubernetes/README.md)
     * [Amazon](22-cloud/cloud/amazon/README.md)
     * [Azure](22-cloud/cloud/azure/README.md)
     * [Google](22-cloud/cloud/google/README.md)
