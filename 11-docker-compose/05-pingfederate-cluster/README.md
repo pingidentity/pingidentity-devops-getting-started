@@ -6,9 +6,9 @@ This is an example of a PingFederate cluster
 
 Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
 
-## Prerequite
+## Prerequisite
 
-This example uses AWS S3 for PingFederate node discovery and requires you to provide the bucket name, key and secret within the docker-compose.yaml file. For additional information regarding AWS S3 setup, please review this [document](https://pingidentity-devops.gitbook.io/devops/examples/12-docker-swarm/pingfederate-clustering-with-s3#aws-s3-bucket-creation-and-permissions)
+This example uses AWS S3 for PingFederate node discovery and requires you to provide the **bucket name**, **key** and **secret** for both the admin console and engine within the docker-compose.yaml file. For additional information regarding AWS S3 setup, please review this [document](https://pingidentity-devops.gitbook.io/devops/examples/12-docker-swarm/pingfederate-clustering-with-s3#aws-s3-bucket-creation-and-permissions)
 
 ## Compose Commands
 
