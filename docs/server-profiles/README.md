@@ -18,5 +18,5 @@ There is a Github Repository containing samples, experimental, training types of
 
 | Server Profile | Description |
 | :--- | :--- |
-| [PingFed Cluster](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/getting-started-pingfederate-cluster) | Configuring a PingFed cluster with admin/engine nodes |
+| [PingFed Cluster](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pf-aws-s3-clustering) | Configuring a PingFed cluster with admin/engine nodes |
 | [PingOne for Customer](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/pingone-cloud) | Use cases around PingOne for Customer |
