@@ -8,7 +8,7 @@ This is an example of a full stack integration between PingAccess, PingFederate 
 
 Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
 
-To start the stack, from this directory run:
+To start the stack, from the directory this file is in run:
 
 `docker-compose up -d`
 
