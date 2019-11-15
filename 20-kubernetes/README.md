@@ -1,6 +1,6 @@
 # Kubernetes
 
-The `20s` section contain examlples, instructions, and scripts for Kubernetes general and cloud-provider specific use cases. 
+The `20s` section contain examples, instructions, and scripts for Kubernetes general and cloud-provider specific use cases. 
 
 To minimize repetitive and irrelevant information, this section makes use of [kustomize](https://kustomize.io/). Each level in this section builds on top of the others with `20-kubernetes/01-standalone` as the base. Though it is not necessary, for effective use of the exampmles it is recommended to be familiar with concepts such as "resources" and "patches" in `kustomize`. 
 
