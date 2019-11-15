@@ -11,20 +11,9 @@ spec:
     - port:  389
       name: ldap
   clusterIP: None
-  selector:
-    app: pingdirectory
-#---
-#apiVersion: v1
-#kind: Secret
-#metadata:
-  #name: passwords
-  #labels:
-    #usecase: fullstack
-#type: Opaque
-#data:
-  #root-user-password: "2FederateM0re"
-  #admin-user-password: "2FederateM0re"
+
 ---
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -32,25 +21,10 @@ metadata:
 spec:
   serviceName: pingdirectory
   replicas: 1
-  selector:
-    matchLabels:
-      app: pingdirectory
   template:
     metadata:
-      labels:
-        app: pingdirectory
+      name: pingdirectory
     spec:
-      #volumes:
-      #- name: server-profile-ds
-        #configMap:
-          #name: server-profile-ds
-      #- name: passwords
-        #secret:
-          #secretName: passwords
-          #defaultMode: 256
-      #- name: out-dir 
-        #persistentVolumeClaim:
-          #claimName: out-dir
       terminationGracePeriodSeconds: 300
       containers:
       - name: pingdirectory
@@ -76,10 +50,6 @@ spec:
         - secretRef:
             name: devops-secret
             optional: true
-        #- name: TOPOLOGY_PREFIX
-          #value: "ds-topology-"
-        #- name: TOPOLOGY_SIZE
-          #value: "2"
         readinessProbe:
           exec:
             command: 
@@ -101,12 +71,3 @@ spec:
               - /bin/sh
               - -c
               - /preStop.sh
-  #volumeClaimTemplates:
-  #- metadata:
-      #name: out-dir
-    #spec:
-      #accessModes:
-      #- ReadWriteOnce
-      #resources:
-        #requests:
-          #storage: 2Gi

@@ -2,33 +2,22 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pingaccess
-  labels:
-    app: pingaccess
 spec:
   ports:
     - port: 9000
       name: pa-admin
     - port: 443
       name: pa-app
-  selector:
-    app: pingaccess
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingaccess
-  labels:
-    app: pingaccess
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: pingaccess
   template:
     metadata:
       name: pingaccess
-      labels:
-        app: pingaccess
     spec:
       containers:
       - name: pingaccess

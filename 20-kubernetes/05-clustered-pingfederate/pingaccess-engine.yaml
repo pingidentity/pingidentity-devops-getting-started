@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingaccess-engine
+  labels:
+    app: pingaccess-engine
+spec:
+  ports:
+    - port: 443
+      name: pingaccess-engine
+      targetPort: 3000
+  selector:
+    app: pingaccess-engine
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingaccess-engine
+  labels:
+    app: pingaccess-engine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingaccess-engine
+  template:
+    metadata:
+      name: pingaccess-engine
+      labels:
+        app: pingaccess-engine
+    spec:
+      containers:
+      - name: pingaccess-engine
+        image: pingidentity/pingaccess:5.2.3-edge
+        ports:        
+        - containerPort: 3000
+        env:
+        - name: SERVER_PROFILE_URL
+          value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+        - name: SERVER_PROFILE_PATH
+          value: "pa-clustering/pingaccess"
+        - name: OPERATIONAL_MODE
+          value: "CLUSTERED_ENGINE"
+        - name: PA_CONSOLE_HOST
+          value: pingaccess
+        envFrom:
+        - secretRef:
+            name: devops-secret
