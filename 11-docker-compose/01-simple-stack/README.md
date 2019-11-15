@@ -2,6 +2,7 @@
 
 This is an example of a simple integration between PingFederate and PingDirectory, where the logins with PingFederate will authenticate against users in the PingDirectory.
 
+https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/01-simple-stack/docker-compose.yaml
 
 ## Getting started
 
