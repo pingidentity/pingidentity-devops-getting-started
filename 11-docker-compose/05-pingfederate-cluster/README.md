@@ -2,6 +2,8 @@
 
 This is an example of a PingFederate cluster
 
+[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/05-pingfederate-cluster/docker-compose.yaml)
+
 ## Getting started
 
 Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.

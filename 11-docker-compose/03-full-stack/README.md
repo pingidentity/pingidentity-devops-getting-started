@@ -2,6 +2,8 @@
 
 This is an example of a full stack integration between PingAccess, PingFederate and PingDirectory.
 
+[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml)
+
 ## Getting started
 
 Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
