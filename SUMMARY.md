@@ -26,6 +26,7 @@
     * [10-pingdataconsole](10-docker-standalone/10-pingdataconsole/README.md)
   * [Docker Compose](11-docker-compose/README.md)
     * [01-simple-stack](11-docker-compose/01-simple-stack/README.md)
+    * [01-simple-stack-yaml](11-docker-compose/01-simple-stack/docker-compose.yaml)
     * [02-replicated-pair](11-docker-compose/02-replicated-pair/README.md)
     * [03-full-stack](11-docker-compose/03-full-stack/README.md)
     * [04-simple-sync](11-docker-compose/04-simple-sync/README.md)
