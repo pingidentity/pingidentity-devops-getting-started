@@ -2,8 +2,8 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 # requirements beyond 01-standalone for replication: 
-#   1. additional environment variables must be passed
-#   2. number of replicas is increased
+#   1. additional environment variables must be passed - by replacing the configmap
+#   2. number of replicas is increased - patch
 # 
 #   additionally, we create a storage class and mount volumes to prepare for disasters. 
 
@@ -12,21 +12,13 @@ resources:
 - ../01-standalone/pingdirectory
 - storage.yaml
 
-patchesStrategicMerge:
-- |-
-  apiVersion: v1
-  data:
-    env_vars: |-
-      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-      SERVER_PROFILE_PATH="baseline/pingdirectory"
-      ORCHESTRATION_TYPE="KUBERNETES"
-      K8S_STATEFUL_SET_NAME="pingdirectory"
-      K8S_STATEFUL_SET_SERVICE_NAME="pingdirectory"
-      MAKELDIF_USERS="1000"
-      TAIL_LOG_FILES=""
-  kind: ConfigMap
-  metadata:
-    name: pingdirectory-environment-variables
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingdirectory-environment-variables
+  behavior: replace
+  env: env_vars.pingdirectory
 
 patches:
 - target:

@@ -6,40 +6,20 @@ resources:
 
 # The only difference in standalone deployments vs "fullstack" (integrated) is the product configurations. 
 # here we replace standalone server-profiles ("getting-started") with "baseline" for each product
-patchesStrategicMerge:
-- |-
-  apiVersion: v1
-  data:
-    env_vars: |-
-      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-      SERVER_PROFILE_PATH="baseline/pingaccess"
-  kind: ConfigMap
-  metadata:
-    name: pingaccess-environment-variables
-- |-
-  apiVersion: v1
-  data:
-    env_vars: |-
-      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-      SERVER_PROFILE_PATH="baseline/pingdatagovernance"
-  kind: ConfigMap
-  metadata:
-    name: pingdatagovernance-environment-variables
-- |-
-  apiVersion: v1
-  data:
-    env_vars: |-
-      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-      SERVER_PROFILE_PATH="baseline/pingdirectory"
-  kind: ConfigMap
-  metadata:
-    name: pingdirectory-environment-variables
-- |-
-  apiVersion: v1
-  data:
-    env_vars: |-
-      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-      SERVER_PROFILE_PATH="baseline/pingfederate"
-  kind: ConfigMap
-  metadata:
-    name: pingfederate-environment-variables
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingaccess-environment-variables
+  behavior: replace
+  env: env_vars.pingaccess
+- name: pingdatagovernance-environment-variables
+  behavior: replace
+  env: env_vars.pingdatagovernance
+- name: pingdirectory-environment-variables
+  behavior: replace
+  env: env_vars.pingdirectory
+- name: pingfederate-environment-variables
+  behavior: replace
+  env: env_vars.pingfederate

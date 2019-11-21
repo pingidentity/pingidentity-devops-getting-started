@@ -16,11 +16,12 @@ resources:
 generatorOptions:
   disableNameSuffixHash: true
 
-
 configMapGenerator:
-  - name: pingaccess-engine-environment-variables
-    files: 
-      - engine_env_vars
+- name: pingaccess-engine-environment-variables
+  env: env_vars.pingaccess-engine
+- name: pingaccess-environment-variables
+  behavior: replace
+  env: env_vars.pingaccess
       
 images:
   - name: pingidentity/pingaccess
@@ -41,16 +42,3 @@ patches:
     - op: replace
       path: /spec/template/spec/containers/0/ports
       value: [{"containerPort":9000},{"containerPort":9090}]
-
-patchesStrategicMerge:
-- |-
-  apiVersion: v1
-  data:
-    env_vars: |-
-      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-      SERVER_PROFILE_PATH="pa-clustering/pingaccess"
-      OPERATIONAL_MODE="CLUSTERED_CONSOLE"
-      PA_CONSOLE_HOST="pingaccess"
-  kind: ConfigMap
-  metadata:
-    name: pingaccess-environment-variables
