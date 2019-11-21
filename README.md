@@ -30,7 +30,7 @@ from your bash startup file (i.e. .bash_profile) to make easy use of these alias
 
 * A complete listing of Ping Identity's public images used in these examples is available at [Docker Hub](https://hub.docker.com/u/pingidentity/)
 
-# Security Warning
+## Security Warning
 
 The server profiles referenced within this repository are for demo and documentation purposes only. They contain default keys/credentials etc and are not suitable for production and carry a substantial security risk.
 
