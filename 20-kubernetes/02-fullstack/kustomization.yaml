@@ -4,32 +4,40 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 resources:
 - ../01-standalone
 
-patches:
-- target:
-    kind: Deployment
-    name: pingaccess
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingaccess
-- target:
-    kind: Deployment
-    name: pingfederate
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingfederate
-- target:
-    kind: Deployment
-    name: pingdatagovernance
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingdatagovernance
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingdirectory
+patchesStrategicMerge:
+- |-
+  apiVersion: v1
+  data:
+    env_vars: |-
+      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+      SERVER_PROFILE_PATH="baseline/pingaccess"
+  kind: ConfigMap
+  metadata:
+    name: pingaccess-environment-variables
+- |-
+  apiVersion: v1
+  data:
+    env_vars: |-
+      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+      SERVER_PROFILE_PATH="baseline/pingdatagovernance"
+  kind: ConfigMap
+  metadata:
+    name: pingdatagovernance-environment-variables
+- |-
+  apiVersion: v1
+  data:
+    env_vars: |-
+      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+      SERVER_PROFILE_PATH="baseline/pingdirectory"
+  kind: ConfigMap
+  metadata:
+    name: pingdirectory-environment-variables
+- |-
+  apiVersion: v1
+  data:
+    env_vars: |-
+      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+      SERVER_PROFILE_PATH="baseline/pingfederate"
+  kind: ConfigMap
+  metadata:
+    name: pingfederate-environment-variables

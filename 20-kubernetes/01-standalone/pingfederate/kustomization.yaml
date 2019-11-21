@@ -3,3 +3,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
 - pingfederate.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingfederate-environment-variables
+  files:
+    - env_vars

@@ -13,17 +13,6 @@ spec:
   clusterIP: None
   selector:
     app: pingdirectory
-#---
-#apiVersion: v1
-#kind: Secret
-#metadata:
-  #name: passwords
-  #labels:
-    #usecase: fullstack
-#type: Opaque
-#data:
-  #root-user-password: "2FederateM0re"
-  #admin-user-password: "2FederateM0re"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -40,17 +29,6 @@ spec:
       labels:
         app: pingdirectory
     spec:
-      #volumes:
-      #- name: server-profile-ds
-        #configMap:
-          #name: server-profile-ds
-      #- name: passwords
-        #secret:
-          #secretName: passwords
-          #defaultMode: 256
-      #- name: out-dir 
-        #persistentVolumeClaim:
-          #claimName: out-dir
       terminationGracePeriodSeconds: 300
       containers:
       - name: pingdirectory
@@ -67,19 +45,12 @@ spec:
           limits:
             memory: "2Gi"
             cpu: "2"
-        env:
-        - name: SERVER_PROFILE_URL
-          value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-        - name: SERVER_PROFILE_PATH
-          value: "getting-started/pingdirectory"
         envFrom:
+        - configMapRef:
+            name: pingdirectory-environment-variables
         - secretRef:
             name: devops-secret
             optional: true
-        #- name: TOPOLOGY_PREFIX
-          #value: "ds-topology-"
-        #- name: TOPOLOGY_SIZE
-          #value: "2"
         readinessProbe:
           exec:
             command: 
@@ -101,12 +72,3 @@ spec:
               - /bin/sh
               - -c
               - /preStop.sh
-  #volumeClaimTemplates:
-  #- metadata:
-      #name: out-dir
-    #spec:
-      #accessModes:
-      #- ReadWriteOnce
-      #resources:
-        #requests:
-          #storage: 2Gi
