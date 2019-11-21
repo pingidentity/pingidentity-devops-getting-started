@@ -2,6 +2,12 @@
 
 Ping Identity Server Profiles are used to provide the configuration, data, environment details to Ping Identity Docker Images.
 
+## Security Warning
+
+The server profiles referenced within this repository are for demo and documentation purposes only. They contain default keys/credentials etc and are not suitable for production and carry a substantial security risk.
+
+For additional information, please see [SECURITY.md](../../SECURITY.md)
+
 ## Available Server Profiles
 
 There are several Ping Identity Server Profiles available in the Ping Identity Github repositories. They are outlined in the table below.
