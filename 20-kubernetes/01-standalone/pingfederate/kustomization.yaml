@@ -9,5 +9,4 @@ generatorOptions:
 
 configMapGenerator:
 - name: pingfederate-environment-variables
-  files:
-    - env_vars
+  env: env_vars
