@@ -34,7 +34,7 @@ from your bash startup file (i.e. .bash_profile) to make easy use of these alias
 
 The server profiles referenced within this repository are for demo and documentation purposes only. They contain default keys/credentials etc and are not suitable for production and carry a substantial security risk.
 
-For additional information, please see [SECURITY.md](SECURITY.MD)
+For additional information, please see [SECURITY.md](SECURITY.md)
 
 ## Troubleshooting
 This repository is in active development and has not been officially released. 
