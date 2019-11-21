@@ -1,6 +1,8 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
+# this simply points to the child directories. 
+# `kustomize build 01-standalone` will result in a deployment and service for each product
 resources:
 - pingaccess
 - pingdataconsole

@@ -1,6 +1,12 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
+# requirements beyond 01-standalone for replication: 
+#   1. additional environment variables must be passed
+#   2. number of replicas is increased
+# 
+#   additionally, we create a storage class and mount volumes to prepare for disasters. 
+
 resources:
 - ../01-standalone/pingdataconsole
 - ../01-standalone/pingdirectory
