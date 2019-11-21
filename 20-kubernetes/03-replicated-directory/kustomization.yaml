@@ -6,6 +6,22 @@ resources:
 - ../01-standalone/pingdirectory
 - storage.yaml
 
+patchesStrategicMerge:
+- |-
+  apiVersion: v1
+  data:
+    env_vars: |-
+      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+      SERVER_PROFILE_PATH="baseline/pingdirectory"
+      ORCHESTRATION_TYPE="KUBERNETES"
+      K8S_STATEFUL_SET_NAME="pingdirectory"
+      K8S_STATEFUL_SET_SERVICE_NAME="pingdirectory"
+      MAKELDIF_USERS="1000"
+      TAIL_LOG_FILES=""
+  kind: ConfigMap
+  metadata:
+    name: pingdirectory-environment-variables
+
 patches:
 - target:
     kind: StatefulSet
@@ -35,38 +51,3 @@ patches:
     - op: add
       path: /spec/template/spec/volumes
       value: [{"name":"out-dir","persistentVolumeClaim":{"claimName":"out-dir"}}]
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "ORCHESTRATION_TYPE","value":"kubernetes"}
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "K8S_STATEFUL_SET_NAME","value":"pingdirectory"}
-- target:
-    kind: StatefulSet
-    name: pingdirectory 
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "K8S_STATEFUL_SET_SERVICE_NAME","value":"pingdirectory"}
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "TAIL_LOG_FILES","value":""}
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "MAKELDIF_USERS","value":"1000"}

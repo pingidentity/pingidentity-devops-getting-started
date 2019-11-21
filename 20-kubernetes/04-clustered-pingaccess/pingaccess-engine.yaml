@@ -34,15 +34,8 @@ spec:
         image: pingidentity/pingaccess:5.2.3-edge
         ports:        
         - containerPort: 3000
-        env:
-        - name: SERVER_PROFILE_URL
-          value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-        - name: SERVER_PROFILE_PATH
-          value: "pa-clustering/pingaccess"
-        - name: OPERATIONAL_MODE
-          value: "CLUSTERED_ENGINE"
-        - name: PA_CONSOLE_HOST
-          value: pingaccess
         envFrom:
+        - configMapRef:
+            name: pingaccess-engine-environment-variables
         - secretRef:
             name: devops-secret

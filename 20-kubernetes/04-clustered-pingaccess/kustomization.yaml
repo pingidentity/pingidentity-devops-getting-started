@@ -5,6 +5,18 @@ resources:
 - ../01-standalone/pingaccess
 - pingaccess-engine.yaml
 
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: pingaccess-engine-environment-variables
+    files: 
+      - engine_env_vars
+      
+images:
+  - name: pingidentity/pingaccess
+    newTag: 5.3.1-alpine-edge
+
 patches:
 - target:
     kind: Service
@@ -18,33 +30,18 @@ patches:
     name: ^pingaccess$
   patch: |-
     - op: replace
-      path: /spec/template/spec/containers/0/image
-      value: pingidentity/pingaccess:5.2.3-edge
-- target:
-    kind: Deployment
-    name: ^pingaccess$
-  patch: |-
-    - op: replace
       path: /spec/template/spec/containers/0/ports
       value: [{"containerPort":9000},{"containerPort":9090}]
-- target:
-    kind: Deployment
-    name: ^pingaccess$
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: pa-clustering/pingaccess
-- target:
-    kind: Deployment
-    name: ^pingaccess$
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name":"OPERATIONAL_MODE","value":"CLUSTERED_CONSOLE"}
-- target:
-    kind: Deployment
-    name: ^pingaccess$
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name":"PA_CONSOLE_HOST","value":"pingaccess"}
+
+patchesStrategicMerge:
+- |-
+  apiVersion: v1
+  data:
+    env_vars: |-
+      SERVER_PROFILE_URL="https://www.github.com/pingidentity/pingidentity-server-profiles.git"
+      SERVER_PROFILE_PATH="pa-clustering/pingaccess"
+      OPERATIONAL_MODE="CLUSTERED_CONSOLE"
+      PA_CONSOLE_HOST="pingaccess"
+  kind: ConfigMap
+  metadata:
+    name: pingaccess-environment-variables
