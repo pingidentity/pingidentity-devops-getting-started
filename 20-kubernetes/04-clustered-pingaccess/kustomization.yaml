@@ -1,13 +1,18 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-# requirements beyond 01-standalone for clustered-pingaccess: 
+# This builds on top of 01-standalone for a clustered-pingaccess: 
 # 1. remove the engine port (3000) from the "pingaccess" deployment. 
 # 2. create a separate deployment for "pingaccess-engine" (this would be the deployment in which we would scale # replicas)
 # 3. use a different profile (via configmap replace) that:
 #   - has a PingAccess.mv.db that defines a PingAccess Console Host
 #   - can accept a parameter to set CONSOLE/ENGINE mode
 # 4. add environment variable to pass CONSOLE/ENGINE mode
+
+# ****NOTE****: if you run this with `kustomize build 04-clustered-pingaccess | kubectl apply  -f -`
+# the PingAccess engine will crash a number of times before starting.
+# This occurs because the engine tries receiving properties from an admin node that is not ready. 
+# To avoid the crashes, you can apply just the admin node first. 
 
 resources:
 - ../01-standalone/pingaccess
