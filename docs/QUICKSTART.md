@@ -47,7 +47,9 @@ cd pingidentity-devops-getting-started
 
 > Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubernetes commands.
 
-Follow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
+## Launching Ping Identity Docker Images
+
+Now that your environment is configured, ollow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
 
 * [Docker-Compose](../11-docker-compose/README.md)
 * [Docker Swarm](../12-docker-swarm/README.md)
