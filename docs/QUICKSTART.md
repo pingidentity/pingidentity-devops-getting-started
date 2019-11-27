@@ -151,6 +151,8 @@ docker container exec -it pingdirectory /bin/sh
   https://localhost:1443/directory/v1/ou=people,dc=example,dc=com/subtree?searchScope=wholesubtree
 ```
 
+> Note: Default authentication for PingDirectory is cn=administrator/2FederateM0re
+
 Once you have started the PingDirectory container, the same can be done for the PingDataconsole and PingAccess.
 
 For more information on these docker images, you can review the [Ping Identity Docker Images](./docker-builds/README.md) documentation.
