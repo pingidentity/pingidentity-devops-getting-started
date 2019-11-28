@@ -6,3 +6,10 @@ commonLabels:
 
 resources:
 - pingdatagovernance.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingdatagovernance-environment-variables
+  env: env_vars

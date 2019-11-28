@@ -22,6 +22,7 @@ this image.
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
+| MAX_HEAP_SIZE  | 1g  | Minimal Heap size required for Ping DataGovernance 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 

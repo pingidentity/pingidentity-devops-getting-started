@@ -1,10 +1,24 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
+# requirements beyond 01-standalone for replication: 
+#   1. additional environment variables must be passed - via replacing the configmap
+#   2. number of replicas is increased - via patch
+# 
+#   additionally, we create a storage class and mount volumes to prepare for disasters. 
+
 resources:
 - ../01-standalone/pingdataconsole
 - ../01-standalone/pingdirectory
 - storage.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingdirectory-environment-variables
+  behavior: replace
+  env: env_vars.pingdirectory
 
 patches:
 - target:
@@ -35,38 +49,3 @@ patches:
     - op: add
       path: /spec/template/spec/volumes
       value: [{"name":"out-dir","persistentVolumeClaim":{"claimName":"out-dir"}}]
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "ORCHESTRATION_TYPE","value":"kubernetes"}
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "K8S_STATEFUL_SET_NAME","value":"pingdirectory"}
-- target:
-    kind: StatefulSet
-    name: pingdirectory 
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "K8S_STATEFUL_SET_SERVICE_NAME","value":"pingdirectory"}
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "TAIL_LOG_FILES","value":""}
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value: {"name": "MAKELDIF_USERS","value":"1000"}

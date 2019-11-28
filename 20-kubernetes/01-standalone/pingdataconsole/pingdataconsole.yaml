@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pingdataconsole-service
+  name: pingdataconsole
+  labels:
+    app: pingdataconsole
 spec:
   ports:
     - port: 8080
@@ -10,7 +12,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pingdataconsole-deployment
+  name: pingdataconsole
+  labels:
+    app: pingdataconsole
 spec:
   replicas: 1
   template:

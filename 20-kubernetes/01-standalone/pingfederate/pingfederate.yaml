@@ -32,12 +32,9 @@ spec:
           limits:
             memory: "1.5Gi"
             cpu: "1"
-        env:
-        - name: SERVER_PROFILE_URL
-          value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-        - name: SERVER_PROFILE_PATH
-          value: "getting-started/pingfederate"
         envFrom:
+        - configMapRef:
+            name: pingfederate-environment-variables
         - secretRef:
             name: devops-secret
             optional: true

@@ -6,3 +6,10 @@ commonLabels:
 
 resources:
 - pingdirectory.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingdirectory-environment-variables
+  env: env_vars

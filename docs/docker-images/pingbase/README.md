@@ -34,6 +34,7 @@ this image.
 | HOOKS_DIR  | ${STAGING_DIR}/hooks  | Path where all the hooks scripts are stored 
 | SERVER_PROFILE_DIR  | /tmp/server-profile  | Path where the remote server profile is checked out or cloned before being staged prior to being applied on the runtime 
 | SERVER_PROFILE_URL  |   | A valid git HTTPS URL (not ssh) 
+| SERVER_PROFILE_URL_REDACT  | true  | 
 | SERVER_PROFILE_BRANCH  |   | A valid git branch (optional) 
 | SERVER_PROFILE_PATH  |   | The subdirectory in the git repo 
 | SERVER_PROFILE_UPDATE  | false  | Whether to update the server profile upon container restart 
@@ -42,6 +43,7 @@ this image.
 | STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to  instantiate the container 
 | STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the foreground. This is the  normal start flow for the container 
 | STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the background. This is the  debug start flow for the container 
+| PING_IDENTITY_DEVOPS_KEY_REDACT  | true  | 
 | TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container  standard output 
 | COLORIZE_LOGS  | true  | If 'true', the output logs will be colorized with GREENs and REDs, otherwise, no colorization will be done.  This is good for tools that monitor logs and colorization gets in the way. 
 | LOCATION  | Docker  | Location default value 

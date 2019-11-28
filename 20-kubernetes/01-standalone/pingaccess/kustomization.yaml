@@ -6,3 +6,10 @@ commonLabels:
 
 resources:
 - pingaccess.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingaccess-environment-variables
+  env: env_vars

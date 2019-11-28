@@ -47,6 +47,14 @@ cd pingidentity-devops-getting-started
 
 > Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubernetes commands.
 
+## Launching Ping Identity Docker Images
+
+Now that your environment is configured, ollow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
+
+* [Docker-Compose](../11-docker-compose/README.md)
+* [Docker Swarm](../12-docker-swarm/README.md)
+* [Kubernetes](../20-kubernetes/README.md)
+
 ## Run a Docker Standalone Image - PingFederate
 
 Now, we will run one of the Ping Identity docker images locally in a standalone docker container on your local machine.
@@ -142,6 +150,8 @@ docker container exec -it pingdirectory /bin/sh
 
   https://localhost:1443/directory/v1/ou=people,dc=example,dc=com/subtree?searchScope=wholesubtree
 ```
+
+> Note: Default authentication for PingDirectory is cn=administrator/2FederateM0re
 
 Once you have started the PingDirectory container, the same can be done for the PingDataconsole and PingAccess.
 

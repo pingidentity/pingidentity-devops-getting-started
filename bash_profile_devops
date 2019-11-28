@@ -355,7 +355,7 @@ function knuke() {
   read nuke
   if test "${nuke}" = "y" || test "${nuke}" = "yes"; then
     echo "${bold}deploy nuke${normal}";
-    kubectl delete pods,configmaps,secrets,jobs,cronjobs,statefulsets,deployments,persistentVolumes,persistentvolumeclaims,services,ingresses -n "$(kubectl get sa default -o jsonpath='{.metadata.namespace}')" --grace-period=0 --force --all
+    kubectl delete pods,configmaps,secrets,jobs,cronjobs,statefulsets,deployments,persistentvolumeclaims,services,ingresses -n "$(kubectl get sa default -o jsonpath='{.metadata.namespace}')" --grace-period=0 --force --all
   else 
     echo "crisis averted"
   fi

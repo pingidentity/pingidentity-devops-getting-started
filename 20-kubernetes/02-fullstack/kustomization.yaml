@@ -4,32 +4,22 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 resources:
 - ../01-standalone
 
-patches:
-- target:
-    kind: Deployment
-    name: pingaccess
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingaccess
-- target:
-    kind: Deployment
-    name: pingfederate
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingfederate
-- target:
-    kind: Deployment
-    name: pingdatagovernance
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingdatagovernance
-- target:
-    kind: StatefulSet
-    name: pingdirectory
-  patch: |-
-    - op: replace
-      path: /spec/template/spec/containers/0/env/1/value
-      value: baseline/pingdirectory
+# The only difference in standalone deployments vs "fullstack" (integrated) is the product configurations. 
+# here we replace standalone server-profiles ("getting-started") with "baseline" for each product
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingaccess-environment-variables
+  behavior: replace
+  env: env_vars.pingaccess
+- name: pingdatagovernance-environment-variables
+  behavior: replace
+  env: env_vars.pingdatagovernance
+- name: pingdirectory-environment-variables
+  behavior: replace
+  env: env_vars.pingdirectory
+- name: pingfederate-environment-variables
+  behavior: replace
+  env: env_vars.pingfederate

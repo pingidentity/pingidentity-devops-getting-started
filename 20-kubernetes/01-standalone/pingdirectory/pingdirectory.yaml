@@ -11,7 +11,8 @@ spec:
     - port:  389
       name: ldap
   clusterIP: None
-
+  selector:
+    app: pingdirectory
 ---
 
 apiVersion: apps/v1
@@ -41,12 +42,9 @@ spec:
           limits:
             memory: "2Gi"
             cpu: "2"
-        env:
-        - name: SERVER_PROFILE_URL
-          value: "https://www.github.com/pingidentity/pingidentity-server-profiles.git"
-        - name: SERVER_PROFILE_PATH
-          value: "getting-started/pingdirectory"
         envFrom:
+        - configMapRef:
+            name: pingdirectory-environment-variables
         - secretRef:
             name: devops-secret
             optional: true
