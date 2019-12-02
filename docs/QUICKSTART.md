@@ -14,7 +14,7 @@ In order to successfully run this quickstart, the following pre-requisites shoul
 
 * Mac OSX Host \(any Linux varient should also work, however little testing\)
 * Install Docker \([link to download](https://hub.docker.com/editions/community/docker-ce-desktop-mac)\)
-* Install GitHub \([link to download](https://git-scm.com/downloads)\)
+* Install Git \([link to download](https://git-scm.com/downloads)\)
 * [Obtain a DevOps User and Key](https://pingidentity-devops.gitbook.io/devops/prod-license#obtaining-a-ping-identity-devops-user-and-key)
 
 **Optional**
@@ -45,11 +45,13 @@ cd pingidentity-devops-getting-started
 ./setup
 ```
 
-> Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubernetes commands.
+Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubernetes commands.
+
+> `dhelp ` [not working?](./troubleshooting/BASIC_TROUBLESHOOTING.md#issue-bad-bash_profile-setup)
 
 ## Launching Ping Identity Docker Images
 
-Now that your environment is configured, ollow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
+Now that your environment is configured, follow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
 
 * [Docker-Compose](../11-docker-compose/README.md)
 * [Docker Swarm](../12-docker-swarm/README.md)

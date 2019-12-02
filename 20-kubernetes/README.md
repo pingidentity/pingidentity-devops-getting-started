@@ -11,6 +11,7 @@ Prior to deploying to Kubernetes, please ensure you have completed the following
   * [Google](../22-cloud/cloud/google/README.md)
   * Minikube (docs coming soon)
   * Rancher (docs coming soon)
+* [Create devops user and key as k8s secret](#licenses)
 
 ## Overview
 
@@ -23,7 +24,16 @@ In addition to these general examples, there are more complete resources availab
 
 Since we are using `kustomize`, look in the kustomization.yaml files for comments on what is done to achieve the use-case.
 
-This section is broken up as follows:
+## Licenses
+
+This section describes how to create a kubernetes secret that contains variables: `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY`. The values for these variables can be obtained from these instructions: [Obtain and Use Product Licenses](../docs/PROD-LICENSE.md)
+
+The examples in the kubernetes section are fitted to **optionally** look for a kubernetes secret named "devops-secret".
+
+You can generate this secret like so: 
+```
+kubectl create secret generic devops-secret --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY"
+```
 
 ## 20-kubernetes
 
