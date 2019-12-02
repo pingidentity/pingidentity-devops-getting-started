@@ -3,7 +3,6 @@
 ## Contents:
 
 * Getting-Started Examples
-  * bash_profile issues
 * Server Profiles \(coming soon\)
 * Docker Builds \(coming soon\)
 
@@ -16,9 +15,9 @@ If an running `dhelp` returns an error, or your containers are not able to pull 
 > Note: if you are unfamiliar with `.bash_profile` here's a [quick intro](https://friendly-101.readthedocs.io/en/latest/bashprofile.html)
 
 Common issues and troubleshooting steps. 
-1. If you have _just_ run `./setup` for the first time, make sure you are in a fresh terminal or have run `source ~/.bash_profile`
-2. If running `echo PING_IDENTITY_DEVOPS_USER` returns nothing in a fresh terminal, it's likely your .bash_profile is misconfigured. There should be a line that "[sources](https://friendly-101.readthedocs.io/en/latest/bashprofile.html#sourcing-your-bash-profile)" your ping-devops aliases and another that runs `sourcePignIdentityFiles`. Make sure there are not old versions or duplicates of these lines.
-3. If you are running in Kubernetes, keep in mind that your `PING_IDENTITY_DEVOPS_USER` and key are local variables and need to be [created as a secret](../../20-kubernetes/README.md#licenses) in your cluster.  
+  1. If you have _just_ run `./setup` for the first time, make sure you are in a fresh terminal or have run `source ~/.bash_profile`
+  2. If running `echo PING_IDENTITY_DEVOPS_USER` returns nothing in a fresh terminal, it's likely your .bash_profile is misconfigured. There should be a line that "[sources](https://friendly-101.readthedocs.io/en/latest/bashprofile.html#sourcing-your-bash-profile)" your ping-devops aliases and another that runs `sourcePignIdentityFiles`. Make sure there are not old versions or duplicates of these lines.
+  3. If you are running in Kubernetes, keep in mind that your `PING_IDENTITY_DEVOPS_USER` and key are local variables and need to be [created as a secret](../../20-kubernetes/README.md#licenses) in your cluster.  
 
 ### Issue: Getting-Started Examples Not Working
 

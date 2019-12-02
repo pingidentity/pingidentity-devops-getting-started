@@ -25,7 +25,8 @@ There are different goals that you may have as you approach these docs. Here are
   2. Go through the [quickstart](https://pingidentity-devops.gitbook.io/devops/examples/quickstart), as it contains important setup and background. 
   3. Checkout the [examples](https://pingidentity-devops.gitbook.io/devops/examples) as tutorials.  Skip around if you are comfortable.
   4. Make sure you stop by and understand how to use [server profiles](https://pingidentity-devops.gitbook.io/devops/server-profiles). Certain profiles are provided as samples. Once you begin customizing to your purpose, you'll want to create your own server profiles.
-* **Quickly Evaluate a Ping Identity software product** - Absolute fastest way to get a full-stack of Ping Identity software running: 
+* **Quickly Evaluate a Ping Identity software product** - Absolute fastest way to get a full-stack of Ping Identity software running : 
+
   1. [Register](https://pingidentity-devops.gitbook.io/devops/prod-license#obtaining-a-ping-identity-devops-user-and-key) for a DevOps User and Key
   2. Save your DevOps User and Key in a text file. Example file:
 
