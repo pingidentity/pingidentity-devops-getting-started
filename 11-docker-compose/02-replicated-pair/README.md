@@ -6,7 +6,7 @@ This is an example of multiple PingDirectory instances replicating between one a
 
 ## Getting started
 
-Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
+Please refer to the [Docker Compose Overview](../README.md) for details on how to start, stop, cleanup stacks.
 
 To stand up multiple containers with a single command add the `--scale` argument to `docker-compose up`:
 

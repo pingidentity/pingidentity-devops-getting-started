@@ -59,7 +59,7 @@ Now that your environment is configured, ollow the steps below to launch standal
 
 Now, we will run one of the Ping Identity docker images locally in a standalone docker container on your local machine.
 
-A script (`docker-run.sh`) is provided to help avoid remembering syntax for the `docker run` command. 
+A script (`docker-run.sh`) is provided to help avoid remembering syntax for the `docker run` command.
 
 ```text
 $ cd pingidentity-devops-getting-started
@@ -93,7 +93,7 @@ docker container exec -it pingfederate /bin/sh
      Admin Console:  https://localhost:9999/pingfederate/app
 ```
 
-This script also creates `/tmp/Docker/*`, a set of directories for the different products where the runtime of the container is persisted. This will allow for the image to be stopped and re-started keeping the last known state. 
+This script also creates `/tmp/Docker/*`, a set of directories for the different products where the runtime of the container is persisted. This will allow for the image to be stopped and re-started keeping the last known state.
 
 > If you want to start from scratch again, use `./docker-cleanup.sh pingfederate` and follow the prompts
 
