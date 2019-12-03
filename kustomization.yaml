@@ -1,0 +1,13 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+- 10-docker-standalone
+- 11-docker-compose
+- 12-docker-swarm
+- 20-kubernetes
+- 22-cloud
+- 90-postman
+- 99-helper-scripts
+- docs
+- motd

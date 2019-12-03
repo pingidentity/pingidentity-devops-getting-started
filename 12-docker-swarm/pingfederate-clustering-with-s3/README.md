@@ -2,7 +2,7 @@
 
 In this walkthrough example, we’ll cover how to stand up a PingFederate cluster containing an Administration Console and multiple engines nodes using Docker Swarm and an AWS S3 bucket for node discovery.
 
-For this exercise, please reference the `pingfederate_clustering_with_S3_discovery.yaml` file located within the 12-docker-swarm directory.
+[pingfederate_clustering_with_S3_discovery.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/12-docker-swarm/pingfederate-clustering-with-s3/pingfederate_clustering_with_S3_discovery.yaml)
 
 ## AWS S3 Bucket Creation and Permissions
 
