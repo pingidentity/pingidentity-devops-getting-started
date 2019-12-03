@@ -1,22 +1,24 @@
 # Proof of Concept Quick Start
 
-This document aims to quickly stand up a demo/proof-of-concept environment of the available Ping Identity Docker Images and basic 'baseline' server profiles.
+This document aims to quickly stand up a demo/proof-of-concept environment using the available Ping Identity Docker Images.
 
 The intent is to help get a running set of Ping Identity components on a single machine in a docker enviornment. As such, all the containers will communicate with each other over a local docker network. 
 
-This will be achieved by setting up an environment and then running a stack in docker-compose. The stack will be composed of: 
+The deployed products will be: 
   * PingDirectory
   * PingDataConsole (PingDirectory/DataGovernance admin UI)
   * PingFederate
   * PingAccess
   * PingDataGovernance
 
-> Persisting data and configurations will be discussed after setting up the environment. 
+Configurations will be provided to the products via the `baseline` [profile](./server-profiles/README.md). This configuration will have the products integrated and running a small demo use-case.
+
+> [Persisting data and configurations](#dont-lose-your-work) will be discussed after setting up the environment. 
 
 ## Pre-Requisites
 
 In order to successfully run this quickstart, the following pre-requisites should be completed.
-> Note: The quickstart guide and tools were built and tested on Mac OSX.
+> Note: The quickstart guide and tools were built and tested only on Mac OSX.
 
 **Required**
 
@@ -40,7 +42,11 @@ In order to successfully run this quickstart, the following pre-requisites shoul
 * Install Apache Directory Studio \([link to download](https://directory.apache.org/studio/download/download-macosx.html)\)
 * Postman \([link to download](https://www.getpostman.com/downloads/)\)
 
-## Clone Github pingidentity-devops-getting-started
+## Setup you environment for Ping Identity DevOps projects
+
+Some environment pre-work is _highly recommended_ to provide conventions that will be helpful later in the document as well as other examples:
+
+### Clone Github pingidentity-devops-getting-started
 
 All the scripts and examples used in this quick-start are provided in the [pingidentity-devops-getting-started Github repo](https://github.com/pingidentity/pingidentity-devops-getting-started.git).
 
@@ -58,9 +64,7 @@ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.gi
 
 You should now see a directory called `pingidentity-devops-getting-started`.
 
-## Setup you environment for Ping Identity DevOps projects
-
-An interactive `setup` script is available to help you get your envionment to make quick and easy use of the Ping Identity DevOps projects.
+An interactive `setup` script is used to help you make quick and easy use of the Ping Identity DevOps projects.
 
 ```text
 cd pingidentity-devops-getting-started
@@ -73,18 +77,11 @@ cd pingidentity-devops-getting-started
 source ~/.bash_profile
 ```
 
-Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubernetes commands.
+Now you can use run `dhelp` or `khelp` to get help with your DevOps Docker and Kubernetes commands.
 
 > `dhelp ` [not working?](./troubleshooting/BASIC_TROUBLESHOOTING.md#issue-bad-bash_profile-setup)
 
-## Launching Ping Identity Docker Images
-
-Now your environment is configured, you can follow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
-
-* [Docker-Compose](../11-docker-compose/README.md)
-* [Docker Swarm](../12-docker-swarm/README.md)
-* [Kubernetes](../20-kubernetes/README.md)
-
+## Deploy the Ping Identity Docker Fullstack
 To continue setting up the proof-of-concept, deploy the Ping Software Fullstack. 
 
 ```
@@ -92,7 +89,7 @@ cd 11-docker-compose/03-full-stack
 docker-compose up -d
 ```
 
-Follow logs as the spin up: `docker-compose logs -f`
+Follow logs as the containers spin up: `docker-compose logs -f`
 
 `Ctrl+C` to exit the logs.
 
@@ -100,7 +97,7 @@ Watch and wait for containers to be healthy:
 - run `docker ps` over and over, or:
 - `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`
 
-Once a container is healthy, you can check it's admin UI. 
+Once a container is healthy, you can see and log-in to it's admin UI. 
 > If on VM, use IP instead of localhost
 
 PingDataConsole - For Directory
@@ -131,15 +128,15 @@ LDAP BaseDN: dc=example,dc=com
 Root Username: cn=administrator
 Root Password: 2FederateM0re
 
-## Try the Built-In Demo
+### Try the Built-In Demo
 
 The stack that you've stood up has the products integrated together, and a demo use-case to show this. The instructions for use are found on the [fullstack README](../11-docker-compose/03-full-stack/README.md#using-the-containers)
 
 ## Don't Lose Your Work!
 
-Now that you see everything is up and running, you may want to start building in the products on your own. 
+Now that you see everything is up and running, you may want to start building _in_ the products.
 
-Before this, realize that upon stopping and removing a container, all configurations beyond the demo data are lost. 
+Before jumping in, realize that upon stopping and removing a container, all configurations beyond the demo data will be lost. 
 
 There are two ways to prevent this:
 - Externalize configurations
