@@ -2,7 +2,7 @@
 
 This document aims to quickly stand up a demo/proof-of-concept environment using the available Ping Identity Docker Images.
 
-The intent is to help get a running set of Ping Identity components on a single machine in a docker enviornment. As such, all the containers will communicate with each other over a local docker network. 
+The intent is to help get a running set of Ping Identity components on a single machine in a containerized enviornment. As such, all the containers will communicate with each other over a local docker network. 
 
 The deployed products will be: 
   * PingDirectory
