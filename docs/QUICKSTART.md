@@ -158,11 +158,12 @@ docker-compose down
 ```
 
 First, let's do the steps, then we'll explain it:
-1. Open `docker-compose.yaml` in a text editor. 
-2. Uncomment the line `volumes:` and the line ending in `/opt/out` for each product.
-3. Save the file and run `docker-compose up -d`
-4. Return to `docker-compose.yaml` in a text editor. 
-5. Comment out the entire `environment:` section for each product and save the file. 
+
+  1. Open `docker-compose.yaml` in a text editor. 
+  2. Uncomment the line `volumes:` and the line ending in `/opt/out` for each product.
+  3. Save the file and run `docker-compose up -d`
+  4. Return to `docker-compose.yaml` in a text editor. 
+  5. Comment out the entire `environment:` section for each product and save the file. 
 
 What this does:
 
