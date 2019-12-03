@@ -171,7 +171,7 @@ Ping Identity images are all set to use `/opt/out` as the runtime directory on t
 Step 3 starts the containers and uses the `environment` information to pull an externalized configuration (profile) into the container from a Github URL. Since we are treating the container like a VM, we only need to pull this configuration on the very first container start, and thus step 5 leads to commenting out `environment:`. With the environment commented out, we can be sure the container will not pull in an external configuration and potentially overwrite our work. 
 
 **Additional Notes** 
-You can now run `docker-compose down` and `docker-compose up` to "shut down" an "start up" your environment. Keep in mind that your configurations are persisted to the specified location. If you need to delete your configurations, just delete the location.
+You can now run `docker-compose down` and `docker-compose up` to "shut down" and "start up" your environment. Keep in mind that your configurations are persisted to the specified location. If you need to delete your configurations, just delete the location.
 
 ## Cleanup
 
