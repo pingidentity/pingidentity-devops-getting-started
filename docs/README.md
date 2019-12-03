@@ -28,12 +28,6 @@ Our documentation will guide you through these pathways:
 
 None of these pathways are exclusive. Each may fulfill a different purpose as you develop your containerization strategy. If you're uncertain where to start, evaluate our solutions to see how it all works.
 
-## Commercial Support
-
-THE SOFTWARE PROVIDED HEREUNDER IS PROVIDED ON AN "AS IS" BASIS, WITHOUT ANY WARRANTIES OR REPRESENTATIONS EXPRESS, IMPLIED OR STATUTORY.
-
-Please contact devops\_program@pingidentity.com for details
-
 ## Copyright
 
 Copyright © 2019 Ping Identity. All rights reserved.
