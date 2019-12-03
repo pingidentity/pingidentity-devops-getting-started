@@ -9,4 +9,5 @@ generatorOptions:
 
 configMapGenerator:
 - name: pingdatagovernance-environment-variables
-  env: env_vars
+  envs:
+    - env_vars
