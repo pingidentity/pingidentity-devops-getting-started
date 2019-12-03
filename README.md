@@ -1,4 +1,4 @@
-# Ping Identity DevOps
+# Ping Identity DevOps repository
 This repository provides guided use of our DevOps tools for building, configuring, deploying, and orchestrating Ping Identity solutions in Docker containers. 
 
 ## Documentation
