@@ -1,6 +1,5 @@
 # Ping Identity DevOps - Getting Started
-Provides foundational examples to get familiar with the DevOps toolkit. In this repository, we'll cover the basics of 
-running PingFederate, PingDirectory, PingAccess, and more in Docker containers. 
+Provides foundational examples to get familiar with the DevOps toolkit. In [this repository](https://github.com/pingidentity/pingidentity-devops-getting-started), we'll cover the basics of running PingFederate, PingDirectory, PingAccess, and more in Docker containers with various additonal container orchestration tools. 
 
 ## Documentation
  * The complete collection of documentation for Ping Identity’s DevOps GitHub repositories is located on [Gitbook](https://pingidentity-devops.gitbook.io/devops/)

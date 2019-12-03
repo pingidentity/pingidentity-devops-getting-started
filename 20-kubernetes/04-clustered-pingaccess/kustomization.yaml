@@ -23,10 +23,12 @@ generatorOptions:
 
 configMapGenerator:
 - name: pingaccess-engine-environment-variables
-  env: env_vars.pingaccess-engine
+  envs:
+    - env_vars.pingaccess-engine
 - name: pingaccess-environment-variables
   behavior: replace
-  env: env_vars.pingaccess
+  envs:
+    - env_vars.pingaccess
       
 images:
   - name: pingidentity/pingaccess

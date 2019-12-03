@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pingfederate
+  name: pingfederate
+spec:
+  ports:
+  - name: pf-console
+    port: 9999
+    #remove pf-runtime
+  - name: pf-runtime
+    port: 9031
+  selector:
+    app: pingfederate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pingfederate
+  name: pingfederate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingfederate
+  template:
+    metadata:
+      labels:
+        role: pingfederate
+      name: pingfederate
+    spec:
+      containers:
+      - env:
+        - name: SERVER_PROFILE_URL
+          value: https://www.github.com/pingidentity/pingidentity-server-profiles.git
+        - name: SERVER_PROFILE_PATH
+          value: getting-started/pingfederate
+        envFrom:
+        - secretRef:
+            name: devops-secret
+            optional: true
+        image: pingidentity/pingfederate:edge
+        name: pingfederate
+        ports:
+        - containerPort: 9999
+        - containerPort: 9031
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1.5Gi
+          requests:
+            cpu: "1"
+            memory: 1.5Gi
+
+---
+
+#make a separate deployment for engine
+
+---
+
+#make a separate service for engine:
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: pingfederate-engine
+  name: pingfederate-engine
+spec:
+  ports:
+  - name: pf-runtime
+    port: 9031
+  selector:
+    role: pingfederate-engine
+

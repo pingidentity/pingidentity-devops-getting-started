@@ -3,6 +3,8 @@ This is an example of PingDataSync synchronizing data from a source tree
 on a PingDirectory instance to a destination tree on the same PingDirectory
 instance.
 
+[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/04-simple-sync/docker-compose.yaml)
+
 ## Getting started
 Please refer to the [Docker Compose Overview](../README.md) for details on how to 
 start, stop, cleanup stacks.

@@ -1,0 +1,50 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+- ../01-standalone/pingaccess
+- pingaccess-engine.yaml
+
+patches:
+- target:
+    kind: Service
+    name: ^pingaccess$
+  patch: |-
+    - op: replace
+      path: /spec/ports
+      value: [{"port":9000,"name":"pa-admin"},{"port":9090,"name":"pa-cluster"}]
+- target:
+    kind: Deployment
+    name: ^pingaccess$
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/image
+      value: pingidentity/pingaccess:5.2.3-edge
+- target:
+    kind: Deployment
+    name: ^pingaccess$
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/ports
+      value: [{"containerPort":9000},{"containerPort":9090}]
+- target:
+    kind: Deployment
+    name: ^pingaccess$
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/env/1/value
+      value: pa-clustering/pingaccess
+- target:
+    kind: Deployment
+    name: ^pingaccess$
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value: {"name":"OPERATIONAL_MODE","value":"CLUSTERED_CONSOLE"}
+- target:
+    kind: Deployment
+    name: ^pingaccess$
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value: {"name":"PA_CONSOLE_HOST","value":"pingaccess"}

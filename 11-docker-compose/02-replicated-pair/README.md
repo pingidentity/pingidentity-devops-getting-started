@@ -2,6 +2,8 @@
 
 This is an example of multiple PingDirectory instances replicating between one another.
 
+[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/02-replicated-pair/docker-compose.yaml)
+
 ## Getting started
 
 Please refer to the [Docker Compose Overview](../README.md) for details on how to start, stop, cleanup stacks.

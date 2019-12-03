@@ -2,11 +2,13 @@
 
 This is an example of a full stack integration between PingAccess, PingFederate and PingDirectory.
 
+[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml)
+
 ## Getting started
 
 Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
 
-To start the stack, from this directory run:
+To start the stack, from the directory this file is in run:
 
 `docker-compose up -d`
 
@@ -21,8 +23,6 @@ To stand up multiple containers, run compose with the `--scale` argument:
 ## Using the containers
 
 Once you see that the containers are healthy in `docker ps`
-
-Once the PingDirectory instance is up,
 
 * Go to [https://localhost:9031/OAuthPlayground](https://localhost:9031/OAuthPlayground)
 * Click on `implicit` link

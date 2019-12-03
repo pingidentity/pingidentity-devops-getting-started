@@ -8,8 +8,6 @@ spec:
   ports:
     - port: 8080
       name: http
-  selector:
-    app: pingdataconsole
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -19,14 +17,9 @@ metadata:
     app: pingdataconsole
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: pingdataconsole
   template:
     metadata:
       name: pingdataconsole
-      labels:
-        app: pingdataconsole
     spec:
       containers:
       - name: pingdataconsole
