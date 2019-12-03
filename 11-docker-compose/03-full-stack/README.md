@@ -24,8 +24,6 @@ To stand up multiple containers, run compose with the `--scale` argument:
 
 Once you see that the containers are healthy in `docker ps`
 
-Once the PingDirectory instance is up,
-
 * Go to [https://localhost:9031/OAuthPlayground](https://localhost:9031/OAuthPlayground)
 * Click on `implicit` link
 * Click on `Submit` button

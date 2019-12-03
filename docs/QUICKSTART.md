@@ -1,21 +1,39 @@
-# Quick Start
+# Proof of Concept Quick Start
 
-This document aims to help with a quick-start demo of the available Ping Identity Docker Images and basic 'getting started' server profiles.
+This document aims to quickly stand up a demo/proof-of-concept environment of the available Ping Identity Docker Images and basic 'baseline' server profiles.
 
-The intent is to help get a running set of Ping Identity components on your local machine in a docker enviornment.
+The intent is to help get a running set of Ping Identity components on a single machine in a docker enviornment. As such, all the containers will communicate with each other over a local docker network. 
 
-Note: The quickstart guide and tools were built and tested on Mac OSX.
+This will be achieved by setting up an environment and then running a stack in docker-compose. The stack will be composed of: 
+  * PingDirectory
+  * PingDataConsole (PingDirectory/DataGovernance admin UI)
+  * PingFederate
+  * PingAccess
+  * PingDataGovernance
+
+> Persisting data and configurations will be discussed after setting up the environment. 
 
 ## Pre-Requisites
 
 In order to successfully run this quickstart, the following pre-requisites should be completed.
+> Note: The quickstart guide and tools were built and tested on Mac OSX.
 
 **Required**
 
-* Mac OSX Host \(any Linux varient should also work, however little testing\)
-* Install Docker \([link to download](https://hub.docker.com/editions/community/docker-ce-desktop-mac)\)
-* Install Git \([link to download](https://git-scm.com/downloads)\)
+* Linux OS (any Linux variant should also work, however most testing has been on Mac OSX)
+* Docker ([link to download](https://hub.docker.com/editions/community/docker-ce-desktop-mac))
+* Docker Compose (https://docs.docker.com/compose/install/)
+* Git ([link to download](https://git-scm.com/downloads))
 * [Obtain a DevOps User and Key](https://pingidentity-devops.gitbook.io/devops/prod-license#obtaining-a-ping-identity-devops-user-and-key)
+
+**Requirements for VM**
+
+* External Ports: 443, 9000, 8080, 7443, 9031, 9999, 1636-1646, 1443-1453, 8443 should be exposed
+  > There are other ports used for communication between apps, but it will happen on a local Docker network. 
+* Recommended resources: 30GB storage, 2-4 cores, 10+ GB ram
+  > On a VM, docker is allowed full access to machine resources by default. Mac OSX runs docker-engine, and so you will need to raise the default allocated resources. Open Docker App>Preferences>Advanced.
+* Complete [Docker post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/). 
+
 
 **Optional**
 
@@ -26,23 +44,33 @@ In order to successfully run this quickstart, the following pre-requisites shoul
 
 All the scripts and examples used in this quick-start are provided in the [pingidentity-devops-getting-started Github repo](https://github.com/pingidentity/pingidentity-devops-getting-started.git).
 
-Make a local copy of the repo on your machine
+Make a local copy of the repo on your machine in this location:
+`${HOME}/projects/devops`
 
 ```text
-$ git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+mkdir -p ${HOME}/projects/devops
+cd ${HOME}/projects/devops
 
-Cloning into 'pingidentity-devops-getting-started'...
+git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+
+#Cloning into 'pingidentity-devops-getting-started'...
 ```
 
 You should now see a directory called `pingidentity-devops-getting-started`.
 
 ## Setup you environment for Ping Identity DevOps projects
 
-A `setup` script is available to help you get your envionment to make quick and easy use of the Ping Identity DevOps projects.
+An interactive `setup` script is available to help you get your envionment to make quick and easy use of the Ping Identity DevOps projects.
 
 ```text
 cd pingidentity-devops-getting-started
 ./setup
+#...
+```
+
+```
+#refresh to get the new aliases
+source ~/.bash_profile
 ```
 
 Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubernetes commands.
@@ -51,149 +79,106 @@ Now you can use the `dhelp` alias to get help with your DevOps Docker and Kubern
 
 ## Launching Ping Identity Docker Images
 
-Now that your environment is configured, follow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
+Now your environment is configured, you can follow the steps below to launch standalone Ping Identity Product Images or navigate to the following orchestration tools
 
 * [Docker-Compose](../11-docker-compose/README.md)
 * [Docker Swarm](../12-docker-swarm/README.md)
 * [Kubernetes](../20-kubernetes/README.md)
 
-## Run a Docker Standalone Image - PingFederate
+To continue setting up the proof-of-concept, deploy the Ping Software Fullstack. 
 
-Now, we will run one of the Ping Identity docker images locally in a standalone docker container on your local machine.
-
-A script (`docker-run.sh`) is provided to help avoid remembering syntax for the `docker run` command.
-
-```text
-$ cd pingidentity-devops-getting-started
-$ cd 10-docker-standalone
-$ ./docker-run.sh pingfederate
-
-Using default tag: latest
-latest: Pulling from pingidentity/pingfederate
-8e402f1a9c57: Pull complete
-4866c822999c: Pull complete
-205f26e90552: Pull complete
-b964f0e13c41: Pull complete
-e95e0be61e06: Pull complete
-a968bb575de2: Pull complete
-Digest: sha256:81b73d9621908bb204d0fddb257f5126d115b8f205423508a8d8ac4d4fcf53f2
-Status: Downloaded newer image for pingidentity/pingfederate:latest
-13453a0512950d8ddd7ff74523feda6801b13fe81f58186fb2779b2e8cfcd290
-
-# For live logs, execute:
-
-docker container logs -f pingfederate
-
-# For a terminal into the container, execute:
-
-docker container exec -it pingfederate /bin/sh
-
-
-
-# After server starts, go to:
-
-     Admin Console:  https://localhost:9999/pingfederate/app
+```
+cd 11-docker-compose/03-full-stack
+docker-compose up -d
 ```
 
-This script also creates `/tmp/Docker/*`, a set of directories for the different products where the runtime of the container is persisted. This will allow for the image to be stopped and re-started keeping the last known state.
+Follow logs as the spin up: `docker-compose logs -f`
 
-> If you want to start from scratch again, use `./docker-cleanup.sh pingfederate` and follow the prompts
+`Ctrl+C` to exit the logs.
 
-In the example above, the image is first pulled down from Docker Hub and cached in your local docker registry. The container is then started, followed by some sample commands to view the application logs.
+Watch and wait for containers to be healthy: 
+- run `docker ps` over and over, or:
+- `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`
 
-To see the `health` status of your containers run:
+Once a container is healthy, you can check it's admin UI. 
+> If on VM, use IP instead of localhost
 
-```text
-> docker container ls -a
-CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS                   PORTS                                            NAMES
-13453a051295        pingidentity/pingfederate   "entrypoint.sh start…"   4 minutes ago       Up 4 minutes (healthy)   0.0.0.0:9031->9031/tcp, 0.0.0.0:9999->9999/tcp   pingfederate
+PingDataConsole - For Directory
+  Console URL: https://localhost:8443/console
+  Server: pingdirectory
+  User: Administrator
+  Password: 2FederateM0re
+
+PingFederate:
+  Console URL: https://localhost:9999/pingfederate/app
+  User: Administrator
+  Password: 2FederateM0re
+
+PingAccess
+  Console URL: https://localhost:9000
+  User: Administrator
+  Password: 2FederateM0re
+
+PingDataConsole - For DataGovernance
+  Console URL: https://localhost:8443/console
+  Server: pingdatagovernance
+  User: Administrator
+  Password: 2FederateM0re
+
+To connect to directory with Apache Directory Studio:
+LDAP Port: 1389
+LDAP BaseDN: dc=example,dc=com
+Root Username: cn=administrator
+Root Password: 2FederateM0re
+
+## Try the Built-In Demo
+
+The stack that you've stood up has the products integrated together, and a demo use-case to show this. The instructions for use are found on the [fullstack README](../11-docker-compose/03-full-stack/README.md#using-the-containers)
+
+## Don't Lose Your Work!
+
+Now that you see everything is up and running, you may want to start building in the products on your own. 
+
+Before this, realize that upon stopping and removing a container, all configurations beyond the demo data are lost. 
+
+There are two ways to prevent this:
+- Externalize configurations
+- Persist changes via mounted volumes
+
+**Externalize Configurations** - In an ideal production scenario, we should strive to never mutate containers. Achieving this is done through externalizing server configutations into [profiles](./server-profiles/README.md). For a quick proof-of-concept and getting used to Docker, it is easier to start by treating containers like VMs... 
+
+**Persisting changes via mounts**
+
+We can essentially "treat containers like VMs" by mounting their storage to an external location. Once this is done, you can turn stop, remove, and start your containers without losing any changes. Additionally, you can ship the location to someone else and have them run it in their environment. 
+
+To achieve this, we must first tear down our current stack:
+
+```
+docker-compose down
 ```
 
-Once you see a `(healthy)` PingFederate continer you can navigate in your web browser to:
+First, let's do the steps, then we'll explain it:
+1. Open `docker-compose.yaml` in a text editor. 
+2. Uncomment the line `volumes:` and the line ending in `/opt/out` for each product.
+3. Save the file and run `docker-compose up -d`
+4. Return to `docker-compose.yaml` in a text editor. 
+5. Comment out the entire `environment:` section for each product and save the file. 
 
-* [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)
-  * Username: Administrator
-  * Password: 2FederateM0re
+What this does:
 
-## Run a Docker Standalone Image - PingDirectory
+> The following information explains features that are standardized in all Ping Identity Docker Images. 
 
-Now, let's run a second docker container for PingDirectory. Simply follow the example below.
+Ping Identity images are all set to use `/opt/out` as the runtime directory on the container. Uncommenting the volume lines (step 2) "binds" the container's live working directory to the location defined in front of the colon (e.g. `${HOME}/projects/devops/volumes/full-stack.pingdirectory`). 
 
-```text
-$ ./docker-run.sh pingdirectory
+Step 3 starts the containers and uses the `environment` information to pull an externalized configuration (profile) into the container from a Github URL. Since we are treating the container like a VM, we only need to pull this configuration on the very first container start, and thus step 5 leads to commenting out `environment:`. With the environment commented out, we can be sure the container will not pull in an external configuration and potentially overwrite our work. 
 
-Using default tag: latest
-latest: Pulling from pingidentity/pingdirectory
-8e402f1a9c57: Already exists
-4866c822999c: Already exists
-205f26e90552: Already exists
-b964f0e13c41: Already exists
-157333328c59: Pull complete
-d40de9676665: Pull complete
-Digest: sha256:faa997a15d06d7989d957d181cb7b272fed6ee785b2921594187de0c9d1b0ca0
-Status: Downloaded newer image for pingidentity/pingdirectory:latest
-24b2a6e4ddcc885266efcd9dc7e0aad3346a999ed7277de0e7ab3934f0bbde39
+**Additional Notes** 
+You can now run `docker-compose down` and `docker-compose up` to "shut down" an "start up" your environment. Keep in mind that your configurations are persisted to the specified location. If you need to delete your configurations, just delete the location.
 
-# For live logs, execute:
+## Cleanup
 
-docker container logs -f pingdirectory
+`docker-compose down` will stop and remove all the containers. 
 
-# For a terminal into the container, execute:
+`docker image rm  -f $(docker image ls "pingidentity/*")` will remove all pingidentity images. (must not have any running containers)
 
-docker container exec -it pingdirectory /bin/sh
-
-
-
-# After server starts, run:
-
-  docker exec pingdirectory /opt/server/bin/ldapsearch -p 389 -b "" -s base  objectclass=*
-
-# or go to Directory REST API
-
-  https://localhost:1443/directory/v1/ou=people,dc=example,dc=com/subtree?searchScope=wholesubtree
-```
-
-> Note: Default authentication for PingDirectory is cn=administrator/2FederateM0re
-
-Once you have started the PingDirectory container, the same can be done for the PingDataconsole and PingAccess.
-
-For more information on these docker images, you can review the [Ping Identity Docker Images](./docker-builds/README.md) documentation.
-
-## Removing and Cleaning up Standalone Images
-
-Once you are finished with your docker containers, you can stop/start the continers, and ultimately remove them.
-
-To stop the container, use the example below.
-
-```text
-> ./docker-stop.sh pingdirectory
-
-Removing container pingdirectory
-pingdirectory
-```
-
-To start the container backup, use the example below. Notice that we are using the `docker-run.sh` command again, but running it the second time, it will notice that you have a `/tmp/Docker/pingdirectory` runtime avaiable, and use that.
-
-```text
-$ ./docker-run.sh pingdirectory
-
-Using default tag: latest
-latest: Pulling from pingidentity/pingdirectory
-Digest: sha256:faa997a15d06d7989d957d181cb7b272fed6ee785b2921594187de0c9d1b0ca0
-Status: Image is up to date for pingidentity/pingdirectory:latest
-eb7af521606c698ed086839db346d2587147d1ee8a25c93a2ef96463dc548d04
-...
-```
-
-And to finally cleanup the running containers and remove them entirely, the script `docker-cleanup.sh` can be run with the product name. And passing the argment `all --force` will cleanup all running standalone containers and remove their persisted state. It's good to run this at the end of this quickstart to clean everything up.
-
-```text
-$ ./docker-cleanup.sh all --force
-
-Running ./docker-cleanup.sh pingdirectory --force...
-pingdirectory
-Running ./docker-cleanup.sh pingfederate --force...
-pingfederate
-Running ./docker-cleanup.sh pingaccess --force...
-Running ./docker-cleanup.sh pingdataconsole --force...
-```
+If you have followed the persistence steps, you can also `rm -rf` the `${HOME}/projects/devops/volumes` directory to delete everything. 
