@@ -18,5 +18,13 @@ If you're unfamiliar with Ping Identity solutions or with containerization, Dock
 
        `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
    
-  4. Download and deploy the [full Docker stack](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose/03-full-stack) of Ping Identity solutions.
-  5. Persist your configuration changes by [mounting to a local volume.](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose#persisting-container-state-and-data)
+  4. Go to the pingidentity-devops-getting-started directory and run our `setup` script to quickly and easily set up your local DevOps environment for the Ping Identity solutions:
+
+     ```text
+     cd pingidentity-devops-getting-started
+     ./setup
+     ```
+     > The setup script also adds aliases to make running Docker and Kubernetes commands easier. Enter `dhelp` to see the listing of aliases.
+
+  5. Deploy the [full Docker stack](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose/03-full-stack) of Ping Identity solutions using Docker Compose for lightweight orchestration. 
+  6. Persist your configuration changes by [mounting to a local volume.](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose#persisting-container-state-and-data)
