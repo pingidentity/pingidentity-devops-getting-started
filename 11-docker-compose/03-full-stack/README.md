@@ -6,7 +6,7 @@ See [Docker Compose Overview](https://pingidentity-devops.gitbook.io/devops/exam
 
 ## Starting the stack
 
-To start the stack, go to the [full Docker stack](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/03-full-stack) directory on your local machine and enter:
+To start the stack, on your local machine, go to the `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
 `docker-compose up -d`
 
