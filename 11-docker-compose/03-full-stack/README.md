@@ -1,56 +1,65 @@
 # 03-full-stack
 
-This is an example of a full stack integration between PingAccess, PingFederate and PingDirectory.
+This will deploy a full Docker stack of PingAccess, PingFederate and PingDirectory, using Docker Compose for lightweight orchestration.
 
-## Getting started
+See [Docker Compose Overview](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose) for help with starting, stoppping, cleaning up our Docker stacks. You can also refer to the Docker Compose documentation [on the Docker site](https://docs.docker.com/compose/).
 
-Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
+## Starting the stack
 
-To start the stack, from this directory run:
+To start the stack, go to the [full Docker stack](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/03-full-stack) directory on your local machine and enter:
 
 `docker-compose up -d`
 
-Watch the directories initialize with:
+This will run our [Docker Compose YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml) for the full Docker stack. 
+
+Use this command to display the startup process for the stack:
 
 `docker-compose logs -f`
 
-To stand up multiple containers, run compose with the `--scale` argument:
+Use this command to display the status of the Docker containers in the stack:
 
-`docker-compose up --scale pingdirectory=3 --pingfederate=2`
+`docker ps`
 
 ## Using the containers
 
-Once you see that the containers are healthy in `docker ps`
+### PingDirectory
 
-Once the PingDirectory instance is up,
+When the status of the PingDirectory instance shows that it is healthy and running, you can do either of the following:
 
-* Go to [https://localhost:9031/OAuthPlayground](https://localhost:9031/OAuthPlayground)
-* Click on `implicit` link
-* Click on `Submit` button
-* Log in with `user.0 / 2FederateM0re`
+* Use OAuthPlayground:
 
-To see the PingFederate management console
+  1. In a browser, enter [https://localhost:9031/OAuthPlayground](https://localhost:9031/OAuthPlayground).
+  2. Click the `implicit` link.
+  3. Click `Submit`.
+  4. Log in with these credentials: `user.0 / 2FederateM0re`
 
-* Go to [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)
-* Log in with `Administrator / 2FederateM0re`
+* Use PingDataConsole to manage PingDirectory:
 
-To see the PingAccess management console
+  1. In a browser, enter [https://localhost:8443/console](https://localhost:8443/console)
+  2. Log in using these credentials:
+     server: `pingdirectory` 
+     user: `Administrator` 
+     password: `2FederateM0re`
 
-* Go to [https://localhost:9000](https://localhost:9000)
-* Log in with `Administrator / 2FederateM0re`
-* Note: You will be asked to accept license agreement and change password
+* View the LDAP traffic for PingDirectory. This is exposed on LDAP port 1636:
 
-To see the PingDirectory management console
+  * In a browser, enter [https://localhost:1636/dc=example,dc=com](https://localhost:1636/dc=example,dc=com).
 
-* Go to [https://localhost:8443/console](https://localhost:8443/console)
-* Log in with:
- server: pingdirectory 
- user: Administrator 
- password: 2FederateM0re
+### PingFederate
 
-PingDirectory exposes LDAP traffic via an LDAPS port 1636.
+When the status of the PingFederate instance shows that it is healthy and running, you can display the PingFederate management console:
 
-* Navigate to [https://localhost:1636/dc=example,dc=com](https://localhost:1636/dc=example,dc=com)
+  1. In a browser, enter [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app).
+  2. Log in with these credentials: `Administrator / 2FederateM0re`
+
+### PingAccess
+
+When the status of the PingFederate instance shows that it is healthy and running, you can display the PingAccess management console:
+
+  1. In a browser, enter [https://localhost:9000](https://localhost:9000).
+  2. Log in with these credentials: `Administrator / 2FederateM0re`
+  
+  > You will be asked to accept the license agreement and to change the password.
 
 ## Cleaning up
 
