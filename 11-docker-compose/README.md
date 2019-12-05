@@ -40,15 +40,15 @@ The Docker images used in the example stacks are frequently updated. You can get
     ```
   * Get the images on the Ping Identity [Docker Hub](https://hub.docker.com/u/pingidentity). This is the public location for obtaining our Docker images. 
 
-## Starting a stack using Docker Compose
+## Bringing up a stack using Docker Compose
 
-To start the stack and display all the messages from the startup services, use the command:
+To bring up the stack and display all the messages from the startup services, use the command:
 
   `docker-compose up`
 
   > If you use `Ctrl+C`, the stack will be stopped.
 
-To start the stack without displaying the startup services information, use the `--detach` or `-d` option:
+To bring up the stack without displaying the startup services information, use the `--detach` or `-d` option:
 
   `docker-compose up --detach`
 
@@ -83,19 +83,25 @@ To stop a running stack, enter:
 
 `docker-compose stop`
 
+This doesn't remove any data associated with the stack, so any configuration changes you might have made will still be available, if you start the stack again using this command:
+
+`docker-compose start`
+
 ## Cleaning up a stack using Docker Compose
 
-To clean up all of the data for a stack, enter:
+To clean up all of the data created to run a stack, enter:
 
 `docker-compose down`
 
-You can also choose to remove any of the stopped services with the command:
+You can also choose to remove any of the stopped containers with the command:
 
 `docker-compose rm`
 
 ## Persisting Container State and Data
 
-If you would like to persist state and data of the container between docker-compose up/down, this can be done with a the addition of a volumes section to the `docker-compose.yaml` file.
+If you want to persist the state and data for the container or containers in the stack, so that your configuration changes will be unaffected by bringing the stack up or down, you can have Docker mount a separate volume to store your data. 
+
+To do this, add a volumes section to the `docker-compose.yaml` file you're using for the example stack.
 
 Simply chose a location to persist your data. For the example, assume `/tmp/compose/pingdirectory_1`
 
