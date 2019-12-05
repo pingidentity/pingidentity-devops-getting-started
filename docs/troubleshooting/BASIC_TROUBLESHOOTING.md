@@ -60,6 +60,7 @@ If you are seeing an error similar to:
   CONTAINER FAILURE: Error running 10-start-sequence.sh
   ```
 This could be caused by: 
+
   1. An invalid Devops user or key (as noted in the error)
   2. A bad docker-image. **Re-pull the image to verify**
   3. Network connectivity to the license server is blocked
