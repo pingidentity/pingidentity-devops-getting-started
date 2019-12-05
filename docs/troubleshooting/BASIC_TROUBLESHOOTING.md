@@ -3,6 +3,9 @@
 ## Contents:
 
 * Getting-Started Examples
+  * [Most common issue](#issue-getting-started-examples-not-working)
+  * [Alias or bash_profile issue](#issue-bad-bash_profile-setup)
+  * [License pull Issue](#issue-unable-to-pull-evaluation-license)
 * Server Profiles \(coming soon\)
 * Docker Builds \(coming soon\)
 
@@ -58,7 +61,7 @@ If you are seeing an error similar to:
   ```
 This could be caused by: 
   1. An invalid Devops user or key (as noted in the error)
-  2. A bad docker-image. Re-pull the image to verify
+  2. A bad docker-image. **Re-pull the image to verify**
   3. Network connectivity to the license server is blocked
 
 To test option 3. From the machine that is running the container, run:
