@@ -49,7 +49,7 @@ If you're unfamiliar with Ping Identity solutions or with containerization, Dock
      > If the `dhelp` command isn't working, see [Troubleshooting](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
 
   5. Deploy the [full Docker stack](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose/03-full-stack) of Ping Identity solutions using Docker Compose for lightweight orchestration. Our Docker images are preconfigured with the basic configurations needed to run and interoperate. 
-  6. You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you bring down the Docker stack unless you [mount the changes to a local Docker volume](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose#persisting-container-state-and-data).
-  > If you remove any of the existing configurations for a solution, the solution may no longer interoperate with other solutions in the Docker stack.
+  6. You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you stop or remove the Docker stack, unless you persist your data by [mounting the configuration changes to a local Docker volume](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose#persisting-container-state-and-data).
+    > If you remove any of the existing configurations for a solution, the solution may no longer interoperate with other solutions in the Docker stack.
   
   
