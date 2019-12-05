@@ -24,9 +24,9 @@ When running any of the Docker Compose commands, you must be in the same directo
 
 ## Getting the current images in a Docker Compose stack
 
-You can get the current images in any one of the following ways:
+The Docker images used in the example stacks are frequently updated. You can get the current images in any one of the following ways:
 
-  * Starting a stack the first time without doing a pull will automatically get the latest version.
+  * Start one of our example stacks using Docker Compose. This will automatically pull the current version of each image in the stack.
   * For any of our example stacks, in the example directory you'll be using (such as, `03-full-stack`), enter:
 
     ```text
@@ -38,65 +38,58 @@ You can get the current images in any one of the following ways:
     # Pulling pingdirectory   ... done
     # Pulling pingdataconsole ... done
     ```
-  * The Docker images referred to in the examples are updated very frequently on the Ping Identity [Docker Hub](https://hub.docker.com/u/pingidentity), the public location for obtaining our Docker images. 
+  * Get the images on the Ping Identity [Docker Hub](https://hub.docker.com/u/pingidentity). This is the public location for obtaining our Docker images. 
 
-## Starting a Docker Compose Stack
+## Starting a stack using Docker Compose
 
-To start the stack in the **forground**, seeing all the messages from the services in their full glory, just use the command:
+To start the stack and display all the messages from the startup services, use the command:
 
-`docker-compose up`
+  `docker-compose up`
 
-Note tha that if you stop with a `Ctrl-C`, the stack will be stopped.
+  > If you use `Ctrl+C`, the stack will be stopped.
 
-If you want to see the services startup in **backgroud**, use the `--detach` or `-d` option.
+To start the stack without displaying the startup services information, use the `--detach` or `-d` option:
 
-`docker-compose up --detach`
+  `docker-compose up --detach`
 
-This will startup the services in the backgroud. See below on how to [Monitor a Docker Compose Stack](./#monitor-a-docker-compose-stack)
+## Monitoring a stack using Docker Compose
 
-## Monitor a Docker Compose Stack
-
-Once a stack is running, you can see the **containers running** with the command \(and example output\):
+You can display the status of the stack by entering:
 
 ```text
 docker-compose ps
+```
 
-######OUTPUTS######
+This will display information similar to this:
+
+```text
 #              Name                            Command                  State                                        Ports
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------
 # 03-full-stack_pingaccess_1        entrypoint.sh wait-for pin ...   Up (healthy)   3000/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:9000->9000/tcp
 # 03-full-stack_pingdataconsole_1   catalina.sh run                  Up (healthy)   0.0.0.0:8443->8443/tcp
 # 03-full-stack_pingdirectory_1     entrypoint.sh start-server       Up (healthy)   389/tcp, 0.0.0.0:1443->443/tcp, 5005/tcp, 0.0.0.0:1636->636/tcp, 689/tcp
 # 03-full-stack_pingfederate_1      entrypoint.sh wait-for pin ...   Up (healthy)   0.0.0.0:9031->9031/tcp, 0.0.0.0:9999->9999/tcp
-###################
 ```
 
-And using this example, you can watch the **logs from the entire stack** with the command \(and example output\):
+You can also view the logs for all containers in the stack using this command:
 
 ```text
 docker-compose logs
-
-######OUTPUTS######
-# Attaching to 03-full-stack_pingdataconsole_1, 03-full-stack_pingfederate_1, 03-full-stack_pingdirectory_1, 03-full-stack_pingaccess_1
-# ...
-###################
 ```
 
-## Stopping and Starting a Docker Compose Stack
+## Stopping a stack using Docker Compose
 
-To stop and start a docker compose stack once it's brought up, the following commands:
+To stop a running stack, enter:
 
 `docker-compose stop`
 
-`docker-compose start`
+## Cleaning up a stack using Docker Compose
 
-## Cleaning up a Docker Compose Stack
-
-To clean up a Docker Compse Stack, use the following command:
+To clean up all of the data for a stack, enter:
 
 `docker-compose down`
 
-And if you had stopped your stack at some point, you can remove any of the stopped services with the command:
+You can also choose to remove any of the stopped services with the command:
 
 `docker-compose rm`
 
