@@ -22,21 +22,23 @@ The example configurations do not persist data when the Docker stack is stopped 
 
 When running any of the Docker Compose commands, you must be in the same directory as the `docker-compose.yaml` file.
 
-## Pulling the latest images in a Docker Compose stack
+## Getting the current images in a Docker Compose stack
 
-The Docker images referred to in the examples are updated very frequently on the Ping Identity [Docker Hub](https://hub.docker.com/u/pingidentity), the public location for obtaining our Docker images. For any of our example stacks, make sure you get the latest version of the Docker images for the Ping Identity solutions. For example, enter:
+You can get the current images in any one of the following ways:
 
-```text
-docker-compose pull
+  * Starting a stack the first time without doing a pull will automatically get the latest version.
+  * For any of our example stacks, in the example directory you'll be using (such as, `03-full-stack`), enter:
 
-######OUTPUTS######
-# Pulling pingaccess      ... done
-# Pulling pingfederate    ... done
-# Pulling pingdirectory   ... done
-# Pulling pingdataconsole ... done
-```
+    ```text
+    docker-compose pull
 
-> Note: Starting a stack the first time without doing a pull will automatically get the latest version.
+    ######Sample output######
+    # Pulling pingaccess      ... done
+    # Pulling pingfederate    ... done
+    # Pulling pingdirectory   ... done
+    # Pulling pingdataconsole ... done
+    ```
+  * The Docker images referred to in the examples are updated very frequently on the Ping Identity [Docker Hub](https://hub.docker.com/u/pingidentity), the public location for obtaining our Docker images. 
 
 ## Starting a Docker Compose Stack
 
