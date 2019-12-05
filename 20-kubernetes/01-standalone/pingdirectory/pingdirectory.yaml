@@ -11,8 +11,6 @@ spec:
     - port:  389
       name: ldap
   clusterIP: None
-  selector:
-    app: pingdirectory
 ---
 
 apiVersion: apps/v1
