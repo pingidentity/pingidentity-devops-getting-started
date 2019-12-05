@@ -1,30 +1,30 @@
 # Docker Compose
 
-This folder is intended to demonstrate how to use Docker Compose to assemble several images, each with their own role, into a functioning deployed set of containers. Docker Compose can be useful for local development as it does not require an external orchestrator such as Docker Swarm or Kubernetes. Unlike with Swarm or Kubernetes, Compose deploys containers locally, not on remote machines.
+You can use Docker Compose as a lightweight orchestration tool to assemble several images, each with their own role, into a functioning deployed set of containers. Docker Compose can be useful for local development as it does not require an external orchestrator such as Docker Swarm or Kubernetes. Unlike Docker Swarm or Kubernetes, Docker Compose deploys containers locally, not on remote machines.
 
-## Example Stacks
+## DevOps example stacks
 
-Here are some of the example stacks available to help understand Docker Compose
+We've set up some example Docker stacks to help you better understand the uses of Docker Compose:
 
 | Example | Description |
 | :--- | :--- |
 | [01-simple-stack](./01-simple-stack/README.md) | A simple stack with a PingFederate container and a PingDirectory container |
 | [02-replicated-pair](./02-replicated-pair/README.md) | An example of a replicated pair of PingDirectory instances |
 | [03-full-stack](./03-full-stack/README.md) | A stack with PingDirectory, PingFederate, PingAccess, PingDataGovernance and PingDataConsole |
-| [04-simple-sync](04-simple-sync/README.md) | A stack with PingDirectory, PingDataSync. |
-| [05-pingfederate-cluster](05-pingfederate-cluster/README.md) | A stack with a clustered PingFederate admin console and engine |
+| [04-simple-sync](04-simple-sync/README.md) | A stack with PingDirectory, and PingDataSync. |
+| [05-pingfederate-cluster](05-pingfederate-cluster/README.md) | A stack with a clustered PingFederate admin console and engine. |
 
-## Docker Compose Basics
+## Docker Compose fundamentals
 
-An official Overview on Docker Compose can be found [here](https://docs.docker.com/compose/overview/).
+This document provides useful Docker Compose operations for our Docker stacks. See the official [Docker Compose documentation](https://docs.docker.com/compose/overview/) for complete information.
 
-It is **important to note** that the examples provided will not persist data between runs if the docker stack is brought up and down. Please see the section below on [Persisting Container State and Data](./#persisting-container-state-and-data)
+The example configurations do not persist data when the Docker stack is stopped (brought down). See the [Persisting Container State and Data](./#persisting-container-state-and-data) section at the end of this document for more information.
 
-When running any of the docker-compose commands, you **must be in the same directory** as the `docker-compose.yaml` file.
+When running any of the Docker Compose commands, you must be in the same directory as the `docker-compose.yaml` file.
 
-## Pulling latest images in a Docker Compose Stack
+## Pulling the latest images in a Docker Compose stack
 
-The images referred to in the examples are updated very frequently on [Docker Hub](https://hub.docker.com/u/pingidentity), the default location for obtaining images. Make sure you get the latest version of the images with the command \(and example output\):
+The Docker images referred to in the examples are updated very frequently on the Ping Identity [Docker Hub](https://hub.docker.com/u/pingidentity), the public location for obtaining our Docker images. For any of our example stacks, make sure you get the latest version of the Docker images for the Ping Identity solutions. For example, enter:
 
 ```text
 docker-compose pull
