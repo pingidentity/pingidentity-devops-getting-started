@@ -40,6 +40,10 @@ Our documentation will guide you through these pathways:
 
 None of these pathways are exclusive. Each may fulfill a different purpose as you develop your containerization strategy. If you're uncertain where to start, evaluate our solutions to see how it all works.
 
+## Contact us
+
+If you find functionality missing that you believe may be of benefit to other Ping Identity customers, create a feature request in [Docker builds](https://github.com/pingidentity/pingidentity-docker-builds), or email the DevOps team at devops_program@pingidentity.com.
+
 ## Copyright
 
 Copyright © 2019 Ping Identity. All rights reserved.
