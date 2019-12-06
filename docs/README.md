@@ -1,20 +1,20 @@
 # Ping Identity DevOps
 
-We enable DevOps, administrators and developers with tools, frameworks, blueprints and reference architectures to deploy Ping Identity software in the cloud.
+We enable DevOps professionals, administrators and developers with tools, frameworks, blueprints and reference architectures to deploy Ping Identity software in the cloud.
 
-## Why Containerization?
+## Why containerization of Ping Identity solutions?
 
-* **Deployments with Confidence** 
+* **Streamlined deployments** 
 
-  Maintain all configurations and dependencies ensuring consistent environments. Eliminate the "it works on my machine" problem.
+  Deploy and run workloads on our solutions without the need for additional hardware or VMs.
 
-* **Cloud Flexibility** 
+* **Consistent and flexible** 
 
-  Containers are portable. All major cloud providers have embraced containers and have added support.
+  Maintain all configurations and dependencies, ensuring consistent environments. Containers are portable and can be used on nearly any machine.
 
-* **Right-Size** 
+* **Optimized sizing** 
 
-  Orchestration of containers allows businesses to increase fault tolerance, availability and cost management by auto-scaling to application demand.
+  Orchestration of containers allows organizations to increase fault tolerance, availability, and better manage costs by auto-scaling to application demand.
   
 We use Docker images of Ping Identity software solutions to provide you with stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration of containers, we use Kubernetes.  
 
