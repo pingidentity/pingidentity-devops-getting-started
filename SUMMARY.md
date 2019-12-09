@@ -2,22 +2,8 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
-* [Docker Images](docs/docker-images/README.md)
-  * [PingFederate](docs/docker-images/pingfederate/README.md)
-  * [PingAccess](docs/docker-images/pingaccess/README.md)
-  * [PingDirectory](docs/docker-images/pingdirectory/README.md)
-  * [PingDataGovernance](docs/docker-images/pingdatagovernance/README.md)
-  * [PingDataSync](docs/docker-images/pingdatasync/README.md)
-  * [ldap-sdk-tools](docs/docker-images/ldap-sdk-tools/README.md)
-  * [PingDataConsole](docs/docker-images/pingdataconsole/README.md)
-  * [PingDownloader](docs/docker-images/pingdownloader/README.md)
-  * [PingBase](docs/docker-images/pingbase/README.md)
-  * [PingCommon](docs/docker-images/pingcommon/README.md)
-  * [PingDataCommon](docs/docker-images/pingdatacommon/README.md)
-  * [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
-  * [Image Tagging](docs/docker-images/IMAGE_TAGGING.md)
-* [Examples](docs/getting-started/README.md)
-  * [Quick Start](docs/QUICKSTART.md)
+* [Samples](docs/getting-started/README.md)
+  * [Quick Start](docs/QUICKSTART.md) # set up environment, and stand up full stack. from here, can go to detailed examples. or stop there and start configuring products (profiles)
   * [Docker Standalone](10-docker-standalone/README.md)
     * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
     * [01-pingdirectory](10-docker-standalone/01-pingdirectory/README.md)
@@ -47,6 +33,20 @@
   <!-- * [Getting Started](docs/server-profiles/GETTING_STARTED.md) -->
   <!-- * [Baseline](docs/server-profiles/BASELINE.md) -->
   <!-- * [Simple Sync](docs/server-profiles/SIMPLE_SYNC.md) -->
+* [Docker Images](docs/docker-images/README.md)
+  * [PingFederate](docs/docker-images/pingfederate/README.md)
+  * [PingAccess](docs/docker-images/pingaccess/README.md)
+  * [PingDirectory](docs/docker-images/pingdirectory/README.md)
+  * [PingDataGovernance](docs/docker-images/pingdatagovernance/README.md)
+  * [PingDataSync](docs/docker-images/pingdatasync/README.md)
+  * [ldap-sdk-tools](docs/docker-images/ldap-sdk-tools/README.md)
+  * [PingDataConsole](docs/docker-images/pingdataconsole/README.md)
+  * [PingDownloader](docs/docker-images/pingdownloader/README.md)
+  * [PingBase](docs/docker-images/pingbase/README.md)
+  * [PingCommon](docs/docker-images/pingcommon/README.md)
+  * [PingDataCommon](docs/docker-images/pingdatacommon/README.md)
+  * [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
+  * [Image Tagging](docs/docker-images/IMAGE_TAGGING.md)
 * [Build Your Own Docker Images](docs/docker-builds/README.md)
   <!-- * [Quick Start](docs/docker-builds/QUICKSTART.md) -->
   * [Docker Builds - Hooks](docs/docker-builds/DOCKER_BUILDS_HOOKS.md)
@@ -58,3 +58,6 @@
 * [License](LICENSE.md)
 * [Contributing](CONTRIBUTING.md)
 * [Disclaimer](DISCLAIMER.md)
+
+
+Find out about ima
