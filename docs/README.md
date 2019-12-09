@@ -16,8 +16,6 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
   Orchestration of containers allows organizations to increase fault tolerance, availability, and better manage costs by auto-scaling to application demand.
   
-We use Docker images of Ping Identity software solutions to provide you with stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration of containers, we use Kubernetes.  
-
 ## Get started
 
 See [Evaluate our solutions](./evaluate.md) to quickly deploy a preconfigured Ping Identity solution or integrated set of solutions.
