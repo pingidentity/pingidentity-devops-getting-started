@@ -2,8 +2,8 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
-* [Samples](docs/getting-started/README.md)
-  * [Quick Start](docs/QUICKSTART.md) # set up environment, and stand up full stack. from here, can go to detailed examples. or stop there and start configuring products (profiles)
+* [Evaluate Ping Identity Solutions](docs/getting-started/README.md)
+  * [Getting Started](docs/QUICKSTART.md) # set up environment, and stand up full stack. from here, can go to detailed examples. or stop there and start configuring products (profiles)
   * [Docker Standalone](10-docker-standalone/README.md)
     * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
     * [01-pingdirectory](10-docker-standalone/01-pingdirectory/README.md)
