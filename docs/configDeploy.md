@@ -1,8 +1,9 @@
 # Managing configurations and deployment
 
-We use Server Profiles to configure
+We use Server Profiles to supply configuration and environment settings, as well as data, to the DevOps images. We also externalize environment settings through additional runtime Hooks (environment variables). You can continue to deploy the full stack of solutions as you did in Getting Started, or you can choose to deploy a single solution or different set of solutions. You can also try modifying or adding Server Profile settings for the deployment. 
 
      > If you remove any of the existing configurations for a solution, the solution may no longer interoperate with other solutions in the Docker stack.
+
 
 ## Prerequisites
 
