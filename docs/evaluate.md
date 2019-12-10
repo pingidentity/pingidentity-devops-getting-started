@@ -91,8 +91,22 @@ See **Procedures** for complete information.
     
   6. You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you bring down or remove the Docker stack, unless you persist your data by [mounting the configuration changes to a local Docker volume](../tree/master/11-docker-compose#persisting-container-state-and-data).
   
-  7. When you no longer want to run this full stack evaluation, you can bring the stack down by entering:
+  7. When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
+  
+      Entering:
 
-    `docker-compose down`
+       `docker-compose stop`
 
+      will stop the running stack without removing any of the containers or associated Docker networks.
+   
+      Entering:
 
+       `docker-compose down`
+       
+       will remove all of the containers and associated Docker networks.
+
+You can now choose to:
+
+  * Rerun the full stack evaluation (`docker-compose up -d`) as many times as needed.
+  * Do further investigations into the configuration and deployment of the DevOps images.
+  * Learn how to customize DevOps images and do advanced configurations for deployment.
