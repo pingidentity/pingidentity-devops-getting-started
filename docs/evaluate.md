@@ -2,7 +2,7 @@
 
 You can quickly deploy DevOps images of Ping Identity solutions. These images are preconfigured to provide working instances of our solutions, either as single containers or an orchestrated set of containers. We use Docker to deploy the DevOps images in stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration of containers, we use Kubernetes.  
 
-For this evaluation, you'll deploy our full stack of solutions for DevOps using Docker Compose. You can then choose to try out any one or more of the solutions, all preconfigured to interoperate.
+You'll need an evaluation license to use the DevOps repositories. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of solutions for DevOps using Docker Compose. You can then choose to try out any one or more of the solutions, all preconfigured to interoperate.
 
   > If you remove any of the existing configurations for a Ping Identity solution, the solution may no longer interoperate with other solutions in the Docker stack.
 
