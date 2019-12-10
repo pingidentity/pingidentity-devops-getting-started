@@ -40,11 +40,15 @@ To deploy one of our solutions as a standalone (single solution) Docker containe
 
   This shell script uses the default DevOps server profile and environment settings to configure the PingDirectory container, runs the container in the background (detached mode, `-d`) and publishes PingDirectory to the default ports (`1389:389`).
   
-  See 
+  See the [PingDirectory standalone documentation](../10-docker-standalone/01-pingdirectory/README.md) for more information about running a single PingDirectory container.
+  
   
 To configure the deployment of a standalone Docker container:
 
   1. 
+
+  See [docker images page](??) for the release tags you can use for a server profile. The DevOps image pages for each solution are displayed in the table of contents. On these pages, you'll find the environment variables available for each particular solution. For example, you'll find the environment variables for PingDirectory [here](??).
+
 
   
   * A set of our solutions as an orchestrated stack using Docker Compose, much as you did in Getting Started. This time, however, choose either to deploy the full stack again, or deploy a different set of solutions. See [Docker Compose](../tree/master/11-docker-compose) for more information.
