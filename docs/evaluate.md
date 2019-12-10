@@ -15,9 +15,9 @@ What you'll need to do:
   5. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
   6. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
   7. Use Docker Compose to deploy the full stack. This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
-  8. If you want to persist any of your configuration changes, [mount the configuration changes to a local Docker volume](../tree/master/11-docker-compose#persisting-container-state-and-data)
+  8. If you want to persist any of your configuration changes, [mount the configuration changes to a local Docker volume](../tree/master/11-docker-compose#persisting-container-state-and-data).
 
-See the procedures for complete information.
+See **Procedures** for complete information.
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ See the procedures for complete information.
 
      > Be sure to use the exact variable names.
 
-  3. Make a local copy of the DevOps repository on your local machine in this location: `${HOME}/projects/devops`.  
+  3. Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`.  
   For example, enter:
     
       ```text
@@ -53,7 +53,7 @@ See the procedures for complete information.
 
        `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
    
-  4. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for the Ping Identity solutions. For example, from `${HOME}/projects/devops` enter:
+  4. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for the Ping Identity solutions. For example, enter:
 
      ```text
      cd pingidentity-devops-getting-started
@@ -62,11 +62,13 @@ See the procedures for complete information.
      > The setup script also adds command aliases to make running Docker and Kubernetes commands easier. 
      
   5. Refresh your OS shell to make the command aliases available. For example, enter:
+  
      ```text
      source ~/.bash_profile
      ```
      After refreshing your OS shell, enter `dhelp` to see the listing of the command aliases.
-     > If the `dhelp` command isn't working, see [Troubleshooting](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
+     
+    > If the `dhelp` command isn't working, see [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
 
   5. Deploy the full stack of solutions:
   
@@ -74,20 +76,20 @@ See the procedures for complete information.
 
         `docker-compose up -d` 
 
-       b. You can watch the startup process. Use this command to display the logs as the stack starts:
+       b. Use this command to display the logs as the stack starts:
 
         `docker-compose logs -f`
 
         Enter `Ctrl+C` to exit the display.
   
-        Use either of these commands to display the status of the Docker containers in the stack:
+       c. Use either of these commands to display the status of the Docker containers in the stack:
 
         * `docker ps` (enter this at intervals)
         * `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`  
     
-       See [Docker Compose Overview](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose) for help with starting, stoppping, cleaning up our Docker stacks. You can also refer to the Docker Compose documentation [on the Docker site](https://docs.docker.com/compose/).
+       See [Docker Compose Overview](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose) for help with starting, stopping, and cleaning up our Docker stacks. You can also refer to the Docker Compose documentation [on the Docker site](https://docs.docker.com/compose/).
     
-  6. You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you bring down or remove the Docker stack, unless you persist your data by [mounting the configuration changes to a local Docker volume](https://pingidentity-devops.gitbook.io/devops/examples/11-docker-compose#persisting-container-state-and-data).
+  6. You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you bring down or remove the Docker stack, unless you persist your data by [mounting the configuration changes to a local Docker volume](../tree/master/11-docker-compose#persisting-container-state-and-data).
   
   7. When you no longer want to run this full stack evaluation, you can bring the stack down by entering:
 
