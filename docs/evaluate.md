@@ -16,6 +16,12 @@ What you'll need to do:
   6. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
   7. Use Docker Compose to deploy the full stack. This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
   8. If you want to persist any of your configuration changes, [mount the configuration changes to a local Docker volume](../tree/master/11-docker-compose#persisting-container-state-and-data).
+  
+You can then choose to:
+
+  * Rerun the full stack evaluation as many times as needed.
+  * [Manage the configuration and deployment of selected DevOps images](docs/configDeploy.md).
+  * Customize DevOps images and do advanced configurations for deployment.
 
 See **Procedures** for complete information.
 
