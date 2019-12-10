@@ -76,10 +76,8 @@ These directories are useful for building and working with local server-profiles
    ```
 
 ### Additional Notes:
-
-* This is helpful when developing locally and configuration is not ready for GitHub
-* Docker recommends to never use bind-mounts in production. Hence, this example is good for _developing_ server profiles. 
-* Mounted volumes \(`docker volume create pf-local`\), preferred method, can be used instead. Be sure the volume is empty when mounting to /opt/out
+* This is helpful when developing locally and configuration is not ready to store in GitHub.
+* Before storing data in github, you should convert it to a profile. What this means: The Docker images create the /opt/out dir by taking a product's base install and layering a profile (set of files) on top. Thus, you should ONLY store what is absolutely necessary and custom in Github as a profile. 
 * Be sure to look at [server-profiles administration](administration.md) to see what can go in to each product's `/opt/in`. 
 
 ### Use Github!
