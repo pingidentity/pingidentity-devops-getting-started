@@ -62,6 +62,8 @@ If you are seeing an error similar to:
 This could be caused by: 
 
   1. An invalid Devops user or key (as noted in the error)
+    - This is usually caused by some issue with the variables being passed in. 
+    - run `echo $PING_IDENTITY_DEVOPS_USER $PING_IDENTITY_DEVOPS_KEY` to valudate the variables are available to the shell running the docker command (only relevant in docker/docker-compose env. Kubernetes would have to have the these variables provided in some other way like a secret.)
   2. A bad docker-image. **Re-pull the image to verify**
   3. Network connectivity to the license server is blocked
 
