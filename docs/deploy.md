@@ -8,13 +8,13 @@ You can choose to deploy:
 
    * A single solution as a standalone Docker container. See [Docker standalone](../10-docker-standalone/README.md) for the available solutions.
    * A replicated pair of solutions using Docker Compose. See [Docker Compose for replicated pairs](../11-docker-compose/02-replicated-pair/README.md) for general information.
-   * A set of different solutions using Docker Compose. See [Docker Compose](../11-docker-compose/README.md) for the example Docker stacks.
-   * A set of solutions using Docker Swarm.
+   * A PingFederate and PingDirectory stack using Docker Compose. See [Docker Compose](../11-docker-compose/README.md) for the example Docker stacks.
+   * A solutions stack using Docker Swarm.
    * PingDirectory using Kubernetes.
 
 ## Prerequisites
 
-  * You've already been through [Getting Started](docs/evaluate.md) to set up your environment and run a test deployment of the solutions.
+  * You've already been through [Getting Started](../evaluate.md) to set up your environment and run a test deployment of the solutions.
 
 ## Procedures
 
@@ -73,7 +73,7 @@ You can choose to deploy:
         Root Username: cn=administrator
         Root Password: 2FederateM0re
 
-  8. When you no longer want to run this standalone container, you can either stop the running container, or bring the container down. Enter either:
+  5. When you no longer want to run this standalone container, you can either stop the running container, or bring the container down. Enter either:
 
   `docker-compose stop` or `docker-compose down`
 
