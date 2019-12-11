@@ -1,15 +1,16 @@
 # Managing deployments
 
-We also externalize environment settings through additional runtime Hooks (environment variables). You can continue to deploy the full stack of solutions as you did in Getting Started, or you can choose to deploy a single solution or a different set of solutions.
+You can continue to deploy the full stack of solutions as you did in Getting Started, or you can deploy a single solution or a different set of solutions.
 
      > If you remove any of the existing configurations for a solution, the solution may no longer interoperate with other solutions in the Docker stack.
 
-What you can choose to do:
+You can choose to deploy:
 
-   * Deploy a solution as a standalone (single solution) Docker container. See [Docker standalone](../tree/master/10-docker-standalone) for more information.
-   * Employ lightweight orchestration to deploy a set of solutions using Docker Compose.
-   * Employ enterprise-level orchestration using Docker Swarm to deploy a set of solutions.
-   * Employ enterprise-level orchestration using Kubernetes to deploy PingDirectory.
+   * A single solution as a standalone Docker container. See [Docker standalone](../10-docker-standalone/README.md) for the available solutions.
+   * A replicated pair of solutions using Docker Compose. See [Docker Compose for replicated pairs](../11-docker-compose/02-replicated-pair/README.md) for general information.
+   * A set of different solutions using Docker Compose. See [Docker Compose](../11-docker-compose/README.md) for the example Docker stacks.
+   * A set of solutions using Docker Swarm.
+   * PingDirectory using Kubernetes.
 
 ## Prerequisites
 
@@ -17,7 +18,7 @@ What you can choose to do:
 
 ## Procedures
 
-To deploy one of our solutions as a standalone (single solution) Docker container:
+To deploy one of our solutions as a standalone Docker container:
 
   1. Go to the `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
@@ -42,8 +43,16 @@ To deploy one of our solutions as a standalone (single solution) Docker containe
 
   See the [PingDirectory standalone documentation](../10-docker-standalone/01-pingdirectory/README.md) for more information about running a single PingDirectory container. For our other solutions, see [Standalone documentation](../10-docker-standalone/README.md).
 
-To deploy an orchestrated set of our solutions using Docker Compose:
+To deploy a replicated pair of solutions using Docker Compose:
 
-  1. Go to 
+  1. Go to
   2.
- See [Docker Compose](../tree/master/11-docker-compose) for more information.
+ See [Docker Compose](../11-docker-compose) for more information.
+
+ To deploy a set of different solutions using Docker Compose:
+
+
+To deploy a set of solutions using Docker Swarm:
+
+
+To deploy PingDirectory using Kubernetes:
