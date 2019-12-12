@@ -9,7 +9,7 @@ What you'll need to do:
   1. Check the prerequisites.
   2. Create a Ping Identity account, or sign on to your existing account and get a DevOps [evaluation license](../PROD-LICENSE.md).
   3. Save your DevOps credentials in a local text file.
-  4. [Make a local copy of the DevOps directory](#step1), `${HOME}/projects/devops`.
+  4. [Make a local copy of the DevOps directory](#step4), `${HOME}/projects/devops`.
   5. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
   6. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
   7. Use Docker Compose to deploy the full stack. This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
