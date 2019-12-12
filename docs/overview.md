@@ -1,6 +1,8 @@
 # Overview
 
-The DevOps repositories include deployment examples and configuration management tools, with documentation guides for how to use these, as well as how to customize the DevOps images for your own purposes.
+The DevOps resources include deployment examples and configuration management tools, with documentation guides for how to use these, as well as how to customize the DevOps images for your own purposes.
+
+When you're ready, begin with our [Getting started](evaluate.md) guide. Our documentation will guide you through using the DevOps resources:
 
 ## DevOps images
 
@@ -12,11 +14,15 @@ The DevOps image or images are automatically pulled from our repository the firs
 
 ## Deployment examples
 
+We supply examples for deploying our solutions as standalone containers, as a container stack using Docker Compose, as a replicated pair of containers using Docker Compose, as an orchestrated set of containers using Docker Swarm, and as an orchestrated set of containers using Kubernetes.
 
 ## Configuration management
 
+We use server profiles, environment variables, and release tags to pass configuration data to the solution containers at startup.
+
 ### Server profiles
 
+Server profiles are
 
 ### Environment variables
 

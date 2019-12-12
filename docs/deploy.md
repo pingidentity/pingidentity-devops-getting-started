@@ -7,8 +7,8 @@ You can continue to deploy the full stack of solutions as you did in Getting Sta
 You can choose to deploy:
 
    * [A single solution as a standalone Docker container](#A single solution as a standalone Docker container). See [Docker standalone](../10-docker-standalone/README.md) for the available solutions.
-   * [A PingFederate and PingDirectory stack using Docker Compose](#A PingFederate and PingDirectory stack using Docker Compose). See [Docker Compose](../11-docker-compose/README.md) for the example Docker stacks.
-   * [A replicated pair of solutions using Docker Compose](#A replicated pair of solutions using Docker Compose). See [Docker Compose for replicated pairs](../11-docker-compose/02-replicated-pair/README.md) for general information.
+   * [A PingFederate and PingDirectory stack using Docker Compose](#A PingFederate and PingDirectory stack using Docker Compose).
+   * [A replicated pair of solutions using Docker Compose](#A replicated pair of solutions using Docker Compose). See also [Docker Compose for replicated pairs](../11-docker-compose/02-replicated-pair/README.md) for general information.
    * A solutions stack using Docker Swarm.
    * PingDirectory using Kubernetes.
 
