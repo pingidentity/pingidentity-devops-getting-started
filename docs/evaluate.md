@@ -77,7 +77,7 @@ You can then choose to:
 
     > If the `dhelp` command isn't working, see [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
 
-  8.<a id="step8"/> Deploy the full stack of solutions:
+  8.{#step8} Deploy the full stack of solutions:
 
        a. To start the stack, on your local machine, go to the `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
