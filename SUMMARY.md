@@ -2,10 +2,11 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
+* [Overview](docs/overview.md)
 * [Getting started](docs/evaluate.md)
 * [Managing deployments](docs/deploy.md)
 * [Configuring deployments](docs/config.md)
-* [Customize the images](docs/customImages.md)
+* [Customizing the images](docs/customImages.md)
 * [Docker Standalone](10-docker-standalone/README.md)
   * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
   * [01-pingdirectory](10-docker-standalone/01-pingdirectory/README.md)

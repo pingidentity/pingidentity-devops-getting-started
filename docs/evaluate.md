@@ -2,9 +2,7 @@
 
 You can quickly deploy DevOps images of Ping Identity solutions. These images are preconfigured to provide working instances of our solutions, either as single containers or an orchestrated set of containers. We use Docker to deploy the DevOps images in stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration of containers, we use Kubernetes.
 
-You'll need an evaluation license to use the DevOps repositories. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of solutions for DevOps using Docker Compose. You can then choose to try out any one or more of the solutions, all preconfigured to interoperate.
-
-  > If you remove any of the existing configurations for a Ping Identity solution, the solution may no longer interoperate with other solutions in the Docker stack.
+You'll need an evaluation license to use the DevOps repositories. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of solutions for DevOps using Docker Compose. When you first start the Docker stack, our full set of DevOps images is automatically pulled from our repository, if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/). You can then choose to try out any one or more of the solutions, all preconfigured to interoperate.
 
 What you'll need to do:
 
@@ -17,13 +15,13 @@ What you'll need to do:
   7. Use Docker Compose to deploy the full stack. This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
   8. If you want to persist any of your configuration changes, [mount the configuration changes to a local Docker volume](../11-docker-compose#persisting-container-state-and-data).
 
+  See **Procedures** for complete information.
+
 You can then choose to:
 
   * Rerun the full stack evaluation as many times as needed.
   * [Manage the configuration and deployment of selected DevOps images](../configDeploy.md).
   * Customize DevOps images and do advanced configurations for deployment.
-
-See **Procedures** for complete information.
 
 ## Prerequisites
 
@@ -32,12 +30,12 @@ See **Procedures** for complete information.
 
 ## Procedures
 
-  1. [Create a Ping Identity account, or sign on to your existing account](https://www.pingidentity.com/en/account/sign-on.html).
-  2. You'll need a DevOps user name and DevOps key. Your DevOps user name is the email address associated with your Ping Identity account. Request your DevOps key using this [form](https://docs.google.com/forms/d/e/1FAIpQLSdgEFvqQQNwlsxlT6SaraeDMBoKFjkJVCyMvGPVPKcrzT3yHA/viewform).
+  1. <a name="step1"/>[Create a Ping Identity account, or sign on to your existing account](https://www.pingidentity.com/en/account/sign-on.html).
+  2. <a name="step2"/>You'll need a DevOps user name and DevOps key. Your DevOps user name is the email address associated with your Ping Identity account. Request your DevOps key using this [form](https://docs.google.com/forms/d/e/1FAIpQLSdgEFvqQQNwlsxlT6SaraeDMBoKFjkJVCyMvGPVPKcrzT3yHA/viewform).
 
       Your DevOps user name and key will be sent to your email. This will generally take only a few business hours.
 
-  3. Save your DevOps user name and key in a text file. It'll look something like this:
+  3. <a name="step3"/>Save your DevOps user name and key in a text file. It'll look something like this:
 
      ```text
      PING_IDENTITY_DEVOPS_USER=jsmith@example.com
@@ -46,7 +44,7 @@ See **Procedures** for complete information.
 
      > Be sure to use the exact variable names.
 
-  4. Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`.
+  4. <a name="step4"/>Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`.
   For example, enter:
 
       ```text
@@ -81,6 +79,8 @@ See **Procedures** for complete information.
        a. To start the stack, on your local machine, go to the `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
         `docker-compose up -d`
+
+          The full set of DevOps images is automatically pulled from our repository, if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/).
 
        b. Use this command to display the logs as the stack starts:
 

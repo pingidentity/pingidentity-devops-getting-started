@@ -16,6 +16,10 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
   Orchestration of containers allows organizations to increase fault tolerance, availability, and better manage costs by auto-scaling to application demand.
 
+## Overview
+
+See [Overview](docs/overview.md) for descriptions of the components of our DevOps architecture and repositories. 
+
 ## Get started
 
 See [Getting started](docs/evaluate.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
