@@ -44,7 +44,7 @@ You can then choose to:
 
      > Be sure to use the exact variable names.
 
-  4. <a name="step4"/>Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`.
+  4. <a id="step4"/>Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`.
   For example, enter:
 
       ```text
