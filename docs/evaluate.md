@@ -7,8 +7,8 @@ You'll need an evaluation license to use the DevOps repositories. You'll clone o
 What you'll need to do:
 
   1. Check the prerequisites.
-  2. Create a Ping Identity account, or sign on to your existing account and get a DevOps [evaluation license](../PROD-LICENSE.md).
-  3. Save your DevOps credentials in a local text file.
+  2. Create a Ping Identity account, or sign on to your existing account and get a DevOps [evaluation license](#step2).
+  3. [Save your DevOps credentials in a local text file](#step3).
   4. [Make a local copy of the DevOps directory](#step4), `${HOME}/projects/devops`.
   5. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
   6. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
@@ -30,12 +30,12 @@ You can then choose to:
 
 ## Procedures
 
-  1. <a name="step1"/>[Create a Ping Identity account, or sign on to your existing account](https://www.pingidentity.com/en/account/sign-on.html).
+  1.<a name="step1"/> [Create a Ping Identity account, or sign on to your existing account](https://www.pingidentity.com/en/account/sign-on.html).
   2. <a name="step2"/>You'll need a DevOps user name and DevOps key. Your DevOps user name is the email address associated with your Ping Identity account. Request your DevOps key using this [form](https://docs.google.com/forms/d/e/1FAIpQLSdgEFvqQQNwlsxlT6SaraeDMBoKFjkJVCyMvGPVPKcrzT3yHA/viewform).
 
       Your DevOps user name and key will be sent to your email. This will generally take only a few business hours.
 
-  3. <a name="step3"/>Save your DevOps user name and key in a text file. It'll look something like this:
+  3.<a name="step3"/> Save your DevOps user name and key in a text file. It'll look something like this:
 
      ```text
      PING_IDENTITY_DEVOPS_USER=jsmith@example.com
@@ -44,7 +44,7 @@ You can then choose to:
 
      > Be sure to use the exact variable names.
 
-  4. <a id="step4"/>Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`.
+  4.<a name="step4"/> Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`.
   For example, enter:
 
       ```text
@@ -53,11 +53,11 @@ You can then choose to:
       ```
     > A common location will make it easier for us to help you if issues occur.
 
-  5. Clone the DevOps repository to the `${HOME}/projects/devops` directory on your local machine:
+  5.<a name="step5"/> Clone the DevOps repository to the `${HOME}/projects/devops` directory on your local machine:
 
        `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
 
-  6. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for the Ping Identity solutions. For example, enter:
+  6.<a name="step6"/> Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for the Ping Identity solutions. For example, enter:
 
      ```text
      cd pingidentity-devops-getting-started
@@ -65,7 +65,7 @@ You can then choose to:
      ```
      > The setup script also adds command aliases to make running Docker and Kubernetes commands easier.
 
-  7. Refresh your OS shell to make the command aliases available. For example, enter:
+  7.<a name="step7"/> Refresh your OS shell to make the command aliases available. For example, enter:
 
      ```text
      source ~/.bash_profile
@@ -74,7 +74,7 @@ You can then choose to:
 
     > If the `dhelp` command isn't working, see [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
 
-  8. Deploy the full stack of solutions:
+  8.<a name="step8"/> Deploy the full stack of solutions:
 
        a. To start the stack, on your local machine, go to the `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
@@ -95,7 +95,7 @@ You can then choose to:
 
        See the [Docker Compose overview](../11-docker-compose/README.md) for help with starting, stopping, and cleaning up our Docker stacks. You can also refer to the Docker Compose documentation [on the Docker site](https://docs.docker.com/compose/).
 
-  9. Log in to the management console for each of the solutions you want to use:
+  9.<a name="step9"/> Log in to the management console for each of the solutions you want to use:
 
   * PingDataConsole for PingDirectory
         Console URL: https://localhost:8443/console
@@ -126,9 +126,9 @@ You can then choose to:
         Root Password: 2FederateM0re
 
 
-  10. You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you bring down or remove the Docker stack, unless you persist your data by [mounting the configuration changes to a local Docker volume](../11-docker-compose#persisting-container-state-and-data).
+  10.<a name="step8"/> You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you bring down or remove the Docker stack, unless you persist your data by [mounting the configuration changes to a local Docker volume](../11-docker-compose#persisting-container-state-and-data).
 
-  11. When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
+  11.<a name="step8"/> When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
 
       Entering:
 
