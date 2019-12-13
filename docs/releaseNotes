@@ -1,0 +1,9 @@
+# What's new
+
+I expect this to be presented in a topical format (as opposed to a change log) addressing:
+
+  1. New release versions, features/capabilities (ie, images, profiles, scripts)
+  2. New behaviors (ie, operational results)
+  3. Changed features/capabilities or behaviors in new release
+  4. Any deployment limitations to existing features/capabilities or behaviors (current or prior supported releases)
+  5. Any deprecated features/capabilities in new release
