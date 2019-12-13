@@ -2,6 +2,7 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
+* [What's new](docs/releaseNotes.md)
 * [Overview](docs/overview.md)
 * [Getting started](docs/evaluate.md)
 * [Managing deployments](docs/deploy.md)
