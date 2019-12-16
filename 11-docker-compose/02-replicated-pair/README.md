@@ -2,6 +2,8 @@
 
 This is an example of multiple PingDirectory instances replicating between one another.
 
+[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/02-replicated-pair/docker-compose.yaml)
+
 ## Getting started
 
 Please refer to the [Docker Compose Overview](../README.md) for details on how to start, stop, cleanup stacks.
@@ -20,6 +22,8 @@ To see the PingDirectory management console
 
 * Go to [https://localhost:8443/console](https://localhost:8443/console)
 * Log in with `Administrator / 2FederateM0re`
+
+> Note: The admin console is running in the pingdataconsole_1 container, not pingdirectory.
 
 Make a change to a user entry on one of the containers. To look at the containers that docker-compose started:
 

@@ -2,33 +2,22 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pingfederate
-  labels:
-    app: pingfederate
 spec:
   ports:
     - port: 9999
       name: pf-console
     - port: 9031
       name: pf-runtime
-  selector:
-    app: pingfederate
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingfederate
-  labels:
-    app: pingfederate
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: pingfederate
   template:
     metadata:
       name: pingfederate
-      labels:
-        app: pingfederate
     spec:
       containers:
       - name: pingfederate

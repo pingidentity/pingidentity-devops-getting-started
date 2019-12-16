@@ -18,7 +18,8 @@ generatorOptions:
 configMapGenerator:
 - name: pingdirectory-environment-variables
   behavior: replace
-  env: env_vars.pingdirectory
+  envs:
+    - env_vars.pingdirectory
 
 patches:
 - target:

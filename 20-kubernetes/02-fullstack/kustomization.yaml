@@ -13,13 +13,17 @@ generatorOptions:
 configMapGenerator:
 - name: pingaccess-environment-variables
   behavior: replace
-  env: env_vars.pingaccess
+  envs:
+    - env_vars.pingaccess
 - name: pingdatagovernance-environment-variables
   behavior: replace
-  env: env_vars.pingdatagovernance
+  envs:
+    - env_vars.pingdatagovernance
 - name: pingdirectory-environment-variables
   behavior: replace
-  env: env_vars.pingdirectory
+  envs:
+    - env_vars.pingdirectory
 - name: pingfederate-environment-variables
   behavior: replace
-  env: env_vars.pingfederate
+  envs: 
+    - env_vars.pingfederate

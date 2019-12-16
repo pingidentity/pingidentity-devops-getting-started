@@ -117,7 +117,7 @@ run_interactive()
     read answer
     ! test -z "${answer}" && TARGET_GIT_API="${answer}"
 
-    echo -n "Target GIT Repo [${TARGET_GIT_REPO}] ? "
+    echo -n "Target GIT Repo URL [${TARGET_GIT_REPO}] ? "
     read answer
     ! test -z "${answer}" && TARGET_GIT_REPO="${answer}"
 

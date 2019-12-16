@@ -136,31 +136,56 @@ Note: You do not need to do this if you are using your DevOps User/Key. If you h
 
 ## Using an existing Product License file (Mounted /opt/in volume)
 
-You can pass the license file to a container via mounting the container's `/opt/in` directory.
+You can pass the license file to a container via mounting to the container's `/opt/in` directory.
 
 Note: You do not need to do this if you are using your DevOps User/Key. If you have provided license files via the volume mount and a DevOps User/Key, it will ignore the DevOps User/Key.
 
-The `/opt/in` volume overlays files onto the products runtime filesystem, the license needs to be in the exact location the product checks for valid licenses.
+The `/opt/in` directory overlays files onto the products runtime filesystem, the license needs to be named correctly and mounted in the exact location the product checks for valid licenses.
 
 ### Example Mounts
 
 **PingFederate**
-* License file located at: /tmp/pingfederate/instance/server/default/conf/pingfederate.lic
-* Mount: /tmp/pingfederate:/opt/in
+* Expected license file name: `pingfederate.lic`
+* Mount Path: `/opt/in/instance/server/default/conf/pingfederate.lic`
 
 **PingAccess**
-* License file located at: /tmp/pingaccess/instance/conf/pingaccess.lic
-* Mount: /tmp/pingaccess:/opt/in
+* Expected license file name: `pingaccess.lic`
+* Mount Path: `opt/in/instnce/conf/pingaccess.lic`
 
 **PingDirectory**
-* License file located at: /tmp/pingdirectory/instance/PingDirectory.lic
-* Mount: /tmp/pingdirectory:/opt/in
+* Expected License file name: `PingDirectory.lic`
+* Mount Path: `/opt/in/instance/PingDirectory.lic`
 
 **PingDataSync**
-* License file located at: /tmp/pingdatasync/instance/PingDirectory.lic
-* Mount: /tmp/pingdatasync:/opt/in
+* Expected license file name: `PingDirectory.lic`
+* Mount Path: `/opt/in/instance/PingDirectory.lic`
 
-## Troubleshooting
+**PingDataGovernance**
+* Expected license file name: `PingDataGovernance.lic`
+* Mount Path: `/opt/in/instance/PingDataGovernance.lic`
+
+
+### Volume Mount Syntax
+Sample docker run command with mounted license:
+
+```
+docker run \
+    --name pingfederate \
+    --volume <local/path/to/pingfederate.lic>:/opt/in/instance/server/default/conf/pingfederate.lic
+    pingidentity/pingfederate:edge
+```
+
+Sample docker-compose.yaml with mounted license:
+```
+version: "3.1"
+services:
+  pingfederate:
+    image: pingidentity/pingfederate:edge
+    volumes:
+      - path/to/pingfederate.lic:/opt/in/instance/server/default/conf/pingfederate.lic
+```
+
+## Support
 
 If you have any quesitons or issues, please contact [devops\_program@pingidentity.com](mailto:devops_program@pingidentity.com).
 

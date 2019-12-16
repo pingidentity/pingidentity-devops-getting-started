@@ -13,6 +13,7 @@ We've set up some example Docker stacks to help you better understand the uses o
 | [03-full-stack](./03-full-stack/README.md) | A stack with PingDirectory, PingFederate, PingAccess, PingDataGovernance and PingDataConsole |
 | [04-simple-sync](04-simple-sync/README.md) | A stack with PingDirectory, and PingDataSync. |
 | [05-pingfederate-cluster](05-pingfederate-cluster/README.md) | A stack with a clustered PingFederate admin console and engine. |
+| [06-pingaccess-cluster](06-pingaccess-cluster/README.md) | A stack with a clustered PingAccess admin console and engine |
 
 ## Docker Compose fundamentals
 

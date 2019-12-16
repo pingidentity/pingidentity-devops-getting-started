@@ -11,9 +11,8 @@ spec:
     - port:  389
       name: ldap
   clusterIP: None
-  selector:
-    app: pingdirectory
 ---
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -21,13 +20,9 @@ metadata:
 spec:
   serviceName: pingdirectory
   replicas: 1
-  selector:
-    matchLabels:
-      app: pingdirectory
   template:
     metadata:
-      labels:
-        app: pingdirectory
+      name: pingdirectory
     spec:
       terminationGracePeriodSeconds: 300
       containers:
