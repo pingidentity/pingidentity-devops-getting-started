@@ -6,12 +6,12 @@
 
 ## What's changed
 
-  Changed features/capabilities/behaviors
+  Changes to prior existing features/capabilities/behaviors.
 
-## Any limitations?
+## Resolved issues
 
-  Any deployment limitations to existing features/capabilities/behaviors (current or prior supported releases)
+  Defects we've fixed (notable or requested).
 
-## Anything deprecated?
+## Known issues
 
-  Any deprecated features/capabilities (current or prior supported releases)
+  Issues we're aware of to existing features/capabilities/behaviors
