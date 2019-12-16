@@ -4,7 +4,7 @@ You can continue to deploy the full stack of solutions as you did in Getting Sta
 
 We've example configurations to help you quickly deploy:
 
- * [A single solution as a standalone Docker container](deployStandalone).
+ * [A single solution as a standalone Docker container](deployStandalone.md).
 
     See [Docker standalone](../10-docker-standalone/README.md) for the available solutions.
 
