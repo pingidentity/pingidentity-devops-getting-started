@@ -1,1 +1,1 @@
-# Customizing the images
+# Customize the images

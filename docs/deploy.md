@@ -1,4 +1,4 @@
-# Managing deployments
+# Manage deployments
 
 You can continue to deploy the full stack of solutions as you did in Getting Started, or you can deploy a single solution or a different set of solutions.
 
