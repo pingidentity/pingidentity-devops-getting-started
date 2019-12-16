@@ -14,6 +14,8 @@
 
   See [Docker Compose](../11-docker-compose) for help using Docker Compose.
 
+3. ...tbd...
+
 <!-- 3. Verify that data is replicating between the pair by adding a description entry for the first container. Enter:
 
   ```text
