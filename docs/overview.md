@@ -1,8 +1,8 @@
 # Overview
 
-The DevOps resources include deployment examples and configuration management tools, with documentation guides for how to use these, as well as how to customize the DevOps images for your own purposes.
+The DevOps resources include Ping Identity solution images for DevOps, deployment examples and configuration management tools. Refer to the documentation guides for how to use these resources.
 
-When you're ready, begin with our [Getting started](evaluate.md) guide. Our documentation will guide you through using the DevOps resources:
+When you're ready, begin with our [Getting started](evaluate.md) guide. Our documentation will help set you up and familiarize you with the use of the resources:
 
 ## DevOps images
 
@@ -37,7 +37,7 @@ Hooks are DevOps shell scripts, generally specific to a solution, that you can u
 
 ### Release tags
 
-We use sets of tags for each released DevOps image. These tags identify whether the image is a specific stable release, the latest stable release, or the current (unstable) build release. You'll find the release tag information in [Docker images](docker-images/README.md). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.  
+We use sets of tags for each released DevOps image. These tags identify whether the image is a specific stable release, the latest stable release, or the current (unstable) build release. You'll find the release tag information in [Docker images](docker-images/README.md). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.
 
 ## Custom images
 
