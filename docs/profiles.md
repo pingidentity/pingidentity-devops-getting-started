@@ -1,6 +1,6 @@
 # Using server profiles
 
-When you deployed the full stack of solution containers in [Get started](evaluate.md), you were employing the server profiles associated with each of our solutions. If you take a look at the [YAML file for the full stack deployment](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml), you'll see entries such as this for each service (solution):
+When you deployed the full stack of solution containers in [Get started](evaluate.md), you were employing the server profiles associated with each of our solutions. In the YAML files, you'll see entries such as this for each service (solution):
 
   ```text
   environment:
