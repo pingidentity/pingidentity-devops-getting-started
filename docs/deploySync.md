@@ -14,7 +14,7 @@
 
   See [Docker Compose](../11-docker-compose) for help using Docker Compose.
 
-3. Verify that data is replicating between the pair by adding a description entry for the first container. Enter:
+<!-- 3. Verify that data is replicating between the pair by adding a description entry for the first container. Enter:
 
   ```text
   docker container exec -it 02-replicated-pair_pingdirectory_1 /opt/out/instance/bin/ldapmodify
@@ -38,7 +38,7 @@
   ```text
   # dn: uid=user.0,ou=people,dc=example,dc=com
   # description: Made this change on the first container.
-  ```
+  ``` -->
 
 4. When you no longer want to run this replicated pair stack, you can either stop the running stack, or bring the stack down. Enter either:
 
