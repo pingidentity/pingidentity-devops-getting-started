@@ -11,6 +11,7 @@
   - [Deploy a replicated pair using Docker Compose](docs/deployReplication.md)
   - [Deploy data synchronization for PingDirectory using Docker Compose](docs/deploySync.md)
 * [Configure deployments](docs/config.md)
+  - [Using server profiles](profiles.md)
 * [Customize the images](docs/customImages.md)
 * [Docker Standalone](10-docker-standalone/README.md)
   * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)

@@ -22,9 +22,10 @@ What you'll need to do:
 
 You can then choose to:
 
-  * Rerun the full stack evaluation as many times as needed.
-  * [Manage the configuration and deployment of selected DevOps images](../configDeploy.md).
-  * Customize DevOps images and do advanced configurations for deployment.
+  * Rerun the full stack evaluation.
+  * [Deploy a solution as a standalone Docker container, or deploy a set of solutions using orchestration](deploy.md).
+  * [Manage container and stack configurations](configDeploy.md).
+  * [Customize the DevOps images](customImages.md).
 
 ## Prerequisites
 
@@ -147,6 +148,7 @@ You can then choose to:
 
 You can now choose to:
 
-  * Rerun the full stack evaluation (`docker-compose up -d`) as many times as needed.
-  * [Deploy a solution as a standalone Docker container, or deploy a set of solutions using orchestration](../deploy.md).
-  * Customize DevOps images and do advanced configurations for deployment.
+  * Rerun the full stack evaluation (`docker-compose up -d`).
+  * [Deploy a solution as a standalone Docker container, or deploy a set of solutions using orchestration](deploy.md).
+  * [Manage container and stack configurations](configDeploy.md).
+  * [Customize the DevOps images](customImages.md).
