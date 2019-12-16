@@ -8,3 +8,5 @@ When you deployed the full stack of solution containers in [Get started](evaluat
     - SERVER_PROFILE_PATH=baseline/pingaccess
   ```
 Our [pingidentity-server-profiles](../../pingidentity-server-profiles/README.md) repository indicated by the `SERVER_PROFILE_URL` environment variable, contains the server profiles we use for our deployment examples. The PingAccess profile data is located in the `baseline/pingaccess` directory.
+
+...tbd...
