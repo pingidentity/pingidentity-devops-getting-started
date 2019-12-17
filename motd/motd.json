@@ -23,6 +23,17 @@
                         "Details on obtaining these can be found at:",
                         "",
                         "    https://pingidentity-devops.gitbook.io/devops/prod-license"]
+        },
+        {
+            "validFrom": 20191201,
+            "validTo": 20241231,
+            "subject": "EULA explicit acceptance is now required",
+            "message": [
+                "Continued use of the Ping Identity Docker container constitute acceptance of the Terms of Use of Ping Identity software.",
+                "For details, see:",
+                "",
+                "    https://www.pingidentity.com/en/legal/subscription-agreement.html"
+            ]
         }
     ],
     "pingaccess" : [{
