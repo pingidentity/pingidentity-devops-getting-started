@@ -27,6 +27,8 @@ services:
       - 5443:443
     networks:
       - pingnet
+    environment:
+      - PING_IDENTITY_ACCEPT_EULA=YES
     volumes:
       - pingdirectory-config:/opt/in
       - /tmp/Swarm/basic3/pingdirectory:/opt/out

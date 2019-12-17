@@ -14,6 +14,7 @@ services:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: ["sh", "-c", "wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server"]
     environment:
+      - PING_IDENTITY_ACCEPT_EULA=YES
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pf-aws-s3-clustering/pingfederate
       - SERVER_PROFILE_PARENT=BASELINE
@@ -37,6 +38,7 @@ services:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
     environment:
+      - PING_IDENTITY_ACCEPT_EULA=YES
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pf-aws-s3-clustering/pingfederate
       - SERVER_PROFILE_PARENT=BASELINE
@@ -59,6 +61,7 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
+      - PING_IDENTITY_ACCEPT_EULA=YES
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     deploy:

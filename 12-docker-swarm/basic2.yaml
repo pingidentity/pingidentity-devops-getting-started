@@ -19,6 +19,8 @@ services:
     ports:
       - 5636:636
       - 5443:443
+    environment:
+      - PING_IDENTITY_ACCEPT_EULA=YES
     networks:
       - pingnet
     volumes:
