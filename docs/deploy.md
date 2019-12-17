@@ -27,4 +27,4 @@ We've example configurations to help you quickly deploy:
 
 ## Prerequisites
 
-  * You've already been through [Getting Started](evaluate.md) to set up your environment and run a test deployment of the solutions.
+  * You've already been through [Getting Started](evaluate.md) to set up your DevOps environment and run a test deployment of the solutions.
