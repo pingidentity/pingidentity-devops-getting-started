@@ -1,5 +1,6 @@
 SERVER_PROFILE_URL=https://www.github.com/pingidentity/pingidentity-server-profiles.git
 SERVER_PROFILE_PATH=baseline/pingdirectory
+PING_IDENTITY_ACCEPT_EULA=YES
 ORCHESTRATION_TYPE=KUBERNETES
 K8S_STATEFUL_SET_NAME=pingdirectory
 K8S_STATEFUL_SET_SERVICE_NAME=pingdirectory
