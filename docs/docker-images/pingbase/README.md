@@ -22,6 +22,7 @@ this image.
 | ------------: | ----------- | ---------------------------------
 | IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version, set by build process of the docker build 
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  | Image git revision, set by build process of the docker build 
+| ACCEPT_EULA  | NO  | Must be set to 'YES' for the container to start 
 | BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in  image/container 
 | IN_DIR  | ${BASE}/in  | Location of a local server-profile volume 
 | OUT_DIR  | ${BASE}/out  | Path to the runtime volume 
