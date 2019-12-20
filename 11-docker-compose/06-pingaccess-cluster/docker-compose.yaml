@@ -1,8 +1,9 @@
 version: "3.1"
+# The server profiles used in this example are intended for use with edge versions of the product image only.
 
 services:
   pingaccess:
-    image: pingidentity/pingaccess:6.0.0-alpine-edge
+    image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     healthcheck:
       test: ["CMD-SHELL", "curl -s -u administrator:2FederateM0re -H \"X-XSRF-Header: PingAccess\" -k https://localhost:9000/pa-admin-api/v3/sites | jq -e '.items[0].name' "]
       interval: 10s
