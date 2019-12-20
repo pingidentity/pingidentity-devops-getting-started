@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   pingaccess:
-    image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingaccess:6.0.0-alpine-edge
     command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
