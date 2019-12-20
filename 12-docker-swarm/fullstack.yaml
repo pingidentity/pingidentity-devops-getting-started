@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   pingaccess:
-    image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingaccess:6.0.0-alpine-edge
     command: ["sh", "-c", "wait-for pingfederate:9031 -t 700 -- entrypoint.sh start-server"]
     environment:
       - PING_IDENTITY_ACCEPT_EULA=YES

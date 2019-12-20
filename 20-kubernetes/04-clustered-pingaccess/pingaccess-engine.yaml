@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: pingaccess-engine
-        image: pingidentity/pingaccess:5.2.3-edge
+        image: pingidentity/pingaccess:6.0.0-alpine-edge
         ports:        
         - containerPort: 3000
         envFrom:
