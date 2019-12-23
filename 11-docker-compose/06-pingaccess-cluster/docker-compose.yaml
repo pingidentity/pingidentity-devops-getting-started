@@ -14,7 +14,6 @@ services:
       - PING_IDENTITY_ACCEPT_EULA=YES
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
       - PA_CONSOLE_HOST=pingaccess
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
      - ~/.pingidentity/devops    
     # volumes:
