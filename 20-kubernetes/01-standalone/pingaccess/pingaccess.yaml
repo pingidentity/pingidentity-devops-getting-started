@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: pingaccess
-        image: pingidentity/pingaccess:edge
+        image: pingidentity/pingaccess:6.0.0-alpine-edge
         ports:
         - containerPort: 9000
         - containerPort: 443

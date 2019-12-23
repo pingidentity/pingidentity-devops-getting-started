@@ -1,5 +1,5 @@
 version: "3.1"
-
+# The server profiles used in this example are intended for use with edge versions of the product image only.
 #
 # This compose file offers mirrors the configuration provided in
 # 10-docker-standalone/01-pingdirectory "Using local volume"
@@ -8,8 +8,6 @@ version: "3.1"
 # rm -rf /tmp/Swarm/pingidentity-server-profiles
 # git clone https://github.com/pingidentity/pingidentity-server-profiles.git /tmp/Swarm/pingidentity-server-profiles
 #
-networks:
-    pingnet:
 
 services:
   pingdirectory:
@@ -26,3 +24,5 @@ services:
     volumes:
       - /tmp/Swarm/pingidentity-server-profiles/getting-started/pingdirectory:/opt/in
       - /tmp/Swarm/basic2/pingdirectory:/opt/out
+networks:
+    pingnet:
