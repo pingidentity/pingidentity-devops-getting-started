@@ -2,34 +2,57 @@
 
 It can be challenging to manage promoting configurations through environments (e.g. dev>qa>prod) when dealing with exporting and importing configuration archives. 
 
-One part of the the challenge is the various hostnames and what they may be configured to in each environment. To overcome this, you can: 1. variablize the the exported configuration archive 2. set the variables per deployment.
-The following will cover: 
-  - Recommended path to promote configurations. 
+One part of the the challenge is the various hostnames and what they may be configured to in each environment. To overcome this, you can variablize the the exported configuration archive, and set the variables per deployment.
 
-TODO: recommended path to promote configurations. repo, branches, one env_hosts file. do not fork, use blue-green for deployment. 
+
+<!-- TODO: recommended path to promote configurations. repo, branches, one env_hosts file. do not fork, use blue-green for deployment. 
 
 TODO: how to use variablize. sample commands
-The `variablize_config.sh` tool can be used by sending each host/variable directly, or sending a list of hosts via a file. 
+The `variablize_config.sh` tool can be used by sending each host/variable directly, or sending a list of hosts via a file.  -->
 
-single host
-```
-./variablize_config.sh --source federate.dev.pingidentity.com --destination PF_HOSTNAME \
---path /path/to/config/data.zip --interactive --rename
-```
-This command will unzip `data.zip` and look for `federate.dev.pingidentity.com` then replace it with `${PF_HOSTNAME}`.
-Additionally it wil create a `data.zip.bak` backup (re `--rename`) and ask to confirm before replacing (re `--interactive`). 
+## Examples
 
-hosts file
+Single Host Variablization
 ```
-./variablize_config.sh -e /path/to/env_hosts -p /path/to/config/data.zip
+./variablize__pf_pa_config.sh --source federate.dev.pingidentity.com --destination PF_HOSTNAME \
+--path /path/to/config/archive.zip --backup --output data.zip
 ```
-This command will iterate over a list of hosts and variables and find and replace each into the config. The file must be structured similar to: 
+This command will: 
+  1. Unzip `archive.zip` 
+  2. Look for `federate.dev.pingidentity.com` and replace it with `${PF_HOSTNAME}`.
+  3. Re-zip and rename to `data.zip`
+  4. Create a `data.zip.bak` backup.
+
+**Preferred**: hosts file
 ```
-federate.dev.pingidentity.com PF_HOSTNAME
+./variablize_pf_pa_config.sh --env-file /path/to/env_hosts -p /path/to/config/archive.zip --output data
+```
+This command will:
+  1. Unzip archive.zip
+  2. Iterate over a list of hosts and variable names and find and replace each into the config. 
+  3. Rename the folder to `data`
+
+The file containing the items to look for must be structured similar to: 
+```
+hostname variable_name
+federate.dev.pingidentity.com:9031 PF_HOSTNAME
 federate.prod.pingidentity.com PF_HOSTNAME
 access.dev.pingidentity.com PA_HOSTNAME
 access.prod.pingidentity.com PA_HOSTNAME
 directory.dev.pingidentity.com PD_HOSTNAME
 directory.prod.pingidentity.com PD_HOSTNAME
-hostname variable_name
 ```
+
+## Notes: 
+
+  - Inline help on script can be found by adding -h or --help flags
+  - add the script to ~/bin to call from anywhere: 
+  ```
+  cd ~/bin
+  ln -s <path/to/variablize_pf_ps_config.sh> variablize
+  ```
+  then you can run from anywhere on your host:
+  ```
+  variablize -s federate.dev.pingidentity.com -d PF_HOSTNAME \
+  -p /path/to/config/archive.zip -B -o data
+  ```

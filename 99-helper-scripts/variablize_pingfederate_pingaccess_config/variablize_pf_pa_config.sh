@@ -51,7 +51,6 @@ exit 99
 exit_usage()
 {
     echo "$*"
-    echo
     usage
     exit 1
 }
@@ -80,7 +79,7 @@ while ! test -z ${1} ; do
     -p|--path)
       shift
       in_data_config_fpath=$( get_abs_filename "${1}" )
-      echo ${in_data_config_fpath}
+      # echo ${in_data_config_fpath}
       in_data_config_dir=$( dirname "${in_data_config_fpath}" )
       in_data_config_name=$( basename "${in_data_config_fpath}" ) ;;
     -o|--output)
@@ -182,7 +181,7 @@ check_variablize() {
     fi
     return 0
   else
-    echo "hostname not found: ${source_host}, skipping replace"
+    echo "INFO: hostname not found: ${source_host}, skipping replace"
     return 1
   fi
 }
@@ -194,19 +193,19 @@ variablize() {
     dest_var=$( echo "${dest_var}" | sed 's/_/\\_/g' )
     dest_var=$( echo "${dest_var}" | sed 's/\./\\./g' )
     # dest_var=$( echo "${dest_var}" | sed 's/\$/\\$/g' ) 
-    echo "dest_var=${dest_var}"
+    # echo "dest_var=${dest_var}"
     source_host=$( echo "${source_host}" | sed 's/-/\\-/g' )
     source_host=$( echo "${source_host}" | sed 's/_/\\_/g' )
     source_host=$( echo "${source_host}" | sed 's/\./\\./g' )
     source_host=$( echo "${source_host}" | sed 's/\:/\\:/g' )
-    echo "source_hostname=${source_host}"
+    # echo "source_hostname=${source_host}"
     json=.json  
     xml=.xml
     
     # Begin find/replace
-    echo "going to: ${data_tmp_dir}"
+    echo "INFO: using temp dir: ${data_tmp_dir}"
     cd ${data_tmp_dir}
-    echo "appending.subst"
+    echo "INFO: appending .subst"
     grep -irl "${source_host}" "${data_to_config}" | while read -r fname ; do
       case "${fname}" in 
         *.json) mv "${fname}" "${fname}.subst";;
