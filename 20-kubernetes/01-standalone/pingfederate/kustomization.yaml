@@ -1,16 +1,6 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-commonLabels:
-  role: pingfederate
-
 resources:
 - pingfederate.yaml
-
-generatorOptions:
-  disableNameSuffixHash: true
-
-configMapGenerator:
-- name: pingfederate-environment-variables
-  envs: 
-    - env_vars
+- configmap.yaml
