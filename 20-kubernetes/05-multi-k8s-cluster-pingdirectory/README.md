@@ -75,16 +75,16 @@ LDAPS_PORT=8600
 REPLICATION_PORT=8700
 ```
 
-| SEED | POD | Instance                   | LDAPS | REPL |
-|:----:|:---:|----------------------------|:-----:|:-----|
+| SEED | POD | Instance                   | Hostnane                       | LDAPS | REPL |
+|:----:|:---:|----------------------------|--------------------------------|:-----:|:-----|
 |      |     | CLUSTER: us-east-2
-| ***  | *** | pingdirectory-0.us-east-2 | 8600  | 8700  |
-|      |     | pingdirectory-1.us-east-2 | 8601  | 8701  |
-|      |     | pingdirectory-2.us-east-2 | 8602  | 8702  |
+| ***  | *** | pingdirectory-0.us-east-2 | pd-0.us-cluster.ping-devops.com | 8600  | 8700  |
+|      |     | pingdirectory-1.us-east-2 | pd-1.us-cluster.ping-devops.com |  8601  | 8701  |
+|      |     | pingdirectory-2.us-east-2 | pd-2.us-cluster.ping-devops.com |  8602  | 8702  |
 |      |     | CLUSTER: eu-west-1
-|      |     | pingdirectory-0.eu-west-1 | 8600  | 8700  |
-|      |     | pingdirectory-1.eu-west-1 | 8601  | 8701  |
-|      |     | pingdirectory-2.eu-west-1 | 8602  | 8702  |
+|      |     | pingdirectory-0.eu-west-1 | pd-0.us-cluster.ping-devops.com |  8600  | 8700  |
+|      |     | pingdirectory-1.eu-west-1 | pd-1.eu-cluster.ping-devops.com |  8601  | 8701  |
+|      |     | pingdirectory-2.eu-west-1 | pd-2.eu-cluster.ping-devops.com |  8602  | 8702  |
 
 ## Addiontal Kubernetes Resources Required
 In addition to the StatefulSet, other resources are required to properly map the LoadBalancers to the
@@ -96,9 +96,12 @@ Pods.  The following provides an example to help describe each resource below.
 A DNS entry will be required at the LoadBalancer to point a wildcard domain or individual hostnames
 to the LoadBalancer created by the NGINX Ingress Service/Controller
 
-### NGINX Service
-Provides external IP and obtains definition from Ingress NGINX Service.
-Mapping all port ranges (SEED_LDAPS_PORT, SEED_REPLICATION_PORT) to the same target port range
+### NGINX Ingress Service/Controller
+Several Components that map the ports from the external Load Balancer thru the NGINX Service and Controller.
+
+* External Load Balancer   - Provides external IP and obtains definition from Ingress NGINX Service
+* Ingress NGINX Service    - Mapping all port ranges (SEED_LDAPS_PORT, SEED_REPLICATION_PORT) to the same target port range
+* NGINX Ingress Controller - Maps all port ranges to stateful set pods
 
 Example:
 
@@ -148,22 +151,50 @@ spec:
       targetPort: 8702
 ```
 
+### NGINX TCP Services
+ConfigMap (tcp-services) that provides the mappings from the target ports on the NGINX Controller to the
+associated Pod Service (see below).
 
-
-
+Example:
 ```
-###################################################################################################################
-#
-# DNS                      - You must have an A Record for each cluster pointing to that clusters
-#                            load balancer
-#
-# External Load Balancer   - Provides external IP and obtains definition from Ingress NGINX Service
-#
-# Ingress NGINX Service    - Mapping all port ranges (SEED_LDAPS_PORT, SEED_REPLICATION_PORT) to the same
-#                            target port range
-#
-# NGINX Ingress Controller - Maps all port ranges to stateful set pods
-#
-# StatefulSet Pod Services - Provides a stateful set service for each pod
-###################################################################################################################
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx-public
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/role: ingress-nginx-public
+data:
+  8600: "ping-cloud-devops-eks-tsigle/pingdirectory-0-service:8600"
+  8601: "ping-cloud-devops-eks-tsigle/pingdirectory-1-service:8601"
+  8602: "ping-cloud-devops-eks-tsigle/pingdirectory-2-service:8602"
+  8700: "ping-cloud-devops-eks-tsigle/pingdirectory-0-service:8700"
+  8701: "ping-cloud-devops-eks-tsigle/pingdirectory-1-service:8701"
+  8702: "ping-cloud-devops-eks-tsigle/pingdirectory-2-service:8702"
+```
+
+### StatefulSet Pod Services
+Provides a stateful set service for each pod
+
+Example (of just one pod):
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: pingdirectory-0-service
+spec:
+  type: ClusterIP
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-0
+  ports:
+    - protocol: TCP
+      port: 8600
+      targetPort: 8600
+      name: ldaps
+    - protocol: TCP
+      port: 8700
+      targetPort: 8700
+      name: repl
 ```
