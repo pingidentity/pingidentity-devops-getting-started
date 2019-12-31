@@ -103,6 +103,10 @@ Several Components that map the ports from the external Load Balancer thru the N
 * Ingress NGINX Service    - Mapping all port ranges (SEED_LDAPS_PORT, SEED_REPLICATION_PORT) to the same target port range
 * NGINX Ingress Controller - Maps all port ranges to stateful set pods
 
+> ***IMPORTANT NOTE***: Typically the NGINX Service and tcp-services (see below) require additional
+> namespace access (i.e. `ingress-nginx-public`).  Be sure be aware of additional applications
+> using this service/controller.
+
 Example:
 
 ```
