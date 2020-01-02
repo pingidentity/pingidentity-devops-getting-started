@@ -29,7 +29,7 @@ You can then choose to:
 
 ## Prerequisites
 
-* Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for Mac OS](https://docs.docker.com/v17.12/docker-for-mac/install/).
+* Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for macOS](https://docs.docker.com/v17.12/docker-for-mac/install/).
 * [Git](https://git-scm.com/downloads).
 
 ## Procedures

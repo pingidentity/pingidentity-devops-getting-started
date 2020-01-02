@@ -27,9 +27,9 @@ You can try different configuration settings using the common and solution-speci
   2. Select the solution whose profile you want to modify from the `baseline`, `getting-started`, or `simple-sync` directories in the [server profiles repository](../../pingidentity-server-profiles).
   3. Open the `env_vars` file associated with the solution and add any of the environment variables you've selected, or change the existing environment variables to fit your purpose.
 
-## Modifying a server profile based on an existing Ping Identity solution installation and using your Github repository
+## Modifying a server profile using your Github repository
 
-We'll use a PingFederate installation as an example solution, and we'll fork our server profile repository (https://github.com/pingidentity/pingidentity-server-profiles) to your Github repository.
+You'll modify a one of our server profiles based on data from an existing Ping Identity solution installation. We'll use a PingFederate installation as an example solution, and you'll fork our server profile repository (https://github.com/pingidentity/pingidentity-server-profiles) to your Github repository.
 
   1. Export a [configuration archive](https://support.pingidentity.com/s/document-item?bundleId=pingfederate-84&topicId=adminGuide%2Fpf_c_configurationArchive.html) as a *.zip file from a PingFederate installation to a location on your local machine.
 
@@ -82,32 +82,108 @@ We'll use a PingFederate installation as an example solution, and we'll fork our
 
 8. In a browser, go to `https://localhost:9999/pingfederate/app` to display the PingFederate console.
 
-## Modifying a server profile based on an existing Ping Identity solution installation and using local directories
+## Modifying a server profile using local directories
 
-We'll use a PingFederate installation as an example solution, and we'll use local directories, rather than Github to modify the server profile.
+You'll modify a one of our server profiles. We'll use a PingFederate installation as an example solution, and we'll use local directories, rather than Github to modify the server profile.
 
-1. Run the PingFederate container. To save any changes you make after the container is running, add the entry `-v /some/local/path:/opt/out` to the `docker run` command. The environment variables `SERVER_PROFILE_URL` and `SERVER_PROFILE_PATH` direct Docker to use the server profile you've modified. For example:
+### /opt/out
 
-  ```text
+All configurations and changes during container runtime \(i.e. "persisted data"\) are captured here. For example: On the PingFederate image `/opt/out/instance` contains much of the typical PingFederate root directory:
+
+```text
+.
+├── README.md
+├── SNMP
+├── bin
+├── connection_export_examples
+├── etc
+├── legal
+├── lib
+├── log
+├── modules
+├── sbin
+├── sdk
+├── server
+├── tools
+└── work
+```
+
+### /opt/in
+
+A Ping Identity container will look in this directory for any provided server-profile structures or other relevant files. This is in contrast to a server-profile provided via Github URL in an environment variable.
+
+## How to Use:
+
+These directories are useful for building and working with local server-profiles. `/opt/in` is especially valuable if you do not want your containers to reach out to Github. Here is an example:
+
+1. start with a vanilla PingFederate and bind-mount /opt/out to local directory:
+
+   ```text
     docker run \
-      --name pingfederate \
-      --publish 9999:9999 \
-      --publish 9031:9031 \
-      --detach \
-      --env SERVER_PROFILE_URL=https://github.com/<your_username>/pingidentity-server-profiles.git \
-      --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-      --env-file ~/.pingidentity/devops \
-      pingidentity/pingfederate:edge
-  ```
+              --name pingfederate \
+              --publish 9999:9999 \
+              --detach \
+              --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+              --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+              -v /tmp/docker/pf:/opt/out \
+              pingidentity/pingfederate:edge
+   ```
 
-  > If your GitHub server-profile repo is private, use the `username:token` format so the container can access the repository. For example, `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`.
+   > Make sure the locally mounted directory \(e.g.`/tmp/docker/pf`\) is not created. /opt/out expects to create the directory.
 
-7. Enter `docker container logs -f pingfederate` to display the logs as the container starts up. If your server profile modification has been applied, you'll see something like this:
+2. Make some configuration changes via PingFederate UI. As you make changes, you can see the files in the local directory change. For PingFederate, a folder `instance` is created. This is a server-profile. You could push this to Github for use as an environment variable, but here we will use it as a local server-profile.
+3. Stop the container and start a new one with the local config:
 
-  ```text
-    2019-09-12 22:23:28,318  INFO  [org.eclipse.jetty.server.AbstractConnector] Started ServerConnector@3a022576{SSL,[ssl, http/1.1]}{0.0.0.0:9999}
-    2019-09-12 22:23:28,318  INFO  [org.eclipse.jetty.server.Server] Started @12189ms
-    2019-09-12 22:23:28,321  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] PingFederate started in 9s:843ms
-  ```
+   ```text
+   docker container stop pingfederate
 
-8. In a browser, go to `https://localhost:9999/pingfederate/app` to display the PingFederate console.
+   docker run \
+            --name pingfederate-local \
+            --publish 9999:9999 \
+            --detach \
+            -v /tmp/docker/pf:/opt/in \
+            pingidentity/pingfederate:edge
+   ```
+
+   in the logs you can see where `/opt/in` is used:
+
+   ```text
+   docker logs pingfederate-local
+   # Output:
+   # ----- Starting hook: /opt/entrypoint.sh
+   # copying local IN_DIR files (/opt/in) to STAGING_DIR (/opt/staging)
+   # ----- Starting hook: /opt/staging/hooks/01-start-server.sh
+   ```
+
+### Additional Notes:
+
+* This is helpful when developing locally and configuration is not ready for GitHub
+* Docker recommends to never use bind-mounts in production. Hence, this example is good for _developing_ server profiles.
+* Mounted volumes \(`docker volume create pf-local`\), preferred method, can be used instead. Be sure the volume is empty when mounting to /opt/out
+* Be sure to look at [server-profiles administration](administration.md) to see what can go in to each product's `/opt/in`.
+
+### Use Github!
+
+A fun way to watch exactly which files change as you make configurations \(using the example above\):
+
+```text
+  cd /tmp/docker
+
+  git init
+
+  # start container. make changes
+
+  git status
+
+  git diff HEAD
+
+  #complete changes. Stop container
+
+  #save config
+  git add .
+  git commit -m "added new connection"
+
+  #push to github to use as a environment variable server profile in the future
+  git remote add origin <your-github-repo>
+  git push origin master
+```
