@@ -30,6 +30,7 @@ spec:
     spec:
       containers:
       - image: pingidentity/pingdataconsole:edge
+        imagePullPolicy: Always
         name: pingdataconsole
         ports:
         - containerPort: 8080
