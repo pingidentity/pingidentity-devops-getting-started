@@ -33,14 +33,13 @@ spec:
       containers:
       - name: pingfederate
         image: pingidentity/pingfederate:edge
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: pingfederate-environment-variables
         - secretRef:
             name: devops-secret
             optional: true
-        name: pingfederate
-        image: pingidentity/pingfederate:edge
         livenessProbe:
           failureThreshold: 1
           httpGet:
