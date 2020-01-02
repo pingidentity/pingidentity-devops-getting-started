@@ -4,6 +4,8 @@ This is an example of a PingFederate cluster
 
 [docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/05-pingfederate-cluster/docker-compose.yaml)
 
+Note: The example uses the DNS Discovery feature available as of PingFederate 10.
+
 ## Getting started
 
 Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
@@ -31,6 +33,20 @@ curl -u administrator:2FederateM0re -k 'https://localhost:9999/pf-admin-api/v1/c
 You should see similar to:
 ```json
 {"nodes":[{"address":"169.254.1.2:7600","mode":"CLUSTERED_CONSOLE","index":804046313,"nodeGroup":"","version":"10.0.0.15"},{"address":"169.254.1.3:7600","mode":"CLUSTERED_ENGINE","index":2142569058,"nodeGroup":"","version":"10.0.0.15","nodeTags":""}],"lastConfigUpdateTime":"2019-12-31T19:36:54.000Z","replicationRequired":true,"mixedMode":false}
+```
+
+## Cluster Replication
+
+To replicate configuration accross your cluster, login to the Administrator Console, click on 'System' -> 'Cluster Management' -> 'Replicate Configuration'
+
+You can perform this action via the API by running the command:
+```shell
+curl -X POST -u administrator:2FederateM0re -k 'https://localhost:9999/pf-admin-api/v1/cluster/replicate' \
+--header 'x-xsrf-header: PingFederate'
+```
+You should receive the response
+```json
+{"resultId":"success","message":"Operation succeeded."}
 ```
 
 ## How it works
