@@ -1,0 +1,47 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+# This builds on top of 01-standalone for a clustered-pingfederate: 
+# 1. remove the engine port (9031) from the "pingfederate" deployment and service
+# 2. add a cluster port (7600) to the "pingfederate" deployment and service
+# 2. create a separate deployment for "pingfederate-engine" (this would be the deployment in which we would scale # replicas)
+# 3. add a base profile (pf-dns-ping-clustering) that has:
+#   - tcp.xml.subst
+#   - run.properties.subst
+# 4. add environment variables to pass clustering information
+
+# NOTE: in some situations, the engine may create a cluster before the admin, thus creating cluster silos. 
+# TODO:  This can be overcome by using an init container. 
+
+resources:
+- ../01-standalone/pingfederate
+- pingfederate-engine.yaml
+- cluster-service.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingfederate-engine-environment-variables
+  envs:
+    - env_vars.pingfederate-engine
+- name: pingfederate-environment-variables
+  behavior: replace
+  envs:
+    - env_vars.pingfederate
+
+patches:
+- target:
+    kind: Service
+    name: ^pingfederate$
+  patch: |-
+    - op: replace
+      path: /spec/ports
+      value: [{"port":9999,"name":"pf-console"}]
+- target:
+    kind: Deployment
+    name: ^pingfederate$
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/ports
+      value: [{"containerPort":9999},{"containerPort":7600}]

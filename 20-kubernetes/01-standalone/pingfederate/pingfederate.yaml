@@ -40,21 +40,21 @@ spec:
         - secretRef:
             name: devops-secret
             optional: true
-        livenessProbe:
-          failureThreshold: 1
-          httpGet:
-            path: /pf/heartbeat.ping
-            port: 9031
-            scheme: HTTPS
-          initialDelaySeconds: 100
-          periodSeconds: 1
         ports:
         - containerPort: 9999
         - containerPort: 9031
+        livenessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /pingfederate/app
+            port: 9999
+            scheme: HTTPS
+          initialDelaySeconds: 100
+          periodSeconds: 1
         readinessProbe:
           httpGet:
-            path: /pf/heartbeat.ping
-            port: 9031
+            path: /pingfederate/app
+            port: 9999
             scheme: HTTPS
           periodSeconds: 10
         resources:
