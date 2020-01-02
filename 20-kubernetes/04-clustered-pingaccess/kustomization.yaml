@@ -30,9 +30,6 @@ configMapGenerator:
   envs:
     - env_vars.pingaccess
       
-images:
-  - name: pingidentity/pingaccess
-    newTag: 5.3.1-alpine-edge
 
 patches:
 - target:
