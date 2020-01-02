@@ -3,7 +3,7 @@
 This directory is an extension of the `03-replicated-pingdirectory` example that deploys
 PingDirectory across multiple kubernetes clusters/contexts
 
-![K8S Multi-Cluster Overview](images/multi-k8s-cluster-pingdirectory-overview.png)
+![K8S Multi-Cluster Overview](docs/images/multi-k8s-cluster-pingdirectory-overview.png)
 
 Because details within each Kubernetes cluster are well hidden from outside the cluster
 access to each pod within the cluster is required externally.  The PingDirectory images 
@@ -18,7 +18,7 @@ or multiple LoadBalancers are used.
 ### Single LoadBalancer
 Example of how a single LoadBalancer could be used:
 
-![Single LoadBalancer](images/multi-k8s-cluster-pingdirectory-single-lb.png)
+![Single LoadBalancer](docs/images/multi-k8s-cluster-pingdirectory-single-lb.png)
 
 * Advantages
   * Decreased cost of a single loadbalancer
@@ -33,7 +33,7 @@ Example of how a single LoadBalancer could be used:
 ### Multiple LoadBalancers
 Example of how a single LoadBalancer could be used:
 
-![Multiple LoadBalancers](images/multi-k8s-cluster-pingdirectory-multi-lb.png)
+![Multiple LoadBalancers](docs/images/multi-k8s-cluster-pingdirectory-multi-lb.png)
 
 * Advantages
   * Use the same common/well-known port (i.e. 636/8989)
@@ -78,19 +78,19 @@ REPLICATION_PORT=8700
 | SEED | POD | Instance                   | Hostnane                       | LDAPS | REPL |
 |:----:|:---:|----------------------------|--------------------------------|:-----:|:-----|
 |      |     | CLUSTER: us-east-2
-| ***  | *** | pingdirectory-0.us-east-2 | pd-0.us-cluster.ping-devops.com | 8600  | 8700  |
-|      |     | pingdirectory-1.us-east-2 | pd-1.us-cluster.ping-devops.com |  8601  | 8701  |
-|      |     | pingdirectory-2.us-east-2 | pd-2.us-cluster.ping-devops.com |  8602  | 8702  |
+| ***  | *** | pingdirectory-0.us-east-2 | pd-0.us-cluster.ping-devops.com | 8600  | 8700 |
+|      |     | pingdirectory-1.us-east-2 | pd-1.us-cluster.ping-devops.com | 8601  | 8701 |
+|      |     | pingdirectory-2.us-east-2 | pd-2.us-cluster.ping-devops.com | 8602  | 8702 |
 |      |     | CLUSTER: eu-west-1
-|      |     | pingdirectory-0.eu-west-1 | pd-0.us-cluster.ping-devops.com |  8600  | 8700  |
-|      |     | pingdirectory-1.eu-west-1 | pd-1.eu-cluster.ping-devops.com |  8601  | 8701  |
-|      |     | pingdirectory-2.eu-west-1 | pd-2.eu-cluster.ping-devops.com |  8602  | 8702  |
+|      |     | pingdirectory-0.eu-west-1 | pd-0.eu-cluster.ping-devops.com | 8600  | 8700 |
+|      |     | pingdirectory-1.eu-west-1 | pd-1.eu-cluster.ping-devops.com | 8601  | 8701 |
+|      |     | pingdirectory-2.eu-west-1 | pd-2.eu-cluster.ping-devops.com | 8602  | 8702 |
 
 ## Addiontal Kubernetes Resources Required
 In addition to the StatefulSet, other resources are required to properly map the LoadBalancers to the
 Pods.  The following provides an example to help describe each resource below.
 
-![K8S Required Resources](images/multi-k8s-cluster-pingdirectory-resources.png)
+![K8S Required Resources](docs/images/multi-k8s-cluster-pingdirectory-resources.png)
 
 ### DNS
 A DNS entry will be required at the LoadBalancer to point a wildcard domain or individual hostnames
