@@ -20,6 +20,7 @@ services:
       - CLUSTER_BIND_ADDRESS=LINK_LOCAL
       - CLUSTER_NAME=COMPOSE_PF_CLUSTER
       - DNS_QUERY_LOCATION=pingfederate-admin
+      - DNS_RECORD_TYPE=A
     env_file:
       - ~/.pingidentity/devops  
     ports:
@@ -46,6 +47,7 @@ services:
       - CLUSTER_BIND_ADDRESS=LINK_LOCAL
       - CLUSTER_NAME=COMPOSE_PF_CLUSTER
       - DNS_QUERY_LOCATION=pingfederate-admin
+      - DNS_RECORD_TYPE=A
     env_file:
       - ~/.pingidentity/devops
     ports:
