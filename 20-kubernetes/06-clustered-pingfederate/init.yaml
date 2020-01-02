@@ -1,0 +1,14 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pf-init
+data:
+  init.sh: |-
+    #!/bin/sh -x
+    #--- Wait for services if there are any dependent services we must wait on --- #
+    until curl --connect-timeout 1 -k https://pingfederate:9999/pingfederate/app ; do
+      echo "Waiting for admin"
+      sleep 2
+    done
+    exit 0

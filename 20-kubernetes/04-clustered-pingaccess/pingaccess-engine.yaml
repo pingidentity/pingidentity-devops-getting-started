@@ -3,31 +3,31 @@ kind: Service
 metadata:
   name: pingaccess-engine
   labels:
-    app: pingaccess-engine
+    role: pingaccess-engine
 spec:
   ports:
     - port: 443
       name: pingaccess-engine
       targetPort: 3000
   selector:
-    app: pingaccess-engine
+    role: pingaccess-engine
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingaccess-engine
   labels:
-    app: pingaccess-engine
+    role: pingaccess-engine
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pingaccess-engine
+      role: pingaccess-engine
   template:
     metadata:
       name: pingaccess-engine
       labels:
-        app: pingaccess-engine
+        role: pingaccess-engine
     spec:
       containers:
       - name: pingaccess-engine

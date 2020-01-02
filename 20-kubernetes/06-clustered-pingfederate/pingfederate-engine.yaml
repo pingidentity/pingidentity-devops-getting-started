@@ -61,3 +61,7 @@ spec:
           requests:
             cpu: "1"
             memory: 1.5Gi
+      initContainers:
+      - name: init
+        image: curlimages/curl:latest
+        command: ['sh', '-c', 'until curl --connect-timeout 1 --silent -k https://pingfederate:9999/pingfederate/app ; do echo waiting for admin ; sleep 2 ; done']
