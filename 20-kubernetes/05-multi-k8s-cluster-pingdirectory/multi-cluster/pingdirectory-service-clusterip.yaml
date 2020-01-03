@@ -1,0 +1,66 @@
+###################################################################################
+# Creates a set of Services that create a clusterIP mapping by port to every
+# potential pingdirectory pod.
+#
+# Important Note: Make sure you use the proper service type depending on your
+#                 use case of a single load balancer, or multiple
+#
+# Single Load Balancer:
+#   pingidentity-clusterip-service.yaml (this file)
+#    
+# Multiple Load Balancers:
+#   pingidentity-loadbalencer-service.yaml
+###################################################################################
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: pingdirectory-0-service
+spec:
+  type: ClusterIP
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-0
+  ports:
+    - protocol: TCP
+      port: 8600
+      targetPort: 8600
+      name: ldaps
+    - protocol: TCP
+      port: 8700
+      targetPort: 8700
+      name: repl
+---
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: pingdirectory-1-service
+spec:
+  type: ClusterIP
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-1
+  ports:
+    - protocol: TCP
+      port: 8601
+      targetPort: 8601
+      name: ldaps
+    - protocol: TCP
+      port: 8701
+      targetPort: 8701
+      name: repl
+---
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: pingdirectory-2-service
+spec:
+  type: ClusterIP
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-2
+  ports:
+    - protocol: TCP
+      port: 8602
+      targetPort: 8602
+      name: ldaps
+    - protocol: TCP
+      port: 8702
+      targetPort: 8702
+      name: repl

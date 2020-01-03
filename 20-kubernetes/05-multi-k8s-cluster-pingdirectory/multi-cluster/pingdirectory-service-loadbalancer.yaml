@@ -1,0 +1,69 @@
+###################################################################################
+# Creates a set of Services that create a LoadBalancer for every
+# potential pingdirectory pod.
+###################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingdirectory-0
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: pingdirectory-0.dc1.ping-devops.com
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-0
+  ports:
+  - protocol: TCP
+    port: 636
+    targetPort: 636
+    name: ldaps
+  - protocol: TCP
+    port: 8989
+    targetPort: 8989
+    name: repl
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingdirectory-1
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: pingdirectory-1.dc1.ping-devops.com
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-1
+  ports:
+  - protocol: TCP
+    port: 636
+    targetPort: 636
+    name: ldaps
+  - protocol: TCP
+    port: 8989
+    targetPort: 8989
+    name: repl
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingdirectory-2
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: pingdirectory-2.dc1.ping-devops.com
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-2
+  ports:
+  - protocol: TCP
+    port: 636
+    targetPort: 636
+    name: ldaps
+  - protocol: TCP
+    port: 8989
+    targetPort: 8989
+    name: repl
