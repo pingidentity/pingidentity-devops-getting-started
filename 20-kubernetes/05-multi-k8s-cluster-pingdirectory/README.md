@@ -1,14 +1,14 @@
 # 05-multi-k8s-cluster-pingdirectory
 
 This directory is an extension of the `03-replicated-pingdirectory` example that deploys
-PingDirectory across multiple kubernetes clusters/contexts
+PingDirectory across multiple kubernetes clusters/contexts.
 
 ![K8S Multi-Cluster Overview](docs/images/multi-k8s-cluster-pingdirectory-overview.png)
 
-Because details within each Kubernetes cluster are well hidden from outside the cluster
+Because details within each Kubernetes cluster are well hidden from outside the cluster,
 access to each pod within the cluster is required externally.  The PingDirectory images 
 will setup access to each of the pods (via external LoadBalancer(s)) from an external 
-IP/Host to allow each pod to communicate over the ldaps and replication potocols.
+IP/Host to allow each pod to communicate over the ldaps and replication protocols.
 
 
 ## Modes of Deployment
@@ -26,9 +26,9 @@ Example of how a single LoadBalancer could be used:
   * Easier DNS management
     * wildcard DNS domain
     * or seperate hosts pointing to LoadBalancer
-* Disdvantages
+* Disadvantages
   * More port mapping requirements
-  * Lots of external ports to manage/track
+  * Many external ports to manage/track
 
 ### Multiple LoadBalancers
 Example of how a single LoadBalancer could be used:
@@ -47,13 +47,13 @@ Example of how a single LoadBalancer could be used:
 | Variable                 | Required | Description |
 |--------------------------|:--------:|------------------------------------------------------------------------------------------|
 | K8S_CLUSTERS             | ***      | Represents the total list of kubernetes clusters that this stateful set will replicate to.
-| K8S_CLUSTER              | ***      | Represents the kubernetes cluster this stateful set is being deployed
-| K8S_SEED_CLUSTER         | ***      | Represents the kubernetes cluster that the seed server is deployed in
+| K8S_CLUSTER              | ***      | Represents the kubernetes cluster this stateful set is being deployed to.
+| K8S_SEED_CLUSTER         | ***      | Represents the kubernetes cluster that the seed server is deployed to.
 | K8S_NUM_REPLICAS         |          | Represents the number of replicas that make up this StatefulSet.
 | K8S_POD_HOSTNAME_PREFIX  |          | String used to prefix all Hostnames.  Defaults to StatefulSet Name
 | K8S_POD_HOSTNAME_SUFFIX  |          | String used to suffix all POD Hostnames.  Defaults to K8S_CLUSTER
 | K8S_SEED_HOSTNAME_SUFFIX |          | String used to suffix all SEED Hostname.  Defaults to K8S_SEED_CLUSTER
-| K8S_INCREMENT_PORTS      |          | rue or false.  If true, then each pod's port will be incremnted by 1
+| K8S_INCREMENT_PORTS      |          | true or false.  If true, then each pod's port will be incremented by 1
 
 
 Example (See the resulting config below):
@@ -86,15 +86,16 @@ REPLICATION_PORT=8700
 |      |     | pingdirectory-1.eu-west-1 | pd-1.eu-cluster.ping-devops.com | 8601  | 8701 |
 |      |     | pingdirectory-2.eu-west-1 | pd-2.eu-cluster.ping-devops.com | 8602  | 8702 |
 
-## Addiontal Kubernetes Resources Required
+## Additional Kubernetes Resources Required
 In addition to the StatefulSet, other resources are required to properly map the LoadBalancers to the
-Pods.  The following provides an example to help describe each resource below.
+Pods.  The following provides a diagram and example to help describe each resource.
 
 ![K8S Required Resources](docs/images/multi-k8s-cluster-pingdirectory-resources.png)
 
 ### DNS
 A DNS entry will be required at the LoadBalancer to point a wildcard domain or individual hostnames
-to the LoadBalancer created by the NGINX Ingress Service/Controller
+to the LoadBalancer created by the NGINX Ingress Service/Controller.  In the example of AWS, this might
+be a simply A record alias for each host, or a wildcard A record for any host in that domain.
 
 ### NGINX Ingress Service/Controller
 Several Components that map the ports from the external Load Balancer thru the NGINX Service and Controller.
@@ -105,7 +106,8 @@ Several Components that map the ports from the external Load Balancer thru the N
 
 > ***IMPORTANT NOTE***: Typically the NGINX Service and tcp-services (see below) require additional
 > namespace access (i.e. `ingress-nginx-public`).  Be sure be aware of additional applications
-> using this service/controller.
+> using this service/controller.  It will typically required additional privilages to manage this
+> resource.
 
 Example:
 
@@ -158,6 +160,9 @@ spec:
 ### NGINX TCP Services
 ConfigMap (tcp-services) that provides the mappings from the target ports on the NGINX Controller to the
 associated Pod Service (see below).
+
+> Note: You will need to replace the variable `${PING_IDENTITY_K8S_NAMESPACE}` with the namespace that your
+> StatefulSet and Services are deployed into.
 
 Example:
 ```
