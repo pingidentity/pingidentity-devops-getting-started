@@ -1,21 +1,19 @@
 
 # Ping Identity DevOps `pingdirectory` Hook - `80-post-start.sh`
-This hook runs after the PingDirectory service has been started and is running.  It
-will determine if it is part of a directory replication topology by the presence
-of a TOPOLOGY_SERVICE_BAME .  If not present, then replication will not be enabled.  
-Otherwise,
-it will perform the following steps regarding replication.
+This hook runs through the followig phases:
 
-- Wait for DNS lookups to work, sleeping until successful
-- If my instance is the first one to come up, then replication enablement will be skipped.
-- Wait until a successful ldapsearch an be run on (this may take awhile when a bunch of instances are started simultaneiously):
-  - my instance
-  - first instance in the TOPOLOGY_FILE
-- Change the customer name to my instance hostname
-- Check to see if my hostname is already in the replication topology.  If it is, then exit
-- To ensure a clean toplogy, call 81-repair-toplogy.sh to mend the TOPOLOGY_FILE before replciation steps taken
-- Enable replication
-- Initialize replication
+* Ensures the PingDirectory service has been started an accepts queries.
+* Updates the Server Instance hostname/ldaps-port
+* Check to see if PD_STATE is GENISIS.  If so, no replication will be performed
+* Ensure the Seed Server is accepting queries
+* Check the topology prior to enabling replication
+* If this server is already in prior topology, then replication is already enable
+* If the server being setup is the Seed Instance, then no replication will be performed
+* Get the current Toplogy Master
+* Determine the Master Toplogy server to use to enable with
+* Enabling Replication
+* Get the new current topology
+* Initialize replication
 
 ---
 This document auto-generated from _[pingdirectory/hooks/80-post-start.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/hooks/80-post-start.sh)_
