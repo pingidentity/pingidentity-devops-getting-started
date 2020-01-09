@@ -35,6 +35,7 @@ this image.
 | MAKELDIF_USERS  | 0  | Number of users to auto-populate using make-ldif templates 
 | RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server 
 | DISABLE_SCHEMA_REPLICATION  | false  | Flag to disable schema replication. In a DevOps environment, schema comes from configuration. So it does not need to be replicated. 
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container

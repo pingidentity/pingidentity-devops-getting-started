@@ -29,6 +29,7 @@ this image.
 | ROOT_USER_PASSWORD_FILE  | ${SECRETS_DIR}/root-user-password  | 
 | ENCRYPTION_PASSWORD_FILE  | ${SECRETS_DIR}/encryption-password  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access  | Files tailed once container has started 
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
