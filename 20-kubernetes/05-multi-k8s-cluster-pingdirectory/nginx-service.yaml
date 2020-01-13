@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/role: ingress-nginx-public
+  namespace: ingress-nginx-public
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+spec:
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/role: ingress-nginx-public
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https
+    - name: ldaps-pingdiretory-0
+      port: 8600
+      targetPort: 8600
+    - name: ldaps-pingdiretory-1
+      port: 8601
+      targetPort: 8601
+    - name: ldaps-pingdiretory-2
+      port: 8602
+      targetPort: 8602
+    - name: repl-pingdiretory-0
+      port: 8700
+      targetPort: 8700
+    - name: repl-pingdiretory-1
+      port: 8701
+      targetPort: 8701
+    - name: repl-pingdiretory-2
+      port: 8702
+      targetPort: 8702
