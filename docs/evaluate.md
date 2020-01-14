@@ -4,21 +4,25 @@ You can quickly deploy DevOps images of Ping Identity solutions. These images ar
 
 You'll need an evaluation license to use the DevOps resources. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of solutions for DevOps using Docker Compose. When you first start the Docker stack, our full set of DevOps images is automatically pulled from our repository, if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/). You can then choose to try out any one or more of the solutions, all preconfigured to interoperate.
 
+## Prerequisites
+
+  * Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for macOS](https://docs.docker.com/v17.12/docker-for-mac/install/).
+  * [Git](https://git-scm.com/downloads).
+
 What you'll need to do:
 
-  1. Check the prerequisites.
-  2. Create a Ping Identity account, or sign on to your existing account and get a DevOps [evaluation license](#step2).
-  3. [Save your DevOps credentials in a local text file](#step3).
-  4. [Make a local copy of the DevOps directory](#step4), `${HOME}/projects/devops`.
-  5. [Clone the DevOps repository](#step5), `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
-  6. [Run our `setup` script](#step6) in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
-  7. [Refresh your OS shell](#step7).
-  8. [Use Docker Compose to deploy the full stack](#step8). This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
-  9. [Log in to the management consoles for the solutions](#step9).
-  10. [Persist your configuration changes](#step10).
-  11. [Stop or bring down the stack](#step11).
+  1. Create a Ping Identity account, or sign on to your existing account and get a DevOps [evaluation license](#step2).
+  2. [Save your DevOps credentials in a local text file](#step3).
+  3. [Make a local copy of the DevOps directory](#step4), `${HOME}/projects/devops`.
+  4. [Clone the DevOps repository](#step5), `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
+  5. [Run our `setup` script](#step6) in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
+  6. [Refresh your OS shell](#step7).
+  7. [Use Docker Compose to deploy the full stack](#step8). This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
+  8. [Log in to the management consoles for the solutions](#step9).
+  9. [Persist your configuration changes](#step10).
+  10. [Stop or bring down the stack](#step11).
 
-  See **Procedures** for complete information.
+  See **Procedures** for complete instructions.
 
 You can then choose to:
 
@@ -26,11 +30,6 @@ You can then choose to:
   * [Deploy a solution as a standalone Docker container, or deploy a set of solutions using orchestration](deploy.md).
   * [Manage container and stack configurations](configDeploy.md).
   * [Customize the DevOps images](customImages.md).
-
-## Prerequisites
-
-* Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for macOS](https://docs.docker.com/v17.12/docker-for-mac/install/).
-* [Git](https://git-scm.com/downloads).
 
 ## Procedures
 
@@ -129,8 +128,25 @@ You can then choose to:
         Root Username: cn=administrator
         Root Password: 2FederateM0re
 
+  10. (Recommended) Set up a local Docker volume to persist state and data for the stack whenever you bring the stack down. This will enable you to save any configuration changes you make to the product instances running in the stack. If you don't do this, the next time you bring up the stack, you'll need to repeat any configuration changes you might have made.
 
-  10.<a id="step10"/> You can add your own configurations through the management consoles for the Ping Identity solutions as needed. However, your configuration changes will not be saved when you bring down or remove the Docker stack, unless you persist your data by [mounting the configuration changes to a local Docker volume](../11-docker-compose#persisting-container-state-and-data).
+      You'll need to bind a Docker volume location to the Docker `/opt/out` directory for the container. Docker uses the `/opt/out` directory to store application data. To do this, for each container in the stack:
+
+      a. Add a `volumes` section under the container entry in the `docker-compose.yaml` file you're using for the stack.
+      b. Under the `volumes` section, add a location to persist your data. For the example:
+
+         ```yaml
+         pingfederate:
+         .
+         .
+         .
+         volumes:
+          - /tmp/compose/pingfederate_1:/opt/out
+         ```
+
+         When the container starts, this will bind mount `/tmp/compose/pingfederate_1` to the `/opt/out` directory in the container. You're also able to view the product logs and data in the `/tmp/compose/pingfederate_1` directory.
+
+      c. Repeat this process for the remaining container entries in the stack.
 
   11.<a id="step11"/> When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
 
