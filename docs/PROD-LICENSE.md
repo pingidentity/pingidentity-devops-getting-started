@@ -164,6 +164,10 @@ The `/opt/in` directory overlays files onto the products runtime filesystem, the
 * Expected license file name: `PingDataGovernance.lic`
 * Mount Path: `/opt/in/instance/PingDataGovernance.lic`
 
+**PingCentral**
+* Expected license file name: `pingcentral.lic`
+* Mount Path: `/opt/in/instance/conf/pingcentral.lic`
+
 
 ### Volume Mount Syntax
 Sample docker run command with mounted license:
