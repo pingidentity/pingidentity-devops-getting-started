@@ -33,7 +33,7 @@ this image.
 | INITIAL_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD:-2FederateM0re}  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
-## Running a PingAccess container
+## Running a PingDirectory container
 To run a PingAccess container: 
 
 ```shell
