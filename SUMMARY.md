@@ -7,7 +7,7 @@
   * [PingAccess](docs/docker-images/pingaccess/README.md)
   * [PingDirectory](docs/docker-images/pingdirectory/README.md)
   * [PingDataGovernance](docs/docker-images/pingdatagovernance/README.md)
-  * [PingDataGovernance](docs/docker-images/pingdatagovernancepap/README.md)
+  * [PingDataGovernance PAP](docs/docker-images/pingdatagovernancepap/README.md)
   * [PingDataSync](docs/docker-images/pingdatasync/README.md)
   * [ldap-sdk-tools](docs/docker-images/ldap-sdk-tools/README.md)
   * [PingDataConsole](docs/docker-images/pingdataconsole/README.md)
