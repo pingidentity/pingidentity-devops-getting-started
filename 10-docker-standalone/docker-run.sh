@@ -16,6 +16,7 @@ Usage: ${CMD} { container name } [ --debug ]
                        pingfederate
                        pingaccess
                        pingdataconsole
+                       pingcentral
                        all - runs all containers
 
              --debug : Provide debugging details and drop into container shell
@@ -55,11 +56,15 @@ case ${CONTAINER} in
     "pingdataconsole")
         CONTAINER_DIR="${CONTAINER_DIR}/10-pingdataconsole"
         ;;
+    "pingcentral")
+        CONTAINER_DIR="${CONTAINER_DIR}/30-pingcentral"
+        ;;
     "all")
         run_cmd pingdirectory
         run_cmd pingfederate
         run_cmd pingaccess
         run_cmd pingdataconsole
+        run_cmd pingcentral
         ;;
     *)
         usage
