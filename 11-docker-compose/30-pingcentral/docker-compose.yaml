@@ -7,6 +7,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingcentral/logging
       - PING_IDENTITY_ACCEPT_EULA=YES
+      - SSL_TRUST_ANY=true
     env_file:
       - ~/.pingidentity/devops
     ports:
