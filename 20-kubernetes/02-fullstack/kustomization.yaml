@@ -27,3 +27,7 @@ configMapGenerator:
   behavior: replace
   envs: 
     - env_vars.pingfederate
+- name: pingdatagovernancepap-environment-variables
+  behavior: replace
+  envs:
+    - env_vars.pingdatagovernancepap

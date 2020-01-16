@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: pingdatagovernancepap
+  name: pingdatagovernancepap
+spec:
+  ports:
+  - name: http
+    port: 8443
+  selector:
+    role: pingdatagovernancepap
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: pingdatagovernancepap
+  name: pingdatagovernancepap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: pingdatagovernancepap
+  template:
+    metadata:
+      labels:
+        role: pingdatagovernancepap
+      name: pingdatagovernancepap
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: pingdatagovernancepap-environment-variables
+        - secretRef:
+            name: devops-secret
+            optional: true
+        image: pingidentity/pingdatagovernancepap:edge
+        imagePullPolicy: Always
+        name: pingdatagovernancepap
+        ports:
+        - containerPort: 8443
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi
