@@ -1,21 +1,21 @@
 # Ping Identity DevOps
-This repository provides foundational examples to try different configurations and deployments of the Ping Identity solutions using the DevOps images and toolkit. 
+This repository provides foundational examples to try different configurations and deployments of the Ping Identity solutions using the DevOps images and toolkit.
 
 ## Documentation
  * The complete collection of documentation for Ping Identity solutions for DevOps is located on [Gitbook](https://pingidentity-devops.gitbook.io/devops/).
- * You can also go to Ping Identity's DevOps [page](https://www.pingidentity.com/content/developer/en/devops.html) for additional resources.
+ * You can also go to [Ping Identity's DevOps page](https://www.pingidentity.com/content/developer/en/devops.html) for additional resources.
 
 ## Contents
 
 * [10-docker-standalone](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/10-docker-standalone)
 
-  Run Ping Identity standalone products in Docker containers. 
-  
-* [11-docker-compose](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose)       
+  Run Ping Identity standalone products in Docker containers.
+
+* [11-docker-compose](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose)
 
   Define and run multi-container Ping Identity Docker images with Docker Compose.
-  
-* [12-docker-swarm](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/12-docker-swarm)         - 
+
+* [12-docker-swarm](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/12-docker-swarm)         -
 
   Deploy Ping Identity product stacks using Docker Swarm.
   
@@ -32,7 +32,7 @@ simply run.  To edit the settings in the future, use the configure option:
 `ldapsdk configure`.
 
 ### Bash profile Docker helper aliases
-Several aliases are available in the utility `bash_profile_devops` to perform common 
+Several aliases are available in the utility `bash_profile_devops` to perform common
 Docker commands with containers, images, services, and so on.  You can easily source this
 from your bash startup file (i.e. .bash_profile) to make easy use of these alias.
 
@@ -47,5 +47,5 @@ The server profiles referenced within this repository are for evaluation and doc
 For additional information, please see [SECURITY.md](SECURITY.md)
 
 ## Troubleshooting
-This repository is in active development and has not been officially released. 
+This repository is in active development and has not been officially released.
 If you experience issues with this project, see [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md).

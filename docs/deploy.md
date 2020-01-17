@@ -1,16 +1,16 @@
 # Manage deployments
 
-You can continue to deploy the full stack of solutions as you did in Getting Started, or you can deploy a single solution or a different set of solutions.
+You can continue to deploy the full stack of solutions as you did in [Get started](evaluate.md), or you can deploy a single container or a container stack.
 
 We've example configurations to help you quickly deploy:
 
- * [A single solution as a standalone Docker container](deployStandalone.md).
+ * [A single Docker container](deployStandalone.md).
 
-    See [Docker standalone](../10-docker-standalone/README.md) for the available solutions.
+    See [Docker standalone](../10-docker-standalone/README.md) for the available products.
 
  * [A PingFederate and PingDirectory stack using Docker Compose](deployCompose.md).
 
-    See [Docker standalone](../11-docker-compose/01-simple-stack/README.md) for additional information and the associated YAML file.
+    See [Simple stack](../11-docker-compose/01-simple-stack/README.md) for additional information and the associated YAML file.
 
  * [A replicated pair of solutions using Docker Compose](deployReplication.md).
 
@@ -20,11 +20,11 @@ We've example configurations to help you quickly deploy:
 
    See [Simple synchronization](../11-docker-compose/04-simple-sync/README.md) for additional information.
 
- * A solutions stack using Docker Swarm.
+ * A stack using Docker Swarm.
 
 
  * PingDirectory using Kubernetes.
 
 ## Prerequisites
 
-  * You've already been through [Getting Started](evaluate.md) to set up your DevOps environment and run a test deployment of the solutions.
+  * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
