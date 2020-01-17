@@ -12,6 +12,11 @@
 CONTAINER_NAME=pingdirectory
 
 #################################################################################
+# You must accept the EULA for the container to start
+#################################################################################
+PING_IDENTITY_ACCEPT_EULA=YES
+
+#################################################################################
 # Server Profile to use to configure container. 
 #
 #     SERVER_PROFILE_URL - Must be a GIT Repo (REQUIRED)

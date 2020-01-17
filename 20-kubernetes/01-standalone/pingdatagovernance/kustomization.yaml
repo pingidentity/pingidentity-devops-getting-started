@@ -1,16 +1,7 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-commonLabels:
-  role: pingdatagovernance
-
 resources:
 - pingdatagovernance.yaml
+- configmap.yaml
 
-generatorOptions:
-  disableNameSuffixHash: true
-
-configMapGenerator:
-- name: pingdatagovernance-environment-variables
-  envs:
-    - env_vars

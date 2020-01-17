@@ -28,6 +28,7 @@ this image.
 | ADMIN_USER_PASSWORD_FILE  | ${SECRETS_DIR}/admin-user-password  | 
 | ENCRYPTION_PASSWORD_FILE  | ${SECRETS_DIR}/encryption-password  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access  | 
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
 | MAKELDIF_USERS  | 0  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is

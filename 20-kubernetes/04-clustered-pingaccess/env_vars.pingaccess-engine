@@ -1,4 +1,5 @@
 SERVER_PROFILE_URL=https://www.github.com/pingidentity/pingidentity-server-profiles.git
 SERVER_PROFILE_PATH=pa-clustering/pingaccess
+PING_IDENTITY_ACCEPT_EULA=YES
 OPERATIONAL_MODE=CLUSTERED_ENGINE
 PA_CONSOLE_HOST=pingaccess

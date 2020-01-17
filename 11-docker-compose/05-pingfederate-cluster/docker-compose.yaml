@@ -1,12 +1,14 @@
 version: "3.1"
+# The server profiles used in this example are intended for use with edge versions of the product image only.
 
 services:
   pingfederate-admin:
-    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingfederate:edge
     environment:
+      - PING_IDENTITY_ACCEPT_EULA=YES
       # Server Profile - Clustering
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=pf-compose-clustering/pingfederate
+      - SERVER_PROFILE_PATH=pf-dns-ping-clustering/pingfederate
       - SERVER_PROFILE_PARENT=GETTING_STARTED
       
       # Getting Started Server Profile
@@ -16,12 +18,9 @@ services:
       # PingFederate Settings
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
       - CLUSTER_BIND_ADDRESS=LINK_LOCAL
-      - PF_CLUSTER_NAME=COMPOSE_PF_CLUSTER
-
-      # AWS S3 Bucket details
-      - DISCOVERY_S3_LOCATION=${DISCOVERY_S3_LOCATION}
-      - DISCOVERY_S3_ACCESS_KEY=${DISCOVERY_S3_ACCESS_KEY}
-      - DISCOVERY_S3_SECRET_KEY=${DISCOVERY_S3_SECRET_KEY}
+      - CLUSTER_NAME=COMPOSE_PF_CLUSTER
+      - DNS_QUERY_LOCATION=pingfederate-admin
+      - DNS_RECORD_TYPE=A
     env_file:
       - ~/.pingidentity/devops  
     ports:
@@ -30,27 +29,25 @@ services:
       - pingnet
 
   pingfederate:
-    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingfederate:edge
     command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
     environment:
+      - PING_IDENTITY_ACCEPT_EULA=YES
       # Server Profile - Clustering
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=pf-compose-clustering/pingfederate
+      - SERVER_PROFILE_PATH=pf-dns-ping-clustering/pingfederate
       - SERVER_PROFILE_PARENT=GETTING_STARTED
       
       # Getting Started Server Profile
       - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate     
+      - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
       
       # PingFederate Settings
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
       - CLUSTER_BIND_ADDRESS=LINK_LOCAL
-      - PF_CLUSTER_NAME=COMPOSE_PF_CLUSTER
-
-      # AWS S3 Bucket details
-      - DISCOVERY_S3_LOCATION=${DISCOVERY_S3_LOCATION}
-      - DISCOVERY_S3_ACCESS_KEY=${DISCOVERY_S3_ACCESS_KEY}
-      - DISCOVERY_S3_SECRET_KEY=${DISCOVERY_S3_SECRET_KEY}
+      - CLUSTER_NAME=COMPOSE_PF_CLUSTER
+      - DNS_QUERY_LOCATION=pingfederate-admin
+      - DNS_RECORD_TYPE=A
     env_file:
       - ~/.pingidentity/devops
     ports:

@@ -1,0 +1,56 @@
+###################################################################################################################
+# Multi-Cluster Ping Directory Deployment Variables
+###################################################################################################################
+# Required Variables
+###################################################################################################################
+#
+# K8S_CLUSTER              - required - Represents the kubernetes cluster this stateful set is being deployed
+#                                       into.  
+#
+# K8S_SEED_CLUSTER         - required - Represents the kubernetes cluster that the seed server is deployed in
+#
+# K8S_NUM_REPLICAS         - optional - Represents the number of replicas that make up this StatefulSet.
+#
+# K8S_POD_HOSTNAME_PREFIX  - optional - String used to prefix all Hostnames.  Defaults to StatefulSet Name
+#
+# K8S_POD_HOSTNAME_SUFFIX  - optional - String used to suffix all POD Hostnames.  K8S_CLUSTER
+#
+# K8S_SEED_HOSTNAME_SUFFIX - optional - String used to suffix all SEED Hostname.  Defaults to K8S_SEED_CLUSTER
+#
+# K8S_INCREMENT_PORTS      - optional - true or false.  If true, then each pod's port will be incremnted by 1
+#                                       for the LDAPS and REPLICATION ports.  Defaults to false.
+#
+###################################################################################################################
+# Additional Important Requiremnts (Environment/Kubernetes Resources)
+###################################################################################################################
+#
+# DNS                      - You must have an A Record for each cluster pointing to that clusters
+#                            load balancer
+#
+# External Load Balancer   - Provides external IP and obtains definition from Ingress NGINX Service
+#
+# Ingress NGINX Service    - Mapping all port ranges (SEED_LDAPS_PORT, SEED_REPLICATION_PORT) to the same
+#                            target port range
+#
+# NGINX Ingress Controller - Maps all port ranges to stateful set pods
+#
+# StatefulSet Pod Services - Provides a stateful set service for each pod
+###################################################################################################################
+
+#K8S_CLUSTER=
+#K8S_POD_HOSTNAME_SUFFIX=
+
+K8S_STATEFUL_SET_NAME=pingdirectory
+K8S_STATEFUL_SET_SERVICE_NAME=pingdirectory
+
+K8S_CLUSTERS=us-east-2 eu-west-1
+K8S_SEED_CLUSTER=us-east-2
+K8S_NUM_REPLICAS=3
+
+K8S_POD_HOSTNAME_PREFIX=pd-
+K8S_SEED_HOSTNAME_SUFFIX=.us-east-2.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+
+LDAPS_PORT=8600
+REPLICATION_PORT=8700
+
+K8S_INCREMENT_PORTS=true

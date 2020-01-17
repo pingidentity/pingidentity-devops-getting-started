@@ -23,6 +23,30 @@
                         "Details on obtaining these can be found at:",
                         "",
                         "    https://pingidentity-devops.gitbook.io/devops/prod-license"]
+        },
+        {
+            "validFrom": 20191201,
+            "validTo": 20191231,
+            "subject": "EULA explicit acceptance is now required",
+            "message": [
+                "Continued use of the Ping Identity Docker container constitute acceptance of the Terms of Use of Ping Identity software.",
+                "For details, see:",
+                "",
+                "    https://www.pingidentity.com/en/legal/subscription-agreement.html"
+            ]
+        },
+        {
+            "validFrom": 20200101,
+            "validTo": 20200201,
+            "subject": "PING_CONTAINER_PRIVILEGED will default to false",
+            "message": [
+                "Set PING_CONTAINER_PRIVILEGED to false and verify that everything works in your environment, the Ping Identity Docker images will default to non-root run time PID starting 2020-Feb-01",
+                "",
+                "Continued use of the Ping Identity Docker container constitute acceptance of the Terms of Use of Ping Identity software.",
+                "For details, see:",
+                "",
+                "    https://www.pingidentity.com/en/legal/subscription-agreement.html"
+            ]
         }
     ],
     "pingaccess" : [{

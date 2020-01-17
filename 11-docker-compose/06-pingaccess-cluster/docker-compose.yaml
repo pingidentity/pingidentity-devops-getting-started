@@ -1,8 +1,9 @@
 version: "3.1"
+# The server profiles used in this example are intended for use with edge versions of the product image only.
 
 services:
   pingaccess:
-    image: pingidentity/pingaccess:5.3.1-alpine-edge
+    image: pingidentity/pingaccess:edge
     healthcheck:
       test: ["CMD-SHELL", "curl -s -u administrator:2FederateM0re -H \"X-XSRF-Header: PingAccess\" -k https://localhost:9000/pa-admin-api/v3/sites | jq -e '.items[0].name' "]
       interval: 10s
@@ -10,6 +11,7 @@ services:
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
+      - PING_IDENTITY_ACCEPT_EULA=YES
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
       - PA_CONSOLE_HOST=pingaccess
     env_file:
@@ -26,11 +28,12 @@ services:
       - NET_ADMIN
 
   pingaccess-engine:
-    image: pingidentity/pingaccess:5.3.1-alpine-edge
+    image: pingidentity/pingaccess:edge
     command: wait-for pingaccess:9000 -t 420 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
+      - PING_IDENTITY_ACCEPT_EULA=YES
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
       - PA_CONSOLE_HOST=pingaccess
     env_file:

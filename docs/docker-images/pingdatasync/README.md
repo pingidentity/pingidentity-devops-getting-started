@@ -25,6 +25,7 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | 
 | ROOT_USER_PASSWORD_FILE  | ${SECRETS_DIR}/root-user-password  | 
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
