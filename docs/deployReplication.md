@@ -20,11 +20,11 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
   Where <product> is one of the supported solutions for replication (pingfederate, pingdirectory, pingaccess).
 
-  2. At intervals, check to see when the containers are healthy and running:
+2. At intervals, check to see when the containers are healthy and running:
 
-    `docker-compose ps`
+  `docker-compose ps`
 
-    > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
+  > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
 
 3. Verify that data is replicating between the pair by adding a description entry for the first container. Enter:
 
