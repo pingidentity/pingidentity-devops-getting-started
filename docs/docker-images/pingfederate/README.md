@@ -33,9 +33,6 @@ this image.
 | CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | 
-| PF_ENGINE_DEBUG  | false  | 
-| PF_ADMIN_DEBUG  | false  | 
-| PF_DEBUG_PORT  | 9030  | 
 ## Running a PingFederate container
 To run a PingFederate container:
 
