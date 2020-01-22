@@ -234,7 +234,11 @@ You can now choose to:
 
 To save any configuration changes you make when using the products in the stack, you need to set up a local Docker volume to persist state and data for the stack. If you don't do this, whenever you bring the stack down your configuration changes will be lost.
 
-You'll bind a Docker volume location to the Docker `/opt/out` directory for the container. Our Docker containers use the `/opt/out` directory to store application data. You can bind a Docker volume for containers in a stack or for single containers:
+You'll bind mount a Docker volume location to the Docker `/opt/out` directory for the container. The location must be to a directory you've not already created. Our Docker containers use the `/opt/out` directory to store application data.
+
+> Make sure the local directory is not already created. Docker needs to create this directory for the bind mount to `/opt/out`.
+
+You can bind mount a Docker volume for containers in a stack or for single containers:
 
   * For a stack:
 

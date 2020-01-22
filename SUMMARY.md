@@ -12,6 +12,7 @@
   - [Deploy data synchronization for PingDirectory using Docker Compose](docs/deploySync.md)
 * [Configure deployments](docs/config.md)
   - [Using server profiles](docs/profiles.md)
+  - [Server profile structures](docs/profileStructures.md)
 * [Customize the images](docs/customImages.md)
 * [Docker Standalone](10-docker-standalone/README.md)
   * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)

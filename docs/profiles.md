@@ -35,7 +35,7 @@ You can modify one of our server profiles based on data from your existing Ping 
 
 ### Modify a server profile using your Github repository
 
-We'll use a PingFederate installation as an example.
+We'll use a PingFederate installation as an example. This method uses a server profile provided through a Github URL and assigned to the `SERVER_PROFILE_PATH` environment variable (such as, `--env SERVER_PROFILE_PATH=getting-started/pingfederate`).
 
 1. Export a [configuration archive](https://support.pingidentity.com/s/document-item?bundleId=pingfederate-84&topicId=adminGuide%2Fpf_c_configurationArchive.html) as a *.zip file from a PingFederate installation to a local directory.
 
@@ -63,12 +63,12 @@ Where <path_to_your_configuration_archive> is the location for your exported Pin
 
 You now have a local server profile based on your existing PingFederate installation.
 
-5. Push your changes to your Github repository (where you forked our server profile repository).
+5. Push your changes (your local server profile) to the Github repository where you forked our server profile repository. You now have a server profile available through a Github URL.
 
-6. Deploy the PingFederate container. The environment variables `SERVER_PROFILE_URL` and `SERVER_PROFILE_PATH` direct Docker to use the server profile you've modified.
+6. Deploy the PingFederate container. The environment variables `SERVER_PROFILE_URL` and `SERVER_PROFILE_PATH` direct Docker to use the server profile you've modified and pushed to Github.
 
 
-   > To save any changes you make after the container is running, add the entry `--volume <local-path>:/opt/out` to the `docker run` command. See *Saving your changes* in [Get Started](getStarted.md) for more information.
+   > To save any changes you make after the container is running, add the entry `--volume <local-path>:/opt/out` to the `docker run` command, where <local-path> is a directory you've not already created. See *Saving your changes* in [Get Started](getStarted.md) for more information.
 
    For example:
 
@@ -92,7 +92,9 @@ You now have a local server profile based on your existing PingFederate installa
 
 ### Modify a server profile using local directories
 
-We'll use PingFederate as an example, and we'll use the local directories `/opt/in` and `/opt/out` bound and mounted as Docker volumes, rather than Github to modify the server profile:
+This method is particularly helpful when developing locally and the configuration is not ready to be distributed (using Github, for example). We'll use PingFederate as an example. The local directories used by our containers to persist state and data, `/opt/in` and `/opt/out`, will be bound to another local directory and mounted as Docker volumes. This is our infrastructure for modifying the server profile.
+
+> Docker recommends that you never use bind mounts in a production environment. This method is solely for developing server profiles. In production environments, you can use mounted volumes instead (for example, `docker volume create pf-local`). Make sure the volume is empty when mounting to `/opt/out`. See the [Docker documentation](https://docs.docker.com/storage/volumes/) for more information.
 
 * The `/opt/out` directory
 
@@ -118,78 +120,48 @@ We'll use PingFederate as an example, and we'll use the local directories `/opt/
 
 * The `/opt/in` directory
 
-  A Ping Identity container will look in this directory for any provided server-profile structures or other relevant files. This is in contrast to a server-profile provided via Github URL in an environment variable.
+  If a mounted `opt/in` directory exists, our containers will reference this directory for any server profile structures or other relevant files. This method is in contrast to a server profile provided using a Github URL assigned to the `SERVER_PROFILE_PATH` environment variable (such as, `--env SERVER_PROFILE_PATH=getting-started/pingfederate`).
 
-These directories are useful for building and working with local server-profiles. The `/opt/in` directory is particularly valuable if you do not want your containers to access Github for data (the default for our server profiles). Here's an example, again using PingFederate:
+  > See [Server profile structures](profileStructures.md) for the data each product writes to a mounted `/opt/in` directory.
 
-1. start with a vanilla PingFederate and bind-mount /opt/out to local directory:
+  These directories are useful for building and working with local server-profiles. The `/opt/in` directory is particularly valuable if you do not want your containers to access Github for data (the default for our server profiles). Here's an example, again using PingFederate:
 
-   ```text
-    docker run \
-              --name pingfederate \
+  1. Deploy PingFederate using our [sample standalone server profile](../../10-docker-standalone/02-pingfederate) and bind mount `/opt/out` to a local directory. For example:
+
+     ```text
+      docker run \
+                --name pingfederate \
+                --publish 9999:9999 \
+                --detach \
+                --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+                --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+                --volume /tmp/docker/pf:/opt/out \
+                pingidentity/pingfederate:edge
+     ```
+
+     > Make sure the local directory (in this case, `/tmp/docker/pf`) is not already created. Docker needs to create this directory for the bind mount to `/opt/out`.
+
+  2. Go to the mounted local directory (in this case, `/tmp/docker/pf`), then make and save some configuration changes to PingFederate using the management console. As you save the changes, you'll be able to see the files in the mounted directory change. For PingFederate, an `instance` directory is created. This is a PingFederate server profile.
+  3. Stop the container and start a new container, adding another `/tmp/docker/pf` bind mounted volume, this time to `/opt/in`. For example:
+
+     ```text
+     docker container stop pingfederate
+
+     docker run \
+              --name pingfederate-local \
               --publish 9999:9999 \
               --detach \
-              --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-              --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-              -v /tmp/docker/pf:/opt/out \
+              --volume /tmp/docker/pf:/opt/out \
+              --volume /tmp/docker/pf:/opt/in \
               pingidentity/pingfederate:edge
-   ```
+     ```
 
-   > Make sure the locally mounted directory \(e.g.`/tmp/docker/pf`\) is not created. /opt/out expects to create the directory.
+     The new container will now use the changes you made using the PingFederate console. In the logs you can see where `/opt/in` is used:
 
-2. Make some configuration changes via PingFederate UI. As you make changes, you can see the files in the local directory change. For PingFederate, a folder `instance` is created. This is a server-profile. You could push this to Github for use as an environment variable, but here we will use it as a local server-profile.
-3. Stop the container and start a new one with the local config:
-
-   ```text
-   docker container stop pingfederate
-
-   docker run \
-            --name pingfederate-local \
-            --publish 9999:9999 \
-            --detach \
-            -v /tmp/docker/pf:/opt/in \
-            pingidentity/pingfederate:edge
-   ```
-
-   in the logs you can see where `/opt/in` is used:
-
-   ```text
-   docker logs pingfederate-local
-   # Output:
-   # ----- Starting hook: /opt/entrypoint.sh
-   # copying local IN_DIR files (/opt/in) to STAGING_DIR (/opt/staging)
-   # ----- Starting hook: /opt/staging/hooks/01-start-server.sh
-   ```
-
-### Additional Notes:
-
-* This is helpful when developing locally and configuration is not ready for GitHub
-* Docker recommends to never use bind-mounts in production. Hence, this example is good for _developing_ server profiles.
-* Mounted volumes \(`docker volume create pf-local`\), preferred method, can be used instead. Be sure the volume is empty when mounting to /opt/out
-* Be sure to look at [server-profiles administration](administration.md) to see what can go in to each product's `/opt/in`.
-
-### Use Github!
-
-A fun way to watch exactly which files change as you make configurations \(using the example above\):
-
-```text
-  cd /tmp/docker
-
-  git init
-
-  # start container. make changes
-
-  git status
-
-  git diff HEAD
-
-  #complete changes. Stop container
-
-  #save config
-  git add .
-  git commit -m "added new connection"
-
-  #push to github to use as a environment variable server profile in the future
-  git remote add origin <your-github-repo>
-  git push origin master
-```
+     ```text
+     docker logs pingfederate-local
+     # Output:
+     # ----- Starting hook: /opt/entrypoint.sh
+     # copying local IN_DIR files (/opt/in) to STAGING_DIR (/opt/staging)
+     # ----- Starting hook: /opt/staging/hooks/01-start-server.sh
+     ```

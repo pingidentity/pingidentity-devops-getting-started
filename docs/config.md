@@ -4,7 +4,7 @@ You can configure deployments using:
 
   * [Server profiles](profiles.md)
 
-  The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles, or use them as a baseline for creating your own. You'll find these in [Server Profiles](server-profiles/README.md).
+  The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles, or use them as a baseline for creating your own. You'll find these in [Baseline server profiles](../../pingidentity-server-profiles/baseline/).
 
   * [YAML files for orchestrated solutions](yamlFiles.md)
 
@@ -16,6 +16,6 @@ You can configure deployments using:
 
   * [Release tags](releaseTags.md)
 
-  We use sets of tags for each released DevOps image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You'll find the release tag information in [Docker images](docker-images/README.md). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.
+  We use sets of tags for each released DevOps image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You'll find the release tag information in [Docker images](https://pingidentity-devops.gitbook.io/devops/docker-images/). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.
 
 > If you remove any of the existing configurations for a Ping Identity product instance in a stack, it may no longer interoperate with other products in the Docker stack.
