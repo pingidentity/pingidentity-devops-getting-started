@@ -1,6 +1,6 @@
 # Deploy a single Docker container
 
-Our single container products are located in the [Docker standalone](../10-docker-standalone) directory.
+Our single container examples are located in the [Docker standalone](../10-docker-standalone) directory.
 
 ## What you'll do
 
@@ -13,7 +13,7 @@ Our single container products are located in the [Docker standalone](../10-docke
   * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
 
 
-## To deploy one of our products as a single Docker container:
+## Deploy a single container
 
 1. Select one of the available products in the [Docker standalone](../10-docker-standalone) directory. You can then use either of these methods to deploy the container:
 

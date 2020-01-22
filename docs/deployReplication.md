@@ -1,6 +1,6 @@
 # Deploy a replicated pair of PingDirectory containers
 
-You'll use Docker Compose to deploy a replicated pair of PingDirectory containers. The YAML file is located in the [Docker Compose](../11-docker-compose/02-replicated-pair) directory.
+You'll use Docker Compose to deploy a replicated pair of PingDirectory containers.
 
 ## What you'll do
 
@@ -12,9 +12,9 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
   * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
 
-## To deploy a replicated pair of PingDirectory containers using Docker Compose:
+## To deploy a replicated pair of PingDirectory containers:
 
-1. In the [Docker Compose](../11-docker-compose/02-replicated-pair) directory, enter:
+1. Go to your local `devops/pingidentity-devops-getting-started/11-docker-compose/02-replicated-pair` directory. Enter:
 
   `docker-compose up -d --scale <product>=2`
 
@@ -26,7 +26,9 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
   > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
 
-3. Verify that data is replicating between the pair by adding a description entry for the first container. Enter:
+## Test the deployment
+
+1. Verify that data is replicating between the pair by adding a description entry for the first container. Enter:
 
   ```text
   docker container exec -it 02-replicated-pair_pingdirectory_1 /opt/out/instance/bin/ldapmodify
@@ -40,7 +42,7 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
   > The blank line followed by the `<Ctrl-D>` is important. It's how entries are separated in the LDAP Data Interchange Format (LDIF).
 
-4. Check that the second container in the pair now has a matching entry for the description. Enter:
+2. Check that the second container in the pair now has a matching entry for the description. Enter:
 
     ```text
     docker container exec -it 02-replicated-pair_pingdirectory_2 /opt/out/instance/bin/ldapsearch -b uid=user.0,ou=people,dc=example,dc=com -s base '(&)' description
@@ -52,16 +54,16 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
     # description: Made this change on the first container.
     ```
 
-5. When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
+When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
 
-  Entering:
+Entering:
 
-   `docker-compose stop`
+ `docker-compose stop`
 
-  will stop the running stack without removing any of the containers or associated Docker networks.
+will stop the running stack without removing any of the containers or associated Docker networks.
 
-  Entering:
+Entering:
 
-   `docker-compose down`
+ `docker-compose down`
 
-   will remove all of the containers and associated Docker networks.
+ will remove all of the containers and associated Docker networks.

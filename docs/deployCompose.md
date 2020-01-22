@@ -1,6 +1,6 @@
 # Deploy a simple stack with PingFederate and PingDirectory
 
-You'll use Docker Compose to deploy a PingFederate and PingDirectory stack. The YAML file is located in the [Docker Compose](../11-docker-compose/01-simple-stack) directory.
+You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
 ## What you'll do
 
@@ -12,9 +12,9 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack. The 
 
   * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
 
-## To deploy a PingFederate and PingDirectory stack using Docker Compose:
+## Deploy the PingFederate and PingDirectory stack
 
-1. In the [Docker Compose](../11-docker-compose/01-simple-stack) directory, enter:
+1. Go to your local `devops/pingidentity-devops-getting-started/11-docker-compose/01-simple-stack` directory. Enter:
 
   `docker-compose up -d`
 
@@ -24,7 +24,9 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack. The 
 
   > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
 
-3. Log in to the management consoles for the products:
+## Log in to the management consoles
+
+The log in information for the consoles is:
 
    * PingDataConsole for PingDirectory
     - Console URL: https://localhost:8443/console
@@ -37,16 +39,16 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack. The 
     - User: Administrator
     - Password: 2FederateM0re
 
-4. When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
+When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
 
-  Entering:
+Entering:
 
-   `docker-compose stop`
+ `docker-compose stop`
 
-  will stop the running stack without removing any of the containers or associated Docker networks.
+will stop the running stack without removing any of the containers or associated Docker networks.
 
-  Entering:
+Entering:
 
-   `docker-compose down`
+ `docker-compose down`
 
-   will remove all of the containers and associated Docker networks.
+ will remove all of the containers and associated Docker networks.
