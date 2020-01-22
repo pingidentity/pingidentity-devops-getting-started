@@ -1,109 +1,56 @@
 # Server profile structures
 
-This document explains how server profiles work for specific Ping Identity Docker images
+Each of the Docker images created for our products reflects the server profile structures used by our installed products. The directory paths for these server profiles can differ between products, as can the server profile structures (the directory paths and data). You'll see these server profile structures in the local directory bound to the Docker `/opt/in` volume when you elect to save any changes you make to a server profile. See *Saving your changes* in [Get Started](getStarted.md) for more information.
 
-## What's in it?
+The server profile structures in the local directory bound to the `/opt/in` volume are used by our containers at startup. Any files you place in the server profile structures will be used to configure the container.
 
-Server profiles aim at providing a common convention to adapt the common images into workable containers in all circumstances.
+You'll find here the server profile structures you can use for each of our products with example usages.
 
-## Layout
+## PingFederate
 
-### PingFederate
+| Path | Location description |
+| --- | --- |
+| `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
+| `instance/server/default/conf/pingfederate.lic` | Use an existing PingFederate license, rather than the DevOps evaluation license. |
+| `instance/server/default/data/data.zip` | A configuration archive you've exported from PingFederate. |
+| `instance/server/default/deploy/OAuthPlayground.war` | Automatically deploy the OAuthPlayground web application. |
+| `instance/server/default/conf/META-INF/hivemodule.xml` | Apply a Hive module configuration to the container. |
 
-* `instance`
 
-    Place any file that need to be present with the runtime of the product, in accordance with the file layout of the product.
+## PingAccess
 
-  * Some examples:
-    * `instance/server/default/data/drop-in-deployer/data.zip` can be used to apply a configuration archive exported to a container.
+| Path | Location description |
+| --- | --- |
+| `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
+| `instance/server/default/conf/pingaccess.lic` | Use an existing PingAccess license, rather than the DevOps evaluation license. |
 
-      This can be convenient when going from a PingFederate instance to deployed PingFederate containers
 
-    * `server/default/deploy/OAuthPlayground.war`
+## PingDirectory
 
-      automatically deploy the OAuthPlayground web application
+| Path | Location description |
+| --- | --- |
+| `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
+| `instance/server/default/conf/pingdirectory.lic` | Use an existing PingDirectory license, rather than the DevOps evaluation license. |
+| `instance/config/schema/` | A custom schema. |
+| `instance/config/keystore` | Certificates in a Java KeyStore (JKS). |
+| `instance/config/keystore.pin` | Certificates in a PKS#12 KeyStore. |
+| `instance/config/truststore` | Certificates in a Java TrustStore. |
+| `instance/config/truststore.p12` | Certificates in a PKS#12 TrustStore. |
+| `instance/config/truststore.pin` | Certificates in a pin-protected TrustStore. |
+| `dsconfig` | Directory server configuration fragments. When the container starts, all fragments are appended in the order based on their number prefix, and applied in one large batch. Files must be named using two digits, a dash, a label, and the .dsconfig extension (for example, 12-index-oauth-grants.dsconfig). |
+| `data` | LDIF data fragments. When the container starts, all the supplied files are imported in the order based on their number prefix. Files must be named with two digits, a dash, the backend name ( defaults to `userRoot`), a label, and the .ldif extension (for plain LDIF) or .ldif.gz for a gzip compressed file. Ordered examples are: `10-userRoot-skeleton.ldif`, `20-userRoot-users.ldif.gz`, `30-userRoot-groups.ldif`. |
+| `hooks` | A set of custom scripts that will be called at key points during the container startup sequence. The order in which the scripts are called is determined by the number prefix. Ordered examples are: `00-immediate-startup.sh` (called immediately), `10-before-copying-bits.sh`, `20-before-setup.sh` |
 
-    * `instance/server/default/conf/pingfederate.lic`
+## PingDataSync
 
-      inject a PingFederate license into the running container
-
-    * `instance/server/default/conf/META-INF/hivemodule.xml`
-
-      apply a hivemodule configuration to the container
-
-### PingAccess
-
-* `instance`
-
-    Place any file that needs to be present with the runtime of the product, in accordance  with the file layout of the product.
-
-### PingDirectory
-
-* `dsconfig` Provide dsconfig configuration fragments. When the container starts, all the fragments are appended in the order in which they are numbered and applied in one large batch. Files must be named with two digits, a dash, a label, and with the .dsconfig extension \(i.e. 12-index-oauth-grants.dsconfig\).
-* `data` Provide ldif data fragments. When the container starts, all the provided files are imported in the order in which they're named. Files must be named with two digits, a dash, the backend name \(the default is userRoot\), a label, and with the .ldif extension for plain LDIF or .ldif.gz for a gzip compressed file For example:
-  * `10-userRoot-skeleton.ldif`
-  * `20-userRoot-users.ldif.gz`
-  * `30-userRoot-groups.ldif`
-* `hooks` In this directory you can put a set of custom scripts that will be called at key points during the container startup sequence.
-  * On every container start event:
-    * `00-immediate-startup.sh` is called immediately upon container startup
-  * The first time a container starts:
-    * `10-before-copying-bits.sh` is called
-    * `20-before-setup.sh` is called immediately before the setup tool is executed
-    * `30-before-configuration.sh` is called immediately before the dsconfig tool is executed
-    * `40-before-import.sh` is called immediately before the import-ldif is executed
-  * On every container start event:
-    * `50-before-post-start.sh` is called before the built-in postStart.sh script is executed in the background
-    * `80-post-start.sh` is called instead of the built-in postStart.sh script if it is provided
-* `instance` Place any file that needs to be present with the runtime of the product, in accordance with the file layout of the product.
-  * You can place custom schema in `instance/config/schema/`
-  * You can provide your certificates in a JKS keystore with these two files:
-
-      `instance/config/keystore`
-
-      `instance/config/keystore.pin`
-
-  * You can provide your certificates in a PKCS\#12 keystore with these two files:
-
-      `instance/config/keystore.pin`
-
-  * You can provide your trusted certificates in a JKS trust store by providing this file:
-
-      `instance/config/truststore`
-
-  * You can provide your trusted certificates in a JKS trust store by providing this file:
-
-      `instance/config/truststore.p12`
-
-  * Optionally, if the truststore is pin-protected, provide the
-
-      `instance/config/truststore.pin`
-
-### PingDataSync
-
-* `dsconfig` Provide dsconfig configuration fragments. When the container starts, all the fragments are appended in the order in which they are numbered and applied in one large batch. Files must be named with two digits, a dash, a label, and with the .dsconfig extension
-* `instance` Place any file that needs to be present with the runtime of the product, in accordance with the file layout of the product.
-  * You can place custom schema in `instance/config/schema/`
-  * You can provide your certificates in a JKS keystore with these two files:
-
-      `instance/config/keystore`
-
-      `instance/config/keystore.pin`
-
-  * You can provide your certificates in a PKCS\#12 keystore with these two files:
-
-      `instance/config/keystore.p12`
-
-      `instance/config/keystore.pin`
-
-  * You can provide your trusted certificates in a JKS trust store by providing this file:
-
-      `instance/config/truststore`
-
-  * You can provide your trusted certificates in a JKS trust store by providing this file:
-
-      `instance/config/truststore.p12`
-
-  * Optionally, if the truststore is pin-protected, provide the
-
-      `instance/config/truststore.pin`
+| Path | Location description |
+| --- | --- |
+| `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
+| `instance/server/default/conf/pingdatasync.lic` | Use an existing PingDataSync license, rather than the DevOps evaluation license. |
+| `instance/config/schema/` | A custom schema. |
+| `instance/config/keystore` | Certificates in a Java KeyStore (JKS). |
+| `instance/config/keystore.pin` | Certificates in a PKS#12 KeyStore. |
+| `instance/config/truststore` | Certificates in a Java TrustStore. |
+| `instance/config/truststore.p12` | Certificates in a PKS#12 TrustStore. |
+| `instance/config/truststore.pin` | Certificates in a pin-protected TrustStore. |
+| `dsconfig` | Directory server configuration fragments. When the container starts, all fragments are appended in the order based on their number prefix, and applied in one large batch. Files must be named using two digits, a dash, a label, and the .dsconfig extension (for example, 12-index-oauth-grants.dsconfig). |
