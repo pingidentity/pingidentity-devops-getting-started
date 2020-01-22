@@ -71,6 +71,11 @@ this image.
 | PATH  | ${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  | 
 | ENV  | ${BASE}/.profile  | 
 | MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json 
+| PING_CONTAINER_PRIVILEGED  | true  | Default shell prompt (i.e. productName:hostname:workingDir) Whether to run the process as Root or not if set to false, user spec can be left to default (uid:9031, gid:9999) or a custom uid can be passed with PING_CONTAINER_UID and PING_CONTAINER_GID 
+| PING_CONTAINER_UID  | 9031  | The user ID the product will use if PINGIDENTITY_RUN_PRIVILEGED is set to false 
+| PING_CONTAINER_GID  | 9999  | The group ID the product will use if PINGIDENTITY_RUN_PRIVILEGED is set to false 
+| PING_CONTAINER_UNAME  | ping  | 
+| PING_CONTAINER_GNAME  | identity  | 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 
