@@ -52,6 +52,7 @@
   <!-- * [Quick Start](docs/docker-builds/QUICKSTART.md) -->
   * [Docker Builds - Hooks](docs/docker-builds/DOCKER_BUILDS_HOOKS.md)
 * [Obtain and Use Product Licenses](docs/PROD-LICENSE.md)
+* [Running as Non-Root](docs/NON-ROOT.md)
 * [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
 
 ## --
