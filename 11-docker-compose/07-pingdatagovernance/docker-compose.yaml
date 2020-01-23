@@ -2,30 +2,6 @@ version: "3.1"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
 services:
-  # pingaccess:
-  #   image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
-  #   command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
-  #   environment: 
-  #     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-  #     - SERVER_PROFILE_PATH=baseline/pingaccess
-  #     - PING_IDENTITY_ACCEPT_EULA=YES
-  #   env_file:
-  #     # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
-  #     # devops user/key details for evaluation licenses and for docker image/git tags
-  #     - ~/.pingidentity/devops
-  #   # Example: Examples below for mounting local directories for inbound server profile and persisting
-  #   #          server build.  The local /opt/out directory must be empty when building new server
-  #   #             /opt/out - Resulting server build
-  #   #             /opt/in  - Inbound server-profile detail in liue of SERVER_PROFILE_URL (must be commented out)
-  #   #volumes:
-  #   #   - ${HOME}/projects/devops/volumes/full-stack.pingaccess:/opt/out
-  #   #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingaccess:/opt/in
-  #   ports:
-  #     - 443:443
-  #     - 9000:9000
-  #   networks:
-  #     - pingnet-dmz
-
   pingdatagovernance:
     image: pingidentity/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
     environment: 
@@ -52,10 +28,6 @@ services:
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernancepap
-      - SERVER_PROFILE_BRANCH=pdp-pap-integration
-#      - SERVER_PROFILE_PARENT=PDG
-#      - SERVER_PROFILE_PDG_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-#      - SERVER_PROFILE_PDG_PATH=baseline/pingdatagovernancepap
       - PING_IDENTITY_ACCEPT_EULA=YES
       - HTTPS_PORT=8443
     env_file: 
@@ -67,25 +39,6 @@ services:
       - 8443:8443
     networks:
       - pingnet-dmz
-
-  # pingfederate:
-  #   image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-  #   command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
-  #   environment:
-  #     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-  #     - SERVER_PROFILE_PATH=baseline/pingfederate
-  #     - PING_IDENTITY_ACCEPT_EULA=YES
-  #   env_file:
-  #     - ~/.pingidentity/devops
-  #   #volumes:
-  #   #  - ${HOME}/projects/devops/volumes/full-stack.pingfederate:/opt/out
-  #   #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
-  #   ports:
-  #     - 9031:9031
-  #     - 9999:9999
-  #   networks:
-  #     - pingnet-dmz
-  #     - pingnet-internal
 
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
@@ -103,13 +56,6 @@ services:
       - 1443-1453:443
     networks:
       - pingnet-internal
-  
-  # pingdataconsole:
-  #   image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
-  #   ports:
-  #     - 8443:8443
-  #   networks: 
-  #     - pingnet-internal
               
 networks:
     pingnet-internal:
