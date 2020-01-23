@@ -12,7 +12,7 @@ You can have as many layers as needed. Each layer of the configuration is *copie
 
 ## What you'll do
 
-* Create a layered server profile based on the PingFederate server profile located in the [pingidentity-server-profiles](../../pingidentity-server-profiles/getting-started/pingfederate) repository.
+* Create a layered server profile.
 
 Assign a parent server profile for the layered profiles using the `SERVER_PROFILE_PARENT` environment variable (`SERVER_PROFILE_PARENT=<parent-name>`).
 Declare the parent layer using this naming convention:
@@ -22,15 +22,15 @@ Declare the parent layer using this naming convention:
 
 ## Create a layered server profile
 
-We'll use PingFederate for this example, and create separate layers for:
+We'll use PingFederate and our server profile located in the [pingidentity-server-profiles](../../pingidentity-server-profiles/getting-started/pingfederate) repository. We'll create separate layers for:
 
 * Product license
 * Extensions (such as, Integration Kits and Connectors)
 * OAuth Playground
 
-These layers will be applied on top of the PingFederate server profile located in the [pingidentity-server-profiles](../../pingidentity-server-profiles/getting-started/pingfederate) repository.
+For this example, these layers will be applied on top of the PingFederate server profile. However, you can span configurations across multiple repositories if you want.
 
-The complete working, layered server profile of the PingFederate example we're doing here is in the [pingidentity-server-profiles/layered-profiles](../../pingidentity-server-profiles/layered-profiles) directory.
+The complete working, layered server profile of the PingFederate example we're building here is in the [pingidentity-server-profiles/layered-profiles](../../pingidentity-server-profiles/layered-profiles) directory.
 
 Because PingFederate's configuration is file-based, the layering works by copying configurations on top of the PingFederate container’s file system.
 
@@ -38,53 +38,58 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 
 ### Create the base directories
 
-In this example we will use one GitHub repository for simplicity, however, you can span configurations across multiple repositories if desired.
+1. Create a working directory named `layered_profiles` and within that directory create `license`, `extensions`, and `oauth` directories. When completed your directory structure should be:
 
-For this exercise, create a working directory named `layered_profiles` then within that directory create the following directories:
-
-* license
-* extensions
-* oauth
-
-Once completed your directory structure should be
-
-```
-└── layered_profiles
-    ├── extensions
-    ├── license
-    └── oauth
-```
+  ```
+  └── layered_profiles
+      ├── extensions
+      ├── license
+      └── oauth
+  ```
 
 ### Construct the license layer
 
-* Navigate to the license directory
-* Create directory `pingfederate`
+1. Go to the `license` directory and create a `pingfederate` subdirectory.
+2. The PingFederate license file resides in the `/instance/server/default/conf/` path. Create that directory path under the `pingfederate`directory. For example:
 
-As PingFederate expects the license file to reside in the `/instance/server/default/conf/` directory, we'll create that path and place the `pingfederate.lic` file there.
+  ```text
+  mkdir -p /instance/server/default/deploy
+  ```
 
-Your license profile should now look like this
+  Your license profile path should look like this:
 
-```
-└── license
-    └── pingfederate
-        └── instance
-            └── server
-                └── default
-                    └── conf
-                        └── pingfederate.lic
-```
+  ```
+  └── license
+      └── pingfederate
+          └── instance
+              └── server
+                  └── default
+                      └── conf
+                          └── pingfederate.lic
+  ```
+
+3. Copy your `pingfederate.lic` file to `license/pingfederate/instance/server/default/conf`. If you're using the DevOps evaluation license, when the PingFederate container is running, the license is located in the Docker file system's `/opt/in/instance/server/default/conf` directory. You can copy the `pingfederate.lic` file from the Docker file system using the syntax:
+
+  `docker cp <container> <source-location> <target-location>`
+
+  For example:
+
+  ```text
+  docker cp pingfederate /opt/in/instance/server/default/conf/pingfederate.lic ${HOME}/projects/devops/layered_profiles/license/pingfederate/instance/server/default/conf
+  ```
 
 ### Build the extensions layer
 
-* Navigate to the layered-profiles `extensions` directory
-* Create directory `pingfederate`
+1. Go to the `layered-profiles/extensions` directory, and create a `pingfederate` subdirectory.
+2. The PingFederate extensions reside in the `/instance/server/default/deploy` path. Create that directory path under the `pingfederate` directory. For example:
 
-Extensions are placed within the `/instance/server/default/deploy` folder.
+  ```text
+  mkdir -p /instance/server/default/deploy
+  ```
 
-* `mkdir -p /instance/server/default/deploy`
-* Place the extensions you want to be available within PingFederate
+3. Copy to this directory (`layered-profiles/extensions/pingfederate/instance/server/default/deploy`) the extensions you want to be available to PingFederate.
 
-The extensions profile should now look similar to this (extensions will vary based on your requirements)
+The extensions profile path should look similar to this (extensions will vary based on your requirements):
 
 ```
 └── extensions
@@ -100,9 +105,17 @@ The extensions profile should now look similar to this (extensions will vary bas
 
 ### Build the OAuth layer
 
-PingFederate's OAuth Playground is placed within the `/instance/server/default/deploy` directory, like other extensions, so the same steps as above apply. For this example, we've broken out OAuth Playground into its own layer as that we may not want to make it available within all deployments of PingFederate.
+1. Go to the `layered-profiles/oauth` directory, and create a `pingfederate` subdirectory.
 
-Your oauth layer should now look like this
+
+  ```text
+  mkdir -p /instance/server/default/deploy
+  ```
+
+2. OAuth Playground for PingFederate is also located in the `/instance/server/default/deploy` directory, like other extensions. For this example, we're building OAuth Playground into its own layer to show that it's optional for PingFederate deployments.
+3. Copy the `OAuthPlayground.war` file to `layered-profiles/oauth/pingfederate/instance/server/default/deploy`.
+
+Your oauth profile layer should look like this:
 
 ```
 └── oauth
