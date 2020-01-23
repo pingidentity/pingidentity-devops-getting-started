@@ -76,6 +76,7 @@ this image.
 | PING_CONTAINER_GID  | 9999  | The group ID the product will use if PINGIDENTITY_RUN_PRIVILEGED is set to false 
 | PING_CONTAINER_UNAME  | ping  | 
 | PING_CONTAINER_GNAME  | identity  | 
+| JAVA_HOME  | /opt/java  | 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 
