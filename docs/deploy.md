@@ -11,6 +11,6 @@ We've example configurations to help you quickly deploy:
  * A stack using Docker Swarm.
  * PingDirectory using Kubernetes.
 
-## Prerequisites
+## Prerequisite
 
   * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.

@@ -11,7 +11,7 @@ Our [pingidentity-server-profiles](../../pingidentity-server-profiles) repositor
 
 We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. There are environment variables that are common to all product images. You'll find these in the [PingBase image directory](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase). There are also product-specific environment variables. You'll find these in the [Docker image directory](https://pingidentity-devops.gitbook.io/devops/docker-images) for each available product.
 
-## Prerequisites
+## Prerequisite
 
   * You've already been through [Getting Started](evaluate.md) to set up your DevOps environment and run a test deployment of the solutions.
 
@@ -63,6 +63,8 @@ Where <path_to_your_configuration_archive> is the location for your exported Pin
 
 You now have a local server profile based on your existing PingFederate installation.
 
+> We recommend you push to Github only what is necessary for your customizations. Our Docker images create the `/opt/out` directory using a product's base install and layering a profile (set of files) on top.
+
 5. Push your changes (your local server profile) to the Github repository where you forked our server profile repository. You now have a server profile available through a Github URL.
 
 6. Deploy the PingFederate container. The environment variables `SERVER_PROFILE_URL` and `SERVER_PROFILE_PATH` direct Docker to use the server profile you've modified and pushed to Github.
@@ -94,11 +96,11 @@ You now have a local server profile based on your existing PingFederate installa
 
 This method is particularly helpful when developing locally and the configuration is not ready to be distributed (using Github, for example). We'll use PingFederate as an example. The local directories used by our containers to persist state and data, `/opt/in` and `/opt/out`, will be bound to another local directory and mounted as Docker volumes. This is our infrastructure for modifying the server profile.
 
-> Docker recommends that you never use bind mounts in a production environment. This method is solely for developing server profiles. In production environments, you can use mounted volumes instead (for example, `docker volume create pf-local`). Make sure the volume is empty when mounting to `/opt/out`. See the [Docker documentation](https://docs.docker.com/storage/volumes/) for more information.
+> Docker recommends that you never use bind mounts in a production environment. This method is solely for developing server profiles. See the [Docker documentation](https://docs.docker.com/storage/volumes/) for more information.
 
 * The `/opt/out` directory
 
-  All configurations and changes during our container runtimes (persisted data) are captured here. For example, the PingFederate image `/opt/out/instance` contains much of the typical PingFederate root directory:
+  All configurations and changes during our container runtimes (persisted data) are captured here. For example, the PingFederate image `/opt/out/instance` will contain much of the typical PingFederate root directory:
 
   ```text
   .
@@ -120,7 +122,7 @@ This method is particularly helpful when developing locally and the configuratio
 
 * The `/opt/in` directory
 
-  If a mounted `opt/in` directory exists, our containers will reference this directory for any server profile structures or other relevant files. This method is in contrast to a server profile provided using a Github URL assigned to the `SERVER_PROFILE_PATH` environment variable (such as, `--env SERVER_PROFILE_PATH=getting-started/pingfederate`).
+  If a mounted `opt/in` directory exists, our containers will reference this directory at startup for any server profile structures or other relevant files. This method is in contrast to a server profile provided using a Github URL assigned to the `SERVER_PROFILE_PATH` environment variable (such as, `--env SERVER_PROFILE_PATH=getting-started/pingfederate`).
 
   > See [Server profile structures](profileStructures.md) for the data each product writes to a mounted `/opt/in` directory.
 
