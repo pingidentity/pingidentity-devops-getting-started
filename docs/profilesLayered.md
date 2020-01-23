@@ -13,11 +13,12 @@ You can have as many layers as needed. Each layer of the configuration is *copie
 ## What you'll do
 
 * Create a layered server profile based on the PingFederate server profile located in the [pingidentity-server-profiles](../../pingidentity-server-profiles/getting-started/pingfederate) repository.
-* Assign a parent server profile for the layered profiles using the `SERVER_PROFILE_PARENT` environment variable (`SERVER_PROFILE_PARENT=<parent-name>`).
-* Declare the parent layer using this naming convention:
-  - SERVER_PROFILE_<LAYER-NAME>_URL
-  - SERVER_PROFILE_<LAYER-NAME>_PATH
-  - SERVER_PROFILE_<LAYER-NAME>_PARENT
+
+Assign a parent server profile for the layered profiles using the `SERVER_PROFILE_PARENT` environment variable (`SERVER_PROFILE_PARENT=<parent-name>`).
+Declare the parent layer using this naming convention:
+- SERVER_PROFILE_<LAYER-NAME>_URL
+- SERVER_PROFILE_<LAYER-NAME>_PATH
+- SERVER_PROFILE_<LAYER-NAME>_PARENT
 
 ## Create a layered server profile
 

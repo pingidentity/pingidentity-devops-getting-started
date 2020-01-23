@@ -1,4 +1,4 @@
-# Using server profiles
+# Customizing server profiles
 
 When you deployed the full stack of solution containers in [Get started](evaluate.md), you were employing the server profiles associated with each of our solutions. In the YAML files, you'll see entries such as this for each product instance:
 
