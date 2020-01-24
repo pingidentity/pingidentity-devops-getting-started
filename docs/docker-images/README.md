@@ -11,11 +11,11 @@ Ping Identity provides multiple tags for each released product image. Within Doc
 
 View Docker Image Tags here:
  * [PingAccess](https://hub.docker.com/r/pingidentity/pingaccess/tags)
- * [PingDataConsole](https://hub.docker.com/r/pingidentity/pingdataconsole/tags)
  * [PingDataGovernance](https://hub.docker.com/r/pingidentity/pingdatagovernance/tags)
  * [PingDataSync](https://hub.docker.com/r/pingidentity/pingdatasync/tags)
  * [PingDirectory](https://hub.docker.com/r/pingidentity/pingdirectory/tags)
  * [PingFederate](https://hub.docker.com/r/pingidentity/pingfederate/tags)
+ * [Ping Data Console](https://hub.docker.com/r/pingidentity/pingdataconsole/tags)
 
 ## Tagging Format
 

@@ -15,8 +15,8 @@ Included are the following stack deployment yaml files that can be used in the f
 | basic1.yaml | Deploy PingDirectory in a stack with mounted out volume |
 | basic2.yaml | Deploy PingDirectory in a stack with mounted in/out volumes |
 | basic3.yaml | Deploy PingDirectory in a stack with externally mounted volumes |
-| fullstack.yaml | Deploy PingFederate, PingDirectory, PingDataConsole and PingAccess in a networked stack |
-| simple-sync.yaml | Deploy PingDirectory, PingDataSync and PingDataConsole in a networked stack |
+| fullstack.yaml | Deploy PingFederate, PingDirectory, Ping Data Console and PingAccess in a networked stack |
+| simple-sync.yaml | Deploy PingDirectory, PingDataSync and Ping Data Console in a networked stack |
 
 ## Example - basic1.yaml
 
@@ -99,7 +99,7 @@ This example provides a full integrated stack of all the PingIdentity serives in
 * PingFederate \(Engine\)
 * PingAccess
 * PingDirectory
-* PingDataConsole
+* Ping Data Console
 
 The default `fullstack.yaml` doesn't require any mounted `in` or `out` volumes as in previous examples, so they can be started wit the helper `swarm-start.sh` script as explained below, or by simply deploying the stack with:
 
@@ -139,7 +139,7 @@ Example:
 
 ## Console Application
 
-If you are using the PingDataConsole container from these swarm images, you should be able to login with
+If you are using the Ping Data Console container from these swarm images, you should be able to login with
 
 [https://localhost:8443/console/](https://localhost:8443/console/)
 

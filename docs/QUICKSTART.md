@@ -2,11 +2,12 @@
 
 This document aims to quickly stand up a demo/proof-of-concept environment using the available Ping Identity Docker Images.
 
-The intent is to help get a running set of Ping Identity components on a single machine in a containerized enviornment. As such, all the containers will communicate with each other over a local docker network. 
+The intent is to help get a running set of Ping Identity components on a single machine in a containerized enviornment. As such, all the containers will communicate with each other over a local docker network.
 
-The deployed products will be: 
+The deployed products will be:
+
   * PingDirectory
-  * PingDataConsole (PingDirectory/DataGovernance admin UI)
+  * Ping Data Console (PingDirectory/DataGovernance admin UI)
   * PingFederate
   * PingAccess
   * PingDataGovernance
@@ -100,7 +101,7 @@ Watch and wait for containers to be healthy:
 Once a container is healthy, you can see and log-in to it's admin UI. 
 > If on VM, use IP instead of localhost
 
-PingDataConsole - For Directory
+Ping Data Console - For Directory
   Console URL: https://localhost:8443/console
   Server: pingdirectory
   User: Administrator
@@ -116,7 +117,7 @@ PingAccess
   User: Administrator
   Password: 2FederateM0re
 
-PingDataConsole - For DataGovernance
+Ping Data Console - For DataGovernance
   Console URL: https://localhost:8443/console
   Server: pingdatagovernance
   User: Administrator
