@@ -5,6 +5,7 @@
 * [Changelog](docs/changelog.md)
 * [Overview](docs/overview.md)
 * [Get started](docs/evaluate.md)
+  - [Using your DevOps user and key](docs/devopsUserKey.md)
 * [Manage deployments](docs/deploy.md)
   - [Deploy a standalone container](docs/deployStandalone.md)
   - [Deploy a PingFederate and PingDirectory stack](docs/deployCompose.md)

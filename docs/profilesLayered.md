@@ -13,16 +13,13 @@ You can have as many layers as needed. Each layer of the configuration is *copie
 ## What you'll do
 
 * Create a layered server profile.
-
-Assign a parent server profile for the layered profiles using the `SERVER_PROFILE_PARENT` environment variable (`SERVER_PROFILE_PARENT=<parent-name>`).
-Declare the parent layer using this naming convention:
-- SERVER_PROFILE_<LAYER-NAME>_URL
-- SERVER_PROFILE_<LAYER-NAME>_PATH
-- SERVER_PROFILE_<LAYER-NAME>_PARENT
+* 
 
 ## Create a layered server profile
 
-We'll use PingFederate and our server profile located in the [pingidentity-server-profiles](../../pingidentity-server-profiles/getting-started/pingfederate) repository. We'll create separate layers for:
+We'll use PingFederate and our server profile located in the [pingidentity-server-profiles](../../pingidentity-server-profiles/getting-started/pingfederate) repository. We recommend you fork this repository to your Github repository, then pull your Github repository to to a local directory. When we've finished creating the layered profile, you can then push your updates the your Github repository, and reference your Github repository as an environment variable to run the deployment.
+
+We'll create separate layers for:
 
 * Product license
 * Extensions (such as, Integration Kits and Connectors)
@@ -91,17 +88,17 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 
 The extensions profile path should look similar to this (extensions will vary based on your requirements):
 
-```
-└── extensions
-    └── pingfederate
-        └── instance
-            └── server
-                └── default
-                    └── deploy
-                        ├── pf-aws-quickconnection-2.0.jar
-                        ├── pf-azure-ad-pcv-1.2.jar
-                        └── pf-slack-quickconnection-3.0.jar
-```
+   ```
+   └── extensions
+       └── pingfederate
+           └── instance
+               └── server
+                   └── default
+                       └── deploy
+                           ├── pf-aws-quickconnection-2.0.jar
+                           ├── pf-azure-ad-pcv-1.2.jar
+                           └── pf-slack-quickconnection-3.0.jar
+   ```
 
 ### Build the OAuth layer
 
@@ -117,94 +114,94 @@ The extensions profile path should look similar to this (extensions will vary ba
 
 Your oauth profile layer should look like this:
 
-```
-└── oauth
-    └── pingfederate
-        └── instance
-            └── server
-                └── default
-                    └── deploy
-                        └── OAuthPlayground.war
-```
+   ```
+   └── oauth
+       └── pingfederate
+           └── instance
+               └── server
+                   └── default
+                       └── deploy
+                           └── OAuthPlayground.war
+   ```
 
-### Build the deployment file
+### Assign the environment variables for the deployment
 
-For this example, we'll use docker-compose, however, this technique can be applied to any Docker deployment (Docker Run, Swarm, Kubernetes etc)
+We'll assign the environment variables for use in a Docker Compose YAML file. However, you can use this technique with any Docker deployment (such as `docker run`, Kubernetes, Docker Swarm).
 
-First, let's add our license profile
-```
+If you're intending on using your Github repository for the deployment, in the following examples, replace `SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git` with SERVER_PROFILE_URL=https://github.com/<your-Github-repo>/pingidentity-server-profiles.git
+
+1. Create a new `docker-compose.yaml` file.
+2. Add your license profile to the YAML file. For example:
+
+   ```
     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
-```
-The SERVER_PROFILE_ variables support URL, PATH, BRANCH and PARENT values
+   ```
 
-By using the SERVER_PROFILE_PARENT variable we can instruct the container to retrieve its parent configuration
+`SERVER_PROFILE` supports `URL`, `PATH`, `BRANCH` and `PARENT` variables.
 
-For this example, we will specify the `extensions` profile as the parent
+3. Using `SERVER_PROFILE_PARENT`, we can instruct the container to retrieve its parent configuration. We'll specify the `extensions` profile as the parent:
 
-```
+   ```
     - SERVER_PROFILE_PARENT=EXTENSIONS
-```
+   ```
 
-The SERVER_PROFILE variable can be extended to use reference additional profiles. Since we specified license profile's parent as EXTENSIONS, the EXTENSIONS profile can be declared as
+`SERVER_PROFILE` can be extended to reference additional profiles. Since we specified the license profile's parent as `EXTENSIONS`, we can extend `SERVER_PROFILE` by referencing the `EXTENSIONS` profile (prior to the `URL` and `PATH` variables):
 
-```
+   ```
     - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
-```
+   ```
 
-Note: the name of the PARENT is inserted into the SERVER_PROFILE variable Eg. SERVER_PROFILE_**EXTENSIONS**_URL
+4. Set the `EXTENSIONS` parent to `OAUTH`:
 
-Next, set EXTENSIONS parent to OAUTH
-
-```
+   ```
     - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
-```
+   ```
 
-Specify the URL and PATH for the OAUTH server profile
+Then set the `URL` and `PATH` for the `OAUTH` profile:
 
-```
+   ```
     - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
-```
+   ```
 
-Finally, set OAUTH's parent as GETTING_STARTED and declare GETTING-STARTED URL and PATH
+5. Set `GETTING_STARTED` as the `OAUTH` parent and declare the `URL` and `PATH`:
 
-```
+   ```
     - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
-
     - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
-```
+   ```
 
-As the GETTING_STARTED profile is the last profile to add, it will **not** have a parent.
+> Because the `GETTING_STARTED` profile is the last profile to add, it won't have a parent.
 
-Your environment section of the docker-compose.yaml file should now look like this
+   Your environment section of the docker-compose.yaml file should look similar to this:
 
-```
-environment:
-    # **** SERVER PROFILES BEGIN ****
-    # Server Profile - Product License
-    - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-    - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
-    - SERVER_PROFILE_PARENT=EXTENSIONS
+      ```
+      environment:
+         # **** SERVER PROFILES BEGIN ****
+         # Server Profile - Product License
+         - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+         - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
+         - SERVER_PROFILE_PARENT=EXTENSIONS
 
-    # Server Profile - Extensions
-    - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-    - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
-    - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
+         # Server Profile - Extensions
+         - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+         - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
+         - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
 
-    # Server Profile - OAUTH
-    - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-    - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
-    - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
+         # Server Profile - OAUTH
+         - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+         - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
+         - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
 
-    # Base Server Profile
-    - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-    - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
-    # **** SERVER PROFILE END ****
-```
+         # Base Server Profile
+         - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+         - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
+         # **** SERVER PROFILE END ****
+      ```
 
-Once you have committed your profiles to GitHub and reference your repo's URLs within the docker-compose file, you're set to run the example.
+6. Push your profiles to GitHub and reference your repo's URLs within the docker-compose file, you're set to run the example.
 
 To view this example in its entirety, including profile layers and docker-compose.yaml visit https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles
