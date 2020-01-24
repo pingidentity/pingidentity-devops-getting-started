@@ -128,7 +128,9 @@ Your oauth profile layer should look like this:
 
 We'll assign the environment variables for use in a Docker Compose YAML file. However, you can use this technique with any Docker deployment (such as `docker run`, Kubernetes, Docker Swarm).
 
-If you're intending on using your Github repository for the deployment, in the following examples, replace `SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git` with SERVER_PROFILE_URL=https://github.com/<your-Github-repo>/pingidentity-server-profiles.git
+If you're intending on using your Github repository for the deployment, in the following examples, replace `SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git` with SERVER_PROFILE_URL=https://github.com/<your-username>/pingidentity-server-profiles.git.
+
+> If your GitHub server-profile repo is private, use the `username:token` format so the container can access the repository. For example, `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`.
 
 1. Create a new `docker-compose.yaml` file.
 2. Add your license profile to the YAML file. For example:
@@ -178,29 +180,29 @@ Then set the `URL` and `PATH` for the `OAUTH` profile:
 
    Your environment section of the docker-compose.yaml file should look similar to this:
 
-      ```
-      environment:
-         # **** SERVER PROFILES BEGIN ****
-         # Server Profile - Product License
-         - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-         - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
-         - SERVER_PROFILE_PARENT=EXTENSIONS
+   ```
+   environment:
+      # **** SERVER PROFILES BEGIN ****
+      # Server Profile - Product License
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
+      - SERVER_PROFILE_PARENT=EXTENSIONS
 
-         # Server Profile - Extensions
-         - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-         - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
-         - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
+      # Server Profile - Extensions
+      - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
+      - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
 
-         # Server Profile - OAUTH
-         - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-         - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
-         - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
+      # Server Profile - OAUTH
+      - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
+      - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
 
-         # Base Server Profile
-         - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-         - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
-         # **** SERVER PROFILE END ****
-      ```
+      # Base Server Profile
+      - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
+      # **** SERVER PROFILE END ****
+   ```
 
 6. Push your profiles to GitHub and reference your repo's URLs within the docker-compose file, you're set to run the example.
 
