@@ -79,10 +79,9 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 
 1. Go to the `layered-profiles/extensions` directory, and create a `pingfederate` subdirectory.
 2. The PingFederate extensions reside in the `/instance/server/default/deploy` path. Create that directory path under the `pingfederate` directory. For example:
-
-  ```bash
-  mkdir -p /instance/server/default/deploy
-  ```
+   ```bash
+   mkdir -p /instance/server/default/deploy
+   ```
 
 3. Copy to this directory (`layered-profiles/extensions/pingfederate/instance/server/default/deploy`) the extensions you want to be available to PingFederate.
 
@@ -103,10 +102,9 @@ The extensions profile path should look similar to this (extensions will vary ba
 ### Build the OAuth layer
 
 1. Go to the `layered-profiles/oauth` directory, and create a `pingfederate` subdirectory.
-
-```bash
-mkdir -p /instance/server/default/deploy
-```
+   ```bash
+   mkdir -p /instance/server/default/pingfederate
+   ```
 
 2. OAuth Playground for PingFederate is also located in the `/instance/server/default/deploy` directory, like other extensions. For this example, we're building OAuth Playground into its own layer to show that it's optional for PingFederate deployments.
 3. Copy the `OAuthPlayground.war` file to `layered-profiles/oauth/pingfederate/instance/server/default/deploy`.
