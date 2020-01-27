@@ -8,7 +8,7 @@ Generally, you'll not want your server profiles to be public, and will instead w
 2. Click `Generate new token` and assign the token a name.
 3. Grant the token priviledge to the `repo` group.
 
-> Copy the token to a secure location. You'll not be able to view the token again.
+    > Copy the token to a secure location. You'll not be able to view the token again.
 
 4. Scroll to the bottom of the page and click `Generate Token`.
 
