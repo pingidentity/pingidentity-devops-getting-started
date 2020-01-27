@@ -2,7 +2,7 @@
 
 When you deployed the full stack of solution containers in [Get started](evaluate.md), you were employing the server profiles associated with each of our solutions. In the YAML files, you'll see entries such as this for each product instance:
 
-  ```text
+  ```yaml
   environment:
     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_PATH=baseline/pingaccess
@@ -44,7 +44,7 @@ We'll use a PingFederate installation as an example. This method uses a server p
 2. Log in to Github and fork [https://github.com/pingidentity/pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) into your own GitHub repository.
 3. Open an OS shell, create a new directory, and clone your Github repository to a local directory. For example:
 
-```shell
+```bash
   mkdir /tmp/pf_to_docker
   cd /tmp/pf_to_docker
   git clone https://github.com/<github-username>/pingidentity-server-profiles.git
@@ -74,7 +74,7 @@ You now have a local server profile based on your existing PingFederate installa
 
    For example:
 
-  ```text
+  ```bash
     docker run \
       --name pingfederate \
       --publish 9999:9999 \
@@ -86,7 +86,7 @@ You now have a local server profile based on your existing PingFederate installa
       pingidentity/pingfederate:edge
   ```
 
-  > If your GitHub server-profile repo is private, use the `username:token` format so the container can access the repository. For example, `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`.
+  > If your GitHub server-profile repo is private, use the `username:token` format so the container can access the repository. For example, `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`. See [Using private Github repositories](privateRepos.md) for more information.
 
 7. Enter `docker container logs -f pingfederate` to display the logs as the container starts up.
 
@@ -130,7 +130,7 @@ This method is particularly helpful when developing locally and the configuratio
 
   1. Deploy PingFederate using our [sample standalone server profile](../../10-docker-standalone/02-pingfederate) and bind mount `/opt/out` to a local directory. For example:
 
-     ```text
+     ```bash
       docker run \
                 --name pingfederate \
                 --publish 9999:9999 \
@@ -146,7 +146,7 @@ This method is particularly helpful when developing locally and the configuratio
   2. Go to the mounted local directory (in this case, `/tmp/docker/pf`), then make and save some configuration changes to PingFederate using the management console. As you save the changes, you'll be able to see the files in the mounted directory change. For PingFederate, an `instance` directory is created. This is a PingFederate server profile.
   3. Stop the container and start a new container, adding another `/tmp/docker/pf` bind mounted volume, this time to `/opt/in`. For example:
 
-     ```text
+     ```bash
      docker container stop pingfederate
 
      docker run \
@@ -160,7 +160,7 @@ This method is particularly helpful when developing locally and the configuratio
 
      The new container will now use the changes you made using the PingFederate console. In the logs you can see where `/opt/in` is used:
 
-     ```text
+     ```bash
      docker logs pingfederate-local
      # Output:
      # ----- Starting hook: /opt/entrypoint.sh

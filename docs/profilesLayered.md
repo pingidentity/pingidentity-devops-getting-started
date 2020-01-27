@@ -130,7 +130,7 @@ We'll assign the environment variables for use in a Docker Compose YAML file. Ho
 
 If you're intending on using your Github repository for the deployment, in the following examples, replace `SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git` with SERVER_PROFILE_URL=https://github.com/<your-username>/pingidentity-server-profiles.git.
 
-> If your GitHub server-profile repo is private, use the `username:token` format so the container can access the repository. For example, `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`.
+> If your GitHub server-profile repo is private, use the `username:token` format so the container can access the repository. For example, `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`. See [Using private Github repositories](privateRepos.md) for more information.
 
 1. Create a new `docker-compose.yaml` file.
 2. Add your license profile to the YAML file. For example:
