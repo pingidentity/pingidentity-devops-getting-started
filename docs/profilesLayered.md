@@ -104,7 +104,6 @@ The extensions profile path should look similar to this (extensions will vary ba
 
 1. Go to the `layered-profiles/oauth` directory, and create a `pingfederate` subdirectory.
 
-
 ```bash
 mkdir -p /instance/server/default/deploy
 ```

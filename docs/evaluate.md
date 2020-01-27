@@ -125,7 +125,7 @@ For a standalone container, use this syntax to make the license file available t
        pingidentity/pingfederate:edge
    ```
 
-   Where \<path> and the `/opt/in` mount path are as specified for our Docker stacks above.
+   Where `<path>` and the `/opt/in` mount path are as specified for our Docker stacks above.
 
 ## Initial setup
 

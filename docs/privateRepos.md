@@ -22,7 +22,6 @@ https://<github-username>:<github-token>@github.com/<your-repository>.git
 
 For example:
 
-`SERVER_PROFILE_URL=https://github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva@github.com/pingidentity/server_profile.git`
-
-
-
+```yaml
+SERVER_PROFILE_URL=https://github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva@github.com/pingidentity/server_profile.git
+```
