@@ -168,7 +168,7 @@ with
 
    > Because the `GETTING_STARTED` profile is the last profile to add, it won't have a parent.
 
-   Your environment section of the docker-compose.yaml file should look similar to this:
+   Your `environment` section of the `docker-compose.yaml` file should look similar to this:
    ```yaml
    environment:
     # **** SERVER PROFILES BEGIN ****
@@ -193,6 +193,7 @@ with
     # **** SERVER PROFILE END ****
    ```
 
-6. Push your profiles to GitHub and reference your repo's URLs within the docker-compose file, you're set to run the example.
+7. Push your profiles and updated `docker-compose.yaml` file to your GitHub repository.
+8. Deploy the stack with the layered profiles.
 
 To view this example in its entirety, including profile layers and docker-compose.yaml visit https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles
