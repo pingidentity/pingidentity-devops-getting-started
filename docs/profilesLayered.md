@@ -36,44 +36,41 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 ### Create the base directories
 
 1. Create a working directory named `layered_profiles` and within that directory create `license`, `extensions`, and `oauth` directories. When completed your directory structure should be:
-
-  ```
-  └── layered_profiles
+   ```
+   └── layered_profiles
       ├── extensions
       ├── license
       └── oauth
-  ```
+   ```
 
 ### Construct the license layer
 
 1. Go to the `license` directory and create a `pingfederate` subdirectory.
 2. The PingFederate license file resides in the `/instance/server/default/conf/` path. Create that directory path under the `pingfederate`directory. For example:
+   ```bash
+   mkdir -p /instance/server/default/deploy
+   ```
 
-  ```bash
-  mkdir -p /instance/server/default/deploy
-  ```
+   Your license profile path should look like this:
 
-  Your license profile path should look like this:
-
-  ```
-  └── license
+   ```
+   └── license
       └── pingfederate
           └── instance
               └── server
                   └── default
                       └── conf
                           └── pingfederate.lic
-  ```
+   ```
 
 3. Copy your `pingfederate.lic` file to `license/pingfederate/instance/server/default/conf`. If you're using the DevOps evaluation license, when the PingFederate container is running, the license is located in the Docker file system's `/opt/in/instance/server/default/conf` directory. You can copy the `pingfederate.lic` file from the Docker file system using the syntax:
+   `docker cp <container> <source-location> <target-location>`
 
-  `docker cp <container> <source-location> <target-location>`
+   For example:
 
-  For example:
-
-  ```bash
-  docker cp pingfederate /opt/in/instance/server/default/conf/pingfederate.lic ${HOME}/projects/devops/layered_profiles/license/pingfederate/instance/server/default/conf
-  ```
+   ```bash
+   docker cp pingfederate /opt/in/instance/server/default/conf/pingfederate.lic ${HOME}/projects/devops/layered_profiles/license/pingfederate/instance/server/default/conf
+   ```
 
 ### Build the extensions layer
 
@@ -86,7 +83,6 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 3. Copy to this directory (`layered-profiles/extensions/pingfederate/instance/server/default/deploy`) the extensions you want to be available to PingFederate.
 
 The extensions profile path should look similar to this (extensions will vary based on your requirements):
-
 ```
 └── extensions
     └── pingfederate
@@ -110,7 +106,6 @@ The extensions profile path should look similar to this (extensions will vary ba
 3. Copy the `OAuthPlayground.war` file to `layered-profiles/oauth/pingfederate/instance/server/default/deploy`.
 
 Your oauth profile layer should look like this:
-
 ```
 └── oauth
     └── pingfederate
@@ -125,60 +120,57 @@ Your oauth profile layer should look like this:
 
 We'll assign the environment variables for use in a Docker Compose YAML file. However, you can use this technique with any Docker deployment (such as `docker run`, Kubernetes, Docker Swarm).
 
-If you're intending on using your Github repository for the deployment, in the following examples, replace `SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git` with `SERVER_PROFILE_URL=https://github.com/<your-username>/pingidentity-server-profiles.git`.
+If you're intending on using your Github repository for the deployment, in the following examples, replace 
+`SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git` 
+
+with
+
+`SERVER_PROFILE_URL=https://github.com/<your-username>/pingidentity-server-profiles.git`
 
 > If your GitHub server-profile repo is private, use the `username:token` format so the container can access the repository. For example, `https://github.com/<your_username>:<your_access_token>/pingidentity-server-profiles.git`. See [Using private Github repositories](privateRepos.md) for more information.
 
 1. Create a new `docker-compose.yaml` file.
 2. Add your license profile to the YAML file. For example:
-
-```yaml
- - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
- - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
-```
-
-`SERVER_PROFILE` supports `URL`, `PATH`, `BRANCH` and `PARENT` variables.
+   ```yaml
+    - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+    - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
+   ```
+    `SERVER_PROFILE` supports `URL`, `PATH`, `BRANCH` and `PARENT` variables.
 
 3. Using `SERVER_PROFILE_PARENT`, we can instruct the container to retrieve its parent configuration. We'll specify the `extensions` profile as the parent:
-
-```yaml
- - SERVER_PROFILE_PARENT=EXTENSIONS
-```
-
-`SERVER_PROFILE` can be extended to reference additional profiles. Since we specified the license profile's parent as `EXTENSIONS`, we can extend `SERVER_PROFILE` by referencing the `EXTENSIONS` profile (prior to the `URL` and `PATH` variables):
-
- ```yaml
-  - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-  - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
- ```
+   ```yaml
+    - SERVER_PROFILE_PARENT=EXTENSIONS
+   ```
+   `SERVER_PROFILE` can be extended to reference additional profiles. Since we specified the license profile's parent as `EXTENSIONS`, we can extend `SERVER_PROFILE` by referencing the `EXTENSIONS` profile (prior to the `URL` and `PATH` variables):
+    ```yaml
+     - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+     - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
+    ```
 
 4. Set the `EXTENSIONS` parent to `OAUTH`:
+   ```yaml
+    - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
+   ```
 
-```yaml
- - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
-```
+   Then set the `URL` and `PATH` for the `OAUTH` profile:
 
-Then set the `URL` and `PATH` for the `OAUTH` profile:
-
- ```yaml
-  - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-  - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
- ```
+    ```yaml
+     - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+     - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
+    ```
 
 5. Set `GETTING_STARTED` as the `OAUTH` parent and declare the `URL` and `PATH`:
+   ```yaml
+    - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
+    - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+    - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
+   ```
 
-```yaml
- - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
- - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
- - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
-```
-
-> Because the `GETTING_STARTED` profile is the last profile to add, it won't have a parent.
+   > Because the `GETTING_STARTED` profile is the last profile to add, it won't have a parent.
 
    Your environment section of the docker-compose.yaml file should look similar to this:
-
- ```yaml
- environment:
+   ```yaml
+   environment:
     # **** SERVER PROFILES BEGIN ****
     # Server Profile - Product License
     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -199,7 +191,7 @@ Then set the `URL` and `PATH` for the `OAUTH` profile:
     - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
     # **** SERVER PROFILE END ****
- ```
+   ```
 
 6. Push your profiles to GitHub and reference your repo's URLs within the docker-compose file, you're set to run the example.
 
