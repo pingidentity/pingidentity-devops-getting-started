@@ -118,20 +118,20 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
 For a standalone container, use this syntax to make the license file available to the deployment:
 
-   ```
+   ```bash
    docker run \
        --name pingfederate \
        --volume <path>/pingfederate.lic>:/opt/in/instance/server/default/conf/pingfederate.lic
        pingidentity/pingfederate:edge
    ```
 
-   Where <path> and the `/opt/in` mount path are as specified for our Docker stacks above.
+   Where \<path> and the `/opt/in` mount path are as specified for our Docker stacks above.
 
 ## Initial setup
 
 1. Make a local copy of the DevOps repository in this location: `${HOME}/projects/devops`. For example, enter:
 
-    ```text
+    ```bash
     mkdir -p ${HOME}/projects/devops
     cd ${HOME}/projects/devops
     ```
@@ -143,7 +143,7 @@ For a standalone container, use this syntax to make the license file available t
 
 3. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for the Ping Identity solutions. For example, enter:
 
-   ```text
+   ```bash
    cd pingidentity-devops-getting-started
    ./setup
    ```
@@ -151,7 +151,7 @@ For a standalone container, use this syntax to make the license file available t
 
 4. Refresh your OS shell to make the command aliases available. For example, enter:
 
-   ```text
+   ```bash
    source ~/.bash_profile
    ```
    After refreshing your OS shell, enter `dhelp` to see the listing of the command aliases.
@@ -268,7 +268,7 @@ You can bind mount a Docker volume for containers in a stack or for standalone c
 
 * Add a `volume` entry to the `docker run` command:
 
-  ```
+  ```bash
   docker run \
       --name pingfederate \
       --volume <local-path>:/opt/out

@@ -16,39 +16,39 @@ You'll find the YAML files for the DevOps example stacks located in your `${HOME
 
 Here's the format we use for our YAML files:
 
-    ```yaml
-    version: "3.1"
+```yaml
+version: "3.1"
 
-    services:
-        <ping-product>:
-          image: pingidentity/<ping-product>:${PING_IDENTITY_DEVOPS_TAG}
-          command: wait-for <another-ping-product>:<startup-port> -t <time-to-wait> -- entrypoint.sh start-server
-          environment: 
-            - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-            - SERVER_PROFILE_PATH=baseline/<ping-product>
-            - PING_IDENTITY_ACCEPT_EULA=YES
-          env_file:
-            - ~/.pingidentity/devops
-          #volumes:
-            # - ${HOME}/projects/devops/volumes/full-stack.<ping-product>:/opt/out
-            # - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/<ping-product>:/opt/in
-          ports:
-            - <host-port>:<container-port>
-            - <host-port>:<container-port>
-          networks:
-            - pingnet-dmz
-                
-    networks:
-        pingnet-internal:
-        pingnet-dmz:
-    ```
+services:
+    <ping-product>:
+      image: pingidentity/<ping-product>:${PING_IDENTITY_DEVOPS_TAG}
+      command: wait-for <another-ping-product>:<startup-port> -t <time-to-wait> -- entrypoint.sh start-server
+      environment: 
+        - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+        - SERVER_PROFILE_PATH=baseline/<ping-product>
+        - PING_IDENTITY_ACCEPT_EULA=YES
+      env_file:
+        - ~/.pingidentity/devops
+      #volumes:
+        # - ${HOME}/projects/devops/volumes/full-stack.<ping-product>:/opt/out
+        # - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/<ping-product>:/opt/in
+      ports:
+        - <host-port>:<container-port>
+        - <host-port>:<container-port>
+      networks:
+        - pingnet-dmz
+            
+networks:
+    pingnet-internal:
+    pingnet-dmz:
+```
 
 | Entry | Description |
 | --- | --- |
 | `version` | The Docker Compose version used. |
-| <ping-product> | The name of the Ping Identity product container. |
+| \<ping-product> | The name of the Ping Identity product container. |
 | `image` | The DevOps image of the product used for the container, and the build tag to use (defaults to value assigned to `PING_IDENTITY_DEVOPS_TAG` in the `~/.pingidentity/devops` file. |
-| `command` | We use the `wait-for` script to control the startup order, where <startup-port> is the port to check for whether <another-ping-product> container has started. The <time-to-wait> argument is the number of seconds to wait before executing the `entrypoint.sh` script with the `start-server` command. If you find a container is timing out while waiting for another container to start, try increasing the <time-to-wait> value. |
+| `command` | We use the `wait-for` script to control the startup order, where \<startup-port> is the port to check for whether \<another-ping-product> container has started. The \<time-to-wait> argument is the number of seconds to wait before executing the `entrypoint.sh` script with the `start-server` command. If you find a container is timing out while waiting for another container to start, try increasing the \<time-to-wait> value. |
 | `environment` | The environment variables being set. See [Customizing server profiles](profiles.md) for more information. The `PING_IDENTITY_ACCEPT_EULA` environment variable is set to "YES" when you complete the DevOps registration. This variable assignment appears here by default, but may also be in your `~/.pingidentity/devops` file. |
 | `env_file` | A file or files containing environment variable settings. The DevOps environment settings are stored in your `~/.pingidentity/devops` file. You also can specify additional files containing environment settings. See [Customizing server profiles](profiles.md) for more information. |
 | `volumes` | Commented out by default. The location bind mounted to the  `/opt/out` volume is used to persist product container state and data. The location bind mounted to the `/opt/in` volume is used to supply server profile information to the container on startup. See *Modify a server profile using local directories* in [Customizing server profiles](profiles.md) for more information. |

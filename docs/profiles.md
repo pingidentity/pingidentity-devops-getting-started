@@ -50,16 +50,16 @@ We'll use a PingFederate installation as an example. This method uses a server p
   git clone https://github.com/<github-username>/pingidentity-server-profiles.git
 ```
 
-Where <github-username> is the name you used to log in to the Github account.
+Where \<github-username> is the name you used to log in to the Github account.
 
 4. Go to location where you cloned your fork of our `pingidentity-server-profiles` repository, and replace the `/data` directory in `getting-started/pingfederate/instance/server/default` with the `data` directory you exported from your existing PingFederate installation. For example:
 
-```text
+```bash
   cd pingidentity-server-profiles/getting-started/pingfederate/instance/server/default
   rm -rf data
   unzip -qd data <path_to_your_configuration_archive>/data.zip
 ```
-Where <path_to_your_configuration_archive> is the location for your exported PingFederate configuration archive.
+Where \<path_to_your_configuration_archive> is the location for your exported PingFederate configuration archive.
 
 You now have a local server profile based on your existing PingFederate installation.
 
