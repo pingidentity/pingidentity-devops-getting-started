@@ -34,8 +34,6 @@
   - [PingDataCommon](docs/docker-images/pingdatacommon/README.md)
   - [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
 
-## --
-
 * [License](LICENSE.md)
 * [Contributing](CONTRIBUTING.md)
 * [Disclaimer](DISCLAIMER.md)
