@@ -42,15 +42,13 @@ For example, `pingaccess:edge`.
 
 ### latest
 
-`pingfederate:latest`
-
 The `latest` release tag indicates the latest stable release. This is a _sliding_ tag that marks the stable release for the latest sprint. The `latest` release is characterized by:
 
 * Latest product version
 * All completed and qualified enhacements and fixes from the prior monthly sprint.
 * Runs on the Linux Alpine OS.
 
-For example, `pingfederate:edge`.
+For example, `pingfederate:latest`.
 
 ### sprint
 
