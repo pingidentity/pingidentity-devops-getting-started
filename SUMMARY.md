@@ -19,7 +19,20 @@
   - [Customizing YAML files](docs/yamlFiles.md)
   - [Using DevOps hooks](docs/hooks.md)
   - [Using release tags](docs/releaseTags.md)
-* [Customize the images](docs/customImages.md)
+* [Docker images reference](docs/dockerImagesRef.md)
+  - [PingFederate](docs/docker-images/pingfederate/README.md)
+  - [PingAccess](docs/docker-images/pingaccess/README.md)
+  - [PingDirectory](docs/docker-images/pingdirectory/README.md)
+  - [PingDataGovernance](docs/docker-images/pingdatagovernance/README.md)
+  - [PingDataGovernance PAP](docs/docker-images/pingdatagovernancepap/README.md)
+  - [PingDataSync](docs/docker-images/pingdatasync/README.md)
+  - [ldap-sdk-tools](docs/docker-images/ldap-sdk-tools/README.md)
+  - [PingDataConsole](docs/docker-images/pingdataconsole/README.md)
+  - [PingDownloader](docs/docker-images/pingdownloader/README.md)
+  - [PingBase](docs/docker-images/pingbase/README.md)
+  - [PingCommon](docs/docker-images/pingcommon/README.md)
+  - [PingDataCommon](docs/docker-images/pingdatacommon/README.md)
+  - [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
 
 ## --
 
