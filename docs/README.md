@@ -18,11 +18,11 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
 ## Overview
 
-See [Overview](docs/overview.md) for descriptions of the components of our DevOps architecture and repositories. 
+See [Overview](overview.md) for descriptions of the components of our DevOps architecture and repositories. 
 
 ## Get started
 
-See [Getting started](docs/evaluate.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
+See [Get started](evaluate.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
 
 ## Contact us
 
