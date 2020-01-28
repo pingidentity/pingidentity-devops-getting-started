@@ -1,8 +1,8 @@
 # Get started
 
-You can quickly deploy DevOps images of Ping Identity solutions. These images are preconfigured to provide working instances of our solutions, either as single containers or an orchestrated set of containers. We use Docker to deploy the DevOps images in stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration of containers, we use Kubernetes.
+You can quickly deploy build images of Ping Identity products. We use Docker to deploy the build images in stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration, we use Kubernetes. The build images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers. 
 
-You'll need an evaluation license to use the DevOps resources. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of solutions for DevOps using Docker Compose. When you first start the Docker stack, our full set of DevOps images is automatically pulled from our repository, if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/). You can then choose to try out any one or more of the solutions, all preconfigured to interoperate.
+You'll need an evaluation license to use the DevOps resources. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of product containers using Docker Compose. When you first start the Docker stack, each of the build images is automatically pulled from our repository, unless you've already pulled the images from our [Docker Hub](https://hub.docker.com/u/pingidentity/) site. You can then choose to try out any one or more of our products, all preconfigured to interoperate.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 5. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
 6. Refresh your OS shell.
 7. Use Docker Compose to deploy the full stack. This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
-8. Log in to the management consoles for the solutions.
+8. Log in to the management consoles for the products.
 9. Stop or bring down the stack.
 
 See **DevOps registration** and **Initial setup** for complete instructions.
@@ -26,9 +26,9 @@ See **DevOps registration** and **Initial setup** for complete instructions.
 When you've finished the initial setup and deployment, you can then choose to:
 
 * Rerun the full stack evaluation. See **Saving your configuration changes**.
-* [Deploy a solution as a standalone Docker container, or deploy a set of solutions using orchestration](deploy.md).
-* [Manage container and stack configurations](configDeploy.md).
-* [Customize the DevOps images](customImages.md).
+* [Configure and deploy our other examples](deploy.md).
+* [Customize the container and stack configurations](config.md).
+* [Customize the build images](customImages.md).
 
 ## DevOps registration
 
@@ -68,11 +68,7 @@ If you have an existing, valid product license for the product or products you'l
 
 For our Docker stacks, copy each license file to the `/opt/in` volume that you've mounted. The `/opt/in` directory overlays files onto the products runtime filesystem, the license needs to be named correctly and mounted in the exact location the product checks for valid licenses.
 
- 1. Add a `volumes` section to the container entry for each product for which you have a license file in the `docker-compose.yaml` file you're using for the stack:
-
-   * For the Workforce stack, the `docker-compose.yaml` file is in the [Solution-WorkForce](../Solution-WorkForce) directory.
-   * For the Customer stack, the `docker-compose.yaml` file is in the [Solution-BaselineCustomer](../Solution-BaselineCustomer) directory.
-
+ 1. Add a `volumes` section to the container entry for each product for which you have a license file in the `docker-compose.yaml` file you're using for the stack.
  2. Under the `volumes` section, add a location to mount `opt/in`. For example:
 
     ```yaml
@@ -141,7 +137,7 @@ For a standalone container, use this syntax to make the license file available t
 
      `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
 
-3. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for the Ping Identity solutions. For example, enter:
+3. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for our products. For example, enter:
 
    ```bash
    cd pingidentity-devops-getting-started
@@ -160,7 +156,7 @@ For a standalone container, use this syntax to make the license file available t
 
 ## Deploy the stack
 
-1. Deploy the full stack of solutions:
+1. Deploy the full stack of product containers:
 
   > For your initial deployment of the stack, we recommend you make no changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. Any configuration changes you make will not be saved when you bring down the stack. For subsequent deployments, see **Saving your configuration changes**.
 
@@ -229,10 +225,10 @@ For a standalone container, use this syntax to make the license file available t
 
 You can now choose to:
 
-  * Rerun the full stack evaluation (`docker-compose up -d`). See **Save your configuration changes**.
-  * [Deploy a solution as a standalone Docker container, or deploy a set of solutions using orchestration](deploy.md).
-  * [Manage container and stack configurations](configDeploy.md).
-  * [Customize the DevOps images](customImages.md).
+* Rerun the full stack evaluation (`docker-compose up -d`). See **Save your configuration changes**.
+* [Configure and deploy our other examples](deploy.md).
+* [Customize the container and stack configurations](config.md).
+* [Customize the build images](customImages.md).
 
 ## Save your configuration changes
 

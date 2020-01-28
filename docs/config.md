@@ -16,5 +16,5 @@ You can customize our product containers using:
 
   * [Changing release tags](releaseTags.md)
 
-  We use sets of tags for each released DevOps image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You'll find the release tag information in [Docker images](https://pingidentity-devops.gitbook.io/devops/docker-images/). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.
+  We use sets of tags for each released build image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You'll find the release tag information in [Docker images](https://pingidentity-devops.gitbook.io/devops/docker-images/). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.
 

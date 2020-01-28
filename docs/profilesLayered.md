@@ -8,12 +8,13 @@ You can have as many layers as needed. Each layer of the configuration is *copie
 
 ## Prerequisite
 
-  * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## What you'll do
 
 * Create a layered server profile.
-* 
+* Assign the environment variables for the deployment.
+* Deploy the layered server profile.
 
 ## Create a layered server profile
 
@@ -116,7 +117,7 @@ Your oauth profile layer should look like this:
                         └── OAuthPlayground.war
 ```
 
-### Assign the environment variables for the deployment
+## Assign the environment variables for the deployment
 
 We'll assign the environment variables for use in a Docker Compose YAML file. However, you can use this technique with any Docker deployment (such as `docker run`, Kubernetes, Docker Swarm).
 
@@ -193,7 +194,9 @@ with
     # **** SERVER PROFILE END ****
    ```
 
-7. Push your profiles and updated `docker-compose.yaml` file to your GitHub repository.
-8. Deploy the stack with the layered profiles.
+## Deploy the layered server profile
 
-To view this example in its entirety, including profile layers and docker-compose.yaml visit https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles
+1. Push your profiles and updated `docker-compose.yaml` file to your GitHub repository.
+2. Deploy the stack with the layered profiles.
+
+To view this example in its entirety, including the profile layers and `docker-compose.yaml` file, see the [pingidentity-server-profiles/layered-profiles](../../pingidentity-server-profiles/layered-profiles) directory.

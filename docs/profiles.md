@@ -1,6 +1,6 @@
 # Customizing server profiles
 
-When you deployed the full stack of solution containers in [Get started](evaluate.md), you were employing the server profiles associated with each of our solutions. In the YAML files, you'll see entries such as this for each product instance:
+When you deployed the full stack of product containers in [Get started](evaluate.md), you were employing the server profiles associated with each of our products. In the YAML files, you'll see entries such as this for each product instance:
 
   ```yaml
   environment:
@@ -13,22 +13,22 @@ We use environment variables for certain startup and runtime configuration setti
 
 ## Prerequisite
 
-  * You've already been through [Getting Started](evaluate.md) to set up your DevOps environment and run a test deployment of the solutions.
+* You've already been through [Getting Started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## What you'll do
 
-  * Add or change the environment variables used for any of our server profiles to better fit your purposes. These environment variables are located in the [server profiles repository](../../pingidentity-server-profiles) for each product. For example, the location for the env_vars file for PingAccess is located in the [baseline/pingaccess server profile](../../pingidentity-server-profiles/baseline/pingaccess).
-  * Modify one of our server profiles to reflect an existing Ping Identity product installation in your organization. You can do this by forking our server profiles repository (https://github.com/pingidentity/pingidentity-server-profiles) to your Github repository, or by using local directories.
+* Add or change the environment variables used for any of our server profiles to better fit your purposes. These environment variables are located in the [server profiles repository](../../pingidentity-server-profiles) for each product. For example, the location for the env_vars file for PingAccess is located in the [baseline/pingaccess server profile](../../pingidentity-server-profiles/baseline/pingaccess).
+* Modify one of our server profiles to reflect an existing Ping Identity product installation in your organization. You can do this by forking our server profiles repository (https://github.com/pingidentity/pingidentity-server-profiles) to your Github repository, or by using local directories.
 
 ## Add or change environment variables
 
-1. Select any environment variables to add from either the [Docker image directory](https://pingidentity-devops.gitbook.io/devops/docker-images) for the solution-specific environment variables, or the [PingBase image directory](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase) for the environment variables common to all of our solutions.
-2. Select the solution whose profile you want to modify from the `baseline`, `getting-started`, or `simple-sync` directories in the [server profiles repository](../../pingidentity-server-profiles).
-3. Open the `env_vars` file associated with the solution and add any of the environment variables you've selected, or change the existing environment variables to fit your purpose.
+1. Select any environment variables to add from either the [Docker image directory](https://pingidentity-devops.gitbook.io/devops/docker-images) for the product-specific environment variables, or the [PingBase image directory](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase) for the environment variables common to all of our products.
+2. Select the product whose profile you want to modify from the `baseline`, `getting-started`, or `simple-sync` directories in the [server profiles repository](../../pingidentity-server-profiles).
+3. Open the `env_vars` file associated with the product and add any of the environment variables you've selected, or change the existing environment variables to fit your purpose.
 
 ## Modify a server profile
 
-You can modify one of our server profiles based on data from your existing Ping Identity solution installation. Modify a server profile in either of these ways:
+You can modify one of our server profiles based on data from your existing Ping Identity product installation. Modify a server profile in either of these ways:
 
 * Using your Github repository
 * Using local directories
@@ -43,7 +43,6 @@ We'll use a PingFederate installation as an example. This method uses a server p
 
 2. Log in to Github and fork [https://github.com/pingidentity/pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) into your own GitHub repository.
 3. Open an OS shell, create a new directory, and clone your Github repository to a local directory. For example:
-
 ```bash
   mkdir /tmp/pf_to_docker
   cd /tmp/pf_to_docker
@@ -53,7 +52,6 @@ We'll use a PingFederate installation as an example. This method uses a server p
 Where `<github-username>` is the name you used to log in to the Github account.
 
 4. Go to location where you cloned your fork of our `pingidentity-server-profiles` repository, and replace the `/data` directory in `getting-started/pingfederate/instance/server/default` with the `data` directory you exported from your existing PingFederate installation. For example:
-
 ```bash
   cd pingidentity-server-profiles/getting-started/pingfederate/instance/server/default
   rm -rf data
@@ -69,11 +67,9 @@ You now have a local server profile based on your existing PingFederate installa
 
 6. Deploy the PingFederate container. The environment variables `SERVER_PROFILE_URL` and `SERVER_PROFILE_PATH` direct Docker to use the server profile you've modified and pushed to Github.
 
-
    > To save any changes you make after the container is running, add the entry `--volume <local-path>:/opt/out` to the `docker run` command, where <local-path> is a directory you've not already created. See *Saving your changes* in [Get Started](getStarted.md) for more information.
 
    For example:
-
   ```bash
     docker run \
       --name pingfederate \
@@ -101,7 +97,6 @@ This method is particularly helpful when developing locally and the configuratio
 * The `/opt/out` directory
 
   All configurations and changes during our container runtimes (persisted data) are captured here. For example, the PingFederate image `/opt/out/instance` will contain much of the typical PingFederate root directory:
-
   ```text
   .
   ├── README.md
@@ -129,37 +124,34 @@ This method is particularly helpful when developing locally and the configuratio
   These directories are useful for building and working with local server-profiles. The `/opt/in` directory is particularly valuable if you do not want your containers to access Github for data (the default for our server profiles). Here's an example, again using PingFederate:
 
   1. Deploy PingFederate using our [sample standalone server profile](../../10-docker-standalone/02-pingfederate) and bind mount `/opt/out` to a local directory. For example:
-
      ```bash
       docker run \
-                --name pingfederate \
-                --publish 9999:9999 \
-                --detach \
-                --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-                --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-                --volume /tmp/docker/pf:/opt/out \
-                pingidentity/pingfederate:edge
+          --name pingfederate \
+          --publish 9999:9999 \
+          --detach \
+          --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+          --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+          --volume /tmp/docker/pf:/opt/out \
+          pingidentity/pingfederate:edge
      ```
 
      > Make sure the local directory (in this case, `/tmp/docker/pf`) is not already created. Docker needs to create this directory for the bind mount to `/opt/out`.
 
   2. Go to the mounted local directory (in this case, `/tmp/docker/pf`), then make and save some configuration changes to PingFederate using the management console. As you save the changes, you'll be able to see the files in the mounted directory change. For PingFederate, an `instance` directory is created. This is a PingFederate server profile.
   3. Stop the container and start a new container, adding another `/tmp/docker/pf` bind mounted volume, this time to `/opt/in`. For example:
-
      ```bash
      docker container stop pingfederate
 
      docker run \
-              --name pingfederate-local \
-              --publish 9999:9999 \
-              --detach \
-              --volume /tmp/docker/pf:/opt/out \
-              --volume /tmp/docker/pf:/opt/in \
-              pingidentity/pingfederate:edge
+        --name pingfederate-local \
+        --publish 9999:9999 \
+        --detach \
+        --volume /tmp/docker/pf:/opt/out \
+        --volume /tmp/docker/pf:/opt/in \
+        pingidentity/pingfederate:edge
      ```
 
      The new container will now use the changes you made using the PingFederate console. In the logs you can see where `/opt/in` is used:
-
      ```bash
      docker logs pingfederate-local
      # Output:

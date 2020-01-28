@@ -18,6 +18,7 @@
     - [Using private Github repositories](docs/privateRepos.md)
   - [Customizing YAML files](docs/yamlFiles.md)
   - [Using DevOps hooks](docs/hooks.md)
+  - [Using release tags](docs/releaseTags.md)
 * [Customize the images](docs/customImages.md)
 * [Docker Standalone](10-docker-standalone/README.md)
   * [00-pingdownloader](10-docker-standalone/00-pingdownloader/README.md)
