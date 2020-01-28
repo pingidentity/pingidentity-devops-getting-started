@@ -1,8 +1,8 @@
-# Manage deployments
+# Working with the examples
 
-You can continue to deploy the full stack of solutions as you did in [Get started](evaluate.md), or you can deploy a single container or a container stack.
+You can continue working with the full stack of product containers as you did in [Get started](evaluate.md), or you can try different configurations, such as a single container or another container stack.
 
-We've example configurations to help you quickly deploy:
+We've example configurations to help you quickly try this out:
 
  * [A single Docker container](deployStandalone.md).
  * [A PingFederate and PingDirectory stack using Docker Compose](deployCompose.md).
@@ -11,6 +11,3 @@ We've example configurations to help you quickly deploy:
  * A stack using Docker Swarm.
  * PingDirectory using Kubernetes.
 
-## Prerequisite
-
-  * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
