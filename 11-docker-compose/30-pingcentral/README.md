@@ -68,8 +68,6 @@ volumes:
     - ./conf/application.properties:/opt/in/instance/conf/application.properties
 ```
 
-Injecting these properties via environment variables is upcoming ([PASS-3130](https://jira.pingidentity.com/browse/PASS-3130)).
-
 ## Configuring Trust in Docker
 
 By default, PingCentral in Docker is insecure. This is due to setting the environment variable `PING_CENTRAL_BLIND_TRUST=true` in the docker-compose.yaml file.
