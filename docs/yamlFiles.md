@@ -44,7 +44,7 @@ networks:
 ```
 
 | Entry | Description |
-| --- | --- |
+| :--- | :--- |
 | `version` | The Docker Compose version used. |
 | `<ping-product>` | The name of the Ping Identity product container. |
 | `image` | The build image of the product used for the container, and the build tag to use (defaults to value assigned to `PING_IDENTITY_DEVOPS_TAG` in the `~/.pingidentity/devops` file. |

@@ -9,7 +9,7 @@ You'll find here the server profile structures you can use for each of our produ
 ## PingFederate
 
 | Path | Location description |
-| --- | --- |
+| :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
 | `instance/server/default/conf/pingfederate.lic` | Use an existing PingFederate license, rather than the DevOps evaluation license. |
 | `instance/server/default/data/data.zip` | A configuration archive you've exported from PingFederate. |
@@ -20,7 +20,7 @@ You'll find here the server profile structures you can use for each of our produ
 ## PingAccess
 
 | Path | Location description |
-| --- | --- |
+| :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
 | `instance/server/default/conf/pingaccess.lic` | Use an existing PingAccess license, rather than the DevOps evaluation license. |
 
@@ -28,7 +28,7 @@ You'll find here the server profile structures you can use for each of our produ
 ## PingDirectory
 
 | Path | Location description |
-| --- | --- |
+| :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
 | `instance/server/default/conf/pingdirectory.lic` | Use an existing PingDirectory license, rather than the DevOps evaluation license. |
 | `instance/config/schema/` | A custom schema. |
@@ -44,7 +44,7 @@ You'll find here the server profile structures you can use for each of our produ
 ## PingDataSync
 
 | Path | Location description |
-| --- | --- |
+| :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
 | `instance/server/default/conf/pingdatasync.lic` | Use an existing PingDataSync license, rather than the DevOps evaluation license. |
 | `instance/config/schema/` | A custom schema. |
