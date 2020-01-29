@@ -34,6 +34,7 @@ Usage: ./docker-run.sh { container name } [ --debug ]
                        pingfederate
                        pingaccess
                        pingdataconsole
+                       pingcentral
                        all - runs all containers
 
              --debug : Provide debugging details and drop into container shell
@@ -61,6 +62,7 @@ Usage: ./docker-stop.sh { container name }
                        pingfederate
                        pingaccess
                        pingdataconsole
+                       pingcentral
                        all - stops all containers
 
 Examples
