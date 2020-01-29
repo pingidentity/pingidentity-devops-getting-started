@@ -14,7 +14,9 @@ See the topic *Modify a server profile using local directories* in [Customizing 
 
 ## What you'll do
 
-* 
+* Deploy the PingDirectory stack in the swarm using the `basic1.yaml` file.
+* Deploy the PingDirectory stack in the swarm using the `basic2.yaml` file.
+* Deploy the full stack in the swarm using the `fullstack.yaml` file.
 
 ## The deployment files
 
