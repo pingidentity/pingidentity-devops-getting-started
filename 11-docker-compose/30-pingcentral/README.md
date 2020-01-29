@@ -65,14 +65,44 @@ By default, PingCentral in Docker is insecure. This is due to setting the enviro
 This is great for Proof of Concepts as it enables a quick setup, but should not be used for production purposes.
 Setting `PING_CENTRAL_BLIND_TRUST` to false will only allow public certificates to be used by your environments (such as PingFederate), unless you setup the trust store and configure PingCentral to use this truststore.
 
-In order to setup the trust in your docker container, you have two options:
+In order to setup the trust in your docker container, first create your trust store following the [documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
+You will then need to inject your truststore into your docker container:
+
+With docker compose, use `volumes`:
+```
+services:
+  pingcentral:
+    volumes:
+      - ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
+```
+
+Or with docker commands:
+```
+docker run --volume ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
+```
+
+You then have two options for configuring PingCentral to use the created trust:
 
 #### Using Environment Variables
-First, create your trust store following the [documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
 
+With docker compose, specify the following environment variables:
+```
+services:
+  pingcentral:
+    environment:
+      - server.ssl.trust-any=false
+      - server.ssl.https.verify-hostname=false
+      - server.ssl.delegate-to-system=false
+      - server.ssl.trust-store=/opt/in/instance/conf/keystore.jks
+      - server.ssl.trust-store-password=2Federate
+```
+Or with docker commands:
+```
+docker run --env server.ssl.trust-any=false --env server.ssl.https.verify-hostname=false --env server.ssl.delegate-to-system=false --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks --env server.ssl.trust-store-password=2Federate
+```
 
 #### Using Properties file
-First, create your trust store following the [documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
+
 
 ## Enabling SSO in Docker PingCentral
 Enabling SSO can be done through editing property files (`application.properties`). 
