@@ -57,7 +57,22 @@ volumes:
 ```
 
 
-You can preserve the hostkey by copying off the `pingcentral.jwk` file with the command: `docker cp pingcentral:/opt/out/instance/conf/pingcentral.jwk .`
+You can retrieve and save the hostkey by copying off the `pingcentral.jwk` file with the command: `docker cp pingcentral:/opt/out/instance/conf/pingcentral.jwk .`
+
+## Configuring Trust in Docker
+
+By default, PingCentral in Docker is insecure. This is due to setting the environment variable `PING_CENTRAL_BLIND_TRUST=true` in the docker-compose.yaml file, which tells PingCentral to trust all certificates by default.
+This is great for Proof of Concepts as it enables a quick setup, but should not be used for production purposes.
+Setting `PING_CENTRAL_BLIND_TRUST` to false will only allow public certificates to be used by your environments (such as PingFederate), unless you setup the trust store and configure PingCentral to use this truststore.
+
+In order to setup the trust in your docker container, you have two options:
+
+#### Using Environment Variables
+First, create your trust store following the [documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
+
+
+#### Using Properties file
+First, create your trust store following the [documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
 
 ## Enabling SSO in Docker PingCentral
 Enabling SSO can be done through editing property files (`application.properties`). 
@@ -67,13 +82,3 @@ You will then need to inject this `application.properties` file into the path `/
 volumes:
     - ./conf/application.properties:/opt/in/instance/conf/application.properties
 ```
-
-## Configuring Trust in Docker
-
-By default, PingCentral in Docker is insecure. This is due to setting the environment variable `PING_CENTRAL_BLIND_TRUST=true` in the docker-compose.yaml file.
-Setting this value to false will secure your Docker container, but only allow public certificates to be used by your environments (such as PingFederate).
-
-There is an upcoming task aiming to make it easier to configure customer specific trust stores in docker containers: [PASS-3131](https://jira.pingidentity.com/browse/PASS-3131).
-
-
-
