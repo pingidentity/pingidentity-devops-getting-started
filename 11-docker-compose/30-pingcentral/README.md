@@ -94,21 +94,45 @@ services:
       - server.ssl.https.verify-hostname=false
       - server.ssl.delegate-to-system=false
       - server.ssl.trust-store=/opt/in/instance/conf/keystore.jks
-      - server.ssl.trust-store-password=2Federate
+      - server.ssl.trust-store-password=InsertTruststorePasswordHere
 ```
 Or with docker commands:
 ```
-docker run --env server.ssl.trust-any=false --env server.ssl.https.verify-hostname=false --env server.ssl.delegate-to-system=false --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks --env server.ssl.trust-store-password=2Federate
+docker run --env server.ssl.trust-any=false --env server.ssl.https.verify-hostname=false --env server.ssl.delegate-to-system=false --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks --env server.ssl.trust-store-password=InsertTruststorePasswordHere
 ```
 
 #### Using Properties file
 
+Update the following properties in your `application.properties` file:
+```
+server.ssl.trust-any
+server.ssl.https.verify-hostname
+server.ssl.delegate-to-system
+server.ssl.trust-store
+server.ssl.trust-store-password
+```
 
 ## Enabling SSO in Docker PingCentral
-Enabling SSO can be done through editing property files (`application.properties`). 
+Enabling SSO can be done through editing the properties file (`application.properties`) or by using environment variables. 
+Whichever way you choose to implement SSO with docker, you may also need to edit the hosts file within docker.  
+For example, with docker-compose, you can update the /etc/hosts file using the following example configuration:
+```
+services:
+  pingcentral:
+    extra_hosts:
+      - "pingfedEnv.ping-eng.com:12.105.33.333"
+      - "pingcentral-sso-domain.com:127.0.0.1"
+```
+
+#### Using Properties file
 To enable SSO in your docker PingCentral instance, update the default `application.properties` in accordance with [this document](https://docs.pingidentity.com/bundle/pingcentral/page/orc1570565605492.html).
 You will then need to inject this `application.properties` file into the path `/opt/in/instance/conf/application.properties` of your Docker Container by adding the following volume to the docker-compose file under the `pingcentral` service:
 ```
 volumes:
     - ./conf/application.properties:/opt/in/instance/conf/application.properties
 ```
+
+#### Using Environment Variables
+
+
+
