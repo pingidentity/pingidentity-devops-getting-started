@@ -10,6 +10,7 @@ A great way to learn about the most simple steps of running a Ping Identity Dock
 | 02-pingfederate | Standalone PingFederate container |
 | 03-pingaccess | Standalone PingAccess container |
 | 10-pingdataconsole | Standalone Ping Data Console Container running in a Tomcat instance |
+| 30-pingcentral | Standalone PingCentral container |
 
 ## Ping Identity utilities
 
