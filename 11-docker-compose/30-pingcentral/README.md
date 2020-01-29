@@ -120,7 +120,7 @@ For example, with docker-compose, you can update the /etc/hosts file using the f
 services:
   pingcentral:
     extra_hosts:
-      - "pingfedEnv.ping-eng.com:12.105.33.333"
+      - "pingfedenvironment.ping-eng.com:12.105.33.333"
       - "pingcentral-sso-domain.com:127.0.0.1"
 ```
 
@@ -133,6 +133,20 @@ volumes:
 ```
 
 #### Using Environment Variables
-
-
+Enabling SSO through environment variables involves injecting the correct environment variables into your docker container.
+You can do this via docker compose:
+```
+services:
+  pingcentral:
+    environment:
+      - pingcentral.sso.oidc.enabled=true
+      - pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031
+      - pingcentral.sso.oidc.client-id=ac_oic_client_id
+      - pingcentral.sso.oidc.client-secret=ClientSecretHere
+      - pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
+```
+or with docker commands:
+```
+docker run --env pingcentral.sso.oidc.enabled=true --env pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031 --env pingcentral.sso.oidc.client-id=ac_oic_client_id --env pingcentral.sso.oidc.client-secret=ClientSecretHere --env pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
+```
 
