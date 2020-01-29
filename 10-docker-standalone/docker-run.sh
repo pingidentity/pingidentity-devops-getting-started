@@ -173,6 +173,9 @@ else
     echo "Container ${CONTAINER_NAME} already running"
 fi
 
+echo $DOCKER_OPTIONS
+echo $SHARED_DOCKER_OPTIONS
+echo $DOCKER_IMAGE
 echo "
 # For live logs, execute:
 

@@ -1,0 +1,34 @@
+version: '3.1'
+services:
+  pingcentral:
+    image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    command: wait-for pingcentral-db:3306 -t 7200 -- entrypoint.sh start-server
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingcentral/external-mysql-db
+      - PING_IDENTITY_ACCEPT_EULA=YES
+      - PING_CENTRAL_BLIND_TRUST=true
+      - PING_CENTRAL_VERIFY_HOSTNAME=false
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=2Federate
+    env_file:
+      - ~/.pingidentity/devops
+    ports:
+      - "9022:9022"
+    depends_on:
+      - "pingcentral-db"
+    networks:
+      - pingnet
+
+  pingcentral-db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 2Federate
+    ports:
+      - "3306:3306"
+    networks:
+      - pingnet
+
+networks:
+    pingnet:

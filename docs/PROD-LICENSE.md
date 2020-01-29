@@ -170,6 +170,8 @@ The `/opt/in` directory overlays files onto the products runtime filesystem, the
 
 
 ### Volume Mount Syntax
+
+#### Docker
 Sample docker run command with mounted license:
 
 ```
@@ -187,6 +189,28 @@ services:
     image: pingidentity/pingfederate:edge
     volumes:
       - path/to/pingfederate.lic:/opt/in/instance/server/default/conf/pingfederate.lic
+```
+
+#### Kubernetes
+Create a Kubernetes secret from the license file
+```
+kubectl create secret generic pingfederate-license --from-file=./pingfederate.lic
+```
+
+Then mount it to the pod 
+```
+spec:
+  containers:
+  - name: pingfederate
+    image: pingidentity/pingfederate
+    volumeMounts:
+      - name: pingfederate-license-volume
+        mountPath: "/opt/in/instance/server/default/conf/pingfederate.lic"
+        subPath: pingfederate.lic
+  volumes:
+  - name: pingfederate-license-volume
+    secret:
+      secretName: pingfederate-license
 ```
 
 ## Support

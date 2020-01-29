@@ -1,12 +1,12 @@
 # 10-pingdataconsole
 
-Demonstrate how to stand up a PingDataConsole container that can talk to other PingData components \(i.e. PingDirectory, PingDataAccess\)
+Demonstrate how to stand up a Ping Data Console container that can talk to other PingData components \(i.e. PingDirectory, PingDataAccess\)
 
-## How to startup a PingDataConsole container...
+## How to startup a Ping Data Console container...
 
 ### Using docker run
 
-The following example will create a docker network, run the PingDataConsole and open up a webpage to the conosole.
+The following example will create a docker network, run the Ping Data Console and open up a webpage to the conosole.
 
 ```bash
 docker network create pingnet
