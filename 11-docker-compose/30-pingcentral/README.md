@@ -44,6 +44,8 @@ bb366900188b        ping/pingcentral:latest   "./bootstrap.sh wait…"   About a
 dbc21438833a        mysql:latest              "docker-entrypoint.s…"   About a minute ago   Up About a minute             0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
 ```
 
+[Top](#contents)
+
 <a name="using-the-container"></a>
 ## Using the Container
 
@@ -53,6 +55,8 @@ To see the PingCentral management console
 
 * Go to [https://localhost:9022](https://localhost:9022)
 * Log in with `Administrator / 2Federate`
+
+[Top](#contents)
 
 <a name="cleaning-up"></a>
 ## Cleaning Up
@@ -80,8 +84,10 @@ volumes:
 
 You can retrieve and save the hostkey by copying off the `pingcentral.jwk` file with the command: `docker cp pingcentral:/opt/out/instance/conf/pingcentral.jwk .`
 
+[Top](#contents)
+
 <a name="configuring-trust-in-docker"></a>
-## Configuring Trust in Docker
+## Configuring Trust in Docker PingCentral
 
 By default, PingCentral in Docker is insecure. This is due to setting the environment variable `PING_CENTRAL_BLIND_TRUST=true` in the docker-compose.yaml file, which tells PingCentral to trust all certificates by default.
 This is great for Proof of Concepts as it enables a quick setup, but should not be used for production purposes.
@@ -104,6 +110,8 @@ docker run --volume ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
 ```
 
 You then have two options for configuring PingCentral to use the created trust:
+
+[Top](#contents)
 
 <a name="configuring-trust-env-variables"></a>
 #### Configuring Trust in Docker Using Environment Variables
@@ -135,6 +143,8 @@ server.ssl.delegate-to-system
 server.ssl.trust-store
 server.ssl.trust-store-password
 ```
+
+[Top](#contents)
 
 <a name="configuring-sso-in-docker"></a>
 ## Configuring SSO in Docker PingCentral
@@ -176,4 +186,6 @@ or with docker commands:
 ```
 docker run --env pingcentral.sso.oidc.enabled=true --env pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031 --env pingcentral.sso.oidc.client-id=ac_oic_client_id --env pingcentral.sso.oidc.client-secret=ClientSecretHere --env pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
 ```
+
+[Top](#contents)
 
