@@ -7,7 +7,7 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 ## Prerequisites
 
 * You've started Docker Swarm at some point before deploying the stack by running: `docker swarm init`. You only need to run `docker swarm init` once.
-* You've already been through [Getting Started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Getting Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## What you'll do
 

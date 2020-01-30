@@ -12,7 +12,7 @@ on a PingDirectory instance to a destination tree on the same PingDirectory inst
 
 ## Prerequisites
 
-  * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
+  * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## Deploy the PingDirectory and PingDataSync stack
 

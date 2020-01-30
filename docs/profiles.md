@@ -1,6 +1,6 @@
 # Customizing server profiles
 
-When you deployed the full stack of product containers in [Get started](evaluate.md), you were employing the server profiles associated with each of our products. In the YAML files, you'll see entries such as this for each product instance:
+When you deployed the full stack of product containers in [Get started](getStarted.md), you were employing the server profiles associated with each of our products. In the YAML files, you'll see entries such as this for each product instance:
 
   ```yaml
   environment:
@@ -13,7 +13,7 @@ We use environment variables for certain startup and runtime configuration setti
 
 ## Prerequisite
 
-* You've already been through [Getting Started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## What you'll do
 

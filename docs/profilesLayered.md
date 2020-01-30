@@ -8,7 +8,7 @@ You can have as many layers as needed. Each layer of the configuration is *copie
 
 ## Prerequisite
 
-* You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## What you'll do
 

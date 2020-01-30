@@ -4,23 +4,25 @@ When starting one of our containers, the container will attempt to find the DevO
 
 ## Display your DevOps information
 
-To display your current DevOps environment information, run the DevOps command `denv` .
+To display your current DevOps environment information, run the DevOps command:
+
+  `denv`
 
 ## For standalone containers
 
 When using the `docker run` command to start a container, you can assign the `--env-file` argument to the file containing your DevOps registration information. For example:
 
-    ```text
-    docker run \
-            --name pingdirectory \
-            --publish 1389:389 \
-            --publish 8443:443 \
-            --detach \
-            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-            --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
-            --env-file ~/.pingidentity/devops \
-            pingidentity/pingdirectory
-    ```
+```bash
+docker run \
+        --name pingdirectory \
+        --publish 1389:389 \
+        --publish 8443:443 \
+        --detach \
+        --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+        --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
+        --env-file ~/.pingidentity/devops \
+        pingidentity/pingdirectory
+```
 
 ## For stacks
 
@@ -37,17 +39,17 @@ Add the `env_file` configuration option to the YAML file for the stack. The `env
 
 For example:
 
-    ```text
-    ...
-    pingdirectory:
-        image: pingidentity/pingdirectory
-        env_file:
-        - ${HOME}/.pingidentity/devops
-        environment:
-        - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-        - SERVER_PROFILE_PATH=getting-started/pingdirectory
-    ...
-    ```
+```bash
+...
+pingdirectory:
+    image: pingidentity/pingdirectory
+    env_file:
+    - ${HOME}/.pingidentity/devops
+    environment:
+    - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+    - SERVER_PROFILE_PATH=getting-started/pingdirectory
+...
+```
 
 ### The DevOps environment variables
 
@@ -56,15 +58,29 @@ Add the `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY` DevOps enviro
 > Docker Swarm requires this format.
 
 For example:
+```bash
+...
+  pingdirectory:
+    image: pingidentity/pingdirectory
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=getting-started/pingdirectory
+      - PING_IDENTITY_DEVOPS_USER=jsmith@example.com
+      - PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
+...
+```
 
-  ```text
-  ...
-    pingdirectory:
-      image: pingidentity/pingdirectory
-      environment:
-        - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-        - SERVER_PROFILE_PATH=getting-started/pingdirectory
-        - PING_IDENTITY_DEVOPS_USER=jsmith@example.com
-        - PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
-  ...
-  ```
+## For Kubernetes
+
+You need to create a Kubernetes secret that contains the environment variables `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY`. 
+
+1. If you don't already know your DevOps credentials, display these using the DevOps command: 
+
+    `denv`
+
+2. Generate the Kubernetes secret from your DevOps credentials: 
+   ```bash
+   kubectl create secret generic devops-secret --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
+   ```
+
+Our Kubernetes examples optionally default to look for a Kubernetes secret named `devops-secret`.

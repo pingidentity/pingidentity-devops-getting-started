@@ -10,7 +10,7 @@ Our single container examples are located in the [Docker standalone](../10-docke
 
 ## Prerequisites
 
-  * You've already been through [Get started](evaluate.md) to set up your DevOps environment and run a test deployment of the products.
+  * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 
 ## Deploy a single container
