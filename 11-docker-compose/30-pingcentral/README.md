@@ -3,16 +3,16 @@
 <a name="contents"></a>
 ## Contents ##
 - [Getting Started](#getting-started)
-- [Docker Compsoe Commands](#docker-compose-commands)
+- [Docker Compose Commands](#docker-compose-commands)
 - [Verify Container](#verify-container)
 - [Using the Container](#using-the-container)
 - [Cleaning Up](#cleaning-up)
 - [Preserving the Database](#preserving-the-database)
 - [Configuring Trust in Docker PingCentral](#configuring-trust-in-docker)
   - [Configuring Trust using Environment Variables](#configuring-trust-env-variables)
-  - [Configuring Trust using Properties Files](#configuring-trust-env-variables)
+  - [Configuring Trust using Properties Files](#configuring-trust-in-docker-using-properties-file)
 - [Configuring SSO in Docker PingCentral](#configuring-sso-in-docker)
-  - [Configuring SSO using Properties Files](#configuring-sso-env-variables)
+  - [Configuring SSO using Properties Files](#configuring-sso-using-properties-file)
   - [Configuring SSO using Environment Variables](#configuring-sso-env-variables)
   
 <a name="getting-started"></a>
@@ -45,7 +45,7 @@ dbc21438833a        mysql:latest              "docker-entrypoint.s…"   About a
 ```
 
 <a name="using-the-container"></a>
-## Using the containers
+## Using the Container
 
 Once you see that the containers are healthy in `docker ps`
 
@@ -55,7 +55,7 @@ To see the PingCentral management console
 * Log in with `Administrator / 2Federate`
 
 <a name="cleaning-up"></a>
-## Cleaning up
+## Cleaning Up
 
 To bring PingCentral down:
 
@@ -124,7 +124,7 @@ Or with docker commands:
 docker run --env server.ssl.trust-any=false --env server.ssl.https.verify-hostname=false --env server.ssl.delegate-to-system=false --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks --env server.ssl.trust-store-password=InsertTruststorePasswordHere
 ```
 
-<a name="configuring-trust-env-variables"></a>
+<a name="configuring-trust-in-docker-using-properties-file"></a>
 #### Configuring Trust in Docker Using Properties File
 
 Update the following properties in your `application.properties` file:
@@ -149,7 +149,7 @@ services:
       - "pingcentral-sso-domain.com:127.0.0.1"
 ```
 
-<a name="configuring-sso-env-variables"></a>
+<a name="configuring-sso-using-properties-file"></a>
 #### Configuring SSO Using Properties File
 To enable SSO in your docker PingCentral instance, update the default `application.properties` in accordance with [this document](https://docs.pingidentity.com/bundle/pingcentral/page/orc1570565605492.html).
 You will then need to inject this `application.properties` file into the path `/opt/in/instance/conf/application.properties` of your Docker Container by adding the following volume to the docker-compose file under the `pingcentral` service:
