@@ -12,7 +12,7 @@ version: "3.1"
 services:
   pingfederate-admin:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: ["sh", "-c", "wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server"]
+    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - PING_IDENTITY_ACCEPT_EULA=YES
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -36,7 +36,7 @@ services:
  
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
+    command: wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server
     environment:
       - PING_IDENTITY_ACCEPT_EULA=YES
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
