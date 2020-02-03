@@ -51,7 +51,11 @@ docker run --rm -v /tmp:/tmp --env-file ~/.pingidentity/devops pingidentity/ping
 ```
 
 #### Specify version
-If you need a license specific 
+If you need a license for a product of a specific version
+```shell
+docker run --rm -v /tmp:/tmp --env-file ~/.pingidentity/devops pingidentity/pingdownloader --license --product <product_name> --version <version>
+```
+
 
 ### Options
 ```shell 
