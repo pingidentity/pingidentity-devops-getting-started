@@ -18,8 +18,11 @@ You'll find useful comments in the `kustomization.yaml` files in your local `pin
 ## What you'll do
 
 * Install kustomize.
-* Orchestrate a standalone deployment.
-* 
+* Orchestrate standalone deployments.
+* Orchestrate a full stack deployment.
+* Orchestrate a replicated PingDirectory deployment.
+* Orchestrate a clustered PingAccess deployment.
+* Orchestrate a clustered PingFederate deployment.
 
 ## Install kustomize
 
@@ -36,7 +39,7 @@ You'll find useful comments in the `kustomization.yaml` files in your local `pin
 
 ## Orchestrate standalone deployments
 
-We'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory as the base product configurations with the server profiles in our [pingidentity-server-profiles/getting-started](../../pingidentity-server-profiles/getting-started) repository.  
+You'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory as the base product configurations with the server profiles in our [pingidentity-server-profiles/getting-started](../../pingidentity-server-profiles/getting-started) repository.  
 
 The commands in this topic are meant to be used with or without kustomize. When used without kustomize (as steps the steps in this topic do), the commands will return some benign errors regarding `kustomization.yaml`. An example of a benign kustomize error is: 
 ```bash
@@ -76,7 +79,7 @@ You can orchestrate a deployment of a single (standalone) product container, or 
 
 ## Orchestrate a full stack deployment
 
-We'll use kustomize for the full stack deployment from your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. However, this time we'll use the server profiles in our [pingidentity-server-profiles/baseline](../../pingidentity-server-profiles/baseline) repository, rather than the [pingidentity-server-profiles/getting-started](../../pingidentity-server-profiles/getting-started) repository, as we did for the standalone deployments.
+You'll use kustomize for the full stack deployment from your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. However, this time we'll use the server profiles in our [pingidentity-server-profiles/baseline](../../pingidentity-server-profiles/baseline) repository, rather than the [pingidentity-server-profiles/getting-started](../../pingidentity-server-profiles/getting-started) repository, as we did for the standalone deployments.
 
 The `env_vars.*` files contain the environment variables for `pingidentity-server-profiles/baseline`. For example:
 ```yaml
@@ -106,7 +109,7 @@ PING_IDENTITY_ACCEPT_EULA=YES
 
 ## Orchestrate a replicated PingDirectory deployment
 
-We'll use kustomize for the replicated deployment of PingDirectory from your local `pingidentity-devops-getting-started/20-kubernetes/03-replicated-pingdirectory` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdirectory` and `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdataconsole` directories for the base product configurations. We'll use the PingDirectory server profile in our [pingidentity-server-profiles/baseline](../../pingidentity-server-profiles/baseline) repository.
+You'll use kustomize for the replicated deployment of PingDirectory from your local `pingidentity-devops-getting-started/20-kubernetes/03-replicated-pingdirectory` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdirectory` and `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdataconsole` directories for the base product configurations. You'll use the PingDirectory server profile in our [pingidentity-server-profiles/baseline](../../pingidentity-server-profiles/baseline) repository.
 
 The `env_vars.pingdirectory` file contains: 
 
@@ -120,6 +123,8 @@ The `env_vars.pingdirectory` file contains:
 * References your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdirectory` and `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdataconsole` directories for the base product configurations. 
 * References a mounted Kubernetes storage class volume for disaster recovery (`storage.yaml`). 
 * Replaces the environment variables in the parent `configMap` with those in the specified `env_vars.pingdirectory` file.
+
+See also [Orchestrate PingDirectory deployments across Kubernetes clusters](deployK8sPD-clusters.md).
 
 ### Procedure
 
@@ -137,9 +142,9 @@ The `env_vars.pingdirectory` file contains:
 
 ## Orchestrate a PingAccess cluster deployment
 
-We'll use kustomize for the PingAccess cluster deployment from your local `pingidentity-devops-getting-started/20-kubernetes/04-clustered-pingaccess` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. We'll use the server profile in our [pingidentity-server-profiles/pa-clustering](../../pingidentity-server-profiles/pa-clustering) repository.
+You'll use kustomize for the PingAccess cluster deployment from your local `pingidentity-devops-getting-started/20-kubernetes/04-clustered-pingaccess` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. You'll use the server profile in our [pingidentity-server-profiles/pa-clustering](../../pingidentity-server-profiles/pa-clustering) repository.
 
-We'll use separate deployments for the PingAccess admin node (`env_vars.pingaccess`) and the PingAccess engine node (`env_vars.pingaccess-engine` and `pingaccess-engine.yaml`). To scale out replicas, use the PingAccess engine node.
+We use separate deployments for the PingAccess admin node (`env_vars.pingaccess`) and the PingAccess engine node (`env_vars.pingaccess-engine` and `pingaccess-engine.yaml`). To scale out replicas, use the PingAccess engine node.
 
 The `env_vars.pingaccess` and `env_vars.pingaccess-engine` files contain: 
 
@@ -181,16 +186,16 @@ The `env_vars.pingaccess` and `env_vars.pingaccess-engine` files contain:
 
 ### Overview
 
-We'll use kustomize for the PingFederate cluster deployment from your local `pingidentity-devops-getting-started/20-kubernetes/06-clustered-pingfederate` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. 
+You'll use kustomize for the PingFederate cluster deployment from your local `pingidentity-devops-getting-started/20-kubernetes/06-clustered-pingfederate` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. 
 
-We'll also use layered server profiles: 
+We use layered server profiles: 
 
 * The server profile in our [pingidentity-server-profiles/pf-dns-ping-clustering](../../pingidentity-server-profiles/pf-dns-ping-clustering) repository.
 * The server profile in our [pingidentity-server-profiles/getting-started/pingfederate](../../pingidentity-server-profiles/getting-started/pingfederate) repository.
 
 See [Layering server profiles](docs/profilesLayered.md) for more information.
 
-We'll use separate deployments for the PingFederate admin node (`env_vars.pingfederate`) and the PingFederate engine node (`env_vars.pingfederate-engine` and `pingfederate-engine.yaml`). To scale out replicas, use the PingFederate engine node.
+We use separate deployments for the PingFederate admin node (`env_vars.pingfederate`) and the PingFederate engine node (`env_vars.pingfederate-engine` and `pingfederate-engine.yaml`). To scale out replicas, use the PingFederate engine node.
 
 The `env_vars.pingfederate` and `env_vars.pingfederate-engine` files contain:
 
