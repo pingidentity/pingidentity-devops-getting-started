@@ -33,7 +33,7 @@ services:
 
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: ["sh", "-c", "wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server"]
+    command: wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server
     environment:
       - PING_IDENTITY_ACCEPT_EULA=YES
       # Server Profile - Clustering
