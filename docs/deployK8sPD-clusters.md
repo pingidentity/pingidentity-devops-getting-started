@@ -1,64 +1,61 @@
 # Orchestrate PingDirectory deployments across Kubernetes clusters
 
-This directory is an extension of the `03-replicated-pingdirectory` example that deploys
-PingDirectory across multiple kubernetes clusters/contexts.
+This example is an extension of the topic *Orchestrate a replicated PingDirectory deployment* in [Kubernetes orchestration for general use](deployK8sGeneral.md). Here you'll deploy PingDirectory across multiple Kubernetes clusters.
 
-![K8S Multi-Cluster Overview](docs/images/multi-k8s-cluster-pingdirectory-overview.png)
+![K8S Multi-Cluster Overview](images/multi-k8s-cluster-pingdirectory-overview.png)
 
-Because details within each Kubernetes cluster are well hidden from outside the cluster,
-access to each pod within the cluster is required externally.  The PingDirectory images 
-will setup access to each of the pods (via external LoadBalancer(s)) from an external 
-IP/Host to allow each pod to communicate over the ldaps and replication protocols.
-
+Because details within each Kubernetes cluster are well-hidden from outside the cluster, external access to each pod within the cluster is required. The PingDirectory images will set up access to each of the pods using external load-balancers, and from an external host, to allow each pod to communicate over the LDAP and replication protocols.
 
 ## Modes of Deployment
-There are two types of deployments depending on whether a single LoadBalancer (i.e. AWS NLB) 
-or multiple LoadBalancers are used.
 
-### Single LoadBalancer
-Example of how a single LoadBalancer could be used:
+There are two types of deployments depending on whether a single load-balancer (such as, AWS NLB) 
+or multiple load-balancers are used.
 
-![Single LoadBalancer](docs/images/multi-k8s-cluster-pingdirectory-single-lb.png)
+### Single load-balancer
+
+Here's a diagram of how a single load-balancer can be used:
+
+![Single load-balancer](images/multi-k8s-cluster-pingdirectory-single-lb.png)
 
 * Advantages
-  * Decreased cost of a single loadbalancer
-  * Single IP Required
-  * Easier DNS management
-    * wildcard DNS domain
-    * or seperate hosts pointing to LoadBalancer
+  * Decreased cost of a single load-balancer.
+  * Single IP required.
+  * Easier DNS management.
+    * Wildcard DNS domain.
+    * Or separate hosts pointing to load-balancer.
 * Disadvantages
-  * More port mapping requirements
-  * Many external ports to manage/track
+  * More port mapping requirements.
+  * Many external ports to manage and track.
 
-### Multiple LoadBalancers
-Example of how a single LoadBalancer could be used:
+### Multiple load-balancers
 
-![Multiple LoadBalancers](docs/images/multi-k8s-cluster-pingdirectory-multi-lb.png)
+Here's a diagram of how a single load-balancer can be used:
+
+![Multiple load-balancers](images/multi-k8s-cluster-pingdirectory-multi-lb.png)
 
 * Advantages
-  * Use the same common/well-known port (i.e. 636/8989)
-  * Separate IP Address per instance
+  * Use the same well-known port (such as, 636/8989).
+  * Separate IP addresses per instance.
 * Disadvantes
   * DNS Management
-    * Separate hostname required per instance
+    * Separate hostname required per instance.
 
-## Environment Variables Driving Configuration
+## Environment variables
 
-| Variable                 | Required | Description |
-|--------------------------|:--------:|------------------------------------------------------------------------------------------|
-| K8S_CLUSTERS             | ***      | Represents the total list of kubernetes clusters that this stateful set will replicate to.
-| K8S_CLUSTER              | ***      | Represents the kubernetes cluster this stateful set is being deployed to.
-| K8S_SEED_CLUSTER         | ***      | Represents the kubernetes cluster that the seed server is deployed to.
-| K8S_NUM_REPLICAS         |          | Represents the number of replicas that make up this StatefulSet.
-| K8S_POD_HOSTNAME_PREFIX  |          | String used to prefix all Hostnames.  Defaults to StatefulSet Name
-| K8S_POD_HOSTNAME_SUFFIX  |          | String used to suffix all POD Hostnames.  Defaults to K8S_CLUSTER
-| K8S_SEED_HOSTNAME_SUFFIX |          | String used to suffix all SEED Hostname.  Defaults to K8S_SEED_CLUSTER
-| K8S_INCREMENT_PORTS      |          | true or false.  If true, then each pod's port will be incremented by 1
+| Variable | Required | Description |
+|---|:---:|---|
+| `K8S_CLUSTERS` | *** | The total list of Kubernetes clusters that this stateful set will replicate to. |
+| `K8S_CLUSTER` | *** | The Kubernetes cluster this stateful set will be deployed to. |
+| `K8S_SEED_CLUSTER` | *** | The Kubernetes cluster that the seed server is deployed to. |
+| `K8S_NUM_REPLICAS` |     | The number of replicas that make up this stateful set. |
+| `K8S_POD_HOSTNAME_PREFIX` |     | The string used as the prefix for all host names.  Defaults to `StatefulSet`. |
+| `K8S_POD_HOSTNAME_SUFFIX` |     | The string used as the suffix for all pod host names.  Defaults to `K8S_CLUSTER`. |
+| `K8S_SEED_HOSTNAME_SUFFIX` |     | The string used as the suffix for all seed host names.  Defaults to `K8S_SEED_CLUSTER`. |
+| `K8S_INCREMENT_PORTS` |     | `true` or `false`.  If `true`, each pod's port will be incremented by 1. |
 
+An example of the YAML configuration for these environment variables:
 
-Example (See the resulting config below):
-
-```
+```yaml
 K8S_STATEFUL_SET_NAME=pingdirectory
 K8S_STATEFUL_SET_SERVICE_NAME=pingdirectory
 
@@ -76,8 +73,8 @@ LDAPS_PORT=8600
 REPLICATION_PORT=8700
 ```
 
-| SEED | POD | Instance                   | Hostnane                       | LDAPS | REPL |
-|:----:|:---:|----------------------------|--------------------------------|:-----:|:-----|
+| Seed | Pod | Instance | Host name | LDAP | REPL |
+| :---: | :---: | --- | --- | :---: | :---: |
 |      |     | CLUSTER: us-east-2
 | ***  | *** | pingdirectory-0.us-east-2 | pd-0.us-cluster.ping-devops.com | 8600  | 8700 |
 |      |     | pingdirectory-1.us-east-2 | pd-1.us-cluster.ping-devops.com | 8601  | 8701 |
@@ -88,18 +85,19 @@ REPLICATION_PORT=8700
 |      |     | pingdirectory-2.eu-west-1 | pd-2.eu-cluster.ping-devops.com | 8602  | 8702 |
 
 ## Additional Kubernetes Resources Required
-In addition to the StatefulSet, other resources are required to properly map the LoadBalancers to the
-Pods.  The following provides a diagram and example to help describe each resource.
+In addition to the stateful set, other resources are required to properly map the load-balancers to the
+pods. This diagram shows each of those resources:
 
-![K8S Required Resources](docs/images/multi-k8s-cluster-pingdirectory-resources.png)
+![K8S Required Resources](images/multi-k8s-cluster-pingdirectory-resources.png)
 
 ### DNS
-A DNS entry will be required at the LoadBalancer to point a wildcard domain or individual hostnames
-to the LoadBalancer created by the NGINX Ingress Service/Controller.  In the example of AWS, this might
-be a simply A record alias for each host, or a wildcard A record for any host in that domain.
 
-### NGINX Ingress Service/Controller
-Several Components that map the ports from the external Load Balancer thru the NGINX Service and Controller.
+A DNS entry will be required at the load-balancer to direct a wildcard domain or individual host names
+to the load-balancer created by the NGINX Ingress service or controller.  For AWS, this can simply be an `A record` alias for each host, or a wildcard `A record` for any host in that domain.
+
+### NGINX Ingress service and controller
+
+Several components map the ports from the external load-balancer through the NGINX Service and Controller:
 
 * External Load Balancer   - Provides external IP and obtains definition from Ingress NGINX Service
 * Ingress NGINX Service    - Mapping all port ranges (SEED_LDAPS_PORT, SEED_REPLICATION_PORT) to the same target port range
@@ -130,7 +128,7 @@ spec:
     app.kubernetes.io/part-of: ingress-nginx
     app.kubernetes.io/role: ingress-nginx-public
   externalTrafficPolicy: Local
-  type: LoadBalancer
+  type: load-balancer
   ports:
     - name: http
       port: 80

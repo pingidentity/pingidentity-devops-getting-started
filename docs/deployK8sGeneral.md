@@ -124,8 +124,6 @@ The `env_vars.pingdirectory` file contains:
 * References a mounted Kubernetes storage class volume for disaster recovery (`storage.yaml`). 
 * Replaces the environment variables in the parent `configMap` with those in the specified `env_vars.pingdirectory` file.
 
-See also [Orchestrate PingDirectory deployments across Kubernetes clusters](deployK8sPD-clusters.md).
-
 ### Procedure
 
 1. To orchestrate the replicated PingDirectory deployment, from your local `pingidentity-devops-getting-started/20-kubernetes` directory, enter:
