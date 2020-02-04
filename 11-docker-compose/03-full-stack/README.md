@@ -40,6 +40,11 @@ To see the PingAccess management console
 * Log in with `Administrator / 2FederateM0re`
 * Note: You will be asked to accept license agreement and change password
 
+To see the PingCentral management console
+
+* Go to [https://localhost:9022](https://localhost:9022)
+* Log in with `Administrator / 2Federate`
+
 To see the PingDirectory management console
 
 * Go to [https://localhost:8443/console](https://localhost:8443/console)
