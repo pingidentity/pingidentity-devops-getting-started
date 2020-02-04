@@ -15,6 +15,7 @@
     - [PingFederate clustering using Docker Swarm and AWS S3](docs/swarmPfCluster.md)
   - [Orchestrate deployments using Kubernetes](deployK8s.md)
     - [Kubernetes orchestration for general use](deployK8sGeneral.md)
+    - [Orchestrate PingDirectory deployments across Kubernetes clusters](deployK8sPD-clusters.md)
     - [Kubernetes orchestration for cloud platform](deployK8sGeneral.md)
 * [Customizing deployments](docs/config.md)
   - [Customizing server profiles](docs/profiles.md)
