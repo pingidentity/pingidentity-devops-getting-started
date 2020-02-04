@@ -1,4 +1,4 @@
-# Kubernetes orchestration for general use
+# Kubernetes deployments for general use
 
 In all of these examples, we'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory to supply the base product configurations.
 
@@ -9,10 +9,6 @@ You'll find useful comments in the `kustomization.yaml` files in your local `pin
 ## Prerequisites
 
 * You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* You've created a Kubernetes cluster for:
-  - [Amazon](../22-cloud/cloud/amazon/README.md)
-  - [Azure](../22-cloud/cloud/azure/README.md)
-  - [Google](../22-cloud/cloud/google/README.md)
 * You've created a Kubernetes secret using your DevOps credentials. See the *For Kubernetes* topic in [Using your DevOps user and key](devopsUserKey.md).
 
 ## What you'll do
@@ -41,12 +37,12 @@ You'll find useful comments in the `kustomization.yaml` files in your local `pin
 
 You'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory as the base product configurations with the server profiles in our [pingidentity-server-profiles/getting-started](../../pingidentity-server-profiles/getting-started) repository.  
 
-The commands in this topic are meant to be used with or without kustomize. When used without kustomize (as steps the steps in this topic do), the commands will return some benign errors regarding `kustomization.yaml`. An example of a benign kustomize error is: 
+The commands in this topic are meant to be used with or without kustomize. When used without kustomize (as the steps in this topic do), the commands will return some benign errors regarding `kustomization.yaml`. An example of a benign kustomize error is: 
 ```bash
 unable to recognize "01-standalone/kustomization.yaml": no matches for kind "Kustomization" in version "kustomize.config.k8s.io/v1beta1"
 ```
 
-You can orchestrate a deployment of a single (standalone) product container, or a set of standalone containers.
+You can deploy a single (standalone) product container, or a set of standalone containers using Kubernetes.
 
 ### Procedure
 
@@ -123,6 +119,8 @@ The `env_vars.pingdirectory` file contains:
 * References your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdirectory` and `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdataconsole` directories for the base product configurations. 
 * References a mounted Kubernetes storage class volume for disaster recovery (`storage.yaml`). 
 * Replaces the environment variables in the parent `configMap` with those in the specified `env_vars.pingdirectory` file.
+
+See also [Orchestrate PingDirectory deployments across Kubernetes clusters](deployK8sPD-clusters.md).
 
 ### Procedure
 
