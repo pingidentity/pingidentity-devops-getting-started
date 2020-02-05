@@ -4,13 +4,13 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
 ## What you'll do
 
-  * Deploy the stack.
-  * Log in to the management consoles.
-  * Bring down or stop the stack.
+* Deploy the stack.
+* Log in to the management consoles.
+* Bring down or stop the stack.
 
 ## Prerequisites
 
-  * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## Deploy the PingFederate and PingDirectory stack
 
@@ -24,11 +24,9 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
   > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
 
-## Log in to the management consoles
+3. Log in to the management consoles. The log in information for the consoles is:
 
-The log in information for the consoles is:
-
-   * PingDataConsole for PingDirectory
+   * Ping Data Console for PingDirectory
     - Console URL: https://localhost:8443/console
     - Server: pingdirectory
     - User: Administrator
@@ -39,16 +37,16 @@ The log in information for the consoles is:
     - User: Administrator
     - Password: 2FederateM0re
 
-When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
+4. When you no longer want to run this example, you can either stop the running stack, or bring the stack down.
 
-Entering:
+   To stop the running stack without removing any of the containers or associated Docker networks, enter:
 
- `docker-compose stop`
+   ```bash
+   docker-compose stop
+   ```
 
-will stop the running stack without removing any of the containers or associated Docker networks.
+   To remove all of the containers and associated Docker networks, enter:
 
-Entering:
-
- `docker-compose down`
-
- will remove all of the containers and associated Docker networks.
+   ```bash
+   docker-compose down
+   ```

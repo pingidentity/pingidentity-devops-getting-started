@@ -8,6 +8,7 @@
   - [Using your DevOps user and key](docs/devopsUserKey.md)
 * [Working with the examples](docs/deploy.md)
   - [Deploy a standalone container](docs/deployStandalone.md)
+    - [Standalone deployment scripts](docs/deployStandaloneScripts.md)
   - [Deploy a PingFederate and PingDirectory stack](docs/deployCompose.md)
   - [Deploy a replicated PingDirectory pair](docs/deployReplication.md)
   - [Deploy data synchronization for PingDirectory](docs/deploySync.md)

@@ -37,6 +37,7 @@ You can use the YAML files to deploy a stack with the command: `docker stack dep
 This YAML file deploys a PingDirectory configuration using a volume bind mounted to the `/opt/out` directory for persisting container state and data. The `volumes:` definition mounts the container's `/opt/out` directory to `/tmp/Swarm/basic1/pingdirectory`. The `/tmp/Swarm/basic1/pingdirectory` directory must be empty before using the `basic1.yaml` file to start the swarm.
 
 1. Use this command sequence to ensure the directories are properly set up, and to start up the swarm:
+
    ```bash
    rm -rf /tmp/Swarm/basic1
    mkdir -p /tmp/Swarm/basic1/pingdirectory
@@ -53,9 +54,10 @@ This YAML file deploys a PingDirectory configuration using a volume bind mounted
 
    `docker container logs -f <container-id>`
 
-   Use the comand `docker container ls` to see the \<container-id>.
+   Use the command `docker container ls` to see the \<container-id>.
 
 2. To stop the swarm, you need to remove the swarm. Removing the container only stops that running container, and when the Docker Swarm identifies that the container isn't running, it creates new one. To remove the swarm, remove the stack. For example:
+
    ```bash
    docker stack rm basic1
    ```
@@ -70,7 +72,9 @@ This YAML file deploys a PingDirectory configuration using a volume bind mounted
 
    To remove the persisted state and data, simply remove the directory:
 
-   `rm -rf /tmp/Swarm/basic1`
+   ```bash
+   rm -rf /tmp/Swarm/basic1
+   ```
 
 ### Deploy using the `basic2.yaml` file
 
@@ -79,6 +83,7 @@ This YAML file deploys PingDirectory configuration using a volume bind mounted t
 For this example, we'll clone our Github server profile repository to the local directory `/tmp/Swarm/pingidentity-server-profiles`, and use that directory as the mount point for the container's `/opt/in` directory.
 
 1. Use this command sequence to ensure the directories are properly set up, and to start up the swarm:
+
    ```bash
    rm -rf /tmp/Swarm/basic2
    mkdir -p /tmp/Swarm/basic2/pingdirectory
@@ -88,12 +93,14 @@ For this example, we'll clone our Github server profile repository to the local 
    ```
 
    The resulting output will be similar to this: 
+
    ```bash
    Creating network basic2_pingnet
    Creating service basic2_pingdirectory
    ```
 
 2. To stop the swarm and clean up the configuration for this example, use the following sequence of commands:
+
    ```bash
    docker stack rm basic2
    rm -rf /tmp/Swarm/basic2
@@ -134,20 +141,22 @@ clone our Github server profile repository to the `pingdirectory-config` local d
 
 This example deploys a full, integrated stack of these PingIdentity services:
 
-* PingFederate \(Admin\)
-* PingFederate \(Engine\)
+* PingFederate (Admin)
+* PingFederate (Engine)
 * PingAccess
 * PingDirectory
 * Ping Data Console
 
-1. The configuration in `fullstack.yaml` doesn't any mounted `/opt/in` or `/opt/out` volumes as in previous examples. You can deploy the stack using either:
+1. The configuration in `fullstack.yaml` doesn't use any mounted `/opt/in` or `/opt/out` volumes as in previous examples. You can deploy the stack using either:
 
-* The helper script `swarm-start.sh`. See the **Helper scripts** topic below for more information.
-* The command `docker stack deploy -c fullstack.yaml fullstack`.
+   * The helper script `swarm-start.sh`. See the **Helper scripts** topic below for more information.
+   * The command `docker stack deploy -c fullstack.yaml fullstack`.
 
 2. You can stop the swarm using:
 
-   `docker stack rm fullstack`
+   ```bash
+   docker stack rm fullstack
+   ```
 
 ## Helper scripts
 
@@ -157,17 +166,21 @@ There are two shell scripts you can use to start and cleanup the example Swarms.
 
 Use the `swarm-start.sh` script to start the stack in the Docker Swarm environment.
 
-Usage: `swarm-start.sh <stack-name>.yaml`
+Usage: 
 
-For example, `swarm-start.sh basic1.yaml`
+```bash
+swarm-start.sh <stack-name>.yaml
+```
 
 ### `swarm-cleanup.sh`
 
 Use the `swarm-cleanup.sh` script to clean up the stack in the Docker Swarm environment.
 
-Usage: `swarm-cleanup.sh <stack-name>.yaml`
+Usage:
 
-For example, `swarm-cleanup.sh basic1.yaml`
+```bash
+swarm-cleanup.sh <stack-name>.yaml
+```
 
 ## Console application
 
@@ -182,8 +195,8 @@ From the Ping Data Console, use the following information to log in to PingDirec
     - Username: administrator
     - Password: 2FederateM0re
   
-* PingDirectorySync
-    - Server: pingdirectorysync
+* PingDataSync
+    - Server: pingdatasync
     - Username: administrator
     - Password: 2FederateM0re
 

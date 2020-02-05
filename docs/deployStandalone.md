@@ -1,6 +1,6 @@
 # Deploy a single Docker container
 
-Our single container examples are located in the [Docker standalone](../10-docker-standalone) directory.
+Our single container examples are located in the your local `${HOME}/projects/devops/pingidentity-devops-getting-started/10-docker-standalone` directory.
 
 ## What you'll do
 
@@ -15,16 +15,16 @@ Our single container examples are located in the [Docker standalone](../10-docke
 
 ## Deploy a single container
 
-1. Select one of the available products in the [Docker standalone](../10-docker-standalone) directory. You can then use either of these methods to deploy the container:
+1. From your local `${HOME}/projects/devops/pingidentity-devops-getting-started/10-docker-standalone` directory, select one of the available products. You can then use either of these methods to deploy the container:
 
-  * Use the supplied `docker-run` script [Docker standalone](../10-docker-standalone) directory.
+  * Use the supplied `docker-run` script in this directory.
 
-    > See the [Docker standalone README](../10-docker-standalone/README.md) file for descriptions of the supplied standalone scripts.
+    > See [Standalone deployment scripts](docs/deployStandaloneScripts.md) for descriptions of the supplied standalone scripts.
 
-    In the [Docker standalone](../10-docker-standalone) directory, enter:
+    From your local `10-docker-standalone` directory, enter:
 
       ```text
-      ./docker-run.sh <product-name>
+      ./docker-run.sh <product-image-name>
       ```
 
   * Use a server profile.
@@ -42,7 +42,7 @@ Our single container examples are located in the [Docker standalone](../10-docke
 
 2. Log in to the management console for the product:
 
-  * PingDataConsole for PingDirectory
+  * Ping Data Console for PingDirectory
     - Console URL: https://localhost:8443/console
     - Server: pingdirectory
     - User: Administrator
@@ -58,11 +58,16 @@ Our single container examples are located in the [Docker standalone](../10-docke
     - User: Administrator
     - Password: 2FederateM0re
 
-  * PingDataConsole for DataGovernance
+  * Ping Data Console for DataGovernance
     - Console URL: https://localhost:8443/console
     - Server: pingdatagovernance
     - User: Administrator
     - Password: 2FederateM0re
+
+  * PingCentral
+    - Console URL: https://localhost:9022
+    - User: Administrator
+    - Password: 2Federate
 
   * Apache Directory Studio for PingDirectory
     - LDAP Port: 1389
@@ -78,8 +83,8 @@ Our single container examples are located in the [Docker standalone](../10-docke
 
    * The supplied `docker-stop` script located in the [Docker standalone](../10-docker-standalone) directory.
 
-    In the [Docker standalone](../10-docker-standalone) directory, enter:
+    From your local `10-docker-standalone` directory, enter:
 
      ```text
-     ./docker-run.sh <product-name>
+     ./docker-run.sh <product-container-name>
      ```
