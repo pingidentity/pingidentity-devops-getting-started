@@ -233,7 +233,7 @@ Your AWS ID or Role needs to have the AWS authorization necessary to create a cl
        --group-id "<group-id-created-in-prior-step>"
    ```
 
-### Create a cluster on ECS using existing resources
+#### Create a cluster on ECS using existing resources
 
 If you have an existing VPC, security group, and two subnets related to the VPC, you can leverage these resources to create the cluster using the `ecs-cli up` command. For example:  
 
@@ -241,96 +241,99 @@ If you have an existing VPC, security group, and two subnets related to the VPC,
 ecs-cli up --vpc <vpc-id> --security-group <security-group-id> --subnets <required-subnet-1>,<required-subnet-2>
 ```
 
+Where \<vpc-id>, \<security-group-id>, and the `--subnets` \<required-subnet-1> and \<required-subnet-2> are all existing resources available to you.
+
 > Ensure the standard PingFederate ports 9031 and 9999 are part of your security group if you wish to use them when deploying PingFederate.
 
 ### Deploy PingFederate as a service in an ECS cluster
 
-Use the following two files \(`docker-compose.yml`, `ecs-params.yml`\) as samples to create in a directory.
+You'll create `docker-compose.yml` and `ecs-params.yml` files based on these AWS instructions:
 
-> Be sure to update your specific information
-
-Details on these files imputs can be found at:
+> Note the `.yml` extension, as opposed to `.yaml` for the AWS YAML files.
 
 * [Using Docker Compose File Syntax](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-parameters.html)
 * [Using Amazon ECS Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-ecsparams.html)
 
-Example PingFederate `docker-compose.yml`
+> You'll update these files with your specific configuration details.
 
-```text
-version: "3"
+1. Create the `docker-compose.yml` file based on the AWS instructions. For example:
 
-services:
-  pingfederate:
-    image: pingidentity/pingfederate:edge
-    environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=getting-started/pingfederate
-    ports:
-      - 9031:9031
-      - 9999:9999
-    logging:
-      driver: awslogs
-      options:
-        awslogs-group: ping-devops-ecs-logs
-        awslogs-region: us-east-2
-        awslogs-stream-prefix: ping-devops
-```
+   ```yaml
+   version: "3"
 
-Example `ecs-params.yml`
+   services:
+     pingfederate:
+       image: pingidentity/pingfederate:edge
+       environment:
+         - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+         - SERVER_PROFILE_PATH=getting-started/pingfederate
+       ports:
+         - 9031:9031
+         - 9999:9999
+       logging:
+         driver: awslogs
+         options:
+           awslogs-group: ping-devops-ecs-logs
+           awslogs-region: us-east-2
+           awslogs-stream-prefix: ping-devops
+   ```
 
-```text
-version: 1
-task_definition:
-  task_execution_role: ecsTaskExecutionRole
-  ecs_network_mode: awsvpc
-  task_size:
-    mem_limit: 2.0GB
-    cpu_limit: 1024
-run_params:
-  network_configuration:
-    awsvpc_configuration:
-      subnets:
-        - "subnet-<replace with subnet 1 from above>"
-        - "subnet-<replace with subnet 2 from above>"
-      security_groups:
-        - "sg-<replace with security group id from above>"
-      assign_public_ip: ENABLED
-```
+2. Create the `ecs-params.yml` file based on the AWS instructions. For example:
 
-After creating these files, `cd` to that directory. Then:
+   ```yaml
+   version: 1
+   task_definition:
+     task_execution_role: ecsTaskExecutionRole
+     ecs_network_mode: awsvpc
+     task_size:
+       mem_limit: 2.0GB
+       cpu_limit: 1024
+   run_params:
+     network_configuration:
+       awsvpc_configuration:
+         subnets:
+           - "subnet-<replace with subnet 1 from prior step>"
+           - "subnet-<replace with subnet 2 from prior step>"
+         security_groups:
+           - "sg-<replace with security group id from prior step>"
+         assign_public_ip: ENABLED
+   ```
 
-#### To Start a Service
+3. From the directory where you created the `docker-compose.yml` and `ecs-params.yml` files, start the PingFederate service. Enter:
 
-```text
-ecs-cli compose --project-name pingfederate-devops \
-    service up \
-    --cluster ping-devops-ecs-cluster #\on first run add:
-    #--create-log-groups
-```
+   ```bash
+   ecs-cli compose --project-name pingfederate-devops \
+       service up \
+       --cluster ping-devops-ecs-cluster
+       --create-log-groups
+   ```
 
-#### View Service Status
+   > Only specify `--create-log-groups` on the first run.
 
-```text
-ecs-cli compose --project-name pingfederate-devops service ps
-```
 
-#### To Bring Service Down
+1. To display the PingFederate service status, enter:
 
-```text
-ecs-cli compose service down
-```
+   ```bash
+   ecs-cli compose --project-name pingfederate-devops service ps
+   ```
 
-#### To Delete cluster
+2. To bring the service down, enter:
 
-When you want to delete the cluster, you can do so with the command:
+   ```bash
+   ecs-cli compose service down
+   ```
 
-```text
-ecs-cli down
+3. When you want to delete the cluster, enter:
 
-### OUPTPUT ###
-# INFO[0004] Waiting for your cluster resources to be deleted...
-# INFO[0004] Cloudformation stack status                   stackStatus=DELETE_IN_PROGRESS
-# INFO[0066] Deleted cluster                               cluster=ping-devops-ecs-cluster
-###############
-```
+   ```bash
+   ecs-cli down
+   ```
+
+   The resulting output will be similar to this:
+
+   ```bash
+   INFO[0004] Waiting for your cluster resources to be deleted...
+   INFO[0004] Cloudformation stack status                   stackStatus=DELETE_IN_PROGRESS
+   INFO[0066] Deleted cluster                               cluster=ping-devops-ecs-cluster
+   ```
 

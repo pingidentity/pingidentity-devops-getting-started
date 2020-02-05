@@ -7,75 +7,65 @@ This directory contains scripts and deployment files to help with the deployment
 * You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * You've created a Kubernetes cluster on AKS. 
 * You've created a Kubernetes secret using your DevOps credentials. See the *For Kubernetes* topic in [Using your DevOps user and key](devopsUserKey.md).
+* You've downloaded and installed the [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli).
 
 We also highly recommend you are familiar with the information in these AKS articles:
 
 * [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
 
-## Steps for setting up AKS Environment
+## Deploy our fullstack example in AKS
 
-> Pre-req: Azure CLI: [https://docs.microsoft.com/cli/azure/install-azure-cli](https://docs.microsoft.com/cli/azure/install-azure-cli)
+1. Create an Azure Resource Group to put all resources into. Enter:
 
-### Creating an Azure Resource Group
+   ```bash
+   az group create \
+       --name ping-devops-rg \
+       --location westus
+   ```
 
-Create an Azure Resource Group to put all resources into.
+2. Create an Azure AKS cluster. You'll create a 2 node cluster. You need a public certificate, by default in ~/.ssh/id_rsa.pub. Enter:
 
-```text
-az group create \
-    --name ping-devops-rg \
-    --location westus
-```
+   ```bash
+   az aks create \
+       --resource-group ping-devops-rg \
+       --name ping-devops-cluster \
+       --node-count 2 \
+       --enable-addons monitoring \
+       --ssh-key-value ~/.ssh/id_rsa.pub
+   ```
 
-### Creating an Azure AKS Cluster
+3. Get the AKS Credentials into `.kube/config`. Enter:
 
-```text
-az aks create \
-    --resource-group ping-devops-rg \
-    --name ping-devops-cluster \
-    --node-count 2 \
-    --enable-addons monitoring \
-    --ssh-key-value ~/.ssh/id_rsa.pub
-```
+   ```bash
+   az aks get-credentials \
+       --resource-group ping-devops-rg \
+       --name ping-devops-cluster
+   ```
 
-### Get AKS Credentials into .kube/config
+4. From your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory, start our fullstack example in AKS. Enter:
 
-```text
-az aks get-credentials \
-    --resource-group ping-devops-rg \
-    --name ping-devops-cluster
-```
+   ```bash
+   ./setup -u fullstack
+   ```
 
-### Running Kubernetes Use Cases in AKS
+5. To display the status of the environment, enter:
 
-You can now apply the kubernetes use cases into the new AKS environment.
+   ```bash
+   ./status
+   ```
 
-The following command will startup the full stack.
+6. To clean up the environment, enter:
 
-```text
-# from your 20-kubernetes directory
-./setup -u fullstack
-```
+   ```bash
+   ./cleanup -u fullstack
+   ```
 
-To get the status of the environment:
+7. To clean up the Azure Resource Group and all associated resources, including the AKS cluster created, enter:
 
-```text
-./status
-```
+> **Caution**: This will remove everything you created that is associated with this resource group.
 
-And to cleanup the environment
-
-```text
-./cleanup -u fullstack
-```
-
-### Cleanup AKS and Azure Resource Group
-
-To clean up the Azure Resource Group and all resources associated including the AKS Cluster created.
-
-> Note: This will remove **everything** you created associated with this resource group
-
-```text
-az group delete \
-    --name ping-devops-rg
-```
+   ```bash
+   az group delete \
+       --name ping-devops-rg
+   ```
 
