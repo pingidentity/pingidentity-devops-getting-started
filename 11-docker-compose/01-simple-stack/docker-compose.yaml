@@ -2,34 +2,9 @@ version: "3.1"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
 services:
-  pingfederate-admin:
-    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingdirectory:389 -t 900 -- entrypoint.sh start-server
-    environment:
-      - SERVER_PROFILE_URL=https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/05-pingfederate-cluster/docker-compose.yaml
-      - SERVER_PROFILE_PATH=baseline/pingfederate
-      - PING_IDENTITY_ACCEPT_EULA=YES
-      - VERBOSE=false
-    env_file:
-      # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
-      # devops user/key details for evaluation licenses and for docker image/git tags
-      - ~/.pingidentity/devops
-    # Example: Examples below for mounting local directories for inbound server profile and persisting
-    #          server build.  The local /opt/out directory must be empty when building new server
-    #             /opt/out - Resulting server build
-    #             /opt/in  - Inbound server-profile detail in liue of SERVER_PROFILE_URL (must be commented out)
-    #volumes:
-    #   - ${HOME}/projects/devops/volumes/simple-sync.pingfederate:/opt/out
-    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
-    ports:
-      - 9031:9031
-      - 9999:9999
-    networks:
-      - pingnet
-
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingfederate-admin:9999 -t 900 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
@@ -53,22 +28,17 @@ services:
       - pingnet
 
   pingdirectory:
-    image: pingidentity/pingdirectory:ubuntu-edge
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
-      # - PING_CONTAINER_PRIVILEGED=false
-      # - PING_CONTAINER_UID=501
-      # - PING_CONTAINER_GID=20
       - PING_IDENTITY_ACCEPT_EULA=YES
-      - COLORIZE_LOGS=false
     env_file:
       - ~/.pingidentity/devops
-    # volumes:
-      # - /tmp/arno/in:/opt/in
-      # - /tmp/arno/out:/opt/out
+    #volumes:
     #   - ${HOME}/projects/devops/volumes/simple-sync.pingdirectory:/opt/out
     #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
+
     ports:
       - 1636:636
       - 1443:443
