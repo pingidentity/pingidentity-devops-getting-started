@@ -10,6 +10,7 @@ A great way to learn about the most simple steps of running a Ping Identity Dock
 | 02-pingfederate | Standalone PingFederate container |
 | 03-pingaccess | Standalone PingAccess container |
 | 10-pingdataconsole | Standalone Ping Data Console Container running in a Tomcat instance |
+| 30-pingcentral | Standalone PingCentral container |
 
 ## Ping Identity utilities
 
@@ -33,6 +34,7 @@ Usage: ./docker-run.sh { container name } [ --debug ]
                        pingfederate
                        pingaccess
                        pingdataconsole
+                       pingcentral
                        all - runs all containers
 
              --debug : Provide debugging details and drop into container shell
@@ -60,6 +62,7 @@ Usage: ./docker-stop.sh { container name }
                        pingfederate
                        pingaccess
                        pingdataconsole
+                       pingcentral
                        all - stops all containers
 
 Examples

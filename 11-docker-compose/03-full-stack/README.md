@@ -1,55 +1,65 @@
 # 03-full-stack
 
-This is the full stack of the Ping Identity solutions you can deploy and their connection information.
+This is an example of a full stack integration between PingAccess, PingFederate and PingDirectory.
 
-    > The user credentials needed for each solution are preset and provided in this document. You can change these credentials, however, it may make it more difficult for us to help you if you encounter issues.
+[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml)
 
-## PingDirectory
+## Getting started
 
-When the status of the PingDirectory instance shows that it is healthy and running, you can use any of the following solutions or methods to connect to PingDirectory:
+Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
 
-* Use OAuthPlayground:
+To start the stack, from the directory this file is in run:
 
-  1. In a browser, enter [https://localhost:9031/OAuthPlayground](https://localhost:9031/OAuthPlayground).
-  2. Click the `implicit` link.
-  3. Click `Submit`.
-  4. Log in with these credentials: 
-  
-    * User: `user.0`
-    * Password: `2FederateM0re`
+`docker-compose up -d`
 
-* Use PingDataConsole to manage PingDirectory:
+Watch the directories initialize with:
 
-  1. In a browser, enter [https://localhost:8443/console](https://localhost:8443/console)
-  2. Log in using these credentials:
-  
-    * Server: `pingdirectory` 
-    * User: `Administrator` 
-    * Password: `2FederateM0re`
+`docker-compose logs -f`
 
-* Use Apache Directory Studio:
+To stand up multiple containers, run compose with the `--scale` argument:
 
-  * LDAP Port: 1389
-  * LDAP BaseDN: dc=example,dc=com
-  * Root Username: cn=administrator
-  * Root Password: 2FederateM0re
+`docker-compose up --scale pingdirectory=3 --pingfederate=2`
 
-* View the LDAP traffic for PingDirectory. This is exposed on LDAP port 1636:
+## Using the containers
 
-  * In a browser, enter [https://localhost:1636/dc=example,dc=com](https://localhost:1636/dc=example,dc=com).
+Once you see that the containers are healthy in `docker ps`
 
-## PingFederate
+* Go to [https://localhost:9031/OAuthPlayground](https://localhost:9031/OAuthPlayground)
+* Click on `implicit` link
+* Click on `Submit` button
+* Log in with `user.0 / 2FederateM0re`
 
-When the status of the PingFederate instance shows that it is healthy and running, you can display the PingFederate management console:
+To see the PingFederate management console
 
-  1. In a browser, enter [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app).
-  2. Log in with these credentials: `Administrator / 2FederateM0re`
+* Go to [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)
+* Log in with `Administrator / 2FederateM0re`
 
-## PingAccess
+To see the PingAccess management console
 
-When the status of the PingFederate instance shows that it is healthy and running, you can display the PingAccess management console:
+* Go to [https://localhost:9000](https://localhost:9000)
+* Log in with `Administrator / 2FederateM0re`
+* Note: You will be asked to accept license agreement and change password
 
-  1. In a browser, enter [https://localhost:9000](https://localhost:9000).
-  2. Log in with these credentials: `Administrator / 2FederateM0re`
-  
-    > You will be asked to accept the license agreement and to change the password.
+To see the PingCentral management console
+
+* Go to [https://localhost:9022](https://localhost:9022)
+* Log in with `Administrator / 2Federate`
+
+To see the PingDirectory management console
+
+* Go to [https://localhost:8443/console](https://localhost:8443/console)
+* Log in with:
+ server: pingdirectory 
+ user: Administrator 
+ password: 2FederateM0re
+
+PingDirectory exposes LDAP traffic via an LDAPS port 1636.
+
+* Navigate to [https://localhost:1636/dc=example,dc=com](https://localhost:1636/dc=example,dc=com)
+
+## Cleaning up
+
+To bring the stack down:
+
+`docker-compose down`
+
