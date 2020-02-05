@@ -12,6 +12,8 @@
   - [Deploy a PingFederate and PingDirectory stack](docs/deployCompose.md)
   - [Deploy a replicated PingDirectory pair](docs/deployReplication.md)
   - [Deploy data synchronization for PingDirectory](docs/deploySync.md)
+  - [Deploy a PingFederate cluster](docs/deployPfCluster.md)
+  - [Deploy a PingAccess cluster](docs/deployPaCluster.md)
   - [Orchestrate deployments using Docker Swarm](docs/deploySwarm.md)
     - [PingFederate clustering using Docker Swarm and AWS S3](docs/swarmPfCluster.md)
   - [Orchestrate deployments using Kubernetes]((docs/deployK8s.md)

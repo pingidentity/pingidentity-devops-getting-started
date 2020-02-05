@@ -13,7 +13,7 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 
 * If you don't already have an AWS S3 bucket to use, create an AWS S3 bucket and assign permissions.
 * Add an AWS user, if you don't already have one you want to use. You'll need the user name, key and secret.
-* Configure the [`pingfederate_clustering_with_S3_discovery.yaml`](../12-docker-swarm/pingfederate-clustering-with-s3) file for your AWS S3 account.
+* Configure the `pingfederate_clustering_with_S3_discovery.yaml` file in your local `pingidentity-devops-getting-started/12-docker-swarm/pingfederate-clustering-with-s3` directory for your AWS S3 account.
 * Launch the PingFederate cluster.
 * Scale out the cluster.
 
@@ -43,7 +43,7 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 
 ## Configure the YAML file
 
-1. Open the [`pingfederate_clustering_with_S3_discovery.yaml`](../12-docker-swarm/pingfederate-clustering-with-s3) file in the editor of your choice.
+1. Open the `pingfederate_clustering_with_S3_discovery.yaml` file in your local `pingidentity-devops-getting-started/12-docker-swarm/pingfederate-clustering-with-s3` directory using the editor of your choice.
    
    Notice that the PingFederate services each use two server profiles. This layered profile approach allows you to layer multiple server profiles to avoid configuring each use case separately. See [Using layered server profiles](profilesLayered.md) for more information.
    
@@ -51,7 +51,7 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 
    Keep the `pingfederate_clustering_with_S3_discovery.yaml` open in your editor.
 
-2. Go to the [tcp.xml.subst](../../pingidentity-server-profiles/pf-aws-s3-clustering/pingfederate/instance/server/default/conf/tcp.xml.subst) file and scroll down to about line 45:
+2. Open the `tcp.xml.subst` file in your local `pingidentity-server-profiles/pf-aws-s3-clustering/pingfederate/instance/server/default/conf` directory and scroll down to about line 45:
 
    ![TCP_XML S3 cluster variables](images/TCP_XML_S3_CLUSTER_VARS.png)
 
