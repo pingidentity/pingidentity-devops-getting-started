@@ -11,10 +11,10 @@ Our example configurations will help you quickly try this out:
 * [Orchestrate deployments using Docker Swarm](deploySwarm.md).
   - [PingFederate clustering using Docker Swarm and AWS S3](swarmPfCluster.md). 
 * [Orchestrate deployments using Kubernetes](deployKubernetes.md).
-  - [Kubernetes deployments for general use](docs/deployK8sGeneral.md).
-  - [PingDirectory deployments across Kubernetes clusters](docs/deployK8sPD-clusters.md).
-  - [Kubernetes deployments for general use](docs/deployK8sGeneral.md).
-  - [Kubernetes deployments for cloud platforms](docs/deployK8sCloud.md).
-  - [Deployments to Amazon Web Services EKS](docs/deployK8s-AWS.md).
-  - [Deployments to Azure Kubernetes Service](docs/deployK8s-AKS.md).
+  - [Kubernetes deployments for general use](deployK8sGeneral.md).
+  - [PingDirectory deployments across Kubernetes clusters](deployK8sPD-clusters.md).
+  - [Kubernetes deployments for general use](deployK8sGeneral.md).
+  - [Kubernetes deployments for cloud platforms](deployK8sCloud.md).
+  - [Deployments to Amazon Web Services EKS](deployK8s-AWS.md).
+  - [Deployments to Azure Kubernetes Service](deployK8s-AKS.md).
 
