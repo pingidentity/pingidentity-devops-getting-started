@@ -8,6 +8,7 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 
 * You've started Docker Swarm at some point before deploying the stack by running: `docker swarm init`. You only need to run `docker swarm init` once.
 * You've already been through [Getting Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository.
 
 ## What you'll do
 
@@ -68,15 +69,17 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 1. Go to your local Docker Swarm example directory: `${HOME}/projects/devops/pingidentity-devops-getting-started/12-docker-swarm`.
 2. Start the swarm services: 
 
-    `$ docker service init`
+   ```bash
+   docker service init
+   ```
 
 3. Deploy the cluster: 
 
-    `$ ./swarm-start.sh pingfederate_clustering_with_S3_discovery.yaml`
+   ```bash
+   ./swarm-start.sh pingfederate_clustering_with_S3_discovery.yaml
+   ```
 
-4. When all services are running and healthy, open the PingFederate console:
-
-    `https://localhost:9999/pingfederate/app`
+4. When all services are running and healthy, open the PingFederate console: `https://localhost:9999/pingfederate/app`.
 
 5. Select `System --> Cluster Management`. Your PingFederate Engine node should be attached to the admin console:
 
@@ -86,11 +89,15 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 
 1. Display the running services in a terminal: 
 
-    `$ docker service list`
+   ```bash
+   docker service list
+   ```
 
 2. Scale the number of Engine nodes to 2: 
 
-    `$ docker service scale pingfederate_clustering_with_S3_discovery_pingfederate=2`
+   ```bash
+   docker service scale pingfederate_clustering_with_S3_discovery_pingfederate=2
+   ```
 
 3. After a minute or two, refresh your PingFederate browser window. The second Engine node should now be attached:
 

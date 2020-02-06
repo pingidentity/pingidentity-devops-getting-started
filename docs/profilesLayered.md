@@ -6,6 +6,8 @@ A typical organization can have multiple installations of our products, each usi
 
 You can have as many layers as needed. Each layer of the configuration is *copied* on top of the container's filesystem (not merged).
 
+> The profile layers are applied from the top layer down. This may not be apparent. Generally, the base profile layer appears first in the `docker-compose.yaml` file. 
+
 ## Prerequisite
 
 * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.

@@ -50,21 +50,31 @@ You'll create a cluster on EKS is with the `eksctl` CLI tool.
 
 3. After the cluster is created, you can display the cluster and nodegroup details using:
 
-   `eksctl get cluster   --name=ping-devops-test`
+   ```bash
+   eksctl get cluster   --name=ping-devops-test
+   ```
 
-   `eksctl get nodegroup --cluster=ping-devops-test`
+   ```bash
+   eksctl get nodegroup --cluster=ping-devops-test
+   ```
 
    Get information on the nodes using `kubectl`:
 
-   `kubectl get nodes`
+   ```bash
+   kubectl get nodes
+   ```
 
 4. The cluster we created started with 2 nodes. You can scale the cluster using `eksctl scale nodegroup`. For example:
 
-   `eksctl scale nodegroup --cluster=ping-devops-test --nodes=3 standard-workers`
+   ```bash
+   eksctl scale nodegroup --cluster=ping-devops-test --nodes=3 standard-workers
+   ```
 
 5. When you're ready to delete the cluster, use `eksctl delete cluster`. For example:
 
-   `eksctl delete cluster --name=ping-devops-test`
+   ```bash
+   eksctl delete cluster --name=ping-devops-test
+   ```
 
 ## Create a cluster using the ECS CLI 
 
@@ -168,11 +178,15 @@ Your AWS ID or Role needs to have the AWS authorization necessary to create a cl
 
 1. To create a cluster on ECS, enter either: 
  
-   `ecs:CreateCluster`
+   ```bash
+   ecs:CreateCluster
+   ```
 
    or, if you have a role that is used within your `.aws/config`:
 
-   `ecs:CreateCluster --aws-profile <profile-name>`
+   ```bash
+   ecs:CreateCluster --aws-profile <profile-name>
+   ```
 
 2. Start the cluster. Enter:
 

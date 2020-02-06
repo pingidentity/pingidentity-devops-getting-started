@@ -178,7 +178,7 @@ The `env_vars.pingaccess` and `env_vars.pingaccess-engine` files contain:
 ### Prerequisites
 
 * `envsubst`. Substitutes shell format strings with environment variables. See [envsubst](https://command-not-found.com/envsubst) if your OS doesn't have this utility.
-* PingFederate build image for version 10 or greater.
+* PingFederate build image for version 10 or greater. (The DNS Discovery feature first available in version 10 is needed.)
 
 ### Overview
 
@@ -209,27 +209,31 @@ The `env_vars.pingfederate` and `env_vars.pingfederate-engine` files contain:
 ### Procedure
 
 1. Set the environment variable that we assign to the Kubernetes variable `DNS_QUERY_LOCATION`. Either:
+
    * Add `PING_IDENTITY_K8S_NAMESPACE=<your-k8s-namespace>` to your `~/.pingidentity/devops` file.
    * Run `export PING_IDENTITY_K8S_NAMESPACE=<your-k8s-namespace>`.
 
 2. To orchestrate the clustered PingFederate deployment, from your local `pingidentity-devops-getting-started/20-kubernetes` directory, enter:
+
    ```bash
    kustomize build . | envsubst '${PING_IDENTITY_K8S_NAMESPACE}' | kubectl apply -f -
    ```
 
    > In some situations, the PingFederate engine deployment can create a cluster before the admin deployment, thereby creating cluster silos. This can be overcome by using an initializing container.
 
-3. Wait for the pingfederate-engine pod to be running, then validate clustering has worked. You can port-forward the admin service and view the clustering using the admin console. For example: 
+3. Wait for the `pingfederate-engine` pod to be running, then validate clustering has worked. You can port-forward the admin service and view the clustering using the admin console. For example: 
+
    ```
    kubectl port-forward svc/pingfederate 9999:9999
    ```
 
-3. Scale up the engines: 
+4. Scale up the engines: 
+
    ```
    kubectl scale deployment pingfederate-engine --replicas=2
    ```
 
-4. To clean up when you're finished, enter: 
+5. To clean up when you're finished, enter: 
 
    ```bash
    kustomize build . | envsubst '${PING_IDENTITY_K8S_NAMESPACE}' | kubectl delete -f -

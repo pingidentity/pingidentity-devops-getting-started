@@ -1,21 +1,26 @@
 # Deploy a PingAccess cluster
 
-
-This is an example of a PingAccess cluster
-
 [docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/06-pignacces-cluster/docker-compose.yaml)
 
-## Getting started
-
-Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
-
-## Background
 
 This example uses the [pa-clustering](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pa-clustering) profile
 
 This profile contains an H2 DB (instance/data/PingAccess.mv.db) which is configured to look for the PingAccess admin at `pingaccess:9090`. Remember to include this if/when creating your own profile as this setting is not contained in an exported PingAccess configuration archive. 
 
-## Compose Commands
+## Prerequisites
+
+* You've already been through [Getting Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* PingFederate build image for version 10 or greater. (The DNS Discovery feature first available in version 10 is needed.)
+* Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory.
+
+## What you'll do
+
+* Deploy the PingFederate cluster.
+* Verify the cluster status.
+* Replicate the cluster configuration.
+* Scale the PingFederate engines.
+
+## Deploy the PingFederate cluster
 
 To start the stack, from this directory run:
 

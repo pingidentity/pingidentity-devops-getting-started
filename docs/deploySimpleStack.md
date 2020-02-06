@@ -16,13 +16,16 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
 1. Go to your local `devops/pingidentity-devops-getting-started/11-docker-compose/01-simple-stack` directory. Enter:
 
-  `docker-compose up -d`
+   ```bash
+   docker-compose up -d
+   ```
 
 2. At intervals, check to see when the containers are healthy and running:
 
-  `docker-compose ps`
-
-  > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
+   ```bash
+   docker-compose ps
+   ```
+   > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
 
 3. Log in to the management consoles. The log in information for the consoles is:
 
