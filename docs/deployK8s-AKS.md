@@ -1,4 +1,4 @@
-# Deployments to Azure Kubernetes Service
+# Deploy to Azure Kubernetes Service
 
 This directory contains scripts and deployment files to help with the deployment, management and scaling of Ping Identity DevOps Docker Images to Microsoft Azure Kubernetes Service (AKS).
 

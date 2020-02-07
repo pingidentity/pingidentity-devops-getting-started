@@ -1,4 +1,4 @@
-# Deployments to Amazon Web Services EKS
+# Deploy to Amazon Web Services EKS
 
 You'll find here information regarding the deployment, management and scaling of our product containers to AWS using Amazon's:
 

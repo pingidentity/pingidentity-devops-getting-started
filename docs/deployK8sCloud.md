@@ -18,8 +18,8 @@ Each hosting platform supports and manages Kubernetes differently.
 
 ## AWS EKS
 
-See Deployments to Amazon Web Services EKS](deployK8s-AWS.md).
+See [Deploy to Amazon Web Services EKS](deployK8s-AWS.md).
 
 ## AKS
 
-See [Deployments to Azure Kubernetes Service](deployK8s-AKS.md).
+See [Deploy to Azure Kubernetes Service](deployK8s-AKS.md).
