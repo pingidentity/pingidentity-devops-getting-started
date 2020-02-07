@@ -32,7 +32,6 @@ See [Layering server profiles](docs/profilesLayered.md) for more information abo
 
 * You've already been through [Getting Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * PingFederate build image for version 10 or greater. (The DNS Discovery feature first available in version 10 is needed.)
-* Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory.
 
 ## What you'll do
 

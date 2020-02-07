@@ -1,157 +1,218 @@
 # Deploy a PingCentral stack
 
-<a name="contents"></a>
-## Contents ##
-- [Getting Started](#getting-started)
-- [Docker Compose Commands](#docker-compose-commands)
-- [Verify Container](#verify-container)
-- [Using the Container](#using-the-container)
-- [Cleaning Up](#cleaning-up)
-- [Preserving the Database](#preserving-the-database)
-- [Configuring Trust in Docker PingCentral](#configuring-trust-in-docker)
-  - [Configuring Trust using Environment Variables](#configuring-trust-env-variables)
-  - [Configuring Trust using Properties Files](#configuring-trust-in-docker-using-properties-file)
-- [Configuring SSO in Docker PingCentral](#configuring-sso-in-docker)
-  - [Configuring SSO using Properties Files](#configuring-sso-using-properties-file)
-  - [Configuring SSO using Environment Variables](#configuring-sso-env-variables)
-  
-<a name="getting-started"></a>
-## Getting started
+This use case employs the `pingidentity-server-profiles/baseline/pingcentral` server profile. This server profile contains a MySQL database engine located in `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db`. 
 
-Please refer to the [Docker Compose Overview](./) for details on how to start, stop, cleanup stacks.
+## Prerequisites
 
-<a name="docker-compose-commands"></a>
-## Docker Compose Commands
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Either:
+  - Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory. Any changes you make to the server profiles will generate merge conflicts when you pull the repository for updates.
+  - Fork the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your Github repository, then clone this repository to a local directory. The advantage here is that you can make changes and push them to your Github repository.
 
-To start the stack, from this directory run:
+## What you'll do
 
-`docker-compose up -d`
+* Deploy the stack.
+* Log in to the management consoles.
+* Bring down or stop the stack.
+* [Preserve the database](#preserving-the-database).
+* [Configure trust for PingCentral](#configuring-trust-in-docker).
+* [Configure SSO for PingCentral](#configuring-sso-in-docker)
 
-Watch the directories initialize with:
+## Deploy the PingCentral stack
 
-`docker-compose logs -f`
+You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral` directory to deploy the cluster.
 
-<a name="verify-container"></a>
-## Verify Container
-Once the admin is up, you can check PingCentral status with:
-```shell
-docker ps
-```
-You should see similar to:
-```
-CONTAINER ID        IMAGE                     COMMAND                  CREATED              STATUS                        PORTS                               NAMES
-bb366900188b        ping/pingcentral:latest   "./bootstrap.sh wait…"   About a minute ago   Up About a minute (healthy)   0.0.0.0:9022->9022/tcp              pingcentral
-dbc21438833a        mysql:latest              "docker-entrypoint.s…"   About a minute ago   Up About a minute             0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
-```
+1. Go to your local `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral` directory. Enter:
 
-[Top](#contents)
+   ```bash
+   docker-compose up -d
+   ```
 
-<a name="using-the-container"></a>
-## Using the Container
+2. Check that the containers are healthy and running:
 
-Once you see that the containers are healthy in `docker ps`
+   ```bash
+   docker-compose ps
+   ```
 
-To see the PingCentral management console
+   You can also display the startup logs:
 
-* Go to [https://localhost:9022](https://localhost:9022)
-* Log in with `Administrator / 2Federate`
+   ```bash
+   docker-compose logs -f
+   ```
 
-[Top](#contents)
+   To see the logs for a particular product container at any point, enter:
 
-<a name="cleaning-up"></a>
-## Cleaning Up
+   ```bash
+   docker-compose logs <product-container-name>
+   ```
 
-To bring PingCentral down:
+3. Log in to the management consoles:
 
-`docker-compose down`
+   - Console URL: https://localhost:9022
+   - User: Administrator
+   - Password: 2Federate
+
+4. Copy the MySQL database hostkey created on initial startup in `./conf/pingcentral.jwk` to your local `/tmp` directory. You'll need the hostkey in a subsequent step.
+
+5. When you no longer want to run this stack, you can either stop the running stack, or bring the stack down.
+
+   To stop the running stack without removing any of the containers or associated Docker networks, enter:
+
+   ```bash
+   docker-compose stop
+   ```
+
+   To remove all of the containers and associated Docker networks, enter:
+
+   ```bash
+   docker-compose down
+   ```
 
 <a name="preserving-the-database"></a>
-## Preserving the Database
-In order to preserve the MySQL database, you will need to mount a volume in your `docker-compose.yml` file under `pingcentral-db`:
-```
-volumes:
-      - ./conf/mysql/data:/var/lib/mysql
-```
+## Preserve the database
 
-A database hostkey file (pingcentral.jwk) is also required to access the preserved database.
-Upon first-time startup of PingCentral with a new database, a hostkey is created. This hostkey needs to be preserved and injected with each startup.  
-You can accomplish this by adding a volume in your `docker-compose.yml` file under the `pingcentral` service:
-```
-volumes:
+To preserve any updates to the MySQL database, you need to bind mount the `./conf/mysql/data` directory to the `/var/lib/mysql` volume. You also need to bind mount `./conf/pingcentral.jwk` to `/opt/server/conf/pingcentral.jwk` to save the hostkey file created on initial startup of the PingCentral container. You'll need the saved hostkey to access the database.
+
+1. If the stack is running, bring it down:
+
+   ```bash
+   docker-compose down
+   ```
+
+2. Open the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file and bind mount `./conf/mysql/data` to the `/var/lib/mysql` volume under `pingcentral-db`. For example:
+
+   ```yaml
+   pingcentral-db:
+      image: mysql
+      command: --default-authentication-plugin=mysql_native_password
+      environment:
+        MYSQL_ROOT_PASSWORD: 2Federate
+      volumes:
+        - ./conf/mysql/data:/var/lib/mysql
+      ports:
+        - "3306:3306"
+      networks:
+        - pingnet
+   ```
+
+   Keep the `docker-compose.yml` file open.
+
+3. In the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file, also bind mount `./conf/pingcentral.jwk` to the `/opt/server/conf/pingcentral.jwk` volume under the `pingcentral` service. For example:
+
+```yaml
+  pingcentral:
+    image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    command: wait-for pingcentral-db:3306 -t 7200 -- entrypoint.sh start-server
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingcentral/external-mysql-db
+      - PING_IDENTITY_ACCEPT_EULA=YES
+      - PING_CENTRAL_BLIND_TRUST=true
+      - PING_CENTRAL_VERIFY_HOSTNAME=false
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=2Federate
+    env_file:
+      - ~/.pingidentity/devops
+    volumes:
       - ./conf/pingcentral.jwk:/opt/server/conf/pingcentral.jwk
+    ports:
+      - "9022:9022"
+    depends_on:
+      - "pingcentral-db"
+    networks:
+      - pingnet
 ```
 
+4. Save `docker-compose.yml` and start the stack:
 
-You can retrieve and save the hostkey by copying off the `pingcentral.jwk` file with the command: `docker cp pingcentral:/opt/out/instance/conf/pingcentral.jwk .`
+   ```bash
+   docker-compose up -d
+   ```
 
-[Top](#contents)
+5. Copy the hostkey `pingcentral.jwk` file you saved to your local `/tmp` in a prior step to the `/opt/out/instance/conf` volume. Enter: 
+
+   ```bash
+   docker cp /tmp/pingcentral.jwk:/opt/out/instance/conf
+   ```
+
+   The hostkey will now be persisted and available at each startup.
 
 <a name="configuring-trust-in-docker"></a>
-## Configuring Trust in Docker PingCentral
+## Configure trust for the PingCentral container
 
-By default, PingCentral in Docker is insecure. This is due to setting the environment variable `PING_CENTRAL_BLIND_TRUST=true` in the docker-compose.yaml file, which tells PingCentral to trust all certificates by default.
-This is great for Proof of Concepts as it enables a quick setup, but should not be used for production purposes.
-Setting `PING_CENTRAL_BLIND_TRUST` to false will only allow public certificates to be used by your environments (such as PingFederate), unless you setup the trust store and configure PingCentral to use this truststore.
+By default, for the purposes of quick setup, the PingCentral container is insecure. This is due to the environment variable `PING_CENTRAL_BLIND_TRUST=true` setting in the `docker-compose.yml` file. By default, all certificates are trusted.
 
-In order to setup the trust in your docker container, first create your trust store following the [documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
-You will then need to inject your truststore into your docker container:
+> **Caution**: Remember to change this setting for production environments.
 
-With docker compose, use `volumes`:
-```
-services:
-  pingcentral:
-    volumes:
-      - ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
-```
+Setting `PING_CENTRAL_BLIND_TRUST=false` allows public certificates to be used only by your Ping Identity environments (such as PingFederate), unless you set up the trust store and configure PingCentral to use this trust store.
 
-Or with docker commands:
-```
-docker run --volume ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
-```
+1. To set up the trust in the container, first create your trust store according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
 
-You then have two options for configuring PingCentral to use the created trust:
+2. Inject the trust store into the PingCentral container:
 
-[Top](#contents)
+   * For stacks, inject the trust store using the `volumes` definition in the `docker-compose.yml` file to bind mount `./conf/keystore.jks` to `/opt/in/instance/conf/keystore.jks`. For example:
 
-<a name="configuring-trust-env-variables"></a>
-#### Configuring Trust in Docker Using Environment Variables
+     ```yaml
+     services:
+       pingcentral:
+         volumes:
+           - ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
+     ```
 
-With docker compose, specify the following environment variables:
-```
-services:
-  pingcentral:
-    environment:
-      - server.ssl.trust-any=false
-      - server.ssl.https.verify-hostname=false
-      - server.ssl.delegate-to-system=false
-      - server.ssl.trust-store=/opt/in/instance/conf/keystore.jks
-      - server.ssl.trust-store-password=InsertTruststorePasswordHere
-```
-Or with docker commands:
-```
-docker run --env server.ssl.trust-any=false --env server.ssl.https.verify-hostname=false --env server.ssl.delegate-to-system=false --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks --env server.ssl.trust-store-password=InsertTruststorePasswordHere
-```
+   * For standalone PingCentral containers, use:
 
-<a name="configuring-trust-in-docker-using-properties-file"></a>
-#### Configuring Trust in Docker Using Properties File
+     ```bash
+     docker run --volume ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
+     ```
 
-Update the following properties in your `application.properties` file:
-```
-server.ssl.trust-any
-server.ssl.https.verify-hostname
-server.ssl.delegate-to-system
-server.ssl.trust-store
-server.ssl.trust-store-password
-```
+3. Configure PingCentral to use the created trust either by using environment variables or the properties file:
 
-[Top](#contents)
+   <a name="configuring-trust-env-variables"></a>
+   * Using environment variables
+
+     - For stacks, specify these environment variables in the `environment` definition of the `docker-compose.yml` file:
+
+       ```yaml
+       services:
+         pingcentral:
+           environment:
+             - server.ssl.trust-any=false
+             - server.ssl.https.verify-hostname=false
+             - server.ssl.delegate-to-system=false
+             - server.ssl.trust-store=/opt/in/instance/conf/keystore.jks
+             - server.ssl.trust-store-password=InsertTruststorePasswordHere
+       ```
+
+     - For standalone PingCentral containers:
+
+       ```bash
+       docker run --env server.ssl.trust-any=false --env server.ssl.https.verify-hostname=false --env server.ssl.delegate-to-system=false --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks --env server.ssl.trust-store-password=InsertTruststorePasswordHere
+       ```
+
+   <a name="configuring-trust-in-docker-using-properties-file"></a>
+   * Using properties files
+
+     - Update the following properties in your `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file:
+
+       ```text
+       server.ssl.trust-any
+       server.ssl.https.verify-hostname
+       server.ssl.delegate-to-system
+       server.ssl.trust-store
+       server.ssl.trust-store-password
+       ```
 
 <a name="configuring-sso-in-docker"></a>
-## Configuring SSO in Docker PingCentral
-Enabling SSO can be done through editing the properties file (`application.properties`) or by using environment variables. 
-Whichever way you choose to implement SSO with docker, you may also need to edit the hosts file within docker.  
-For example, with docker-compose, you can update the /etc/hosts file using the following example configuration:
-```
+## Configure SSO for the PingCentral container
+
+You can enable SSO by either: 
+
+* Editing the properties file `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst`.
+* Using environment variables. 
+
+You may also need to edit the hosts file used by the container. For stacks, you can update the container's `/etc/hosts` file by adding `extra_hosts` definitions to the `docker-compose.yml` file. For example:
+
+```yaml
 services:
   pingcentral:
     extra_hosts:
@@ -160,32 +221,39 @@ services:
 ```
 
 <a name="configuring-sso-using-properties-file"></a>
-#### Configuring SSO Using Properties File
-To enable SSO in your docker PingCentral instance, update the default `application.properties` in accordance with [this document](https://docs.pingidentity.com/bundle/pingcentral/page/orc1570565605492.html).
-You will then need to inject this `application.properties` file into the path `/opt/in/instance/conf/application.properties` of your Docker Container by adding the following volume to the docker-compose file under the `pingcentral` service:
-```
-volumes:
-    - ./conf/application.properties:/opt/in/instance/conf/application.properties
-```
+* Using the properties file
+
+  1. Update the `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral/page/orc1570565605492.html).
+
+  2. Inject the `application.properties.subst` file into the container using the `volumes` definition in the `docker-compose.yml` file to bind mount `./conf/application.properties` to the `/opt/in/instance/conf/application.properties` volume under the `pingcentral` service of the `docker-compose.yml` file :
+
+     ```yaml
+     pingcentral:
+        volumes:
+          - ./conf/application.properties:/opt/in/instance/conf/application.properties
+     ```
 
 <a name="configuring-sso-env-variables"></a>
-#### Configuring SSO Using Environment Variables
-Enabling SSO through environment variables involves injecting the correct environment variables into your docker container.
-You can do this via docker compose:
-```
-services:
-  pingcentral:
-    environment:
-      - pingcentral.sso.oidc.enabled=true
-      - pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031
-      - pingcentral.sso.oidc.client-id=ac_oic_client_id
-      - pingcentral.sso.oidc.client-secret=ClientSecretHere
-      - pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
-```
-or with docker commands:
-```
-docker run --env pingcentral.sso.oidc.enabled=true --env pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031 --env pingcentral.sso.oidc.client-id=ac_oic_client_id --env pingcentral.sso.oidc.client-secret=ClientSecretHere --env pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
-```
+* Using environment variables
 
-[Top](#contents)
+  To enable SSO using environment variables, add `environment` definitions for these environment variables.
+
+  For stacks, add the definitions to the `docker-compose.yml` file. For example:
+
+    ```
+    services:
+      pingcentral:
+        environment:
+          - pingcentral.sso.oidc.enabled=true
+          - pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031
+          - pingcentral.sso.oidc.client-id=ac_oic_client_id
+          - pingcentral.sso.oidc.client-secret=ClientSecretHere
+          - pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
+    ```
+
+  For standalone PingCentral containers:
+
+    ```bash
+    docker run --env pingcentral.sso.oidc.enabled=true --env pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031 --env pingcentral.sso.oidc.client-id=ac_oic_client_id --env pingcentral.sso.oidc.client-secret=ClientSecretHere --env pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
+    ```
 

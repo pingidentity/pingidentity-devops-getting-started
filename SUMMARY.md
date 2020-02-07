@@ -17,7 +17,6 @@
   - [Orchestrate deployments using Docker Swarm](docs/deploySwarm.md)
     - [PingFederate clustering using Docker Swarm and AWS S3](docs/swarmPfCluster.md)
   - [Orchestrate deployments using Kubernetes](docs/deployK8s.md)
-    - [Kubernetes deployments for general use](docs/deployK8sGeneral.md)
     - [PingDirectory deployments across Kubernetes clusters](docs/deployK8sPD-clusters.md)
     - [Kubernetes deployments for general use](docs/deployK8sGeneral.md)
     - [Kubernetes deployments for cloud platforms](docs/deployK8sCloud.md)

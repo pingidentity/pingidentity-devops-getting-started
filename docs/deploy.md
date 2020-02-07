@@ -12,6 +12,6 @@ After you've deployed a set of our DevOps images using the full-stack server pro
   * [Deploy a PingAccess cluster](docs/deployPaCluster.md)
   * [Orchestrate deployments using Docker Swarm](deploySwarm.md).
   * [Orchestrate deployments using Kubernetes](deployKubernetes.md).
-* Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory and deploy our DevOps images using any of our standard server profiles (not targeted to specific use cases) located in the subdirectories. For example:
-  * [Deploy PingCentral](docs/deployPingCentral.md)
+  * [Deploy PingCentral](deployPingCentral.md)
+* Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory and deploy our DevOps images using any of our standard server profiles (not targeted to specific use cases) located in the subdirectories. 
 
