@@ -28,7 +28,6 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 2. Check that the containers are healthy and running:
 
-
    ```bash
    docker-compose ps
    ```
