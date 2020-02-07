@@ -1,55 +1,105 @@
 # Deploy a PingAccess cluster
 
-[docker-compose.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/06-pignacces-cluster/docker-compose.yaml)
+This use case employs the `pingidentity-server-profiles/pa-clustering` server profile. This server profile contains an H2 database engine located in `pingidentity-server-profiles/pa-clustering/pingaccess/instance/data/PingAccess.mv.db`. H2 is configured to reference the PingAccess Admin engine at `pingaccess:9090`. 
 
-
-This example uses the [pa-clustering](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pa-clustering) profile
-
-This profile contains an H2 DB (instance/data/PingAccess.mv.db) which is configured to look for the PingAccess admin at `pingaccess:9090`. Remember to include this if/when creating your own profile as this setting is not contained in an exported PingAccess configuration archive. 
+> Remember to include this if you create your own server profile. This setting is not contained in an exported PingAccess configuration archive. 
 
 ## Prerequisites
 
 * You've already been through [Getting Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* PingFederate build image for version 10 or greater. (The DNS Discovery feature first available in version 10 is needed.)
 * Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory.
 
 ## What you'll do
 
-* Deploy the PingFederate cluster.
-* Verify the cluster status.
+* Deploy the PingAccess cluster.
+<!-- * Verify the cluster status. -->
 * Replicate the cluster configuration.
-* Scale the PingFederate engines.
+* Scale the PingAccess engines.
 
-## Deploy the PingFederate cluster
+## Deploy the PingAccess cluster
 
-To start the stack, from this directory run:
+You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-getting-started/11-docker-compose/06-pingaccess-cluster` directory to deploy the cluster.
 
-`docker-compose up -d`
+1. From the `pingidentity-devops-getting-started/11-docker-compose/06-pingaccess-cluster` directory, start the stack. Enter:
 
-Watch the services initialize with:
+   ```bash
+   docker-compose up -d
+   ```
 
-`docker-compose logs -f`
+2. Check that the containers are healthy and running:
 
-To stand up multiple PingAccess engine nodes, run compose with the `--scale` argument:
 
-`docker-compose up -d --scale pingaccess-engine=2`
+   ```bash
+   docker-compose ps
+   ```
 
-## Checking cluster replication
+   You can also display the startup logs:
 
-Once you see that the containers are healthy in `docker ps`
-You can check the engines were successfully added with: 
-```
-curl -k -u administrator:2FederateM0re -H 'X-XSRF-Header: PingAccess'  http
-s://localhost:9000/pa-admin-api/v3/engines
-```
-Or via the PingAccess management console:
+   ```bash
+   docker-compose logs -f
+   ```
 
-  1. Go to [https://localhost:9000](https://localhost:9999)
-  2. Log in with `Administrator / 2FederateM0re`
-  3. Then System>Clustering (choose discard changes if alert pops up)
+   To see the logs for a particular product container at any point, enter:
 
-## Cleaning up
+   ```bash
+   docker-compose logs <product-container-name>
+   ```
 
-To bring the stack down:
+3. Log in to the PingAccess administrator console:
 
-`docker-compose down`
+   - Console URL: https://localhost:9000
+   - User: Administrator
+   - Password: 2FederateM0re
+
+## Replicate the cluster configuration
+
+Replicate configuration across the cluster using the either the PingAccess administrator console or the PingAccess Admin REST API:
+
+* To use the administrator console:
+
+  1. Log in to the administrator console: `https://localhost:9000`.
+  2. Go to System --> Clustering. 
+     
+     > If an alert is displayed, choose to discard changes.
+
+* To use the PingAccess Admin REST API, enter:
+
+  ```bash
+  curl -k -u administrator:2FederateM0re -H 'X-XSRF-Header: PingAccess' https://localhost:9000/pa-admin-api/v3/engines
+  ```
+
+  The resulting response will be similar to this:
+
+  ```json
+  {"resultId":"success","message":"Operation succeeded."}
+  ```
+
+## Scale the PingAccess engines
+
+1. If the cluster is running, bring the cluster down:
+
+   ```bash
+   docker-compose down
+   ```
+
+2. Start up multiple PingAccess engine nodes by running `docker-compose` with the `--scale` argument. For example, to scale up to 2 engine nodes:
+
+   ```bash
+   docker-compose up -d --scale pingaccess-engine=2
+   ```
+
+## Finishing
+
+When you no longer want to run the cluster, you can either stop the running stack, or bring the stack down.
+
+ To stop the running stack without removing any of the containers or associated Docker networks, enter:
+
+ ```bash
+ docker-compose stop
+ ```
+
+ To remove all of the containers and associated Docker networks, enter:
+
+ ```bash
+ docker-compose down
+ ```
