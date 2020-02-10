@@ -21,13 +21,14 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 5. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
 6. Use Docker Compose to deploy the full stack. This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
 7. Log in to the management consoles for the products.
-8. Stop or bring down the stack.
+8. See [Saving your configuration changes](#save-config-changes).
+9. Stop or bring down the stack.
 
 See the **DevOps registration** and **Initial setup** topics for complete instructions.
 
 When you've finished the initial setup and deployment, you can then choose to:
 
-* Rerun the full stack evaluation. See **Saving your configuration changes**.
+* Rerun the full stack evaluation. 
 * [Configure and deploy our other examples](deploy.md).
 * [Customize the container and stack configurations](config.md).
 
@@ -238,6 +239,7 @@ For a standalone container, use this syntax to make the license file available t
    docker-compose down
    ```
 
+<a name="save-config-changes"/>
 ## Save your configuration changes
 
 To save any configuration changes you make when using the products in the stack, you need to set up a local Docker volume to persist state and data for the stack. If you don't do this, whenever you bring the stack down your configuration changes will be lost.
