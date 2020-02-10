@@ -2,5 +2,5 @@
 
 The Kubernetes examples contain configurations and scripts to orchestrate deployments of our DevOps images for:
 
-* [General use](deployK8sGeneral.md).
-* [Cloud platforms](deployK8sCloud.md) (such as, Amazon Web Services).
+* [Kubernetes for general use](deployK8sGeneral.md).
+* [Kubernetes for cloud platforms](deployK8sCloud.md) (such as, Amazon Web Services).
