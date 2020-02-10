@@ -4,7 +4,7 @@
 * [Ping Identity DevOps](docs/README.md)
 * [Changelog](docs/changelog.md)
 * [Overview](docs/overview.md)
-* [Get started](docs/evaluate.md)
+* [Get started](docs/getStarted.md)
   - [Using your DevOps user and key](docs/devopsUserKey.md)
 * [Working with DevOps images](docs/deploy.md)
   - [Deploy a standalone container](docs/deployStandalone.md)
