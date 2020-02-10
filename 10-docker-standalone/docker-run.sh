@@ -75,7 +75,7 @@ esac
 #shellcheck source=/dev/null
 test -f "${DEVOPS_PROPS}" && . "${DEVOPS_PROPS}"
 
-# lood the shared variables
+# load the shared variables
 #shellcheck source=/dev/null
 test -f "${SHARED_DIR}/env_vars" && . "${SHARED_DIR}/env_vars"
 

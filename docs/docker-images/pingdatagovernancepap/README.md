@@ -15,15 +15,6 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | PING_PRODUCT  | PingDataGovernance-PAP  | PingIdentity license version Ping product name 
-Set License Directory BASE (locaion where we start PAP application)
-## Environment Variables
-In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
-the following environment `ENV` variables can be used with 
-this image. 
-
-| ENV Variable  | Default     | Description
-| ------------: | ----------- | ---------------------------------
-| LICENSE_DIR  | ${BASE}  | 
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
