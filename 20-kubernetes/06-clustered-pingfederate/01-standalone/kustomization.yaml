@@ -14,17 +14,19 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 # TODO:  This can be overcome by using an init container. 
 
 resources:
-- 01-standalone
-- pingfederate-engine.yaml
-- cluster-service.yaml
+- ../../01-standalone/pingfederate
+
+commonLabels:
+  tier: console
 
 generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-- name: pingfederate-engine-environment-variables
+- name: pingfederate-environment-variables
+  behavior: replace
   envs:
-    - env_vars.pingfederate-engine
+    - env_vars.pingfederate
 
 patches:
 - target:

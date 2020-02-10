@@ -3,31 +3,37 @@ kind: Service
 metadata:
   name: pingfederate-engine
   labels:
-    app: pingfederate-engine
+    role: pingfederate
+    tier: engine
+
 spec:
   ports:
     - port: 443
       name: pingfederate-engine
       targetPort: 9031
   selector:
-    app: pingfederate-engine
+    role: pingfederate
+    tier: engine
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingfederate-engine
   labels:
-    app: pingfederate-engine
+    role: pingfederate
+    tier: engine
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: pingfederate-engine
+      role: pingfederate
+      tier: engine
   template:
     metadata:
       name: pingfederate-engine
       labels:
-        app: pingfederate-engine
+        role: pingfederate
+        tier: engine
     spec:
       containers:
       - name: pingfederate-engine
@@ -46,7 +52,7 @@ spec:
             path: /pf/heartbeat.ping
             port: 9031
             scheme: HTTPS
-          initialDelaySeconds: 100
+          initialDelaySeconds: 150
           periodSeconds: 1
         readinessProbe:
           httpGet:
@@ -54,6 +60,10 @@ spec:
             port: 9031
             scheme: HTTPS
           periodSeconds: 10
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh","-c","sleep 20"]
         resources:
           limits:
             cpu: "1"
