@@ -69,7 +69,7 @@ For example:
       - PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
 ...
 ```
-
+<a name="forK8s"/>
 ## For Kubernetes
 
 You need to create a Kubernetes secret that contains the environment variables `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY`. 

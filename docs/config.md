@@ -18,6 +18,6 @@ You can customize our product containers by:
 
   We use sets of tags for each released build image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You'll find the release tag information in [Docker images](https://pingidentity-devops.gitbook.io/devops/docker-images/). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.
 
-* [Securing the containers](docs/secureContainers.md)
+* [Securing the containers](secureContainers.md)
 
   By default, our Docker images run as root within the container. Refer to this topic for instructions in changing this.
