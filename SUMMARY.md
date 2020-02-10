@@ -48,6 +48,7 @@
   - [Apache JMeter](docs/docker-images/apache-jmeter/README.md)
 
 * [License](LICENSE.md)
-* [Contributing](CONTRIBUTING.md)
 * [Disclaimer](DISCLAIMER.md)
+* [Third-Party Software](3RD_PARTY_SOFTWARE.md)
+* [Contributing](CONTRIBUTING.md)
 
