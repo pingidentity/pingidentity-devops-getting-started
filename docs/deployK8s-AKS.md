@@ -6,7 +6,7 @@ This directory contains scripts and deployment files to help with the deployment
 
 * You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * You've created a Kubernetes cluster on AKS. 
-* You've created a Kubernetes secret using your DevOps credentials. See [Using your DevOps user and key](<a href="devopsUserKey.md/#forK8s"/>).
+* You've created a Kubernetes secret using your DevOps credentials. See [Using your DevOps user and key](devopsUserKey.md#forK8s).
 * You've downloaded and installed the [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli).
 
 We also highly recommend you are familiar with the information in these AKS articles:
