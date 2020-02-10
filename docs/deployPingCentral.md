@@ -6,8 +6,8 @@ This use case employs the `pingidentity-server-profiles/baseline/pingcentral` se
 
 * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * Either:
-  - Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory. Any changes you make to the server profiles will generate merge conflicts when you pull the repository for updates.
-  - Fork the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your Github repository, then clone this repository to a local directory. The advantage here is that you can make changes and push them to your Github repository.
+  - Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory. 
+  - Fork the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your Github repository, then clone this repository to a local directory. 
 
 ## What you'll do
 
