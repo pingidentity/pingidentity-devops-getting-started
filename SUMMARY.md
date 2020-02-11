@@ -37,6 +37,7 @@
   - [Using DevOps hooks](docs/hooks.md)
   - [Using release tags](docs/releaseTags.md)
   - [Securing the containers](docs/secureContainers.md)
+  - [Adding a message of the day (MOTD)](docs/addMOTD.md)
 * [Docker images reference](docs/dockerImagesRef.md)
   - [PingFederate](docs/docker-images/pingfederate/README.md)
   - [PingAccess](docs/docker-images/pingaccess/README.md)
