@@ -16,7 +16,7 @@ You can employ a MOTD file in these ways by editing our existing `motd.json` fil
 
 ## Test the MOTD file
 
-Test the new messages in the `motd.json` file using the `test-motd.sh` script. The script supplies the `JQ_EXPR` value used. This value should always match that used in the `09-build-motd.sh` (?? Don't find this.) hook.
+Test the new messages in the `motd.json` file using the `test-motd.sh` script. The script supplies the `JQ_EXPR` value used to pass the message data to the Devops image.
 
 
 1. To test the `motd.json` file locally for our example use cases, from the `pingidentity-devops-getting-started/motd` directory, enter:
@@ -63,7 +63,7 @@ The example below shows the messages that will be displayed for all product imag
         {
             "validFrom": 20190801,
             "validTo": 20190830,
-            "subject": "Genearl Message 2",
+            "subject": "General Message 2",
             "message": ["Message goes here"]
         }
     ],

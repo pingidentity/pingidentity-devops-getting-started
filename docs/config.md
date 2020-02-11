@@ -21,3 +21,7 @@ You can customize our product containers by:
 * [Securing the containers](secureContainers.md)
 
   By default, our Docker images run as root within the container. Refer to this topic for instructions in changing this.
+
+* [Adding a message of the day (MOTD)](addMOTD.md)
+  
+  You can use a `motd.json` file to add message of the day information that will be used by the DevOps images.
