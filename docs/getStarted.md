@@ -6,8 +6,8 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 
 ## Prerequisites
 
-  * Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for macOS](https://docs.docker.com/v17.12/docker-for-mac/install/).
-  * [Git](https://git-scm.com/downloads).
+* Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for macOS](https://docs.docker.com/v17.12/docker-for-mac/install/).
+* [Git](https://git-scm.com/downloads).
 
 ## What you'll do
 
@@ -34,7 +34,7 @@ When you've finished the initial setup and deployment, you can then choose to:
 
 ## DevOps registration
 
-When you register for our DevOps program, you are issued credentials that will automate the process of retrieving a DevOps evalution license. If you already have a product license or licenses for the Ping Identity products you'll be using, you can use your existing license instead of the DevOps evaluation license. In this case, see **Using your existing product license**.
+When you register for our DevOps program, you are issued credentials that will automate the process of retrieving a DevOps evalution license. If you already have a product license or licenses for the Ping Identity products you'll be using, you can use your existing license instead of the DevOps evaluation license. 
 
   > Evaluation licenses are short-lived and *not* intended for use in production deployments.
 

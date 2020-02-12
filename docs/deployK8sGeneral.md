@@ -26,7 +26,7 @@ You'll find useful comments in the `kustomization.yaml` files in your local `pin
 
 ## Install kustomize
 
-1. Install [kustomize](https://kustomize.io/).: `brew install kustomize`.
+1. Install [kustomize](https://kustomize.io/).
 2. To view standard YAML outputs in each directory, run commands like: 
 
      `kustomize build <path/to/directory>` 

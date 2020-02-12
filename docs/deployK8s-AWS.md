@@ -3,9 +3,9 @@
 You'll find here information regarding the deployment, management and scaling of our product containers to AWS using Amazon's:
 
 * Elastic Kubernetes Service (EKS).
-* Elastic Container Service (ECS)
-  * Using Fargate
-  * Using EC2
+* Elastic Container Service (ECS):
+  * Using Fargate.
+  * Using EC2.
 
 ## Prerequisites
 
