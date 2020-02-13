@@ -16,6 +16,30 @@ Watch the directories initialize with:
 
 `docker-compose logs -f`
 
+this may (will, actually) take several minutes.
+
+Replication setup will be complete when you see a message like this one:
+```
+pingdirectory_2    | # [13/Feb/2020:16:22:17.802 +0000]
+pingdirectory_2    | # Command Name: manage-topology
+pingdirectory_2    | # Invocation ID: 9b122892-3c14-4327-bef4-5a6b00923529
+pingdirectory_2    | # Exit Code: 0
+pingdirectory_2    |
+pingdirectory_2    | Only 1 instance (N/A (single instance topology)) found in current topology.  Adding 1st replica
+pingdirectory_2    |
+pingdirectory_2    | #############################################
+pingdirectory_2    | # Enabling Replication
+pingdirectory_2    | #
+pingdirectory_2    | # Current Master Topology Instance: N/A (single instance topology)
+pingdirectory_2    | #
+pingdirectory_2    | #                                         Topology Master Server        POD Server
+pingdirectory_2    | #                        02-replicated-pair_pingdirectory_1:8989  <-->  7a5a4161efa1:8989
+pingdirectory_2    | #############################################
+```
+
+
+
+
 ## Using the containers
 
 To see the PingDirectory management console
