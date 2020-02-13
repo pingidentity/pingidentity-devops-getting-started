@@ -37,8 +37,21 @@ pingdirectory_2    | #                        02-replicated-pair_pingdirectory_1
 pingdirectory_2    | #############################################
 ```
 
+Once you have seen this message in the logs, in terminal, you can check that the replication topology is in a good state with this command
+```
+$ docker exec -t 02-replicated-pair_pingdirectory_1 out/instance/bin/dsreplication status
+
+Arguments from tool properties file:  --trustAll  --adminUID admin
+--adminPasswordFile /opt/staging/pwd --hostname localhost --port 1636 --useSSL
 
 
+          --- Replication Status for dc=example,dc=com: Enabled ---
+Server                           : Location : Entries : Conflict Entries : Backlog (1) : Rate (2)
+---------------------------------:----------:---------:------------------:-------------:---------
+570342204aa1 (570342204aa1:1636) : Docker   : 36      : 0                : 0           : 0
+7a5a4161efa1 (7a5a4161efa1:1636) : Docker   : 36      : 0                : 0           : 0
+
+```
 
 ## Using the containers
 
