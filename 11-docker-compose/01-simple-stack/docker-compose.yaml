@@ -4,7 +4,7 @@ version: "3.1"
 services:
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:389 -t 900 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
