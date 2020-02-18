@@ -23,6 +23,13 @@ services:
     #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
     networks:
       - pingnet
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
     ports:
       - 1389-1399:389
       - 1636-1646:636
