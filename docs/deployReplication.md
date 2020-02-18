@@ -40,6 +40,14 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
    > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose command line reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
 
+3. To view the running instance, log in to PingDirectory using the Ping Data Console:
+
+   * Ping Data Console for PingDirectory
+     - Console URL: https://localhost:8443/console
+     - Server: pingdirectory
+     - User: Administrator
+     - Password: 2FederateM0re
+
 ## Test the deployment
 
 1. Verify that data is replicating between the pair by adding a description entry for the first container. Enter:
