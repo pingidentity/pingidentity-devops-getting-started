@@ -1,4 +1,4 @@
-# Securing Docker Containers
+# Securing the containers
 
 By default, Ping Identity Docker Images run as root within the container. When deploying these images into your production environment, you may wish to secure them by using one of the following patterns which we describe below, in order of preference.
 
