@@ -15,7 +15,7 @@ Engine nodes.
 
 * `pingdownloader`
 
-    Used to download product build images.
+    Used to download product Docker images.
 
 ## Ports Exposed
 

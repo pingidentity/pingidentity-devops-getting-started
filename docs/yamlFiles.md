@@ -8,7 +8,7 @@ Some examples of how you can customize our YAML files:
   * Add references to a file or files containing environment variables to pass to the container on startup.
   * Change the `wait-for` times used to control the startup sequence of containers.
   * Change the port mappings for a container.
-  * Change the release tag used for the build images (all product containers in the stack must use the same release tag). See [Using release tags](releaseTags.md) for more information.
+  * Change the release tag used for the Docker images (all product containers in the stack must use the same release tag). See [Using release tags](releaseTags.md) for more information.
 
 You'll find the YAML files for the DevOps example stacks located in your `${HOME}/projects/devops/pingidentity-devops-getting-started/11-docker-compose` subdirectories.
 

@@ -2,7 +2,7 @@
 
 
 * [Ping Identity DevOps](docs/README.md)
-* [Changelog](docs/changelog.md)
+<!-- * [Changelog](docs/changelog.md) -->
 * [Overview](docs/overview.md)
 * [Get started](docs/getStarted.md)
   - [Using your DevOps user and key](docs/devopsUserKey.md)

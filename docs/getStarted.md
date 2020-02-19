@@ -1,8 +1,8 @@
 # Get started
 
-You can quickly deploy build images of Ping Identity products. We use Docker to deploy the build images in stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration, we use Kubernetes. The build images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers. 
+You can quickly deploy Docker images of Ping Identity products. We use Docker to deploy the Docker images in stable, network-enabled containers. For lightweight orchestration purposes, we use Docker Compose. For enterprise-level orchestration, we use Kubernetes. The Docker images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers. 
 
-You'll need an evaluation license to use the DevOps resources. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of product containers using Docker Compose. When you first start the Docker stack, each of the build images is automatically pulled from our repository, unless you've already pulled the images from our [Docker Hub](https://hub.docker.com/u/pingidentity/) site. You can then choose to try out any one or more of our products, all preconfigured to interoperate.
+You'll need an evaluation license to use the DevOps resources. You'll clone our getting started repository, set up your DevOps environment, and deploy our full stack of product containers using Docker Compose. When you first start the Docker stack, each of the Docker images is automatically pulled from our repository, unless you've already pulled the images from our [Docker Hub](https://hub.docker.com/u/pingidentity/) site. You can then choose to try out any one or more of our products, all preconfigured to interoperate.
 
 ## Prerequisites
 

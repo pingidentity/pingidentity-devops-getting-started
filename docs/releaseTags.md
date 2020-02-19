@@ -55,7 +55,7 @@ For example, `pingfederate:latest`.
 The `sprint` release tag is a build number and indicates a stable build that is guaranteed to not change. The `sprint` number uses the YYMM format. For example, 1909 = September 2019.
 
 * Latest product version at the time the sprint ended.
-* All completed and qualified enhacements and fixes from the specified monthly sprint. The build images are generated at the end of the specified monthly sprint.
+* All completed and qualified enhacements and fixes from the specified monthly sprint. The Docker images are generated at the end of the specified monthly sprint.
 * Runs on the Linux Alpine OS.
 
 For example, `pingfederate:1909`.
@@ -135,7 +135,7 @@ You should test all images in development before deploying to production. It's a
 
 * Use the `latest` in those rare scenarios that require stability between product sprints, but can accept a sliding tag.
 
-But what if you want bleeding edge features *and* a stable build image? For this, the best option is to periodically pull the build images having the base tag and store them in a local or private repository. 
+But what if you want bleeding edge features *and* a stable build image? For this, the best option is to periodically pull the Docker images having the base tag and store them in a local or private repository. 
 
-> Build images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.
+> Docker images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.
 
