@@ -36,6 +36,8 @@ this image.
 | PF_ENGINE_DEBUG  | false  | 
 | PF_ADMIN_DEBUG  | false  | 
 | PF_DEBUG_PORT  | 9030  | 
+| PF_ADMIN_PORT  | 9999  | 
+| PF_ENGINE_PORT  | 9031  | 
 ## Running a PingFederate container
 To run a PingFederate container:
 

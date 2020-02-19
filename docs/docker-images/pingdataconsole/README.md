@@ -8,11 +8,22 @@ deployed to be used in configuration of the PingData products.
 - `pingidentity/pingdownloader` - Image used to download ping product
 - `tomcat:8-jre8-alpine` - Tomcat engine to serve PingDataConsole .war file
 
+## Environment Variables
+The following environment `ENV` variables can be used with 
+this image. 
+
+| ENV Variable  | Default     | Description
+| ------------: | ----------- | ---------------------------------
+| ORIGINAL_ENTRYPOINT  |   | 
+| GIT_PREFIX  | SERVER_PROFILE  | 
+| ORIGINAL_CMD  | catalina.sh run  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
 - 8443
 
+| VERBOSE  | false  | 
+| _DOLLAR_  | $  | 
 ## Run
 To run a PingDataConsole container: 
 
