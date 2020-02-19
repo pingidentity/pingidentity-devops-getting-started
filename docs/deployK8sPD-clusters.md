@@ -1,7 +1,5 @@
 # PingDirectory deployments across Kubernetes clusters
 
-[?? **Needed for this doc: Stepped instructions on how to deploy**.]
-
 This example is an extension of the topic *Orchestrate a replicated PingDirectory deployment* in [Kubernetes orchestration for general use](deployK8sGeneral.md). Here you'll deploy PingDirectory containers across multiple Kubernetes clusters.
 
 ![K8S Multi-Cluster Overview](images/multi-k8s-cluster-pingdirectory-overview.png)

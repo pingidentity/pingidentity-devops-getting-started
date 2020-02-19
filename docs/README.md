@@ -30,4 +30,4 @@ If you find functionality missing that you believe may be of benefit to other Pi
 
 ## Copyright
 
-Copyright © 2019 Ping Identity. All rights reserved.
+Copyright © 2020 Ping Identity. All rights reserved.
