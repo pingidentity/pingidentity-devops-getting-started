@@ -62,6 +62,7 @@ spec:
             name: pingfederate-engine-environment-variables
         - secretRef:
             name: devops-secret
+            optional: true
         # readiness is important during a rolling update. 
         readinessProbe:
           httpGet:
