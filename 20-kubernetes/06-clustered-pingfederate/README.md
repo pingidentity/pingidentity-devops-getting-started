@@ -1,21 +1,28 @@
 # 06-clustered-pingfederate
 
-The `kustomization.yaml` in this directory builds on top of `/01-standalone` to have pingfederate in cluster: 
-1. Removes the engine port (9031) from the "pingfederate" deployment and service
-2. Adds a cluster port (7600) to the "pingfederate" deployment and service
-3. Create a separate deployment for "pingfederate-engine" (this would be the ployment in which we would scale # replicas)
-4. add a base profile (pf-dns-ping-clustering) that has:
+## What you will do
+The `kustomization.yaml` in this directory builds on top of `/01-standalone` to have pingfederate in cluster. 
+From this directory, running `kustomize build . | envsubst '${PING_IDENTITY_K8S_NAMESPACE}'`
+will generate a kubernetes yaml that includes: 
+
+1. Two deployments:
+  - `pingfederate` represents the admin console. 
+  - `pingfederate-engine` represents the engine(s)
+2. Two Configmaps. One for each deployment. 
+  - These configmaps are nearly identical, but define the operational mode separately.
+3. The configmaps include a [profile layer](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pf-dns-ping-clustering) that turns on PingFederate Clustering. This layer simply includes: 
   - tcp.xml.subst
   - run.properties.subst
-5. add environment variables to pass clustering information
-NOTE: in some situations, the engine may create a cluster before the admin, thus creating cluster silos. 
-TODO:  This can be overcome by using an init container.
+4. Three Services: 
+  - One for each of the two deployments.
+  - Plus, one service, `pf-cluster`, that is pointed two by both deployments. This service is dns-queried to find and add nodes to the cluster. 
 
+## PingFederate Engine Lifecycle
+Some features are added to the PingFederate Engine Deployment to support zero-downtime configuration deployments. explanations for these features are stored as comments in `pingfederate-engine.yaml`.  
 
 ## pre-reqs
 
 - envsubst
-- pingfederate version 10+
 
 ## Running
 
