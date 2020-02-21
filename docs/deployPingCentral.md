@@ -1,4 +1,4 @@
-# Deploy a PingCentral stack
+# Deploy PingCentral
 
 This use case employs the `pingidentity-server-profiles/baseline/pingcentral` server profile. This server profile contains a MySQL database engine located in `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db`. 
 

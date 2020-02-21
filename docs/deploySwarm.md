@@ -1,4 +1,4 @@
-# Orchestrate deployments using Docker Swarm
+# Orchestrate deployments with Docker Swarm
 
 These examples automate the manual steps needed for Docker standalone directories. They include:
 

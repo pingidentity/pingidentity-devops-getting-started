@@ -1,4 +1,4 @@
-# Deploy a single Docker container
+# Deploy standalone containers
 
 Our single container examples are located in the your local `${HOME}/projects/devops/pingidentity-devops-getting-started/10-docker-standalone` directory.
 
