@@ -4,6 +4,7 @@ version: "3.1"
 services:
   pingaccess:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingaccess
     command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -28,6 +29,7 @@ services:
 
   pingdatagovernance:
     image: pingidentity/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdatagovernance
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -47,6 +49,7 @@ services:
 
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingfederate
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -66,6 +69,7 @@ services:
 
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdirectory
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
@@ -90,6 +94,7 @@ services:
   
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdataconsole
     ports:
       - 8443:8443
     networks: 
@@ -97,6 +102,7 @@ services:
               
   pingcentral:
     image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingcentral
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingcentral/dev-unsecure
