@@ -18,7 +18,7 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
    > We'll use this as the parent directory for all DevOps examples referenced in our documentation.
 
 4. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
-5. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
+5. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment. Your entries in the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
 6. Use Docker Compose to deploy the full stack located in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
 7. Log in to the management consoles for the products.
 8. See [Saving your configuration changes](#save-config-changes).
@@ -34,7 +34,7 @@ When you've finished the initial setup and deployment, you can then choose to:
 
 ## DevOps registration
 
-When you register for our DevOps program, you are issued credentials that will automate the process of retrieving a DevOps evalution license. If you already have a product license or licenses for the Ping Identity products you'll be using, you can use your existing license instead of the DevOps evaluation license. 
+When you register for our DevOps program, you are issued credentials that will automate the process of retrieving a DevOps evaluation license. If you already have a product license or licenses for the Ping Identity products you'll be using, you can use your existing license instead of the DevOps evaluation license. 
 
   > Evaluation licenses are short-lived and *not* intended for use in production deployments.
 
@@ -52,7 +52,7 @@ When you register for our DevOps program, you are issued credentials that will a
 
    > Be sure to use the exact variable names.
 
-   When you initially deploy a product container or stack, the DevOps evaluation license will be automatically retrieved.
+   When you initially deploy a product container or stack, the DevOps evaluation license will be automatically retrieved. Use of DevOps resources indicates your acceptance of the evaluation license. This is indicated by the variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
 
 ### Use an existing product license
 
@@ -149,6 +149,9 @@ For a standalone container, use this syntax to make the license file available t
    cd pingidentity-devops-getting-started
    ./setup
    ```
+
+   The setup script stores your entries in the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
+
    > The setup script also adds command aliases to make running Docker and Kubernetes commands easier.
 
 4. Refresh your OS shell to make the command aliases available. For example, enter:
