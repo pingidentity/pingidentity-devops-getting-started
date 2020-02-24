@@ -19,7 +19,7 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 
 4. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
 5. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment.
-6. Use Docker Compose to deploy the full stack. This will run our [YAML configuration file](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose/03-full-stack/docker-compose.yaml).
+6. Use Docker Compose to deploy the full stack located in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
 7. Log in to the management consoles for the products.
 8. See [Saving your configuration changes](#save-config-changes).
 9. Stop or bring down the stack.
