@@ -4,7 +4,6 @@ version: "3.1"
 services:
   pingaccess:
     image: pingidentity/pingaccess:edge
-    container_name: pingaccess-admin
     healthcheck:
       test: ["CMD-SHELL", "curl -s -u administrator:2FederateM0re -H \"X-XSRF-Header: PingAccess\" -k https://localhost:9000/pa-admin-api/v3/sites | jq -e '.items[0].name' "]
       interval: 10s
@@ -30,7 +29,6 @@ services:
 
   pingaccess-engine:
     image: pingidentity/pingaccess:edge
-    container_name: pingaccess-engine
     command: wait-for pingaccess:9000 -t 420 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git

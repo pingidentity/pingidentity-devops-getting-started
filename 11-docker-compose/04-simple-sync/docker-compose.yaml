@@ -4,7 +4,6 @@ version: "3.1"
 services:
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
-    container_name: pingdirectory
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
@@ -35,7 +34,6 @@ services:
 
   pingdatasync:
     image: pingidentity/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
-    container_name: pingdatasync
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync
@@ -59,7 +57,6 @@ services:
   
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
-    container_name: pingdataconsole
     ports:
       - 8443:8443
     networks: 

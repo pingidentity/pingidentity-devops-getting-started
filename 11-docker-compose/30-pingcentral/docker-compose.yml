@@ -2,7 +2,6 @@ version: '3.1'
 services:
   pingcentral:
     image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
-    container_name: pingcentral
     command: wait-for pingcentral-db:3306 -t 7200 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -23,7 +22,6 @@ services:
 
   pingcentral-db:
     image: mysql
-    container_name: pingcentral-db
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: 2Federate

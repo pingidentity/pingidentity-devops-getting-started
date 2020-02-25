@@ -4,7 +4,6 @@ version: "3.1"
 services:
   pingfederate-admin:
     image: pingidentity/pingfederate:edge
-    container_name: pingfederate-admin
     environment:
       - PING_IDENTITY_ACCEPT_EULA=YES
       # Server Profile - Clustering
@@ -31,7 +30,6 @@ services:
 
   pingfederate:
     image: pingidentity/pingfederate:edge
-    container_name: pingfederate-engine
     command: wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server
     environment:
       - PING_IDENTITY_ACCEPT_EULA=YES
