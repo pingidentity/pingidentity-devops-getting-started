@@ -179,6 +179,7 @@ and they will be used as environment variables for scripts, .yamls, etc...
 " >> ${_DOFILE}
   devops_add_config "${_DOFILE}" "PING_IDENTITY_DEVOPS_HOME"               "${HOME}/projects/devops" "Ping Identity DevOps Home"
   devops_add_config "${_DOFILE}" "PING_IDENTITY_DEVOPS_TAG"                "edge" "Ping Identity DevOps Tag (i.e. edge, 1906)"
+  devops_add_config "${_DOFILE}" "PING_IDENTITY_ACCEPT_EULA"                "YES" "Would you like you store acceptance of the default EULA?"
 
 #   echo "
 # ###############################################################################################
