@@ -10,7 +10,7 @@
   - [Deploy standalone containers](docs/deployStandalone.md)
     - [Standalone deployment scripts](docs/deployStandaloneScripts.md)
   - [Orchestrate with Docker-Compose](docs/deployCompose.md)
-    - [Deploy a PingFederate and PingDirectory stack](docs/deployCompose.md)
+    - [Deploy a PingFederate and PingDirectory stack](docs/deploySimpleStack.md)
     - [Deploy a replicated PingDirectory pair](docs/deployReplication.md)
     - [Deploy PingDirectory with data synchronization using PingDataSync](docs/deploySync.md)
     - [Deploy PingCentral](docs/deployPingCentral.md)
