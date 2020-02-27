@@ -7,7 +7,7 @@ We use layered server profiles:
 * The server profile in our [pingidentity-server-profiles/pf-dns-ping-clustering](../../pingidentity-server-profiles/pf-dns-ping-clustering) repository.
 * The server profile in our [pingidentity-server-profiles/getting-started/pingfederate](../../pingidentity-server-profiles/getting-started/pingfederate) repository.
 
-See [Layering server profiles](docs/profilesLayered.md) for more information.
+See [Layering server profiles](profilesLayered.md) for more information.
 
 We use separate deployments for the PingFederate admin node (`env_vars.pingfederate`) and the PingFederate engine node (`env_vars.pingfederate-engine` and `pingfederate-engine.yaml`). To scale out replicas, use the PingFederate engine node.
 
