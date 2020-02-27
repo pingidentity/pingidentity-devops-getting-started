@@ -120,13 +120,7 @@ Replicate configuration across the cluster using the either the PingFederate adm
 
 ## Scale the PingFederate engines
 
-1. If the cluster is running, bring the cluster down:
-
-   ```bash
-   docker-compose down
-   ```
-
-2. Start up multiple PingFederate engine nodes by running `docker-compose` with the `--scale` argument. For example, to scale up to 2 engine nodes:
+To scale up to 2 engine nodes:
 
    ```bash
    docker-compose up -d --scale pingfederate=2

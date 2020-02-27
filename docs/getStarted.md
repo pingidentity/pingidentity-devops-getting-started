@@ -228,6 +228,11 @@ For a standalone container, use this syntax to make the license file available t
      - Root Username: cn=administrator
      - Root Password: 2FederateM0re
 
+<!-- TODO: add instructions pertaining to the use cases with fullstack
+  1. OAuth Playground
+  2. httpbin
+  3. datagov? Pingcentral? -->
+
 3. When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
 
    To stop the running stack without removing any of the containers or associated Docker networks, enter:
