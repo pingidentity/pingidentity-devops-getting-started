@@ -67,7 +67,7 @@ You now have a local server profile based on your existing PingFederate installa
 
 6. Deploy the PingFederate container. The environment variables `SERVER_PROFILE_URL` and `SERVER_PROFILE_PATH` direct Docker to use the server profile you've modified and pushed to Github.
 
-   > To save any changes you make after the container is running, add the entry `--volume <local-path>:/opt/out` to the `docker run` command, where <local-path> is a directory you've not already created. See *Saving your changes* in [Get Started](getStarted.md) for more information.
+   > To save any changes you make after the container is running, add the entry `--volume <local-path>:/opt/out` to the `docker run` command, where <local-path> is a directory you've not already created. See [Saving your changes](saveConfigs.md) for more information.
 
    For example:
   ```bash
