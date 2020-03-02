@@ -4,7 +4,7 @@ Our DevOps hooks are build-specific scripts that are called or can be called by 
 
     > Use of our DevOps hooks is intended only for DevOps professionals.
 
-The available hooks are built with the DevOps images, and can be found in the `hooks` subdirectory of each product directory in the [Docker builds](../../pingidentity-docker-builds) repository. 
+The available hooks are built with the DevOps images, and can be found in the `hooks` subdirectory of each product directory in the [Docker builds](https://github.com/pingidentity/pingidentity-docker-builds) repository. 
 
 In the `entrypoint.sh` startup script, there is an example (stub) provided for the available hooks for all products.
 

@@ -77,16 +77,16 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
     # description: Made this change on the first container.
     ```
 
-3. When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
-
-   To stop the running stack without removing any of the containers or associated Docker networks, enter:
-
-   ```bash
-   docker-compose stop
-   ```
+3. When you no longer want to run this stack, bring the stack down.
 
    To remove all of the containers and associated Docker networks, enter:
 
    ```bash
    docker-compose down
+   ```
+   
+   To stop the running stack without removing any of the containers or associated Docker networks, enter:
+
+   ```bash
+   docker-compose stop
    ```
