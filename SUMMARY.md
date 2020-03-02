@@ -6,6 +6,8 @@
 * [Overview](docs/overview.md)
 * [Get started](docs/getStarted.md)
   - [Using your DevOps user and key](docs/devopsUserKey.md)
+  - [Using an existing product license](docs/existingLicense.md)
+  - [Saving your configuration changes](docs/saveConfigs.md)
 * [Working with DevOps images](docs/deploy.md)
   - [Deploy standalone containers](docs/deployStandalone.md)
     - [Standalone deployment scripts](docs/deployStandaloneScripts.md)

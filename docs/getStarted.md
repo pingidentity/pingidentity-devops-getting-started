@@ -21,10 +21,10 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 5. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment. Your entries in the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
 6. Use Docker Compose to deploy the full stack located in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
 7. Log in to the management consoles for the products.
-8. See [Saving your configuration changes](#save-config-changes).
+8. See [Saving your configuration changes](saveConfigs.md) to persist data to a local Docker volume.
 9. Stop or bring down the stack.
 
-See the **DevOps registration** and **Initial setup** topics for complete instructions.
+See the [DevOps registration](#devopsReg) and [Initial setup](#initSetup) topics below for complete instructions.
 
 When you've finished the initial setup and deployment, you can then choose to:
 
@@ -32,6 +32,7 @@ When you've finished the initial setup and deployment, you can then choose to:
 * [Configure and deploy our other examples](deploy.md).
 * [Customize the container and stack configurations](config.md).
 
+<a name="devopsReg"></a>
 ## DevOps registration
 
 When you register for our DevOps program, you are issued credentials that will automate the process of retrieving a DevOps evaluation license. If you already have a product license or licenses for the Ping Identity products you'll be using, you can use your existing license instead of the DevOps evaluation license. 
@@ -54,78 +55,9 @@ When you register for our DevOps program, you are issued credentials that will a
 
    When you initially deploy a product container or stack, the DevOps evaluation license will be automatically retrieved. Use of DevOps resources indicates your acceptance of the evaluation license. This is indicated by the variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
 
-### Use an existing product license
+If you have an existing Ping Identity product license or licenses that you want to use, see [Use an existing license](existingLicense.md) for instructions before proceeding.
 
-If you have an existing, valid product license for the product or products you'll be running, you can use this instead of the DevOps evaluation license. Use either of these two methods to make an existing product license file available to your deployment:
-
-* Copy each license file to the server profile location associated with the product. The default server profile locations are:
-  
-  - PingFederate: `instance/server/default/conf/pingfederate.lic`
-  - PingAccess: `instance/conf/pingaccess.lic`
-  - PingDirectory: `instance/pingdirectory.lic`
-  - PingDataGovernance: `instance/pingdatagovernance.lic`
-  - PingDataSync: `instance/pingdatasync.lic`
-  - PingCentral: `instance/conf/pingcentral.lic`
-
-#### License declarations for stacks
-
-For our Docker stacks, copy each license file to the `/opt/in` volume that you've mounted. The `/opt/in` directory overlays files onto the products runtime filesystem, the license needs to be named correctly and mounted in the exact location the product checks for valid licenses.
-
- 1. Add a `volumes` section to the container entry for each product for which you have a license file in the `docker-compose.yaml` file you're using for the stack.
- 2. Under the `volumes` section, add a location to mount `opt/in`. For example:
-
-    ```yaml
-    pingfederate:
-    .
-    .
-    .
-    volumes:
-      - <path>/pingfederate.lic:/opt/in/instance/server/default/conf/pingfederate.lic
-    ```
-
-    Where \<path> is the location of your existing PingFederate license file.
-
-    When the container starts, this will bind mount `<path>/pingfederate.lic` to this location in the container`/opt/in/instance/server/default/conf/pingfederate.lic`. The mount paths must match the expected license path for the product. These are:
-
-    * PingFederate
-      - Expected license file name: `pingfederate.lic`
-      - Mount Path: `/opt/in/instance/server/default/conf/pingfederate.lic`
-
-    * PingAccess
-      - Expected license file name: `pingaccess.lic`
-      - Mount Path: `opt/in/instnce/conf/pingaccess.lic`
-
-    * PingDirectory
-      - Expected License file name: `PingDirectory.lic`
-      - Mount Path: `/opt/in/instance/PingDirectory.lic`
-
-    * PingDataSync
-      - Expected license file name: `PingDirectory.lic`
-      - Mount Path: `/opt/in/instance/PingDirectory.lic`
-
-    * PingDataGovernance
-      - Expected license file name: `PingDataGovernance.lic`
-      - Mount Path: `/opt/in/instance/PingDataGovernance.lic`
-
-    * PingCentral
-      - Expected license file name: `pingcentral.lic`
-      - Mount Path: `/opt/in/instance/conf/pingcentral.lic`
-
- 3. Repeat this process for the remaining container entries for which you have an existing license.
-
-#### License declarations for standalaone containers
-
-For a standalone container, use this syntax to make the license file available to the deployment:
-
-   ```bash
-   docker run \
-       --name pingfederate \
-       --volume <path>/pingfederate.lic>:/opt/in/instance/server/default/conf/pingfederate.lic
-       pingidentity/pingfederate:edge
-   ```
-
-   Where `<path>` and the `/opt/in` mount path are as specified for our Docker stacks above.
-
+<a name="initSetup"></a>
 ## Initial setup
 
 1. Create a local DevOps directory in this location: `${HOME}/projects/devops`. For example, enter:
@@ -168,7 +100,7 @@ For a standalone container, use this syntax to make the license file available t
 
 1. Deploy the full stack of product containers:
 
-   > For your initial deployment of the stack, we recommend you make no changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. Any configuration changes you make will not be saved when you bring down the stack. For subsequent deployments, see **Saving your configuration changes**.
+   > For your initial deployment of the stack, we recommend you make no changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. Any configuration changes you make will not be saved when you bring down the stack. For subsequent deployments, see [Saving your configuration changes](saveConfigs.md).
 
    a. To start the stack, on your local machine, go to the `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
@@ -242,44 +174,3 @@ For a standalone container, use this syntax to make the license file available t
    docker-compose down
    ```
 
-<a name="save-config-changes"/>
-## Save your configuration changes
-
-To save any configuration changes you make when using the products in the stack, you need to set up a local Docker volume to persist state and data for the stack. If you don't do this, whenever you bring the stack down your configuration changes will be lost.
-
-You'll bind mount a Docker volume location to the Docker `/opt/out` directory for the container. The location must be to a directory you've not already created. Our Docker containers use the `/opt/out` directory to store application data.
-
-> Make sure the local directory is not already created. Docker needs to create this directory for the bind mount to `/opt/out`.
-
-You can bind mount a Docker volume for containers in a stack or for standalone containers.
-
-### Bind mounting for a stack
-
-1. Add a `volumes` section under the container entry for each product in the `docker-compose.yaml` file you're using for the stack.
-2. Under the `volumes` section, add a location to persist your data. For example:
-
-   ```yaml
-   pingfederate:
-   .
-   .
-   .
-   volumes:
-    - /tmp/compose/pingfederate_1:/opt/out
-   ```
-
-3. In the `environment` section, comment out the `SERVER_PROFILE_PATH` setting. The container will then use your `volumes` entry to supply the product state and data, including your configuration changes.
-
-   When the container starts, this will bind mount `/tmp/compose/pingfederate_1` to the `/opt/out` directory in the container. You're also able to view the product logs and data in the `/tmp/compose/pingfederate_1` directory.
-
-4. Repeat this process for the remaining container entries in the stack.
-
-### Bind mounting for a standalone container
-
-* Add a `volume` entry to the `docker run` command:
-
-  ```bash
-  docker run \
-      --name pingfederate \
-      --volume <local-path>:/opt/out
-      pingidentity/pingfederate:edge
-  ```
