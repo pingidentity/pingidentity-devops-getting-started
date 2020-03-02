@@ -12,17 +12,16 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 ## What you'll do
 
 1. Create a Ping Identity account get a DevOps evaluation license, or sign on to your existing account and register for a DevOps user name and key.
-2. Save your DevOps credentials in a local text file.
-3. Create the local DevOps directory, `${HOME}/projects/devops`.
+2. Create the local DevOps directory, `${HOME}/projects/devops`.
 
    > We'll use this as the parent directory for all DevOps examples referenced in our documentation.
 
-4. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
-5. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment. Your entries in the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
-6. Use Docker Compose to deploy the full stack located in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
-7. Log in to the management consoles for the products.
-8. See [Saving your configuration changes](saveConfigs.md) to persist data to a local Docker volume.
-9. Stop or bring down the stack.
+3. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
+4. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment. Your entries in the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
+5. Use Docker Compose to deploy the full stack located in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
+6. Log in to the management consoles for the products.
+7. See [Saving your configuration changes](saveConfigs.md) to persist data to a local Docker volume.
+8. Stop or bring down the stack.
 
 See the [DevOps registration](#devopsReg) and [Initial setup](#initSetup) topics below for complete instructions.
 
