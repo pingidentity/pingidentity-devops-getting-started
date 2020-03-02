@@ -35,7 +35,7 @@ When you've finished the initial setup and deployment, you can then choose to:
 <a name="devopsReg"></a>
 ## DevOps registration
 
-When you register for our DevOps program, you are issued credentials that will automate the process of retrieving a DevOps evaluation license. If you already have a product license or licenses for the Ping Identity products you'll be using, you can use your existing license instead of the DevOps evaluation license. 
+Registering for our DevOps program grants you credentials that can be provided as variables to PingIdentity containers. This streamlines license issues by allowing the container to automatically rerieve an evaluation license upon container startup. 
 
   > Evaluation licenses are short-lived and *not* intended for use in production deployments.
 
@@ -44,18 +44,7 @@ When you register for our DevOps program, you are issued credentials that will a
 
     Your DevOps user name and key will be sent to your email. This will generally take only a few business hours.
 
-3. Save your DevOps user name and key in a text file. It'll look something like this:
-
-   ```text
-   PING_IDENTITY_DEVOPS_USER=jsmith@example.com
-   PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
-   ```
-
-   > Be sure to use the exact variable names.
-
-   When you initially deploy a product container or stack, the DevOps evaluation license will be automatically retrieved. Use of DevOps resources indicates your acceptance of the evaluation license. This is indicated by the variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
-
-If you have an existing Ping Identity product license or licenses that you want to use, see [Use an existing license](existingLicense.md) for instructions before proceeding.
+> It is recommended (due to ease of use) to use the devop user/key approach for evaluating Ping Identity container use-cases. However, if you'd rather use an existing Ping Identity product license, see [Use an existing license](existingLicense.md) for instructions before proceeding.
 
 <a name="initSetup"></a>
 ## Initial setup
@@ -75,16 +64,19 @@ If you have an existing Ping Identity product license or licenses that you want 
    git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
    ```
 
-3. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script to quickly and easily set up your local DevOps environment for our products. For example, enter:
+3. Go to the `${HOME}/projects/devops/pingidentity-devops-getting-started` directory and run our `setup` script.
+This script will ask some questions then create an environment on the host machine. 
+
+For example, enter:
 
    ```bash
    cd pingidentity-devops-getting-started
    ./setup
    ```
+   > The setup script also offers to add command aliases to make running Docker and Kubernetes commands easier.
 
-   The setup script stores your entries in the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
+   The setup script stores your entries in the file `${HOME}/.pingidentity/devops`. Many of the examples in `${HOME}/projects/devops/pingidentity-devops-getting-started` will either source the `devops` file as variables into the container, or expect the file to be sourced in the current shell. So:
 
-   > The setup script also adds command aliases to make running Docker and Kubernetes commands easier.
 
 4. Refresh your OS shell to make the command aliases available. For example, enter:
 
