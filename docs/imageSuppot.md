@@ -5,7 +5,7 @@
 Unlike traditionally delivered software, Docker Images include product artifacts, operating system, Java Development Kit (JDK)
 and miscellaneous tools/libraries (Git, SSH, SSL) to run the software.
 
-Due to the number of dependency updates and to ensure all patches are captured, Ping Identity builds supported product images daily (edge), releasing a stable build each month (sprint and latest).
+Due to the number of dependency updates and to ensure all patches are captured, Ping Identity builds supported product images semi-weekly (edge), releasing a stable build each month (sprint and latest).
 
 The build process retrieves the latest versions of:
 
