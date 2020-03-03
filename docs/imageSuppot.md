@@ -27,3 +27,5 @@ Examples:
 * Once 10.0.2 is released, 10.0.1 will no longer be updated
 * Once 10.1 is available, 10.0.X (Last updated patch release) will continue to be updated
 * Once 11.0 is released, all version 9 images will no longer be built
+
+>Note: Image versions that have fallen out of Ping's support window will be removed from DockerHub 3 months after support has ended.
