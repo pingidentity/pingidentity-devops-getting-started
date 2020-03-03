@@ -8,7 +8,7 @@ services:
       - PING_IDENTITY_ACCEPT_EULA=YES
       # Server Profile - Clustering
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=pf-compose-clustering/pingfederate
+      - SERVER_PROFILE_PATH=pf-aws-s3-clustering/pingfederate
       - SERVER_PROFILE_PARENT=GETTING_STARTED
       
       # Getting Started Server Profile
@@ -38,7 +38,7 @@ services:
       - PING_IDENTITY_ACCEPT_EULA=YES
       # Server Profile - Clustering
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=pf-compose-clustering/pingfederate
+      - SERVER_PROFILE_PATH=pf-aws-s3-clustering/pingfederate
       - SERVER_PROFILE_PARENT=GETTING_STARTED
       
       # Getting Started Server Profile
