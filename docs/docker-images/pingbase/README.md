@@ -11,7 +11,7 @@ include:
 
 ## Related Docker Images
 - `openjdk:8-jre-alpine` - Parent Image for `SHIM=alpine`
-- `centos` - Parent Image for `SHIM=cenots`
+- `centos` - Parent Image for `SHIM=centos`
 - `ubuntu:disco` - Parent Image for `SHIM=ubuntu`
 
 ## Environment Variables
@@ -68,7 +68,6 @@ this image.
 | PA_ENGINE_PUBLIC_HOSTNAME  | localhost  | 
 | PA_ADMIN_PUBLIC_HOSTNAME  | localhost  | 
 | ROOT_USER_DN  | cn=administrator  | the default administrative user for PingData 
-| PATH  | ${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  | 
 | ENV  | ${BASE}/.profile  | 
 | MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json 
 | PING_CONTAINER_PRIVILEGED  | true  | Default shell prompt (i.e. productName:hostname:workingDir) Whether to run the process as Root or not if set to false, user spec can be left to default (uid:9031, gid:9999) or a custom uid can be passed with PING_CONTAINER_UID and PING_CONTAINER_GID 
@@ -77,6 +76,7 @@ this image.
 | PING_CONTAINER_UNAME  | ping  | The user name the product will use if PING_CONTAINER_PRIVILEGED is set to false and a user with that ID does not exist already 
 | PING_CONTAINER_GNAME  | identity  | The group name the product will use if PING_CONTAINER_PRIVILEGED is set to false and a group with that ID does not exist already 
 | JAVA_HOME  | /opt/java  | 
+| PATH  | ${JAVA_HOME}/bin:${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  | 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 

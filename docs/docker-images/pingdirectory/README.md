@@ -18,6 +18,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  | 
 | PING_PRODUCT  | PingDirectory  | PingIdentity license version Ping product name 
 | LICENSE_FILE_NAME  | PingDirectory.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PD  | Shortname used when retrieving license from License Server 

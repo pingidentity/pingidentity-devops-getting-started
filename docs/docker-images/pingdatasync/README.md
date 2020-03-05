@@ -17,6 +17,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | PingIdentity license version 
 | LICENSE_FILE_NAME  | PingDirectory.lic  | 
 | LICENSE_SHORT_NAME  | PD  | 
@@ -44,7 +45,6 @@ used, then it may come from a parent container
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=simple-sync/pingdatasync \
            pingidentity/pingdatasync
-```
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatasync/hooks/README.md) for details on all pingdatasync hook scripts
 

@@ -18,6 +18,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  | 
 | PING_PRODUCT  | PingDataGovernance  | PingIdentity license version Ping product name 
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 

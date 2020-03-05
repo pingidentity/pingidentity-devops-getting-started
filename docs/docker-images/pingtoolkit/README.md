@@ -18,6 +18,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  | 
 | PING_PRODUCT  | PingToolkit  | 
 | STARTUP_COMMAND  | tail  | 
 | STARTUP_FOREGROUND_OPTS  | -f /dev/null  | 

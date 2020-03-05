@@ -14,6 +14,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  | 
 | PING_PRODUCT  | PingDataGovernance-PAP  | PingIdentity license version Ping product name 
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 
@@ -50,7 +51,6 @@ docker logs -f pingdatagovernancepap
 Log in with: 
 * https://localhost:8443/
   * Username: admin
-  * Password: password123
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatagovernancepap/hooks/README.md) for details on all pingdatagovernancepap hook scripts
 

@@ -11,12 +11,6 @@ Engine nodes.
 - pingidentity/pingcommon - Common Ping files (i.e. hook scripts)
 - pingidentity/pingdownloader - Used to download product bits
 
-## Ports Exposed
-The following ports are exposed from the container.  If a variable is
-used, then it may come from a parent container
-- 9031
-- 9999
-
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
 the following environment `ENV` variables can be used with 
@@ -24,6 +18,13 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  | 
+## Ports Exposed
+The following ports are exposed from the container.  If a variable is
+used, then it may come from a parent container
+- 9031
+- 9999
+
 | PING_PRODUCT  | PingFederate  | 
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  | 
 | LICENSE_FILE_NAME  | pingfederate.lic  | 
@@ -36,8 +37,8 @@ this image.
 | PF_ENGINE_DEBUG  | false  | 
 | PF_ADMIN_DEBUG  | false  | 
 | PF_DEBUG_PORT  | 9030  | 
-| PF_ADMIN_PORT  | 9999  | 
 | PF_ENGINE_PORT  | 9031  | 
+| PF_ADMIN_PORT  | 9999  | 
 ## Running a PingFederate container
 To run a PingFederate container:
 
