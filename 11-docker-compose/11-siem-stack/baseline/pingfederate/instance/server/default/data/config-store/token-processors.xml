@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <con:map name="token-processors">
+        <con:item name="UsernameTokenProcessor">com.pingidentity.pf.tokenprocessors.username.UsernameTokenProcessor</con:item>
+    </con:map>
+</con:config>

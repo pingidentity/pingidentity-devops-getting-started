@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urn:AdapterConfiguration authnCtxClassRef="" isInheritAttributeSettings="false" isInheritAttributeMapping="false" maskOgnlValues="false" isInheritExtendedContractAttributes="false" name="HTMLFormPD" xmlns:urn="urn:sourceid.org:saml2:adapter:conf">
+    <urn:Fields>
+        <urn:Field name="Challenge Retries">3</urn:Field>
+        <urn:Field name="Session State">None</urn:Field>
+        <urn:Field name="Session Timeout">60</urn:Field>
+        <urn:Field name="Session Max Timeout">480</urn:Field>
+        <urn:Field name="Allow Password Changes">false</urn:Field>
+        <urn:Field name="Password Management System"/>
+        <urn:Field name="Enable 'Remember My Username'">false</urn:Field>
+        <urn:Field name="Enable 'This is My Device'">false</urn:Field>
+        <urn:Field name="Change Password Email Notification">false</urn:Field>
+        <urn:Field name="Show Password Expiring Warning">false</urn:Field>
+        <urn:Field name="Password Reset Type">NONE</urn:Field>
+        <urn:Field name="Account Unlock">false</urn:Field>
+        <urn:Field name="Local Identity Profile">RBSQIwi5KWYN9ZGK</urn:Field>
+        <urn:Field name="Enable Username Recovery">false</urn:Field>
+        <urn:Field name="Login Template">html.form.login.template.html</urn:Field>
+        <urn:Field name="Logout Path"/>
+        <urn:Field name="Logout Redirect"/>
+        <urn:Field name="Logout Template">idp.logout.success.page.template.html</urn:Field>
+        <urn:Field name="Change Password Template">html.form.change.password.template.html</urn:Field>
+        <urn:Field name="Change Password Message Template">html.form.message.template.html</urn:Field>
+        <urn:Field name="Password Management System Message Template">html.form.message.template.html</urn:Field>
+        <urn:Field name="Change Password Email Template">message-template-end-user-password-change.html</urn:Field>
+        <urn:Field name="Expiring Password Warning Template">html.form.password.expiring.notification.template.html</urn:Field>
+        <urn:Field name="Threshold for Expiring Password Warning">7</urn:Field>
+        <urn:Field name="Snooze Interval for Expiring Password Warning">24</urn:Field>
+        <urn:Field name="Login Challenge Template">html.form.login.challenge.template.html</urn:Field>
+        <urn:Field name="'Remember My Username' Lifetime">30</urn:Field>
+        <urn:Field name="'This is My Device' Lifetime">30</urn:Field>
+        <urn:Field name="Allow Username Edits During Chaining">false</urn:Field>
+        <urn:Field name="Track Authentication Time">true</urn:Field>
+        <urn:Field name="Post-Password Change Re-Authentication Delay">0</urn:Field>
+        <urn:Field name="Password Reset Username Template">forgot-password.html</urn:Field>
+        <urn:Field name="Password Reset Code Template">forgot-password-resume.html</urn:Field>
+        <urn:Field name="Password Reset Template">forgot-password-change.html</urn:Field>
+        <urn:Field name="Password Reset Error Template">forgot-password-error.html</urn:Field>
+        <urn:Field name="Password Reset Success Template">forgot-password-success.html</urn:Field>
+        <urn:Field name="Account Unlock Template">account-unlock.html</urn:Field>
+        <urn:Field name="OTP Length">8</urn:Field>
+        <urn:Field name="OTP Time to Live">10</urn:Field>
+        <urn:Field name="PingID Properties"/>
+        <urn:Field name="Require Verified Email">false</urn:Field>
+        <urn:Field name="Username Recovery Template">username.recovery.template.html</urn:Field>
+        <urn:Field name="Username Recovery Info Template">username.recovery.info.template.html</urn:Field>
+        <urn:Field name="Username Recovery Email Template">message-template-username-recovery.html</urn:Field>
+        <urn:Field name="CAPTCHA for Authentication">false</urn:Field>
+        <urn:Field name="CAPTCHA for Password change">false</urn:Field>
+        <urn:Field name="CAPTCHA for Password Reset">false</urn:Field>
+        <urn:Field name="CAPTCHA for Username recovery">false</urn:Field>
+    </urn:Fields>
+    <urn:AdvancedFields>
+        <urn:Field name="Login Template">html.form.login.template.html</urn:Field>
+        <urn:Field name="Logout Path"/>
+        <urn:Field name="Logout Redirect"/>
+        <urn:Field name="Logout Template">idp.logout.success.page.template.html</urn:Field>
+        <urn:Field name="Change Password Template">html.form.change.password.template.html</urn:Field>
+        <urn:Field name="Change Password Message Template">html.form.message.template.html</urn:Field>
+        <urn:Field name="Password Management System Message Template">html.form.message.template.html</urn:Field>
+        <urn:Field name="Change Password Email Template">message-template-end-user-password-change.html</urn:Field>
+        <urn:Field name="Expiring Password Warning Template">html.form.password.expiring.notification.template.html</urn:Field>
+        <urn:Field name="Threshold for Expiring Password Warning">7</urn:Field>
+        <urn:Field name="Snooze Interval for Expiring Password Warning">24</urn:Field>
+        <urn:Field name="Login Challenge Template">html.form.login.challenge.template.html</urn:Field>
+        <urn:Field name="'Remember My Username' Lifetime">30</urn:Field>
+        <urn:Field name="'This is My Device' Lifetime">30</urn:Field>
+        <urn:Field name="Allow Username Edits During Chaining">false</urn:Field>
+        <urn:Field name="Track Authentication Time">true</urn:Field>
+        <urn:Field name="Post-Password Change Re-Authentication Delay">0</urn:Field>
+        <urn:Field name="Password Reset Username Template">forgot-password.html</urn:Field>
+        <urn:Field name="Password Reset Code Template">forgot-password-resume.html</urn:Field>
+        <urn:Field name="Password Reset Template">forgot-password-change.html</urn:Field>
+        <urn:Field name="Password Reset Error Template">forgot-password-error.html</urn:Field>
+        <urn:Field name="Password Reset Success Template">forgot-password-success.html</urn:Field>
+        <urn:Field name="Account Unlock Template">account-unlock.html</urn:Field>
+        <urn:Field name="OTP Length">8</urn:Field>
+        <urn:Field name="OTP Time to Live">10</urn:Field>
+        <urn:Field name="PingID Properties"/>
+        <urn:Field name="Require Verified Email">false</urn:Field>
+        <urn:Field name="Username Recovery Template">username.recovery.template.html</urn:Field>
+        <urn:Field name="Username Recovery Info Template">username.recovery.info.template.html</urn:Field>
+        <urn:Field name="Username Recovery Email Template">message-template-username-recovery.html</urn:Field>
+        <urn:Field name="CAPTCHA for Authentication">false</urn:Field>
+        <urn:Field name="CAPTCHA for Password change">false</urn:Field>
+        <urn:Field name="CAPTCHA for Password Reset">false</urn:Field>
+        <urn:Field name="CAPTCHA for Username recovery">false</urn:Field>
+    </urn:AdvancedFields>
+    <urn:Tables>
+        <urn:Table name="Credential Validators">
+            <urn:Row>
+                <urn:Field name="Password Credential Validator Instance">pingdirectory</urn:Field>
+            </urn:Row>
+        </urn:Table>
+    </urn:Tables>
+    <urn:ExtendedContractAttributes>
+        <urn:AttributeName>entryUUID</urn:AttributeName>
+    </urn:ExtendedContractAttributes>
+    <urn:UniqueKeyField>username</urn:UniqueKeyField>
+    <urn:AttributeMapping>
+        <urn1:AttributeMap Name="entryUUID" Type="Adapter" Value="entryUUID" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
+        <urn1:AttributeMap Name="policy.action" Type="Adapter" Value="policy.action" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
+        <urn1:AttributeMap Name="username" Type="Adapter" Value="username" xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
+        <urn1:TokenAuthorizationIssuanceCriteria xmlns:urn1="urn:sourceid.org:saml2:metadata-extension:v2"/>
+    </urn:AttributeMapping>
+</urn:AdapterConfiguration>

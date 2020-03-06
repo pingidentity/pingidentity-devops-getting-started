@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urn:Clients xmlns:urn="urn:pingidentity.com:pf:oauth:client">
+    <urn:Client client_id="cc_jwt_client" name="Client Credentials (JWT)" persistentGrantExpirationTime="0" enabled="true" persistentGrantExpirationTimeUnit="d" lastModified="2019-01-28T03:14:55.911Z" bypassApprovalPage="false" restrictScopes="false" jwks="{   &quot;keys&quot;: [     {       &quot;kty&quot;: &quot;RSA&quot;,       &quot;kid&quot;: &quot;k1&quot;,       &quot;n&quot;: &quot;w0wHL2-NidcFB9QMOw9LSSnwLpfbEmwi85zCe5V-5PGJF0Np228m3kP8zTFX047m2AVpeLiFBwGaKLRX-76nAuvTWn-S9oCagdt_SRHDw0t_4iPD-PeAQ24uF6zby-mzqNeZsY2Er8nrUZFSVDW_wHfOGhbbLTrrO96I4II5EAopdqlIyUebJ3lzvjKiz26fQ2V-UIkUez4RQaCX8OoDz1XUFL-gz5KgJD2EE1v4vEwUNQx1-vAWTg2HpAbP4cJd8i3fwZrKUgZDJw0prbLZfxeQya04Txq2IRqm6d1_eRhaxaPBLY51EvOx66Coxikyh5cvXlbSvKPOK--ygSXckw&quot;,       &quot;e&quot;: &quot;AQAB&quot;     }   ] }" clientAuthnType="PRIVATE_KEY_JWT" enforceOneTimeJWT="false" isRequireSignedRequest="false">
+        <urn:Grant type="client_credentials"/>
+        <urn:SupplementalInfo key="DEVICE_FLOW_SETTING" value="SERVER_DEFAULT"/>
+        <urn:SupplementalInfo key="DEFAULT_ATM_ID" value="jwt"/>
+        <urn:SupplementalInfo key="PING_ACCESS_LOGOUT_CAPABLE" value="false"/>
+        <urn:SupplementalInfo key="RESTRICT_RESPONSE_TYPES" value="false"/>
+        <urn:SupplementalInfo key="ACCESS_SESSION_REVOCATION_API" value="false"/>
+        <urn:SupplementalInfo key="PERSISTENT_GRANT_IDLE_TIMEOUT_TYPE" value="SERVER_DEFAULT"/>
+        <urn:SupplementalInfo key="VALIDATE_USING_ALL_ELIGIBLE_ATMS" value="false"/>
+        <urn:SupplementalInfo key="PERSISTENT_GRANT_IDLE_TIMEOUT_TIME_UNIT" value="d"/>
+        <urn:SupplementalInfo key="ENABLED" value="true"/>
+        <urn:SupplementalInfo key="PERSISTENT_GRANT_IDLE_TIMEOUT" value="0"/>
+    </urn:Client>
+</urn:Clients>

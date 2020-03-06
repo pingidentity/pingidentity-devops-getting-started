@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <!-- Data store id -->
+    <c:item name="PingFederateDSJNDIName">LDAP-D803C87FAB2ADFB4B0A947B64BA6F0C6093A5CA3</c:item>
+
+    <!-- LDAP search base. This should point to your client location. Eg. OU=clients,DC=4s8i6q,DC=global  -->
+    <c:item name="SearchBase">ou=oauthClients,dc=example,dc=com</c:item>
+
+    <!-- Name of the Client objectClass -->
+    <c:item name="clientObjectClass">pf-oauth-client</c:item>
+
+    <!-- Attribute names that are used to store Client data. These only need to change if they conflict with
+         existing attributes, or a different naming scheme is needed
+     -->
+    <c:item name="clientId">pf-oauth-client-id</c:item>
+    <c:item name="clientName">pf-oauth-client-name</c:item>
+    <c:item name="refreshRolling">pf-oauth-client-refresh-rolling</c:item>
+    <c:item name="logoUrl">pf-oauth-client-logo-url</c:item>
+    <c:item name="hashedSecret">pf-oauth-client-hashed-secret</c:item>
+    <c:item name="description">pf-oauth-client-description</c:item>
+    <c:item name="persistentGrantExpType">pf-oauth-client-persistent-grant-exp-type</c:item>
+    <c:item name="persistentGrantExpTime">pf-oauth-client-persistent-grant-exp-time</c:item>
+    <c:item name="persistentGrantExpTimeUnit">pf-oauth-client-persistent-grant-exp-time-unit</c:item>
+    <c:item name="bypassApprovalPage">pf-oauth-client-bypass-approval-page</c:item>
+    <c:item name="grantType">pf-oauth-client-grant-type</c:item>
+    <c:item name="redirectUri">pf-oauth-client-redirect-uri</c:item>
+    <c:item name="restrictScopes">pf-oauth-client-restrict-scopes</c:item>
+    <c:item name="restrictedScopes">pf-oauth-client-restricted-scopes</c:item>
+    <c:item name="logoutUri">pf-oauth-client-logout-uri</c:item>
+    <c:item name="authnType">pf-oauth-client-authn-type</c:item>
+    <c:item name="clientCertIssuerDn">pf-oauth-client-client-cert-issuer-dn</c:item>
+    <c:item name="clientCertSubjectDn">pf-oauth-client-client-cert-subject-dn</c:item>
+    <c:item name="jwksUrl">pf-oauth-client-jwks-url</c:item>
+    <c:item name="jwks">pf-oauth-client-jwks</c:item>
+    <c:item name="enforceReplayPrevention">pf-oauth-client-enforce-replay-prevention</c:item>
+    <c:item name="requireSignedRequests">pf-oauth-client-require-signed-requests</c:item>
+    <c:item name="lastModified">pf-oauth-client-last-modified</c:item>
+    <c:item name="supplementalInfo">pf-oauth-client-supplemental-info</c:item>
+</c:config>

@@ -1,0 +1,22 @@
+#!/usr/bin/env
+echo Hello from the baseline server profile 20-restart-sequence.sh.pre hook!
+echo "====> USER_BASE_DN=[${USER_BASE_DN}]"
+computedDomain=$(echo ${USER_BASE_DN} | sed 's/^dc=\([^,]*\).*/\1/' )
+computedOrg=$(echo ${USER_BASE_DN} | sed 's/^o=\([^,]*\).*/\1/' )
+
+if ! test "${USER_BASE_DN}" = "${computedDomain}"; then
+    cat<<END_DOMAIN >>${STAGING_DIR}/env_vars
+BASE_ATTRIBUTE=dc: ${computedDomain}
+BASE_CLASS=domain
+END_DOMAIN
+
+elif ! test "${USER_BASE_DN}" = "${computedOrg}"; then
+    cat<<END_ORG >>${STAGING_DIR}/env_vars
+BASE_ATTRIBUTE=o: ${computedOrg}
+BASE_CLASS=organization
+END_ORG
+
+else
+    echo_red "ERROR: the base is expected to be dc=<your domain> or o=<your org>"
+    exit 183
+fi

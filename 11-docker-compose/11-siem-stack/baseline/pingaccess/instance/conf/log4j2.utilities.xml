@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ ****************************************************
+  ~  Copyright (C) 2017 Ping Identity Corporation
+  ~  All rights reserved.
+  ~
+  ~  The contents of this file are the property of Ping Identity Corporation.
+  ~  You may not copy or use this file, in either source code or executable
+  ~  form, except in compliance with terms set by Ping Identity Corporation.
+  ~  For further information please contact:
+  ~
+  ~  Ping Identity Corporation
+  ~  1099 18th St Suite 2950
+  ~  Denver, CO 80202
+  ~  303.468.2900
+  ~  http://www.pingidentity.com
+  ~ ******************************************************
+  -->
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4J2 Configuration                                                 -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!--
+   | For more configuration information and examples see the Apache Log4j2
+   | website: http://logging.apache.org/log4j/2.x/
+ -->
+
+<Configuration>
+    <Loggers>
+        <!-- Internal-->
+        <root level="OFF" includeLocation="false">
+        </root>
+    </Loggers>
+</Configuration>

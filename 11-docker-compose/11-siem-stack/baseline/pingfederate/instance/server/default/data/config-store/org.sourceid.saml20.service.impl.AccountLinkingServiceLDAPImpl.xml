@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    
+    <!-- Data store id -->
+    <c:item name="PingFederateDSJNDIName">LDAP-D803C87FAB2ADFB4B0A947B64BA6F0C6093A5CA3</c:item>
+    
+    <!-- LDAP search base -->
+    <c:item name="UserSearchBase">ou=identities,dc=example,dc=com</c:item>
+    
+    <!-- LDAP username attribute.  ex: sAMAccountName -->
+    <c:item name="UsernameAttribute">mail</c:item>
+    
+    <!-- Attribute on user object to place Account Linking data -->
+    <c:item name="AccountLinkDataAttribute">description</c:item>
+
+</c:config>

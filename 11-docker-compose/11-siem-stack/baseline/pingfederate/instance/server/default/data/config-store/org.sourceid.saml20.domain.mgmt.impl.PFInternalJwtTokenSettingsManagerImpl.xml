@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+<!-- Select one of the following encryption algorithms type for PingFederate's internal token JWT encryption -->
+	<!-- A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM and A256GCM -->
+	<con:item name="encryptionAlgorithm">A128CBC-HS256</con:item>
+</con:config>

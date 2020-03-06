@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urn:TokenProcessorConfiguration isInheritAttributeSettings="false" maskOgnlValues="false" isInheritExtendedContractAttributes="false" name="UsernameTokenProcessor" xmlns:urn="urn:sourceid.org:saml2:adapter:conf">
+    <urn:Fields>
+        <urn:Field name="Authentication Attempts">3</urn:Field>
+    </urn:Fields>
+    <urn:AdvancedFields/>
+    <urn:Tables>
+        <urn:Table name="Credential Validators">
+            <urn:Row>
+                <urn:Field name="Password Credential Validator Instance">pingdirectory</urn:Field>
+            </urn:Row>
+            <urn:Row>
+                <urn:Field name="Password Credential Validator Instance">simple</urn:Field>
+            </urn:Row>            
+        </urn:Table>
+    </urn:Tables>
+    <urn:ExtendedContractAttributes/>
+</urn:TokenProcessorConfiguration>

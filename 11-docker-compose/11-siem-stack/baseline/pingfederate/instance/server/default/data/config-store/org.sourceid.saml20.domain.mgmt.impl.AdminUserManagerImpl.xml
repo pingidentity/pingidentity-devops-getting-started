@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<z:config xmlns:z="http://www.sourceid.org/2004/05/config">
+
+    <!-- 
+        The period of time in minutes that a user/ip-address combination is locked out of the Administration Console after 3 failed login attempts.
+
+        [System Default: 1]
+    -->
+    <z:item name="LockoutPeriod">1</z:item>
+
+</z:config>

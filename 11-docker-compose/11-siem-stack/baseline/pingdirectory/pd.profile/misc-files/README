@@ -1,0 +1,25 @@
+This profile was created with the manage-profile generate-profile subcommand.
+It was generated at 18/Jun/2019:17:52:18.878 +0000 by user root, from the
+server in /opt/server.
+
+Certain steps will always need to be taken to use this generated profile with
+the manage-profile tool. The generated profile includes a setup-arguments.txt
+file that contains variables, such as ${PING_INSTANCE_NAME}. When using this
+profile with the manage-profile tool, values for those variables will need to
+be provided using either a profile variables file or environment variables. See
+manage-profile setup --help for more information on providing variable values.
+In addition, the generated profile does not include any LDIF files. Any desired
+LDIF data for the profile will need to be added to the correct backend's
+directory under the ldif/ directory (such as ldif/userRoot/ for the userRoot
+backend). File-based arguments in setup-arguments.txt, such as
+--rootUserPasswordFile, must have the necessary files available when the
+profile is run. The provided PING_PROFILE_ROOT and PING_SERVER_ROOT variables
+can be used when referring to those files.
+
+Other steps may need to be taken depending on the generated profile. Additional
+files can be added to the generated profile, such as server root files, server
+SDK extensions, and dsconfig commands. The profile can be modified as necessary
+for documentation and organization.
+
+For more information on the server profile, see the example profile template
+and README in resource/server-profile-template.zip in the server root.

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="IdleTimeoutExtensionThreshold">0.25</c:item>
+    <c:item name="SessionGroupIdLength">25</c:item>
+</c:config>

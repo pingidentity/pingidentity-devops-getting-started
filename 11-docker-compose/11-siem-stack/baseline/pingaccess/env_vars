@@ -1,0 +1,1 @@
+export PA_LOG_LEVEL=${PA_LOG_LEVEL:=INFO}

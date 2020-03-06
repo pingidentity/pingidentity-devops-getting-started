@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+    <local-tx-datasource maskAttributeValues="false">
+        <description>ProvisionerDS (sa)</description>
+        <name>ProvisionerDS (sa)</name>
+        <jndi-name>ProvisionerDS</jndi-name>
+        <connection-url>jdbc:hsqldb:${pf.server.data.dir}${/}hypersonic${/}ProvisionerDefaultDB;hsqldb.lock_file=false</connection-url>
+        <driver-class>org.hsqldb.jdbcDriver</driver-class>
+        <user-name>sa</user-name>
+        <password>eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRW1JY1UxOVdueSIsInZlcnNpb24iOiI5LjIuMS4xIn0..-VwKtACreVBzmIKgZ3Tcxg.ZaqoFEaDfGUqvz3EEGyrtQ.6uWnEEhqP8GLnTpT09ppOw</password>
+        <ping-db-type>Custom</ping-db-type>
+        <allow-multi-value-attributes>false</allow-multi-value-attributes>
+    </local-tx-datasource>
+</datasources>

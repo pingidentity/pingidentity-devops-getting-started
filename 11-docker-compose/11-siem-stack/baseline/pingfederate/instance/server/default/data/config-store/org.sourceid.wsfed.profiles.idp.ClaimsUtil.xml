@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+
+    <!-- Whether the WS-fed response should have a RequestSecurityTokenResponseCollection element or a RequestSecurityTokenResponse element. -->
+    <c:item name="useRequestSecurityTokenResponseCollection">false</c:item>
+
+</c:config>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="cookie-name">PF.PERSISTENT</c:item>
+    <c:item name="cookie-length">25</c:item>
+    <c:item name="cookie-secure-flag">true</c:item>
+    <c:item name="cookie-httponly-flag">true</c:item>
+    <c:item name="cookie-max-age">94608000</c:item>
+    <c:item name="cookie-domain"></c:item>
+</c:config>

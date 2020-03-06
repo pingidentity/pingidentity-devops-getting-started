@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+
+    <!--
+        This file specifies fields in plugin configuration which reference other instances of the same plugin type.
+        PingFederate uses this information during bulk export to ensure plugin instances are exported after the
+        instances they depend on.
+
+        The configuration consists of lists. The key for each list is the classname of the plugin. The items in the
+        list are field names that contain references. For fields in tables, use the syntax <tablename>|<fieldname>.
+    -->
+
+    <c:list name="com.pingidentity.pf.adapters.composite.CompositeAdapter">
+        <c:ListItem>Adapters|Adapter Instance</c:ListItem>
+    </c:list>
+
+    <c:list name="com.pingidentity.plugins.pcvs.pingid.PingIdPCV">
+        <c:ListItem>Delegate PCV's|Delegate PCV</c:ListItem>
+    </c:list>
+
+</c:config>

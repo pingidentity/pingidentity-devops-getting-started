@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <!-- The ID of the data store used to store sessions. -->
+    <c:item name="PingFederateDSJNDIName">PFDefaultDS</c:item>
+    
+    <!-- The maximum number of session groups to delete with a single DELETE statement. -->
+    <c:item name="ExpiredSessionGroupBatchSize">500</c:item>
+    
+    <!-- The column to be used in deciding whether a session group has expired. Possible values: expiry_time and last_activity_time. -->
+    <c:item name="ExpirationTimeColumnName">expiry_time</c:item>
+
+    <!-- The expiration offset relative to the current time. If the value in the column specified by ExpirationTimeColumnName 
+         is less than or or equal to (currentTime - ExpirationTimeOffsetMins), then the session group will be deleted. -->
+    <c:item name="ExpirationTimeOffsetMins">10</c:item>
+</c:config>

@@ -1,0 +1,14 @@
+<config xmlns="http://www.sourceid.org/2004/05/config">
+    <!--    Since version 9.1, context path defined in run.properties is by default prepended to all web app names to
+            form the web application's context path. This prepending step can be skipped by setting the corresponding
+            boolean flag to true for each web app individually below.
+            NOTE: removing a key item is equivalent to setting the boolean flag to false -->
+    <map name="SkipContextPathPrepending">
+    <!--
+        <item name="pingid-web">true</item>
+        <item name="provisioner-runtime">true</item>
+        <item name="pf-ws">true</item>
+        <item name="pf-scim">true</item>
+    -->
+    </map>
+</config>

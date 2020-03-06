@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <con:map name="stack-map"/>
+    <con:map name="protocol-map"/>
+    <con:map name="date-map"/>
+    <con:map name="role-map"/>
+    <con:map name="system-id-map"/>
+    <con:map name="connection-name-map"/>
+    <con:map name="connection-image-type-map"/>
+    <con:map name="connection-virtual-id-map"/>
+    <con:map name="connection-has-browser-sso"/>
+    <con:map name="connection-as-ws-trust-type"/>
+    <con:map name="connection-has-oauth-saml-grant-map"/>
+    <con:map name="connection-has-inbound-prov-map"/>
+    <con:map name="connection-has-outbound-prov-map"/>
+</con:config>

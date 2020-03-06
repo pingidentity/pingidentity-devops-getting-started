@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <!-- Whether a fragment should be placed at the end of all redirect URLs -->
+    <con:item name="SanitizeAllRedirects">false</con:item>
+
+    <!-- What to put in the fragment - must conform to URL specifications -->
+    <con:item name="FragmentPlaceholder">.</con:item>
+</con:config>

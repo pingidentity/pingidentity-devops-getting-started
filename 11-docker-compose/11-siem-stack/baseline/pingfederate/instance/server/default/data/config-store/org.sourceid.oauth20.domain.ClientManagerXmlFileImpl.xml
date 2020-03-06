@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="ClientsPerDirectory">1000</c:item>
+    <c:item name="MigrationComplete8.4">true</c:item>
+</c:config>

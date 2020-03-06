@@ -1,0 +1,281 @@
+version: "3.3"
+
+services:
+  pingfederate:
+    image: pingidentity/pingfederate:edge
+    command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/ryanivis/ping-devops-es-siem.git
+      - SERVER_PROFILE_PATH=baseline/pingfederate
+      - PING_IDENTITY_ACCEPT_EULA=YES
+      - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
+      - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
+      - PF_LOG_LEVEL=INFO
+      - SYSLOG_HOST=logstash
+      - SYSLOG_PORT_AUDIT=20514
+      - SYSLOG_PORT_PROVISIONER=20515
+      - SYSLOG_PORT_SYSTEM=20517
+      - SYSLOG_PROTOCOL=TCP
+    ports:
+      - 9031:9031
+      - 9999:9999
+    networks:
+      - pingnet
+    depends_on:
+      - pingdirectory
+ 
+  pingaccess:
+    image: pingidentity/pingaccess:edge
+    command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/ryanivis/ping-devops-es-siem.git
+      - SERVER_PROFILE_PATH=baseline/pingaccess
+      - PING_IDENTITY_ACCEPT_EULA=YES
+      - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
+      - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
+      - SYSLOG_HOST=logstash 
+      - SYSLOG_PORT_SYSTEM=20518
+      - SYSLOG_PORT_AUDIT=20519
+    ports:
+      - 9000:9000
+      - 3000:3000
+    networks:
+      - pingnet
+    depends_on:
+      - pingdirectory
+
+  pingdirectory:
+    image: pingidentity/pingdirectory:latest
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/ryanivis/ping-devops-es-siem.git
+      - SERVER_PROFILE_PATH=baseline/pingdirectory
+      - PING_IDENTITY_ACCEPT_EULA=YES
+      - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
+      - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
+    ports:
+      - 1636:636
+      - 1443:443
+    networks:
+      - pingnet      
+  
+  pingdataconsole:
+    image: pingidentity/pingdataconsole:latest
+    ports:
+      - 8443:8443
+    networks:
+      - pingnet
+
+
+#TEST AUTHENTICATORS
+  authrate_ok:
+    image: pingidentity/ldap-sdk-tools
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 40
+    networks:
+      - pingnet
+
+
+  authrate_ko:
+    image: pingidentity/ldap-sdk-tools
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
+    networks:
+      - pingnet
+#END TEST AUTHENTICATORS
+
+#ES Server 1
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
+    container_name: es01
+    environment:
+      - node.name=es01
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.license.self_generated.type=basic
+      - xpack.monitoring.collection.enabled=true
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=$CERTS_DIR/es01/es01.key
+      - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+      - xpack.security.http.ssl.certificate=$CERTS_DIR/es01/es01.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=$CERTS_DIR/es01/es01.crt
+      - xpack.security.transport.ssl.key=$CERTS_DIR/es01/es01.key
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    volumes: ['data01:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR']
+    ports:
+      - 9201:9200
+    healthcheck:
+      test: curl --cacert $CERTS_DIR/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    networks:
+      - pingnet
+
+#ES Server 2
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
+    container_name: es02
+    environment:
+      - node.name=es02
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.license.self_generated.type=basic
+      - xpack.monitoring.collection.enabled=true
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=$CERTS_DIR/es02/es02.key
+      - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+      - xpack.security.http.ssl.certificate=$CERTS_DIR/es02/es02.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=$CERTS_DIR/es02/es02.crt
+      - xpack.security.transport.ssl.key=$CERTS_DIR/es02/es02.key
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    volumes: ['data02:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR']
+    ports:
+      - 9202:9200
+    healthcheck:
+      test: curl --cacert $CERTS_DIR/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    networks:
+    - pingnet
+
+#Generate Certificates if not already on disk, then run the saved state loader to push saved templates and objects into both kibana and elasticsearch
+  configure_es_certs_state:
+    container_name: configure_es_certs_state
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    environment:
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+    command: >
+      bash -c '
+        if [[ ! -f /certs/bundle.zip ]]; then
+          bin/elasticsearch-certutil cert --silent --pem --in config/certificates/instances.yml -out /certs/bundle.zip;
+          unzip /certs/bundle.zip -d /certs;
+        fi;
+        chown -R 1000:0 /certs
+
+        sh /usr/share/elasticsearch/config/bootstrap/saved_state_loader.sh
+      '
+    user: "0"
+    working_dir: /usr/share/elasticsearch
+    volumes: 
+      - certs:/certs
+      - ./elasticsearch-siem/cert_config:/usr/share/elasticsearch/config/certificates
+      - ./elasticsearch-siem/elasticsearch_config:/usr/share/elasticsearch/config/es_config
+      - ./elasticsearch-siem/kibana_config:/usr/share/elasticsearch/config/kibana_config
+      - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/config/bootstrap
+    networks:
+      - pingnet
+
+#Service that runs and updates both Known TOR and Known Malicious IPs for log enrichment.
+  enrichment_service:
+    container_name: enrichment_service
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    environment:
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - THREAT_INTEL_PULL_INTERVAL=600
+    command: > 
+      bash -c '
+        sh /usr/share/elasticsearch/config/bootstrap/dep_install.sh
+        sh /usr/share/elasticsearch/config/bootstrap/enrichment_wrapper.sh
+      '
+    user: "0"
+    working_dir: /usr/share/elasticsearch
+    volumes: 
+      - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/config/bootstrap
+      - ./elasticsearch-siem/enrichment_cache:/usr/share/elasticsearch/enrichment
+    networks:
+      - pingnet
+    depends_on:
+      - es01
+      - es02
+
+#Logstash system is how log4j ships logs into the stack.
+  logstash:
+    image: docker.elastic.co/logstash/logstash:$ELASTIC_VERSION
+    ports:
+      - "9600:9600"
+      - "20514:20514"
+      - "20515:20515"
+      - "20516:20516"
+      - "20517:20517"
+      - "20518:20518"
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./elasticsearch-siem/logstash/conf.d:/etc/logstash/conf.d/logstash.conf
+      - certs:$CERTS_DIR
+      - ./elasticsearch-siem/enrichment_cache:/etc/logstash/enrichment
+    environment:
+      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
+      CONFIG_RELOAD_AUTOMATIC: "true"
+      CONFIG_RELOAD_INTERVAL: "5s"
+      LOG_FORMAT: "json"
+      LOG_LEVEL: "info"
+      NODE_NAME: "logstash"
+      XPACK_MANAGEMENT_ENABLED: "false"
+      XPACK_MONITORING_ENABLED: "true"
+      XPACK_MONITORING_ELASTICSEARCH_USERNAME: "elastic"
+      XPACK_MONITORING_ELASTICSEARCH_PASSWORD: $ELASTIC_PASSWORD
+      XPACK_MONITORING_ELASTICSEARCH_HOSTS: "https://es01:9200"
+      XPACK_MONITORING_ELASTICSEARCH_SSL_CERTIFICATE_AUTHORITY: $CERTS_DIR/es01/es01.crt
+      ELASTIC_PASSWORD: $ELASTIC_PASSWORD
+    networks:
+      - pingnet
+
+#Kibana System for visuilizations etc.
+  kibana:
+    image: docker.elastic.co/kibana/kibana:$ELASTIC_VERSION
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_USERNAME: "elastic"
+      ELASTICSEARCH_PASSWORD: $ELASTIC_PASSWORD
+      ELASTICSEARCH_HOSTS: "https://es01:9200"
+      SERVER_PORT: 5601
+      SERVER_HOST: 0.0.0.0
+      ELASTICSEARCH.SSL.CERTIFICATEAUTHORITIES: $CERTS_DIR/ca/ca.crt
+      ELASTICSEARCH_SSL_VERIFICATIONMODE: none
+      XPACK_MONITORING_ENABLED: "true"
+      SERVER_NAME: ping-kibana
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_CERTIFICATE: $CERTS_DIR/kibana/kibana.crt
+      SERVER_SSL_KEY: $CERTS_DIR/kibana/kibana.key
+    volumes:
+      - certs:$CERTS_DIR    
+    ports:
+      - "5601:5601"
+    networks:
+      - pingnet
+
+#private operating network
+networks:
+  pingnet:
+
+#Persistant volumes for ES01 / ES02 (DATA) and the Certificates
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  certs:
+    driver: local

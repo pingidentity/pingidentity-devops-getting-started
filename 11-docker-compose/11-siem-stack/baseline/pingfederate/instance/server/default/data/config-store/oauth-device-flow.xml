@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<z:config xmlns:z="http://www.sourceid.org/2004/05/config">
+
+    <!-- The length of the generated device code -->
+    <z:item name="device-code-code-length">42</z:item>
+
+    <!-- The character set used to generate the user code. -->
+    <z:item name="user-code-character-set"><![CDATA[BCDFGHJKMNPQRTVWXY346789]]></z:item>
+
+    <!-- The length of the generated user code excluding segment separators. -->
+    <z:item name="user-code-code-length">8</z:item>
+
+    <!-- Length of each segment. -->
+    <z:item name="user-code-segment-length">4</z:item>
+
+    <!-- Segment separator character, MUST be a single character. -->
+    <z:item name="user-code-segment-separator"><![CDATA[-]]></z:item>
+
+    <!--
+        Indicates if the user code verification should be case sensitive.
+
+        [System Default: false]
+     -->
+    <z:item name="user-code-case-sensitive-verification">false</z:item>
+
+    <!--
+        Number of consecutive invalid user codes submitted before attempts are
+        locked.
+
+        [System Default: 6]
+    -->
+    <z:item name="MaxConsecutiveFailures">6</z:item>
+
+    <!--
+        The lockout period in minutes when MaxConsecutiveFailures is reached.
+
+        [System Default: 1]
+    -->
+    <z:item name="LockoutPeriod">1</z:item>
+
+    <!--
+        Indicates if token endpoint "authorization_pending" response should
+        be audited or not
+
+        [System Default: false]
+    -->
+    <z:item name="audit-authorization-pending-response">false</z:item>
+</z:config>

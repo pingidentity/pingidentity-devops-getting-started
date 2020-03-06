@@ -1,0 +1,358 @@
+# PingFederate Initialization Properties File
+
+# The properties in this file control the administrative console as well as
+# the runtime server (transaction-processing) behavior, and deployment,
+# including server clustering. Changes are optional. For detailed information,
+# refer to the Administrator's Manual and the Server Clustering Guide.
+
+# ---------------------------------
+# Administrative Console Properties
+# ---------------------------------
+#
+# This property defines the port on which the PingFederate administrative
+# console and API runs. Default is 9999.
+pf.admin.https.port=9999
+
+#
+# This property defines the host name of this machine that will be used in
+# PingFederate's administrative API to represent itself to clients.
+# If left empty, PingFederate will do a name lookup to find its name.
+pf.admin.hostname=
+
+#
+# This property defines the IP address over which the PingFederate
+# administrative console communicates. Use for deployments where multiple
+# network interfaces are installed on the machine running PingFederate.
+# The bind addresses can be ipv6 compliant: use "::" as a replacement
+# for "0.0.0.0".
+pf.console.bind.address=0.0.0.0
+
+#   HTML page title
+#   ---------------
+# This property defines the browser window or tab title for the administrative
+# console, used to make separate instances identifiable.
+pf.console.title=PingFederate
+
+#   Admin Console UI Timeout
+#   ------------------------
+#
+# This property defines the length of time (in minutes) until an inactive
+# administrative console times out. The minimum setting is 1 minute; maximum is
+# 8 hours (480 minutes).
+# Default is 30 minutes.
+pf.console.session.timeout=30
+
+#   Login Mode
+#   ----------
+#
+# This property indicates whether more than one Admin user may access the
+# administrative console at one time.
+#   Valid values are:
+#     single   - Only one Admin user may log on at a time.
+#     multiple - More than one Admin user may log on simultaneously.
+# Default is multiple.
+pf.console.login.mode=multiple
+
+#   Authentication Mechanism
+#   ------------------------
+# This property defines whether administrators log on to PingFederate using
+# credentials managed internally, by PingFederate, or externally. Single sign-on
+# via the PingOne admin console is also available, and is independent of the
+# mechanism chosen here.
+#   Valid values are:
+#     none   - No direct login method is available.
+#     native - Internal password file authentication.
+#     LDAP   - External LDAP authentication.
+#     cert   - X509 certificate-based authentication.
+#     RADIUS - External RADIUS authentication.
+# Default is native.
+pf.console.authentication=LDAP
+
+# Authentication methods for the Admin API.
+#   Valid values are:
+#     none   - No direct login method is available.
+#     native - Internal password file authentication.
+#     LDAP   - External LDAP authentication.
+#     cert   - X509 certificate-based authentication.
+#     RADIUS - External RADIUS authentication.
+# Default is native.
+pf.admin.api.authentication=LDAP
+
+#
+# When LDAP administrative-console authentication is enabled, this property
+# indicates the name of the file containing configuration properties.
+ldap.properties.file=ldap.properties
+
+#
+# When certificate-based authentication is enabled, this property indicates the
+# name of the file containing configuration properties.
+cert.properties.file=cert_auth.properties
+
+#
+# When RADIUS-based authentication is enabled, this property indicates the
+# name of the configuration properties file.
+radius.properties.file=radius.properties
+
+# -------------------------
+# Runtime Server Properties
+# -------------------------
+#
+# To turn off an HTTP listener, set the port to a value of less than zero.
+# You should always use SSL. Turning on "pf.http.port" is not recommended.
+# If you do want to turn on "pf.http.port" for testing purposes, you will
+# need to update data/config-store/session-cookie-config.xml
+# to turn off the secure cookie.
+pf.http.port=-1
+
+#
+# This property defines the port on which PingFederate listens for
+# encrypted HTTPS (SSL/TLS) traffic.
+# Default is 9031.
+pf.https.port=9031
+
+#
+# This property defines a secondary HTTPS port that can be used, for example,
+# with SOAP or artifact SAML bindings or for WS-Trust STS calls.
+# To use this port, change the placeholder value to the port number
+# you want to use.
+# Important: If you are using mutual SSL/TLS for either WS-Trust STS
+# authentication or for SAML back-channel authentication, you must use this
+# port for security reasons (or use a similarly configured new listener,
+# with either "WantClientAuth" or "NeedClientAuth" set to "true".
+pf.secondary.https.port=-1
+
+#
+# This property defines the IP address over which the PingFederate server
+# communicates with partner federation gateways. Use for deployments where
+# multiple network interfaces are installed on the machine running PingFederate.
+# The bind addresses can be ipv6 compliant: use "::" as a replacement
+# for "0.0.0.0".
+pf.engine.bind.address=0.0.0.0
+
+#
+# This property defines the IP address over which an SNMP agent and JMX
+# communicate with PingFederate. Use for deployments where multiple network
+# interfaces are installed on the machine running PingFederate.
+# The bind addresses can be ipv6 compliant: use "::" as a replacement
+# for "0.0.0.0".
+pf.monitor.bind.address=0.0.0.0
+
+#
+# This property defines the protocol to be used by PingFederate.
+# Valid values are:
+#   true  - Enables use of ipv_4 only.
+#   false - Enables use of both ipv_4 and ipv_6.
+# Default is true.
+pf.engine.prefer_ipv4=true
+
+# This property defines the context path used for the PingFederate runtime
+# application.
+# Default is "/", which is the root of the server.
+pf.runtime.context.path=/
+
+#
+# This property defines the network path to the output location of log files.
+# Default is:
+#  <pf_install>/pingfederate/log
+#pf.log.dir=
+
+#
+# This property enables detailed event logging where changes to the components are logged.
+# Default is false
+#
+pf.log.eventdetail=false
+
+#
+# This property enables detailed system monitoring information to be made available
+# in the heartbeat endpoint
+#
+pf.heartbeat.system.monitoring=false
+
+# ---------------------
+# Deployment Properties
+# ---------------------
+
+#   Operational Mode
+#   ----------------
+# This property indicates the operational mode of the runtime server (protocol
+# engine) from a clustering standpoint.
+#   Valid values are:
+#     STANDALONE        - This server is a standalone instance that runs both
+#                       the UI console and protocol engine (default).
+#     CLUSTERED_CONSOLE - This server is part of a cluster and runs only the
+#                       administration console.
+#     CLUSTERED_ENGINE  - This server is part of a cluster and runs only the
+#                       protocol engine.
+# Note: Only one node in a cluster can run the administrative console.
+# Default is STANDALONE.
+pf.operational.mode=$OPERATIONAL_MODE
+
+# The following properties apply only if "pf.operational.mode"
+# is *not* STANDALONE:
+pf.cluster.node.index=
+# A strong, randomly-generated key (22 or more alphanumerics) is recommended.
+pf.cluster.auth.pwd=
+pf.cluster.encrypt=false
+
+# Specify the key size to use with the AES encryption algorithm that is used
+# when encrypting communication among the cluster. The key sizes allowed
+# are dependent on the cryptography provider enabled with the JVM.  For
+# example, Oracle's Java Cryptography Extension (JCE) Unlimited Strength
+# provider supports 128, 192, and 256 bit key sizes.
+# Default is 128.
+pf.cluster.encryption.keysize=128
+
+# Specify the IP address for cluster communication, or leave as NON_LOOPBACK to
+# allow the system to choose an available non-loopback IP address.
+pf.cluster.bind.address=$CLUSTER_BIND_ADDRESS
+pf.cluster.bind.port=7600
+pf.cluster.failure.detection.bind.port=7700
+
+# Allowed values for the following properties are: tcp/udp. Default is tcp.
+# IMPORTANT: For UDP clustering with PingFederate running on Windows using ipv6.
+# You must supply the interface identifier (for example: %11) in the
+# "pf.cluster.bind.address" above.
+pf.cluster.transport.protocol=tcp
+pf.cluster.mcast.group.address=239.16.96.69
+pf.cluster.mcast.group.port=7601
+
+# When TCP is used, this property specifies a list of initial hosts to be
+# contacted for a group discovery, for example,
+# "10.0.1.4[7600],server2.mydomain.com[7600]".
+#
+# IMPORTANT: For ipv6, DO NOT use brackets ([]) to surround the IP addresses.
+#
+# For dynamic clusters using tcp as the transport protocol, alternate
+# discovery mechanisms are available. See server/default/conf/tcp.xml for
+# further details. If a dynamic discovery mechanism is used, this property
+# is ignored.
+pf.cluster.tcp.discovery.initial.hosts=$DISCOVERY_INITIAL_HOST
+
+# This property enables/disables adaptive clustering. Please see the
+# PingFederate clustering guide for more information on this capability.
+#  Valid values are:
+#   true - enable adaptive clustering
+#   false - disable adaptive clustering
+# Default is true.
+pf.cluster.adaptive=true
+
+# This property enables/disables JGroups cluster diagnostics.
+#  Valid values are:
+#	true - enable diagnostics
+#	false - disable diagnostics
+# Default is false
+pf.cluster.diagnostics.enabled=false
+
+# These properties define the IP address and port over which PingFederate communicates
+# JGroups diagnostic information.
+pf.cluster.diagnostics.addr=224.0.75.75
+pf.cluster.diagnostics.port=7500
+
+#   Hardware Security Module Mode
+#   -----------------------------
+# This property enables or disables a FIPS-compliance Hardware Security Module.
+#
+#  Valid values are:
+#    NCIPHER - Denotes a Thales nCipher implementation.
+#    LUNA    - Denotes a SafeNet Luna implementation.
+#    OFF     - Use the default Sun keystore/JCE implementation.
+# Default is OFF.
+pf.hsm.mode=OFF
+
+#  Hardware Security Module Hybrid Mode
+#  ------------------------------------
+#  This property enables or disables Hybrid mode for an HSM setup.
+#
+#  When PF is in Hybrid mode, certs/keys can be created either on the local trust store or on the HSM.
+#  This can used as a migration strategy towards an HSM setup.
+#
+#  Valid values are:
+#    true - enable Hybrid mode.
+#    false - disable Hybrid mode.
+# Default is false.
+pf.hsm.hybrid=false
+
+#   Outbound Provisioner Properties
+#   ---------------------------
+# This property enables or disables Outbound Provisioning.
+# The default is disabled. This property also enables provisioning failover
+# (Separate licensing is required to activate the provisioner.).
+#
+#   Valid values are:
+#     STANDALONE - Turns the provisioner module on,
+#                  standalone mode (no failover).
+#     FAILOVER   - Turns the provisioner module on, failover mode.
+#     OFF        - Turns the provisioner module off.
+# Default is OFF.
+# When only one server is in use, set the value to STANDALONE.
+# When more than one server is in use and failover is desired,
+# set the value to FAILOVER for each server.
+pf.provisioner.mode=OFF
+
+#
+# In failover mode, each node must have a unique ID from 1 to n, where n is the
+# number of nodes in the failover network. The lower the node ID, the higher the
+# priority for that node (only one server can actively handle provisioning at
+# one time). Set the initial active provisioning server node ID to 1.
+provisioner.node.id=1
+
+# Grace period, in seconds, after which a node is considered dead and failover
+# occurs. This value should be larger than the provisioning-frequency cycle.
+provisioner.failover.grace.period=600
+
+#   Jetty Customization Properties
+#   ---------------------------
+# In order to be interoperable with a wide range of external systems PingFederate
+# has been modified to handle special cases related to encoding cookies.
+#
+# When setting a cookie, PingFederate will first evaluate
+# 'jetty51.encode.wildcard.session.cookies' and 'jetty51.encode.cookies' to see
+# if the cookie values should be encoded.  If the cookie value should be encoded,
+# PingFederate will then encode the following characters (space included): ;, "
+#
+# If it's been determined that the cookie shouldn't be encoded, PingFederate will
+# then check for the existence of special characters.  If found, the cookie value
+# will be wrapped in quotes.  The following is a list of characters that would
+# trigger wrapping the value in quotes (space included): \n\r\t\f\b%+ ;="\
+#
+# If special characters are not detected or the cookie name is defined in
+# 'cookies.skip.quoting' PingFederate will set the cookie value without wrapping
+# or encoding it.
+#
+#
+# When 'true', PingFederate will encode cookie values for all cookies with names
+# that end with "SESSION" (e.g. SMSESSION).
+jetty51.encode.wildcard.session.cookies=true
+
+# A comma separated list of cookie names whose values PingFederate will encode
+# when the cookie is set.
+jetty51.encode.cookies=
+
+# A comma separated list of cookie names whose values should *not* be wrapped
+# in quotes when special characters are detected.
+cookies.skip.quoting=_saml_idp
+
+#   SSL Session Cache
+#   -----------------
+# Sets the size of the SSL session cache used for storing SSLSession objects.
+# 0 means there is no limit.
+javax.net.ssl.sessionCacheSize=5000
+
+#   HTTP Forward Proxy Settings
+#   ---------------------------
+# Uncomment and set the following Java properties to have outbound HTTP and HTTPS traffic sent through
+# a forward proxy. Some hosts may also be flagged to bypass the proxy.
+# Please consult the Oracle Java Networking Properties documentation for more information.
+#http.proxyHost=<HTTP_PROXY_HOST>
+#http.proxyPort=<HTTP_PROXY_PORT>
+#https.proxyHost=<HTTPS_PROXY_HOST>
+#https.proxyPort=<HTTPS_PROXY_PORT>
+#http.nonProxyHosts=*.internal.com|localhost
+
+# This property determines whether PingFederate omits line breaks in XML digital signatures. Default is true.
+org.apache.xml.security.ignoreLineBreaks=true
+
+# COMMENT THIS OUT IF TOO MUCH OUTPUT ON LDAP CHATTER
+# com.unboundid.ldap.sdk.debug.enabled=true
+# com.unboundid.ldap.sdk.debug.level=FINEST
+# com.unboundid.ldap.sdk.debug.type=LDAP

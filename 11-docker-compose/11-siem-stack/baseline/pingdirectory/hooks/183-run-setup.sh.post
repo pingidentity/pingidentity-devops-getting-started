@@ -1,0 +1,2 @@
+#!/usr/bin/env
+echo Hello from the baseline server profile 183-run-setup.sh.post hook!

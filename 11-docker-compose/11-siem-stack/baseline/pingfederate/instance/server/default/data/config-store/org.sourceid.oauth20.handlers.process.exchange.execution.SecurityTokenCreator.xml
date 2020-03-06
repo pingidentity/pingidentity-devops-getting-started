@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+  <con:list name="base64-required-plugins">
+    <con:ListItem>org.sourceid.wstrust.processor.oauth.BearerAccessTokenTokenProcessor</con:ListItem>
+    <con:ListItem>org.sourceid.wstrust.processor.jwt.JWTTokenProcessor</con:ListItem>
+  </con:list>
+</con:config>

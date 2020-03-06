@@ -1,0 +1,7 @@
+#These env_vars will overwrite any other passed environment variables
+#Defaults are provided here to show which variables are used in the profile. 
+
+export PF_LOG_LEVEL=${PF_LOG_LEVEL:=INFO}
+export PF_ENGINE_PUBLIC_HOSTNAME=${PF_ENGINE_PUBLIC_HOSTNAME:=localhost}
+export PF_ENGINE_PUBLIC_PORT=${PF_ENGINE_PUBLIC_PORT:=9031}
+export PF_ADMIN_PUBLIC_HOSTNAME=${PF_ADMIN_PUBLIC_HOSTNAME:=localhost}

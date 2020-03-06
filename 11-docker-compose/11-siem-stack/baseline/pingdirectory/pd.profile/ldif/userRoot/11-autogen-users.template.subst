@@ -1,0 +1,27 @@
+branch: ou=autogen,ou=people,${USER_BASE_DN}
+subordinateTemplate: person:${MAKELDIF_USERS}
+
+template: person
+rdnAttr: uid
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: pf-connected-identities
+givenName: <first>
+sn: <last>
+cn: {givenName} {sn}
+initials: {givenName:1}<random:chars:ABCDEFGHIJKLMNOPQRSTUVWXYZ:1>{sn:1}
+uid: autogen.user.<sequential:0>
+mail: {uid}@autogen.example.com
+pf-connected-identity: auth-source=pf-local-identity:user-id={uid}
+userPassword: 2FederateM0re
+telephoneNumber: <random:telephone>
+homePhone: <random:telephone>
+mobile: <random:telephone>
+street: <random:numeric:5> <file:streets> Street
+l: <file:cities>
+st: <file:states>
+postalCode: <random:numeric:5>
+postalAddress: {cn}${street}${l}, {st}  {postalCode}
+description: This is the description for {cn}.

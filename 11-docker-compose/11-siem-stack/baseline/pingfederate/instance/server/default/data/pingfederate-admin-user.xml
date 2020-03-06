@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adm:administrative-users xmlns:adm="http://pingidentity.com/2006/01/admin-users">
+    <adm:user>
+        <adm:user-name>Administrator</adm:user-name>
+        <adm:salt/>
+        <adm:hash>fd9VVZnswsMOWuPoQVZ5zxN5GcVxKKP4UGTRbxjvS_k.7c_0tqcb.2</adm:hash>
+        <adm:phone-number xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <adm:email-address xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <adm:department xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <adm:description>Initial administrator user.</adm:description>
+        <adm:admin-manager>true</adm:admin-manager>
+        <adm:admin>true</adm:admin>
+        <adm:crypto-manager>true</adm:crypto-manager>
+        <adm:auditor>false</adm:auditor>
+        <adm:active>true</adm:active>
+        <adm:password-change-required>false</adm:password-change-required>
+    </adm:user>
+</adm:administrative-users>

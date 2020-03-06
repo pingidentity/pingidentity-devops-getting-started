@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <!--
+    The window, in seconds, to report statistics
+    -->
+    <con:item name="StatisticsWindowSecs">300</con:item>
+
+    <!--
+    Maximum number of statistic objects to cache.
+    -->
+    <con:item name="ResponseStatisticsWindowSize">5000</con:item>
+
+    <!--
+    Statistics are cached for a short amount of time. This helps
+    when multiple responses are being generated for the heartbeat endpoint or if
+    multiple percentiles are specified by "StatisticsPercentilesList" below.
+    -->
+    <con:item name="StatisticsUpdateIntervalSecs">30</con:item>
+
+    <!--
+    Comma separated list of percentiles to report on with the heartbeat endpoint.
+    These can be non-integer's like "99.9".
+    -->
+    <con:item name="StatisticsPercentilesList">90</con:item>
+
+</con:config>

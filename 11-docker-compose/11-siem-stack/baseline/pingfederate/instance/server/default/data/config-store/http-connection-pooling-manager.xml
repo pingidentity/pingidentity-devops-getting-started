@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.sourceid.org/2004/05/config">
+    <item name="max-connections">350</item>
+    <item name="max-connections-per-route">100</item>
+    <item name="connection-timeout">60000</item>
+    <item name="request-timeout">120000</item>
+    <item name="connection-idle-timeout">30000</item>
+    <item name="keepalive-timeout">1000</item>
+</config>

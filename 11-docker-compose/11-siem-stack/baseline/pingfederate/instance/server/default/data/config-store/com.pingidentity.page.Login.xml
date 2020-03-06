@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <con:map name="license-map">
+        <con:item name="initial-setup-done">true</con:item>
+        <con:item name="license-agreement-accepted">true</con:item>
+    </con:map>
+</con:config>

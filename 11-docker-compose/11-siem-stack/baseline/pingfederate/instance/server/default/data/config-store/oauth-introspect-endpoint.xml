@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<z:config xmlns:z="http://www.sourceid.org/2004/05/config">
+    <z:item name="checkRefreshTokensWithoutHint">false</z:item>
+</z:config>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<authnApiConfig>
+    <apiSettings apiEnabled="false" defaultApplicationId=""/>
+    <apiApplications>
+        <!-- To enable an API application, uncomment the following line and set the URL to the URL of the desired application.
+             Then update apiEnabled (above) to "true" and set defaultApplicationId to "default". -->
+        <!--
+        <application id="1234" name="default" url="https://www.mycompany.zzz/authenticate"/>
+        -->
+    </apiApplications>
+</authnApiConfig>

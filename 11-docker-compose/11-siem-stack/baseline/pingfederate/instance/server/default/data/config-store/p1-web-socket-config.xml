@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="ConnectRetryIntervalSecs">30</c:item>
+    <c:item name="AuthenticationTimeoutSecs">10</c:item>
+    <c:item name="PingIntervalSecs">60</c:item>
+</c:config>

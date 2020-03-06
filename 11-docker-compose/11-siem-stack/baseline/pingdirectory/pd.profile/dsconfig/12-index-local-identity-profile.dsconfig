@@ -1,0 +1,8 @@
+#
+# This is for pingfederate's local identity store
+#
+dsconfig create-local-db-index \
+  --backend-name userRoot \
+  --index-name pf-connected-identity \
+  --set index-type:equality
+

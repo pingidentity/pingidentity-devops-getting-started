@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<z:config xmlns:z="http://www.sourceid.org/2004/05/config">
+
+    <!--
+        The number of failed login attempts allowed before a user is locked out.
+
+        [System Default: 3]
+    -->
+    <z:item name="MaxConsecutiveFailures">3</z:item>
+
+    <!--
+        The number of failed login attempts allowed for an individual password
+
+        [System Default: 5]
+    -->
+    <z:item name="MaxPasswordAttempts">5</z:item>
+
+    <!-- 
+        The number of malicious actions allowed before a user is locked out
+
+        [System Default: 5]
+    -->
+    <z:item name="MaxMaliciousActions">5</z:item>
+    
+    <!-- 
+        The period of time in minutes that a user is locked out after MaxConsecutiveFailures failed login attempts
+        or after MaxMaliciousActions malicious actions.
+
+        [System Default: 1]
+    -->
+    <z:item name="LockoutPeriod">1</z:item>
+
+    <!--
+       The period of time in minutes that a password is locked out after MaxPasswordAttempts failed login attempts
+
+       [System Default: 5]
+   -->
+   <z:item name="PasswordLockoutPeriod">5</z:item>
+
+    <!--
+       Should the system do password locking.
+
+       [System Default: false]
+   -->
+   <z:item name="DoPasswordLocking">false</z:item>
+
+</z:config>

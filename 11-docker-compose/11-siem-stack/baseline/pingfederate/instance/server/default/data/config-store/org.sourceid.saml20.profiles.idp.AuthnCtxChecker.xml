@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+
+    <!-- Any changes to this file will not take effect until a restart of PF -->
+    
+    <con:item name="check-requested-authn-ctx">false</con:item>
+
+    <con:map name="authentication-level">
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocol">1</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocolPassword">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:Kerberos">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:MobileOneFactorUnregistered">1</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:MobileTwoFactorUnregistered">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:MobileOneFactorContract">1</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:MobileTwoFactorContract">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:Password">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:X509">3</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:PGP">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:SPKI">3</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:XMLDSig">3</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:Smartcard">3</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:SmartcardPKI">3</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:SoftwarePKI">3</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:Telephony">1</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:NomadTelephony">1</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:PersonalTelephony">1</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:AuthenticatedTelephony">1</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:SecureRemotePassword">2</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:TLSClient">3</con:item>
+        <con:item name="urn:oasis:names:tc:SAML:2.0:ac:classes:TimeSyncToken">3</con:item>
+    </con:map>
+</con:config>

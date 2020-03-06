@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <con:item name="CacheSchema">false</con:item>
+    <con:item name="CacheSchemaTimeoutMillis">3600000</con:item>
+    <!-- The max number of entries to retrieve from the LDAP server.
+         This value must be equal to or less than the max page size limit of the LDAP server. -->
+    <con:item name="ResultSetSize">1000</con:item>
+</con:config>

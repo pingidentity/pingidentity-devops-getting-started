@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<loc:localIdentity profileId="RBSQIwi5KWYN9ZGK" profileName="pingdirectory" contractId="Zxp6N6W5PH9onACT" profileEnabled="true" registrationEnabled="true" xmlns:loc="http://pingidentity.com/2017/07/localIdentity">
+    <loc:auth-sources/>
+    <loc:fields maskOgnlValues="false">
+        <loc:field type="EMAIL" default-value="" id="mail" label="Email address">
+            <loc:appliesTo profile="true" registration="true"/>
+            <loc:parameter param-name="Read-Only" value="false"/>
+            <loc:parameter param-name="Required" value="true"/>
+            <loc:parameter param-name="Unique ID Field" value="true"/>
+            <loc:parameter param-name="Mask Log Values" value="false"/>
+        </loc:field>
+        <loc:field type="TEXT" default-value="" id="cn" label="First Name">
+            <loc:appliesTo profile="true" registration="true"/>
+            <loc:parameter param-name="Read-Only" value="false"/>
+            <loc:parameter param-name="Required" value="true"/>
+            <loc:parameter param-name="Unique ID Field" value="false"/>
+            <loc:parameter param-name="Mask Log Values" value="false"/>
+        </loc:field>
+        <loc:field type="TEXT" default-value="" id="sn" label="Last Name">
+            <loc:appliesTo profile="true" registration="true"/>
+            <loc:parameter param-name="Read-Only" value="false"/>
+            <loc:parameter param-name="Required" value="true"/>
+            <loc:parameter param-name="Unique ID Field" value="false"/>
+            <loc:parameter param-name="Mask Log Values" value="false"/>
+        </loc:field>
+        <loc:field type="HIDDEN" default-value="" id="entryUUID" label="entryUUID">
+            <loc:appliesTo profile="false" registration="false"/>
+            <loc:parameter param-name="Unique ID Field" value="false"/>
+            <loc:parameter param-name="Mask Log Values" value="false"/>
+        </loc:field>
+        <loc:field type="HIDDEN" default-value="" id="uid" label="uid">
+            <loc:appliesTo profile="false" registration="true"/>
+            <loc:parameter param-name="Unique ID Field" value="false"/>
+            <loc:parameter param-name="Mask Log Values" value="false"/>
+        </loc:field>	
+    </loc:fields>
+    <loc:email-verification-config emailVerificationEnabled="false" verifyEmailTemplateName="message-template-email-ownership-verification.html" emailVerificationSentTemplateName="local.identity.email.verification.sent.html" emailVerificationSuccessTemplateName="local.identity.email.verification.success.html" emailVerificationErrorTemplateName="local.identity.email.verification.error.html" otlTimeToLive="1440" verificationEmailField="" verificationStatusField=""/>
+    <loc:registration-config captchaEnabled="false" templateName="local.identity.registration.html"/>
+    <loc:profile-config templateName="local.identity.profile.html" deleteIdentityEnabled="true"/>
+    <loc:datastore-mapping>
+        <loc:DataSource Description="" Type="LDAP" DataSourceId="LDAP-D803C87FAB2ADFB4B0A947B64BA6F0C6093A5CA3">
+            <urn:Parameter Name="create_pattern" Value="uid=${mail}" xmlns:urn="urn:sourceid.org:saml2:metadata-extension:v2"/>
+            <urn:Parameter Name="search_base" Value="ou=people,dc=example,dc=com" xmlns:urn="urn:sourceid.org:saml2:metadata-extension:v2"/>
+            <urn:Parameter Name="search_scope" Value="ONELEVEL_SCOPE" xmlns:urn="urn:sourceid.org:saml2:metadata-extension:v2"/>
+            <urn:Parameter Name="object_class" Value="inetOrgPerson" xmlns:urn="urn:sourceid.org:saml2:metadata-extension:v2"/>
+        </loc:DataSource>
+        <loc:Attribute fieldName="entryUUID" datastore-field="entryUUID"/>
+        <loc:Attribute fieldName="cn" datastore-field="cn"/>
+        <loc:Attribute fieldName="sn" datastore-field="sn"/>
+        <loc:Attribute fieldName="mail" datastore-field="mail"/>
+        <loc:Attribute fieldName="uid" datastore-field="uid"/>	
+    </loc:datastore-mapping>
+</loc:localIdentity>

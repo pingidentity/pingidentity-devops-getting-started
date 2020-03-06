@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="ApiBaseUrl">https://admin-api.pingone.com/v3</c:item>
+    <c:item name="WebPortalUrl">https://admin.pingone.com/web-portal</c:item>
+    <c:item name="ConnTimeoutMillis">10000</c:item>
+    <c:item name="VerificationKeySetRefreshIntervalMins">60</c:item>
+    <c:item name="AllowedClockSkewSecs">300</c:item>
+    <c:item name="EnableAdminConsoleSso">false</c:item>
+    
+    <c:item name="ClientAuthnKeyPairLifetimeDays">1095</c:item>
+    <c:item name="ClientAuthnKeyPairActivationDelaySecs">900</c:item>
+    
+    <c:item name="ValidateSsoRedirectUri">true</c:item>
+    
+    <c:item name="ClientAuthnTokenLifetimeMins">10</c:item>
+    <c:item name="EnableMonitoring">true</c:item>
+    <c:item name="EndpointMetadataCacheExpirySecs">3600</c:item>
+    <c:list name="AdminRoles">
+        <c:ListItem>GLOBAL_ADMIN</c:ListItem>
+    </c:list>
+    <c:list name="UserManagerRoles">
+        <c:ListItem>GLOBAL_ADMIN</c:ListItem>
+    </c:list>
+    <c:list name="CryptoManagerRoles">
+        <c:ListItem>GLOBAL_ADMIN</c:ListItem>
+    </c:list>
+    <c:list name="AuditorRoles">
+    </c:list>
+</c:config>

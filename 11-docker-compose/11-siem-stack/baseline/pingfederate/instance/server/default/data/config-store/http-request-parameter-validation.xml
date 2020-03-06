@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <con:map name="idp">
+        <con:item name="EntityIdValidator"/>
+        <con:item name="IdpConnectionEntityIdKnownValidator"/>
+    </con:map>
+    <con:map name="PartnerIdpId">
+        <con:item name="EntityIdValidator"/>
+        <con:item name="IdpConnectionEntityIdKnownValidator"/>
+    </con:map>
+    <con:map name="PartnerSpId">
+        <con:item name="EntityIdValidator"/>
+        <con:item name="SpConnectionEntityIdKnownValidator"/>
+    </con:map>
+    <con:map name="PARTNER">
+        <con:item name="EntityIdValidator"/>
+        <con:item name="SpConnectionEntityIdKnownValidator"/>
+    </con:map>
+    <con:map name="TargetResource">
+        <con:item name="NoEolValidator"/>
+        <con:item name="LengthValidator">400</con:item>
+    </con:map>
+    <con:map name="TARGET">
+        <con:item name="NoEolValidator"/>
+        <con:item name="LengthValidator">400</con:item>
+    </con:map>
+    <con:map name="SourceResource">
+        <con:item name="NoEolValidator"/>
+        <con:item name="UrlValidator"/>
+        <con:item name="LengthValidator">400</con:item>
+    </con:map>
+    <con:map name="InErrorResource">
+        <con:item name="NoEolValidator"/>
+        <con:item name="UrlValidator"/>
+        <con:item name="LengthValidator">400</con:item>
+    </con:map>
+    <con:map name="IdpAdapterId">
+        <con:item name="AdapterIdValidator"/>
+        <con:item name="IdpAdapterIdValidator"/>
+    </con:map>
+    <con:map name="SpSessionAuthnAdapterId">
+        <con:item name="AdapterIdValidator"/>
+        <con:item name="SpAdapterIdValidator"/>
+    </con:map>
+    <con:map name="TokenProcessorId">
+        <con:item name="AdapterIdValidator"/>
+        <con:item name="TokenProcessorIdValidator"/>
+    </con:map>
+    <con:map name="RequestedBinding">
+        <con:item name="LengthValidator">100</con:item>
+    </con:map>
+    <con:map name="RequestedSPNameQualifier">
+        <con:item name="LengthValidator">100</con:item>
+    </con:map>
+    <con:map name="Binding">
+        <con:item name="LengthValidator">100</con:item>
+    </con:map>
+    <con:map name="AllowCreate">
+        <con:item name="LengthValidator">5</con:item>
+    </con:map>
+    <con:map name="ForceAuthn">
+        <con:item name="LengthValidator">5</con:item>
+    </con:map>
+    <con:map name="IsPassive">
+        <con:item name="LengthValidator">5</con:item>
+    </con:map>
+    <con:map name="RequestedACSIdx">
+        <con:item name="IntValidator">0, 65535</con:item>
+    </con:map>
+    <con:map name="Domain">
+        <con:item name="NoEolValidator"/>
+    </con:map>
+    <con:map name="wtrealm">
+        <con:item name="NoEolValidator"/>
+    </con:map>
+    <con:map name="RequestedFormat">
+        <con:item name="UriValidator"/>
+    </con:map>
+</con:config>

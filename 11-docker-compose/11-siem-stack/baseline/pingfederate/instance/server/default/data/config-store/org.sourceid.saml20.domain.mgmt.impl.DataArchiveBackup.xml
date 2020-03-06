@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="ScheduledBackupEnabled">false</c:item>
+    <!-- Time is local and of the format "hh:mm:ss". Defaults to midnight. -->
+    <c:item name="BackupTime">00:00:00</c:item>
+    <c:item name="BackupOnAdminLogin">true</c:item>
+    <c:item name="NumTriesWithIntegrityFailure">3</c:item>
+    <c:item name="MaxOldArchiveFiles">25</c:item>
+</c:config>

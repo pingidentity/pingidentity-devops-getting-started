@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="enable">false</c:item>
+    <c:item name="browser-id-cookie-name">pfbrowserid</c:item>    
+    <c:item name="retention-duration-seconds">60</c:item> 
+    <c:item name="speed-bump-resubmit-interval-milliseconds">2500</c:item>    
+    
+    <!-- Very likely you do not need to change this to true even you are using a cluster. If your load balancer uses sticky session, you do not need to turn this flag on. --> 
+    <c:item name="enable-clustering">false</c:item>    
+</c:config>

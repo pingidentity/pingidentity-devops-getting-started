@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <con:map name="saml1-bindings">
+    	<con:item name="urn:mace:shibboleth:1.0:profiles:AuthnRequest">urn:mace:shibboleth:1.0:profiles:AuthnRequest</con:item>
+    </con:map>
+</con:config>

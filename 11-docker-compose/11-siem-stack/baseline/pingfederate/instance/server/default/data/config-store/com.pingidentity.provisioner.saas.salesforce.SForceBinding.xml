@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sfh:config xmlns:sfh="http://www.sourceid.org/2004/05/config">
+    <sfh:item name="VerifyHostname">true</sfh:item>
+    <sfh:item name="UseGzipCompression">false</sfh:item>
+    <sfh:item name="IgnoreLargeReferences">true</sfh:item>
+    <sfh:item name="ConnectionTimeout">60000</sfh:item>
+    <sfh:item name="RequestTimeout">60000</sfh:item>
+</sfh:config>

@@ -1,0 +1,16 @@
+# Default JVM memory options for PingAccess
+#
+# Each non-commented and non-empty line will be added as a Java option when PingAccess is started.
+# Comments can be add to this file by starting a line with the # character.
+#
+
+#Minimum heap size
+-Xms512m
+#Maximum heap size
+-Xmx512m
+#Minimum size for the Young Gen space
+-XX:NewSize=256m
+#Maximum size for the Young Gen space
+-XX:MaxNewSize=256m
+#Use the parallel garbage collector
+-XX:+UseParallelGC

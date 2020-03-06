@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <!--
+    Using the string "tokenlabel:label" will attempt to open the KeyStore against the token with the provided label.
+    Using "slot:<slotNum>" will attempt to open the KeyStore against the token at the provided slot. It is recommended
+    that the token label be used, as the slot number of a given token may change but the label will not.
+    -->
+
+    <con:item name="DefaultPartitionSlotOrLabel">slot:0</con:item>
+</con:config>

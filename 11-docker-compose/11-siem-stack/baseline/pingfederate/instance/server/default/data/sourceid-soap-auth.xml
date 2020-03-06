@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SoapAuth xmlns="http://www.sourceid.org/2004/04/soapauth">
+    <Incoming/>
+    <Outgoing/>
+</SoapAuth>

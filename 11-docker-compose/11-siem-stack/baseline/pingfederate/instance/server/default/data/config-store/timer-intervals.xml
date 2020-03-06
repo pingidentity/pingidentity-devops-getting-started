@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <c:item name="ConfigArchiveDeployTimerInterval">5000</c:item>
+    <c:item name="ConnectionImportTimerInterval">5000</c:item>
+    <c:item name="AccessGrantCleanerInterval">86400000</c:item>
+    <c:item name="StoredSessionCleanerInterval">86400000</c:item>
+</c:config>

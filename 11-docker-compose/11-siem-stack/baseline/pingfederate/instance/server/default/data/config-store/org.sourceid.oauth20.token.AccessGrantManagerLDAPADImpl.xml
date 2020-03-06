@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+
+    <!-- Data store ID -->
+    <c:item name="PingFederateDSJNDIName"></c:item>
+
+    <!-- LDAP search base. This should point to your accessGrants location. eg. OU=AccessGrants,DC=4s8i6q,DC=global -->
+    <c:item name="SearchBase"></c:item>
+
+    <!-- Name of the AccessGrant objectClass -->
+    <c:item name="AccessGrantObjectClassName">accessGrant</c:item>
+
+    <!-- Attribute names that are used to store access grant data. These only need to change if they conflict with
+	 existing attributes, or a different naming scheme is needed -->
+    <c:item name="Guid">accessGrantGuid</c:item>
+    <c:item name="HashedRefreshTokenValue">accessGrantHashedRefreshTokenValue</c:item>
+    <c:item name="UniqueUserIdentifier">accessGrantUniqueUserIdentifier</c:item>
+    <c:item name="Scope">accessGrantScope</c:item>
+    <c:item name="ClientId">accessGrantClientId</c:item>
+    <c:item name="GrantType">accessGrantGrantType</c:item>
+    <c:item name="ContextualQualifier">accessGrantContextualQualifier</c:item>
+    <c:item name="Issued">accessGrantIssued</c:item>
+    <c:item name="Updated">accessGrantUpdated</c:item>
+    <c:item name="Expires">accessGrantExpires</c:item>
+    <c:item name="Attributes">accessGrantAttributes</c:item>
+
+    <!-- Batch size for expired grant cleanup operations -->
+    <c:item name="ExpiredGrantBatchSize">500</c:item>
+
+    <!--
+        Maximum number of persistent grants allowed to store in LDAP per user,
+        client and grant type and authentication context qualifier.
+
+        Setting this to a value <= 0 will turn this limit off
+
+        Default configuration:
+        <c:item name="maxPersistentGrants">100</c:item>
+    -->
+    <c:item name="maxPersistentGrants">100</c:item>
+
+    <!--
+        Maximum number of persistent grants to delete when max allowed is
+        reached during new grant creation.
+
+        Setting this to a value <= 0 will turn this limit off.
+
+        Default configuration:
+        <c:item name="maxPersistentGrantsToRemoveBatchSize">10</c:item>
+    -->
+    <c:item name="maxPersistentGrantsToRemoveBatchSize">10</c:item>
+
+</c:config>

@@ -1,0 +1,21 @@
+#
+# This is the set of indices to store OAuth clients
+#
+dsconfig create-local-db-index \
+  --backend-name userRoot \
+  --index-name pf-oauth-client-id \
+  --set index-type:equality \
+  --set index-type:ordering \
+  --set index-type:substring
+
+dsconfig create-local-db-index \
+  --backend-name userRoot \
+  --index-name pf-oauth-client-name \
+  --set index-type:equality \
+  --set index-type:ordering \
+  --set index-type:substring
+
+dsconfig create-local-db-index \
+  --backend-name userRoot \
+  --index-name pf-oauth-client-last-modified \
+  --set index-type:ordering 

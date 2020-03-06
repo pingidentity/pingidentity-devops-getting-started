@@ -1,0 +1,5 @@
+<config xmlns="http://www.sourceid.org/2004/05/config">
+  <list name="EntityIdsToAllowAssertionDecryptionWithoutResponseSignature">
+    <!--<ListItem>some entityId</ListItem>-->
+  </list>
+</config>

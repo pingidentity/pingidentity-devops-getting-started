@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntityDescriptor entityID="docker" cacheDuration="PT1440M" xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:sid="urn:sourceid.org:saml2:local-metadata-extension:v2">
+    <!--This block contains Ping's proprietary endpoints-->
+    <Extensions>
+        <sid:SourceIDExtension BaseURL="https://localhost:9031" Saml1xId="localhost:default:entityId" WsFedID="" Saml1xSrcId="" EnableWsFedIdP="false" EnableWsFedSp="false" EnableSaml20IdP="true" EnableSaml20Sp="true" EnableSaml11Rp="false" EnableSaml11Ap="false" EnableSaml10Rp="false" EnableSaml10Ap="false" EnableSpWsTrustSts="true" EnableInboundProvisioning="false" EnableIdpWsTrustSts="true" EnableX509Discovery="false" EnableIdpDiscovery="false" DisableAutomaticConnectionValidation="false" DataStoreValidationInterval="300" CustomGlobalHttpHeaderName="" ClientIpHeaderIndex="last" ForwardedHostHeaderName="" ForwardedHostHeaderIndex="last" ProxyTerminatesHttpsConns="false" MetadataSigningKeyAlias="" MetadataSigningAlgorithm="" MetadataSigningKeyMD5Fingerprint="" ConfirmIdpSlo="false" ClientCertSSLHeaderName="" ClientCertChainSSLHeaderName="" EnableOIDCSp="false">
+            <sid:LocalPathsDescriptor Suffix=".ping" ResumePathPrefix="/resume">
+                <sid:IDPLocalPaths>
+                    <!--This endpoint is used by an IdP application to ask
+                      this local PingFederate server to initiate a Single
+                      Sign On.-->
+                    <sid:InitiateSingleSignOn>/idp/startSSO</sid:InitiateSingleSignOn>
+                    <!--This endpoint is used by an IdP application to ask
+                      this local PingFederate server to initiate a Single
+                      Logout for the user session.-->
+                    <sid:InitiateSingleLogOut>/idp/startSLO</sid:InitiateSingleLogOut>
+                </sid:IDPLocalPaths>
+                <sid:SPLocalPaths>
+                    <!--This endpoint is used by a SP application to ask
+                      this local PingFederate server to initiate a Single
+                      Sign On.-->
+                    <sid:InitiateSingleSignOn>/sp/startSSO</sid:InitiateSingleSignOn>
+                    <!--Initiate SSO with IdP Discovery enabled-->
+                    <sid:InitiateCDCSingleSignOn>/sp/cdcstartSSO</sid:InitiateCDCSingleSignOn>
+                    <!--This endpoint is used by a SP application to ask
+                      this local PingFederate server to initiate a Single
+                      Logout for the user SSO session.-->
+                    <sid:InitiateSingleLogOut>/sp/startSLO</sid:InitiateSingleLogOut>
+                    <!--This endpoint is used by an SP application to ask
+                      this PF server to defederate a account link(s).-->
+                    <sid:TerminateAccountLinks>/sp/defederate</sid:TerminateAccountLinks>
+                    <!--This endpoint is used by a SP application to ask
+                      this local PingFederate server to initiate an Attribute
+                      Query.-->
+                    <sid:InitiateAttributeQuery>/sp/startAttributeQuery</sid:InitiateAttributeQuery>
+                </sid:SPLocalPaths>
+            </sid:LocalPathsDescriptor>
+            <sid:ApplicationURLs/>
+            <sid:IdpDiscovery CommonDomainServer="false" IdPCommonDomainClient="false" SPCommonDomainClient="false" WriteCookiePath="/writecookie.cdc" ReadCookiePath="/readcookie.cdc">
+                <sid:CommonDomainClient CommonDomainServiceBaseUrl=""/>
+                <sid:CommonDomainService CommonDomain="" CookieLifeDays="365"/>
+            </sid:IdpDiscovery>
+            <sid:ErrPageMsg>errorDetail.idpSsoFailure</sid:ErrPageMsg>
+        </sid:SourceIDExtension>
+    </Extensions>
+    <!--No longer used but needed for xml schema validation-->
+    <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <AssertionConsumerService Location="nope" index="0" Binding="nope"/>
+    </SPSSODescriptor>
+    <ContactPerson contactType="administrative"/>
+</EntityDescriptor>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+
+    <c:item name="state-cookie-name">X</c:item>
+    <c:item name="idp-cookie-name"></c:item>
+    <c:item name="sp-cookie-name"></c:item>
+
+    <c:item name="idp-cookie-path">/idp/</c:item>
+    <c:item name="sp-cookie-path">/sp/</c:item>
+
+    <c:item name="idp-cookie-domain"></c:item>
+    <c:item name="sp-cookie-domain"></c:item>
+
+    <!--<c:item name="attributes-cookie-domain"></c:item>-->
+    <c:item name="attributes-cookie-path">/</c:item>
+    <c:item name="attributes-cookie-name">Z</c:item>
+
+    <!--
+    A static key can be defined here to encrypt the cookie state. If not defined, the key is dynamically generated.
+
+    Using the default static key is NOT considered best practice and therefore is NOT recommended.
+
+    <c:item name="static-key">00000000000000000000000000000000</c:item>
+    -->
+</c:config>

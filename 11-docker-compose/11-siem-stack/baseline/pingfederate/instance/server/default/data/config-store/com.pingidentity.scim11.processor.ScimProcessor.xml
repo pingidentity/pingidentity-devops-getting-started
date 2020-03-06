@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <!-- 
+    	Max number of records to return if the "count" is not specified. 
+        A value of 0 indicates unlimited records will be returned.
+    -->
+    <c:item name="maxRecordsPerRequestWithoutCount">1000</c:item>
+</c:config>

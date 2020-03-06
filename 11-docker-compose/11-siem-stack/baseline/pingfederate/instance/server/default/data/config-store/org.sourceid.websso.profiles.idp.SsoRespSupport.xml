@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<z:config xmlns:z="http://www.sourceid.org/2004/05/config">
+
+    <!-- the number of alpha numeric characters in a transient name identifier -->
+    <z:item name="TransientIdSize">27</z:item>
+
+
+    <!-- If true, the server will respond to authn requests for a transient name identifier
+         even when the partner connection is configured for another type of identifier.
+          A value of false would result in PF rejecting such requests -->
+    <z:item name="FulfillTransientNameIdRequests">true</z:item>
+
+
+    <!-- Indicates behaviour in error situations for unsolicited responses.
+         If true, PF will send an error SAML response for IdP initiated SSO.  If false,
+         PF will render the appropriate error page or redirect to the given URL. -->
+    <z:item name="SendErrorResponseForUnsolicited">false</z:item>
+
+</z:config>

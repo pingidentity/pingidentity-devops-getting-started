@@ -1,0 +1,6 @@
+
+Server Profile baseline/pingfederate
+  - Creates an iniial PingFederate instance
+  - Authentictes admin console to PingDirectory
+  - Installs OAuthPlayground
+
