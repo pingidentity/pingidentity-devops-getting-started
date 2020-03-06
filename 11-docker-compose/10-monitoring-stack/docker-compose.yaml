@@ -128,6 +128,25 @@ services:
       - 1636:636
       - 1443:443
 
+  authrate_ok:
+    image: pingidentity/ldap-sdk-tools:edge
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 10
+    networks:
+      - back-tier
+
+  authrate_ko:
+    image: pingidentity/ldap-sdk-tools:edge
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 1
+    networks:
+      - back-tier
+
+  modrate:
+    image: pingidentity/ldap-sdk-tools:edge
+    command: wait-for pingdirectory:389 -t 900 -- modrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re --entryDN "uid=user.[0-4],ou=people,dc=example,dc=com" --attribute description --valueLength 10 -C 2FederateM0re -r 1
+    networks:
+      - back-tier
+
+
   pingdirectory-statsd-exporter:
     image: prom/statsd-exporter:v0.14.1
     command: [ "--statsd.mapping-config=/tmp/mapping/pingdirectory-statsd-mapping.yml", "--statsd.listen-udp=:9125", "--web.listen-address=:9102"]
