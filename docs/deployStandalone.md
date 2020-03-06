@@ -26,6 +26,8 @@ Our single container examples are located in the your local `${HOME}/projects/de
       ```text
       ./docker-run.sh <product-image-name>
       ```
+    
+    > This shell script uses the default DevOps server profile and environment settings to configure the PingDirectory container, runs the container in the background (detached mode, `-d`) and publishes PingDirectory to the ports `1389:389`.
 
   * Use a server profile.
 
@@ -35,10 +37,10 @@ Our single container examples are located in the your local `${HOME}/projects/de
       docker run -d --publish 1389:389 \
         --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
         --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
+        --detach \
+        --env-file ~/.pingidentity/devops \
         pingidentity/pingdirectory
       ```
-
-    This shell script uses the default DevOps server profile and environment settings to configure the PingDirectory container, runs the container in the background (detached mode, `-d`) and publishes PingDirectory to the ports `1389:389`.
 
 2. Log in to the management console for the product:
 
@@ -77,7 +79,7 @@ Our single container examples are located in the your local `${HOME}/projects/de
 
 3. To stop the container, use any of:
 
-   * The `dcstop` command alias or `docker container stop`.
+   * The `dcstop <container_name>` command alias or `docker container stop <container_name>`.
 
     > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker container command line reference](https://docs.docker.com/engine/reference/commandline/container/) for the Docker container commands.
 
@@ -88,3 +90,4 @@ Our single container examples are located in the your local `${HOME}/projects/de
      ```text
      ./docker-run.sh <product-container-name>
      ```
+   * Stop all containers: `dsa`. Remove all containers: `dra`
