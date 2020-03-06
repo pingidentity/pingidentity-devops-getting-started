@@ -116,13 +116,13 @@ To get metrics on a dashboard in Grafana we:
 
 Now you can visit a multitude of URLs where metrics are being generated:
 
+  * Grafana - The data formed into nice dashboards: http://localhost:3000
+    * log in: admin/2FederateM0re
   * PingDirectory - Raw statsd data: http://localhost:9102/metrics
-  * cAdvisor - for docker container resource metrics: https://localhost:8080
+  * cAdvisor - for docker container resource metrics: http://localhost:8080
   * node-exporter - Raw Node metrics: http://localhost:9100/metrics
   * Alertmanager -  http://localhost:9093/#/alerts
   * Prometheus - for querying collected data: https://localhost:9090
-  * Grafana - The data formed into nice dashboards: http://localhost:3000
-    * log in: admin/2FederateM0re
 
 You will see dashboards that correspond to what is in: `configs/grafana/provisioning/dashboards`
 
