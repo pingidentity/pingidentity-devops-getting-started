@@ -19,12 +19,12 @@ PING_IDENTITY_ACCEPT_EULA=YES
 1. To orchestrate the full stack deployment, from your local `pingidentity-devops-getting-started/20-kubernetes` directory, enter:
 
    ```bash
-   kubectl apply -k 02-fullstack/
+   kustomize build . | kubectl apply -f -
    ```
 
-2. To clean up when you're finished, enter: 
+2. To clean up when you're finished, enter:
 
    ```bash
-   kubectl delete -k 02-fullstack/
+   kustomize build . | kubectl delete -f -
    ```
 
