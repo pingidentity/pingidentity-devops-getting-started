@@ -5,8 +5,8 @@ services:
     image: pingidentity/pingfederate:edge
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
-      - SERVER_PROFILE_URL=https://github.com/ryanivis/ping-devops-es-siem.git
-      - SERVER_PROFILE_PATH=baseline/pingfederate
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
+      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingfederate
       - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
@@ -28,8 +28,8 @@ services:
     image: pingidentity/pingaccess:edge
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
-      - SERVER_PROFILE_URL=https://github.com/ryanivis/ping-devops-es-siem.git
-      - SERVER_PROFILE_PATH=baseline/pingaccess
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
+      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingaccess
       - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
@@ -47,8 +47,8 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory:latest
     environment:
-      - SERVER_PROFILE_URL=https://github.com/ryanivis/ping-devops-es-siem.git
-      - SERVER_PROFILE_PATH=baseline/pingdirectory
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
+      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingdirectory
       - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
@@ -58,14 +58,6 @@ services:
     networks:
       - pingnet      
   
-  pingdataconsole:
-    image: pingidentity/pingdataconsole:latest
-    ports:
-      - 8443:8443
-    networks:
-      - pingnet
-
-
 #TEST AUTHENTICATORS
   authrate_ok:
     image: pingidentity/ldap-sdk-tools

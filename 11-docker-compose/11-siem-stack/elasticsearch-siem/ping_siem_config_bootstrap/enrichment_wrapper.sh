@@ -7,6 +7,9 @@
 
 echo "starting and running enrichment process"
 
+touch /usr/share/elasticsearch/enrichment/TorNodes.yml
+touch /usr/share/elasticsearch/enrichment/AlienVaultIP.yml
+
 while [ 1 -eq 1 ]
 do
   echo "Starting enrichment pull..."
