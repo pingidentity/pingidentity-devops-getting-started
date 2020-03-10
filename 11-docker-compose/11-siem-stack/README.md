@@ -16,7 +16,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 
 - Finish building threat detection dash for PingFederate that includes attack detection for DOS, Stolen Credentials, XXE, Password Brute Force, CSRF, SAML Signature Manipulation, Deserialization. 
   - The dash is configured for experenced security engineers, and may not cover every type of attack of these sorts. Please use caution, the dash is in beta. Thanks YYU!
-  
+
 ---------------
 
 ## Status
@@ -68,19 +68,19 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ## Dashboard Examples
 
 ### Demo Ping Federate Threat Intel Dashboard
-![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/threat_intel_dash.png "SIEM Dashboard")
+![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/11-siem-stack/images/threat_intel_dash.png "SIEM Dashboard")
 
 ### Demo Ping SIEM Dashboard (Beta 4) - More security use cases are coming soon.
-![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/dashboard.png "SIEM Dashboard")
+![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/11-siem-stack/images/dashboard.png "SIEM Dashboard")
 
 ### Ping Federate Demo Dashboard
-![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/pingfederate_dashboard.png "PingFederate Basic Demo Dashboard")
+![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/11-siem-stack/images/pingfederate_dashboard.png "PingFederate Basic Demo Dashboard")
 
 ### Demo Access Demo Dashboard
-![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/pingaccess_dashboard.png "PingAccess Basic Demo Dashboard")
+![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/11-siem-stack/images/pingaccess_dashboard.png "PingAccess Basic Demo Dashboard")
 
 ### Demo Directory Demo Dashboard
-![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/pingdirectory_dashboard.png "PingDirectory Demo Dashboard")
+![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/11-siem-stack/images/pingdirectory_dashboard.png "PingDirectory Demo Dashboard")
 
 ------------
 
