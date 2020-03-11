@@ -17,7 +17,7 @@ The `env_vars.pingaccess` and `env_vars.pingaccess-engine` files contain:
 
 ## Deploy the cluster
 
-1. To orchestrate the replicated PingDirectory deployment, from your local `pingidentity-devops-getting-started/20-kubernetes/04-clustered-pingaccess` directory, enter:
+1. To orchestrate the replicated PingAccess deployment, from your local `pingidentity-devops-getting-started/20-kubernetes/04-clustered-pingaccess` directory, enter:
 
    ```bash
    kustomize build . | kubectl apply -f -
