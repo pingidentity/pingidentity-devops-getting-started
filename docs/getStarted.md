@@ -34,7 +34,7 @@ When you've finished the initial setup and deployment, you can then choose to:
 <a name="devopsReg"></a>
 ## DevOps registration
 
-Registering for our DevOps program grants you credentials that can be provided as variables to PingIdentity containers. This streamlines license issues by allowing the container to automatically rerieve an evaluation license upon container startup. 
+Registering for our DevOps program grants you credentials that can be provided as variables to PingIdentity containers. This streamlines license issues by allowing the container to automatically retrieve an evaluation license upon container startup. 
 
   > Evaluation licenses are short-lived and *not* intended for use in production deployments.
 
