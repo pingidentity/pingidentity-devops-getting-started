@@ -16,7 +16,7 @@ if [[ $1 != "" ]]; then
 
 	    if [[ "$es_status" == "green" ]]; then 
 		  	echo "Load in Slack Settings to Keystore!"
-			echo "$1" | bin/elasticsearch-keystore add --stdin xpack.notification.slack.account.monitoring.secure_url
+			echo "$1" | bin/elasticsearch-keystore add -f --stdin xpack.notification.slack.account.monitoring.secure_url
 			curl -s -u elastic:$ELASTIC_PASSWORD --insecure -X POST "https://localhost:9200/_nodes/reload_secure_settings?pretty"
     	fi
 	done
