@@ -35,22 +35,20 @@ echo "Loading! -- Kibana Saved Objects."
 curl -X POST "https://kibana:5601/api/saved_objects/_import" --insecure -u elastic:$ELASTIC_PASSWORD -H "kbn-xsrf: true" --form file="@/usr/share/elasticsearch/config/kibana_config/kib_base.ndjson"
 
 echo "Load in Watchers"
-if [[ $SLACK_WEB_HOOK != "" ]]; then
-	sleep 5
-	#Loading Saved Watchers
-	for f in /usr/share/elasticsearch/watchers/*.json
-	do	
-	  echo "Processing watcher file (full path) $f "
-	  echo "start"
-	  fn=$(basename $f)
-	  n="${fn%.*}"
-	  echo "$n"
-	  echo "end"
+sleep 5
+#Loading Saved Watchers
+for f in /usr/share/elasticsearch/watchers/*.json
+do	
+  echo "Processing watcher file (full path) $f "
+  echo "start"
+  fn=$(basename $f)
+  n="${fn%.*}"
+  echo "$n"
+  echo "end"
 
-	  echo "Processing file name $n "
-	  curl -X PUT "https://es01:9200/_watcher/watch/$n?pretty" --insecure -u elastic:$ELASTIC_PASSWORD  -H 'Content-Type: application/json' -d"@$f"
-	done
-fi
+  echo "Processing file name $n "
+  curl -X PUT "https://es01:9200/_watcher/watch/$n?pretty" --insecure -u elastic:$ELASTIC_PASSWORD  -H 'Content-Type: application/json' -d"@$f"
+done
 
 echo "bootstrap execution complete."
 
