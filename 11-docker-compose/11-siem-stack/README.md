@@ -12,10 +12,12 @@ The goal of this project is to have pre-built security dashboards to ride along 
 This project will start a Ping Stack with Elastic Search Infrastructure built in for visualizing traffic and other security / log data.
 
 ---------------
-## Latest Build News
+## Latest Build News (SLACK INTEGRATION!)
 
-- Finish building threat detection dash for PingFederate that includes attack detection for DOS, Stolen Credentials, XXE, Password Brute Force, CSRF, SAML Signature Manipulation, Deserialization. 
-  - The dash is configured for experenced security engineers, and may not cover every type of attack of these sorts. Please use caution, the dash is in beta. Thanks YYU!
+- Added in Slack Alerting! 
+- The process requires running a script after you start your stack. 
+- The script will ask you for your webhook url, then add the configuration into the elasticsearch keystore.
+- To run the script run the config_slack_alerts.sh script from the project directory end enter in your webhook URL.
 
 ---------------
 
@@ -35,6 +37,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 | Phase 4  | PingAccess Logs                             | Complete    |
 | Phase 5  | Test and Implement Yelp Elastalert          | Not Started |
 | Phase 6  | Help GTE / RSA Implement Customer Demos     | Not Started |
+| Phase 7  | Slack Integrate Alerts from SIEM.           | In Progress |
 
 
 ## Important Note
@@ -47,7 +50,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 	- `sudo sysctl -w vm.max_map_count=262144`
 
 # Directions
-
+- (Optional) Pre work: Generate a Slack Webhook URL from Slack Admin.
 - To setup on AWS use a M5.XL or M5a.XL (16GB RAM)
 - Tested on Ubuntu 18 Running Docker / Docker Compose
     - Installed using these directions https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
@@ -65,6 +68,7 @@ PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}    <====== NOTICE THIS
 PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ```
 - Start the stack with `docker-compose up -d`  
+- (Optional) Add your Slack Webhook to the stack by using './config_slack_alerts'
 - Monitor the stack with `docker-compose logs --follow`
 
 ------------
