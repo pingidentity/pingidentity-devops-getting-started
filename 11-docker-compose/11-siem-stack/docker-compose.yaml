@@ -83,7 +83,7 @@ services:
       - cluster.initial_master_nodes=es01,es02
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.license.self_generated.type=basic
+      - xpack.license.self_generated.type=trial
       - xpack.monitoring.collection.enabled=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
@@ -102,7 +102,7 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes: ['data01:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR']
+    volumes: ['data01:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR', './elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap']
     ports:
       - 9201:9200
     healthcheck:
@@ -123,7 +123,7 @@ services:
       - cluster.initial_master_nodes=es01,es02
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.license.self_generated.type=basic
+      - xpack.license.self_generated.type=trial
       - xpack.monitoring.collection.enabled=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
@@ -142,7 +142,7 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes: ['data02:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR']
+    volumes: ['data02:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR', './elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap']
     ports:
       - 9202:9200
     healthcheck:
@@ -177,6 +177,7 @@ services:
       - ./elasticsearch-siem/elasticsearch_config:/usr/share/elasticsearch/config/es_config
       - ./elasticsearch-siem/kibana_config:/usr/share/elasticsearch/config/kibana_config
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/config/bootstrap
+      - ./elasticsearch-siem/watchers:/usr/share/elasticsearch/watchers
     networks:
       - pingnet
 
