@@ -14,6 +14,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 ---------------
 ## Latest Build News (SLACK INTEGRATION!)
 
+- Tested updating to elasatic 7.6.1 (all good)
 - Added in Slack Alerting! 
 - The process requires running a script after you start your stack. 
 - The script will ask you for your webhook url, then add the configuration into the elasticsearch keystore.
@@ -63,7 +64,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 
 ```
 COMPOSE_PROJECT_NAME=es   
-ELASTIC_VERSION=7.6.0   
+ELASTIC_VERSION=7.6.1   
 ELASTIC_SECURITY=true    
 ELASTIC_PASSWORD=2FederateM0re   
 CERTS_DIR=/usr/share/elasticsearch/config/certificates     
