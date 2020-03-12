@@ -5,8 +5,8 @@
 echo "------------------------------------------------------------------------------ "
 echo "Welcome to the Ping Identity ElasticSearch Slack Integration bootstrap process "
 echo "Please Enter Your Slack Webhook Full URL ex. https://your.webhook.url/ "
-echo ">> ---- Enter Now ----"
-read SLACK_WEB_HOOK
+echo "---- Enter Now ----"
+read -p "Enter Slack Webhook URL: " SLACK_WEB_HOOK
 
 if [[ $SLACK_WEB_HOOK != "" ]]; then
 	echo "Loading Slack Webhook into ElasticSearch Keystore."
@@ -16,10 +16,10 @@ fi
 
 echo "------------------------------------------------------------------------------ "
 echo "Please Enter Your 'elastic' user password, this is used to load watchers...  "
-echo ">> ---- Enter Now ----"
-read -s ELASTIC_PASSWORD
+echo "---- Enter Now ----"
+read -s -p "Enter 'elastic' password :" EP
 
-if [[ $ELASTIC_PASSWORD != "" ]]; then
+if [[ $EP != "" ]]; then
 	echo "Load in ElasticSearch Watchers"
 	sleep 5
 	#Loading Saved Watchers
