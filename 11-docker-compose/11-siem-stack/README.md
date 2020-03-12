@@ -70,6 +70,10 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 - Start the stack with `docker-compose up -d`  
 - (Optional) Add your Slack Webhook to the stack by using `./config_slack_alerts`
 - Monitor the stack with `docker-compose logs --follow`
+------------
+
+## Included Slack Alerts (these can be customized through Watchers)
+ - User Authenticates successfully from TOR through Ping Federate.
 
 ------------
 ## Dashboard Examples
@@ -109,7 +113,6 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 - DEFAULT PASSWORDS  
     - UN is configured as "elastic"  
     - PASSWORD is configured as "2FederateM0re"  
-
 
 ## Important Notes <--READ
 - Allow 5-10 min for the stack to come up!
