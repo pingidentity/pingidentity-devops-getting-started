@@ -76,7 +76,7 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
  - User Authenticates successfully from TOR through Ping Federate. (potential credential theft)
  - User Authenticates successfully from Known Malicious IP through Ping Federate. (potential credential theft)
  - Account Lockout detected through Ping Federate. (potential brute froce)
-
+ - Likely SAML Signature Modifications (Forced Tampering with Authentication Protocols)
 ------------
 ## Slack Alert Examples
 
