@@ -54,6 +54,6 @@ To determine the physical instance type, multiply the desired resources for each
 
 For these requirements in AWS a c5.2xlarge type (8 CPU / 16GB RAM) could be the instance type selected.
 
-To determine the base number of nodes required, divide the number of pods by 5 to determine your minumum cluster size.
+To determine the base number of nodes required, divide the number of pods by 3 to determine your minumum cluster size.
 
 Ensure that you add definitions for cluster horizontal auto-scaling to ensure your cluster scales in/out as needed.
