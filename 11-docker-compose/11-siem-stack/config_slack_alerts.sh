@@ -31,6 +31,6 @@ if [[ $EP != "" ]]; then
 	  n="${fn%.*}"
 
 	  echo "Processing file name $n "
-	  curl -X PUT "https://localhost:9201/_watcher/watch/$n?pretty" --insecure -u elastic:$ELASTIC_PASSWORD  -H 'Content-Type: application/json' -d"@$f"
+	  curl -X PUT "https://localhost:9201/_watcher/watch/$n?pretty" --insecure -u elastic:$EP  -H 'Content-Type: application/json' -d"@$f"
 	done
 fi
