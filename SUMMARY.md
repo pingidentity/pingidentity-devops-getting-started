@@ -35,6 +35,7 @@
 * [Customizing deployments](docs/config.md)
   - [Customizing server profiles](docs/profiles.md)
     - [Layering server profiles](docs/profilesLayered.md)
+    - [Environment substitution](docs/profilesSubstitution.md)
     - [Server profile structures](docs/profileStructures.md)
     - [Using private Github repositories](docs/privateRepos.md)
   - [Customizing YAML files](docs/yamlFiles.md)
