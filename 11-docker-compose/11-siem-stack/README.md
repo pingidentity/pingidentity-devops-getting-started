@@ -75,6 +75,14 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ## Included Slack Alerts (these can be customized through Watchers)
  - User Authenticates successfully from TOR through Ping Federate.
 
+
+------------
+## Slack Alert Examples
+- One alert is configured right now (login detection from TOR networks).
+
+### Demo Ping Federate Threat Intel Dashboard
+![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/tor_login_watcher.png" "Successful Login From TOR Networks.")
+
 ------------
 ## Dashboard Examples
 
