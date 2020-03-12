@@ -1,0 +1,66 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "1m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "pf-audit*"
+        ],
+        "rest_total_hits_as_int": true,
+        "body": {
+          "size": 10,
+          "query": {
+            "bool": {
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "gte": "now-1m"
+                    }
+                  }
+                }
+              ],
+              "must": [
+                {
+                  "query_string": {
+                    "query": "description: \"Missing or invalid signature (NOT_PRESENT)\""
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "actions": {
+    "slack-send": {
+      "slack": {
+        "message": {
+          "from": "Ping Alert - SAML Signature Tampering Detected...",
+          "icon": ":round_pushpin:",
+          "attachments": [
+            {
+              "color": "#C0C0C0",
+              "pretext": "SAML Signature Tampering Detected...",
+              "title": "Security Alert (High) - SAML Signature Tampering Detected...",
+              "text": "Details around Tampering... \n{{#ctx.payload.hits.hits}}\n\nUSER: [ {{_source.subject}} ]\n--- IP Address: {{_source.ip}}\n--- Protocol: {{_source.protocol}}\n--- Tracking ID: {{_source.trackingid}}\n--- Known Malicious IP: {{_source.threat_intel}}\n--- Known TOR IP: {{_source.tor_intel}}\n--- Country Name: {{_source.geoip.country_name}}\n\n\n{{/ctx.payload.hits.hits}}"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

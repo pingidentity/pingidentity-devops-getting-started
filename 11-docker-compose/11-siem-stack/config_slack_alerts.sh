@@ -5,7 +5,7 @@
 echo "------------------------------------------------------------------------------ "
 echo "Welcome to the Ping Identity ElasticSearch Slack Integration bootstrap process "
 echo "Please Enter Your Slack Webhook Full URL ex. https://your.webhook.url/ "
-echo "---- Enter Now ----"
+echo "---- Enter Now (Or leave blank to avoid updating the exiting configuration---- "
 read -p "Enter Slack Webhook URL: " SLACK_WEB_HOOK
 
 if [[ $SLACK_WEB_HOOK != "" ]]; then
