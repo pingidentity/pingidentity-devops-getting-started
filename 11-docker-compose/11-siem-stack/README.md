@@ -50,14 +50,17 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 	- `sudo sysctl -w vm.max_map_count=262144`
 
 # Directions
-- (Optional) Pre work: Generate a Slack Webhook URL from Slack Admin.
-- To setup on AWS use a M5.XL or M5a.XL (16GB RAM)
-- Tested on Ubuntu 18 Running Docker / Docker Compose
-    - Installed using these directions https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
-    - Install Docker and Docker Compose(the above link can help or do your own research)
-    - `sudo sysctl -w vm.max_map_count=262144`
+- Contact DevOps / Ping Sales Team and collect a DevOps user account / key.
+- (Optional for Alerting) Pre work: Generate a Slack Webhook URL from Slack Admin. https://api.slack.com/messaging/webhooks
+- To setup on AWS use a M5.XL or M5a.XL (16GB RAM REQUIRED // 50GB MIN STORAGE RECCOMENDED)
+  - Install Docker / Docker Compose on your EC2 or Physical System
+  - `sudo sysctl -w vm.max_map_count=262144` This step is required on linux systems.
+- Create a working directory to place your project in `mkdir pingDevOps` (example) (and cd to the folder)
 - Clone this project to your local disk.  
-- Create and place a file `.env` in root path of the clone and place these lines in it (update your devops details).
+  - git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+- Within the Project change directory to the following path. `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/`
+- Create and place a file `.env` in the above path and place these lines in it (UPDATE YOUR DEVOPS KEY AS SHOWN).
+
 ```
 COMPOSE_PROJECT_NAME=es   
 ELASTIC_VERSION=7.6.0   
@@ -67,8 +70,16 @@ CERTS_DIR=/usr/share/elasticsearch/config/certificates
 PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}    <====== NOTICE THIS
 PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ```
+
 - Start the stack with `docker-compose up -d`  
-- (Optional) Add your Slack Webhook to the stack by using `./config_slack_alerts`
+
+- (Optional) Run the Slack configuration script to configure slack alerts `./config_slack_alerts`
+  - The first time you need to provide your webhook URL that you created above.
+  - You can re-run this script any time which will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder
+  - The script asks for webhook URL and elasticsearch password.
+    - The webhook URL updates the destination for your alerts within slack
+    - The password is used to push watchers into elasticsearch
+
 - Monitor the stack with `docker-compose logs --follow`
 ------------
 
