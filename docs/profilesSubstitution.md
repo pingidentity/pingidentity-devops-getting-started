@@ -14,7 +14,7 @@ Within the environment section of your container definition, declare the variabl
 
 Values can be defined in many sources. In-line, configmaps, env_vars, etc.
 
-![docker compose pass environment vars](images/COMPOSE_SUBSTITUTION.png)
+![docker compose environment variables](images/COMPOSE_SUBSTITUTION.png)
 
 ## How it Works
 
