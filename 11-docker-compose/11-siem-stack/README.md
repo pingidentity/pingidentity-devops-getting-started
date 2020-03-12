@@ -68,7 +68,7 @@ PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}    <====== NOTICE THIS
 PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ```
 - Start the stack with `docker-compose up -d`  
-- (Optional) Add your Slack Webhook to the stack by using './config_slack_alerts'
+- (Optional) Add your Slack Webhook to the stack by using `./config_slack_alerts`
 - Monitor the stack with `docker-compose logs --follow`
 
 ------------
