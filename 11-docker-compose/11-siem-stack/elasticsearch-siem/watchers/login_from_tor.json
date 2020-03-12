@@ -50,9 +50,6 @@
       "slack": {
         "message": {
           "from": "Medium Severity - AWS Failed Login Alert",
-          "to": [
-            "#secops_sev2"
-          ],
           "icon": ":round_pushpin:",
           "attachments": [
             {
