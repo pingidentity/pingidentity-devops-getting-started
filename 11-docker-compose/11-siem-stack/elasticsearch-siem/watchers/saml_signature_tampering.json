@@ -56,7 +56,7 @@
               "color": "#FF0000",
               "pretext": "Attempted SAML Signature Tampering Detected...",
               "title": "Security Alert (High) - SAML Signature Tampering Detected...",
-              "text": "Details around Tampering... \n{{#ctx.payload.hits.hits}}\n\nIP: [ {{_source.ip}} ]\n--- Protocol: {{_source.protocol}}\n--- Tracking ID: {{_source.trackingid}}\n--- Known Malicious IP: {{_source.threat_intel}}\n--- Known TOR IP: {{_source.tor_intel}}\n--- Country Name: {{_source.geoip.country_name}}\n\n\n{{/ctx.payload.hits.hits}}"
+              "text": "Details around Tampering... \n{{#ctx.payload.hits.hits}}\n\nIP: [ {{_source.ip}} ]\n--- Status: {{_source.status}}\n--- Tracking ID: {{_source.trackingid}}\n--- Known Malicious IP: {{_source.threat_intel}}\n--- Known TOR IP: {{_source.tor_intel}}\n--- Country Name: {{_source.geoip.country_name}}\n Full Description: ```{{_source.description}}```\n\n\n{{/ctx.payload.hits.hits}}"
             }
           ]
         }
