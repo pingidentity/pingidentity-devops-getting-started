@@ -32,6 +32,7 @@
     - [Kubernetes deployments for cloud platforms](docs/deployK8sCloud.md)
       - [Deploy to Amazon Web Services EKS](docs/deployK8s-AWS.md)
       - [Deploy to Azure Kubernetes Service](docs/deployK8s-AKS.md)
+      - [Sizing Kubernetes Cluster](docs/k8sClusterSizing.md)
 * [Customizing deployments](docs/config.md)
   - [Customizing server profiles](docs/profiles.md)
     - [Layering server profiles](docs/profilesLayered.md)
