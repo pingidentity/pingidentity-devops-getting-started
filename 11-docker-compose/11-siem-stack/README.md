@@ -13,7 +13,8 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 
 ---------------
 ## Latest Build News (SLACK INTEGRATION!)
-
+- Migrated all indexes to using ILM. This means by default the stack will only store 2 days worth of logs and ensure indexes do not grow over 2GB. This is done because the enviroment is setup as a demo. HEAP sizes in the ES server are SMALL becasue this is a demo. I will soon have production ready documents written to show customers how this can be brought to production.
+- Tested updating to elasatic 7.6.1 (all good)
 - Added in Slack Alerting! 
 - The process requires running a script after you start your stack. 
 - The script will ask you for your webhook url, then add the configuration into the elasticsearch keystore.
@@ -31,13 +32,14 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 | Phase 2a | Ping SIEM Dashboard                         | Beta        |
 | Phase 2b | PingDirectory Load Generator (thanks arno)  | Complete    |
 | Phase 2c | Index Mapping rework for PD data index      | Complete    | 
-| Phase 2d | Integrate 2 Day Retention with Curator      | In Progress |
+| Phase 2d | Migrate All Indexes to use ILM vs Date/Time | Complete |
 | Phase 2e | Ping Federate Threat Detection Dashboard    | Beta        |
 | Phase 3  | PingDirectory Logs                          | Complete    | 
 | Phase 4  | PingAccess Logs                             | Complete    |
-| Phase 5  | Test and Implement Yelp Elastalert          | Not Started |
+| Phase 5  | Test and Implement 30 Trial ES Watchers     | Complete    |
 | Phase 6  | Help GTE / RSA Implement Customer Demos     | Not Started |
 | Phase 7  | Slack Integrate Alerts from SIEM.           | In Progress |
+| Phase 8  | Develop Several Custom Alerts               | In Progress |
 
 
 ## Important Note
@@ -50,38 +52,49 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 	- `sudo sysctl -w vm.max_map_count=262144`
 
 # Directions
-- (Optional) Pre work: Generate a Slack Webhook URL from Slack Admin.
-- To setup on AWS use a M5.XL or M5a.XL (16GB RAM)
-- Tested on Ubuntu 18 Running Docker / Docker Compose
-    - Installed using these directions https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
-    - Install Docker and Docker Compose(the above link can help or do your own research)
-    - `sudo sysctl -w vm.max_map_count=262144`
+- Contact DevOps / Ping Sales Team and collect a DevOps user account / key.
+- (Optional for Alerting) Pre work: Generate a Slack Webhook URL from Slack Admin. https://api.slack.com/messaging/webhooks
+- To setup on AWS use a M5.XL or M5a.XL (16GB RAM REQUIRED // 50GB MIN STORAGE RECCOMENDED)
+  - Install Docker / Docker Compose on your EC2 or Physical System
+  - `sudo sysctl -w vm.max_map_count=262144` This step is required on linux systems.
+- Create a working directory to place your project in `mkdir pingDevOps` (example) (and cd to the folder)
 - Clone this project to your local disk.  
-- Create and place a file `.env` in root path of the clone and place these lines in it (update your devops details).
+  - git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+- Within the Project change directory to the following path. `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/`
+- Create and place a file `.env` in the above path and place these lines in it (UPDATE YOUR DEVOPS KEY AS SHOWN).
+
 ```
 COMPOSE_PROJECT_NAME=es   
-ELASTIC_VERSION=7.6.0   
+ELASTIC_VERSION=7.6.1   
 ELASTIC_SECURITY=true    
 ELASTIC_PASSWORD=2FederateM0re   
 CERTS_DIR=/usr/share/elasticsearch/config/certificates     
 PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}    <====== NOTICE THIS
 PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ```
+
 - Start the stack with `docker-compose up -d`  
-- (Optional) Add your Slack Webhook to the stack by using `./config_slack_alerts`
+
+- (Optional) Run the Slack configuration script to configure slack alerts `./config_slack_alerts`
+  - The first time you need to provide your webhook URL that you created above.
+  - You can re-run this script any time which will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder
+  - The script asks for webhook URL and elasticsearch password.
+    - The webhook URL updates the destination for your alerts within slack
+    - The password is used to push watchers into elasticsearch
+
 - Monitor the stack with `docker-compose logs --follow`
 ------------
 
 ## Included Slack Alerts (these can be customized through Watchers)
- - User Authenticates successfully from TOR through Ping Federate.
-
-
+ - User Authenticates successfully from TOR through Ping Federate. (potential credential theft)
+ - User Authenticates successfully from Known Malicious IP through Ping Federate. (potential credential theft)
+ - Account Lockout detected through Ping Federate. (potential brute froce)
+ - Likely SAML Signature Modifications (Forced Tampering with Authentication Protocols)
 ------------
 ## Slack Alert Examples
-- One alert is configured right now (login detection from TOR networks).
 
-### Login From TOR Detection
-![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/tor_login_watcher.png "Successful Login From TOR Networks.")
+### Low / Medium / High Alert Examples
+![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/slack_alert_examples.png "Successful Login From TOR Networks.")
 
 ------------
 ## Dashboard Examples

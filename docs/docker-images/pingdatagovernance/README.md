@@ -2,7 +2,7 @@
 # Ping Identity DevOps Docker Image - `pingdatagovernance`
 
 This docker image includes the Ping Identity PingDataGovernance product binaries
-and associated hook scripts to create and run a PingDataGovernance instance or 
+and associated hook scripts to create and run a PingDataGovernance instance or
 instances.
 
 ## Related Docker Images
@@ -61,13 +61,13 @@ You can view the Docker logs with the command:
   docker logs -f pingdatagovernance
 ```
 
-You should see the ouptut from a PingDataGovernance install and configuration, ending with a message the the PingDataGovernance has 
+You should see the ouptut from a PingDataGovernance install and configuration, ending with a message the the PingDataGovernance has
 started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` afer to stop tailing the logs.
 
 
 ## Connection with a REST Client
 Connection a REST client from Postman or a browser using the default ports and credentials.  The
-following url will provie a list of all SCIM2 schemas available.  It will be empty until 
+following url will provie a list of all SCIM2 schemas available.  It will be empty until
 some resoruces are configured.
 
 |                 |                                   |

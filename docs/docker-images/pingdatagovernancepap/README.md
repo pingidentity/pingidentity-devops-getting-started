@@ -32,7 +32,7 @@ used, then it may come from a parent container
 - ${HTTPS_PORT}
 
 ## Running a PingDataGovernance PAP container
-To run a PingDataGovernance PAP container: 
+To run a PingDataGovernance PAP container:
 
 ```she   ll
   docker run \
@@ -48,7 +48,7 @@ Follow Docker logs with:
 docker logs -f pingdatagovernancepap
 ```
 
-Log in with: 
+Log in with:
 * https://localhost:8443/
   * Username: admin
 ## Docker Container Hook Scripts

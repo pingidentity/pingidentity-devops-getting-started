@@ -1,9 +1,12 @@
 #!/bin/bash
-# Simple script to load elasticsearch templates and kibana saved ndjson.
+# Simple script to load elasticsearch templates, ilm, policies, 
+# indexes and kibana saved ndjson.
 # Author: Ryan Ivis -- Ping Identity
 
 es_status="red"
 kib_status="red"
+
+echo "Starting ElasticSearch Loading Process..."
 
 #Wait for ElasticSearch API to go Green before importing templates
 while [ "$es_status" != "green" ]
@@ -13,42 +16,57 @@ do
   health=$(curl -s -u elastic:$ELASTIC_PASSWORD --insecure https://es01:9200/_cluster/health)
   es_status=$(expr "$health" : '.*"status":"\([^"]*\)"')
 done
-echo $health
+
+#Load in Index Lifecycle polices
+echo "Loading! -- ElasticSearch ILM Policies"
+for f in /usr/share/elasticsearch/ilm_policies/*.json
+do	
+  echo "Processing index lifecycle policy file (full path) $f "
+  echo "start"
+  fn=$(basename $f)
+  n="${fn%.*}"
+
+  echo "Processing file name $n "
+  curl -X PUT "https://es01:9200/_ilm/policy/$n?pretty" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@$f"
+done
+
+#Load in Index Templates This includes mappings, settings, etc.
 echo "Loading! -- ElasticSearch Index Templates"
-curl -X PUT "https://es01:9200/_template/pf_audit?pretty" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@/usr/share/elasticsearch/config/es_config/pf_template.json"
-curl -X PUT "https://es01:9200/_template/pd_access?pretty" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@/usr/share/elasticsearch/config/es_config/pd_template.json"
-curl -X PUT "https://es01:9200/_template/pa_audit?pretty" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@/usr/share/elasticsearch/config/es_config/pa_template.json"
+for f in /usr/share/elasticsearch/index_templates/*.json
+do	
+  echo "Processing index template file (full path) $f "
+  echo "start"
+  fn=$(basename $f)
+  n="${fn%.*}"
+
+  echo "Processing file name $n "
+  curl -X PUT "https://es01:9200/_template/$n?pretty" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@$f"
+done
+
+#Bootstrap all required indexes
+echo "Loading! -- Bootstraping Indexes"
+for f in /usr/share/elasticsearch/index_bootstraps/*.json
+do	
+  echo "Processing index bootstrap file (full path) $f "
+  echo "start"
+  fn=$(basename $f)
+  n="${fn%.*}"
+
+  echo "Processing file name $n "
+  curl -X PUT "https://es01:9200/$n-000001?pretty" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@$f"
+done
 
 #Wait for Kibana API to go Green before importing saved objects
-echo "loading kibana saved objects"
+echo "Waiting for Kibana status green, prior to loading saved objects..."
 while [ "$kib_status" != "Looking good" ]
 do
-	echo "Status Not Looking good Yet Kibana"
+	echo "Status Not Looking green Yet Kibana"
 	sleep 3
 	health=$(curl -s -u elastic:$ELASTIC_PASSWORD --insecure https://kibana:5601/api/status)
 	echo $health
 	kib_status=$(expr "$health" : '.*"nickname":"\([^"]*\)"')
 done
-
-echo $health
 echo "Loading! -- Kibana Saved Objects."
 curl -X POST "https://kibana:5601/api/saved_objects/_import" --insecure -u elastic:$ELASTIC_PASSWORD -H "kbn-xsrf: true" --form file="@/usr/share/elasticsearch/config/kibana_config/kib_base.ndjson"
 
-echo "Load in Watchers"
-sleep 5
-#Loading Saved Watchers
-for f in /usr/share/elasticsearch/watchers/*.json
-do	
-  echo "Processing watcher file (full path) $f "
-  echo "start"
-  fn=$(basename $f)
-  n="${fn%.*}"
-  echo "$n"
-  echo "end"
-
-  echo "Processing file name $n "
-  curl -X PUT "https://es01:9200/_watcher/watch/$n?pretty" --insecure -u elastic:$ELASTIC_PASSWORD  -H 'Content-Type: application/json' -d"@$f"
-done
-
-echo "bootstrap execution complete."
-
+echo "Bootstrap Execution complete."

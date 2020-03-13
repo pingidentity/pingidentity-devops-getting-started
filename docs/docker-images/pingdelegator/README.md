@@ -2,7 +2,7 @@
 # Ping Identity Docker Image - `pingdelegator`
 
 This docker image provides an nginx image with the PingDelegator
-deployed to be used in configuration of the PingDirectory and 
+deployed to be used in configuration of the PingDirectory and
 PingFederate products.
 
 ## Related Docker Images

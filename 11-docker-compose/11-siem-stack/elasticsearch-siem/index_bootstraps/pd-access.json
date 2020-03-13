@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "pd-access": {
+      "is_write_index": true
+    }
+  }
+}
