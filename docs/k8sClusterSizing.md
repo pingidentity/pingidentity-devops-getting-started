@@ -43,7 +43,7 @@ For production deployments where high availability is paramount, creating a clus
 
 > Note: For some applications, you may decide to size 1 pod per node.
 
-To determine the physical instance type, multiply the desired resources for each service by the number of pods per node, plus additional for system overhead.
+To determine the physical instance type, multiply the desired resources for each service by the number of pods per node, plus additional for system overhead. Follow product guidelines to determine system requirements.
 
 ### Example Service (with 3 pods/node)
 
