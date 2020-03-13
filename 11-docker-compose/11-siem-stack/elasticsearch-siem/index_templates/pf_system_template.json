@@ -1,8 +1,14 @@
 {
   "order": 1,
   "index_patterns": [
-    "pa-audit*"
+    "pf-system*"
   ],
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "index.lifecycle.name": "ping-2-day-retention",     
+    "index.lifecycle.rollover_alias": "pf-system"   
+  },
   "mappings": {
     "properties": {
       "geoip": {
@@ -19,24 +25,6 @@
           },
           "longitude": {
             "type": "half_float"
-          }
-        }
-      },
-      "roundTripMS": {
-        "type": "long",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "responseCode": {
-        "type": "long",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
           }
         }
       }

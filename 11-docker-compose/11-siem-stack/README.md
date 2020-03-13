@@ -13,7 +13,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 
 ---------------
 ## Latest Build News (SLACK INTEGRATION!)
-
+- Migrated all indexes to using ILM. This means by default the stack will only store 2 days worth of logs and ensure indexes do not grow over 2GB. This is done because the enviroment is setup as a demo. HEAP sizes in the ES server are SMALL becasue this is a demo. I will soon have production ready documents written to show customers how this can be brought to production.
 - Tested updating to elasatic 7.6.1 (all good)
 - Added in Slack Alerting! 
 - The process requires running a script after you start your stack. 
@@ -32,7 +32,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 | Phase 2a | Ping SIEM Dashboard                         | Beta        |
 | Phase 2b | PingDirectory Load Generator (thanks arno)  | Complete    |
 | Phase 2c | Index Mapping rework for PD data index      | Complete    | 
-| Phase 2d | Migrate All Indexes to use ILM vs Date/Time | In Progress |
+| Phase 2d | Migrate All Indexes to use ILM vs Date/Time | Complete |
 | Phase 2e | Ping Federate Threat Detection Dashboard    | Beta        |
 | Phase 3  | PingDirectory Logs                          | Complete    | 
 | Phase 4  | PingAccess Logs                             | Complete    |

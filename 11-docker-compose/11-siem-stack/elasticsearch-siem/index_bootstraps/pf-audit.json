@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "pf-audit": {
+      "is_write_index": true
+    }
+  }
+}

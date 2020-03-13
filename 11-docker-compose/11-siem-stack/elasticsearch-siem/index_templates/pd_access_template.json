@@ -3,6 +3,12 @@
   "index_patterns": [
     "pd-access*"
   ],
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "index.lifecycle.name": "ping-2-day-retention",     
+    "index.lifecycle.rollover_alias": "pd-access"   
+  },
   "mappings": {
     "properties": {
         "@timestamp": {

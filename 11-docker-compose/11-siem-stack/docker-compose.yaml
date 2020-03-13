@@ -156,7 +156,7 @@ services:
 #Generate Certificates if not already on disk, then run the saved state loader to push saved templates and objects into both kibana and elasticsearch
   configure_es_certs_state:
     container_name: configure_es_certs_state
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
     environment:
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
     command: >
@@ -178,6 +178,9 @@ services:
       - ./elasticsearch-siem/kibana_config:/usr/share/elasticsearch/config/kibana_config
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/config/bootstrap
       - ./elasticsearch-siem/watchers:/usr/share/elasticsearch/watchers
+      - ./elasticsearch-siem/ilm_policies:/usr/share/elasticsearch/ilm_policies
+      - ./elasticsearch-siem/index_bootstraps:/usr/share/elasticsearch/index_bootstraps
+      - ./elasticsearch-siem/index_templates:/usr/share/elasticsearch/index_templates
     networks:
       - pingnet
 
