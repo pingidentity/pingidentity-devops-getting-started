@@ -3,7 +3,7 @@
 
 This docker image includes the Ping Identity PingAccess product binaries
 and associated hook scripts to create and run both PingAccess Admin and
-Engine nodes. 
+Engine nodes.
 
 ## Related Docker Images
 - `pingidentity/pingbase` - Parent Image
@@ -30,12 +30,12 @@ used, then it may come from a parent container
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  | 
 | LICENSE_FILE_NAME  | pingaccess.lic  | 
 | LICENSE_SHORT_NAME  | PA  | 
-| LICENSE_VERSION  | 5.2  | 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | 
 | INITIAL_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD:-2FederateM0re}  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
 ## Running a PingDirectory container
-To run a PingAccess container: 
+To run a PingAccess container:
 
 ```shell
   docker run \
@@ -55,7 +55,7 @@ Follow Docker logs with:
 docker logs -f pingaccess
 ```
 
-If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
 * https://localhost:9000
   * Username: Administrator
 ## Docker Container Hook Scripts

@@ -14,23 +14,19 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| ORIGINAL_ENTRYPOINT  |   | 
-| GIT_PREFIX  | SERVER_PROFILE  | 
-| ORIGINAL_CMD  | catalina.sh run  | 
-## Ports Exposed
-The following ports are exposed from the container.  If a variable is
-used, then it may come from a parent container
-- 8443
-
-| VERBOSE  | false  | 
-| _DOLLAR_  | $  | 
+| SHIM  | ${SHIM}  | 
+| HTTP_PORT  | 8080  | 
+| HTTPS_PORT  | 8443  | 
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  | 
+| STARTUP_FOREGROUND_OPTS  | run  | 
+| STARTUP_BACKGROUND_OPTS  | start  | 
 ## Run
-To run a PingDataConsole container: 
+To run a PingDataConsole container:
 
 ```shell
   docker run \
            --name pingdataconsole \
-           --publish 8443:8443 \
+           --publish ${HTTPS_PORT}:${HTTPS_PORT} \
            --detach \
            pingidentity/pingdataconsole
 ```
@@ -42,8 +38,8 @@ Follow Docker logs with:
 docker logs -f pingdataconsole
 ```
 
-If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
-* http://localhost:8443/console/login
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
+* http://localhost:${HTTPS_PORT}/console/login
 ```
 Server: pingdirectory
 Username: administrator

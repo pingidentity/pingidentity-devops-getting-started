@@ -14,10 +14,8 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| JDK_HOME  | /usr/lib/jvm/default-jvm   | 
-| JDK_MODULES  | ${JDK_HOME}/jmods/   | 
-| JAVA_HOME  | /opt/java  | 
-| PATH  | /opt/tools:${JAVA_HOME}/bin:${PATH}  | 
+| SHIM  | ${SHIM}  | 
+| PATH  | /opt/tools:${PATH}  | 
 ## List all available tools
 `docker run -it --rm pingidentity/ldap-sdk-tools ls`
 

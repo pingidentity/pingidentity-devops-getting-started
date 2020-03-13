@@ -1,8 +1,8 @@
 
 # Ping Identity DevOps Docker Image - `pingtoolkit`
 
-This docker image includes the Ping Identity PingToolkit 
-and associated hook scripts to create a container that can pull in a SERVER_PROFILE 
+This docker image includes the Ping Identity PingToolkit
+and associated hook scripts to create a container that can pull in a SERVER_PROFILE
 run scripts.  The typical use case of this image would be an init container or a pod/container
 to perform tasks aside a running set of pods/containers.
 

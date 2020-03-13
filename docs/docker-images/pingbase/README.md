@@ -1,7 +1,7 @@
 
 # Ping Identity Docker Image - `pingbase`
 
-This docker image provides a base image for all Ping Identity DevOps 
+This docker image provides a base image for all Ping Identity DevOps
 product images.  Primarly, the builder can provide an argument, `SHIM`,
 that will be used to determine the base OS used when building.  The options
 include:
@@ -23,7 +23,7 @@ this image.
 | IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version, set by build process of the docker build 
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  | Image git revision, set by build process of the docker build 
 | ACCEPT_EULA  | NO  | Must be set to 'YES' for the container to start 
-| BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in  image/container 
+| BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in image/container 
 | IN_DIR  | ${BASE}/in  | Location of a local server-profile volume 
 | OUT_DIR  | ${BASE}/out  | Path to the runtime volume 
 | SERVER_BITS_DIR  | ${BASE}/server  | Path to the server bits 
@@ -41,11 +41,11 @@ this image.
 | SERVER_PROFILE_UPDATE  | false  | Whether to update the server profile upon container restart 
 | SERVER_ROOT_DIR  | ${OUT_DIR}/instance  | Path from which the runtime executes 
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}  | License directory and filename 
-| STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to  instantiate the container 
-| STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the foreground. This is the  normal start flow for the container 
-| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when  the container starts with the server in the background. This is the  debug start flow for the container 
+| STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to instantiate the container 
+| STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container 
+| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container 
 | PING_IDENTITY_DEVOPS_KEY_REDACT  | true  | 
-| TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container  standard output 
+| TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container standard output 
 | COLORIZE_LOGS  | true  | If 'true', the output logs will be colorized with GREENs and REDs, otherwise, no colorization will be done.  This is good for tools that monitor logs and colorization gets in the way. 
 | LOCATION  | Docker  | Location default value 
 | LOCATION_VALIDATION  | true|Any string denoting a logical/physical location|Must be a string  | 
@@ -70,7 +70,8 @@ this image.
 | ROOT_USER_DN  | cn=administrator  | the default administrative user for PingData 
 | ENV  | ${BASE}/.profile  | 
 | MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json 
-| PING_CONTAINER_PRIVILEGED  | true  | Default shell prompt (i.e. productName:hostname:workingDir) Whether to run the process as Root or not if set to false, user spec can be left to default (uid:9031, gid:9999) or a custom uid can be passed with PING_CONTAINER_UID and PING_CONTAINER_GID 
+| PS1  | \${PING_PRODUCT}:\h:\w\n>   | Default shell prompt (i.e. productName:hostname:workingDir) 
+| PING_CONTAINER_PRIVILEGED  | true  | Whether to run the process as Root or not if set to false, user spec can be left to default (uid:9031, gid:9999) or a custom uid can be passed with PING_CONTAINER_UID and PING_CONTAINER_GID 
 | PING_CONTAINER_UID  | 9031  | The user ID the product will use if PING_CONTAINER_PRIVILEGED is set to false 
 | PING_CONTAINER_GID  | 9999  | The group ID the product will use if PING_CONTAINER_PRIVILEGED is set to false 
 | PING_CONTAINER_UNAME  | ping  | The user name the product will use if PING_CONTAINER_PRIVILEGED is set to false and a user with that ID does not exist already 

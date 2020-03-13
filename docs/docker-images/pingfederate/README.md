@@ -3,7 +3,7 @@
 
 This docker image includes the Ping Identity PingFederate product binaries
 and associated hook scripts to create and run both PingFederate Admin and
-Engine nodes. 
+Engine nodes.
 
 ## Related Docker Images
 - pingidentity/pingbase - Parent Image
@@ -58,7 +58,7 @@ Follow Docker logs with:
 docker logs -f pingfederate
 ```
 
-If using the command above with the embedded [server profile](../server-profiles/README.md), log in with: 
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
 * https://localhost:9999/pingfederate/app
   * Username: Administrator
   * Password: 2FederateM0re

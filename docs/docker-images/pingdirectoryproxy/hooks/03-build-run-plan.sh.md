@@ -1,5 +1,5 @@
 
-# Ping Identity DevOps `pingdirectory` Hook - `03-build-run-plan.sh`
+# Ping Identity DevOps `pingdirectoryproxy` Hook - `03-build-run-plan.sh`
  This script is called to check if there is an existing server
  and if so, it will return a 1, else 0
  Goal of building a run plan is to provide a plan for the server as it starts up
@@ -17,6 +17,6 @@
                     SEED Server and initial server should be setup and data imported
 
 ---
-This document auto-generated from _[pingdirectory/hooks/03-build-run-plan.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/hooks/03-build-run-plan.sh)_
+This document auto-generated from _[pingdirectoryproxy/hooks/03-build-run-plan.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectoryproxy/hooks/03-build-run-plan.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

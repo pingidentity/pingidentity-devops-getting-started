@@ -2,7 +2,7 @@
 # Ping Identity DevOps Docker Image - `pingdirectory`
 
 This docker image includes the Ping Identity PingDirectory product binaries
-and associated hook scripts to create and run a PingDirectory instance or 
+and associated hook scripts to create and run a PingDirectory instance or
 instances.
 
 ## Related Docker Images

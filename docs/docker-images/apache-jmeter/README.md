@@ -5,12 +5,8 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| JDK_HOME  | /usr/lib/jvm/default-jvm   | 
-| JDK_MODULES  | ${JDK_HOME}/jmods/   | 
-| VERBOSE  | false  | 
-| _DOLLAR_  | $  | 
-| JAVA_HOME  | /opt/java  | 
-| PATH  | ${JAVA_HOME}/bin:${PATH}  | 
+| SHIM  | ${SHIM}  | 
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/apache-jmeter/hooks/README.md) for details on all apache-jmeter hook scripts
 

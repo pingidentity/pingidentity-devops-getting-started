@@ -2,7 +2,7 @@
 # Ping Identity Docker Image - `pingcommon`
 
 This docker image provides a busybox image to house the base hook scripts
-and default entrypoint.sh used throughout the Ping Identity DevOps product images.  
+and default entrypoint.sh used throughout the Ping Identity DevOps product images.
 
 
 ## Docker Container Hook Scripts

@@ -12,7 +12,7 @@ Ping product images and licenses.
 docker run pingidentity/pingdownloader -p <product_name>
 ```
 ### Options
-```shell 
+```shell
 -v, --version: the version of the product to download. by default, the downloader will pull the latest version
 
 -c, --conserve-name: use this option to conserve the original file name. By   default, the downloader will rename the file product.zip
