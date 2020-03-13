@@ -32,13 +32,14 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 | Phase 2a | Ping SIEM Dashboard                         | Beta        |
 | Phase 2b | PingDirectory Load Generator (thanks arno)  | Complete    |
 | Phase 2c | Index Mapping rework for PD data index      | Complete    | 
-| Phase 2d | Integrate 2 Day Retention with Curator      | In Progress |
+| Phase 2d | Migrate All Indexes to use ILM vs Date/Time | In Progress |
 | Phase 2e | Ping Federate Threat Detection Dashboard    | Beta        |
 | Phase 3  | PingDirectory Logs                          | Complete    | 
 | Phase 4  | PingAccess Logs                             | Complete    |
-| Phase 5  | Test and Implement Yelp Elastalert          | Not Started |
+| Phase 5  | Test and Implement 30 Trial ES Watchers     | Complete    |
 | Phase 6  | Help GTE / RSA Implement Customer Demos     | Not Started |
 | Phase 7  | Slack Integrate Alerts from SIEM.           | In Progress |
+| Phase 8  | Develop Several Custom Alerts               | In Progress |
 
 
 ## Important Note
