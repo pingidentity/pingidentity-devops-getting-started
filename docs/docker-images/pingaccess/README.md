@@ -31,7 +31,8 @@ used, then it may come from a parent container
 | LICENSE_FILE_NAME  | pingaccess.lic  | 
 | LICENSE_SHORT_NAME  | PA  | 
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | 
-| INITIAL_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD:-2FederateM0re}  | 
+| PA_ADMIN_PASSWORD_INITIAL  | 2Access  | 
+| PA_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD:-2FederateM0re}  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
 ## Running a PingDirectory container
