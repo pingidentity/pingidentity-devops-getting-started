@@ -2,19 +2,13 @@
 #### Built by Ryan Ivis with Ping Identity   
 #### Project Salt Water
 
-The goal of this project is to have pre-built security dashboards to ride along side our products. The inital phase is currently working on PingFederate Audit Logs. 
-
-## What is this ?
-![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/Architecture.png "Architecture Overview")
-- Threat Intel and TOR Endpoints are being provided by AlienVault and the TOR Network Endpoint List.  
-- Threat Feeds are updated on an interval via seting a var in docker-compose !!!
-
-This project will start a Ping Stack with Elastic Search Infrastructure built in for visualizing traffic and other security / log data.
+The goal of this project is to have pre-built security dashboards to ride along side our products. The initial phase is currently working on PingFederate Audit Logs. 
 
 ---------------
-## Latest Build News (SLACK INTEGRATION!)
+
+## Latest Build News (SLACK INTEGRATION! / ILM Bootstrapped)
 - Migrated all indexes to using ILM. This means by default the stack will only store 2 days worth of logs and ensure indexes do not grow over 2GB. This is done because the enviroment is setup as a demo. HEAP sizes in the ES server are SMALL becasue this is a demo. I will soon have production ready documents written to show customers how this can be brought to production.
-- Tested updating to elasatic 7.6.1 (all good)
+- Tested updating to elastic 7.6.1 (all good)
 - Added in Slack Alerting! 
 - The process requires running a script after you start your stack. 
 - The script will ask you for your webhook url, then add the configuration into the elasticsearch keystore.
@@ -32,52 +26,68 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 | Phase 2a | Ping SIEM Dashboard                         | Beta        |
 | Phase 2b | PingDirectory Load Generator (thanks arno)  | Complete    |
 | Phase 2c | Index Mapping rework for PD data index      | Complete    | 
-| Phase 2d | Migrate All Indexes to use ILM vs Date/Time | Complete |
+| Phase 2d | Migrate All Indexes to use ILM vs Date/Time | Complete    |
 | Phase 2e | Ping Federate Threat Detection Dashboard    | Beta        |
 | Phase 3  | PingDirectory Logs                          | Complete    | 
 | Phase 4  | PingAccess Logs                             | Complete    |
 | Phase 5  | Test and Implement 30 Trial ES Watchers     | Complete    |
 | Phase 6  | Help GTE / RSA Implement Customer Demos     | Not Started |
-| Phase 7  | Slack Integrate Alerts from SIEM.           | In Progress |
+| Phase 7  | Slack Integrate Alerts from SIEM.           | Complete    |
 | Phase 8  | Develop Several Custom Alerts               | In Progress |
+| Phase 9  | Develop Production Grade Deployment Doc     | In Progress |
 
+
+---------------
+
+## What is this ?
+![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/Architecture.png "Architecture Overview")
+- Threat Intel and TOR Endpoints are being provided by AlienVault and the TOR Network Endpoint List.  
+- Threat Feeds are updated on an interval via setting a var in docker-compose !!!
+
+This project will start a Ping Stack with Elastic Search Infrastructure built in for visualizing traffic and other security / log data.
+
+---------------
 
 ## Important Note
-- **THIS IS NOT INTENDED FOR PRODUCTION. THERE ARE DEFAULT PASSWORDS THAT MUST BE MODIFIED**...   
+- **THIS EXISTING SETUP IS NOT INTENDED FOR PRODUCTION. THERE ARE DEFAULT PASSWORDS THAT MUST BE MODIFIED**...   
      
-- **THERE ARE PERSISTANT DISKS USED FOR ELASTIC SEARCH DATA, AND ELASTIC SEARCH CERTS. TO CLEAR THEM WHEN YOU ARE DONE TESTING RUN**...   
+- **THERE ARE PERSISTENT DISKS USED FOR ELASTIC SEARCH DATA, AND ELASTIC SEARCH CERTS. TO CLEAR THEM WHEN YOU ARE DONE TESTING RUN**...   
 	- `docker volume prune`  
 
 - **YOU MUST RUN THE FOLLOWING COMMAND ON UBUNTU (LIKELY OTHER DISTRO'S) TO SUPPORT HEAP SIZES**
 	- `sudo sysctl -w vm.max_map_count=262144`
 
+
 # Directions
 - Contact DevOps / Ping Sales Team and collect a DevOps user account / key.
-- (Optional for Alerting) Pre work: Generate a Slack Webhook URL from Slack Admin. https://api.slack.com/messaging/webhooks
-- To setup on AWS use a M5.XL or M5a.XL (16GB RAM REQUIRED // 50GB MIN STORAGE RECCOMENDED)
+- (Optional / Recommended for Alerting) Pre work: Generate a Slack Webhook URL from Slack Admin. https://api.slack.com/messaging/webhooks
+- To setup on AWS use a M5.XL or M5a.XL (16GB RAM REQUIRED // 50GB MIN STORAGE Recommended)
   - Install Docker / Docker Compose on your EC2 or Physical System
   - `sudo sysctl -w vm.max_map_count=262144` This step is required on linux systems.
 - Create a working directory to place your project in `mkdir pingDevOps` (example) (and cd to the folder)
 - Clone this project to your local disk.  
-  - git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
+  - `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
 - Within the Project change directory to the following path. `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/`
 - Create and place a file `.env` in the above path and place these lines in it (UPDATE YOUR DEVOPS KEY AS SHOWN).
 
 ```
 COMPOSE_PROJECT_NAME=es   
+
 ELASTIC_VERSION=7.6.1   
 ELASTIC_SECURITY=true    
 ELASTIC_PASSWORD=2FederateM0re   
-CERTS_DIR=/usr/share/elasticsearch/config/certificates     
-PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}    <====== NOTICE THIS
-PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
+
+CERTS_DIR=/usr/share/elasticsearch/config/certificates
+
+PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}       <====== NOTICE THIS
+PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}              <====== NOTICE THIS
 ```
 
 - Start the stack with `docker-compose up -d`  
 
 - (Optional) Run the Slack configuration script to configure slack alerts `./config_slack_alerts`
-  - The first time you need to provide your webhook URL that you created above.
-  - You can re-run this script any time which will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder
+  - The first time you must provide your webhook URL that you created above.
+  - You can re-run this script any time which will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder! You don't need to provide your webhook in the future. If you don't provide it, it simply will not update it.
   - The script asks for webhook URL and elasticsearch password.
     - The webhook URL updates the destination for your alerts within slack
     - The password is used to push watchers into elasticsearch
@@ -88,7 +98,7 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ## Included Slack Alerts (these can be customized through Watchers)
  - User Authenticates successfully from TOR through Ping Federate. (potential credential theft)
  - User Authenticates successfully from Known Malicious IP through Ping Federate. (potential credential theft)
- - Account Lockout detected through Ping Federate. (potential brute froce)
+ - Account Lockout detected through Ping Federate. (potential brute force)
  - Likely SAML Signature Modifications (Forced Tampering with Authentication Protocols)
 ------------
 ## Slack Alert Examples
@@ -122,18 +132,25 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
     - authrate_ok
     - authrate_ko
 
+------------
+
 ## PingFederate
 - Audit and System logs are delivered.
+
+------------
 
 ## PingAccess
  - Audit Logs are being delivered
 
+------------
+
 ## Kibana Access
 - Kibana listens on https://{IP}:5601  
-
 - DEFAULT PASSWORDS  
     - UN is configured as "elastic"  
     - PASSWORD is configured as "2FederateM0re"  
+
+------------
 
 ## Important Notes <--READ
 - Allow 5-10 min for the stack to come up!
@@ -142,7 +159,7 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 	- ping-devops-es-siem/.env 
 - This uses the default elastic user. This is **bad practice** and you should configure service users for logstash / kibana.
 - Server Side TLS Certificate Validation is not enabled on the demo it is set to 'none' in the ES configuration
-- TLS is used betweeen ES nodes, as well as between Logstash and Kibana.
+- TLS is used between ES nodes, as well as between Logstash and Kibana.
 - Certs are all self signed.
 
 ------------
@@ -180,30 +197,3 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}    <====== NOTICE THIS
 ## PingAccess
 - Ping Fed ships logs on 2 different SYSLOG PORTS, with a CUSTOM mappings.
 ------------
-
-
-## Ping Dev-Ops Included Documentation
-
-
-## Server Profiles
-
-Ping Identity Server Profiles are used to provide the configuration, data, environment details to Ping Identity Docker Images.
-
-### Available Server Profiles
-
-There are several Ping Identity Server Profiles available in the Ping Identity Github repositories. They are outlined in the table below.
-
-| Server Profile | Description |
-| :--- | :--- |
-| [Getting Started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) | Ping Identity products with basic install/config |
-| [Baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) | Ping Identity products with full integration |
-| [Simple Sync](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/simple-sync) | DataSync server sync'ing between two PingDirectory trees |
-
-### Playground Server Profiles
-
-There is a Github Repository containing samples, experimental, training types of server profiles that may be created to help with examples and getting started projects. These are guaranteed to be documented as they are often one off examples of different concepts. Some of these products include:
-
-| Server Profile | Description |
-| :--- | :--- |
-| [PingFed Cluster](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/getting-started-pingfederate-cluster) | Configuring a PingFed cluster with admin/engine nodes |
-| [PingOne for Customer](https://github.com/pingidentity/server-profile-pingidentity-playground/tree/master/pingone-cloud) | Use cases around PingOne for Customer |
