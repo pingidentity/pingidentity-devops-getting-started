@@ -6,7 +6,8 @@ The goal of this project is to have pre-built security dashboards to ride along 
 
 ---------------
 
-## Latest Build News (SLACK INTEGRATION! / ILM Bootstrapped)
+## Latest Build News (SLACK INTEGRATION! / ILM Bootstrapped / Authentication via LDAP (Ping Directory))
+- Modified many of the configurations to support logging in via LDAP. There is a user in the 
 - Migrated all indexes to using ILM. This means by default the stack will only store 2 days worth of logs and ensure indexes do not grow over 2GB. This is done because the enviroment is setup as a demo. HEAP sizes in the ES server are SMALL becasue this is a demo. I will soon have production ready documents written to show customers how this can be brought to production.
 - Tested updating to elastic 7.6.1 (all good)
 - Added in Slack Alerting! 
@@ -22,7 +23,7 @@ The goal of this project is to have pre-built security dashboards to ride along 
 | Phase 1  | PingFederate Audit Logs                     | Complete    |
 | Phase 1a | PingFederate Provisioner Logs               | Complete    |
 | Phase 1b | PingFederate System Logs                    | Complete    |
-| Phase 2  | LDAP Integrate ElasticSearch / Kibana       | In Progress |
+| Phase 2  | LDAP Integrate ElasticSearch / Kibana       | Complete |
 | Phase 2a | Ping SIEM Dashboard                         | Beta        |
 | Phase 2b | PingDirectory Load Generator (thanks arno)  | Complete    |
 | Phase 2c | Index Mapping rework for PD data index      | Complete    | 
@@ -76,6 +77,7 @@ COMPOSE_PROJECT_NAME=es
 ELASTIC_VERSION=7.6.1   
 ELASTIC_SECURITY=true    
 ELASTIC_PASSWORD=2FederateM0re   
+ES_ADMIN_PD_USER_PASS=FederateTheB3st!
 
 CERTS_DIR=/usr/share/elasticsearch/config/certificates
 
@@ -93,6 +95,9 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}              <====== NOTICE THIS
     - The password is used to push watchers into elasticsearch
 
 - Monitor the stack with `docker-compose logs --follow`
+
+- Login to kibana at `https://localhost:5601/` (Wait for PingDirectory to full start)
+  - The stack is now LDAP INTEGRATED so you can login with `es_admin` which is a user in PingDirectory (Password is in the .env file configuration listed above (ES_ADMIN_PD_USER_PASS)
 ------------
 
 ## Included Slack Alerts (these can be customized through Watchers)

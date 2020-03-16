@@ -56,6 +56,19 @@ do
   curl -X PUT "https://es01:9200/$n-000001?pretty" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@$f"
 done
 
+#Bootstrap all required roles
+echo "Loading! -- Bootstraping Roles"
+for f in /usr/share/elasticsearch/role_bootstraps/*.json
+do  
+  echo "Processing role bootstrap file (full path) $f "
+  echo "start"
+  fn=$(basename $f)
+  n="${fn%.*}"
+
+  echo "Processing file name $n "
+  curl -X PUT "https://es01:9200/_security/role_mapping/$n" --insecure -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -d"@$f"
+done
+
 #Wait for Kibana API to go Green before importing saved objects
 echo "Waiting for Kibana status green, prior to loading saved objects..."
 while [ "$kib_status" != "Looking good" ]

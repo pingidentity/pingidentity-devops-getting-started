@@ -49,28 +49,31 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingdirectory
+
       - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
+      - ES_ADMIN_PD_USER_PASS=$ES_ADMIN_PD_USER_PASS
     ports:
       - 1636:636
       - 1443:443
     networks:
       - pingnet      
   
-#TEST AUTHENTICATORS
-  authrate_ok:
-    image: pingidentity/ldap-sdk-tools
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 40
-    networks:
-      - pingnet
+# TEST AUTHENTICATORS
+# ## Uncomment this section to place load on the PingDirectory Node
+#  authrate_ok:
+#    image: pingidentity/ldap-sdk-tools
+#    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 40
+#    networks:
+#      - pingnet
 
 
-  authrate_ko:
-    image: pingidentity/ldap-sdk-tools
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
-    networks:
-      - pingnet
+#  authrate_ko:
+#    image: pingidentity/ldap-sdk-tools
+#    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
+#    networks:
+#      - pingnet
 #END TEST AUTHENTICATORS
 
 #ES Server 1
@@ -95,6 +98,12 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
       - xpack.security.transport.ssl.certificate=$CERTS_DIR/es01/es01.crt
       - xpack.security.transport.ssl.key=$CERTS_DIR/es01/es01.key
+      - xpack.security.authc.realms.native.realm1.order=2
+      - xpack.security.authc.realms.ldap.ldap1.order=1
+      - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
+      - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=people,dc=example,dc=com
+      - xpack.security.authc.realms.ldap.ldap1.group_search.base_dn=dc=example,dc=com
+      - xpack.security.authc.realms.ldap.ldap1.ssl.verification_mode=none
     ulimits:
       nofile:
         soft: 65535
@@ -102,7 +111,10 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes: ['data01:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR', './elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap']
+    volumes: 
+      - data01:/usr/share/elasticsearch/data
+      - certs:$CERTS_DIR
+      - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
       - 9201:9200
     healthcheck:
@@ -135,6 +147,12 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
       - xpack.security.transport.ssl.certificate=$CERTS_DIR/es02/es02.crt
       - xpack.security.transport.ssl.key=$CERTS_DIR/es02/es02.key
+      - xpack.security.authc.realms.native.realm1.order=2
+      - xpack.security.authc.realms.ldap.ldap1.order=1
+      - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
+      - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=people,dc=example,dc=com
+      - xpack.security.authc.realms.ldap.ldap1.group_search.base_dn=ou=Groups,dc=example,dc=com
+      - xpack.security.authc.realms.ldap.ldap1.ssl.verification_mode=none
     ulimits:
       nofile:
         soft: 65535
@@ -142,7 +160,10 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes: ['data02:/usr/share/elasticsearch/data', 'certs:$CERTS_DIR', './elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap']
+    volumes: 
+      - data02:/usr/share/elasticsearch/data
+      - certs:$CERTS_DIR
+      - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
       - 9202:9200
     healthcheck:
@@ -181,6 +202,7 @@ services:
       - ./elasticsearch-siem/ilm_policies:/usr/share/elasticsearch/ilm_policies
       - ./elasticsearch-siem/index_bootstraps:/usr/share/elasticsearch/index_bootstraps
       - ./elasticsearch-siem/index_templates:/usr/share/elasticsearch/index_templates
+      - ./elasticsearch-siem/role_bootstraps:/usr/share/elasticsearch/role_bootstraps
     networks:
       - pingnet
 

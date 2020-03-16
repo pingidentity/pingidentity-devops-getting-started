@@ -1,0 +1,7 @@
+{
+  "roles" : [ "superuser", "kibana_admin" ],
+  "rules" : { "field" : {
+    "groups" : "cn=ESAdminGroup,ou=Groups,dc=example,dc=com" 
+  } },
+  "enabled": true
+}
