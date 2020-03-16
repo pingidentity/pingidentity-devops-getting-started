@@ -7,7 +7,8 @@ The goal of this project is to have pre-built security dashboards to ride along 
 ---------------
 
 ## Latest Build News (SLACK INTEGRATION! / ILM Bootstrapped / Authentication via LDAP (Ping Directory))
-- Modified many of the configurations to support logging in via LDAP. There is a user in the 
+- Modified many of the configurations to support logging in via LDAP.
+- Authentication to the ES Stack / Kibana is now LDAP driven. There is a LDAP group `ESAdminGroup` that is in the example.com Root DSE. Adding a user to this group now gives them access to kibana and all data within elasticsearch as an admin.
 - Migrated all indexes to using ILM. This means by default the stack will only store 2 days worth of logs and ensure indexes do not grow over 2GB. This is done because the enviroment is setup as a demo. HEAP sizes in the ES server are SMALL becasue this is a demo. I will soon have production ready documents written to show customers how this can be brought to production.
 - Tested updating to elastic 7.6.1 (all good)
 - Added in Slack Alerting! 
@@ -23,7 +24,7 @@ The goal of this project is to have pre-built security dashboards to ride along 
 | Phase 1  | PingFederate Audit Logs                     | Complete    |
 | Phase 1a | PingFederate Provisioner Logs               | Complete    |
 | Phase 1b | PingFederate System Logs                    | Complete    |
-| Phase 2  | LDAP Integrate ElasticSearch / Kibana       | Complete |
+| Phase 2  | LDAP Integrate ElasticSearch / Kibana       | Complete    |
 | Phase 2a | Ping SIEM Dashboard                         | Beta        |
 | Phase 2b | PingDirectory Load Generator (thanks arno)  | Complete    |
 | Phase 2c | Index Mapping rework for PD data index      | Complete    | 
