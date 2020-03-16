@@ -94,7 +94,6 @@ uid: access2federate
 userPassword: 2FederateM0re
 pf-connected-identity: auth-source=pf-local-identity:user-id=access2federate
 
-
 dn: uid=auditor,ou=People,${USER_BASE_DN}
 objectClass: top
 objectClass: person
@@ -107,5 +106,3 @@ givenName: PingFederate
 uid: auditor
 userPassword: 2FederateM0re
 pf-connected-identity: auth-source=pf-local-identity:user-id=auditor
-
-

@@ -34,3 +34,15 @@ objectClass: top
 objectClass: groupOfNames
 cn: PFUserAdminGroup
 member: uid=administrator,ou=people,${USER_BASE_DN}
+
+dn: cn=ESAdminGroup,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: ESAdminGroup
+member: uid=es_admin,ou=people,${USER_BASE_DN}
+
+dn: cn=ESUserGroup,ou=groups,${USER_BASE_DN}
+objectClass: top
+objectClass: groupOfNames
+cn: ESUserGroup
+member: uid=es_user,ou=people,${USER_BASE_DN}

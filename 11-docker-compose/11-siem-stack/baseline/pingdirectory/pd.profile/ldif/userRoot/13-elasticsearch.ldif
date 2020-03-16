@@ -1,0 +1,25 @@
+dn: uid=es_admin,ou=People,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: pf-connected-identities
+sn: ElasticSearchAdmin
+cn: ES_Admin
+givenName: ElasticSearchAdmin
+uid: es_admin
+userPassword: 2FederateM0re
+pf-connected-identity: auth-source=pf-local-identity:user-id=es_admin
+
+dn: uid=es_user,ou=People,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: pf-connected-identities
+sn: ElasticSearchUser
+cn: ES_User
+givenName: ElasticSearchUser
+uid: es_user
+userPassword: 2FederateM0re
+pf-connected-identity: auth-source=pf-local-identity:user-id=es_admin
