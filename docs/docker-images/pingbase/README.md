@@ -52,11 +52,22 @@ this image.
 | ORCHESTRATION_TYPE  |   | The type of orchestration tool used to run the container, normally set in the deployment (.yaml) file.  Expected values include: - compose - swarm - kubernetes Defaults to blank (i.e. No type is set) 
 | USER_BASE_DN  | dc=example,dc=com  | 
 | DOLLAR  | '$'  | 
-| PD_ENGINE_PUBLIC_HOSTNAME  | localhost  | 
-| PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | 
-| PF_ADMIN_PUBLIC_HOSTNAME  | localhost  | 
-| PA_ENGINE_PUBLIC_HOSTNAME  | localhost  | 
-| PA_ADMIN_PUBLIC_HOSTNAME  | localhost  | 
+| PD_ENGINE_PUBLIC_HOSTNAME  | localhost  | PD (PingDirectory) public hostname that may be used in redirects 
+| PD_ENGINE_PRIVATE_HOSTNAME  | pingdirectory  | PD (PingDirectory) private hostname 
+| PDP_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDP (PingDirectoryProxy) public hostname that may be used in redirects 
+| PDP_ENGINE_PRIVATE_HOSTNAME  | pingdirectoryproxy  | PDP (PingDirectoryProxy) private hostname 
+| PDS_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDS (PingDataSync) public hostname that may be used in redirects 
+| PDS_ENGINE_PRIVATE_HOSTNAME  | pingdatasync  | PDS (PingDataSync) private hostname 
+| PDG_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDG (PingDataGovernance) public hostname that may be used in redirects 
+| PDG_ENGINE_PRIVATE_HOSTNAME  | pingdatagovernance  | PDG (PingDataGovernance) private hostname 
+| PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) engine public hostname that may be used in redirects 
+| PF_ENGINE_PRIVATE_HOSTNAME  | pingfederate  | PF (PingFederate) engine private hostname 
+| PF_ADMIN_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) admin public hostname that may be used in redirects 
+| PF_ADMIN_PRIVATE_HOSTNAME  | pingfederate-admin  | PF (PingFederate) admin private hostname 
+| PA_ENGINE_PUBLIC_HOSTNAME  | localhost  | PA (PingAccess) engine prublic hostname that may be used in redirects 
+| PA_ENGINE_PRIVATE_HOSTNAME  | pingaccess  | PA (PingAccess) engine private hostname 
+| PA_ADMIN_PUBLIC_HOSTNAME  | localhost  | PA (PingAccess) admin public hostname that may be used in redirects 
+| PA_ADMIN_PRIVATE_HOSTNAME  | pingaccess-admin  | PA (PingAccess) admin private hostname 
 | ROOT_USER_DN  | cn=administrator  | the default administrative user for PingData 
 | ENV  | ${BASE}/.profile  | 
 | MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json 
