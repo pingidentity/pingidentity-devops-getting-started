@@ -14,9 +14,9 @@ This use case employs the `pingidentity-server-profiles/baseline/pingcentral` se
 * Deploy the stack.
 * Log in to the management consoles.
 * Bring down or stop the stack.
-* [Preserve the database](#preserving-the-database).
-* [Configure trust for PingCentral](#configuring-trust-in-docker).
-* [Configure SSO for PingCentral](#configuring-sso-in-docker)
+* Preserve the database.
+* Configure trust for PingCentral.
+* Configure SSO for PingCentral
 
 ## Deploy the PingCentral stack
 
@@ -48,7 +48,7 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 3. Log in to the management consoles:
 
-   - Console URL: https://localhost:9022
+   - Console URL: `https://localhost:9022`
    - User: Administrator
    - Password: 2Federate
 
@@ -68,7 +68,6 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
    docker-compose down
    ```
 
-<a name="preserving-the-database"></a>
 ## Preserve the database
 
 To preserve any updates to the MySQL database, you need to bind mount the `./conf/mysql/data` directory to the `/var/lib/mysql` volume. You also need to bind mount `./conf/pingcentral.jwk` to `/opt/server/conf/pingcentral.jwk` to save the hostkey file created on initial startup of the PingCentral container. You'll need the saved hostkey to access the database.
@@ -137,7 +136,6 @@ To preserve any updates to the MySQL database, you need to bind mount the `./con
 
    The hostkey will now be persisted and available at each startup.
 
-<a name="configuring-trust-in-docker"></a>
 ## Configure trust for the PingCentral container
 
 By default, for the purposes of quick setup, the PingCentral container is insecure. This is due to the environment variable `PING_CENTRAL_BLIND_TRUST=true` setting in the `docker-compose.yml` file. By default, all certificates are trusted.
@@ -167,7 +165,6 @@ Setting `PING_CENTRAL_BLIND_TRUST=false` allows public certificates to be used o
 
 3. Configure PingCentral to use the created trust either by using environment variables or the properties file:
 
-   <a name="configuring-trust-env-variables"></a>
    * Using environment variables
 
      - For stacks, specify these environment variables in the `environment` definition of the `docker-compose.yml` file:
@@ -189,7 +186,6 @@ Setting `PING_CENTRAL_BLIND_TRUST=false` allows public certificates to be used o
        docker run --env server.ssl.trust-any=false --env server.ssl.https.verify-hostname=false --env server.ssl.delegate-to-system=false --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks --env server.ssl.trust-store-password=InsertTruststorePasswordHere
        ```
 
-   <a name="configuring-trust-in-docker-using-properties-file"></a>
    * Using properties files
 
      - Update the following properties in your `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file:
@@ -202,7 +198,6 @@ Setting `PING_CENTRAL_BLIND_TRUST=false` allows public certificates to be used o
        server.ssl.trust-store-password
        ```
 
-<a name="configuring-sso-in-docker"></a>
 ## Configure SSO for the PingCentral container
 
 You can enable SSO by either: 
@@ -220,7 +215,6 @@ services:
       - "pingcentral-sso-domain.com:127.0.0.1"
 ```
 
-<a name="configuring-sso-using-properties-file"></a>
 * Using the properties file
 
   1. Update the `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral/page/orc1570565605492.html).
@@ -233,7 +227,6 @@ services:
           - ./conf/application.properties:/opt/in/instance/conf/application.properties
      ```
 
-<a name="configuring-sso-env-variables"></a>
 * Using environment variables
 
   To enable SSO using environment variables, add `environment` definitions for these environment variables.
