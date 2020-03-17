@@ -5,26 +5,22 @@ This docker image provides a tomcat image with the PingDataConsole
 deployed to be used in configuration of the PingData products.
 
 ## Related Docker Images
-
 - `pingidentity/pingdownloader` - Image used to download ping product
 - `tomcat:8-jre8-alpine` - Tomcat engine to serve PingDataConsole .war file
 
 ## Environment Variables
-
 The following environment `ENV` variables can be used with 
 this image. 
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |
-| HTTP_PORT  | 8080  |
-| HTTPS_PORT  | 8443  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  |
-| STARTUP_FOREGROUND_OPTS  | run  |
-| STARTUP_BACKGROUND_OPTS  | start  |
-
+| SHIM  | ${SHIM}  | 
+| HTTP_PORT  | 8080  | 
+| HTTPS_PORT  | 8443  | 
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  | 
+| STARTUP_FOREGROUND_OPTS  | run  | 
+| STARTUP_BACKGROUND_OPTS  | start  | 
 ## Run
-
 To run a PingDataConsole container:
 
 ```shell
@@ -42,7 +38,7 @@ Follow Docker logs with:
 docker logs -f pingdataconsole
 ```
 
-If using the command above with the embedded [server profile](https://github.com/pingidentity/pingidentity-server-profiles), log in with:
+If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
 * http://localhost:${HTTPS_PORT}/console/login
 ```
 Server: pingdirectory
@@ -50,9 +46,7 @@ Username: administrator
 Password: 2FederateM0re
 ```
 >make sure you have a PingDirectory running
-
 ## Docker Container Hook Scripts
-
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdataconsole/hooks/README.md) for details on all pingdataconsole hook scripts
 
 ---
