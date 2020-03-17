@@ -19,12 +19,6 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  | 
-## Ports Exposed
-The following ports are exposed from the container.  If a variable is
-used, then it may come from a parent container
-- 9031
-- 9999
-
 | PING_PRODUCT  | PingFederate  | 
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  | 
 | LICENSE_FILE_NAME  | pingfederate.lic  | 
@@ -39,6 +33,12 @@ used, then it may come from a parent container
 | PF_DEBUG_PORT  | 9030  | 
 | PF_ENGINE_PORT  | 9031  | 
 | PF_ADMIN_PORT  | 9999  | 
+## Ports Exposed
+The following ports are exposed from the container.  If a variable is
+used, then it may come from a parent container
+- 9031
+- 9999
+
 ## Running a PingFederate container
 To run a PingFederate container:
 

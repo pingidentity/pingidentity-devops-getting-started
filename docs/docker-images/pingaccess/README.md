@@ -19,13 +19,6 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  | 
-## Ports Exposed
-The following ports are exposed from the container.  If a variable is
-used, then it may come from a parent container
-- 9000
-- 3000
-- ${HTTPS_PORT}
-
 | PING_PRODUCT  | PingAccess  | 
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  | 
 | LICENSE_FILE_NAME  | pingaccess.lic  | 
@@ -35,6 +28,13 @@ used, then it may come from a parent container
 | PA_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD:-2FederateM0re}  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
+## Ports Exposed
+The following ports are exposed from the container.  If a variable is
+used, then it may come from a parent container
+- 9000
+- 3000
+- ${HTTPS_PORT}
+
 ## Running a PingDirectory container
 To run a PingAccess container:
 
