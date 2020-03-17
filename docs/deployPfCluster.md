@@ -2,13 +2,13 @@
 
 This use case employs server profile layering, using the PingFederate server profile in `pingidentity-server-profiles/pf-dns-ping-clustering/pingfederate` directory as the base layer profile. This server profile contains two files critical to PingFederate clustering:
 
-* `tcp.xml.subst` 
+* `tcp.xml.subst`
 
-  Specifies usage of DNS_PING for clustering and expects the environment variable, `DNS_QUERY_LOCATION` to be passed. 
+  Specifies usage of DNS_PING for clustering and expects the environment variable, `DNS_QUERY_LOCATION` to be passed.
 
-* `run.properties.subst` 
+* `run.properties.subst`
 
-  Indicates to the PingFederate container which `OPERATIONAL_MODE` the container is to be used. The environment variables `CLUSTERED_CONSOLE` or `CLUSTERED_ENGINE` need to be passed. 
+  Indicates to the PingFederate container which `OPERATIONAL_MODE` the container is to be used. The environment variables `CLUSTERED_CONSOLE` or `CLUSTERED_ENGINE` need to be passed.
 
 The file structure for these files in `pingidentity-server-profiles/pf-dns-ping-clustering/pingfederate` looks like this:
  
@@ -26,7 +26,7 @@ The file structure for these files in `pingidentity-server-profiles/pf-dns-ping-
 
 The top profile layer uses the server profile in `pingidentity-server-profiles/getting-started/pingfederate`.
 
-See [Layering server profiles](docs/profilesLayered.md) for more information about using server profiles.
+See [Layering server profiles](profilesLayered.md) for more information about using server profiles.
 
 ## Prerequisites
 

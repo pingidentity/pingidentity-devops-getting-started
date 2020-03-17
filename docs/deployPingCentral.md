@@ -1,13 +1,13 @@
 # Deploy PingCentral
 
-This use case employs the `pingidentity-server-profiles/baseline/pingcentral` server profile. This server profile contains a MySQL database engine located in `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db`. 
+This use case employs the `pingidentity-server-profiles/baseline/pingcentral` server profile. This server profile contains a MySQL database engine located in `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db`.
 
 ## Prerequisites
 
 * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * Either:
-  - Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory. 
-  - Fork the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository to your Github repository, then clone this repository to a local directory. 
+  - Clone the [`pingidentity-server-profiles`](https://github.com/pingidentity/pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory. 
+  - Fork the [`pingidentity-server-profiles`](https://github.com/pingidentity/pingidentity-server-profiles) repository to your Github repository, then clone this repository to a local directory. 
 
 ## What you'll do
 
@@ -256,4 +256,3 @@ services:
     ```bash
     docker run --env pingcentral.sso.oidc.enabled=true --env pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031 --env pingcentral.sso.oidc.client-id=ac_oic_client_id --env pingcentral.sso.oidc.client-secret=ClientSecretHere --env pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
     ```
-
