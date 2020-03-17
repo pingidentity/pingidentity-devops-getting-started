@@ -32,7 +32,7 @@ The goal of this project is to have pre-built security dashboards to ride along 
 | Phase 2e | Ping Federate Threat Detection Dashboard    | Beta        |
 | Phase 3  | PingDirectory Logs                          | Complete    | 
 | Phase 4  | PingAccess Logs                             | Complete    |
-| Phase 5  | Test and Implement 30 Trial ES Watchers     | Complete    |
+| Phase 5  | Test and Implement 3  Trial ES Watchers     | Complete    |
 | Phase 6  | Help GTE / RSA Implement Customer Demos     | Not Started |
 | Phase 7  | Slack Integrate Alerts from SIEM.           | Complete    |
 | Phase 8  | Develop Several Custom Alerts               | In Progress |
@@ -63,6 +63,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 
 
 # Directions
+- If Mac or Windows, ensure Docker Subsystem has at a minimum 8GB of RAM or the containers will crash.
 - Contact DevOps / Ping Sales Team and collect a DevOps user account / key.
 - (Optional / Recommended for Alerting) Pre work: Generate a Slack Webhook URL from Slack Admin. https://api.slack.com/messaging/webhooks
 - To setup on AWS use a M5.XL or M5a.XL (16GB RAM REQUIRED // 50GB MIN STORAGE Recommended)
@@ -100,7 +101,7 @@ PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}              <====== NOTICE THIS
 - Monitor the stack with `docker-compose logs --follow`
 
 - Login to kibana at `https://localhost:5601/` (Wait for PingDirectory to full start)
-  - The stack is now LDAP INTEGRATED so you can login with `es_admin` which is a user in PingDirectory (Password is in the .env file configuration listed above (ES_ADMIN_PD_USER_PASS)
+  - The stack is now LDAP INTEGRATED so you can login with `es_admin` which is a user in PingDirectory (Password is in the .env file configuration listed above (ES_ADMIN_PD_USER_PASS). Allow time for Ping Directory to load.
 ------------
 
 ## Included Slack Alerts (these can be customized through Watchers)
