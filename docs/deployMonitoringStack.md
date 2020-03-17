@@ -17,7 +17,7 @@ Ping Software:
 
 ## What Will Happen
 
-PingDirectory produces a wide array of metrics OOB. These metrics can be delivered in statsd format to a location of your choosing using the [StatsD Monitoring Endpoint](https://docs.ping.directory/PingDirectory/8.0.0.0/config-guide/statsd-monitoring-endpoint.html#Properties. 
+PingDirectory produces a wide array of metrics OOB. These metrics can be delivered in statsd format to a location of your choosing using the [StatsD Monitoring Endpoint](https://docs.ping.directory/PingDirectory/8.0.0.0/config-guide/statsd-monitoring-endpoint.html#Properties). 
 To get metrics on a dashboard in Grafana we: 
 1. turn on the statsd monitoring endpoint in PingDirectory
 2. push metrics in stats to a statsd_exporter, which formats and hosts the metrics
@@ -26,19 +26,23 @@ To get metrics on a dashboard in Grafana we:
 
 ## What You'll Do
 
-* [Deploy the monitoring stack](#deploy-the-monitoring-stack)
-* [Learn about the configurations](#learn-about-the-configurations)
-* [Generate load on the Ping software](#generate-load)
-* [Watch traffic metrics](#watch-traffic-metrics)
+- [Monitoring the Ping Stack](#monitoring-the-ping-stack)
+  - [What Will Happen](#what-will-happen)
+  - [What You'll Do](#what-youll-do)
+  - [Deploy the monitoring stack](#deploy-the-monitoring-stack)
+    - [Learn about the configuration](#learn-about-the-configuration)
+    - [Generate load](#generate-load)
+    - [Watch traffic metrics](#watch-traffic-metrics)
+  - [Cleanup](#cleanup)
 <!-- * Learn how to configure further -->
 
-## Deploy the Monitoring Stack
+## Deploy the monitoring stack
 
-1. From `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack` run
+1. From `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack` run:
     ```
     docker-compose up -d
     ```
-2. Wait for PingDirectory to become healthy
+2. Wait for PingDirectory to become healthy:
 
     ```shell
     docker container ls --filter name=pingdirectory_1 --format 'table {{.Names}}\t{{.Status}}'                                
@@ -46,11 +50,11 @@ To get metrics on a dashboard in Grafana we:
     NAMES                                 STATUS
     10-monitoring-stack_pingdirectory_1   Up 2 hours (healthy)
     ```
-### Learn About the Configuration
+### Learn about the configuration
 
   There is a lot that can be covered regarding the configuration. We will focus on what is key to making this demo work with minimal intervention and what you may want to edit. 
   
-  > All of the relevant configurations are located in the 10-monitoring-stack/configs
+  > All of the relevant configurations are located in 10-monitoring-stack/configs.
   
   1. PingDirectory
       ```
@@ -74,7 +78,7 @@ To get metrics on a dashboard in Grafana we:
   6. Grafana - Since Grafana is a data visualizer, in the grafana configs we find: 1. the definition of datasources: `datasources/datasource.yml` 2. definitions of dashboards. 
     Grafana and Prometheus runtime data is stored in a docker volume, so if you start and stop these containers you will not lose your work. But it is still a good practice that If you build another dashboard in Grafana, to export it and add the `.json` file to the `dashboards` folder. 
 
-### Generate Load
+### Generate load
 
   Now that the stack is running, we could go in to Grafana and view the dashboards, but there isn't much valuable data on the Ping dashboards until there is actual traffic going through the containers. 
 
@@ -112,17 +116,17 @@ To get metrics on a dashboard in Grafana we:
     ```
   > you can come back and tweak this command later to watch the changes in Grafana. 
 
-### Watch Traffic Metrics
+### Watch traffic metrics
 
 Now you can visit a multitude of URLs where metrics are being generated:
 
-  * Grafana - The data formed into nice dashboards: http://localhost:3000
+  * Grafana - The data formed into nice dashboards: `http://localhost:3000`
     * log in: admin/2FederateM0re
-  * PingDirectory - Raw statsd data: http://localhost:9102/metrics
-  * cAdvisor - for docker container resource metrics: http://localhost:8080
-  * node-exporter - Raw Node metrics: http://localhost:9100/metrics
-  * Alertmanager -  http://localhost:9093/#/alerts
-  * Prometheus - for querying collected data: https://localhost:9090
+  * PingDirectory - Raw statsd data: `http://localhost:9102/metrics`
+  * cAdvisor - for docker container resource metrics: `http://localhost:8080`
+  * node-exporter - Raw Node metrics: `http://localhost:9100/metrics`
+  * Alertmanager -  `http://localhost:9093/#/alerts`
+  * Prometheus - for querying collected data: `https://localhost:9090`
 
 You will see dashboards that correspond to what is in: `configs/grafana/provisioning/dashboards`
 

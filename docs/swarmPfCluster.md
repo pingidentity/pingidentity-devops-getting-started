@@ -8,7 +8,7 @@ This is the YAML file you'll be using for this example: [pingfederate_clustering
 
 * You've started Docker Swarm at some point before deploying the stack by running: `docker swarm init`. You only need to run `docker swarm init` once.
 * You've already been through [Getting Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* Clone the [`pingidentity-server-profiles`](../../pingidentity-server-profiles) repository.
+* Clone the [`pingidentity-server-profiles`](https://github.com/pingidentity/pingidentity-server-profiles) repository.
 
 ## What you'll do
 

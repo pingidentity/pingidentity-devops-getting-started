@@ -7,9 +7,9 @@ When you deployed the full stack of product containers in [Get started](getStart
     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_PATH=baseline/pingaccess
   ```
-Our [pingidentity-server-profiles](../../pingidentity-server-profiles) repository indicated by the `SERVER_PROFILE_URL` environment variable, contains the server profiles we use for our DevOps deployment examples. The `SERVER_PROFILE_PATH` environment variable indicates the location of the product profile data to use. In the example above, the PingAccess profile data located in the `baseline/pingaccess` directory.
+Our [pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) repository indicated by the `SERVER_PROFILE_URL` environment variable, contains the server profiles we use for our DevOps deployment examples. The `SERVER_PROFILE_PATH` environment variable indicates the location of the product profile data to use. In the example above, the PingAccess profile data located in the `baseline/pingaccess` directory.
 
-We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. There are environment variables that are common to all product images. You'll find these in the [PingBase image directory](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase). There are also product-specific environment variables. You'll find these in the [Docker image directory](https://pingidentity-devops.gitbook.io/devops/docker-images) for each available product.
+We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. There are environment variables that are common to all product images. You'll find these in the [PingBase image directory](docker-images/pingbase/README.md). There are also product-specific environment variables. You'll find these in the [Docker image reference](dockerImagesRef.md) for each available product.
 
 ## Prerequisite
 
@@ -17,13 +17,13 @@ We use environment variables for certain startup and runtime configuration setti
 
 ## What you'll do
 
-* Add or change the environment variables used for any of our server profiles to better fit your purposes. These environment variables are located in the [server profiles repository](../../pingidentity-server-profiles) for each product. For example, the location for the env_vars file for PingAccess is located in the [baseline/pingaccess server profile](../../pingidentity-server-profiles/baseline/pingaccess).
-* Modify one of our server profiles to reflect an existing Ping Identity product installation in your organization. You can do this by forking our server profiles repository (https://github.com/pingidentity/pingidentity-server-profiles) to your Github repository, or by using local directories.
+* Add or change the environment variables used for any of our server profiles to better fit your purposes. These environment variables are located in the [server profiles repository](https://github.com/pingidentity/pingidentity-server-profiles) for each product. For example, the location for the env_vars file for PingAccess is located in the [baseline/pingaccess server profile](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline/pingaccess).
+* Modify one of our server profiles to reflect an existing Ping Identity product installation in your organization. You can do this by forking our server profiles repository (`https://github.com/pingidentity/pingidentity-server-profiles`) to your Github repository, or by using local directories.
 
 ## Add or change environment variables
 
-1. Select any environment variables to add from either the [Docker image directory](https://pingidentity-devops.gitbook.io/devops/docker-images) for the product-specific environment variables, or the [PingBase image directory](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase) for the environment variables common to all of our products.
-2. Select the product whose profile you want to modify from the `baseline`, `getting-started`, or `simple-sync` directories in the [server profiles repository](../../pingidentity-server-profiles).
+1. Select any environment variables to add from either the Docker images in the [Docker images reference](dockerImagesRef.md) for the product-specific environment variables, or the [PingBase image directory](docker-images/pingbase/README.md) for the environment variables common to all of our products.
+2. Select the product whose profile you want to modify from the `baseline`, `getting-started`, or `simple-sync` directories in the [server profiles repository](https://github.com/pingidentity/pingidentity-server-profiles).
 3. Open the `env_vars` file associated with the product and add any of the environment variables you've selected, or change the existing environment variables to fit your purpose.
 
 ## Modify a server profile
@@ -123,7 +123,7 @@ This method is particularly helpful when developing locally and the configuratio
 
   These directories are useful for building and working with local server-profiles. The `/opt/in` directory is particularly valuable if you do not want your containers to access Github for data (the default for our server profiles). Here's an example, again using PingFederate:
 
-  1. Deploy PingFederate using our [sample standalone server profile](../../10-docker-standalone/02-pingfederate) and bind mount `/opt/out` to a local directory. For example:
+  1. Deploy PingFederate using our sample standalone server profile located in your local `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate` directory, and bind mount `/opt/out` to a local directory. For example:
      ```bash
       docker run \
           --name pingfederate \

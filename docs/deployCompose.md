@@ -7,7 +7,7 @@ Try the server profiles for Docker-Compose in your local `pingidentity-devops-ge
 * [Deploy a PingFederate and PingDirectory stack](deployCompose.md).
 * [Deploy a replicated PingDirectory pair](deployReplication.md).
 * [Deploy PingDirectory with data synchronization using PingDataSync](deploySync.md).
-* [Deploy a PingFederate cluster](docs/deployPfCluster.md)
-* [Deploy a PingAccess cluster](docs/deployPaCluster.md)
+* [Deploy a PingFederate cluster](deployPfCluster.md)
+* [Deploy a PingAccess cluster](deployPaCluster.md)
 * [Deploy PingCentral](deployPingCentral.md)
 

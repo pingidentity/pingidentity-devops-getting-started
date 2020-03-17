@@ -4,8 +4,8 @@ You'll use kustomize for the PingFederate cluster deployment from your local `pi
 
 We use layered server profiles: 
 
-* The server profile in our [pingidentity-server-profiles/pf-dns-ping-clustering](../../pingidentity-server-profiles/pf-dns-ping-clustering) repository.
-* The server profile in our [pingidentity-server-profiles/getting-started/pingfederate](../../pingidentity-server-profiles/getting-started/pingfederate) repository.
+* The server profile in our [pingidentity-server-profiles/pf-dns-ping-clustering](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pf-dns-ping-clustering) repository.
+* The server profile in our [pingidentity-server-profiles/getting-started/pingfederate](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started/pingfederate) repository.
 
 See [Layering server profiles](profilesLayered.md) for more information.
 
