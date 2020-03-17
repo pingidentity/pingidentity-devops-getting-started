@@ -85,7 +85,7 @@ For example, enter:
 
    After refreshing your OS shell, enter `dhelp` to see the listing of the command aliases.
 
-   > If the `dhelp` command isn't working, see [Troubleshooting](docs/troubleshooting/BASIC_TROUBLESHOOTING.md)
+   > If the `dhelp` command isn't working, see [Troubleshooting](troubleshooting/BASIC_TROUBLESHOOTING.md)
 
 ## Deploy the stack
 

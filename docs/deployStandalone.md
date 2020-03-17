@@ -19,7 +19,7 @@ Our single container examples are located in the your local `${HOME}/projects/de
 
   * Use the supplied `docker-run` script in this directory.
 
-    > See [Standalone deployment scripts](docs/deployStandaloneScripts.md) for descriptions of the supplied standalone scripts.
+    > See [Standalone deployment scripts](deployStandaloneScripts.md) for descriptions of the supplied standalone scripts.
 
     From your local `10-docker-standalone` directory, enter:
 

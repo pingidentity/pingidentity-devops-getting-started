@@ -8,8 +8,8 @@ After you've deployed a set of our DevOps images using the full-stack server pro
   * [Deploy a PingFederate and PingDirectory stack](deployCompose.md).
   * [Deploy a replicated PingDirectory pair](deployReplication.md).
   * [Deploy PingDirectory with data synchronization using PingDataSync](deploySync.md).
-  * [Deploy a PingFederate cluster](docs/deployPfCluster.md)
-  * [Deploy a PingAccess cluster](docs/deployPaCluster.md)
+  * [Deploy a PingFederate cluster](deployPfCluster.md)
+  * [Deploy a PingAccess cluster](deployPaCluster.md)
   * [Orchestrate deployments using Docker Swarm](deploySwarm.md).
   * [Orchestrate deployments using Kubernetes](deployKubernetes.md).
   * [Deploy PingCentral](deployPingCentral.md)
