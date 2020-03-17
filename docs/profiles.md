@@ -9,7 +9,7 @@ When you deployed the full stack of product containers in [Get started](getStart
   ```
 Our [pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) repository indicated by the `SERVER_PROFILE_URL` environment variable, contains the server profiles we use for our DevOps deployment examples. The `SERVER_PROFILE_PATH` environment variable indicates the location of the product profile data to use. In the example above, the PingAccess profile data located in the `baseline/pingaccess` directory.
 
-We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. There are environment variables that are common to all product images. You'll find these in the [PingBase image directory](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase). There are also product-specific environment variables. You'll find these in the [Docker image directory](https://pingidentity-devops.gitbook.io/devops/docker-images) for each available product.
+We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. There are environment variables that are common to all product images. You'll find these in the [PingBase image directory](docker-images/pingbase/README.md). There are also product-specific environment variables. You'll find these in the [Docker image directory](dockerImagesRef.md) for each available product.
 
 ## Prerequisite
 
