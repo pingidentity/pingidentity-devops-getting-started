@@ -20,7 +20,7 @@ You can have as many layers as needed. Each layer of the configuration is *copie
 
 ## Create a layered server profile
 
-We'll use PingFederate and our server profile located in the [pingidentity-server-profiles](../../pingidentity-server-profiles/getting-started/pingfederate) repository. We recommend you fork this repository to your Github repository, then pull your Github repository to to a local directory. When we've finished creating the layered profile, you can then push your updates the your Github repository, and reference your Github repository as an environment variable to run the deployment.
+We'll use PingFederate and our server profile located in the [pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started/pingfederate) repository. We recommend you fork this repository to your Github repository, then pull your Github repository to to a local directory. When we've finished creating the layered profile, you can then push your updates the your Github repository, and reference your Github repository as an environment variable to run the deployment.
 
 We'll create separate layers for:
 
@@ -30,7 +30,7 @@ We'll create separate layers for:
 
 For this example, these layers will be applied on top of the PingFederate server profile. However, you can span configurations across multiple repositories if you want.
 
-The complete working, layered server profile of the PingFederate example we're building here is in the [pingidentity-server-profiles/layered-profiles](../../pingidentity-server-profiles/layered-profiles) directory.
+The complete working, layered server profile of the PingFederate example we're building here is in the [pingidentity-server-profiles/layered-profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles) directory.
 
 Because PingFederate's configuration is file-based, the layering works by copying configurations on top of the PingFederate container’s file system.
 
@@ -201,4 +201,4 @@ with
 1. Push your profiles and updated `docker-compose.yaml` file to your GitHub repository.
 2. Deploy the stack with the layered profiles.
 
-To view this example in its entirety, including the profile layers and `docker-compose.yaml` file, see the [pingidentity-server-profiles/layered-profiles](../../pingidentity-server-profiles/layered-profiles) directory.
+To view this example in its entirety, including the profile layers and `docker-compose.yaml` file, see the [pingidentity-server-profiles/layered-profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/layered-profiles) directory.
