@@ -45,29 +45,29 @@ Our single container examples are located in the your local `${HOME}/projects/de
 2. Log in to the management console for the product:
 
   * Ping Data Console for PingDirectory
-    - Console URL: https://localhost:8443/console
+    - Console URL: `https://localhost:8443/console`
     - Server: pingdirectory
     - User: Administrator
     - Password: 2FederateM0re
 
   * PingFederate
-    - Console URL: https://localhost:9999/pingfederate/app
+    - Console URL: `https://localhost:9999/pingfederate/app`
     - User: Administrator
     - Password: 2FederateM0re
 
   * PingAccess
-    - Console URL: https://localhost:9000
+    - Console URL: `https://localhost:9000`
     - User: Administrator
     - Password: 2FederateM0re
 
   * Ping Data Console for DataGovernance
-    - Console URL: https://localhost:8443/console
+    - Console URL: `https://localhost:8443/console`
     - Server: pingdatagovernance
     - User: Administrator
     - Password: 2FederateM0re
 
   * PingCentral
-    - Console URL: https://localhost:9022
+    - Console URL: `https://localhost:9022`
     - User: Administrator
     - Password: 2Federate
 
@@ -83,7 +83,7 @@ Our single container examples are located in the your local `${HOME}/projects/de
 
     > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker container command line reference](https://docs.docker.com/engine/reference/commandline/container/) for the Docker container commands.
 
-   * The supplied `docker-stop` script located in the [Docker standalone](../10-docker-standalone) directory.
+   * The supplied `docker-stop.sh` script located in your local `pingidentity-devops-getting-started/10-docker-standalone` directory.
 
     From your local `10-docker-standalone` directory, enter:
 

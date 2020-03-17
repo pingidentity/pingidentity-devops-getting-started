@@ -23,7 +23,7 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 7. See [Saving your configuration changes](saveConfigs.md) to persist data to a local Docker volume.
 8. Stop or bring down the stack.
 
-See the [DevOps registration](#devopsReg) and [Initial setup](#initSetup) topics below for complete instructions.
+See the **DevOps registration** and **Initial setup** topics below for complete instructions.
 
 When you've finished the initial setup and deployment, you can then choose to:
 
@@ -31,7 +31,6 @@ When you've finished the initial setup and deployment, you can then choose to:
 * [Configure and deploy our other examples](deploy.md).
 * [Customize the container and stack configurations](config.md).
 
-<a name="devopsReg"></a>
 ## DevOps registration
 
 Registering for our DevOps program grants you credentials that can be provided as variables to PingIdentity containers. This streamlines license issues by allowing the container to automatically retrieve an evaluation license upon container startup. 
@@ -45,7 +44,6 @@ Registering for our DevOps program grants you credentials that can be provided a
 
 > It is recommended (due to ease of use) to use the devop user/key approach for evaluating Ping Identity container use-cases. However, if you'd rather use an existing Ping Identity product license, see [Use an existing license](existingLicense.md) for instructions before proceeding.
 
-<a name="initSetup"></a>
 ## Initial setup
 
 1. Create a local DevOps directory in this location: `${HOME}/projects/devops`. For example, enter:
@@ -114,34 +112,34 @@ For example, enter:
    * `docker ps` (enter this at intervals)
    * `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`
 
-   See the [Docker Compose overview](../11-docker-compose/README.md) for help with starting, stopping, and cleaning up our Docker stacks. You can also refer to the Docker Compose documentation [on the Docker site](https://docs.docker.com/compose/).
+   Refer to the Docker Compose documentation [on the Docker site](https://docs.docker.com/compose/).
 
 2. Log in to the management consoles for the products:
 
    * Ping Data Console for PingDirectory
-     - Console URL: https://localhost:8443/console
+     - Console URL: `https://localhost:8443/console`
      - Server: pingdirectory
      - User: Administrator
      - Password: 2FederateM0re
 
    * PingFederate
-     - Console URL: https://localhost:9999/pingfederate/app
+     - Console URL: `https://localhost:9999/pingfederate/app`
      - User: Administrator
      - Password: 2FederateM0re
 
    * PingAccess
-     - Console URL: https://localhost:9000
+     - Console URL: `https://localhost:9000`
      - User: Administrator
      - Password: 2FederateM0re
 
    * Ping Data Console for DataGovernance
-     - Console URL: https://localhost:8443/console
+     - Console URL: `https://localhost:8443/console`
      - Server: pingdatagovernance
      - User: Administrator
      - Password: 2FederateM0re
 
    * PingCentral
-     - Console URL: https://localhost:9022
+     - Console URL: `https://localhost:9022`
      - User: Administrator
      - Password: 2Federate
 

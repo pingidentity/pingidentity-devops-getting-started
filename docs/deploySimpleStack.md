@@ -41,13 +41,13 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 3. Log in to the management consoles:
 
    * Ping Data Console for PingDirectory
-     - Console URL: https://localhost:8443/console
+     - Console URL: `https://localhost:8443/console`
      - Server: pingdirectory
      - User: Administrator
      - Password: 2FederateM0re
 
    * PingFederate
-     - Console URL: https://localhost:9999/pingfederate/app
+     - Console URL: `https://localhost:9999/pingfederate/app`
      - User: Administrator
      - Password: 2FederateM0re
 
