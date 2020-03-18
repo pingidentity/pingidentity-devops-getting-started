@@ -1,7 +1,7 @@
 {
   "trigger": {
     "schedule": {
-      "interval": "1m"
+      "interval": "5m"
     }
   },
   "input": {
@@ -20,7 +20,7 @@
                 {
                   "range": {
                     "@timestamp": {
-                      "gte": "now-1m"
+                      "gte": "now-5m"
                     }
                   }
                 }

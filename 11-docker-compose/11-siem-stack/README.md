@@ -12,9 +12,9 @@ The goal of this project is to have pre-built security dashboards to ride along 
 - Migrated all indexes to using ILM. This means by default the stack will only store 2 days worth of logs and ensure indexes do not grow over 2GB. This is done because the enviroment is setup as a demo. HEAP sizes in the ES server are SMALL becasue this is a demo. I will soon have production ready documents written to show customers how this can be brought to production.
 - Tested updating to elastic 7.6.1 (all good)
 - Added in Slack Alerting! 
-- The process requires running a script after you start your stack. 
-- The script will ask you for your webhook url, then add the configuration into the elasticsearch keystore.
-- To run the script run the config_slack_alerts.sh script from the project directory end enter in your webhook URL.
+  - The process requires running a script after you start your stack. 
+  - The script will ask you for your webhook url, then add the configuration into the elasticsearch keystore.
+  - To run the script run the config_slack_alerts.sh script from the project directory end enter in your webhook URL.
 
 ---------------
 
@@ -37,8 +37,7 @@ The goal of this project is to have pre-built security dashboards to ride along 
 | Phase 7  | Slack Integrate Alerts from SIEM.           | Complete    |
 | Phase 8  | Develop Several Custom Alerts               | In Progress |
 | Phase 9  | Develop Production Grade Deployment Doc     | In Progress |
-| Phase 10 | Investigate GEO-Distance Login Alerts       | Not Started |
-|----------|---------------------------------------------|-------------|
+| Phase 10 | Investigate GEO-Distance Login Alerts       | In Progress |
 
 
 ---------------
@@ -63,7 +62,7 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 
 
 # Directions
-- If Mac or Windows, ensure Docker Subsystem has at a minimum 8GB of RAM or the containers will crash.
+- If Mac or Windows, ensure Docker Subsystem has at a *minimum 8GB of RAM* or the containers will crash.
 - Contact DevOps / Ping Sales Team and collect a DevOps user account / key.
 - (Optional / Recommended for Alerting) Pre work: Generate a Slack Webhook URL from Slack Admin. https://api.slack.com/messaging/webhooks
 - To setup on AWS use a M5.XL or M5a.XL (16GB RAM REQUIRED // 50GB MIN STORAGE Recommended)
