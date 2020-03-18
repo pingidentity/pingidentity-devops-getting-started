@@ -48,12 +48,16 @@ The json config file in PingAccess _must_ be named `data.json` and located in `i
 
 #### Understand the password variables
 The administrator user password is not found in `data.json` but is found in PingAccess.mv.db. As such, there are variables available to manage different scenarios. 
-`PA_ADMIN_PASSWORD` - use this if your PingAccess.mv.db has a password other than the default `2Access`. This will be used for all interactions with the Admin API. (e.g. importing config, creating clustering)
+`PA_ADMIN_PASSWORD` - use this if:
 
-`SET_ADMIN_PASSWORD` - Use this to set the runtime admin password if you are: 
-  1. starting a PingAccess container without any config 
-  2. using a data.json only
-  3. overriding the password in PingAccess.mv.db (note: this would mean passing both variables)
+  1. your PingAccess.mv.db has a password other than the default `2Access`.
+  2. starting a PingAccess container without any config 
+  3. using a data.json only  
+  
+This will be used for all interactions with the Admin API. (e.g. importing config, creating clustering)
+
+`PA_ADMIN_PASSWORD_INITIAL` - Use this along with `PA_ADMIN_PASSWORD` to set the runtime admin password if you are: 
+  1. overriding the password in PingAccess.mv.db (note: this would mean passing both variables)
 
 ## PingDirectory
 
