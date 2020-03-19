@@ -233,6 +233,7 @@ services:
 #Logstash system is how log4j ships logs into the stack.
   logstash:
     image: docker.elastic.co/logstash/logstash:$ELASTIC_VERSION
+    command: bash -c "bin/logstash-plugin install logstash-filter-elasticsearch && logstash -f /etc/logstash/conf.d/logstash.conf"
     ports:
       - "9600:9600"
       - "20514:20514"
@@ -245,6 +246,7 @@ services:
       - ./elasticsearch-siem/logstash/conf.d:/etc/logstash/conf.d/logstash.conf
       - certs:$CERTS_DIR
       - ./elasticsearch-siem/enrichment_cache:/etc/logstash/enrichment
+      - ./elasticsearch-siem/search_templates:/etc/logstash/templates
     environment:
       LS_JAVA_OPTS: "-Xmx512m -Xms512m"
       CONFIG_RELOAD_AUTOMATIC: "true"
