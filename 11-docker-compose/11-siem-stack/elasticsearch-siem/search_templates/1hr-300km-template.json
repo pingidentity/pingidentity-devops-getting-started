@@ -1,0 +1,84 @@
+{
+  "query": {
+    "bool": {
+      "must": [],
+      "filter": [
+        {
+          "bool": {
+            "filter": [
+              {
+                "bool": {
+                  "filter": [
+                    {
+                      "range": {
+                        "@timestamp": {
+                          "gte": "now-1h/h",
+                          "lte": "now"
+                        }
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match": {
+                              "status": "success"
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match": {
+                              "event": "AUTHN_ATTEMPT"
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match": {
+                              "subject": "\"%{[subject]}\""
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "should": [],
+      "must_not" : {
+          "geo_distance" : {
+              "distance" : "300km",
+              "geoip.location" : {
+                  "lat"  : "%{[geoip][location][lat]}",
+                  "lon"  : "%{[geoip][location][lat]}" 
+              }
+           }
+       }
+    }
+  },
+  "size" : 1,
+  "sort": [
+    {
+      "@timestamp": {
+        "order": "desc"
+      }
+    }
+  ],
+  "_source": ["[geoip][location][lat]","[geoip][location][lon]", "[geoip][location][country_name]","[geoip][location][city_name]", "protocol", "@timestamp", "ip", "malicious_country", "suspicious_country", "_id" ]  
+}
