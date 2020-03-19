@@ -37,7 +37,7 @@ The goal of this project is to have pre-built security dashboards to ride along 
 | Phase 7  | Slack Integrate Alerts from SIEM.           | Complete    |
 | Phase 8  | Develop Several Custom Alerts               | In Progress |
 | Phase 9  | Develop Production Grade Deployment Doc     | In Progress |
-| Phase 10 | Investigate GEO-Distance Login Alerts       | In Progress |
+| Phase 10 | Implement GEO-Distance Login Detections     | Beta        |
 
 
 ---------------
