@@ -86,7 +86,7 @@ services:
       - discovery.seed_hosts=es01,es02
       - cluster.initial_master_nodes=es01,es02
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
       - xpack.license.self_generated.type=trial
       - xpack.monitoring.collection.enabled=true
       - xpack.security.enabled=true
@@ -135,7 +135,7 @@ services:
       - discovery.seed_hosts=es01,es02
       - cluster.initial_master_nodes=es01,es02
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
       - xpack.license.self_generated.type=trial
       - xpack.monitoring.collection.enabled=true
       - xpack.security.enabled=true
@@ -248,7 +248,7 @@ services:
       - ./elasticsearch-siem/enrichment_cache:/etc/logstash/enrichment
       - ./elasticsearch-siem/search_templates:/etc/logstash/templates
     environment:
-      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
+      LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
       CONFIG_RELOAD_AUTOMATIC: "true"
       CONFIG_RELOAD_INTERVAL: "5s"
       LOG_FORMAT: "json"
