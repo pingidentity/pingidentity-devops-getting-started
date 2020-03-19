@@ -80,5 +80,5 @@
       }
     }
   ],
-  "_source": ["[geoip][location][lat]","[geoip][location][lon]", "[geoip][location][country_name]","[geoip][location][city_name]", "protocol", "@timestamp", "ip", "malicious_country", "suspicious_country", "_id" ]  
+  "_source": ["subject", "[geoip][location][lat]","[geoip][location][lon]", "[geoip][location][country_name]","[geoip][location][city_name]", "protocol", "@timestamp", "ip", "malicious_country", "suspicious_country", "_id" ]  
 }
