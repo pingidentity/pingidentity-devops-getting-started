@@ -50,6 +50,15 @@
 
 ---------------
 
+## What is this ?
+![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/Architecture.png "Architecture Overview")
+- Threat Intel and TOR Endpoints are being provided by AlienVault and the TOR Network Endpoint List. 
+- Threat Feeds are updated on an interval via setting a var in docker-compose 
+
+This project will start a Ping Stack with Elastic Search Infrastructure built in for Visualizing traffic and other security / log data. Showing you the pipes.
+
+---------------
+
 ## Important Note
 - **THIS EXISTING SETUP IS NOT INTENDED FOR PRODUCTION**...   
      
@@ -60,15 +69,6 @@
   - `sudo sysctl -w vm.max_map_count=262144`
 
 - **YOU NEED AT LEAST 12GB OF RAM (FOR DOCKER) TO RUN THIS STACK**
-
----------------
-
-## What is this ?
-![alt text](https://github.com/ryanivis/ping-devops-es-siem/blob/master/images/Architecture.png "Architecture Overview")
-- Threat Intel and TOR Endpoints are being provided by AlienVault and the TOR Network Endpoint List.  
-- Threat Feeds are updated on an interval via setting a var in docker-compose !!!
-
-This project will start a Ping Stack with Elastic Search Infrastructure built in for visualizing traffic and other security / log data.
 
 ---------------
 
