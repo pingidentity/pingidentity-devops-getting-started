@@ -56,7 +56,7 @@
               "color": "#FF0000",
               "pretext": "Successful Authentication from an Impossible Distance",
               "title": "Security Alert (High) - Login From an Impossible Distance...",
-              "text": "Details around Authentication... \n{{#ctx.payload.hits.hits}}\n\nUSER: [ {{_source.subject}} ]\n--- IP Address: {{_source.ip}}\n--- Protocol: {{_source.protocol}}\n--- Tracking ID: {{_source.trackingid}}\n--- Known Malicious IP: {{_source.threat_intel}}\n--- Known TOR IP: {{_source.tor_intel}}\n--- Country Name: {{_source.geoip.country_name}}\n--- Previous IP: {{_source.found_ip}}\n--- Previous Country: {{_source.found_country}}\n--- Previous City: {{_source.found_city_name}}\n\n\n{{/ctx.payload.hits.hits}}"
+              "text": "Details around Authentication... \n *1200km in 6hr* is not Likely...\n{{#ctx.payload.hits.hits}}\n\nUSER: [ {{_source.subject}} ]\n--- IP Address: {{_source.ip}}\n--- Protocol: {{_source.protocol}}\n--- Tracking ID: {{_source.trackingid}}\n--- Known Malicious IP: {{_source.threat_intel}}\n--- Known TOR IP: {{_source.tor_intel}}\n--- Country Name: {{_source.geoip.country_name}}\n--- Previous IP: {{_source.found_ip}}\n--- Previous Country: {{_source.found_country}}\n--- Previous City: {{_source.found_city_name}}\n\n\n{{/ctx.payload.hits.hits}}"
             }
           ]
         }

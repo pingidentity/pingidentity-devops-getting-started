@@ -12,7 +12,7 @@
                     {
                       "range": {
                         "@timestamp": {
-                          "gte": "now-1h/h",
+                          "gte": "now-6h/h",
                           "lte": "now"
                         }
                       }
@@ -63,7 +63,7 @@
       "should": [],
       "must_not" : {
           "geo_distance" : {
-              "distance" : "300km",
+              "distance" : "1200km",
               "geoip.location" : {
                   "lat"  : "%{[geoip][location][lat]}",
                   "lon"  : "%{[geoip][location][lon]}" 
