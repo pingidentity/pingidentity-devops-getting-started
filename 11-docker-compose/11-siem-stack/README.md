@@ -6,7 +6,9 @@ The goal of this project is to have pre-built security dashboards to ride along 
 
 ---------------
 
-## Latest Build News (SLACK INTEGRATION! / ILM Bootstrapped / Authentication via LDAP (Ping Directory))
+## Latest Build News
+
+- Implemented Impossible Distance Alert. Currently set to 1200km at 6hr (can be modified).
 - Modified many of the configurations to support logging in via LDAP.
 - Authentication to the ES Stack / Kibana is now LDAP driven. There is a LDAP group `ESAdminGroup` that is in the example.com Root DSE. Adding a user to this group now gives them access to kibana and all data within elasticsearch as an admin.
 - Migrated all indexes to using ILM. This means by default the stack will only store 2 days worth of logs and ensure indexes do not grow over 2GB. This is done because the enviroment is setup as a demo. HEAP sizes in the ES server are SMALL becasue this is a demo. I will soon have production ready documents written to show customers how this can be brought to production.
@@ -37,7 +39,7 @@ The goal of this project is to have pre-built security dashboards to ride along 
 | Phase 7  | Slack Integrate Alerts from SIEM.           | Complete    |
 | Phase 8  | Develop Several Custom Alerts               | In Progress |
 | Phase 9  | Develop Production Grade Deployment Doc     | In Progress |
-| Phase 10 | Implement GEO-Distance Login Detections     | Beta        |
+| Phase 10 | Implement GEO-Distance Impossible detection | Beta        |
 
 
 ---------------
