@@ -166,15 +166,6 @@
             </Policies>
         </RollingFile>
 
-
-        <Socket name="OutboundProvisionerEventToCEFSyslog" host="${SYSLOG_HOST}" port="${SYSLOG_PORT_PROVISIONER}" protocol="${SYSLOG_PROTOCOL}" ignoreExceptions="false">
-            <PingSyslogLayout>
-                <PatternLayout>
-			<pattern>%d | %d{MMM dd yyyy HH:mm:ss.SSS}| PingIdentity| PingFederate| ProvisionerLog| %X{pfversion}| %X{event_type}| %X{cycle_id}| %X{channel_id}| %X{event_type}| %X{source_id}| %X{target_id}| %X{is_success}| %X{non_success_cause} %n</pattern>
-                </PatternLayout>
-            </PingSyslogLayout>
-        </Socket>
-
         <RollingFile name="OutboundProvisionerEventToCEFSyslog-FILE" fileName="${sys:pf.log.dir}/provisioner-audit-cef-syslog-failover.log"
             filePattern="${sys:pf.log.dir}/provisioner-audit-cef-syslog-failover.%d{yyyy-MM-dd}.log" >
             <PatternLayout>

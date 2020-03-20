@@ -50,7 +50,6 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingdirectory
-
       - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
@@ -79,6 +78,7 @@ services:
 
 #ES Server 1
   es01:
+    hostname: es01
     image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
     container_name: es01
     environment:
@@ -128,6 +128,7 @@ services:
 
 #ES Server 2
   es02:
+    hostname: es02
     image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
     container_name: es02
     environment:
@@ -177,6 +178,7 @@ services:
 
 #Generate Certificates if not already on disk, then run the saved state loader to push saved templates and objects into both kibana and elasticsearch
   configure_es_certs_state:
+    hostname: configure_es_certs_state
     container_name: configure_es_certs_state
     image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
     environment:
@@ -209,6 +211,7 @@ services:
 
 #Service that runs and updates both Known TOR and Known Malicious IPs for log enrichment.
   enrichment_service:
+    hostname: enrichment_service
     container_name: enrichment_service
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
     environment:
@@ -232,12 +235,12 @@ services:
 
 #Logstash system is how log4j ships logs into the stack.
   logstash:
+    hostname: logstash
     image: docker.elastic.co/logstash/logstash:$ELASTIC_VERSION
     command: bash -c "bin/logstash-plugin install logstash-filter-elasticsearch && logstash -f /etc/logstash/conf.d/logstash.conf"
     ports:
       - "9600:9600"
       - "20514:20514"
-      - "20515:20515"
       - "20516:20516"
       - "20517:20517"
       - "20518:20518"
@@ -248,39 +251,42 @@ services:
       - ./elasticsearch-siem/enrichment_cache:/etc/logstash/enrichment
       - ./elasticsearch-siem/search_templates:/etc/logstash/templates
     environment:
-      LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
-      CONFIG_RELOAD_AUTOMATIC: "true"
-      CONFIG_RELOAD_INTERVAL: "5s"
-      LOG_FORMAT: "json"
-      LOG_LEVEL: "info"
-      NODE_NAME: "logstash"
-      XPACK_MANAGEMENT_ENABLED: "false"
-      XPACK_MONITORING_ENABLED: "true"
-      XPACK_MONITORING_ELASTICSEARCH_USERNAME: "elastic"
-      XPACK_MONITORING_ELASTICSEARCH_PASSWORD: $ELASTIC_PASSWORD
-      XPACK_MONITORING_ELASTICSEARCH_HOSTS: "https://es01:9200"
-      XPACK_MONITORING_ELASTICSEARCH_SSL_CERTIFICATE_AUTHORITY: $CERTS_DIR/es01/es01.crt
-      ELASTIC_PASSWORD: $ELASTIC_PASSWORD
+      - "LS_JAVA_OPTS=-Xmx1g -Xms1g"
+      - CONFIG_RELOAD_AUTOMATIC=true
+      - CONFIG_RELOAD_INTERVAL=5s
+      - LOG_FORMAT=json
+      - LOG_LEVEL=info
+      - NODE_NAME=logstash
+      - XPACK_MANAGEMENT_ENABLED=false
+      - XPACK_MONITORING_ENABLED=true
+      - XPACK_MONITORING_ELASTICSEARCH_USERNAME=elastic
+      - XPACK_MONITORING_ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+      - XPACK_MONITORING_ELASTICSEARCH_HOSTS="https://es01:9200"
+      - XPACK_MONITORING_ELASTICSEARCH_SSL_CERTIFICATE_AUTHORITY=$CERTS_DIR/es01/es01.crt
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - CERTS_DIR=$CERTS_DIR
+
     networks:
       - pingnet
 
 #Kibana System for visuilizations etc.
   kibana:
+    hostname: kibana
     image: docker.elastic.co/kibana/kibana:$ELASTIC_VERSION
     container_name: kibana
     environment:
-      ELASTICSEARCH_USERNAME: "elastic"
-      ELASTICSEARCH_PASSWORD: $ELASTIC_PASSWORD
-      ELASTICSEARCH_HOSTS: "https://es01:9200"
-      SERVER_PORT: 5601
-      SERVER_HOST: 0.0.0.0
-      ELASTICSEARCH.SSL.CERTIFICATEAUTHORITIES: $CERTS_DIR/ca/ca.crt
-      ELASTICSEARCH_SSL_VERIFICATIONMODE: none
-      XPACK_MONITORING_ENABLED: "true"
-      SERVER_NAME: ping-kibana
-      SERVER_SSL_ENABLED: "true"
-      SERVER_SSL_CERTIFICATE: $CERTS_DIR/kibana/kibana.crt
-      SERVER_SSL_KEY: $CERTS_DIR/kibana/kibana.key
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTICSEARCH_HOSTS="https://es01:9200"
+      - SERVER_PORT=5601
+      - SERVER_HOST=0.0.0.0
+      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=$CERTS_DIR/ca/ca.crt
+      - XPACK_MONITORING_ENABLED=true
+      - SERVER_NAME=ping-kibana
+      - SERVER_SSL_ENABLED=true
+      - SERVER_SSL_CERTIFICATE=$CERTS_DIR/kibana/kibana.crt
+      - SERVER_SSL_KEY=$CERTS_DIR/kibana/kibana.key
+      - CERTS_DIR=$CERTS_DIR
     volumes:
       - certs:$CERTS_DIR    
     ports:
