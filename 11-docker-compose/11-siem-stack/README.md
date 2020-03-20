@@ -85,14 +85,11 @@ This project will start a Ping Stack with Elastic Search Infrastructure built in
 - Create and place a file `.env` in the above path and place these lines in it (UPDATE YOUR DEVOPS KEY AS SHOWN).
 
 ```
-COMPOSE_PROJECT_NAME=es   
+COMPOSE_PROJECT_NAME=es
+ELASTIC_VERSION=7.6.1
 
-ELASTIC_VERSION=7.6.1   
-ELASTIC_SECURITY=true    
-ELASTIC_PASSWORD=2FederateM0re   
+ELASTIC_PASSWORD=2FederateM0re
 ES_ADMIN_PD_USER_PASS=FederateTheB3st!
-
-CERTS_DIR=/usr/share/elasticsearch/config/certificates
 
 PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}       <====== NOTICE THIS
 PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}              <====== NOTICE THIS

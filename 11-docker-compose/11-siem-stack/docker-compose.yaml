@@ -91,14 +91,14 @@ services:
       - xpack.monitoring.collection.enabled=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.key=$CERTS_DIR/es01/es01.key
-      - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
-      - xpack.security.http.ssl.certificate=$CERTS_DIR/es01/es01.crt
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/es01/es01.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/es01/es01.crt
       - xpack.security.transport.ssl.enabled=true
       - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
-      - xpack.security.transport.ssl.certificate=$CERTS_DIR/es01/es01.crt
-      - xpack.security.transport.ssl.key=$CERTS_DIR/es01/es01.key
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/es01/es01.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/es01/es01.key
       - xpack.security.authc.realms.native.realm1.order=2
       - xpack.security.authc.realms.ldap.ldap1.order=1
       - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
@@ -114,12 +114,12 @@ services:
         hard: -1
     volumes: 
       - data01:/usr/share/elasticsearch/data
-      - certs:$CERTS_DIR
+      - certs:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
       - 9201:9200
     healthcheck:
-      test: curl --cacert $CERTS_DIR/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
       interval: 30s
       timeout: 10s
       retries: 10
@@ -141,14 +141,14 @@ services:
       - xpack.monitoring.collection.enabled=true
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.key=$CERTS_DIR/es02/es02.key
-      - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
-      - xpack.security.http.ssl.certificate=$CERTS_DIR/es02/es02.crt
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/es02/es02.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/es02/es02.crt
       - xpack.security.transport.ssl.enabled=true
       - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
-      - xpack.security.transport.ssl.certificate=$CERTS_DIR/es02/es02.crt
-      - xpack.security.transport.ssl.key=$CERTS_DIR/es02/es02.key
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/es02/es02.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/es02/es02.key
       - xpack.security.authc.realms.native.realm1.order=2
       - xpack.security.authc.realms.ldap.ldap1.order=1
       - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
@@ -164,12 +164,12 @@ services:
         hard: -1
     volumes: 
       - data02:/usr/share/elasticsearch/data
-      - certs:$CERTS_DIR
+      - certs:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
       - 9202:9200
     healthcheck:
-      test: curl --cacert $CERTS_DIR/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
       interval: 30s
       timeout: 10s
       retries: 10
@@ -247,7 +247,7 @@ services:
     command: logstash -f /etc/logstash/conf.d/logstash.conf
     volumes:
       - ./elasticsearch-siem/logstash/conf.d:/etc/logstash/conf.d/logstash.conf
-      - certs:$CERTS_DIR
+      - certs:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/enrichment_cache:/etc/logstash/enrichment
       - ./elasticsearch-siem/search_templates:/etc/logstash/templates
     environment:
@@ -262,9 +262,9 @@ services:
       - XPACK_MONITORING_ELASTICSEARCH_USERNAME=elastic
       - XPACK_MONITORING_ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
       - XPACK_MONITORING_ELASTICSEARCH_HOSTS="https://es01:9200"
-      - XPACK_MONITORING_ELASTICSEARCH_SSL_CERTIFICATE_AUTHORITY=$CERTS_DIR/es01/es01.crt
+      - XPACK_MONITORING_ELASTICSEARCH_SSL_CERTIFICATE_AUTHORITY=/usr/share/elasticsearch/config/certificates/es01/es01.crt
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
-      - CERTS_DIR=$CERTS_DIR
+      - CERTS_DIR=/usr/share/elasticsearch/config/certificates
 
     networks:
       - pingnet
@@ -280,15 +280,15 @@ services:
       - ELASTICSEARCH_HOSTS="https://es01:9200"
       - SERVER_PORT=5601
       - SERVER_HOST=0.0.0.0
-      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=$CERTS_DIR/ca/ca.crt
+      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - XPACK_MONITORING_ENABLED=true
       - SERVER_NAME=ping-kibana
       - SERVER_SSL_ENABLED=true
-      - SERVER_SSL_CERTIFICATE=$CERTS_DIR/kibana/kibana.crt
-      - SERVER_SSL_KEY=$CERTS_DIR/kibana/kibana.key
-      - CERTS_DIR=$CERTS_DIR
+      - SERVER_SSL_CERTIFICATE=/usr/share/elasticsearch/config/certificates/kibana/kibana.crt
+      - SERVER_SSL_KEY=/usr/share/elasticsearch/config/certificates/kibana/kibana.key
+      - CERTS_DIR=/usr/share/elasticsearch/config/certificates
     volumes:
-      - certs:$CERTS_DIR    
+      - certs:/usr/share/elasticsearch/config/certificates    
     ports:
       - "5601:5601"
     networks:
