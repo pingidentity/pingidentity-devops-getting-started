@@ -31,6 +31,8 @@ this image.
 | SERVER_PROFILE_PATH  |   | The subdirectory in the git repo 
 | SERVER_PROFILE_UPDATE  | false  | Whether to update the server profile upon container restart 
 | SERVER_ROOT_DIR  | ${OUT_DIR}/instance  | Path from which the runtime executes 
+| SECURITY_CHECKS_STRICT  | false  | Reuquires strict checks on security 
+| SECURITY_CHECKS_FILENAME  | *.jwk *.pin  | Perform a check for filenames that may violate security (i.e. secret material) 
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}  | License directory and filename 
 | STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to instantiate the container 
 | STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container 
