@@ -17,7 +17,7 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
    > We'll use this as the parent directory for all DevOps examples referenced in our documentation.
 
 3. Clone the DevOps repository, `https://github.com/pingidentity/pingidentity-devops-getting-started.git` to your local `${HOME}/projects/devops` directory.
-4. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment. Your entries in the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
+4. Run our `setup` script in `${HOME}/projects/devops/pingidentity-devops-getting-started` to quickly set up the DevOps environment. Your entries are written to the file `${HOME}/.pingidentity/devops`. You can also add to this file the license variable assignment `PING_IDENTITY_ACCEPT_EULA=YES`.
 5. Use Docker Compose to deploy the full stack located in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
 6. Log in to the management consoles for the products.
 7. See [Saving your configuration changes](saveConfigs.md) to persist data to a local Docker volume.
