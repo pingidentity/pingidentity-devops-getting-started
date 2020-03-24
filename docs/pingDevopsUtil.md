@@ -37,7 +37,7 @@
 | `ping-devops config` | Similar to the `pingidentity-devops-getting-started/setup` command, this prompts for environment variable settings for `~/.pingidentity/devops`, and `~/.bash_profile`. |
 | `ping-devops info` | Displays the current DevOps environment variable settings. |
 | `ping-devops examples` | Displays configuration help information for all of the DevOps examples. To display the information for specific example types, add `docker`, `kubernetes`, `aws`, `azure`, or `gcloud`. For example, `ping-devops examples docker`. |
-| `ping-devops generate devops-secret` | Generates a new DevOps secret. |
-| `ping-devops generate tls-secret <domain>` | Generates a Kubernetes patch for a new TLS certificate and key for the specified domain. |
+| `ping-devops generate devops-secret` | Generates a Kubernetes Secret object `devops-secret` using a Base64 encoding of your DevOps `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY` values. |
+| `ping-devops generate tls-secret <domain>` | Generates a Kubernetes Secret object `tls-secret` for a new TLS certificate and key for the specified domain. The certificate is self-signed using OpenSSL. |
 | `ping-devops generate kustomization.yaml` | Generates a skeleton `kustomization.yaml` file for Kubernetes, if one doesn't already exist in the current directory. |
 
