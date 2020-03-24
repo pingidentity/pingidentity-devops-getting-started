@@ -33,11 +33,11 @@
 
 | Command | Description |
 | --- | --- |
-| `ping&#8209;devops` | Help. Displays all possible commands. |
-| `ping&#8209;devops&nbsp;config` | Similar to the `pingidentity-devops-getting-started/setup` command, this prompts for environment variable settings for `~/.pingidentity/devops`, and `~/.bash_profile`. |
-| `ping&#8209;devops&nbsp;info` | Displays the current DevOps environment variable settings. |
-| `ping&#8209;devops&nbsp;examples` | Displays configuration help information for all of the DevOps examples. To display the information for specific example types, add `docker`, `kubernetes`, `aws`, `azure`, or `gcloud`. For example, `ping&#8209;devops&nbsp;examples&nbsp;docker`. |
-| `ping&#8209;devops&nbsp;generate&nbsp;devops&#8209;secret` | Generates a new DevOps secret. |
-| `ping&#8209;devops&nbsp;generate&nbsp;tls&#8209;secret&nbsp;<domain>` | Generates a Kubernetes patch for a new TLS certificate and key for the specified domain. |
-| `ping&#8209;devops&nbsp;generate&nbsp;kustomization.yaml` | Generates a skeleton `kustomization.yaml` file for Kubernetes, if one doesn't already exist in the current directory. |
+| `ping-devops` | Help. Displays all possible commands. |
+| `ping-devops config` | Similar to the `pingidentity-devops-getting-started/setup` command, this prompts for environment variable settings for `~/.pingidentity/devops`, and `~/.bash_profile`. |
+| `ping-devops info` | Displays the current DevOps environment variable settings. |
+| `ping-devops examples` | Displays configuration help information for all of the DevOps examples. To display the information for specific example types, add `docker`, `kubernetes`, `aws`, `azure`, or `gcloud`. For example, `ping-devops examples docker`. |
+| `ping-devops generate devops-secret` | Generates a new DevOps secret. |
+| `ping-devops generate tls-secret <domain>` | Generates a Kubernetes patch for a new TLS certificate and key for the specified domain. |
+| `ping-devops generate kustomization.yaml` | Generates a skeleton `kustomization.yaml` file for Kubernetes, if one doesn't already exist in the current directory. |
 
