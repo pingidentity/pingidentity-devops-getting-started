@@ -19,8 +19,8 @@ See the [`pingidentity/ldapsdk` repository](https://github.com/pingidentity/ldap
 
 2. You can then start the `ldap-sdk-tools` Docker image by entering:
 
-```bash
-docker run  -it --rm  --network pingnet  pingidentity/ldap-sdk-tools:latest
-```
+   ```bash
+   docker run  -it --rm  --network pingnet  pingidentity/ldap-sdk-tools:latest
+   ```
 
 3. Enter `ls` to list the available tools.
