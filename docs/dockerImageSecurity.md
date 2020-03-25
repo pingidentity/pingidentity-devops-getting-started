@@ -1,16 +1,14 @@
-# Evaluation on Docker Base Image Security
-
-## Introduction
+# Evaluation of Docker base image security
 
 In CIS (Center for Internet Security) [Docker Benchmark v1.2.0](https://www.cisecurity.org/benchmark/docker/), one of the recommendations says, "4.3 Ensure that unnecessary packages are not installed in the container." It further states, "You should consider using a minimal base image rather than the standard Red Hat/CentOS/Debian images if you can. Some of the options available include BusyBox and Alpine." Is Alpine Docker image really more secure than other, more popular Linux distributions?
 
-The focus of this document is the security aspects of different Linux distributions, not which one is the best for Docker base images. Other factors such as usability and compatibility should also be considered based on the actual needs when choosing the most suitable Docker image for an organization.
+So, let's take a look at the security aspects of different Linux distributions. This doesn't necessarily mean that one is the best for Docker base images. Other factors such as usability and compatibility should also be considered when choosing the most suitable Docker image for an organization.
 
 ## Evaluation
 
-To evaluate Alpine’s security, we are going to compare it with the following popular Linux distros: Ubuntu, CentOS, and Red Hat Enterprise Linux 7. We will use the latest version (as of March 12, 2020) of each distro’s Docker image and compare them in four different areas: image size, number of packages installed by default, number of historical vulnerabilities reported on [cvedetails.com](https://www.cvedetails.com/), and number of vulnerabilities reported by Clair scan.
+To evaluate Alpine’s security, we'll compare it with the following popular Linux distros: Ubuntu, CentOS, and Red Hat Enterprise Linux 7. We'll use the latest version (as of March 12, 2020) of each distro’s Docker image and compare them in four different areas: image size, number of packages installed by default, number of historical vulnerabilities reported on [cvedetails.com](https://www.cvedetails.com/), and the number of vulnerabilities reported by the Clair scan.
 
-The following table summarises the numbers for each distro. The details of the installed packages and Clair scan results can be found in the appendix section.
+This table summarises the numbers for each distro:
 
 | | Alpine | Ubuntu | CentOS | RHEL7 |
 | --- | --- | --- | --- | --- |
@@ -41,6 +39,10 @@ There is a good chance that some vulnerabilities reported by Clair are not real 
 ## Result
 
 Admittedly, none of the four areas is perfect for evaluating the security of a Linux distro, but in combination, they provide a clear picture that **Alpine** is the winner in this comparison.
+
+## DevOps Docker images
+
+For all of the reasons described this comparison of distro's and more, we've selected Alpine as the distro used for all of our Docker images.
 
 ## References
 
