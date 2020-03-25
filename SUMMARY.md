@@ -44,6 +44,7 @@
   - [Using release tags](docs/releaseTags.md)
   - [Using supported images](docs/imageSupport.md)
   - [Securing the containers](docs/secureContainers.md)
+  - [Evaluating Image Base OS](ocs/dockerImageSecurity.md)
   - [Adding a message of the day (MOTD)](docs/addMOTD.md)
 * [Utilities](docs/devopsUtils.md)
   - [The `ping-devops` utility](docs/pingDevopsUtil.md)
