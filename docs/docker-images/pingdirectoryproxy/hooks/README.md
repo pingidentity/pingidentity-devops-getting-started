@@ -4,7 +4,9 @@ List of available hooks:
 * [03-build-run-plan.sh](03-build-run-plan.sh.md)
 * [183-run-setup.sh](183-run-setup.sh.md)
 * [188-apply-configuration.sh](188-apply-configuration.sh.md)
-* [81-repair-topology.sh](81-repair-topology.sh.md)
+* [20-restart-sequence.sh](20-restart-sequence.sh.md)
+* [80-post-start.sh](80-post-start.sh.md)
+* [81-generate-topology-json.sh](81-generate-topology-json.sh.md)
 * [pingdirectory.lib.sh](pingdirectory.lib.sh.md)
 
 ---
