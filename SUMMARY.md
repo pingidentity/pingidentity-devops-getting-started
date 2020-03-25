@@ -45,7 +45,6 @@
   - [Using supported images](docs/imageSupport.md)
   - [Securing the containers](docs/secureContainers.md)
   - [Evaluation of Docker base image security](docs/dockerImageSecurity.md)
-  - [Evaluating Image Base OS](docs/dockerImageSecurity.md)
   - [Adding a message of the day (MOTD)](docs/addMOTD.md)
 * [Utilities](docs/devopsUtils.md)
   - [The `ping-devops` utility](docs/pingDevopsUtil.md)
