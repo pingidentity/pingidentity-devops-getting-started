@@ -19,7 +19,8 @@ The following table summarises the numbers for each distro. The details of the i
 | Number of Packages Installed | 14 | 89 | 173 | 162 |
 | Number of Historical CVE*s | 2 | 2007 | 2 | 662 |
 | Number of Vulnerabilities Reported by Clair | 0 | 32 | 7 | 0 |
- *CVE - Common Vulnerabilities and Exposures
+
+> *CVE - Common Vulnerabilities and Exposures
 
 ## Image Size
 
