@@ -34,7 +34,7 @@
       - [Deploy to Azure Kubernetes Service](docs/deployK8s-AKS.md)
       - [Sizing Kubernetes Cluster](docs/k8sClusterSizing.md)
 * [Customizing deployments](docs/config.md)
-  - [Server profile anatomy](docs/profileAnatomy.md)
+  - [Server profile anatomy](docs/containerAnatomy.md)
     - [Customizing server profiles](docs/profiles.md)
     - [Layering server profiles](docs/profilesLayered.md)
     - [Environment substitution](docs/profilesSubstitution.md)

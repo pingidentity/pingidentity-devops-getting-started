@@ -14,6 +14,7 @@ We use environment variables for certain startup and runtime configuration setti
 ## Prerequisite
 
 * You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You understand the [anatomy of a pingidentity container](containerAnatomy.md)
 
 ## What you'll do
 

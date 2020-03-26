@@ -1,4 +1,4 @@
-# Anatomy of a Server Profile
+# Anatomy of a Ping Container
 
 Any configuration that is deployed with a pingidentity container can be considered a 'profile'. A profile typically looks like a set of files. These files can be built into the image, mounted in to the image, or pulled at startup(recommend).
 
