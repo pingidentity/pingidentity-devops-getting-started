@@ -61,19 +61,17 @@ services:
       - pingnet      
   
 # TEST AUTHENTICATORS
-# ## Uncomment this section to place load on the PingDirectory Node
-#  authrate_ok:
-#    image: pingidentity/ldap-sdk-tools
-#    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 40
-#    networks:
-#      - pingnet
+  authrate_ok:
+    image: pingidentity/ldap-sdk-tools
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 40
+    networks:
+      - pingnet
 
-
-#  authrate_ko:
-#    image: pingidentity/ldap-sdk-tools
-#    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
-#    networks:
-#      - pingnet
+  authrate_ko:
+    image: pingidentity/ldap-sdk-tools
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
+    networks:
+      - pingnet
 #END TEST AUTHENTICATORS
 
 #ES Server 1
@@ -241,6 +239,7 @@ services:
     ports:
       - "9600:9600"
       - "20514:20514"
+      - "20515:20515"
       - "20516:20516"
       - "20517:20517"
       - "20518:20518"

@@ -14,3 +14,17 @@ dsconfig create-log-publisher \
     --set include-requester-ip-address:true  \
     --set server-port:20516  \
     --set server-host-name:logstash
+
+dsconfig create-log-publisher \
+    --publisher-name failed-ops-syslog \
+    --type syslog-based-access \
+    --set enabled:true \
+    --set log-client-certificates:false \
+    --set "result-criteria:Failed Operations" \
+    --set include-instance-name:true \
+    --set include-requester-dn:true \
+    --set include-requester-ip-address:true \
+    --set include-response-controls:true \
+    --set server-host-name:logstash \
+    --set server-port:20515
+    
