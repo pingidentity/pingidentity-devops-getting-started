@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "pd-failed-ops": {
+      "is_write_index": true
+    }
+  }
+}
