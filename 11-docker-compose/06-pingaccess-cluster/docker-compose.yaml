@@ -20,8 +20,8 @@ services:
       # - ${HOME}/projects/pingidentity-server-profiles/pa-clustering/pingaccess:/opt/in
       #- ${HOME}/<PATH_TO_LOCAL_REPO>/pa-clustering/pingaccess:/opt/in
     ports:
-      - 9000:9000
-      - 9090:9090
+      - "9000:9000"
+      - "9090:9090"
     networks:
       - pingnet
     cap_add:

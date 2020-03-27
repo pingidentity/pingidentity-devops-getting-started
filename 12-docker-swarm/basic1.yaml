@@ -23,8 +23,8 @@ services:
     deploy:
       replicas: 1
     ports:
-      - 4636:636
-      - 4443:443
+      - "4636:636"
+      - "4443:443"
     networks:
       - pingnet
     volumes:

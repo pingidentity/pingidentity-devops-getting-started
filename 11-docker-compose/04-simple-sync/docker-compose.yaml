@@ -27,8 +27,8 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - 1636:636
-      - 1443:443
+      - "1636:636"
+      - "1443:443"
     networks:
       - pingnet
 
@@ -50,15 +50,15 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - 2636:636
-      - 2443:443
+      - "2636:636"
+      - "2443:443"
     networks:
       - pingnet
   
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
-      - 8443:8443
+      - "8443:8443"
     networks: 
       - pingnet  
               

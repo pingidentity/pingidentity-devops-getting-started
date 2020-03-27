@@ -24,8 +24,8 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - 8080:80
-      - 7443:443
+      - "8080:80"
+      - "7443:443"
     networks:
       - pingnet-dmz
       - pingnet-internal
@@ -50,7 +50,7 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - 8443:8443
+      - "8443:8443"
     networks:
       - pingnet-dmz
 

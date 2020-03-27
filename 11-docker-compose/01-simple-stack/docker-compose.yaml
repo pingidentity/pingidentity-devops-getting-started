@@ -22,8 +22,8 @@ services:
     #   - ${HOME}/projects/devops/volumes/simple-sync.pingfederate:/opt/out
     #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
     ports:
-      - 9031:9031
-      - 9999:9999
+      - "9031:9031"
+      - "9999:9999"
     networks:
       - pingnet
 
@@ -47,16 +47,16 @@ services:
     #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
 
     ports:
-      - 1636:636
-      - 1443:443
-      - 1389:389
+      - "1636:636"
+      - "1443:443"
+      - "1389:389"
     networks:
       - pingnet
                     
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
-      - 8443:8443
+      - "8443:8443"
     networks:
       - pingnet
 

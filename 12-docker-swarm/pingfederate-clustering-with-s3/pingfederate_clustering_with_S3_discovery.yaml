@@ -30,7 +30,7 @@ services:
     deploy:
       replicas: 1
     ports:
-      - 9999:9999
+      - "9999:9999"
     networks:
       - pingnet
  
@@ -54,7 +54,7 @@ services:
     deploy:
       replicas: 1
     ports:
-      - 9031:9031
+      - "9031:9031"
     networks:
       - pingnet
 
@@ -67,8 +67,8 @@ services:
     deploy:
       replicas: 1
     ports:
-      - 1636:636
-      - 1443:443
+      - "1636:636"
+      - "1443:443"
     networks:
       - pingnet
 
