@@ -21,8 +21,8 @@ services:
     #   - ${HOME}/projects/devops/volumes/full-stack.pingaccess:/opt/out
     #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingaccess:/opt/in
     ports:
-      - 443:443
-      - 9000:9000
+      - "443:443"
+      - "9000:9000"
     networks:
       - pingnet-dmz
 
@@ -39,8 +39,8 @@ services:
     #  - ${HOME}/projects/devops/volumes/full-stack.pingdatagovernance:/opt/out
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
     ports:
-      - 8080:80
-      - 7443:443
+      - "8080:80"
+      - "7443:443"
     networks:
       - pingnet-dmz
       - pingnet-internal
@@ -58,8 +58,8 @@ services:
     #  - ${HOME}/projects/devops/volumes/full-stack.pingfederate:/opt/out
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
     ports:
-      - 9031:9031
-      - 9999:9999
+      - "9031:9031"
+      - "9999:9999"
     networks:
       - pingnet-dmz
       - pingnet-internal
@@ -91,7 +91,7 @@ services:
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
-      - 8443:8443
+      - "8443:8443"
     networks: 
       - pingnet-internal
               
@@ -107,7 +107,7 @@ services:
     env_file: 
       - ~/.pingidentity/devops
     ports:
-      - 9022:9022
+      - "9022:9022"
     networks:
       - pingnet-internal
 

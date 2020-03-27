@@ -17,8 +17,8 @@ services:
       - SYSLOG_PORT_SYSTEM=20517
       - SYSLOG_PROTOCOL=TCP
     ports:
-      - 9031:9031
-      - 9999:9999
+      - "9031:9031"
+      - "9999:9999"
     networks:
       - pingnet
     depends_on:
@@ -38,8 +38,8 @@ services:
       - SYSLOG_PORT_SYSTEM=20518
       - SYSLOG_PORT_AUDIT=20519
     ports:
-      - 9000:9000
-      - 3000:3000
+      - "9000:9000"
+      - "3000:3000"
     networks:
       - pingnet
     depends_on:
@@ -55,8 +55,8 @@ services:
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
       - ES_ADMIN_PD_USER_PASS=$ES_ADMIN_PD_USER_PASS
     ports:
-      - 1636:636
-      - 1443:443
+      - "1636:636"
+      - "1443:443"
     networks:
       - pingnet      
   
@@ -115,7 +115,7 @@ services:
       - certs:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
-      - 9201:9200
+      - "9201:9200"
     healthcheck:
       test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
       interval: 30s
@@ -165,7 +165,7 @@ services:
       - certs:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
-      - 9202:9200
+      - "9202:9200"
     healthcheck:
       test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
       interval: 30s

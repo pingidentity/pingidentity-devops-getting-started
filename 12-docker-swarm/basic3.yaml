@@ -16,8 +16,8 @@ services:
     deploy:
       replicas: 1
     ports:
-      - 5636:636
-      - 5443:443
+      - "5636:636"
+      - "5443:443"
     networks:
       - pingnet
     environment:
