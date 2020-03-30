@@ -1,0 +1,12 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+commonLabels:
+  role: dsreplication-timing
+
+resources:
+- dsreplication-timing.yaml
+- configmap.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true

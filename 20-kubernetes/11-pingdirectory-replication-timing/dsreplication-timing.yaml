@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dsreplication-timing
+  labels:
+    app: dsreplication-timing
+spec:
+  containers:
+  - name: dsreplication-timing
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingtoolkit:${PING_IDENTITY_DEVOPS_TAG}
+    env:
+      - name: STARTUP_COMMAND
+        value: start-server
+    envFrom:
+      - configMapRef:
+          name: dsreplication-timing-environment-variables
+      - secretRef:
+          name: devops-secret
+          optional: true
+  restartPolicy: Never
+#    volumeMounts:
+#    - name: topology-json
+#      mountPath: /topology.json
+#      subPath: topology.json
+#  volumes:
+#  - name: topology-json
+#    configMap:
+#      name: pingdirectory-replication-timing-topology
+#      defaultMode: 0600
+
