@@ -1,4 +1,4 @@
-# Environment Substitution
+# Environment substitution
 
 In a typical environment, configuration is moved from server to server. Hostnames, endpoints, DNs, etc. need a way to be easily modified.
 

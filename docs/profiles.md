@@ -7,14 +7,14 @@ When you deployed the full stack of product containers in [Get started](getStart
     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_PATH=baseline/pingaccess
   ```
-Our [pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) repository indicated by the `SERVER_PROFILE_URL` environment variable, contains the server profiles we use for our DevOps deployment examples. The `SERVER_PROFILE_PATH` environment variable indicates the location of the product profile data to use. In the example above, the PingAccess profile data located in the `baseline/pingaccess` directory.
+Our [pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) repository indicated by the `SERVER_PROFILE_URL` environment variable, contains the server profiles we use for our DevOps deployment examples. The `SERVER_PROFILE_PATH` environment variable indicates the location of the product profile data to use. In the example above, the PingAccess profile data is located in the `baseline/pingaccess` directory.
 
 We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. There are environment variables that are common to all product images. You'll find these in the [PingBase image directory](docker-images/pingbase/README.md). There are also product-specific environment variables. You'll find these in the [Docker image reference](dockerImagesRef.md) for each available product.
 
 ## Prerequisite
 
 * You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* You understand the [anatomy of a pingidentity container](containerAnatomy.md)
+* You understand the [anatomy of of our product containers](containerAnatomy.md).
 
 ## What you'll do
 

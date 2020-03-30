@@ -1,40 +1,27 @@
 # Monitoring the Ping Stack
 
-This example will show how to use CNCF monitoring tools with the Ping Identity stack. 
-Tools used:
+This use case describes how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.
 
-Monitoring:
+Monitoring tools used:
 - [Prometheus](https://prometheus.io/)
 - [Grafana](https://grafana.com/)
 - [Alertsmanager](https://github.com/prometheus/alertmanager)
 - [cAdvisor](https://github.com/google/cadvisor)
 - [prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
 
-Ping Software:
-- PingDirectory
+> Much of the generic Prometheus work is taken from [vegasbrianc/prometheus](https://github.com/vegasbrianc/prometheus)
 
-  > Much of the generic Prometheus work is taken from [vegasbrianc/prometheus](https://github.com/vegasbrianc/prometheus)
+## What you'll do
 
-## What Will Happen
+PingDirectory produces a wide array of metrics. These metrics can be delivered in statsd format to a location of your choosing using the StatsD monitoring endpoint for PingDirectory.
 
-PingDirectory produces a wide array of metrics OOB. These metrics can be delivered in statsd format to a location of your choosing using the [StatsD Monitoring Endpoint](https://docs.ping.directory/PingDirectory/8.0.0.0/config-guide/statsd-monitoring-endpoint.html#Properties). 
-To get metrics on a dashboard in Grafana we: 
-1. turn on the statsd monitoring endpoint in PingDirectory
-2. push metrics in stats to a statsd_exporter, which formats and hosts the metrics
-3. have Prometheus scrape the /metrics endpoint on statsd_exporter
-4. have a dashboard in Grafana visualize the metrics from Prometheus. 
+> See the PingDirectory documentation[StatsD Monitoring Endpoint](https://docs.ping.directory/PingDirectory/8.0.0.0/config-guide/statsd-monitoring-endpoint.html#Properties) for more information. 
 
-## What You'll Do
-
-- [Monitoring the Ping Stack](#monitoring-the-ping-stack)
-  - [What Will Happen](#what-will-happen)
-  - [What You'll Do](#what-youll-do)
-  - [Deploy the monitoring stack](#deploy-the-monitoring-stack)
-    - [Learn about the configuration](#learn-about-the-configuration)
-    - [Generate load](#generate-load)
-    - [Watch traffic metrics](#watch-traffic-metrics)
-  - [Cleanup](#cleanup)
-<!-- * Learn how to configure further -->
+To get metrics on a dashboard in Grafana, you'll: 
+1. Turn on the statsd monitoring endpoint in PingDirectory.
+2. Push metrics in stats to a statsd_exporter, which formats and hosts the metrics.
+3. Have Prometheus scrape the /metrics endpoint on statsd_exporter.
+4. Have a dashboard in Grafana visualize the metrics from Prometheus. 
 
 ## Deploy the monitoring stack
 
@@ -42,7 +29,8 @@ To get metrics on a dashboard in Grafana we:
     ```
     docker-compose up -d
     ```
-2. Wait for PingDirectory to become healthy:
+
+2. Wait for PingDirectory to become healthy. For example:
 
     ```shell
     docker container ls --filter name=pingdirectory_1 --format 'table {{.Names}}\t{{.Status}}'                                
@@ -52,9 +40,9 @@ To get metrics on a dashboard in Grafana we:
     ```
 ### Learn about the configuration
 
-  There is a lot that can be covered regarding the configuration. We will focus on what is key to making this demo work with minimal intervention and what you may want to edit. 
+  There is a lot that can be discussed regarding the configuration. We'll focus on what is key to making this use case functional with minimal intervention, and describe what you may want to edit. 
   
-  > All of the relevant configurations are located in 10-monitoring-stack/configs.
+  > All of the relevant configurations are located in your local `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack/configs`.
   
   1. PingDirectory
       ```
