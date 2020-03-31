@@ -51,7 +51,7 @@ To get metrics on a dashboard in Grafana, you'll:
 
 There's a lot that can be discussed regarding the configuration. We'll focus on what is key to making this use case functional with minimal intervention, and describe what you may want to edit. 
   
-> All of the relevant configurations are located in your local `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack/configs`.
+> All of the relevant configurations are located in your local `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack/configs` directory.
   
 * The PingDirectory configuration comprises:
 
