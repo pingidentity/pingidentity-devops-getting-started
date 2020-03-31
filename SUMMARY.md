@@ -50,6 +50,7 @@
 * [Utilities](docs/devopsUtils.md)
   - [The `ping-devops` utility](docs/pingDevopsUtil.md)
   - [The `ldap-sdk-tools` utility](docs/ldapsdkUtil.md)
+* [Troubleshooting](docs/troubleshooting.md)
 * [Docker images reference](docs/dockerImagesRef.md)
   - [PingFederate](docs/docker-images/pingfederate/README.md)
   - [PingAccess](docs/docker-images/pingaccess/README.md)
