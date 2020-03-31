@@ -37,7 +37,7 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
     Where \<path> is the location of your existing PingFederate license file.
 
-    When the container starts, this will bind mount `<path>/pingfederate.lic` to this location in the container`/opt/in/instance/server/default/conf/pingfederate.lic`. The mount paths must match the expected license path for the product. These are:
+    When the container starts, this will mount `<path>/pingfederate.lic` to this location in the container`/opt/in/instance/server/default/conf/pingfederate.lic`. The mount paths must match the expected license path for the product. These are:
 
     * PingFederate
       - Expected license file name: `pingfederate.lic`

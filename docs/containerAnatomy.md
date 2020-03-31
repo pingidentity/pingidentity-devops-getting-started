@@ -16,7 +16,7 @@ This is illustrated in two diagrams:
 | Resource | Description |
 | --- | --- |
 | /opt/server | This directory always contains an untouched, uncompressed copy of the product software version. |
-|/opt/in | This directory contains any server profile that you want Docker to bind mount to the container. |
+|/opt/in | This directory contains any server profile that you want Docker to mount to the container. |
 | SERVER_PROFILE_URL | The URL referencing a Git clone of a server profile from a repository. The profile is cloned to `/tmp/staging` then moved to `/opt/staging`. |
 | opt/staging | The directory where the locations and resources mentioned above are moved to and evaluated (variable settings) before being moved to `/opt/out`. |
 | envsubst | The configuration data is passed to containers using environment variables. See [Environment substitution](profilesSubstitution.md) for information. |
@@ -34,7 +34,7 @@ You can open a shell into a Docker container and view the container structure an
 
 This is an example of a PingFederate flow illustrating: 
 
-* A common pattern where the PingFederate license is mounted as a file so that it is not stored in a repository. This mount could be a Docker bind mount, or it could be placed in the Docker image directly using a separate Dockerfile. This is also an acceptable approach for custom extensions and *.jar files.
+* A common pattern where the PingFederate license is mounted as a file so that it is not stored in a repository. This mount could be a Docker mount, or it could be placed in the Docker image directly using a separate Dockerfile. This is also an acceptable approach for custom extensions and *.jar files.
 
 * GitOps. Any additional profile files relevant to customizing the PingFederate configuration are pulled from a Git repository, for tracking, easy update, and maintenance. 
 

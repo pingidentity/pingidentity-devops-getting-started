@@ -70,7 +70,7 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 ## Preserve the database
 
-To preserve any updates to the MySQL database, you need to bind mount the `./conf/mysql/data` directory to the `/var/lib/mysql` volume. You also need to bind mount `./conf/pingcentral.jwk` to `/opt/server/conf/pingcentral.jwk` to save the hostkey file created on initial startup of the PingCentral container. You'll need the saved hostkey to access the database.
+To preserve any updates to the MySQL database, you need to mount the `./conf/mysql/data` directory to the `/var/lib/mysql` volume. You also need to mount `./conf/pingcentral.jwk` to `/opt/server/conf/pingcentral.jwk` to save the hostkey file created on initial startup of the PingCentral container. You'll need the saved hostkey to access the database.
 
 1. If the stack is running, bring it down:
 
@@ -78,7 +78,7 @@ To preserve any updates to the MySQL database, you need to bind mount the `./con
    docker-compose down
    ```
 
-2. Open the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file and bind mount `./conf/mysql/data` to the `/var/lib/mysql` volume under `pingcentral-db`. For example:
+2. Open the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file and mount `./conf/mysql/data` to the `/var/lib/mysql` volume under `pingcentral-db`. For example:
 
    ```yaml
    pingcentral-db:
@@ -96,7 +96,7 @@ To preserve any updates to the MySQL database, you need to bind mount the `./con
 
    Keep the `docker-compose.yml` file open.
 
-3. In the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file, also bind mount `./conf/pingcentral.jwk` to the `/opt/server/conf/pingcentral.jwk` volume under the `pingcentral` service. For example:
+3. In the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file, also mount `./conf/pingcentral.jwk` to the `/opt/server/conf/pingcentral.jwk` volume under the `pingcentral` service. For example:
 
 ```yaml
   pingcentral:
@@ -148,7 +148,7 @@ Setting `PING_CENTRAL_BLIND_TRUST=false` allows public certificates to be used o
 
 2. Inject the trust store into the PingCentral container:
 
-   * For stacks, inject the trust store using the `volumes` definition in the `docker-compose.yml` file to bind mount `./conf/keystore.jks` to `/opt/in/instance/conf/keystore.jks`. For example:
+   * For stacks, inject the trust store using the `volumes` definition in the `docker-compose.yml` file to mount `./conf/keystore.jks` to `/opt/in/instance/conf/keystore.jks`. For example:
 
      ```yaml
      services:
@@ -219,7 +219,7 @@ services:
 
   1. Update the `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral/page/orc1570565605492.html).
 
-  2. Inject the `application.properties.subst` file into the container using the `volumes` definition in the `docker-compose.yml` file to bind mount `./conf/application.properties` to the `/opt/in/instance/conf/application.properties` volume under the `pingcentral` service of the `docker-compose.yml` file :
+  2. Inject the `application.properties.subst` file into the container using the `volumes` definition in the `docker-compose.yml` file to mount `./conf/application.properties` to the `/opt/in/instance/conf/application.properties` volume under the `pingcentral` service of the `docker-compose.yml` file :
 
      ```yaml
      pingcentral:

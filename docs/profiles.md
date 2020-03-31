@@ -124,7 +124,7 @@ This method is particularly helpful when developing locally and the configuratio
 
   These directories are useful for building and working with local server-profiles. The `/opt/in` directory is particularly valuable if you do not want your containers to access Github for data (the default for our server profiles). Here's an example, again using PingFederate:
 
-  1. Deploy PingFederate using our sample standalone server profile located in your local `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate` directory, and bind mount `/opt/out` to a local directory. For example:
+  1. Deploy PingFederate using our sample standalone server profile located in your local `pingidentity-devops-getting-started/10-docker-standalone/02-pingfederate` directory, and mount `/opt/out` to a local directory. For example:
      ```bash
       docker run \
           --name pingfederate \
@@ -136,7 +136,7 @@ This method is particularly helpful when developing locally and the configuratio
           pingidentity/pingfederate:edge
      ```
 
-     > Make sure the local directory (in this case, `/tmp/docker/pf`) is not already created. Docker needs to create this directory for the bind mount to `/opt/out`.
+     > Make sure the local directory (in this case, `/tmp/docker/pf`) is not already created. Docker needs to create this directory for the mount to `/opt/out`.
 
   2. Go to the mounted local directory (in this case, `/tmp/docker/pf`), then make and save some configuration changes to PingFederate using the management console. As you save the changes, you'll be able to see the files in the mounted directory change. For PingFederate, an `instance` directory is created. This is a PingFederate server profile.
   3. Stop the container and start a new container, adding another `/tmp/docker/pf` bind mounted volume, this time to `/opt/in`. For example:
