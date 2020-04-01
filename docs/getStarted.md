@@ -8,11 +8,16 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 
 * Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for macOS](https://docs.docker.com/v17.12/docker-for-mac/install/).
 * [Git](https://git-scm.com/downloads).
+* An existing `{HOME}/.bash_profile` file. The initial `setup` script writes to this file. If the file doesn't exist, open a terminal and create it by entering: 
+
+  ```shell
+  touch ~/.bash_profile.
+  ```
 
 ## What you'll do
 
 1. Create a Ping Identity account get a DevOps evaluation license, or sign on to your existing account and register for a DevOps user name and key.
-2. Create the local DevOps directory, `${HOME}/projects/devops`.
+2. Open a terminal and create the local DevOps directory, `${HOME}/projects/devops`.
 
    > We'll use this as the parent directory for all DevOps examples referenced in our documentation.
 
@@ -33,7 +38,7 @@ When you've finished the initial setup and deployment, you can then choose to:
 
 ## DevOps registration
 
-Registering for our DevOps program grants you credentials that can be provided as variables to PingIdentity containers. This streamlines license issues by allowing the container to automatically retrieve an evaluation license upon container startup. 
+Registering for our DevOps program grants you credentials that can be provided as variables to our containers. This streamlines license issues by allowing the container to automatically retrieve an evaluation license upon container startup. 
 
   > Evaluation licenses are short-lived and *not* intended for use in production deployments.
 
@@ -42,7 +47,7 @@ Registering for our DevOps program grants you credentials that can be provided a
 
     Your DevOps user name and key will be sent to your email. This will generally take only a few business hours.
 
-> It is recommended (due to ease of use) to use the devop user/key approach for evaluating Ping Identity container use-cases. However, if you'd rather use an existing Ping Identity product license, see [Use an existing license](existingLicense.md) for instructions before proceeding.
+> For ease of use, we recommend you use the DevOps user name and key approach when evaluating our container use-cases. However, if you'd rather use an existing Ping Identity product license, see [Use an existing license](existingLicense.md) for instructions before proceeding.
 
 ## Initial setup
 
@@ -75,15 +80,15 @@ For example, enter:
    The setup script stores your entries in the file `${HOME}/.pingidentity/devops`. Many of the examples in `${HOME}/projects/devops/pingidentity-devops-getting-started` will either source the `devops` file as variables into the container, or expect the file to be sourced in the current shell. So:
 
 
-4. Refresh your OS shell to make the command aliases available. For example, enter:
+4. Refresh your OS shell or open a new terminal. To refresh your current shell, enter:
 
    ```bash
    source ~/.bash_profile
    ```
 
-   After refreshing your OS shell, enter `dhelp` to see the listing of the command aliases.
+5. Enter `dhelp` to see the listing of the command aliases.
 
-   > If the `dhelp` command isn't working, see [Troubleshooting](troubleshooting/BASIC_TROUBLESHOOTING.md)
+   > If the `dhelp` command isn't working, see [Troubleshooting](troubleshooting.md).
 
 ## Deploy the stack
 
