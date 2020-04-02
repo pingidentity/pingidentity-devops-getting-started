@@ -18,7 +18,7 @@
     - [Deploy PingCentral](docs/deployPingCentral.md)
     - [Deploy a PingFederate cluster](docs/deployPfCluster.md)
     - [Deploy a PingAccess cluster](docs/deployPaCluster.md)
-    - [Deploy a Monitoring Stack](docs/deployMonitoringStack.md)
+    - [Deploy a monitoring stack](docs/deployMonitoringStack.md)
   - [Orchestrate with Docker Swarm](docs/deploySwarm.md)
     - [PingFederate clustering using Docker Swarm and AWS S3](docs/swarmPfCluster.md)
   - [Orchestrate with Kubernetes](docs/deployK8s.md)
