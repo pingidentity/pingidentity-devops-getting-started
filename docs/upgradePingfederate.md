@@ -6,7 +6,8 @@ In this document, we'll cover upgrading a PingFederate deployment from 9.3.3 to 
 
 ## Overview
 
-> Prerequisites: **Required** before following this document, you should have a solid understanding of what profiles are. **Optional** it will help to have an understanding of how blue-gren happens in services in kubernetes. 
+> Prerequisites: **Required** before following this document, you should have a solid understanding of what profiles are
+**Optional** it will help to have an understanding of how blue-gren happens in services in kubernetes. 
 
 > Note: This guide discusses an upgrade for a Kubernetes deployment, but the concepts should work with any container orchestrator.
 
@@ -35,7 +36,7 @@ In a proper devops setup:
 
 Our "example" environment is set up with jmeter throwing load to a Kubernetes "service" [[1](#1)] (which routes load to downstream pingfederate containers). 
 
-<img>
+![alt text](images/pf-upgrade_1_version9.3.3.png "initial deployment")
 
 The key here is that the service is pointing to this deployment of PingFederate because of a "selector" defined on the service that matches a label on the PingFederate "deployment" [[2](#2)]. This is what will make the blue-green approach possible. 
 
@@ -74,7 +75,7 @@ If you've followed this document you may have noted that parts of it can be inti
 
 Additionally, note that we have used the terms 'zero-downtime' and 'loss-of-state' separately. The two terms are significantly different. Zero-downtime is what this document achieves. This means there is no point in time that users should experience a `500 bad gateway` error. But, we are sacrificing state to achieve this. Because we are moving from one entire deployment to another, the new deployment does not (and _cannot_) have access to runtime state in the previous deployment. This is why it is **critical** to externalize as much state as possible. 
 
-##### 1
+###### 1
 service - this is essentially a load balancer that follows a round-robin strategy with keep-alive.
-##### 2 
+###### 2 
 deployment - a deployment in kubernetes is a sort of manager of containers in pods. It defines things like: which containers to run, how many, metadata labels, and update strategy. 
