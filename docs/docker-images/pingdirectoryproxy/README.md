@@ -59,7 +59,7 @@ The easiest way to test test a simple standalone image of PingDirectoryProxy is 
 You can view the Docker logs with the command:
 
 ```
-  docker logs -f pingdirectory
+  docker logs -f pingdirectoryproxy
 ```
 
 You should see the ouptut from a PingDirectoryProxy install and configuration, ending with a message the the PingDirectoryProxy has started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` afer to stop tailing the logs.
@@ -101,13 +101,13 @@ Connection a REST client from Postman or a browser using the default ports and c
 To stop the container:
 
 ```
-  docker container stop pingdirectory
+  docker container stop pingdirectoryproxy
 ```
 
 To remove the container:
 
 ```
-  docker container rm -f pingdirectory
+  docker container rm -f pingdirectoryproxy
 ```
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdirectoryproxy/hooks/README.md) for details on all pingdirectoryproxy hook scripts
