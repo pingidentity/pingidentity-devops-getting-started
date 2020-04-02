@@ -1,4 +1,4 @@
-# Monitoring our product stacks
+# Deploy a monitoring stack
 
 This use case describes how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.
 
