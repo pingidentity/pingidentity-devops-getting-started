@@ -27,37 +27,47 @@ You'll find here the server profile structures you can use for each of our produ
 | `instance/data/data.json` | A config file that, if found by the container, is uploaded into the container |
 | `instance/data/PingAccess.mv.db` | database binary that would be ingested at container startup if found. |
 
-### PingAccess Profile Nuances and Best Practices
+### PingAccess server profile best practices
 
-#### PingAccess profiles are typically very minimal
-This is because the majority of PingAccess config can be found within a `data.json` or PingAccess.mv.db. It is typically preferred to use a data.json for config with absolute minimal configs in the PingAccess.mv.db. Simply because you can see and manipulate configs directly in a json file rather than the binary PingAccess.mv.db file. This makes tracking changes in version control easier as well. 
+#### PingAccess profiles are typically minimalist
 
-Thus, if running PingAccess in 'Standalone' mode, try to _only_ use a `data.json`. Currently, clustering PingAccess requires using the `PingAccess.mv.db` in order to set the cluster bind port. 
+This is because the majority of PingAccess configurations can be found within a `data.json` or `PingAccess.mv.db` file. We highly recommend you primarily use a `data.json` for configurations with very minimal configurations in `PingAccess.mv.db`. You can easily view and manipulate configurations directly in a JSON file as opposed to the binary `PingAccess.mv.db` file. This makes tracking changes in version control easier as well. 
+
+> Currently, clustering PingAccess requires using the `PingAccess.mv.db` to set the cluster bind port. 
 
 <!-- When using a `data.json`, the container uses the PingAccess Admin API to import the data.json. This means: 
 1. The PingAccess server has to be running. So be careful when determining when the container is 'ready' to accept traffic. Check that the configuration has been imported, rather than just that the server is up. Refer to the `liveness.sh` within the image for an example. 
 2. Import only _needs_ to occur on the admin node. Typically engines can be  -->
 
-#### Config file names and paths are important
-The json config file in PingAccess _must_ be named `data.json` and located in `instance/data`. A corresponding file names `pa.jwk` must also exist at `instance/conf` for the data.json to be decrypted on import. To get a `data.json` and `pa.jwk` that work together, pull them both from the same running PingAccess. For example, if PingAccess is running in a local docker container you can use: 
-  ```
+#### Configuration file names and paths are important
+
+The JSON configuration file for PingAccess _must_ be named `data.json` and located in the `instance/data` directory. A corresponding file named `pa.jwk` must also exist in the `instance/conf` directory for the `data.json` file to be decrypted on import. To get a `data.json` and `pa.jwk` that work together, pull them both from the same running PingAccess instance. 
+
+For example, if PingAccess is running in a local docker container you can use these commands to export the `data.json` file and copy the `pa.jwk` file to your local Downloads directory: 
+
+  ```shell
     curl -k -u "Administrator:${ADMIN_PASSWORD}" -H "X-Xsrf-Header: PingAccess" https://localhost:9000/pa-admin-api/v3/config/export -o ~/Downloads/data.json
 
     docker cp <container_name>:/opt/out/instance/conf/pa.jwk ~/Downloads/pa.jwk
   ```
 
-#### Understand the password variables
-The administrator user password is not found in `data.json` but is found in PingAccess.mv.db. As such, there are variables available to manage different scenarios. 
-`PA_ADMIN_PASSWORD` - use this if:
+#### Understanding the password variables
 
-  1. your PingAccess.mv.db has a password other than the default `2Access`.
-  2. starting a PingAccess container without any config 
-  3. using a data.json only  
+The PingAccess administrator user password is not found in `data.json`, but in `PingAccess.mv.db`. For this reason, there are environment variables you can use to manage different scenarios:
+
+* `PA_ADMIN_PASSWORD` 
   
-This will be used for all interactions with the Admin API. (e.g. importing config, creating clustering)
+  Use this variable if:
 
-`PA_ADMIN_PASSWORD_INITIAL` - Use this along with `PA_ADMIN_PASSWORD` to set the runtime admin password if you are: 
-  1. overriding the password in PingAccess.mv.db (note: this would mean passing both variables)
+  - Your `PingAccess.mv.db` file has a password other than the default "2Access".
+  - You're starting a PingAccess container without any configurations. 
+  - You're using only a `data.json` file for configurations.  
+  
+  The `PA_ADMIN_PASSWORD` value will be used for all interactions with the PingAccess Admin API (such as, importing configurations, and creating clustering).
+
+* `PA_ADMIN_PASSWORD_INITIAL` 
+  
+  Use this with `PA_ADMIN_PASSWORD` to set the runtime admin password if you are overriding the password in `PingAccess.mv.db` (which would require passing both variables).
 
 ## PingDirectory
 
