@@ -47,6 +47,8 @@
   - [Securing the containers](docs/secureContainers.md)
   - [Evaluation of Docker base image security](docs/dockerImageSecurity.md)
   - [Adding a message of the day (MOTD)](docs/addMOTD.md)
+* [Managing deployments](docs/manage.md)
+  - [Upgrade PingFederate](docs/upgradePingFederate.md)
 * [Utilities](docs/devopsUtils.md)
   - [The `ping-devops` utility](docs/pingDevopsUtil.md)
   - [The `ldap-sdk-tools` utility](docs/ldapsdkUtil.md)
