@@ -55,6 +55,7 @@
   - [PingFederate](docs/docker-images/pingfederate/README.md)
   - [PingAccess](docs/docker-images/pingaccess/README.md)
   - [PingDirectory](docs/docker-images/pingdirectory/README.md)
+  - [PingDirectoryProxy](docs/docker-images/pingdirectoryproxy/README.md)
   - [PingDataGovernance](docs/docker-images/pingdatagovernance/README.md)
   - [PingDataGovernance PAP](docs/docker-images/pingdatagovernancepap/README.md)
   - [PingDataSync](docs/docker-images/pingdatasync/README.md)
