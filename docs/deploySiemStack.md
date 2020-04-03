@@ -1,24 +1,19 @@
-# Elasticsearch SIEM stack
+# Deploy an Elasticsearch SIEM stack
 
 This project will start a Ping Stack with Elastic Search Infrastructure built in for Visualizing traffic and other security / log data. Showing you the pipes.
 
 ![alt text](images/Architecture.png "Architecture Overview")
 
-* Threat Intel and TOR Endpoints are being provided by AlienVault and the TOR Network Endpoint List. 
-* Threat Feeds are updated on an interval via setting a var in docker-compose 
+* Threat intel and TOR Endpoints are  provided by AlienVault and the TOR Network Endpoint List. 
+* Threat feeds are updated on an interval via setting an environment variable in `docker-compose.yaml` 
 
 > **Caution**: This stack is not intended for production environments.   
 
-There are persistent volumes used for Elasticsearch data and certificates. You'll need to clear the volumes when you bring the stack down. Enter:
-
-```shell
-docker volume prune 
-```
-
 ## Prerequisites
 
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
-* For most Linux distributions, you'll need to increase the `vm.max_map_count` setting to support the necessary heap size. Enter:
+* For most Linux distributions (local or on a platform), you'll need to increase the `vm.max_map_count` setting to support the necessary heap size. Enter:
 
   ```shell
   sudo sysctl -w vm.max_map_count=262144
@@ -34,140 +29,143 @@ docker volume prune
 
 * If you're using Slack, you can generate a Slack Webhook URL from the Slack Admin for alerting: `https://api.slack.com/messaging/webhooks`.
 
-## Inital setup for AWS
+## Inital setup
 
-- To setup on AWS use a M5.XL or M5a.XL (16GB RAM REQUIRED // 50GB MIN STORAGE Recommended)
-  - Install Docker / Docker Compose on your EC2 or Physical System
-  - `sudo sysctl -w vm.max_map_count=262144` This step is required on linux systems.
-- Clone this project to your Docker System.  
-  - `git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git`
-- Within the Project change directory to the following path. `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/`
-- Create and place a file `.env` in the above path and place these lines in it (UPDATE YOUR DEVOPS KEY AS SHOWN).
+1. From the `pingidentity-devops-getting-started` directory, pull the repo to ensure that you have current files:
 
-```
-COMPOSE_PROJECT_NAME=es
-ELASTIC_VERSION=7.6.1
+   ```shell  
+   git pull
+   ```
 
-ELASTIC_PASSWORD=2FederateM0re
-ES_ADMIN_PD_USER_PASS=FederateTheB3st!
+2. Go to the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory.
 
-PING_IDENTITY_DEVOPS_USER={YOUR DEVOPS USER NAME HERE}       <====== NOTICE THIS
-PING_IDENTITY_DEVOPS_KEY={YOUR DEVOPS KEY HERE}              <====== NOTICE THIS
-```
+3. Create a `siem.env` file in the `11-siem-stack` directory, and copy these entries into the `siem.env` file:
+
+   ```shell
+   COMPOSE_PROJECT_NAME=es
+   ELASTIC_VERSION=7.6.1
+
+   ELASTIC_PASSWORD=2FederateM0re
+   ES_ADMIN_PD_USER_PASS=FederateTheB3st!
+
+   PING_IDENTITY_DEVOPS_USER=<your-username>
+   PING_IDENTITY_DEVOPS_KEY=<your-key>
+   ```
 
 ## Deploy the stack
 
-- Start the stack with `docker-compose up -d`  
+1. From the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory, start the stack:
 
-- (Optional) Run the Slack configuration script to configure slack alerts `./config_slack_alerts`
-  - The first time you must provide your webhook URL that you created above.
-  - You can re-run this script any time which will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder! 
-  - You don't need to provide your webhook in the future. If you don't provide it, it simply will not update it.
-  - The script asks for webhook URL and elasticsearch password.
-    - The webhook URL updates the destination for your alerts within slack
-    - The password is used to push watchers into elasticsearch
+   ```shell
+   docker-compose up -d  
+   ```
 
-- Monitor the stack with `docker-compose logs --follow`
+   Monitor the container startup using one of these commands: 
 
-- Login to kibana at `https://localhost:5601/` (Wait for PingDirectory to full start)
-  - The stack is now LDAP INTEGRATED so you can login with `es_admin` or `elastic` (local user) which is a user in PingDirectory (Password is in the .env file configuration listed above (ES_ADMIN_PD_USER_PASS). Allow time for Ping Directory to load.
+   ```shell
+   docker-compose ps
+   ```
 
-------------
+   ```shell
+   docker-compose logs --follow
+   ```
 
-## Included Slack Alerts (these can be customized through Watchers)
- - User Authenticates over 1200km away within 6 hour period.
- - User Authenticates successfully from TOR through Ping Federate. (potential credential theft)
- - User Authenticates successfully from Known Malicious IP through Ping Federate. (potential credential theft)
- - Account Lockout detected through Ping Federate. (potential brute force)
- - Likely SAML Signature Modifications (Forced Tampering with Authentication Protocols)
+2. (Optional) If you're using Slack, and you've already created your Webhook URL (see the optional prerequisite above), you can run the Slack configuration script to configure slack alerts: 
 
-------------
+   ```shell
+   ./config_slack_alerts
+   ```
 
+   The script prompts for your Webhook URL and Elasticsearch password.
 
-## Slack Alert Examples (not all are shown)
+   * The Webhook URL updates the destination for your alerts within Slack.
+   * The password is used to push watchers into Elasticsearch.
 
-### Low / Medium / High Alert Examples
-![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/slack_alert_examples.png "Successful Login From TOR Networks.")
+   You don't need to provide your Webhook URL in the future. If you don't provide it, it simply will not update it.
 
-------------
+   You can re-run this script any time. This will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder. 
+
+## Post-deployment
+
+When PingDirectory is up and healthy: 
+
+* Kibana console: 
+
+  - URL: `https://localhost:5601/`.
+  - User name: `es_admin` or `elastic` (local user).
+  - Password: FederateTheB3st! (the `ES_ADMIN_PD_USER_PASS` value in the `siem.env` file you created).
+
+* Kibana saved objects
+
+  You can load the saved objects by going to "Saved Objects" under the Kibana settings and exporting all. The exported file is saved in `./elasticsearch-siem/kibana_config/kib_base.ndjson`. 
+
+* Elasticsearch templates for indexes
+  
+  Index mappings and config are stored in the `./elasticsearch-siem/index_templates` directory. The scripts will load the template or templates when the cluster state is green.
+
+* Logstash pipeline
+
+  - TOR Enrichment
+  - Threat Intel (Alien Vault Provided)
+  - GEO IP Lookup
+  - GEO Distance Query (template driven)
+  - Data Parsing
+  - The Logstash pipeline is stored in the directory structure. It includes parsers for all Ping Identity log sources.
+
+## Cleaning up
+
+There are persistent volumes used for Elasticsearch data and certificates, so you'll also need to clear the volumes when you bring the stack down. Enter:
+
+```shell
+docker-compose down
+docker volume prune 
+```
+
 ## Dashboard Examples
 
-### Demo Ping Federate Threat Intel Dashboard
-![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/threat_intel_dash.png "SIEM Dashboard")
+### PingFederate Threat Intel dashboard
 
-### Demo Ping SIEM Dashboard (Beta 4) - More security use cases are coming soon.
-![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/dashboard.png "SIEM Dashboard")
+![alt text](images/threat_intel_dash.png "SIEM Dashboard")
 
-### Ping Federate Demo Dashboard
-![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/pingfederate_dashboard.png "PingFederate Basic Demo Dashboard")
+### Ping Identity SIEM dashboard
 
-### Demo Access Demo Dashboard
-![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/pingaccess_dashboard.png "PingAccess Basic Demo Dashboard")
+![alt text](images/dashboard.png "SIEM Dashboard")
 
-### Demo Directory Demo Dashboard
-![alt text](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/11-docker-compose/11-siem-stack/images/pingdirectory_dashboard.png "PingDirectory Demo Dashboard")
+### Ping Federate dashboard
 
-------------
+Audit and System logs are delivered (set to Debug by default). For Log4J, PingFederate sends logs on 2 different Syslog ports using a custom mapping.
 
-## PingDirectory
-- Audit Logs are being delivered
-- There are 2 containers that produce load
-  -These are disabled by default, uncomment in docker-compose.yml if you wish to use.
-    - authrate_ok
-    - authrate_ko
+![alt text](images/pingfederate_dashboard.png "PingFederate Basic Demo Dashboard")
 
-------------
+### PingAccess dashboard
 
-## PingFederate
-- Audit and System logs are delivered. (DEBUG by DEFAULT)
+Audit and System logs are delivered (set to Debug by default). For Log4J, PingAccess sends logs on 2 different Syslog ports using a custom mapping.
 
-------------
+![alt text](images/pingaccess_dashboard.png "PingAccess Basic Demo Dashboard")
 
-## PingAccess
- - Audit and System Logs are being delivered. (DEBUG by DEFAULT)
+### PingDirectory dashboard
 
-------------
+Audit logs are being delivered. There are 2 containers that produce load. These are disabled by default. You can uncomment these entries in the `docker-compose.yaml` file to use them:
 
-## Kibana Access
-- Kibana listens on https://{IP}:5601
+* authrate_ok
+* authrate_ko
 
-- DEFAULT PASSWORDS  
-    - UN is configured as `es_admin` (LDAP USER)
-    - PASSWORD is configured in your `.env` file 
+For Log4J, PingDirectory sends logs on 1 Syslog port using a custom mapping.
 
-------------
+![alt text](images/pingdirectory_dashboard.png "PingDirectory Demo Dashboard")
 
-## Kibana Saved Objects
-- Saved Objects can be loaded by going to 'saved objects' under kibana settings and exporting all. Save the file in the...  
-	- `./elasticsearch-siem/kibana_config/kib_base.ndjson` 
+## Included Slack alerts 
 
-------------
+These can be customized through Watchers:
 
-## ElasticSearch Templates for Indexes
-- Index mappings and config are stored in the index_templates folder
-- The Scripts will load this template(s) once cluster state is green.
-	- ./elasticsearch-siem/index_templates/****
+* User authenticates over 1200km away within a 6 hour period.
+* User authenticates successfully from TOR through Ping Federate (potential credential theft).
+* User authenticates successfully from Known Malicious IP through Ping Federate (potential credential theft).
+* Account Lockout detected through Ping Federate (potential brute force).
+* Likely SAML signature modifications (forced tampering with authentication protocols).
 
-------------
-## Logstash Pipeline
-- TOR Enrichment
-- Threat Intel (Alien Vault Provided)
-- GEO IP Lookup
-- GEO Distance Query (template driven)
-- Data Parsing
-- Logstash Pipeline is stored in the folder structure. It includes Parsers for All Ping Log Sources.
+### Slack Alert Examples (not all are shown)
 
-------------
-## PingFederate (log4J)
-- Ping Fed ships logs on 2 different SYSLOG PORTS, with a CUSTOM mappings.
-------------
+These are Low / Medium / High alert examples:
 
-------------
-## PingDirectory (log4J)
-- Ping Fed ships logs on 1 SYSLOG PORT, with a CUSTOM mapping.
-------------
-
-------------
-## PingAccess (log4J)
-- Ping Fed ships logs on 2 different SYSLOG PORTS, with a CUSTOM mappings.
-------------
+![alt text](images/slack_alert_examples.png "Successful Login From TOR Networks.")

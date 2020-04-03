@@ -6,7 +6,7 @@ You'll need an evaluation license to use the DevOps resources. You'll clone our 
 
 ## Prerequisites
 
-* Either [Docker CE for Windows](https://docs.docker.com/v17.12/install/) or [Docker for macOS](https://docs.docker.com/v17.12/docker-for-mac/install/).
+* [Docker](https://docs.docker.com/install/).
 * [Git](https://git-scm.com/downloads).
 * An existing `{HOME}/.bash_profile` file. The initial `setup` script writes to this file. If the file doesn't exist, open a terminal and create it by entering: 
 

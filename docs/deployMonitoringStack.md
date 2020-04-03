@@ -27,6 +27,10 @@ To get metrics on a dashboard in Grafana, you'll:
 
 4. Have a dashboard in Grafana visualize the metrics from Prometheus. 
 
+## Prerequisites
+
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+ 
 ## Deploy the monitoring stack
 
 1. From `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack` run:
