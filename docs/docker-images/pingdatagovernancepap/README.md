@@ -20,8 +20,8 @@ this image.
 | LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
 | MAX_HEAP_SIZE  | 384m  | Minimal Heap size required for Ping DataGovernance 
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/admin-point-application/bin/admin-point-application  | 
-| STARTUP_FOREGROUND_OPTS  | server ${SERVER_ROOT_DIR}/config/configuration.yml  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/datagovernance-pap.log  | Files tailed once container has started 
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API 

@@ -63,6 +63,8 @@ this image.
 | PDS_ENGINE_PRIVATE_HOSTNAME  | pingdatasync  | PDS (PingDataSync) private hostname 
 | PDG_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDG (PingDataGovernance) public hostname that may be used in redirects 
 | PDG_ENGINE_PRIVATE_HOSTNAME  | pingdatagovernance  | PDG (PingDataGovernance) private hostname 
+| PDGP_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDGP (PingDataGovernance-PAP) public hostname that may be used in redirects 
+| PDGP_ENGINE_PRIVATE_HOSTNAME  | pingdatagovernancepap  | PDGP (PingDataGovernance-PAP) private hostname 
 | PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) engine public hostname that may be used in redirects 
 | PF_ENGINE_PRIVATE_HOSTNAME  | pingfederate  | PF (PingFederate) engine private hostname 
 | PF_ADMIN_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) admin public hostname that may be used in redirects 
@@ -71,7 +73,8 @@ this image.
 | PA_ENGINE_PRIVATE_HOSTNAME  | pingaccess  | PA (PingAccess) engine private hostname 
 | PA_ADMIN_PUBLIC_HOSTNAME  | localhost  | PA (PingAccess) admin public hostname that may be used in redirects 
 | PA_ADMIN_PRIVATE_HOSTNAME  | pingaccess-admin  | PA (PingAccess) admin private hostname 
-| ROOT_USER_DN  | cn=administrator  | the default administrative user for PingData 
+| ROOT_USER  | administrator  | the default administrative user for PingData 
+| ROOT_USER_DN  | cn=${ROOT_USER}  | 
 | ENV  | ${BASE}/.profile  | 
 | MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json 
 | PS1  | \${PING_PRODUCT}:\h:\w\n>   | Default shell prompt (i.e. productName:hostname:workingDir) 
