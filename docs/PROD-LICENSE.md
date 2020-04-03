@@ -39,9 +39,9 @@ Example:
 
 ## Saving your DevOps User and Key
 
-The best way to save your DevOps User/Key is to use the Ping Identity DevOps utility `setup`. 
+The best way to save your DevOps User/Key is to use the Ping Identity DevOps utility `setup`.
 
->More details on `setup` can be found in the [quickstart](https://pingidentity-devops.gitbook.io/devops/examples/quickstart#clone-github-pingidentity-devops-getting-started).
+>More details on `setup` can be found in the [Get Started](https://pingidentity-devops.gitbook.io/devops/getstarted#initial-setup) document.
 
 Simply run:
 
