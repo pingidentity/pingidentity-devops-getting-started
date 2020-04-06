@@ -6,7 +6,6 @@ List of available hooks:
 * [181-install-extensions.sh](181-install-extensions.sh.md)
 * [183-run-setup.sh](183-run-setup.sh.md)
 * [185-apply-tools-properties.sh](185-apply-tools-properties.sh.md)
-* [188-apply-configuration.sh](188-apply-configuration.sh.md)
 * [pingdata.lib.sh](pingdata.lib.sh.md)
 
 ---
