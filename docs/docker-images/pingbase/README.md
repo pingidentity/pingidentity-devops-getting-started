@@ -48,6 +48,7 @@ this image.
 | PING_DEBUG  | false  | Set the server in debug mode, with increased output 
 | PING_PRODUCT  |   | The name of Ping product.  Should be overridden by child images. 
 | PING_PRODUCT_VALIDATION  | true|i.e. PingFederate,PingDirectory|Must be a valid Ping prouduct type  | 
+| ADDITIONAL_SETUP_ARGS  |   | List of setup arguments passed to Ping Data setup-arguments.txt file 
 | LDAP_PORT  | 389  | Port over which to communicate for LDAP 
 | LDAPS_PORT  | 636  | Port over which to communicate for LDAPS 
 | HTTPS_PORT  | 443  | Port over which to communicate for HTTPS 
