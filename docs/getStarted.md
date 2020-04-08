@@ -149,7 +149,7 @@ For example, enter:
      - Password: 2Federate
 
    * Apache Directory Studio for PingDirectory
-     - LDAP Port: 1389
+     - LDAP Port: 1636
      - LDAP BaseDN: dc=example,dc=com
      - Root Username: cn=administrator
      - Root Password: 2FederateM0re
