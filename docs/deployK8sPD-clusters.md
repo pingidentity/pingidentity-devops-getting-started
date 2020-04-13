@@ -218,5 +218,78 @@ data:
   8702: "${PING_IDENTITY_K8S_NAMESPACE}/pingdirectory-2-service:8702"
 ```
 
+## Deployment Example
 
+The examples in `20-kubernetes/05-multi-k8s-cluster-pingdirectory` will create an
+example deployment across 3 clusters in AWS EKS:
 
+* us-east-2 (SEED Cluster)
+* eu-west-1
+
+First, deploy the nginx services and configmap for the example.  This will allow
+the services to be reached by the nginx controller via an AWS Network Load 
+Balancer (nlb).  You must run these with a aws/kubernetes profile allowing for
+apply into the `ingress-nginx-public` namespace.  Also, be aware that there may 
+already be other definitions found.  You may need to merge.
+
+```
+  kubectl apply -f nginx-service.yaml
+  kubectl apply -f nginx-tcp-services.yaml
+```
+
+The `cluster.sh` script will create the .yaml necessary to deploy a set of Ping 
+Directory instances in each cluster and replication between.
+
+```
+  Usage: cluster.sh OPERATION {options}
+   where OPERATION in:
+        create
+        apply
+        delete
+
+   where options in:
+        --cluster {cluster}  - Cluster name used to identify different env_vars.pingdirecory
+                               files
+
+        --context {context}  - Name of Kubernetes context.
+                                  Defaults to current context: tsigle.ping-dev-aws-us-east-2
+
+        -d,--dry-run            - Provides the commands
+
+  Example:
+      cluster.sh create --cluser us-east-2
+```
+
+### Steps to create .yaml for us-east-2
+
+Replace `your-cluster-name` with the name use are using.  Using the cluster name
+`us-east-2`, the script will generate a .yaml using kustomize, using the files:
+
+* `multi-cluster`
+  * `kustomization.yaml`
+  * `pingdirectory-service-clusterip.yaml`
+  * `env_vars.pingdirectory` (built from env_vars.pingdirectory.multi-cluster and us-east-2)
+* `base`
+  * `kustomization.yaml`
+  * `https://github.com/pingidentity/pingidentity-devops-getting-started/20-kubernetes/03-replicated-pingdirectory`
+  * `env_vars.pingdirectory`
+  * `limits.yaml`
+
+```
+   ./cluster.sh delete --cluster us-east-2 --context your-cluster-name --dry-run
+```
+
+This will create a .yaml called `ouptut-us-east-2.yaml`.  
+
+Next, ensure that your `devops-secret` and `tls-secret` are created.
+
+```
+  ping-devops generate devops-secret | kubectl create -f -
+  ping-devops generate tls-secret ping-devops.com | kubectl create -f -
+```
+
+and create the instances using the generated `output-us-east-2.yaml`.
+
+```
+  kubectl create -f output-us-east-2.yaml
+```
