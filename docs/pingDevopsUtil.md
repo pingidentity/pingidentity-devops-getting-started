@@ -29,15 +29,40 @@
 
   Ensure you have the dependent utilities listed above installed as well.
 
-## `ping-devops` commands
+## `ping-devops` Usage
 
-| Command | Description |
-| --- | --- |
-| `ping-devops` | Help. Displays all possible commands. |
-| `ping-devops config` | Similar to the `pingidentity-devops-getting-started/setup` command, this prompts for environment variable settings for `~/.pingidentity/devops`, and `~/.bash_profile`. |
-| `ping-devops info` | Displays the current DevOps environment variable settings. |
-| `ping-devops examples` | Displays configuration help information for all of the DevOps examples. To display the information for specific example types, add `docker`, `kubernetes`, `aws`, `azure`, or `gcloud`. For example, `ping-devops examples docker`. |
-| `ping-devops generate devops-secret` | Generates a Kubernetes Secret object `devops-secret` using a Base64 encoding of your DevOps `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY` values. |
-| `ping-devops generate tls-secret <domain>` | Generates a Kubernetes Secret object `tls-secret` using a Base64 encoding of the TLS certificate and key for the specified domain. The certificate is self-signed using OpenSSL. |
-| `ping-devops generate kustomization.yaml` | Generates a skeleton `kustomization.yaml` file for Kubernetes, if one doesn't already exist in the current directory. |
+```
+################################################################################
+#  Ping Identity DevOps
+#
+#  Documentaion: https://pingidentity-devops.gitbook.io/devops/
+#
+#  GitHub Repos: https://github.com/pingidentity/pingidentity-devops-getting-started
+#                https://github.com/pingidentity/pingidentity-server-profiles
+#
+################################################################################
 
+Usage:
+  ping-devops config                          # Configure Ping DevOps configuration
+  ping-devops info                            # Current Ping DevOps configuration
+
+Generate Kubernetes/Kustomize Resource:
+  ping-devops generate devops-secret                    # Ping DevOps secret
+  ping-devops generate tls-secret <domain>              # TLS Cert/Key (i.e. example.com)
+  ping-devops generate ssh-id-secret <ssh id_rsa file>  # SSH ID Key (i.e. ~/.ssh/id_rsa)
+  ping-devops generate license-secret <license file>    # License file (i.e. pingdirectory.lic)
+  ping-devops generate kustomization.yaml               # Skeleton kustomization.yaml
+
+Generate Ping Identity Server Profile:
+  ping-devops generate-profile <product>       # Generates a server-profile for product
+    --current-install    /path/to/current-inst # Default: create an empty profile template)
+    --generated-profile  /path/to/gen-profile  # Default: current directory with product name)
+
+Examples:
+  ping-devops examples
+
+Further help:
+  ping-devops commands
+  ping-devops help [COMMAND]
+  https://github.com/pingidentity/ping-devops
+```
