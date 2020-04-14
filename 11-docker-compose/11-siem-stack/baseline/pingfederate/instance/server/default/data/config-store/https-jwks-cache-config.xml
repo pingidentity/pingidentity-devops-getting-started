@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config xmlns="http://www.sourceid.org/2004/05/config">
-    <!--
-      Default cache duration in seconds
-    -->
-    <item name="cache-duration">3600</item>
-
-</config>

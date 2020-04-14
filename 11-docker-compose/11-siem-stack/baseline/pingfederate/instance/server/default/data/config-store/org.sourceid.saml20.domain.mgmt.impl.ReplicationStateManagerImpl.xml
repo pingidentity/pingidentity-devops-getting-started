@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
-    <c:item name="DeltaArchiveRetentionPeriodHours">168</c:item>
-    <c:item name="DeltaArchiveMergeCheckIntervalHours">1</c:item>
-    <c:item name="DeltaArchiveMinDataToMergeKB">100</c:item>
-</c:config>

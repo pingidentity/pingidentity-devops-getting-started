@@ -1,6 +1,11 @@
 
-Server Profile baseline/pingfederate
-  - Creates an iniial PingFederate instance
-  - Authentictes admin console to PingDirectory
-  - Installs OAuthPlayground
+                     Security Warning
+
+The server profile being used to configure this Ping Identity Docker Image
+is for demo and documentation purposes only. The configuration contains default
+keys/credentials etc and is not suitable for production as it carries a substantial
+security risk.
+
+For additional information, please see
+https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/SECURITY.md
 

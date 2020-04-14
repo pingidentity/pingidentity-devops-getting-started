@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
-    <con:item name="partner.cert.migration.complete">true</con:item>
-</con:config>

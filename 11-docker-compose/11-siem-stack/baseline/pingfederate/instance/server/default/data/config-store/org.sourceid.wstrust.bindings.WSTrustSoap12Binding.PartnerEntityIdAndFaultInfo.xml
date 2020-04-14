@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
-	 <con:list name="PartnerEntityId">
-      <con:ListItem>urn:federation:MicrosoftOnline</con:ListItem>
-    </con:list>
-    <con:item name="InvalidTokenResponseFaultCode">FailedAuthentication</con:item>
-    <con:item name="InvalidTokenResponseFaultString">ID3242: The security token could not be authenticated or authorized.</con:item>
-</con:config>

@@ -182,11 +182,32 @@
             </Failovers>
         </PingFailover>
         
-        <Socket name="SecurityAuditToCEFSyslog" host="${SYSLOG_HOST}" port="${SYSLOG_PORT_AUDIT}" protocol="${SYSLOG_PROTOCOL}" ignoreExceptions="false">
+        <!-- Socket Appender for Outbound System  Logs via TCP Socket -->
+        <Socket name="OutboundSystemLogsToSyslog" host="${SOCKET_HOST}" port="${SOCKET_PORT_SYSTEM}" protocol="${SOCKET_PROTOCOL}" ignoreExceptions="false">
             <PingSyslogLayout>
-                <PatternLayout>
-                    <pattern>%d&#96;date&#94;%d{ISO8601}&#96;trackingid&#94;%X{trackingid}&#96;event&#94;%X{event}&#96;subject&#94;%X{subject}&#96;ip&#94;%X{ip}&#96;app&#94;%X{app}&#96;connectionid&#94;%X{connectionid}&#96;protocol&#94;%X{protocol}&#96;pfhost&#94;%X{host}&#96;role&#94;%X{role}&#96;status&#94;%X{status}&#96;adapterid&#94;%X{adapterid}&#96;description&#94;%X{description}&#96;responsetime&#94;%X{responsetime}&#96;inmessagetype&#94;%X{inmessagetype}&#96;%n</pattern>
-                </PatternLayout>
+                <JSONLayout complete="true" compact="true" eventEol="true" objectMessageAsJsonObject="true" properties="true" />
+            </PingSyslogLayout>
+        </Socket>
+
+        <!-- Socket Appender for Outbound Security Audit Logs via TCP Socket -->
+        <Socket name="SecurityAuditToCEFSyslog" host="${SOCKET_HOST}" port="${SOCKET_PORT_AUDIT}" protocol="${SOCKET_PROTOCOL}" ignoreExceptions="false">
+            <PingSyslogLayout>
+                <JSONLayout complete="true" compact="true" eventEol="true" objectMessageAsJsonObject="true" >
+                    <KeyValuePair key="dateTimeStamp" value="$${date:yyyy-MM-dd HH:mm:ss,S}"/>
+                    <KeyValuePair key="trackingid" value="$${ctx:trackingid:-}"/>
+                    <KeyValuePair key="event" value="$${ctx:event:-}"/>
+                    <KeyValuePair key="subject" value="$${ctx:subject:-}"/>
+                    <KeyValuePair key="ip" value="$${ctx:ip:-}"/>
+                    <KeyValuePair key="app" value="$${ctx:app:-}"/>
+                    <KeyValuePair key="connectionid" value="$${ctx:connectionid:-}"/>
+                    <KeyValuePair key="protocol" value="$${ctx:protocol:-}"/>
+                    <KeyValuePair key="host" value="$${ctx:host:-}"/>
+                    <KeyValuePair key="role" value="$${ctx:role:-}"/>
+                    <KeyValuePair key="status" value="$${ctx:status:-}"/>
+                    <KeyValuePair key="adapterid" value="$${ctx:adapterid:-}"/>
+                    <KeyValuePair key="description" value="$${ctx:description:-}"/>
+                    <KeyValuePair key="responsetime" value="$${ctx:responsetime:-}"/>
+                </JSONLayout>
             </PingSyslogLayout>
         </Socket>
 
@@ -205,13 +226,6 @@
             </Failovers>
         </PingFailover>
         
-        <Socket name="OutboundSystemLogsToSyslog" host="${SYSLOG_HOST}" port="${SYSLOG_PORT_SYSTEM}" protocol="${SYSLOG_PROTOCOL}" ignoreExceptions="false">
-            <PingSyslogLayout>
-                <PatternLayout>
-                    <pattern>%d&#96;date&#94;%d{ISO8601}&#96;trackingid&#94;%X{trackingid}&#96;loglevel&#94;%-5p&#96;messagesource&#94;[%c]&#96;messagedetail&#94;%m&#96;%n</pattern>
-                </PatternLayout>
-            </PingSyslogLayout>
-        </Socket>
     </Appenders>
     <Loggers>
 

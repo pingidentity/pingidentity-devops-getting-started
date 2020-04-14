@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
-    <con:item name="allowedMethods">GET,POST,DELETE,HEAD</con:item>
-    <con:item name="allowedHeaders">X-Requested-With,X-XSRF-Header,Content-Type,Accept,Origin,Authorization</con:item>
-    <con:item name="preflightMaxAge">600</con:item>
-</con:config>

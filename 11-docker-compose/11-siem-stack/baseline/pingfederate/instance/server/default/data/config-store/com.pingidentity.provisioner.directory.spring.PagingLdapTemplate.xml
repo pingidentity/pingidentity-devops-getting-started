@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sfh:config xmlns:sfh="http://www.sourceid.org/2004/05/config">
-    <sfh:item name="PageSize">500</sfh:item>
-    <sfh:item name="VlvSortKey">cn</sfh:item>
-    <sfh:item name="PagingAlgorithm">auto</sfh:item> <!-- auto, simple, vlv or none -->
-</sfh:config>

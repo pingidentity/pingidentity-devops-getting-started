@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- The namespace urn:sourceid.org:saml2:metadata-extension changed to urn:sourceid.org:saml2:metadata-extension:v2
-	 for versions greater than PingFederate 3.0 -->
-<EntitiesDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:xd="http://www.w3.org/2000/09/xmldsig#" xmlns:mdx="urn:sourceid.org:saml2:metadata-extension:v2">
-</EntitiesDescriptor>

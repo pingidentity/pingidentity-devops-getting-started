@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config xmlns="http://www.sourceid.org/2004/05/config">
-    <item name="MaxHostConnections">32</item>
-    <item name="ConnectionTimeOut">60000</item>
-    <item name="RequestTimeOut">120000</item>
-    <item name="ConnectionIdleTimeout">30000</item>
-    <item name="KeepaliveTimeout">1000</item>    
-</config>

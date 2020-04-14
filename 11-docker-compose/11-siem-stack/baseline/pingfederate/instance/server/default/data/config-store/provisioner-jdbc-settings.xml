@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
-    <c:item name="MembershipCommitThreshold">500</c:item>
-    <c:item name="MembershipBatchSize">500</c:item>
-</c:config>

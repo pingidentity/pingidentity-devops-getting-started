@@ -5,17 +5,16 @@ services:
     image: pingidentity/pingfederate:edge
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
-      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingfederate
+      #- SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
+      #- SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingfederate
       - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
       - PF_LOG_LEVEL=DEBUG
-      - SYSLOG_HOST=logstash
-      - SYSLOG_PORT_AUDIT=20514
-      - SYSLOG_PORT_PROVISIONER=20515
-      - SYSLOG_PORT_SYSTEM=20517
-      - SYSLOG_PROTOCOL=TCP
+      - SOCKET_HOST=logstash
+      - SOCKET_PORT_SYSTEM=20513
+      - SOCKET_PORT_AUDIT=20514
+      - SOCKET_PROTOCOL=TCP
     ports:
       - "9031:9031"
       - "9999:9999"
@@ -23,6 +22,8 @@ services:
       - pingnet
     depends_on:
       - pingdirectory
+    volumes:
+      - ./baseline/pingfederate:/opt/in
  
   pingaccess:
     image: pingidentity/pingaccess:edge
@@ -238,6 +239,7 @@ services:
     command: bash -c "bin/logstash-plugin install logstash-filter-elasticsearch && logstash -f /etc/logstash/conf.d/logstash.conf"
     ports:
       - "9600:9600"
+      - "20513:20513"
       - "20514:20514"
       - "20515:20515"
       - "20516:20516"

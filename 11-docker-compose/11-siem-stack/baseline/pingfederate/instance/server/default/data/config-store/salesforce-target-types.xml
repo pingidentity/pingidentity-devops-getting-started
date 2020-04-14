@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
-    <con:list name="salesforce-target-types">
-      <con:ListItem>SalesForce</con:ListItem>
-      <con:ListItem>SalesForceCP</con:ListItem>
-      <con:ListItem>SalesForcePP</con:ListItem>
-      <con:ListItem>Workday</con:ListItem>
-    </con:list>
-</con:config>

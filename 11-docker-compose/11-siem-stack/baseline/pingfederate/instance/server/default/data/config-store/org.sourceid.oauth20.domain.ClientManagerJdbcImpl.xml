@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
-    <c:item name="PingFederateDSJNDIName">PFDefaultDS</c:item>
-    <!--
-    maximum number of items to query during searching of clients using JDBC.
-    Oracle has a limit of 1000 items per IN clause
-    -->
-    <c:item name="items-requested-limit">500</c:item>
-</c:config>

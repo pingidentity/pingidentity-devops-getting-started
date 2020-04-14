@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
-    <!-- when true, the pfidpaid cookie will always be set after a successful adapter invocation -->
-    <c:item name="always-set-cookie">false</c:item>
-</c:config>
