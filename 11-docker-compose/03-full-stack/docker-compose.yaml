@@ -1,6 +1,38 @@
 version: "3.1"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
+#-------------------------------------------------------------------------------------
+#- Ping Identity fullstack integrated demo
+#-
+#-                +----------------+   +----------------+
+#-                |   PingAccess   |   |PingDataConsole |
+#-                +----------------+   +----------------+
+#-
+#-                +---------------+    +---------------+
+#-                | PingFederate  |    |  PingDataGov  |
+#-                +---------------+    +---------------+
+#-                              \        /
+#-                          +----------------+
+#-                          | PingDirectory  |
+#-                          +----------------+
+#-
+#- To view PingAccess Console        | To view PingFederate Console
+#-                                   |
+#-    https://localhost:9000/        |   https://localhost:9999/pingfederate/app
+#-                                   |
+#-    Username: administrator        |   Username: administrator
+#-    Password: 2FederateM0re        |   Password: 2FederateM0re
+#-
+#-
+#- To view PingData Console (PingDirectory & PingDataGovernance)
+#-
+#-    https://localhost:8443/
+#-
+#-      Server: pingdirectory ...or... pingdatagovernance
+#-    Username: administrator
+#-    Password: 2FederateM0re
+#-------------------------------------------------------------------------------------
+
 services:
   pingaccess:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
