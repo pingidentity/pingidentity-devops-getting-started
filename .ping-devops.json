@@ -1,0 +1,29 @@
+{
+    "baseURL": "https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose",
+    "usecases": [
+        {
+            "name": "fullstack",
+            "type": "usecase",
+            "description": "Fullstack integrated demo",
+            "path": "03-full-stack"
+        },
+        {
+            "name": "pingaccess",
+            "type": "product",
+            "description": "Standalone PingAccess Demo",
+            "path": "00-standalone/pingaccess"
+        },
+        {
+            "name": "pingfederate",
+            "type": "product",
+            "description": "Standalone PingFederate Demo",
+            "path": "00-standalone/pingfederate"
+        },
+        {
+            "name": "pingdirectory",
+            "type": "product",
+            "description": "Standalone PingDirectory Demo",
+            "path": "00-standalone/pingdirectory"
+        }
+    ]
+}

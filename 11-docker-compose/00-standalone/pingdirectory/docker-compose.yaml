@@ -1,0 +1,53 @@
+version: "3.1"
+# This server profile used as basis for ping-devop docker-launch
+
+#-------------------------------------------------------------------------------------
+#- Ping Identity PingDirectory getting started demo
+#-
+#- To view PingData Console goto:
+#- 
+#-    https://localhost:8443/
+#-    
+#-      Server: pingdirectory
+#-    Username: administrator
+#-    Password: 2FederateM0re
+#-
+#- To view users in Ping Directory (via REST) goto:
+#-    https://localhost:1443/directory/v1/ou=people,dc=example,dc=com/subtree?searchScope=singlelevel
+#-
+#-    Username: cn=administrator
+#-    Password: 2FederateM0re
+#-------------------------------------------------------------------------------------
+
+services:
+  pingdirectory:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=getting-started/pingdirectory
+    env_file:
+      - ~/.pingidentity/devops
+    networks:
+      - pingnet
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - 1389:389
+      - 1636:636
+      - 1443:443
+      
+  pingdataconsole:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    ports:
+      - 8443:8443
+    networks: 
+      - pingnet
+                    
+networks:
+    pingnet:
+
