@@ -19,9 +19,9 @@ this image.
 | SERVER_BITS_DIR  | ${BASE}/server  | Path to the server bits 
 | BAK_DIR  | ${BASE}/backup  | Path to a volume generically used to export or backup data 
 | LOGS_DIR  | ${BASE}/logs  | Path to a volume generically used for logging 
-| SECRETS_DIR  | /usr/local/secrets  | Default path to the secrets 
 | PING_IDENTITY_DEVOPS_FILE  | devops-secret  | File name for devops-creds passed as a Docker secret 
 | STAGING_DIR  | ${BASE}/staging  | Path to the staging area where the remote and local server profiles can be merged 
+| SECRETS_DIR  | ${STAGING_DIR}/.sec  | Default path to the secrets 
 | TOPOLOGY_FILE  | ${STAGING_DIR}/topology.json  | Path to the topology file 
 | HOOKS_DIR  | ${STAGING_DIR}/hooks  | Path where all the hooks scripts are stored 
 | SERVER_PROFILE_DIR  | /tmp/server-profile  | Path where the remote server profile is checked out or cloned before being staged prior to being applied on the runtime 
