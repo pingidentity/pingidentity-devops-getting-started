@@ -37,14 +37,14 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - 1389:389
-      - 1636:636
-      - 1443:443
+      - "1389:389"
+      - "1636:636"
+      - "1443:443"
       
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
-      - 8443:8443
+      - "8443:8443"
     networks: 
       - pingnet
                     
