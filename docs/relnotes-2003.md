@@ -21,7 +21,7 @@
   
 - **PingDirectory**
 
-  **We've upgraded the PingDirectory Docker image to the current product version 8.0.0.1.**
+  We've upgraded the PingDirectory Docker image to the current product version 8.0.0.1.
   
 - **PingFederate version 10.1.0**
 
