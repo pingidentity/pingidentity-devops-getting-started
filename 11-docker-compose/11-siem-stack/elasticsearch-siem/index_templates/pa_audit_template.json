@@ -37,6 +37,9 @@
           }
         }
       },
+      "date": {
+        "type": "date"
+      },
       "responseCode": {
         "type": "long",
         "fields": {
