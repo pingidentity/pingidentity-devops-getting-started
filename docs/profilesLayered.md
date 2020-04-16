@@ -85,22 +85,24 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 
 3. Copy to this directory (`layered-profiles/extensions/pingfederate/instance/server/default/deploy`) the extensions you want to be available to PingFederate.
 
-The extensions profile path should look similar to this (extensions will vary based on your requirements):
-```
-└── extensions
-    └── pingfederate
-        └── instance
-            └── server
-                └── default
-                    └── deploy
-                        ├── pf-aws-quickconnection-2.0.jar
-                        ├── pf-azure-ad-pcv-1.2.jar
-                        └── pf-slack-quickconnection-3.0.jar
-```
+   The extensions profile path should look similar to this (extensions will vary based on your requirements):
+
+   ```
+   └── extensions
+       └── pingfederate
+           └── instance
+               └── server
+                   └── default
+                       └── deploy
+                           ├── pf-aws-quickconnection-2.0.jar
+                           ├── pf-azure-ad-pcv-1.2.jar
+                           └── pf-slack-quickconnection-3.0.jar
+   ```
 
 ### Build the OAuth layer
 
 1. Go to the `layered-profiles/oauth` directory, and create a `pingfederate` subdirectory.
+   
    ```bash
    mkdir -p /instance/server/default/pingfederate
    ```
@@ -108,16 +110,17 @@ The extensions profile path should look similar to this (extensions will vary ba
 2. OAuth Playground for PingFederate is also located in the `/instance/server/default/deploy` directory, like other extensions. For this example, we're building OAuth Playground into its own layer to show that it's optional for PingFederate deployments.
 3. Copy the `OAuthPlayground.war` file to `layered-profiles/oauth/pingfederate/instance/server/default/deploy`.
 
-Your oauth profile layer should look like this:
-```
-└── oauth
-    └── pingfederate
-        └── instance
-            └── server
-                └── default
-                    └── deploy
-                        └── OAuthPlayground.war
-```
+   Your oauth profile layer should look like this:
+
+   ```
+   └── oauth
+       └── pingfederate
+           └── instance
+               └── server
+                   └── default
+                       └── deploy
+                           └── OAuthPlayground.war
+   ```
 
 ## Assign the environment variables for the deployment
 
@@ -134,6 +137,7 @@ with
 
 1. Create a new `docker-compose.yaml` file.
 2. Add your license profile to the YAML file. For example:
+   
    ```yaml
     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_PATH=layered-profiles/license/pingfederate
@@ -141,6 +145,7 @@ with
     `SERVER_PROFILE` supports `URL`, `PATH`, `BRANCH` and `PARENT` variables.
 
 3. Using `SERVER_PROFILE_PARENT`, we can instruct the container to retrieve its parent configuration. We'll specify the `extensions` profile as the parent:
+   
    ```yaml
     - SERVER_PROFILE_PARENT=EXTENSIONS
    ```
@@ -151,6 +156,7 @@ with
     ```
 
 4. Set the `EXTENSIONS` parent to `OAUTH`:
+   
    ```yaml
     - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
    ```
@@ -163,6 +169,7 @@ with
     ```
 
 5. Set `GETTING_STARTED` as the `OAUTH` parent and declare the `URL` and `PATH`:
+   
    ```yaml
     - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
     - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -172,6 +179,7 @@ with
    > Because the `GETTING_STARTED` profile is the last profile to add, it won't have a parent.
 
    Your `environment` section of the `docker-compose.yaml` file should look similar to this:
+
    ```yaml
    environment:
     # **** SERVER PROFILES BEGIN ****
