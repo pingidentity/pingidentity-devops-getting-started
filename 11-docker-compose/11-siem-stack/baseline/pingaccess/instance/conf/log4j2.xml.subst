@@ -666,18 +666,29 @@
         <!-- To use, uncomment the appenderRef under "com.pingidentity" Logger -->
 
 
-        <Socket name="SYSLOG" host="${SYSLOG_HOST}" port="${SYSLOG_PORT_SYSTEM}" protocol="UDP">
+        <Socket name="SYSLOG" host="${SOCKET_HOST}" port="${SOCKET_PORT_SYSTEM}" protocol="${SOCKET_PROTOCOL}">
             <PingSyslogLayout facility="LOCAL0">
                 <PatternLayout>
-                    <pattern>%d{ISO8601} date=&quot;%d{ISO8601}&quot; loglevel=&quot;%5p&quot; messagesource=&quot;%c:%L&quot; messagedetail=&quot;%m&quot; %n</pattern>
+                  <JSONLayout complete="true" compact="true" eventEol="true" objectMessageAsJsonObject="true" properties="true" />
                 </PatternLayout>
             </PingSyslogLayout>
         </Socket>
 
-        <Socket name="SYSLOG_AUDIT" host="${SYSLOG_HOST}" port="${SYSLOG_PORT_AUDIT}" protocol="UDP">
+        <Socket name="SYSLOG_AUDIT" host="${SOCKET_HOST}" port="${SOCKET_PORT_AUDIT}" protocol="${SOCKET_PROTOCOL}">
             <PingSyslogLayout facility="LOCAL0">
                 <PatternLayout>
-                    <pattern>%d{ISO8601} date=&quot;%d{ISO8601}&quot; exchangeId=&quot;%X{exchangeId}&quot; trackingId=&quot;%X{AUDIT.trackingId}&quot; roundTripMS=&quot;%X{AUDIT.roundTripMS}&quot; subject=&quot;%X{AUDIT.subject}&quot; authMech=&quot;%X{AUDIT.authMech}&quot; client=&quot;%X{AUDIT.client}&quot; method=&quot;%X{AUDIT.method}&quot; requestUri=&quot;%X{AUDIT.requestUri}&quot; responseCode=&quot;%X{AUDIT.responseCode}&quot; %n</pattern>
+                  <JSONLayout complete="true" compact="true" eventEol="true" objectMessageAsJsonObject="true" properties="true" >
+                    <KeyValuePair key="dateTimeStamp" value="$${date:yyyy-MM-dd HH:mm:ss,S}"/>
+                    <KeyValuePair key="exchangeId" value="$${ctx:exchangeId:-}"/>
+                    <KeyValuePair key="trackingId" value="$${ctx:AUDIT.trackingId:-}"/>
+                    <KeyValuePair key="roundTripMS" value="$${ctx:AUDIT.roundTripMS:-}"/>
+                    <KeyValuePair key="subject" value="$${ctx:AUDIT.subject:-}"/>
+                    <KeyValuePair key="authMech" value="$${ctx:AUDIT.authMech:-}"/>
+                    <KeyValuePair key="client" value="$${ctx:AUDIT.client:-}"/>
+                    <KeyValuePair key="method" value="$${ctx:AUDIT.method:-}"/>
+                    <KeyValuePair key="requestUri" value="$${ctx:AUDIT.requestUri:-}"/>
+                    <KeyValuePair key="responseCode" value="$${ctx:AUDIT.responseCode:-}"/>
+                  </JSONLayout>
                 </PatternLayout>
             </PingSyslogLayout>
         </Socket>
