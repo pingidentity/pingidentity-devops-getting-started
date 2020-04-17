@@ -1,7 +1,10 @@
 #!/bin/bash
-# Author: Ryan Ivis
+# Author: Ryan Ivis -- Ping Identity
+
 # Configure Slack webhook into the elasticsearch
 # keystore so watchers will fire correctly.
+# This script is called by an external script and executes within the ES CONTAINERS directly. It loads in Slack Web Hook details into the elasticsearch Keystore.
+# This script is executed manually, and can't be automated as you do not have the customers WEBHOOK url for slack.
 
 es_status="red"
 

@@ -13,9 +13,23 @@ instances:
     ip:
       - 127.0.0.1
 
+  - name: es03
+    dns:
+      - es03
+      - localhost
+    ip:
+      - 127.0.0.1
+
   - name: kibana
     dns:
       - kibana
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: logstash
+    dns:
+      - logstash
       - localhost
     ip:
       - 127.0.0.1

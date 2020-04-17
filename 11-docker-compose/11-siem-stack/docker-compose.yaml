@@ -23,7 +23,7 @@ services:
       - pingnet
     depends_on:
       - pingdirectory
-# Use this volume mount to test local configurations
+#   Use this volume mount to test local configurations
 #   volumes:
 #     - ./baseline/pingfederate:/opt/in
 
@@ -39,8 +39,8 @@ services:
       - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
 
       - SOCKET_HOST=logstash 
-      - SOCKET_PORT_SYSTEM=20518
-      - SOCKET_PORT_AUDIT=20519
+      - SOCKET_PORT_SYSTEM=20516
+      - SOCKET_PORT_AUDIT=20517
       - SOCKET_PROTOCOL=TCP
     ports:
       - "9000:9000"
@@ -49,9 +49,9 @@ services:
       - pingnet
     depends_on:
       - pingdirectory
-    # Use this volume mount to test local configurations
-  #  volumes:
-  #    - ./baseline/pingaccess:/opt/in
+#   Use this volume mount to test local configurations
+#   volumes:
+#     - ./baseline/pingaccess:/opt/in
 
   pingdirectory:
     image: pingidentity/pingdirectory:latest
@@ -68,19 +68,19 @@ services:
     networks:
       - pingnet      
   
-# TEST AUTHENTICATORS
+# TEST AUTHENTICATORS (LOAD)
   authrate_ok:
     image: pingidentity/ldap-sdk-tools
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 40
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 4000
     networks:
       - pingnet
 
   authrate_ko:
     image: pingidentity/ldap-sdk-tools
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 3000
     networks:
       - pingnet
-#END TEST AUTHENTICATORS
+#END TEST AUTHENTICATORS (LOAD)
 
 #ES Server 1
   es01:
@@ -204,7 +204,6 @@ services:
     volumes: 
       - certs:/certs
       - ./elasticsearch-siem/cert_config:/usr/share/elasticsearch/config/certificates
-      - ./elasticsearch-siem/elasticsearch_config:/usr/share/elasticsearch/config/es_config
       - ./elasticsearch-siem/kibana_config:/usr/share/elasticsearch/config/kibana_config
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/config/bootstrap
       - ./elasticsearch-siem/watchers:/usr/share/elasticsearch/watchers
@@ -247,10 +246,9 @@ services:
       - "9600:9600"
       - "20513:20513"
       - "20514:20514"
-      - "20515:20515"
-      - "20516:20516"
-      - "20517:20517"
-      - "20518:20518"
+      - "20516:20515"
+      - "20517:20516"
+      - "20518:20517"
     command: logstash -f /etc/logstash/conf.d/logstash.conf
     volumes:
       - ./elasticsearch-siem/logstash/conf.d:/etc/logstash/conf.d/logstash.conf

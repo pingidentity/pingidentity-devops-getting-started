@@ -1,7 +1,8 @@
 #!/bin/bash
-# Simple script to load elasticsearch templates, ilm, policies, 
-# indexes and kibana saved ndjson.
 # Author: Ryan Ivis -- Ping Identity
+
+# Simple script to load elasticsearch templates, ilm, policies, and all other required objects into the healthy cluster 
+# indexes and kibana saved ndjson.
 
 es_status="red"
 kib_status="red"

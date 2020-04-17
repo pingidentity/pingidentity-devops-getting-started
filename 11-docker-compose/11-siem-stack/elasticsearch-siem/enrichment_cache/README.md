@@ -7,5 +7,6 @@
 - MaliciousCountries.yml This is a list of what you consider to be malicious countries.
 - KnownCountries.yml This is a list of what you consider to be normal countries.
 
+# CRITICAL
 ### Do not Delete any files in this folder or logstash will not run.
 ### ANY SYNTAX ISSUES WILL CAUSE LOGSTASH NOT TO RUN

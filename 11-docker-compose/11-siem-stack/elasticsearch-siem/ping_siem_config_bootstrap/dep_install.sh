@@ -1,7 +1,8 @@
 #!/bin/bash
-
-# This installs required dependencies into the configure-es container. These are used in the enrichment script.
 # Author: Ryan Ivis -- Ping Identity
+
+# This installs required dependencies into the configure-es container. 
+# These are REQUIRED for the enrichment script to work.
 
 yum install -y epel-release
 yum install -y python-pip
