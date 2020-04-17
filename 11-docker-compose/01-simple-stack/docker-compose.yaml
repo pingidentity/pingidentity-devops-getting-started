@@ -1,6 +1,34 @@
 version: "3.1"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
+#-------------------------------------------------------------------------------------
+#- Ping Identity Simple Stack integrated demo
+#-
+#-                +---------------+    +---------------+
+#-                | PingFederate  |    |PingDataConsole|
+#-                +---------------+    +---------------+
+#-                              \        /
+#-                          +----------------+
+#-                          | PingDirectory  |
+#-                          +----------------+
+#-
+#- To view PingFederate Console
+#- 
+#-    https://localhost:9999/pingfederate/app
+#-                                   
+#-    Username: administrator
+#-    Password: 2FederateM0re
+#-
+#-
+#- To view PingData Console (PingDirectory)
+#-
+#-    https://localhost:8443/
+#-
+#-      Server: pingdirectory
+#-    Username: administrator
+#-    Password: 2FederateM0re
+#-------------------------------------------------------------------------------------
+
 services:
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}

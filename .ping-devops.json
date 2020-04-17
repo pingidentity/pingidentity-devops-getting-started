@@ -8,6 +8,12 @@
             "path": "03-full-stack"
         },
         {
+            "name": "simplestack",
+            "type": "usecase",
+            "description": "Simplestack integrated demo",
+            "path": "01-simple-stack"
+        },
+        {
             "name": "pingaccess",
             "type": "product",
             "description": "Standalone PingAccess Demo",
