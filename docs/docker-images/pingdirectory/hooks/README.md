@@ -6,8 +6,6 @@ List of available hooks:
 * [188-apply-configuration.sh](188-apply-configuration.sh.md)
 * [20-restart-sequence.sh](20-restart-sequence.sh.md)
 * [80-post-start.sh](80-post-start.sh.md)
-* [81-generate-topology-json.sh](81-generate-topology-json.sh.md)
-* [81-repair-topology.sh](81-repair-topology.sh.md)
 * [90-shutdown-sequence.sh](90-shutdown-sequence.sh.md)
 * [pingdirectory.lib.sh](pingdirectory.lib.sh.md)
 
