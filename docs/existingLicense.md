@@ -45,7 +45,7 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
     * PingAccess
       - Expected license file name: `pingaccess.lic`
-      - Mount Path: `opt/in/instnce/conf/pingaccess.lic`
+      - Mount Path: `opt/in/instance/conf/pingaccess.lic`
 
     * PingDirectory
       - Expected License file name: `PingDirectory.lic`

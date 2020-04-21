@@ -150,7 +150,7 @@ The `/opt/in` directory overlays files onto the products runtime filesystem, the
 
 **PingAccess**
 * Expected license file name: `pingaccess.lic`
-* Mount Path: `opt/in/instnce/conf/pingaccess.lic`
+* Mount Path: `opt/in/instance/conf/pingaccess.lic`
 
 **PingDirectory**
 * Expected License file name: `PingDirectory.lic`
