@@ -54,9 +54,7 @@ A property file provided by the server-profile repo.  Provides variable definiti
 
     - Exmaple env_vars file
 
-      env_vars
-
-             SCOPE=env_vars
+      SCOPE=env_vars
 
 ## local variables 
 Any variables defined in the hook scripts.  Typically named with an underscore and name (i.e. _hello=local)
