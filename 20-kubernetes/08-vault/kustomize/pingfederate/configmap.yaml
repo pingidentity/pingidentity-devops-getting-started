@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+  PING_IDENTITY_ACCEPT_EULA: "YES"
+  SERVER_PROFILE_PATH: 20-kubernetes/08-vault/server-profiles/pingfederate
+  SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-devops-getting-started.git
+  PING_IDENTITY_DEVOPS_USER: <redacted>
+  PING_IDENTITY_DEVOPS_KEY: <redacted>
+  # The K8S_AUTH_ROLE value must match the kubernetes role for this application/product.
+  # Example: ping-cloud-devops-eks-junk-dev-pingfederate
+  K8S_AUTH_ROLE: <namespace>-<environment>-pingfederate
+  # The VAULT API base address (with scheme) that is used to communicate with vault. 
+  # Example: https://172.20.36.4:8200
+  VAULT_ADDR: https://<host-or-ip>:<port>
+kind: ConfigMap
+metadata:
+  labels:
+    role: pingfederate
+  name: pingfederate-environment-variables

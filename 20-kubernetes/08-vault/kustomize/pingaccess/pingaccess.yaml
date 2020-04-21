@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: pingaccess
+  name: pingaccess
+spec:
+  ports:
+  - name: pa-admin
+    port: 9000
+  - name: pa-app
+    port: 443
+  selector:
+    role: pingaccess
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: pingaccess
+  name: pingaccess
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: pingaccess
+  template:
+    metadata:
+      labels:
+        role: pingaccess
+      name: pingaccess
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: pingaccess-environment-variables
+        - secretRef:
+            name: devops-secret
+            optional: true
+        image: pingidentity/pingaccess:6.0.0-alpine-edge
+        imagePullPolicy: Always
+        name: pingaccess
+        ports:
+        - containerPort: 9000
+        - containerPort: 443
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1.5Gi
+          requests:
+            cpu: "1"
+            memory: 1.5Gi
