@@ -59,7 +59,13 @@ Defined at the orchestration layer.  Typically these represent environment varia
 
 ## Server Profile scope 
 A property file provided by the server-profile repo.  Going forward
-it is NOT RECOMMENDED as this overrides all Image/Orchestration variables.
+it is NOT RECOMMENDED as this overrides all Image/Orchestration variables,
+unless an export with default value is used, as in this example where
+LOG_LEVEL would only be set if not previously set (i.e. not set at 
+image or orchestration scopes):
+
+    export LOG_LEVEL=${LOG_LEVEL:=INFO}
+
 There are some use cases when the env_vars can be used, such as, when the
 developer of the server profile requires that a variable should be set to
 a specific value to never be overridden by orchestration.
