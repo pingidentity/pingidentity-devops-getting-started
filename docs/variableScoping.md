@@ -58,20 +58,31 @@ Defined at the orchestration layer.  Typically these represent environment varia
             name: kubernetes-secret
 
 ## Server Profile scope 
-A property file provided by the server-profile repo.  Going forward
-it is NOT RECOMMENDED as this overrides all Image/Orchestration variables,
-unless an export with default value is used, as in this example where
-LOG_LEVEL would only be set if not previously set (i.e. not set at 
-image or orchestration scopes):
+A property file provided by the server-profile repo.  Carefully consider
+setting variables in this scope as can override Image/Orchestration 
+scoped variables.
 
-    export LOG_LEVEL=${LOG_LEVEL:=INFO}
+The following masthead can be used for your env_vars file to provide 
+examples of setting variables and how they might override lower level
+scoped variables.  It will also suppress a warning when processing
+the env_vars file
 
-There are some use cases when the env_vars can be used, such as, when the
-developer of the server profile requires that a variable should be set to
-a specific value to never be overridden by orchestration.
+    # .suppress-container-warning
+    #
+    # NOTICE: Settings in this file will override values set at the
+    #         image or orchestraton layers of the container.  Examples
+    #         include variables that are specific to this server profile.
+    #
+    # Options include:
+    #
+    # ALWAYS OVERRIDE the value in the container
+    #   NAME=VAL        
+    #
+    # SET TO DEFAULT VALUE if not already set       
+    #   export NAME=${NAME:=myDefaultValue}  # Sets to string of "myDefaultValue"
+    #   export NAME=${NAME:-OTHER_VAR}       # Sets ot value of OTHER_VAR variable
+    # 
 
-    Exmaple env_vars file
-    SCOPE=env_vars
 
 ## Container scope 
 Any variables defined in the hook scripts.  Variables that need to be passed to other hook scripts can append to ${CONTAINER_ENV}, 
