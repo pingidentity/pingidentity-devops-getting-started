@@ -2,8 +2,8 @@
 
 ![Variable Scoping](images/variableScoping-1.png)
 
-## Image variables 
-Defined with default values in the Docker Image.  They are often set as defaults, allowing narrower scopes to override them.
+## Image scope 
+Defined with default values in the Docker Image (i.e Dockerfiles).  They are often set as defaults, allowing narrower scopes to override them.
 
 * To see default ENV variables available with any docker image, run:
 
@@ -13,8 +13,8 @@ Defined with default values in the Docker Image.  They are often set as defaults
 
   * Example pingdirectory: https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingdirectory
 
-## .yaml variables
-Defined at the orchestration layer. 
+## .yaml scope
+Defined at the orchestration layer.  Typically these represent environment variables passed with docker commands, docker-compose yamls and kubernetes config refs. 
 
 * Example with docker run (using --env)
 
@@ -49,12 +49,17 @@ Defined at the orchestration layer.
           - secretRef:
             name: kubernetes-secret
 
-## env_vars 
-A property file provided by the server-profile repo.  Provides variable definition to the container based on NAME=VALUE pairs in the env_vars file
+## Server Profile scope 
+A property file provided by the server-profile repo.  NOT RECOMMENDED as this overrides all Image/Orchestration variables
 
     - Exmaple env_vars file
 
       SCOPE=env_vars
 
-## local variables 
-Any variables defined in the hook scripts.  Typically named with an underscore and name (i.e. _hello=local)
+## Container scope 
+Any variables defined in the hook scripts.  Variables that need to be passed to other hook scripts can append to ${CONTAINER_ENV}, 
+(defined as /opt/staging/.env).  This file will be sourced for every hook.
+
+# Example Scoping
+
+![Variable Scoping](images/variableScoping-2.png)
