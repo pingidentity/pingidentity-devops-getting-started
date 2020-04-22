@@ -13,7 +13,7 @@ Defined with default values in the Docker Image (i.e Dockerfiles).  They are oft
 
   * Example pingdirectory: https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingdirectory
 
-## .yaml scope
+## Orchestration scope
 Defined at the orchestration layer.  Typically these represent environment variables passed with docker commands, docker-compose yamls and kubernetes config refs. 
 
 * Example with docker run (using --env)
