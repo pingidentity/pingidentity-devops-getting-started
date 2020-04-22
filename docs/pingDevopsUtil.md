@@ -33,7 +33,7 @@
 
 ```
 ################################################################################
-#  Ping Identity DevOps
+#  Ping Identity DevOps (version 0.5.3)
 #
 #  Documentaion: https://pingidentity-devops.gitbook.io/devops/
 #
@@ -43,8 +43,9 @@
 ################################################################################
 
 Usage:
-  ping-devops config                          # Configure Ping DevOps configuration
-  ping-devops info                            # Current Ping DevOps configuration
+  ping-devops config                          # Configure Ping DevOps
+  ping-devops info [-v]                       # Config Information
+  ping-devops version                         # Version Details and Check
 
 Generate Kubernetes/Kustomize Resource:
   ping-devops generate devops-secret                    # Ping DevOps secret
@@ -58,11 +59,14 @@ Generate Ping Identity Server Profile:
     --current-install    /path/to/current-inst # Default: create an empty profile template)
     --generated-profile  /path/to/gen-profile  # Default: current directory with product name)
 
-Examples:
-  ping-devops examples
+Running Docker Getting Started Containers:
+  ping-devops docker info                      # Lists all available use-cases/products
+  ping-devops docker info <product>            # Information on user-case/product
+  ping-devops docker start <product>           # Starts services  (i.e. docker-compose up)
+  ping-devops docker stop <product>            # Stops services   (i.e. docker-compose stop)
+  ping-devops docker rm <product>              # Removes services (i.e. docker-compose down)
+  ping-devops docker clean                     # Cleans all ping_devops docker services
 
 Further help:
-  ping-devops commands
-  ping-devops help [COMMAND]
   https://github.com/pingidentity/ping-devops
 ```
