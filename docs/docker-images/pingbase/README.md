@@ -24,6 +24,7 @@ this image.
 | SECRETS_DIR  | ${STAGING_DIR}/.sec  | Default path to the secrets 
 | TOPOLOGY_FILE  | ${STAGING_DIR}/topology.json  | Path to the topology file 
 | HOOKS_DIR  | ${STAGING_DIR}/hooks  | Path where all the hooks scripts are stored 
+| CONTAINER_ENV  | ${STAGING_DIR}/.env  | Environment Property file use to share variables between scripts in container 
 | SERVER_PROFILE_DIR  | /tmp/server-profile  | Path where the remote server profile is checked out or cloned before being staged prior to being applied on the runtime 
 | SERVER_PROFILE_URL  |   | A valid git HTTPS URL (not ssh) 
 | SERVER_PROFILE_URL_REDACT  | true  | 
