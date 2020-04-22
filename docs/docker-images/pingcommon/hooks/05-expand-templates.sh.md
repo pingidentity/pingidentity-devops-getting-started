@@ -4,7 +4,7 @@
  `subst` and substitute any variables the files with the the value of those
  variables.
  Variables may come from (in order of precedence):
-  - The 'env_vars' file from the profiles
+  - The '.env' file from the profiles and intra container env variables
   - The environment variables or env-file passed to continaer on startup
   - The container's os
  >Note: If a string of $name is sould be ignored during a substitution, then 

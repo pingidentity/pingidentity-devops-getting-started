@@ -235,7 +235,7 @@ echo "
 
                      Welcome to Ping Identity DevOps!
 
-  We will run through a few setup items to make your experiance as easy as 
+  We will run through a few setup items to make your experience as easy as
   possible.  These include:
   
     - Adding bash_profile_devops to your .bash_profile
