@@ -1,41 +1,118 @@
 {
-    "baseURL": "https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/11-docker-compose",
+    "minVersion": "0.5.4",
+    "baseURL": "https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master",
+    "baseKustomizeURL": "https://github.com/pingidentity/pingidentity-devops-getting-started",
+    "docker": {
+        "usecases": [
+            {
+                "name": "fullstack",
+                "type": "usecase",
+                "description": "Fullstack integrated demo",
+                "path": "11-docker-compose/03-full-stack"
+            },
+            {
+                "name": "simplestack",
+                "type": "usecase",
+                "description": "Simplestack integrated demo",
+                "path": "11-docker-compose/01-simple-stack"
+            },
+            {
+                "name": "simplesync",
+                "type": "usecase",
+                "description": "Simple sync integrated demo",
+                "path": "11-docker-compose/04-simple-sync"
+            },
+            {
+                "name": "pingaccess",
+                "type": "product",
+                "description": "Standalone PingAccess Demo",
+                "path": "11-docker-compose/00-standalone/pingaccess"
+            },
+            {
+                "name": "pingfederate",
+                "type": "product",
+                "description": "Standalone PingFederate Demo",
+                "path": "11-docker-compose/00-standalone/pingfederate"
+            },
+            {
+                "name": "pingdirectory",
+                "type": "product",
+                "description": "Standalone PingDirectory Demo",
+                "path": "11-docker-compose/00-standalone/pingdirectory"
+            }
+        ]
+    },
+    "kubernetes": {
+        "usecases": [
+            {
+                "name": "pingaccess",
+                "type": "product",
+                "description": "Standalone PingAccess Demo",
+                "path": "20-kubernetes/01-standalone/pingaccess"
+            },
+            {
+                "name": "pingfederate",
+                "type": "product",
+                "description": "Standalone PingFederate Demo",
+                "path": "20-kubernetes/01-standalone/pingfederate"
+            },
+            {
+                "name": "pingdirectory",
+                "type": "product",
+                "description": "Standalone PingDirectory Demo",
+                "path": "20-kubernetes/01-standalone/pingdirectory"
+            }
+        ]
+    },
+    "motd": {
+        "subject": "Adding support to launch Ping Identity kubernetes use cases",
+        "message": [
+            "The latest version of ping-devops provides the ability to launch",
+            "kubernetes user cases, much like you can with docker.",
+            "",
+            "PreReqs require the standard K8S varialbes to be set to connect to a",
+            "kubernetes cluster",
+            "",
+            "Find out more with:  ping-devops kubernetes info"
+        ]
+    },
+    "comment": "the following is for backwards support to < 0.5.3 versions.  I can be removed in near future.",
     "usecases": [
         {
             "name": "fullstack",
             "type": "usecase",
             "description": "Fullstack integrated demo",
-            "path": "03-full-stack"
+            "path": "11-docker-compose/03-full-stack"
         },
         {
             "name": "simplestack",
             "type": "usecase",
             "description": "Simplestack integrated demo",
-            "path": "01-simple-stack"
+            "path": "11-docker-compose/01-simple-stack"
         },
         {
             "name": "simplesync",
             "type": "usecase",
             "description": "Simple sync integrated demo",
-            "path": "04-simple-sync"
+            "path": "11-docker-compose/04-simple-sync"
         },
         {
             "name": "pingaccess",
             "type": "product",
             "description": "Standalone PingAccess Demo",
-            "path": "00-standalone/pingaccess"
+            "path": "11-docker-compose/00-standalone/pingaccess"
         },
         {
             "name": "pingfederate",
             "type": "product",
             "description": "Standalone PingFederate Demo",
-            "path": "00-standalone/pingfederate"
+            "path": "11-docker-compose/00-standalone/pingfederate"
         },
         {
             "name": "pingdirectory",
             "type": "product",
             "description": "Standalone PingDirectory Demo",
-            "path": "00-standalone/pingdirectory"
+            "path": "11-docker-compose/00-standalone/pingdirectory"
         }
     ]
 }
