@@ -57,6 +57,12 @@
                 "path": "20-kubernetes/01-standalone/pingfederate"
             },
             {
+                "name": "pingdataconsole",
+                "type": "product",
+                "description": "Standalone PingDataConsole Demo",
+                "path": "20-kubernetes/01-standalone/pingdataconsole"
+            },
+            {
                 "name": "pingdirectory",
                 "type": "product",
                 "description": "Standalone PingDirectory Demo",
