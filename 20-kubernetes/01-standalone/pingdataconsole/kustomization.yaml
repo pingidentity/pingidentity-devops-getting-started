@@ -1,5 +1,27 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
+# This server profile used as basis for ping-devop kubernetes info
+
+#-------------------------------------------------------------------------------------
+#- Ping Identity PingDataConsole getting started demo
+#-
+#-                          +---------------+
+#-                          |PingDataConsole|
+#-                          +---------------+
+#-
+#- Setup a port-forward on port 8080 to the pingdataconsole service:
+#-
+#-    kubectl port-forward service/pingdataconsole 8080
+#-
+#- To view PingData Console goto:
+#- 
+#-    http://localhost:8080/
+#-    
+#-      Server: pingdirectory (or pingdatagovernance, pingdatasync, pingdirectoryproxy)
+#-    Username: administrator
+#-    Password: 2FederateM0re
+#-
+#-------------------------------------------------------------------------------------
 
 resources:
 - pingdataconsole.yaml

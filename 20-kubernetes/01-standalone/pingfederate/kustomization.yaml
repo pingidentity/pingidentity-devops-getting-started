@@ -1,6 +1,6 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-# This server profile used as basis for ping-devop docker-launch
+# This server profile used as basis for ping-devop kubernetes info
 
 #-------------------------------------------------------------------------------------
 #- Ping Identity PingFederate getting started demo
