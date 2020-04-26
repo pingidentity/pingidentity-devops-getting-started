@@ -35,12 +35,11 @@ version: "3.1"
 
 services:
   pingaccess:
-    image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingaccess
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
       # devops user/key details for evaluation licenses and for docker image/git tags
@@ -59,12 +58,11 @@ services:
       - pingnet-dmz
 
   pingdatagovernance:
-    image: pingidentity/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdatagovernance
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file: 
       - ~/.pingidentity/devops
     #volumes:
@@ -78,12 +76,11 @@ services:
       - pingnet-internal
 
   pingfederate:
-    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
       - ~/.pingidentity/devops
     #volumes:
@@ -97,11 +94,10 @@ services:
       - pingnet-internal
 
   pingdirectory:
-    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
       - ~/.pingidentity/devops
     #volumes:
@@ -121,7 +117,7 @@ services:
       - pingnet-internal
   
   pingdataconsole:
-    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - "8443:8443"
     networks: 
@@ -133,7 +129,6 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingcentral/dev-unsecure
       - SERVER_PROFILE_BRANCH=arno-dev-pingcentral
-      - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_CENTRAL_BLIND_TRUST=true
       - PING_CENTRAL_LOG_LEVEL=DEBUG
     env_file: 

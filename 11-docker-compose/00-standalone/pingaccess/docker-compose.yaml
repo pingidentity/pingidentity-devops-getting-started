@@ -4,6 +4,10 @@ version: "3.1"
 #-------------------------------------------------------------------------------------
 #- Ping Identity PingAccess getting started demo
 #-
+#-                +---------------+
+#-                |   PingAccess  |
+#-                +---------------+
+#-
 #- To access PingAccess Console
 #- 
 #-    https://localhost:9000/

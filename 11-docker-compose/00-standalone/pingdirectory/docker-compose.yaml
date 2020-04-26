@@ -4,6 +4,14 @@ version: "3.1"
 #-------------------------------------------------------------------------------------
 #- Ping Identity PingDirectory getting started demo
 #-
+#-                          +---------------+
+#-                          |PingDataConsole|
+#-                          +---------------+
+#-                                  |
+#-                          +----------------+
+#-                          | PingDirectory  |
+#-                          +----------------+
+#-
 #- To view PingData Console goto:
 #- 
 #-    https://localhost:8443/

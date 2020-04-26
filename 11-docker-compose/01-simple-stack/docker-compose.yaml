@@ -31,12 +31,11 @@ version: "3.1"
 
 services:
   pingfederate:
-    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 900 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
-      - PING_IDENTITY_ACCEPT_EULA=YES
       - VERBOSE=false
     env_file:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
@@ -56,11 +55,10 @@ services:
       - pingnet
 
   pingdirectory:
-    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
       - ~/.pingidentity/devops
     ulimits:
@@ -82,7 +80,7 @@ services:
       - pingnet
                     
   pingdataconsole:
-    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - "8443:8443"
     networks:

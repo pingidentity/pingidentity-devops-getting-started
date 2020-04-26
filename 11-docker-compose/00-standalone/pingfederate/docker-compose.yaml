@@ -4,6 +4,10 @@ version: "3.1"
 #-------------------------------------------------------------------------------------
 #- Ping Identity PingFederate getting started demo
 #-
+#-                +---------------+
+#-                | PingFederate  |
+#-                +---------------+
+#-
 #- To access PingFederate Console
 #- 
 #-    https://localhost:9999/pingfederate/app
