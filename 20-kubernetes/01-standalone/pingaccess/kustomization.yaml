@@ -5,7 +5,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 #-------------------------------------------------------------------------------------
 #- Ping Identity PingAccess getting started demo
 #-
-#- To access PingAccess Console
+#-                +---------------+
+#-                |   PingAccess  |
+#-                +---------------+
+#-
+#- Setup a port-forward on port 9000 to the pingaccess service.
+#-
+#-    kubectl port-forward service/pingaccess 9000
+#-
+#- To access PingAccess Console.
 #- 
 #-    https://localhost:9000/
 #-    
