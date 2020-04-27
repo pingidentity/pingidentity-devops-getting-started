@@ -1,4 +1,3 @@
-aws-kubernetes-context: Setting up Kubernetes Context with AWS EKS
 
 In order to communicate to an AWS EKS cluster, you need to pair your 
 AWS EKS Cluster with your AWS profile.   This information is all kept 
