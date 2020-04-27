@@ -36,6 +36,7 @@
       - [Deploy to Amazon Web Services EKS](docs/deployK8s-AWS.md)
       - [Deploy to Azure Kubernetes Service](docs/deployK8s-AKS.md)
       - [Sizing Kubernetes Cluster](docs/k8sClusterSizing.md)
+  - [Deploy Hashicorp Vault](docs/deployVault.md)
 * [Customizing deployments](docs/config.md)
   - [Server profile anatomy](docs/containerAnatomy.md)
     - [Customizing server profiles](docs/profiles.md)
