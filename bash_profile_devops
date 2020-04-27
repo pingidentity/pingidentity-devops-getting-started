@@ -1,3 +1,30 @@
+
+echo "WARNING: bash_profile_devops has been deprecated.
+
+################################################################################
+#                              Ping Identity DevOps
+#
+#  This bash_profile_devops alias file has been deprecated in lieu of the
+#  new 'bash_profile.ping-devops' alias file provided by the 'ping-devops' tool.
+#
+#  INSTALLING ping-devops (and bash_profile.ping-devops)
+#    On Mac OSX (or Linux using brew)
+#      brew tap pingidentity/devops
+#      brew install ping-devops
+#  
+#    On Linux
+#      curl -sL https://bit.ly/ping-devops-install | bash
+#
+#  CONFIG/SETUP
+#    1. Remove source of 'bash_profile_devops' file from .bash_profile
+#    2. ping-devops config
+################################################################################
+"
+
+
+
+
+
 ##############################################################################
 # Aliases of commonly used docker commands and those related to the
 # Ping Identity DevOps Program.
