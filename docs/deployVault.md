@@ -1,10 +1,10 @@
 # Deploy Hashicorp Vault
 
-This is an example of how you can use Hashicorp Vault (Vault) with PingFederate and PingAccess to manage their corresponding master keys (`pf.pwk` and `pa.pwk`). Using Vault, you can also manage license files, DevOps keys, product secrets, and others.
+This is an example of deploying Hashicorp Vault (Vault) with PingFederate and PingAccess to manage their corresponding master keys (`pf.pwk` and `pa.pwk`). Using Vault, you can also manage license files, DevOps keys, product secrets, and others.
 
 ## What you'll do
 
-You'll clone the Vault Helm chart to deploy a near-production environment to validate and manage Ping Identity product master keys, license files, devops keys, and various secrets.
+You'll clone the Vault Helm chart to deploy a near-production environment to validate and manage the product master keys, product secrets, and authentication policies.
 
 ## Prerequisites
 
@@ -29,12 +29,12 @@ Before you deploy Vault using Helm, you'll need to add the TLS key pair (public 
 
 1. Create the Kubernetes secret using Vault, the TLS key pair, and the certificate:
   
-  ```shell
-  kubectl create secret generic vault-certstore \
+   ```shell
+   kubectl create secret generic vault-certstore \
     --from-file=vault.key=<local_path_to_tls_key>/tls.key \
     --from-file=vault.crt=<local_path_to_tls_cert>/tls.crt \
     --from-file=vault.ca=<local_path_to_ca_cert>/vault.ca
-  ```
+   ```
 
 2. Ensure that these parameters in the `values.yaml` file located in your local `pingidentity-devops-getting-started/20-kubernetes/08-vault/vault-helm` directory are set as follows:
 
@@ -125,13 +125,13 @@ We can take advantage of some AWS services to simplify our deployment architectu
 
 4. In the `ha` section, update the `dynamodb` storage element with your corresponding AWS region and dynamodb table name:
 
-```yaml
-      storage "dynamodb" {
-        ha_enabled = "true"
-        region = "<aws_region>"
-        table = "<dynamodb_table_name>"
-      }
-```
+   ```yaml
+         storage "dynamodb" {
+           ha_enabled = "true"
+           region = "<aws_region>"
+           table = "<dynamodb_table_name>"
+         }
+   ```
 
 ## Auto Unseal
 
@@ -152,20 +152,20 @@ Vault can retrieve the AWS KMS key using an environment variable, so it is not a
 
 2. Update the `values.yaml` file to include your AWS key and secret in the `extraSecretEnvironmentVars` section:
 
-```yaml
-  extraSecretEnvironmentVars:
-  - envName: VAULT_AWSKMS_SEAL_KEY_ID
-    secretName: aws-kms-key-id
-    secretKey: KMS_KEY_ID
-```
+   ```yaml
+     extraSecretEnvironmentVars:
+     - envName: VAULT_AWSKMS_SEAL_KEY_ID
+       secretName: aws-kms-key-id
+       secretKey: KMS_KEY_ID
+   ```
 
 3. In the `ha` section config map (`config`), add a `seal` element, and update the region parameter with your AWS region value:
 
-```yaml
-      seal "awskms" {
-        region = "<aws_region>"
-      }
-```
+   ```yaml
+         seal "awskms" {
+           region = "<aws_region>"
+         }
+   ```
 
 ## Deploy Vault using Helm
 
@@ -257,112 +257,128 @@ When the Kubernetes auth method is enabled, Vault can use a pod's Kubernetes ser
    export SA_TOKEN=$(kubectl get secret $SA_SECRET_NAME -o jsonpath="{.data['token']}" | base64 --decode; echo)
    ```
 
-#### Add Vault policies
+### Add Vault policies
 
-Add the pingfederate.hcl, pingaccess.hcl, and pingcentral.hcl policies to ensure the apps/products only have access to their secrets and keys.
+You can choose the method to use to add the policies to your Vault:
 
-There are 3 methods to add the policies to your Vault. Be sure to update the <namespace> and <env> tags in your policy files with the appropiate values. The recommended values for <namespace> is your k8s namespace and <env> : dev, staging, prod, etc
+* CLI
+* API
+* UI
 
-Example: 
+You'll need to add to Vault the policy files `pingfederate.hcl` and `pingaccess.hcl` to ensure the products have access only to their own secrets and keys.
+
+Be sure to update the `<namespace>` and `<env>` tags in your policy files with the appropriate values. The recommended value for `<namespace>` is your Kubernetes namespace. The typical values for `<env>` are dev, staging, and prod. For example:
+
+  ```text
   <namespace> : ping-cloud-eks-bob
   <env> : dev
+  ```
 
+#### Adding the policies using the CLI
 
-CLI: Note, you will need to attach to a vault pod.
-```
-vault policy write <namespace>-<env>-pingfederate -<<
-# Enable transit secrets engine
-path "sys/mounts/transit" {
-  capabilities = [ "read", "update", "list" ]
-}
+Connect to a Vault pod and enter the following at the command line:
 
-# To read enabled secrets engines
-path "sys/mounts" {
-  capabilities = [ "create", "read", "update", "delete" ]
-}
+> Showing PingFederate entries here. You'll need to do the same for PingAccess.
 
-# Manage the keys transit keys endpoint
-path "transit/keys/<namespace>-<environment>-pingfederate" {
-  capabilities = [ "create", "read", "update", "list" ]
-}
+  ```shell
+  vault policy write <namespace>-<env>-pingfederate -<<
+  # Enable transit secrets engine
+  path "sys/mounts/transit" {
+    capabilities = [ "read", "update", "list" ]
+  }
 
-# Manage the keys transit keys endpoint
-path "transit/encrypt/<namespace>-<environment>-pingfederate" {
-  capabilities = [ "create", "read", "update", "list" ]
-}
+  # To read enabled secrets engines
+  path "sys/mounts" {
+    capabilities = [ "create", "read", "update", "delete" ]
+  }
 
-# Manage the keys transit keys endpoint
-path "transit/decrypt/<namespace>-<environment>-pingfederate" {
-  capabilities = [ "create", "read", "update", "list" ]
-}
+  # Manage the keys transit keys endpoint
+  path "transit/keys/<namespace>-<environment>-pingfederate" {
+    capabilities = [ "create", "read", "update", "list" ]
+  }
 
-#Manage the cubbyhole secrets engine
-path "cubbyhole/<namespace>/<env>/pingfederate/masterkey" {
-  capabilities = [ "create", "read", "update", "list" ]
-}
-EOF
-```
-API: Note, your client should be able to access the vault API endpoint.  
-```
-curl \
-    --header "X-Vault-Token: ..." \
-    --request PUT \
-    --data @pingfederate-policy.hcl \
-    http://127.0.0.1:8200/v1/sys/policy/<namespace>-<env>-pingfederate
-```
+  # Manage the keys transit keys endpoint
+  path "transit/encrypt/<namespace>-<environment>-pingfederate" {
+    capabilities = [ "create", "read", "update", "list" ]
+  }
 
-Vault UI:
+  # Manage the keys transit keys endpoint
+  path "transit/decrypt/<namespace>-<environment>-pingfederate" {
+    capabilities = [ "create", "read", "update", "list" ]
+  }
+
+  #Manage the cubbyhole secrets engine
+  path "cubbyhole/<namespace>/<env>/pingfederate/masterkey" {
+    capabilities = [ "create", "read", "update", "list" ]
+  }
+  EOF
+  ```
+
+#### Using the API
+
+Your client needs to be able to access the Vault API endpoint. For example:
+
+  ```shell
+  curl \
+      --header "X-Vault-Token: ..." \
+      --request PUT \
+      --data @pingfederate-policy.hcl \
+      http://127.0.0.1:8200/v1/sys/policy/<namespace>-<env>-pingfederate
+  ```
+
+#### Using the Vault UI
+
+Port-forward the Vault port for the UI, go to `https://localhost:<vault-ui-port>, and add the entries (as shown for the CLI method):
+
+> Showing PingFederate entries here. You'll need to do the same for PingAccess.
 
 ![Vault UI](images/vault-ui.png)
 
-Remember to add the additional policies for PingAccess and PingCentral.
 
+### Configure Kubernetes Auth
 
-#### Configure Kubernetes Auth
+You need to enable Kubernetes auth. It's important to note that Vault doesn't need to be deployed in a Kubernetes environment to support Kubernetes auth. You're also able to support multiple kubernetes clusters. 
 
-The below commands can be performed by the Vault operator or configuration management tool. 
+The following commands can be performed by the Vault admin or a configuration management tool.
 
-Enable kubernetes auth. It is important to note that Vault does not need to be deployed in a kubernetes environment to support kubernetes auth. In addition, you can support multiple kubernetes clusters. 
+Enable Kubernetes auth:
 
-```
-kubectl exec vault-0 -- vault auth enable kubernetes
-```
+  ```shell
+  kubectl exec vault-0 -- vault auth enable kubernetes
+  ```
 
-Configure the kubernetes auth mechanism.
+Configure Kubernetes auth:
 
-```
-kubectl exec vault-0 -- vault write auth/kubernetes/config \
-token_reviewer_jwt=$SA_TOKEN \
-kubernetes_host=$K8S_API_HOST \
-kubernetes_ca_cert=$SA_CA_CRT
-```
+  ```shell
+  kubectl exec vault-0 -- vault write auth/kubernetes/config \
+  token_reviewer_jwt=$SA_TOKEN \
+  kubernetes_host=$K8S_API_HOST \
+  kubernetes_ca_cert=$SA_CA_CRT
+  ```
 
-Register a role for each application/product. To give you more control over the permissions that each application/product has, we are using the following naming convention for roles:
+Register a role for each product. To give you more control over product permissions, we'll use this naming convention for roles: `<k8s-namespace>-<environment>-<product_name>`. For example
 
-`<k8s-namespace>-<environment>-<product_name>`
+  ```text
+    k8s-namespace = ping-cloud-devops-eks-apps
+    environment = dev
+    product_name = pingfederate
 
-```
-Example: 
-  k8s-namespace = ping-cloud-devops-eks-apps
-  environment = dev
-  product_name = pingfederate
+    ping-cloud-devops-eks-apps-dev-pingfederate
+  ```
 
-  ping-cloud-devops-eks-apps-dev-pingfederate
-```
+To register the roles, update the following command with your role name, the product namespace, and policy name before executing:
 
-Update the below command with your role name, application namespace, and policy name before executing.
+  ```
+  kubectl exec vault-0 -- vault write auth/kubernetes/role/<namespace>-<environment>-<product_name> \
+          bound_service_account_names=vault-auth \
+          bound_service_account_namespaces=<application_namespace> \
+          policies=<policy> 
+  ```
 
-```
-kubectl exec vault-0 -- vault write auth/kubernetes/role/<namespace>-<environment>-<product_name> \
-        bound_service_account_names=vault-auth \
-        bound_service_account_namespaces=<application_namespace> \
-        policies=<policy> 
-```
+### Transit Secret Engine
 
-#### Transit Secret Engine
+The Transit secret engine uses a Vault-managed key to support encryption and decryption of each product's master key. Each product implements a common interface (MasterKeyEncryptor) that will encrypt the master key while at rest.
 
-The Transit secret engine uses a Vault managed key to support encryption and decryption of the product's (PingFederate, PingAccess, and PingCentral) master key. Each product implements a common interface (MasterKeyEncryptor) that will encrypt the masterkey while at rest.
+### CubbyHole Secret Engine
 
-#### CubbyHole Secret Engine
-
-The CubbyHole secret engine is used to store the master key for each product. This is to assist backups and restoration. In addition could be used to assist with migrating configs from one environment to another (Example: Development to Staging). 
+The CubbyHole secret engine is used to store the master key for each product. This is to assist backups and restoration. In addition, this can be used to assist with migrating configurations from one environment to another (for example, from dev to staging). 
