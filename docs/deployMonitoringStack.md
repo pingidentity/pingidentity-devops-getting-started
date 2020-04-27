@@ -30,6 +30,7 @@ To get metrics on a dashboard in Grafana, you'll:
 ## Prerequisites
 
 * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Pull our [pingidentity-getting-started repo](https://github.com/pingidentity/pingidentity-devops-getting-started) to ensure you have the latest sources.
  
 ## Deploy the monitoring stack
 
