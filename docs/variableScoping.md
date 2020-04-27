@@ -1,63 +1,76 @@
 # Variable Scoping
-DevOps variables provide a way to store and reuse values to docker containers, ultimately used by image hooks to customize configurations.
 
-It is important to understand the diffrent levels that variables can be set
-and how and where you should use them.  The diagram below shows the 4
-different scopes that variables are set and used.  The primary scope that
-a user of the Ping DevOps images should set variables is the orchestation
-scope.  Below, there are examples of how variables can be provided to 
-a container to set them.
+DevOps variables provide a way to store and reuse values with our Docker containers, ultimately used by our Docker image hooks to customize configurations.
+
+It's important to understand the different levels at which variables can be set and how and where you should use them. This diagram shows the different scopes in which variables can be set and applied: 
 
 ![Variable Scoping](images/variableScoping-1.png)
 
+Generally, you'll set variables having an orchestration scope. 
+
 ## Image scope 
-Defined with default values in the Docker Image (i.e Dockerfiles).  They are often set as defaults, allowing narrower scopes to override them.
 
-* To see default ENV variables available with any docker image, run:
+Variables having an image scope are assigned using the values set for the Docker Image (for example, from Dockerfiles). These variables are often set as defaults, allowing narrower scopes to override them.
 
-        docker run pingidentity/pingdirectory:edge env | sort
+To see the default environment variables available with any Docker image, you can enter:
 
-* Documenation can be found on the DevOps Gitbook.
+  ```shell
+  docker run pingidentity/<product-image>:<tag> env | sort
+  ```
 
-  * Example pingdirectory: https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingdirectory
+  Where \<product-image> is the name of one of our products, and \<tag> is the release tag (such as, `edge`).
+
+See our [Docker images reference](https://pingidentity-devops.gitbook.io/devops/dockerimagesref) for the environment variables available or each product, as well as those available for all products (PingBase). 
 
 ## Orchestration scope
-Defined at the orchestration layer.  Typically these represent environment variables passed with docker commands, docker-compose yamls and kubernetes config refs. 
 
-* Example with docker run (using --env)
+Variables having orchestration scope are assigned at the orchestration layer.  Typically, these are environment variables set using Docker commands, or Docker Compose or Kubernetes YAML configuration files. For example:
 
-        docker run --env SCOPE=env \
-               pingidentity/pingdirectory:edge env | sort
-      
-* Example with docker run (using --env-file)
+* Using docker run with --env:
 
-        echo "SCOPE=env-file"  > /tmp/scope.properties
+  ```shell
+  docker run --env SCOPE=env \
+    pingidentity/pingdirectory:edge env | sort
+  ```
 
-        docker run --env-file /tmp/scope.properties \
-               pingidentity/pingdirectory:edge env | sort
-   
-* Example with docker-compose (docker-compose.yaml excerpt)
+* Using docker run with --env-file:
 
-        environment:
-          - SCOPE=compose
-            env_file:
-          - /tmp/scope.properties
+  ```shell
+  echo "SCOPE=env-file"  > /tmp/scope.properties
 
-* Example with kubernetes (.yaml excerpt)
+  docker run --env-file /tmp/scope.properties \
+    pingidentity/pingdirectory:edge env | sort
+  ```
 
-        env:
-          - name: SCOPE
-            value: kubernetes
+* Using Docker Compose (docker-compose.yaml):
 
-* Example with kubernetes  (config or secret refs .yaml excepts)
+  ```yaml
+  environment:
+    - SCOPE=compose
+      env_file:
+    - /tmp/scope.properties
+  ```
 
-        - envFrom:
-          - configMapRef:
-            name: kubernetes-variables
-          - secretRef:
-            name: kubernetes-secret
+* Using Kubernetes (kustomize.yaml)
+
+  ```yaml
+  env:
+    - name: SCOPE
+      value: kubernetes
+  ```
+
+* Using Kubernetes configMapRef and secretRef (kustomize.yaml)
+
+  ```yaml
+  - envFrom:
+    - configMapRef:
+      name: kubernetes-variables
+    - secretRef:
+      name: kubernetes-secret
+  ```
 
 ## Server Profile scope 
+
 A property file provided by the server-profile repo.  Carefully consider
 setting variables in this scope as can override Image/Orchestration 
 scoped variables.
