@@ -1,4 +1,4 @@
-# Getting Started
+# Getting started
 
 You can quickly deploy Docker images of Ping Identity products. We use Docker, Docker Compose, and Kubernetes to deploy our Docker images in stable, network-enabled containers. Our Docker images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers.  
 
@@ -8,7 +8,7 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 * [Docker Compose](https://docs.docker.com/compose/install/) (already inluded with Docker Desktop on Mac and Windows)
 * [ping-devops tool](pingDevopsUtil.md#installation)
 
-### Product License
+### Product license
 
 You will need a product license to run our Docker images.  Options include:
 
