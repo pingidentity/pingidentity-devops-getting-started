@@ -15,10 +15,10 @@ PING_IDENTITY_DEVOPS_HOME     | Location of local Ping Identity DevOps repos.
                               | Recommended: ~/project/devops
                               |
 PING_IDENTITY_DEVOPS_REGISTRY | Docker Registry used with DevOps Tools.  
-                              | Default: docker.io/pingidentity
+                              | Recommended: docker.io/pingidentity
                               | 
 PING_IDENTITY_DEVOPS_TAG      | Docker Image Tag used with DevOps Tools. 
-                              | Default: edge
+                              | Recommended: edge
                               |
 PING_IDENTITY_DEVOPS_DNS_ZONE | DNS Zone used when deploying Kubernetes Ingresses for hostnames
                               |
