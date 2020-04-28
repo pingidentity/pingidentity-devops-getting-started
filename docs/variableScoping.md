@@ -6,11 +6,11 @@ It's important to understand the different levels at which variables can be set 
 
 ![Variable Scoping](images/variableScoping-1.png)
 
-Generally, you'll set variables having an orchestration scope. 
+Assume that you're looking down at this diagram as a pyramid, where the container is the top. The order of precedence for variables is top down. Generally, you'll set variables having an orchestration scope. 
 
 ## Image scope 
 
-Variables having an image scope are assigned using the values set for the Docker Image (for example, from Dockerfiles). These variables are often set as defaults, allowing narrower scopes to override them.
+Variables having an image scope are assigned using the values set for the Docker Image (for example, from Dockerfiles). These variables are often set as defaults, allowing scopes with a higher level of precedence to override them.
 
 To see the default environment variables available with any Docker image, you can enter:
 
@@ -71,36 +71,32 @@ Variables having orchestration scope are assigned at the orchestration layer.  T
 
 ## Server Profile scope 
 
-A property file provided by the server-profile repo.  Carefully consider
-setting variables in this scope as can override Image/Orchestration 
-scoped variables.
+Variables having server profile scope are supplied using property files in the server-profile repo.  You need to be careful setting variables in this scope as the settings can override variables having an image or orchestration scope.
 
-The following masthead can be used for your env_vars file to provide 
-examples of setting variables and how they might override lower level
-scoped variables.  It will also suppress a warning when processing
-the env_vars file
+The following masthead can be used in your `env_vars` files to provide examples of setting variables and how they might override variables having a scope with a lower level of precedence. It will also suppress a warning when processing the env_vars file:
 
-    # .suppress-container-warning
-    #
-    # NOTICE: Settings in this file will override values set at the
-    #         image or orchestraton layers of the container.  Examples
-    #         include variables that are specific to this server profile.
-    #
-    # Options include:
-    #
-    # ALWAYS OVERRIDE the value in the container
-    #   NAME=VAL        
-    #
-    # SET TO DEFAULT VALUE if not already set       
-    #   export NAME=${NAME:=myDefaultValue}  # Sets to string of "myDefaultValue"
-    #   export NAME=${NAME:-OTHER_VAR}       # Sets ot value of OTHER_VAR variable
-    # 
-
+  ```text
+  # .suppress-container-warning
+  #
+  # NOTICE: Settings in this file will override values set at the
+  #         image or orchestraton layers of the container.  Examples
+  #         include variables that are specific to this server profile.
+  #
+  # Options include:
+  #
+  # ALWAYS OVERRIDE the value in the container
+  #   NAME=VAL        
+  #
+  # SET TO DEFAULT VALUE if not already set       
+  #   export NAME=${NAME:=myDefaultValue}  # Sets to string of "myDefaultValue"
+  #   export NAME=${NAME:-OTHER_VAR}       # Sets ot value of OTHER_VAR variable
+  # 
+  ```
 
 ## Container scope 
-Any variables defined in the hook scripts.  Variables that need to be passed to other hook scripts can append to ${CONTAINER_ENV}, 
-(defined as /opt/staging/.env).  This file will be sourced for every hook.
 
-# Example Scoping
+Variables having a container scope are assigned in the hook scripts, and will overwrite variables that are set elsewhere. Variables that need to be passed to other hook scripts be appended to the file assigned to `${CONTAINER_ENV}`, (defaults to `/opt/staging/.env`). This file will be sourced for every hook script.
+
+## Scoping example
 
 ![Variable Scoping](images/variableScoping-2.png)

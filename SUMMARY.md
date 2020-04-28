@@ -45,7 +45,7 @@
     - [Server profile structures](docs/profileStructures.md)
     - [Using private Github repositories](docs/privateRepos.md)
   - [Customizing YAML files](docs/yamlFiles.md)
-  - [Understanding Variable Scopes](docs/variableScoping.md)
+  - [Variables and scope](docs/variableScoping.md)
   - [Using DevOps hooks](docs/hooks.md)
   - [Using release tags](docs/releaseTags.md)
   - [Using supported images](docs/imageSupport.md)
