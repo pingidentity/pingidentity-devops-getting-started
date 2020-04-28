@@ -1,43 +1,45 @@
-# Using Getting Started Git Repo
+# Using the getting-started repo
 
-This provides help in getting started with the Ping Identity Getting Started Git repository.  It will require an understanding of `git` as well as use of the `docker` and `docker-compose` commands.
-> It is recommended that you review all [Getting Started](gettingStarted.md) document if you haven't already.
+The `pingidentity-devops-getting-started` repository contains all of our working Docker and Kubernetes examples.
 
+## What you'll do
 
-## Tools Prerequisites
+You'll use Git to clone the `pingidentity-devops-getting-started` repository, and Docker Compose to deploy the full stack example.
 
+## Prerequisites
+
+* You've already set up your DevOps environment. See [Getting started](getStarted.md).
 * [Git](https://git-scm.com/downloads)
 
 
+## Clone `pingidentity-devops-getting-started`
 
-## Clone the Ping Identity Devops Getting Started Repo
+1. Clone the `pingidentity-devops-getting-started` repository to your local ${PING_IDENTITY_DEVOPS_HOME} directory:
 
-1. Clone the DevOps repository to the `${HOME}/projects/devops` directory on your local machine:
+   > The ${PING_IDENTITY_DEVOPS_HOME} environment variable was set when you ran `ping-devops config`.
 
-   ```bash
-   cd ${PING_IDENTITY_DEVOPS_HOME}   # Created during 'ping-devops config'
+   ```shell
+   cd ${PING_IDENTITY_DEVOPS_HOME}
    git clone https://github.com/pingidentity/pingidentity-devops-getting-started.git
    ```
 
 ## Deploy the full stack
 
-1. Deploy the full stack of product containers:
+1. Deploy the full stack of our product containers:
 
    > For your initial deployment of the stack, we recommend you make no changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. Any configuration changes you make will not be saved when you bring down the stack. For subsequent deployments, see [Saving your configuration changes](saveConfigs.md).
 
-   a. To start the stack, on your local machine, go to the `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
+   a. To start the stack, go to your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
-   ```bash
-   cd ${PING_IDENTITY_DEVOPS_HOME}
-   cd pingidentity-devops-getting-started/11-docker-compose/03-full-stack
+   ```shell
    docker-compose up -d
    ```
 
-   The full set of DevOps images is automatically pulled from our repository, if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/).
+   The full set of our DevOps images is automatically pulled from our repository, if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/).
 
    b. Use this command to display the logs as the stack starts:
 
-   ```bash
+   ```shell
    docker-compose logs -f
    ```
 
@@ -48,7 +50,7 @@ This provides help in getting started with the Ping Identity Getting Started Git
    * `docker ps` (enter this at intervals)
    * `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`
 
-   Refer to the Docker Compose documentation [on the Docker site](https://docs.docker.com/compose/).
+   Refer to the [Docker Compose documentation](https://docs.docker.com/compose/) for more information.
 
 2. Log in to the management consoles for the products:
 
@@ -90,15 +92,15 @@ This provides help in getting started with the Ping Identity Getting Started Git
   2. httpbin
   3. datagov? Pingcentral? -->
 
-3. When you no longer want to run this full stack evaluation, you can either stop the running stack, or bring the stack down.
+3. When you no longer want to run the stack, you can either stop or remove the stack.
 
-   To stop the running stack without removing any of the containers or associated Docker networks, enter:
+   To stop the running stack (doesn't remove any of the containers or associated Docker networks), enter:
 
    ```bash
    docker-compose stop
    ```
 
-   To remove all of the containers and associated Docker networks, enter:
+   To stop the stack and remove all of the containers and associated Docker networks, enter:
 
    ```bash
    docker-compose down

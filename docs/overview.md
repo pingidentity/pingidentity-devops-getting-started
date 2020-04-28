@@ -14,7 +14,9 @@ The Docker images are automatically pulled from our repository the first time yo
 
 ## Deployment examples
 
-We supply examples for deploying our products as standalone containers, as a stack, as an orchestrated set using Docker Swarm, and as an orchestrated set using Kubernetes.
+We supply examples for deploying our products as standalone containers, as a Docker Compose stack, as an orchestrated set using Docker Swarm, and as an orchestrated set using Kubernetes.
+
+Use Docker Compose for development, demonstrations, and lightweight orchestration. Use Kubernetes for enterprise-level orchestration.
 
 ## Configuration management
 

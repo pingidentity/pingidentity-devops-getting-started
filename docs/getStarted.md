@@ -1,58 +1,84 @@
-# Get Started
+# Getting Started
 
-You can quickly deploy Docker images of Ping Identity products. We use docker, docker-compose and kubernetes to deploy the Ping Identity Docker images in stable, network-enabled containers.  The Ping Identity Docker images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers.  To choose which is right for you:
+You can quickly deploy Docker images of Ping Identity products. We use Docker, Docker Compose, and Kubernetes to deploy our Docker images in stable, network-enabled containers. Our Docker images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers.  
 
-* docker/docker-compose - Demo, development and lightweight orchestration purposee
-* kubernetes - Enterprise-level orchestration.
-
-## Tools Prerequisites
+## Prerequisites
 
 * [Docker](https://docs.docker.com/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/) (already inluded with Docker Desktop on Mac and Windows)
 * [ping-devops tool](pingDevopsUtil.md#installation)
 
-## Product License
+### Product License
 
-You will need a product license to run the product docker images.  Options include:
+You will need a product license to run our Docker images.  Options include:
 
-* An evaluation license obtained with a valid DevOps user key.  [Register Here](devopsRegistration.md)
-* A valid product license available with a current Ping Identity customer subscription.
+* An evaluation license obtained with a valid DevOps user key. See [Ping Identity DevOps registration](devopsRegistration.md) for more information.
+* A valid product license available with a current Ping Identity customer subscription. See [Using an existing product license](https://pingidentity-devops.gitbook.io/devops/getstarted/existinglicense) for more information.
 
-## Let's Start
+## Set up your DevOps environment
 
-1. Obtain a DevOps user and key.  If you don't alredy have one [Register Here](devopsRegistration.md)
-2. Open a terminal and create a local DevOps directory, `${HOME}/projects/devops`.
+1. Open a terminal and create a local DevOps directory named `${HOME}/projects/devops`.
 
    > We'll use this as the parent directory for all DevOps examples referenced in our documentation.
 
-3. Install all prerequisites above if you haven't already.
-4. Configure your environment for Ping DevOps.  
+2. Configure your DevOps environment:  
 
     ```bash
     ping-devops config
     ``` 
 
-    > Answer all Docker configuration items at a minimum, taking defaults if not sure.  You can take defaults (empty) for Kubernetes and custom variables aren't needed initially.
+   a. Respond to all Docker configuration questions, accepting the defaults if you're not sure.  You can accept the (empty) defaults for Kubernetes. Settings for custom variables aren't needed initially.
 
-    > All answers are kept in `~/.pingidentity/devops` file.  Allow the config script to source this file in your shell profile (i.e. ~/.bash_profile). 
-  
-5. Use ping-devops tool to run a quick demo of any of our products (i.e. pingfederate) in your docker environment.  Follow directions from start command to login to management console once started.
+   b. All of your responses are stored as settings in your local `~/.pingidentity/devops` file. Allow the configuration script to source this file in your shell profile (for example, ~/.bash_profile).
 
-    ```bash
-    ping-devops docker info
-    ping-devops docker info  pingfederate
-    ping-devops docker start pingfederate
+3. To display your DevOps environment settings, enter:
+
+   ```shell
+   ping-devops info
+   ```
+
+4. You can use the ping-devops utility to run a quick demonstration of any of our products in your Docker environment. 
+   a. To display information about the containers or stacks available using the ping-devops utility, enter:
+
+   ```shell
+   ping-devops docker info
+   ```
+
+   b. To display information about one of the listed containers or stacks, enter:
+
+   ```shell
+   ping-devops docker <name>
+   ```
+
+   Where \<name> is one of the listed container or stack names.
+
+5. To start one of the containers or stacks, enter:
+
+    ```shell
+    ping-devops docker start <name>
     ```
-     > The first time, will ensure several dependencies (i.e. docker, docker-compose), so resolve these, if needed.
 
-6. Use ping-devops tool to stop or cleanup after you finish.
+   Where \<name> is one of the listed container or stack names.
 
-    ```bash
-    ping-devops docker stop pingfederate   # Stops the instance
+     > The initial run will ensure dependencies are met (such as, Docker or Docker Compose).
+
+6. When you're done:
+
+   To stop the container or stack, enter:
+
+    ```shell
+    ping-devops docker stop <name>
+    ```
+
+    To remove the container or stack and all associated data, enter
+
+    ```shell
     ping-devops docker rm   pingfederate   # Removes instance and all data
     ```
-     > Be aware that any data created in these demos goes away when removed or the ping-devops instances are cleaned.  See [Saving your config/data changes](saveConfigs.md) to persist data to a local Docker volume.
 
-## Next Steps
-* [Ping Identity Getting Started Git repos](getStartedWithGitRepo.md)
+    > When you stop or removed the container or stack, none of the data created when you use the demonstration is persisted. See [Saving your configuration changes](saveConfigs.md) to persist data to a local Docker volume.
+
+## Next step
+
+* [Using the getting-started repo](getStartedWithGitRepo.md)
 
