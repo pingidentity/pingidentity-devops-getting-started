@@ -22,8 +22,6 @@
     - [Deploy a PingAccess cluster](docs/deployPaCluster.md)
     - [Deploy a monitoring stack](docs/deployMonitoringStack.md)
     - [Deploy an Elasticsearch SIEM stack](docs/deploySiemStack.md)
-  - [Orchestrate with Docker Swarm](docs/deploySwarm.md)
-    - [PingFederate clustering using Docker Swarm and AWS S3](docs/swarmPfCluster.md)
   - [Orchestrate with Kubernetes](docs/deployK8s.md)
     - [PingDirectory deployments across Kubernetes clusters](docs/deployK8sPD-clusters.md)
     - [Kubernetes deployments for general use](docs/deployK8sGeneral.md)

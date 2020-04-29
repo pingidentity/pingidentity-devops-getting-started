@@ -124,7 +124,7 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 
 ## Assign the environment variables for the deployment
 
-We'll assign the environment variables for use in a Docker Compose YAML file. However, you can use this technique with any Docker deployment (such as `docker run`, Kubernetes, Docker Swarm).
+We'll assign the environment variables for use in a Docker Compose YAML file. However, you can use this technique with any Docker or Kubernetes deployment.
 
 If you're intending on using your Github repository for the deployment, in the following examples, replace 
 `SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git` 

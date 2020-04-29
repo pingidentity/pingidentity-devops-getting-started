@@ -35,8 +35,6 @@ When you're going to deploy a stack, you can use either of these methods to assi
 
 Add the `env_file` configuration option to the YAML file for the stack. The `env_file` configuration option passes environment variable definitions into the container.
 
-> This format isn't supported by Docker Swarm.
-
 For example:
 
 ```bash
@@ -54,8 +52,6 @@ pingdirectory:
 ### The DevOps environment variables
 
 Add the `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY` DevOps environment variables to the YAML file for the stack.
-
-> Docker Swarm requires this format.
 
 For example:
 ```bash

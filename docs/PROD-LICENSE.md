@@ -85,12 +85,9 @@ docker run \
            pingidentity/pingdirectory
 ```
 
-### Example with .yaml file
+### Example with a YAML file
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
-
->Note: Docker Compose is able to make use of this format.  See next section for example if using
-Docker Swarm.
 
 ```text
 ...
@@ -107,9 +104,6 @@ Docker Swarm.
 ### Example with .yaml file and inline environment variables
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
-
->Note: Docker Swarm requires this format.  See previous section for example if using
-Docker Swarm.
 
 ```text
 ...
