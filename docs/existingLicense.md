@@ -12,19 +12,21 @@ Use either of these two methods to make an existing product license file availab
   - PingDataSync: `instance/pingdatasync.lic`
   - PingCentral: `instance/conf/pingcentral.lic`
 
-* Use the instructions in [License declarations for stacks](#stacksLic) below to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
+* Use the instructions in any of these subtopics:
 
-* Use the instructions in [License declarations for standalone containers](#standaloneLic) below when bringing up standalone containers.
+  - **License declarations for stacks** to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
 
-* Use the instructions in [Passing a license as a Kubernetes secret](#k8sLic) to use an existing license with Kubernetes.
+  - **License declarations for standalone containers** when bringing up standalone containers.
 
-<a name="stacksLic"></a>
+  - **Passing a license as a Kubernetes secret** to use an existing license with Kubernetes.
+
 ## License declarations for stacks
 
-For our Docker stacks, copy each license file to the `/opt/in` volume that you've mounted. The `/opt/in` directory overlays files onto the products runtime file system, the license needs to be named correctly and mounted in the exact location the product checks for valid licenses.
+For our Docker stacks, copy each license file to the `/opt/in` volume that you've mounted. The `/opt/in` directory overlays files onto the products runtime file system. The license needs to be named correctly and mounted in the exact location where the product checks for valid licenses.
 
  1. Add a `volumes` section to the container entry for each product for which you have a license file in the `docker-compose.yaml` file you're using for the stack.
- 2. Under the `volumes` section, add a location to mount `opt/in`. For example:
+
+ 2. Under the `volumes` section, add a location to mount `opt/in`. An example using PingFederate:
 
     ```yaml
     pingfederate:
@@ -37,7 +39,9 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
     Where \<path> is the location of your existing PingFederate license file.
 
-    When the container starts, this will mount `<path>/pingfederate.lic` to this location in the container`/opt/in/instance/server/default/conf/pingfederate.lic`. The mount paths must match the expected license path for the product. These are:
+    When the container starts, this will mount `<path>/pingfederate.lic` to this location in the container`/opt/in/instance/server/default/conf/pingfederate.lic`. 
+    
+    The mount paths must match the expected license path for the product. These mount paths are:
 
     * PingFederate
       - Expected license file name: `pingfederate.lic`
@@ -65,7 +69,6 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
  3. Repeat this process for the remaining container entries for which you have an existing license.
 
-<a name="standaloneLic"></a>
 ## License declarations for standalone containers
 
 For a standalone container, use this syntax to make the license file available to the deployment:
@@ -79,7 +82,6 @@ For a standalone container, use this syntax to make the license file available t
 
    Where `<path>` and the `/opt/in` mount path are as specified for our Docker stacks above.
 
-<a name="k8sLic"></a>
 ## Passing a license as a Kubernetes secret
 
 We'll use PingFederate as an example. You'll need to supply your PingFederate license file.
