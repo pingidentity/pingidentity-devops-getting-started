@@ -4,7 +4,7 @@
 * [Ping Identity DevOps](docs/README.md)
 * [Release notes (current)](docs/relnotes-2003.md)
 * [Overview](docs/overview.md)
-* [Get started](docs/getStarted.md)
+* [Getting started](docs/getStarted.md)
   - [DevOps Registration](docs/devopsRegistration.md)
   - [Using Getting Started Git Repo](docs/getStartedWithGitRepo.md)
   - [Using your DevOps user and key](docs/devopsUserKey.md)
