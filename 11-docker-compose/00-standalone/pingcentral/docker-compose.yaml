@@ -1,0 +1,31 @@
+version: "3.1"
+# This server profile used as basis for ping-devop docker-launch
+
+#-------------------------------------------------------------------------------------
+#- Ping Identity PingCentral getting started demo
+#-
+#-                +---------------+
+#-                |  PingCentral  |
+#-                +---------------+
+#-
+#- To access PingFederate Console
+#- 
+#-    https://localhost:9022/
+#-    
+#-    Username: administrator
+#-    Password: 2Federate
+#-------------------------------------------------------------------------------------
+
+services:
+  pingfederate:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    env_file:
+      - ~/.pingidentity/devops
+    ports:
+      - "9022:9022"
+    networks:
+      - pingnet
+                    
+networks:
+    pingnet:
+
