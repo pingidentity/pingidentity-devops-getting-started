@@ -8,7 +8,7 @@ version: "3.1"
 #-                |  PingCentral  |
 #-                +---------------+
 #-
-#- To access PingFederate Console
+#- To access PingCentral Console
 #- 
 #-    https://localhost:9022/
 #-    
@@ -17,7 +17,7 @@ version: "3.1"
 #-------------------------------------------------------------------------------------
 
 services:
-  pingfederate:
+  pingcentral:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
     env_file:
       - ~/.pingidentity/devops
