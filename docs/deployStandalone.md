@@ -15,32 +15,17 @@ Our single container examples are located in the your local `${HOME}/projects/de
 
 ## Deploy a single container
 
-1. From your local `${HOME}/projects/devops/pingidentity-devops-getting-started/10-docker-standalone` directory, select one of the available products. You can then use either of these methods to deploy the container:
+1. From the list of [getting-started server-profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started), you can use the `ping-devops` tool as outlined in [Getting started](getStarted.md) or using `docker run` using following example:
 
-  * Use the supplied `docker-run` script in this directory.
-
-    > See [Standalone deployment scripts](deployStandaloneScripts.md) for descriptions of the supplied standalone scripts.
-
-    From your local `10-docker-standalone` directory, enter:
-
-      ```text
-      ./docker-run.sh <product-image-name>
-      ```
-    
-    > This shell script uses the default DevOps server profile and environment settings to configure the PingDirectory container, runs the container in the background (detached mode, `-d`) and publishes PingDirectory to the ports `1389:389`.
-
-  * Use a server profile.
-
-    For example:
-
-      ```bash
-      docker run -d --publish 1389:389 \
-        --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-        --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
-        --detach \
-        --env-file ~/.pingidentity/devops \
-        pingidentity/pingdirectory
-      ```
+    ```bash
+    docker run -d --publish 9876:9999 \
+      --name pingfederate \
+      --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+      --env SERVER_PROFILE_PATH=getting-started/pingfederate \
+      --detach \
+      --env-file ~/.pingidentity/devops \
+      pingidentity/pingfederate:edge
+    ```
 
 2. Log in to the management console for the product:
 
@@ -81,13 +66,5 @@ Our single container examples are located in the your local `${HOME}/projects/de
 
    * The `dcstop <container_name>` command alias or `docker container stop <container_name>`.
 
-    > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker container command line reference](https://docs.docker.com/engine/reference/commandline/container/) for the Docker container commands.
-
-   * The supplied `docker-stop.sh` script located in your local `pingidentity-devops-getting-started/10-docker-standalone` directory.
-
-    From your local `10-docker-standalone` directory, enter:
-
-     ```text
-     ./docker-run.sh <product-container-name>
-     ```
-   * Stop all containers: `dsa`. Remove all containers: `dra`
+   * Stop all containers: `dsa` command alias.
+   * Remove all containers: `dra` command alias.

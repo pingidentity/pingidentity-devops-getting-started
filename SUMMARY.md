@@ -12,7 +12,6 @@
   - [Saving your configuration changes](docs/saveConfigs.md)
 * [Working with DevOps images](docs/deploy.md)
   - [Deploy standalone containers](docs/deployStandalone.md)
-    - [Standalone deployment scripts](docs/deployStandaloneScripts.md)
   - [Orchestrate with Docker-Compose](docs/deployCompose.md)
     - [Deploy a PingFederate and PingDirectory stack](docs/deploySimpleStack.md)
     - [Deploy a replicated PingDirectory pair](docs/deployReplication.md)
