@@ -29,6 +29,12 @@
                 "path": "11-docker-compose/00-standalone/pingaccess"
             },
             {
+                "name": "pingcentral",
+                "type": "product",
+                "description": "Standalone PingCentral Demo",
+                "path": "11-docker-compose/00-standalone/pingcentral"
+            },
+            {
                 "name": "pingfederate",
                 "type": "product",
                 "description": "Standalone PingFederate Demo",
