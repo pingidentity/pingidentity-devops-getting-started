@@ -1,3 +1,0 @@
-if test -z "$(docker network ls --filter name=^${NETWORK_NAME}$ -q)" ; then
-	docker network create ${NETWORK_NAME}
-fi
