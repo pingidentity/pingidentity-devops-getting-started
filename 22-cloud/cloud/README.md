@@ -1,1 +1,0 @@
-[Kubernetes deployments for cloud platforms](../../docs/deployK8sCloud.md) for more information.

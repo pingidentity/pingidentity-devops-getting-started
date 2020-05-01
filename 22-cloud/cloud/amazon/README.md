@@ -1,1 +1,0 @@
-See [Deploy to Amazon Web Services EKS](../../../docs/deployK8s-AWS.md) for more information.
