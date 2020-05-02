@@ -29,7 +29,7 @@
 * On Linux systems without brew, install/upgrade the `ping-devops` utility and bash_profile aliases to your current directory by entering:
 
   ```bash
-  curl -s https://raw.githubusercontent.com/pingidentity/ping-devops/master/install.sh | bash
+  curl -sL https://bit.ly/ping-devops-install | bash
   ```
 
   Follow instructions to copy these to the preferred location.
@@ -40,7 +40,7 @@
 
 ```
 ################################################################################
-#  Ping Identity DevOps (version 0.5.6)
+#  Ping Identity DevOps (version 0.5.7)
 #
 #  Documentation: https://pingidentity-devops.gitbook.io/devops/
 #   GitHub Repos: https://github.com/topics/ping-devops
@@ -61,7 +61,7 @@ Generate Kubernetes/Kustomize Resource:
 
 Running Docker/Kubernetes Evironments:
   ping-devops docker     [info|start|stop|rm|clean]
-  ping-devops kubernetes [info|start|rm|clean]
+  ping-devops kubernetes [info|start|rm|clean]  
 
 Further help:
   https://github.com/pingidentity/ping-devops
