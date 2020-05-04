@@ -1,13 +1,14 @@
 # Deploy an Elasticsearch SIEM stack
 
-This project will start a Ping Stack with Elastic Search Infrastructure built in for Visualizing traffic and other security / log data. Showing you the pipes.
+This example deploys a PingFederate, PingAccess, and PingDirectory stack with Elasticsearch infrastructure built in for visualizing traffic and other security or log data. The architecture looks like this:
 
 ![alt text](images/Architecture.png "Architecture Overview")
 
 * Threat intel and TOR Endpoints are  provided by AlienVault and the TOR Network Endpoint List. 
-* Threat feeds are updated on an interval via setting an environment variable in `docker-compose.yaml` 
 
-> **Caution**: This stack is not intended for production environments.   
+* Threat feeds are updated on an interval via setting an environment variable in `docker-compose.yaml` .
+
+> **Warning**: This stack is not intended for production environments.   
 
 ## Prerequisites
 
