@@ -24,7 +24,7 @@ This is illustrated in two diagrams:
 
 You can open a shell into a Docker container and view the container structure and resources by:
 
-1. Entering `docker ls` and getting the container ID displayed.
+1. Entering `docker container ls` and getting the container ID displayed.
 
 2. Entering `docker exec -it <container-id> /bin/sh`.
 
