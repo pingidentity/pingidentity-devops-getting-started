@@ -4,7 +4,7 @@
 * [Ping Identity DevOps](docs/README.md)
 * [Release notes (current)](docs/relnotes-2004.md)
   - [Prior release notes](docs/priorReleases.md)
-    - [DevOps Docker builds, version 2003](docs/relnotes-2003.md)
+    - [Version 2003](docs/relnotes-2003.md)
 * [Overview](docs/overview.md)
 * [Getting started](docs/getStarted.md)
   - [DevOps Registration](docs/devopsRegistration.md)
