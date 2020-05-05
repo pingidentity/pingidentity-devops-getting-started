@@ -2,6 +2,8 @@
 
 Our single container examples are located in the your local `${HOME}/projects/devops/pingidentity-devops-getting-started/10-docker-standalone` directory.
 
+You can use the list of [getting-started server-profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started)
+
 ## What you'll do
 
   * Deploy one of our containers.
@@ -15,8 +17,8 @@ Our single container examples are located in the your local `${HOME}/projects/de
 
 ## Deploy a single container
 
-1. From the list of [getting-started server-profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started), you can use the `ping-devops` tool as outlined in [Getting started](getStarted.md) or using `docker run` using following example:
-
+1. Use the `docker run` command to deploy a container. For example:
+   
     ```bash
     docker run -d --publish 9876:9999 \
       --name pingfederate \

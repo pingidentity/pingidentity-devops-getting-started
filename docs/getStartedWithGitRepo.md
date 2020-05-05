@@ -12,7 +12,7 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 * [Git](https://git-scm.com/downloads)
 
 
-## Clone `pingidentity-devops-getting-started`
+## Clone the getting-started repo
 
 1. Clone the `pingidentity-devops-getting-started` repository to your local ${PING_IDENTITY_DEVOPS_HOME} directory:
 

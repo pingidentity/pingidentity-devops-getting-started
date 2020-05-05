@@ -1,6 +1,6 @@
 # Deploy a monitoring stack
 
-This use case describes how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.
+This example illustrates how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.
 
 Monitoring tools used:
 - [Prometheus](https://prometheus.io/)
