@@ -29,4 +29,4 @@ List of available hooks:
 ---
 This document auto-generated from _[pingbase/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingbase/hooks)_
 
-Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
+Copyright (c)  2020 Ping Identity Corporation. All rights reserved.

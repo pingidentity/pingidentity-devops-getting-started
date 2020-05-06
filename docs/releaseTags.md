@@ -52,7 +52,7 @@ For example, `pingfederate:latest`.
 
 ### sprint
 
-The `sprint` release tag is a build number and indicates a stable build that is guaranteed to not change. The `sprint` number uses the YYMM format. For example, 1909 = September 2019.
+The `sprint` release tag is a build number and indicates a stable build that is guaranteed to not change. The `sprint` number uses the YYMM format. For example, 1909 = September 2020.
 
 * Latest product version at the time the sprint ended.
 * All completed and qualified enhacements and fixes from the specified monthly sprint. The Docker images are generated at the end of the specified monthly sprint.

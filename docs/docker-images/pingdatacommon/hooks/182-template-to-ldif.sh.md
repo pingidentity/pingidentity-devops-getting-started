@@ -11,4 +11,4 @@ To be implemented by the downstream product (i.e. pingdirectory)
 ---
 This document auto-generated from _[pingdatacommon/hooks/182-template-to-ldif.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/hooks/182-template-to-ldif.sh)_
 
-Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
+Copyright (c)  2020 Ping Identity Corporation. All rights reserved.

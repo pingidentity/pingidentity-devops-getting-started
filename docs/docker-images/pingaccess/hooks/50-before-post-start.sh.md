@@ -6,4 +6,4 @@
 ---
 This document auto-generated from _[pingaccess/hooks/50-before-post-start.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/hooks/50-before-post-start.sh)_
 
-Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
+Copyright (c)  2020 Ping Identity Corporation. All rights reserved.

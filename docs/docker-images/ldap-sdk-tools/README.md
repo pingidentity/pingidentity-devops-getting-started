@@ -57,7 +57,7 @@ docker run -it --rm \
     --keystore-password ${PWD}
 ls -all /tmp/hibp
 keytool -list \
-  -keystore /tmp/hibp/hibp-2019.jks \
+  -keystore /tmp/hibp/hibp-2020.jks \
   -storepass ${PWD}
 ```
 ## Docker Container Hook Scripts
@@ -66,4 +66,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document auto-generated from _[ldap-sdk-tools/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/ldap-sdk-tools/Dockerfile)_
 
-Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
+Copyright (c)  2020 Ping Identity Corporation. All rights reserved.

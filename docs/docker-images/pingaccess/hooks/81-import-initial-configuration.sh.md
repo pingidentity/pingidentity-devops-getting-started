@@ -12,4 +12,4 @@ Pipes in PingDataSync or issuing admin API calls to PingFederate or PingAccess
 ---
 This document auto-generated from _[pingaccess/hooks/81-import-initial-configuration.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/hooks/81-import-initial-configuration.sh)_
 
-Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
+Copyright (c)  2020 Ping Identity Corporation. All rights reserved.

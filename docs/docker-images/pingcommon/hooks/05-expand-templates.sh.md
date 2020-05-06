@@ -20,4 +20,4 @@
 ---
 This document auto-generated from _[pingcommon/hooks/05-expand-templates.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/hooks/05-expand-templates.sh)_
 
-Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
+Copyright (c)  2020 Ping Identity Corporation. All rights reserved.

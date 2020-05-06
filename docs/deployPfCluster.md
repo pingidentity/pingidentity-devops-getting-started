@@ -93,7 +93,7 @@ Check the status of the cluster using either or the PingFederate Admin REST API:
   The resulting response will be similar to this:
 
   ```json
-  {"nodes":[{"address":"169.254.1.2:7600","mode":"CLUSTERED_CONSOLE","index":804046313,"nodeGroup":"","version":"10.0.0.15"},{"address":"169.254.1.3:7600","mode":"CLUSTERED_ENGINE","index":2142569058,"nodeGroup":"","version":"10.0.0.15","nodeTags":""}],"lastConfigUpdateTime":"2019-12-31T19:36:54.000Z","replicationRequired":true,"mixedMode":false}
+  {"nodes":[{"address":"169.254.1.2:7600","mode":"CLUSTERED_CONSOLE","index":804046313,"nodeGroup":"","version":"10.0.0.15"},{"address":"169.254.1.3:7600","mode":"CLUSTERED_ENGINE","index":2142569058,"nodeGroup":"","version":"10.0.0.15","nodeTags":""}],"lastConfigUpdateTime":"2020-12-31T19:36:54.000Z","replicationRequired":true,"mixedMode":false}
   ```
 
 ## Replicate the cluster configuration
