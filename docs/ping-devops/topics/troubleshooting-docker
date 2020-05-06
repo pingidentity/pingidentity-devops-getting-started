@@ -1,0 +1,28 @@
+
+To ensure that your environment is configured correctly to run the 
+Ping Identity DevOps products, you can run the following command to 
+test your ~/.pingidentity/devops file has been setup correctly.
+
+    run docker --env-file ~/.pingidentity/devops alpine env | sort
+
+The output should look something like this:
+
+    > docker run --env-file ${HOME}/.pingidentity/devops alpine env | sort
+    HOME=/root
+    HOSTNAME=cc4008ce6105
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    PING_IDENTITY_ACCEPT_EULA=YES
+    PING_IDENTITY_DEVOPS_HOME=......
+    PING_IDENTITY_DEVOPS_KEY=.......
+    PING_IDENTITY_DEVOPS_REGISTRY=docker.io/pingidentity
+    PING_IDENTITY_DEVOPS_TAG=edge
+    PING_IDENTITY_DEVOPS_USER=......
+
+If the PING_IDENTITY_... variables are missing, then either your 
+~/.pingidentity/devops folder hasn't been configured correctly.  You can 
+fix this with:
+
+    ping-devops config
+
+or in some cases (mostl on some linux variants) the variables are getting
+sourced correctly. 

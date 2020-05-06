@@ -40,7 +40,7 @@
 
 ```
 ################################################################################
-#  Ping Identity DevOps (version 0.5.7)
+#  Ping Identity DevOps (version 0.6.0)
 #
 #  Documentation: https://pingidentity-devops.gitbook.io/devops/
 #   GitHub Repos: https://github.com/topics/ping-devops
@@ -52,16 +52,17 @@ General Usage:
   ping-devops version                           # Version Details and Check
   ping-devops topic [ {topic-name} ]            # Short Help Topics
 
-Generate Kubernetes/Kustomize Resource:
+Generate Kubernetes/Kustomize/License Resources:
   ping-devops generate devops-secret                    # Ping DevOps secret
   ping-devops generate tls-secret {domain}              # TLS Cert/Key (i.e. example.com)
   ping-devops generate ssh-id-secret {ssh id_rsa file}  # SSH ID Key (i.e. ~/.ssh/id_rsa)
-  ping-devops generate license-secret {license file}    # License file (i.e. pingdirectory.lic)
+  ping-devops generate license {product}                # Eval license file for product
+  ping-devops generate license-secret {license file}    # License secret from license file
   ping-devops generate kustomization.yaml               # Skeleton kustomization.yaml
 
 Running Docker/Kubernetes Evironments:
   ping-devops docker     [info|start|stop|rm|clean]
-  ping-devops kubernetes [info|start|rm|clean]  
+  ping-devops kubernetes [info|start|rm|clean]
 
 Further help:
   https://github.com/pingidentity/ping-devops
