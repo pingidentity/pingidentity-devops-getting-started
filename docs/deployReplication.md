@@ -18,7 +18,8 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
    ```
    docker-compose up -d
    ```
-This kicks off a pingdirectory instance that will stand up, become healthy, and then go into a loop looking for other directories. 
+   
+   This kicks off a pingdirectory instance that will stand up, become healthy, and then go into a loop looking for other directories. 
 
 2. Scale it up!
 
