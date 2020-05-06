@@ -3,7 +3,7 @@ To ensure that your environment is configured correctly to run the
 Ping Identity DevOps products, you can run the following command to 
 test your ~/.pingidentity/devops file has been setup correctly.
 
-    run docker --env-file ~/.pingidentity/devops alpine env | sort
+    docker run --env-file ~/.pingidentity/devops alpine env | sort
 
 The output should look something like this:
 
