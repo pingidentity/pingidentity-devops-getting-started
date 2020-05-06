@@ -26,6 +26,11 @@ Download the latest PingDirectory
 docker run pingidentity/pingdownloader -p PingDirectory
 ```
 
+Obtain the license file for the latest PingDirectory in the current directory
+```
+docker run --rm -t -v $( pwd ):/tmp --env-file ~/.pingidentity/devops pingidentity/pingdownloader -l -p pingdirectory -c
+```
+
 Download a specific version of PingDirectory
 ```
 docker run pingidentity/pingdownloader -p PingDirectory -v 7.3.0.0
