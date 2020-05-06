@@ -48,7 +48,6 @@ spec:
       containers:
       - name: pingfederate-engine
         image: pingidentity/pingfederate:edge
-        imagePullPolicy: Always
         ports:        
         - containerPort: 9031
         ## ideally, all profiles (configs) should be tagged in Github. 

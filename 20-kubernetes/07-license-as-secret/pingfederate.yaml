@@ -33,7 +33,6 @@ spec:
       containers:
       - name: pingfederate
         image: pingidentity/pingfederate:latest
-        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: pingfederate-environment-variables
