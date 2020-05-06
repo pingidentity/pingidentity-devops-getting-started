@@ -36,7 +36,6 @@ spec:
             name: devops-secret
             optional: true
         image: pingidentity/pingdatagovernancepap:edge
-        imagePullPolicy: Always
         name: pingdatagovernancepap
         ports:
         - containerPort: 8443

@@ -42,7 +42,6 @@ spec:
             name: devops-secret
             optional: true
         image: pingidentity/pingdirectory:edge
-        imagePullPolicy: Always
         lifecycle:
           preStop:
             exec:

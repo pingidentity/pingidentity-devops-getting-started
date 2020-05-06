@@ -38,7 +38,6 @@ spec:
             name: devops-secret
             optional: true
         image: pingidentity/pingaccess:6.0.0-alpine-edge
-        imagePullPolicy: Always
         name: pingaccess
         ports:
         - containerPort: 9000
