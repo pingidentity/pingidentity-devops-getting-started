@@ -13,4 +13,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document auto-generated from _[apache-jmeter/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/apache-jmeter/Dockerfile)_
 
-Copyright (c)  2020 Ping Identity Corporation. All rights reserved.
+Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
