@@ -28,7 +28,7 @@ This pattern has the benefit of removing permissions from anything but the speci
 Use the following environment variables to set the user and group and prevent from running as root
 
 ```shell
-PINGIDENTITY_RUN_PRIVILEGED=false
+PING_CONTAINER_PRIVILEGED=false
 PING_CONTAINER_UID=<UID> (Default: 9031)
 PING_CONTAINER_GID=<GID> (Default: 9999)
 ```
