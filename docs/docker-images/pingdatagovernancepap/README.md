@@ -34,12 +34,14 @@ used, then it may come from a parent container
 ## Running a PingDataGovernance PAP container
 To run a PingDataGovernance PAP container:
 
-```she   ll
-  docker run \
-           --name pingdatagovernancepap \
-           --publish 8443:443 \
-           --detach \
-           pingidentity/pingdatagovernancepap:edge
+```shell
+
+    docker run \
+        --env HTTPS_PORT=8443 \
+        --name pingdatagovernancepap \
+        --publish 8443:8443 \
+        --detach \
+        pingidentity/pingdatagovernancepap:edge
 ```
 
 Follow Docker logs with:
