@@ -17,7 +17,7 @@ Using the inside-out pattern, the container steps down from root to run as a non
 Overview of the bootstrap process:
 
 * Start as root
-* Immediately check if need to step down (PINGIDENTITY_RUN_PRIVILEGED=false)
+* Immediately check if need to step down (PING_CONTAINER_PRIVILEGED=false)
 * Create the group with provided group ID or 9999
 * Create the user with provided user ID or 9031
 * Strip ownership but for user:group
