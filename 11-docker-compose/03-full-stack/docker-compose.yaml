@@ -111,8 +111,9 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - 1636-1646:636
-      - 1443-1453:443
+      - "1636:636"
+      - "1443:443"
+      - "1389:389"
     networks:
       - pingnet-internal
   
