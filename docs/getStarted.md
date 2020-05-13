@@ -5,12 +5,12 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 ## Prerequisites
 
 * [Docker](https://docs.docker.com/install/)
-* [Docker Compose](https://docs.docker.com/compose/install/) (already inluded with Docker Desktop on Mac and Windows)
+* [Docker Compose](https://docs.docker.com/compose/install/) (already included with Docker Desktop on Mac and Windows)
 * [ping-devops tool](pingDevopsUtil.md#installation)
 
 ### Product license
 
-You will need a product license to run our Docker images.  Options include:
+You'll need a product license to run our Docker images. You can use either:
 
 * An evaluation license obtained with a valid DevOps user key. See [Ping Identity DevOps registration](devopsRegistration.md) for more information.
 * A valid product license available with a current Ping Identity customer subscription. See [Using an existing product license](https://pingidentity-devops.gitbook.io/devops/getstarted/existinglicense) for more information.
