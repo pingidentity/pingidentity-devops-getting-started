@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-set -x
+# set -x
 ## init vars
 get_abs_filename() {
   # $1 : relative filename
