@@ -12,18 +12,9 @@ The `variablize_config.sh` tool can be used by sending each host/variable direct
 
 ## Examples
 
-Single Host Variablization
-```
-./variablize__pf_pa_config.sh --source federate.dev.pingidentity.com --destination PF_HOSTNAME \
---path /path/to/config/archive.zip --backup --output data.zip
-```
-This command will: 
-  1. Unzip `archive.zip` 
-  2. Look for `federate.dev.pingidentity.com` and replace it with `${PF_HOSTNAME}`.
-  3. Re-zip and rename to `data.zip`
-  4. Create a `data.zip.bak` backup.
 
-**Preferred**: hosts file
+### With Hosts File
+**Preferred Method**
 ```
 ./variablize_pf_pa_config.sh --env-file /path/to/env_hosts -p /path/to/config/archive.zip --output data
 ```
@@ -34,18 +25,29 @@ This command will:
 
 The file containing the items to look for must be structured similar to: 
 ```
-hostname variable_name
-federate.dev.pingidentity.com:9031 PF_HOSTNAME
-federate.prod.pingidentity.com PF_HOSTNAME
-access.dev.pingidentity.com PA_HOSTNAME
-access.prod.pingidentity.com PA_HOSTNAME
-directory.dev.pingidentity.com PD_HOSTNAME
-directory.prod.pingidentity.com PD_HOSTNAME
+VARIABLE_NAME=string
+PF_HOSTNAME=federate.dev.pingidentity.com
+PF_HOSTNAME=federate.prod.pingidentity.com 
+PA_HOSTNAME=access.dev.pingidentity.com 
+PA_HOSTNAME=access.prod.pingidentity.com
+PD_HOSTNAME=directory.dev.pingidentity.com
+PD_HOSTNAME=directory.prod.pingidentity.com
 ```
 
-## Notes: 
+### Single Host Variablization
+```
+./variablize__pf_pa_config.sh --source federate.dev.pingidentity.com --destination PF_HOSTNAME \
+--path /path/to/config/archive.zip --backup --output data.zip
+```
+This command will: 
+  1. Unzip `archive.zip` 
+  2. Look for `federate.dev.pingidentity.com` and replace it with `${PF_HOSTNAME}`.
+  3. Re-zip and rename to `data.zip`
+  4. Create a `data.zip.bak` backup.
 
+## Notes: 
   - Inline help on script can be found by adding -h or --help flags
+  - if you point at a config archive zip and don't specify `--output` it will be converted to data.zip.subst. 
   - add the script to ~/bin to call from anywhere: 
   ```
   cd ~/bin
