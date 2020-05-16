@@ -1,8 +1,10 @@
 
 # Ping Identity DevOps `pingbase` Hooks
-List of available hooks:
+There are no default hooks defined for the `pingbase` image.
+
+Hooks defined by parent images (i.e. pingcommon/pingdatacommon)
+will be inherited by this image.
 
 ---
-This document auto-generated from _[pingbase/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingbase/hooks)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

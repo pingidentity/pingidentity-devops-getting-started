@@ -8,6 +8,8 @@ List of available hooks:
 * [83-change-password.sh](83-change-password.sh.md)
 * [85-import-configuration.sh](85-import-configuration.sh.md)
 
+These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
+
 ---
 This document auto-generated from _[pingaccess/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/hooks)_
 

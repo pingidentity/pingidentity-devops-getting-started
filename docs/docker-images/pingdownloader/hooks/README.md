@@ -1,8 +1,10 @@
 
 # Ping Identity DevOps `pingdownloader` Hooks
-List of available hooks:
+There are no default hooks defined for the `pingdownloader` image.
+
+Hooks defined by parent images (i.e. pingcommon/pingdatacommon)
+will be inherited by this image.
 
 ---
-This document auto-generated from _[pingdownloader/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdownloader/hooks)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

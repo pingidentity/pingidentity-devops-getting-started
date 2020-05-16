@@ -1,8 +1,10 @@
 
 # Ping Identity DevOps `pingdatagovernance` Hooks
-List of available hooks:
+There are no default hooks defined for the `pingdatagovernance` image.
+
+Hooks defined by parent images (i.e. pingcommon/pingdatacommon)
+will be inherited by this image.
 
 ---
-This document auto-generated from _[pingdatagovernance/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatagovernance/hooks)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

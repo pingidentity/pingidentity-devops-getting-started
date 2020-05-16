@@ -1,8 +1,10 @@
 
 # Ping Identity DevOps `pingfederate` Hooks
-List of available hooks:
+There are no default hooks defined for the `pingfederate` image.
+
+Hooks defined by parent images (i.e. pingcommon/pingdatacommon)
+will be inherited by this image.
 
 ---
-This document auto-generated from _[pingfederate/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingfederate/hooks)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

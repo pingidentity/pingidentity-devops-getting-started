@@ -1,8 +1,10 @@
 
 # Ping Identity DevOps `ldap-sdk-tools` Hooks
-List of available hooks:
+There are no default hooks defined for the `ldap-sdk-tools` image.
+
+Hooks defined by parent images (i.e. pingcommon/pingdatacommon)
+will be inherited by this image.
 
 ---
-This document auto-generated from _[ldap-sdk-tools/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/ldap-sdk-tools/hooks)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

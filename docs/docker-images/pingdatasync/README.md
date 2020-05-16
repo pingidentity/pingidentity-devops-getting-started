@@ -6,7 +6,7 @@ and associated hook scripts to create and run a PingDataSync instance.
 
 ## Related Docker Images
 - pingidentity/pingbase - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**
+	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingbase)**
 - pingidentity/pingdatacommon - Common PingData files (i.e. hook scripts)
 - pingidentity/pingdownloader - Used to download product bits
 
