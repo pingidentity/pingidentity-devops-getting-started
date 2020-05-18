@@ -6,8 +6,8 @@ metadata:
   name: pingdataconsole
 spec:
   ports:
-  - name: http
-    port: 8080
+  - name: https
+    port: 8443
   selector:
     role: pingdataconsole
 ---
@@ -32,7 +32,7 @@ spec:
       - image: pingidentity/pingdataconsole:edge
         name: pingdataconsole
         ports:
-        - containerPort: 8080
+        - containerPort: 8443
         resources:
           limits:
             cpu: "1"
