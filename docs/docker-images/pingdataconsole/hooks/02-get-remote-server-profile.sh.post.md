@@ -5,6 +5,6 @@
  products will all provide this
 
 ---
-This document auto-generated from _[pingdataconsole/hooks/02-get-remote-server-profile.sh.post](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdataconsole/hooks/02-get-remote-server-profile.sh.post)_
+This document auto-generated from _[pingdataconsole/opt/staging/hooks/02-get-remote-server-profile.sh.post](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdataconsole/opt/staging/hooks/02-get-remote-server-profile.sh.post)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

@@ -5,6 +5,6 @@
  products will all provide this
 
 ---
-This document auto-generated from _[pingcommon/hooks/18-setup-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/hooks/18-setup-sequence.sh)_
+This document auto-generated from _[pingcommon/opt/staging/hooks/18-setup-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/18-setup-sequence.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

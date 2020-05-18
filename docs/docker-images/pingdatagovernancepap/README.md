@@ -8,7 +8,7 @@ and associated hook scripts to create and run a PingDataGovernance PAP instance.
 - `tomcat:8-jre8-alpine` - Tomcat engine to serve PingDataConsole .war file
 
 ## Environment Variables
-In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
+In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingbase)**,
 the following environment `ENV` variables can be used with 
 this image. 
 

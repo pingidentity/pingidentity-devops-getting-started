@@ -22,6 +22,6 @@
  then this hook could be overridden by a different hook
 
 ---
-This document auto-generated from _[pingcommon/hooks/02-get-remote-server-profile.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/hooks/02-get-remote-server-profile.sh)_
+This document auto-generated from _[pingcommon/opt/staging/hooks/02-get-remote-server-profile.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/02-get-remote-server-profile.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

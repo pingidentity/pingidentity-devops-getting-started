@@ -8,6 +8,6 @@
  Pipes in PingDataSync or issuing admin API calls to PingFederate or PingAccess
 
 ---
-This document auto-generated from _[pingaccess/hooks/85-import-configuration.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/hooks/85-import-configuration.sh)_
+This document auto-generated from _[pingaccess/opt/staging/hooks/85-import-configuration.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/opt/staging/hooks/85-import-configuration.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

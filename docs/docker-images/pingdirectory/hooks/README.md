@@ -12,6 +12,6 @@ List of available hooks:
 These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
 
 ---
-This document auto-generated from _[pingdirectory/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/hooks)_
+This document auto-generated from _[pingdirectory/opt/staging/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/opt/staging/hooks)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

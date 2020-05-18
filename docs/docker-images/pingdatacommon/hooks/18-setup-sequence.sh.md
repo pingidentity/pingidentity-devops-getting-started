@@ -4,6 +4,6 @@
  PingData product
 
 ---
-This document auto-generated from _[pingdatacommon/hooks/18-setup-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/hooks/18-setup-sequence.sh)_
+This document auto-generated from _[pingdatacommon/opt/staging/hooks/18-setup-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/opt/staging/hooks/18-setup-sequence.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

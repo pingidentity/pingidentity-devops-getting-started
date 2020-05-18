@@ -18,6 +18,6 @@
  This is especially useful for pingfederate for example with data.zip
 
 ---
-This document auto-generated from _[pingcommon/hooks/05-expand-templates.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/hooks/05-expand-templates.sh)_
+This document auto-generated from _[pingcommon/opt/staging/hooks/05-expand-templates.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/05-expand-templates.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

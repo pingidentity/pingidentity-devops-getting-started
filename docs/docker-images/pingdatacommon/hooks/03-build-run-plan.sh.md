@@ -4,6 +4,6 @@
  and if so, it will return a 1, else 0
 
 ---
-This document auto-generated from _[pingdatacommon/hooks/03-build-run-plan.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/hooks/03-build-run-plan.sh)_
+This document auto-generated from _[pingdatacommon/opt/staging/hooks/03-build-run-plan.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/opt/staging/hooks/03-build-run-plan.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.

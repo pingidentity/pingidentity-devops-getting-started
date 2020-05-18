@@ -12,7 +12,7 @@ to perform tasks aside a running set of pods/containers.
 - pingidentity/pingcommon - Common Ping files (i.e. hook scripts)
 
 ## Environment Variables
-In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
+In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingbase)**,
 the following environment `ENV` variables can be used with 
 this image. 
 

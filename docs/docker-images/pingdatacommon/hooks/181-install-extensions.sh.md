@@ -2,6 +2,6 @@
 # Ping Identity DevOps `pingdatacommon` Hook - `181-install-extensions.sh`
 
 ---
-This document auto-generated from _[pingdatacommon/hooks/181-install-extensions.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/hooks/181-install-extensions.sh)_
+This document auto-generated from _[pingdatacommon/opt/staging/hooks/181-install-extensions.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/opt/staging/hooks/181-install-extensions.sh)_
 
 Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
