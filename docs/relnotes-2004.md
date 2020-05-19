@@ -5,7 +5,7 @@
 
 - **Hashicorp Vault**
 
-  We've built an integration for Hashicorp Vault. See the [Deploy Hashicorp Vault](deployvault.md).
+  We've built an integration for Hashicorp Vault. See the [Deploy Hashicorp Vault](deployVault.md).
   
 - **PingCentral**
 
