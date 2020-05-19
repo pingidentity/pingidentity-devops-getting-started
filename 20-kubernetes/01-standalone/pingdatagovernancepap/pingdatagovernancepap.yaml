@@ -6,7 +6,7 @@ metadata:
   name: pingdatagovernancepap
 spec:
   ports:
-  - name: http
+  - name: https
     port: 8443
   selector:
     role: pingdatagovernancepap

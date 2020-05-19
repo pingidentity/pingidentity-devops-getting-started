@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   PING_IDENTITY_ACCEPT_EULA: "YES"
-  SERVER_PROFILE_PATH: pdg-papdg-pap-integration/pingdatagovernancepap
+  SERVER_PROFILE_PATH: pdg-pap-integration/pingdatagovernancepap
   SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-server-profiles.git
 kind: ConfigMap
 metadata:
