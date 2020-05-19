@@ -24,11 +24,15 @@ For example:
 SERVER_PROFILE_URL=https://github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva@github.com/pingidentity/server_profile.git
 ```
 
-## Using git user and password variables in a server profile URL
+## Using Git user and password variables in a server profile URL
 
-Typically, variables in a `SERVER_PROFILE_URL` string will not be replaced. Certain git user and password variables, however, can be replaced in a server profile url. Including `${SERVER_PROFILE_GIT_USER}` and/or `${SERVER_PROFILE_GIT_PASSWORD}` in your server profile URL allows you to substitute for those variables using values defined in your YAML files. When using layered server profiles, each layer can use the base user and password variables, or can define values specific to that layer. For example, for a `license` server profile layer, the `SERVER_PROFILE_LICENSE_GIT_USER` and `SERVER_PROFILE_LICENSE_GIT_PASSWORD` variables can be used.
+Typically, variables in a `SERVER_PROFILE_URL` string will not be replaced. However, certain Git user and password variables, can be replaced:
 
-For example:
-```yaml
-SERVER_PROFILE_URL=https://${SERVER_PROFILE_GIT_USER}:${SERVER_PROFILE_GIT_PASSWORD}@github.com/pingidentity/server_profile.git
-```
+* Include either or both `${SERVER_PROFILE_GIT_USER}` and `${SERVER_PROFILE_GIT_PASSWORD}` in your server profile URL to substitute for those variables using values defined in your YAML files. For example:
+  
+  ```yaml
+  SERVER_PROFILE_URL=https://${SERVER_PROFILE_GIT_USER}:${SERVER_PROFILE_GIT_PASSWORD}@github.com/pingidentity/server_profile.git
+  ```
+
+* When using layered server profiles, each layer can use the base user and password variables, or can define values specific to that layer. For example, for a `license` server profile layer, you can use the `SERVER_PROFILE_LICENSE_GIT_USER` and `SERVER_PROFILE_LICENSE_GIT_PASSWORD` variables, and substitute for those variables using values defined in your YAML files.
+
