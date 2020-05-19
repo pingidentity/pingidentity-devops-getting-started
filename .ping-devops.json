@@ -45,6 +45,12 @@
                 "type": "product",
                 "description": "Standalone PingDirectory Demo",
                 "path": "11-docker-compose/00-standalone/pingdirectory"
+            },
+            {
+                "name": "portainer",
+                "type": "usecase",
+                "description": "Local Docker Dashboard (via Portainer)",
+                "path": "11-docker-compose/90-portainer"
             }
         ]
     },
