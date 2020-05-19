@@ -5,7 +5,7 @@
 
 - **Hashicorp Vault**
 
-  We've built an integration for Hashicorp Vault. See the [Deploy Hashicorp Vault](https://pingidentity-devops.gitbook.io/devops/deploy/deployvault).
+  We've built an integration for Hashicorp Vault. See the [Deploy Hashicorp Vault](deployvault.md).
   
 - **PingCentral**
 
