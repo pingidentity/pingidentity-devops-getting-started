@@ -58,7 +58,7 @@ Follow Docker logs with:
 docker logs -f pingaccess
 ```
 
-If using the command above with the embedded [server profile](../server-profiles/README.md), log in with:
+If using the command above with the embedded [server profile](https://pingidentity-devops.gitbook.io/devops/config/containeranatomy), log in with:
 * https://localhost:9000
   * Username: Administrator
 ## Docker Container Hook Scripts
