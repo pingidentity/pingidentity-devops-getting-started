@@ -21,6 +21,7 @@
     - [Deploy PingCentral](docs/deployPingCentral.md)
     - [Deploy a PingFederate cluster](docs/deployPfCluster.md)
     - [Deploy a PingAccess cluster](docs/deployPaCluster.md)
+    - [Deploy PingDataGovernance with PAP](docs/deployPdgPap.md)
     - [Deploy a monitoring stack](docs/deployMonitoringStack.md)
     - [Deploy an Elasticsearch SIEM stack](docs/deploySiemStack.md)
   - [Orchestrate with Kubernetes](docs/deployK8s.md)
