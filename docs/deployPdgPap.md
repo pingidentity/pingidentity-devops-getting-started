@@ -34,10 +34,14 @@ once all the containers are healthy you can start checking things out.
 ### Test the default use case
 
 The default use case:
-  1. Proxies the PingDirectory Rest API using a mock access token validator 
-  2. If the passed bearer token is valid, the PDG - Policy Administration Point allows it to be forwarded to PingDirectory
-  3. PingDirectory uses the "sub" field in the token along with the the URL path to look up and return a users data. 
-  4. On the returned data, PDG-PAP accepts the response and allows it to be returned to the requestor. 
+  
+1. Proxies the PingDirectory Rest API using a mock access token validator 
+
+2. If the passed bearer token is valid, the PDG - Policy Administration Point allows it to be forwarded to PingDirectory
+
+3. PingDirectory uses the "sub" field in the token along with the the URL path to look up and return a users data. 
+
+4. On the returned data, PDG-PAP accepts the response and allows it to be returned to the requestor. 
 
 To test this use case, you can `curl` the PingDataGovernance Server. 
 
@@ -53,7 +57,7 @@ You can watch everything that is happening and  how it is configured by looking 
   - Policy Administration Point - standard container logs - `docker container logs -f 07-pingdatagovernance_pingdatagovernancepap_1`
   - PingDirectory - Standard container logs. Since the baseline profile has debug mode on, when you make a successful request through PDG to PD you should see successful `BIND` and `SEARCH` logs containing the user you searched for. `docker container logs -f 07-pingdatagovernance_pingdirectory_1`
 
-2. In data console you can: 
+2. Relevant areas in Data Console: 
   - `Gateway API endpoints` - Look at and choose API endpoints to are being proxied. 
   - `Policy Decision Service` - Look at and choose which policy will be used to govern data and access.  
     - `PDP mode` - use `embedded` for the defualt policy, or import a deployment package. use `external` to use PAP
