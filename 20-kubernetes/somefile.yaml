@@ -5,12 +5,11 @@ metadata:
     kubernetes.io/ingress.class: nginx-public
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
   labels:
-    app: pingfederate
-    tier: admin
+    role: pingfederate
   name: pingfederate-admin
 spec:
   rules:
-  - host: pingfederate-admin.example.com
+  - host: pingfederate-admin.
     http:
       paths:
       - backend:
@@ -21,9 +20,11 @@ spec:
           serviceName: pingfederate-admin
           servicePort: 9999
         path: /pf-admin-api
+      
   tls:
   - hosts:
-    - pingfederate-admin.example.com
+    # example pingfederate-admin.example.com
+    - pingfederate-admin.
     secretName: tls-secret
 
 ---
@@ -35,12 +36,11 @@ metadata:
     kubernetes.io/ingress.class: nginx-public
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
   labels:
-    app: pingfederate
-    tier: engine
+    role: pingfederate
   name: pingfederate
 spec:
   rules:
-  - host: pingfederate.example.com
+  - host: pingfederate.
     http:
       paths:
       - backend:
@@ -49,5 +49,5 @@ spec:
         path: /
   tls:
   - hosts:
-    - pingfederate.example.com
+    - pingfederate.
     secretName: tls-secret

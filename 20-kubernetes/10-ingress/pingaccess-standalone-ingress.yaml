@@ -5,12 +5,12 @@ metadata:
     kubernetes.io/ingress.class: nginx-public
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
   labels:
-    app: pingaccess
-    tier: admin
+    role: pingaccess
   name: pingaccess-admin
 spec:
   rules:
-  - host: pingaccess-admin.example.com
+  # example pingaccess-admin.example.com
+  - host: pingaccess-admin.${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
       - backend:
@@ -19,7 +19,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - pingaccess-admin.example.com
+    - pingaccess-admin.${PING_IDENTITY_DEVOPS_DNS_ZONE}
     secretName: tls-secret
 
 ---
@@ -31,12 +31,11 @@ metadata:
     kubernetes.io/ingress.class: nginx-public
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
   labels:
-    app: pingaccess
-    tier: engine
+    role: pingaccess
   name: pingaccess
 spec:
   rules:
-  - host: pingaccess.example.com
+  - host: pingaccess.${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
       - backend:
@@ -45,5 +44,5 @@ spec:
         path: /
   tls:
   - hosts:
-    - pingaccess.example.com
+    - pingaccess.${PING_IDENTITY_DEVOPS_DNS_ZONE}
     secretName: tls-secret

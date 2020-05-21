@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: pingaccess
+    tier: console
+  name: pingaccess-admin
+spec:
+  ports:
+  - name: console
+    port: 9000
+  - name: cluster
+    port: 9090
+  selector:
+    role: pingaccess
+    tier: console
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: pingaccess
+    tier: console
+  name: pingaccess-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: pingaccess
+      tier: console
+  template:
+    metadata:
+      labels:
+        role: pingaccess
+        tier: console
+      name: pingaccess
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: pingaccess-admin-environment-variables
+        - secretRef:
+            name: devops-secret
+            optional: true
+        name: pingaccess-admin
+        image: pingidentity/pingaccess:edge
+        ports:
+        - containerPort: 9000
+        - containerPort: 9090
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1.5Gi
+          requests:
+            cpu: "1"
+            memory: 1.5Gi
