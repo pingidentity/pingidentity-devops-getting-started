@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-public
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  labels:
+    app: pingaccess
+    tier: admin
+  name: pingaccess-admin
+spec:
+  rules:
+  - host: pingaccess-admin.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: pingaccess-admin
+          servicePort: 9000
+        path: /
+  tls:
+  - hosts:
+    - pingaccess-admin.example.com
+    secretName: tls-secret
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-public
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  labels:
+    app: pingaccess
+    tier: engine
+  name: pingaccess
+spec:
+  rules:
+  - host: pingaccess.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: pingaccess
+          servicePort: 3000
+        path: /
+  tls:
+  - hosts:
+    - pingaccess.example.com
+    secretName: tls-secret
