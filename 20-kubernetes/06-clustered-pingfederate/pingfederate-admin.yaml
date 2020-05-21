@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: pingfederate
+    tier: console
+  name: pingfederate-admin
+spec:
+  ports:
+  - name: pf-console
+    port: 9999
+  selector:
+    role: pingfederate
+    tier: console
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: pingfederate
+    tier: console
+  name: pingfederate-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: pingfederate
+      tier: console
+  template:
+    metadata:
+      labels:
+        role: pingfederate
+        tier: console
+      name: pingfederate-admin
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: pingfederate-admin-environment-variables
+        - secretRef:
+            name: devops-secret
+            optional: true
+        image: pingidentity/pingfederate:edge
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /pingfederate/app
+            port: 9999
+            scheme: HTTPS
+          initialDelaySeconds: 100
+          periodSeconds: 1
+        name: pingfederate-admin
+        ports:
+        - containerPort: 9999
+        - containerPort: 7600
+        readinessProbe:
+          httpGet:
+            path: /pingfederate/app
+            port: 9999
+            scheme: HTTPS
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1.5Gi
+          requests:
+            cpu: "1"
+            memory: 1.5Gi

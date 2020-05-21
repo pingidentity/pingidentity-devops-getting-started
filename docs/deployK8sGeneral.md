@@ -68,5 +68,9 @@ kubectl apply -f output.yaml
 You can find sample `.yaml`s for ingresses on products that is makes sense for in `20-kubernetes/10-ingress` 
 > These examples should be generally applicable, with the exception of `metadata.annotations`
 
+Deploy one of the examples with commands like:
 
+```
+envsubst '${PING_IDENTITY_DEVOPS_DNS_ZONE}' < 10-ingress/pingfederate-standalone-ingress.yaml | k apply -f -
+```
 

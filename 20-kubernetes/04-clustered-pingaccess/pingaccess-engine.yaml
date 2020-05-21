@@ -1,37 +1,45 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pingaccess-engine
+  name: pingaccess
   labels:
-    role: pingaccess-engine
+    role: pingaccess
+    tier: engine
 spec:
   ports:
-    - port: 443
-      name: pingaccess-engine
-      targetPort: 3000
+    - port: 3000
+      name: https
   selector:
-    role: pingaccess-engine
+    role: pingaccess
+    tier: engine
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pingaccess-engine
+  name: pingaccess
   labels:
-    role: pingaccess-engine
+    role: pingaccess
+    tier: engine
 spec:
   replicas: 1
   selector:
     matchLabels:
-      role: pingaccess-engine
+      role: pingaccess
+      tier: engine
   template:
     metadata:
-      name: pingaccess-engine
+      name: pingaccess
       labels:
-        role: pingaccess-engine
+        role: pingaccess
+        tier: engine
     spec:
+      initContainers:
+      - name: init
+        image: curlimages/curl:latest
+        command: ['sh', '-c', 'until curl --connect-timeout 1 --silent -k https://pingaccess-admin:9000 ; do echo waiting for admin ; sleep 3 ; done']
       containers:
-      - name: pingaccess-engine
-        image: pingidentity/pingaccess:6.0.0-alpine-edge
+      - name: pingaccess
+        image: pingidentity/pingaccess:edge
         ports:        
         - containerPort: 3000
         envFrom:
@@ -39,3 +47,18 @@ spec:
             name: pingaccess-engine-environment-variables
         - secretRef:
             name: devops-secret
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /opt/liveness.sh
+          periodSeconds: 10
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /opt/liveness.sh
+          initialDelaySeconds: 100
+          periodSeconds: 30
