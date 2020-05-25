@@ -66,6 +66,7 @@
   - [PingDataGovernance](docs/docker-images/pingdatagovernance/README.md)
   - [PingDataGovernance PAP](docs/docker-images/pingdatagovernancepap/README.md)
   - [PingDataSync](docs/docker-images/pingdatasync/README.md)
+  - [PingDelegator](docs/docker-images/pingdelegator/README.md)
   - [ldap-sdk-tools](docs/docker-images/ldap-sdk-tools/README.md)
   - [Ping Data Console](docs/docker-images/pingdataconsole/README.md)
   - [PingDownloader](docs/docker-images/pingdownloader/README.md)
