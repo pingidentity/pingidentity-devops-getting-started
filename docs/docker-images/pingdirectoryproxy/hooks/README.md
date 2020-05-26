@@ -7,4 +7,4 @@ will be inherited by this image.
 
 ---
 
-Copyright (c)  2019 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
