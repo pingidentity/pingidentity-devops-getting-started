@@ -1,1 +1,1 @@
-See [Deploy Hashicorp Vault](../../docs/deployvault.md) for more information.
+See [Deploy Hashicorp Vault](../../docs/deployVault.md) for more information.
