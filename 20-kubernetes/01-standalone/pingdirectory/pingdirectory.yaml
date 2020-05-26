@@ -5,6 +5,7 @@ metadata:
     role: pingdirectory
   name: pingdirectory
 spec:
+  clusterIp: None
   ports:
   - name: ldaps
     port: 636
