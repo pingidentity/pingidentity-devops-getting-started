@@ -2,23 +2,20 @@ version: "3.1"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
 services:
-  pingaccess:
-    image: pingidentity/pingaccess:edge
-    healthcheck:
-      test: ["CMD-SHELL", "curl -s -u administrator:2FederateM0re -H \"X-XSRF-Header: PingAccess\" -k https://localhost:9000/pa-admin-api/v3/sites | jq -e '.items[0].name' "]
-      interval: 10s
-      timeout: 3s    
+  pingaccess-admin:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:6.0.2-edge
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
       - PING_IDENTITY_ACCEPT_EULA=YES
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
-      - PA_CONSOLE_HOST=pingaccess
+      - PA_CONSOLE_HOST=pingaccess-admin
+      - PING_IDENTITY_PASSWORD=2FederateM0re
     env_file:
      - ~/.pingidentity/devops    
     # volumes:
       # - ${HOME}/projects/pingidentity-server-profiles/pa-clustering/pingaccess:/opt/in
-      #- ${HOME}/<PATH_TO_LOCAL_REPO>/pa-clustering/pingaccess:/opt/in
+      # - ${HOME}/projects/devops/pingidentity-devops-getting-started/11-docker-compose/06-pingaccess-cluster/out:/opt/out
     ports:
       - "9000:9000"
       - "9090:9090"
@@ -27,20 +24,18 @@ services:
     cap_add:
       - NET_ADMIN
 
-  pingaccess-engine:
-    image: pingidentity/pingaccess:edge
-    command: wait-for pingaccess:9000 -t 420 -- entrypoint.sh start-server
+  pingaccess:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:6.0.2-edge
+    command: wait-for pingaccess-admin:9000 -t 420 -- entrypoint.sh start-server
     environment: 
+      - VERBOSE=true
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
       - PING_IDENTITY_ACCEPT_EULA=YES
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
-      - PA_CONSOLE_HOST=pingaccess
+      - PA_CONSOLE_HOST=pingaccess-admin
     env_file:
-     - ~/.pingidentity/devops      
-    # volumes:
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/pa-clustering/pingaccess:/opt/in
-    #  - ${HOME}/<PATH_TO_LOCAL_REPO>/pa-clustering/pingaccess:/opt/in
+     - ~/.pingidentity/devops
     ports:
       - 3000-3010:3000
     networks:
