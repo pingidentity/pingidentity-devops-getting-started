@@ -4,27 +4,23 @@ version: "3.1"
 #-------------------------------------------------------------------------------------
 #- Ping Identity Simple Stack integrated demo
 #-
-#-                +---------------+    +---------------+
-#-                | PingFederate  |    |PingDataConsole|
-#-                +---------------+    +---------------+
-#-                              \        /
-#-                          +----------------+
-#-                          | PingDirectory  |
-#-                          +----------------+
+#-     login  console            app                console           rest    ldaps
+#-     9031   9999               6443                 8443            1443    1636
+#-      |      |                  |                    |               |       |
+#-   +---------------+    +---------------+    +---------------+    +---------------+
+#-   | PingFederate  |    | PingDelegator |    |PingDataConsole|    | PingDirectory |
+#-   +---------------+    +---------------+    +---------------+    +---------------+
 #-
-#- To view PingFederate Console
-#- 
-#-    https://localhost:9999/pingfederate/app
-#-                                   
-#-    Username: administrator
-#-    Password: 2FederateM0re
+#-  PingFederate Console                         PingDataConsole (PingDirectory)
+#-  --------------------                         -------------------------------
+#-  https://localhost:9999/pingfederate/app      https://localhost:8443
+#-    Username: administrator                        Server: pingdirectory
+#-    Password: 2FederateM0re                      Username: administrator
+#-                                                 Password: 2FederateM0re
 #-
-#-
-#- To view PingData Console (PingDirectory)
-#-
-#-    https://localhost:8443/
-#-
-#-      Server: pingdirectory
+#-  PingDelegator App
+#-  -----------------
+#-  https://localhost:6443
 #-    Username: administrator
 #-    Password: 2FederateM0re
 #-------------------------------------------------------------------------------------
@@ -40,14 +36,14 @@ services:
     env_file:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
       # devops user/key details for evaluation licenses and for docker image/git tags
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     # Example: Examples below for mounting local directories for inbound server profile and persisting
     #          server build.  The local /opt/out directory must be empty when building new server
     #             /opt/out - Resulting server build
     #             /opt/in  - Inbound server-profile detail in liue of SERVER_PROFILE_URL (must be commented out)
     #volumes:
     #   - ${HOME}/projects/devops/volumes/simple-sync.pingfederate:/opt/out
-    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
     ports:
       - "9031:9031"
       - "9999:9999"
@@ -60,7 +56,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
         soft: 16384
@@ -68,10 +64,6 @@ services:
       nofile:
         soft: 65535
         hard: 65535
-    #volumes:
-    #   - ${HOME}/projects/devops/volumes/simple-sync.pingdirectory:/opt/out
-    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
-
     ports:
       - "1636:636"
       - "1443:443"
@@ -86,5 +78,18 @@ services:
     networks:
       - pingnet
 
+  pingdelegator:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - PD_ENGINE_PRIVATE_PORT=1443
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingdelegator
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ports:
+      - "6443:6443"
+    networks: 
+      - pingnet
+  
 networks:
     pingnet:
