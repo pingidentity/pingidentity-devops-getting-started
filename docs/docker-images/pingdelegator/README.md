@@ -17,10 +17,10 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  | 
-| DELEGATOR_PUBLIC_HOSTNAME  | pingdelegator  | 
-| DELEGATOR_HTTP_PORT  | 8080  | 
-| DELEGATOR_HTTPS_PORT  | 8443  | 
-| PF_ENGINE_PUBLIC_HOSTNAME  | pingfederate  | The hostname for the public Ping Federate instance used for SSO. 
+| PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  | 
+| PD_DELEGATOR_HTTP_PORT  | 6080  | 
+| PD_DELEGATOR_HTTPS_PORT  | 6443  | 
+| PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | The hostname for the public Ping Federate instance used for SSO. 
 | PF_ENGINE_PUBLIC_PORT  | 9031  | The port for the public Ping Federate instance used for SSO. NOTE: If using port 443 along with a base URL with no specified port, set to an empty string. 
 The client id that was set up with Ping Federate for Ping Delegator.
 ## Environment Variables
@@ -30,22 +30,22 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | PF_DELEGATOR_CLIENTID  | dadmin  | 
-| PD_ENGINE_PRIVATE_HOSTNAME  | pingdirectory  | The hostname for the DS instance the app will be interfacing with. 
-| PD_ENGINE_PRIVATE_PORT  | 443  | The HTTPS port for the DS instance the app will be interfacing with. 
-| DELEGATOR_TIMEOUT_LENGTH_MINS  | 30  | The length of time (in minutes) until the session will require a new login attempt 
-| DELEGATOR_HEADER_BAR_LOGO  |   | The filename used as the logo in the header bar, relative to this application's build directory. Note about logos: The size of the image will be scaled down to fit 22px of height and a max-width of 150px. For best results, it is advised to make the image close to this height and width ratio as well as to crop out any blank spacing around the logo to maximize its presentation. e.g. '${SERVER_ROOT_DIR}/html/delegator/images/my_company_logo.png' 
-| DELEGATOR_DADMIN_API_NAMESPACE  |   | The namespace for the Delegated Admin API on the DS instance. In most cases, this does not need to be set here. e.g. 'dadmin/v2' 
-| DELEGATOR_PROFILE_SCOPE_ENABLED  | false  | Set to true if the "profile" scope is supported for the Delegated Admin OIDC client on PingFederate and you wish to use it to show the current user's name in the navigation. 
+| PD_ENGINE_PRIVATE_HOSTNAME  | localhost  | The hostname for the DS instance the app will be interfacing with. 
+| PD_ENGINE_PRIVATE_PORT  | 1443  | The HTTPS port for the DS instance the app will be interfacing with. 
+| PD_DELEGATOR_TIMEOUT_LENGTH_MINS  | 30  | The length of time (in minutes) until the session will require a new login attempt 
+| PD_DELEGATOR_HEADER_BAR_LOGO  |   | The filename used as the logo in the header bar, relative to this application's build directory. Note about logos: The size of the image will be scaled down to fit 22px of height and a max-width of 150px. For best results, it is advised to make the image close to this height and width ratio as well as to crop out any blank spacing around the logo to maximize its presentation. e.g. '${SERVER_ROOT_DIR}/html/delegator/images/my_company_logo.png' 
+| PD_DELEGATOR_DADMIN_API_NAMESPACE  |   | The namespace for the Delegated Admin API on the DS instance. In most cases, this does not need to be set here. e.g. 'dadmin/v2' 
+| PD_DELEGATOR_PROFILE_SCOPE_ENABLED  | false  | Set to true if the "profile" scope is supported for the Delegated Admin OIDC client on PingFederate and you wish to use it to show the current user's name in the navigation. 
 | STARTUP_COMMAND  | nginx  | 
 | STARTUP_FOREGROUND_OPTS  | -c ${SERVER_ROOT_DIR}/etc/nginx.conf  | 
 | STARTUP_BACKGROUND_OPTS  | ${STARTUP_FOREGROUND_OPTS}  | 
 ## Run
-To run a PingDelegator container with HTTPS_PORT=8443:
+To run a PingDelegator container with HTTPS_PORT=6443:
 
 ```shell
   docker run \
            --name pingdelegator \
-           --publish 8443:8443 \
+           --publish 6443:6443 \
            --detach \
            pingidentity/pingdelegator
 ```
