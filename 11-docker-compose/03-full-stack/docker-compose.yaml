@@ -1,37 +1,35 @@
 version: "3.1"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
-#-------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------
 #- Ping Identity fullstack integrated demo
 #-
-#-                +----------------+   +----------------+
-#-                |   PingAccess   |   |PingDataConsole |
-#-                +----------------+   +----------------+
+#-     app    console            app                                  rest       
+#-     443    9000               6443                                 7443
+#-      |      |                  |                                    |
+#-   +----------------+   +---------------+                         +---------------+   
+#-   |   PingAccess   |   | PingDelegator |                         |  PingDataGov  |
+#-   +----------------+   +---------------+                         +---------------+
 #-
-#-                +---------------+    +---------------+
-#-                | PingFederate  |    |  PingDataGov  |
-#-                +---------------+    +---------------+
-#-                              \        /
-#-                          +----------------+
-#-                          | PingDirectory  |
-#-                          +----------------+
+#-     login  console            app                console           rest    ldaps
+#-     9031   9999               9022                 8443            1443    1636
+#-      |      |                  |                    |               |       |
+#-   +---------------+    +---------------+    +---------------+    +---------------+
+#-   | PingFederate  |    |  PingCentral  |    |PingDataConsole|    | PingDirectory |
+#-   +---------------+    +---------------+    +---------------+    +---------------+
 #-
-#- To view PingAccess Console        | To view PingFederate Console
-#-                                   |
-#-    https://localhost:9000/        |   https://localhost:9999/pingfederate/app
-#-                                   |
-#-    Username: administrator        |   Username: administrator
-#-    Password: 2FederateM0re        |   Password: 2FederateM0re
-#-
-#-
-#- To view PingData Console (PingDirectory & PingDataGovernance)
-#-
-#-    https://localhost:8443/
-#-
-#-      Server: pingdirectory ...or... pingdatagovernance
-#-    Username: administrator
-#-    Password: 2FederateM0re
-#-------------------------------------------------------------------------------------
+#-   +-----------------------+--------------------------------------------------------+
+#-   |  Product Console/App  |  URL                                                   |
+#-   |                       |    username: administrator                             |
+#-   |                       |    password: 2FederateM0re                             |
+#-   +-----------------------+--------------------------------------------------------+
+#-   |  PingAccess           |  https://localhost:9000/                               |
+#-   |  PingFederate         |  https://localhost:9999/pingfederate/app               |
+#-   |  PingDelegator        |  https://localhost:7443/                               |
+#-   |  PingDirectory        |  https://localhost:8443/   (Server=pingidrectory)      |
+#-   |  PingDataGovernance   |  https://localhost:8443/   (Server=pingdatagovernance) |
+#-   +-----------------------+--------------------------------------------------------+
+#--------------------------------------------------------------------------------------
 
 services:
   pingaccess:
@@ -43,7 +41,7 @@ services:
     env_file:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
       # devops user/key details for evaluation licenses and for docker image/git tags
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     # Example: Examples below for mounting local directories for inbound server profile and persisting
     #          server build.  The local /opt/out directory must be empty when building new server
     #             /opt/out - Resulting server build
@@ -64,7 +62,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdatagovernance
     env_file: 
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     #volumes:
     #  - ${HOME}/projects/devops/volumes/full-stack.pingdatagovernance:/opt/out
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
@@ -82,7 +80,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     #volumes:
     #  - ${HOME}/projects/devops/volumes/full-stack.pingfederate:/opt/out
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
@@ -99,7 +97,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     #volumes:
     #  - ${HOME}/projects/devops/volumes/full-stack.pingdirectory:/opt/out
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
@@ -125,7 +123,7 @@ services:
       - pingnet-internal
               
   pingcentral:
-    image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingcentral/dev-unsecure
@@ -133,11 +131,24 @@ services:
       - PING_CENTRAL_BLIND_TRUST=true
       - PING_CENTRAL_LOG_LEVEL=DEBUG
     env_file: 
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     ports:
       - "9022:9022"
     networks:
       - pingnet-internal
+
+  pingdelegator:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - PD_ENGINE_PRIVATE_PORT=1443
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingdelegator
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ports:
+      - "6443:6443"
+    networks: 
+      - pingnet-dmz
 
 networks:
     pingnet-internal:
