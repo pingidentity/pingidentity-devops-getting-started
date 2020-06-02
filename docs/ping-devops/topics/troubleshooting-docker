@@ -3,7 +3,7 @@ To ensure that your environment is configured correctly to run the
 Ping Identity DevOps products, you can run the following command to 
 test your ~/.pingidentity/devops file has been setup correctly.
 
-    docker run --env-file ~/.pingidentity/devops alpine env | sort
+    docker run --env-file ${HOME}/.pingidentity/devops alpine env | sort
 
 The output should look something like this:
 
@@ -18,11 +18,21 @@ The output should look something like this:
     PING_IDENTITY_DEVOPS_TAG=edge
     PING_IDENTITY_DEVOPS_USER=......
 
-If the PING_IDENTITY_... variables are missing, then either your 
-~/.pingidentity/devops folder hasn't been configured correctly.  You can 
-fix this with:
+If the PING_IDENTITY_... variables are missing, then either:
 
-    ping-devops config
+ 1. Your ${HOME}/.pingidentity/devops folder hasn't been configured correctly.  
+    You can fix this with:
 
-or in some cases (mostly on some linux variants) the variables are getting
-sourced correctly. 
+      ping-devops config
+
+ 2. In some cases (mostly on some linux variants) the variables are getting
+    sourced correctly.  Ensure that your .bash_profile (bash) or .zshrc (zsh)
+    are sourcing:
+
+      ${HOME}/.pingidentity/devops
+
+    In some linux distros (i.e. Ubuntu), you may also need to set allexports 
+    by adding
+
+      set -a
+      

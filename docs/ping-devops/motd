@@ -1,9 +1,3 @@
-Adding support to launch Ping Identity kubernetes use cases
-----------------------------------------------------------------------
-The latest version of ping-devops provides the ability to launch
-kubernetes use cases, much like you can with docker.
+Checkout latest release notes  
 
-PreReqs require the standard K8S variables to be set to connect to a
-kubernetes cluster.  Find out more with:  
-
-   ping-devops kubernetes info
+   ping-devops topic release-notes
