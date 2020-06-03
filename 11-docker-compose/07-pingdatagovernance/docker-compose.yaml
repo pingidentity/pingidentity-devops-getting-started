@@ -1,4 +1,4 @@
-version: "3.1"
+version: "2.4"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
 services:
@@ -11,7 +11,6 @@ services:
       - SERVER_PROFILE_PARENT=PDG
       - SERVER_PROFILE_PDG_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PDG_PATH=baseline/pingdatagovernance
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file: 
       - ~/.pingidentity/devops
     #volumes:
@@ -37,7 +36,6 @@ services:
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernancepap
-      - PING_IDENTITY_ACCEPT_EULA=YES
       - HTTPS_PORT=8443
     env_file: 
       - ~/.pingidentity/devops
@@ -61,7 +59,6 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
       - ~/.pingidentity/devops
     #volumes:
