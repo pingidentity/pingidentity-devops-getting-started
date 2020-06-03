@@ -25,7 +25,7 @@ version: "3.1"
 #-   +-----------------------+--------------------------------------------------------+
 #-   |  PingAccess           |  https://localhost:9000/                               |
 #-   |  PingFederate         |  https://localhost:9999/pingfederate/app               |
-#-   |  PingDelegator        |  https://localhost:7443/                               |
+#-   |  PingDelegator        |  https://localhost:6443/                               |
 #-   |  PingDirectory        |  https://localhost:8443/   (Server=pingdirectory)      |
 #-   |  PingDataGovernance   |  https://localhost:8443/   (Server=pingdatagovernance) |
 #-   +-----------------------+--------------------------------------------------------+
