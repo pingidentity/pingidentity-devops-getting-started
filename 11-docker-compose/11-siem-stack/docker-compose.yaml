@@ -2,20 +2,18 @@ version: "3.3"
 
 services:
   pingfederate:
-    image: pingidentity/pingfederate:edge
+    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingfederate
-      - PING_IDENTITY_ACCEPT_EULA=YES
-      - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
-      - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
       - PF_LOG_LEVEL=DEBUG
-      
       - SOCKET_HOST=logstash
       - SOCKET_PORT_SYSTEM=20513
       - SOCKET_PORT_AUDIT=20514
       - SOCKET_PROTOCOL=TCP
+    env_file:
+      - ~/.pingidentity/devops
     ports:
       - "9031:9031"
       - "9999:9999"
@@ -28,20 +26,18 @@ services:
 #     - ./baseline/pingfederate:/opt/in
 
   pingaccess:
-    image: pingidentity/pingaccess:edge
+    image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingaccess
       - PA_LOG_LEVEL=DEBUG
-      - PING_IDENTITY_ACCEPT_EULA=YES
-      - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
-      - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
-
       - SOCKET_HOST=logstash 
       - SOCKET_PORT_SYSTEM=20516
       - SOCKET_PORT_AUDIT=20517
       - SOCKET_PROTOCOL=TCP
+    env_file:
+      - ~/.pingidentity/devops
     ports:
       - "9000:9000"
       - "3000:3000"
@@ -54,14 +50,13 @@ services:
 #     - ./baseline/pingaccess:/opt/in
 
   pingdirectory:
-    image: pingidentity/pingdirectory:latest
+    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingdirectory
-      - PING_IDENTITY_ACCEPT_EULA=YES
-      - PING_IDENTITY_DEVOPS_USER=$PING_IDENTITY_DEVOPS_USER
-      - PING_IDENTITY_DEVOPS_KEY=$PING_IDENTITY_DEVOPS_KEY
       - ES_ADMIN_PD_USER_PASS=$ES_ADMIN_PD_USER_PASS
+    env_file:
+      - ~/.pingidentity/devops
     ports:
       - "1636:636"
       - "1443:443"
