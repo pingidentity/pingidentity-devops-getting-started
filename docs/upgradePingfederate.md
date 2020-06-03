@@ -8,15 +8,14 @@ As an example, we'll walk through upgrading a PingFederate deployment from 9.3.3
 
 ## Prerequisites
 
-* A solid understanding of how to use our DevOps server profiles.
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* A good understanding of how to use our DevOps server profiles.
 * An understanding of blue-green deployments in Kubernetes is helpful. 
 
 ## What you'll do
 
 * [Setup and preparation](#setup-and-preparation)
-
 * [Upgrade using a local profile](#upgrade-using-a-local-profile)
-
 * [Blue-Green it](#blue-green-it)
 
 ## Setup and preparation
