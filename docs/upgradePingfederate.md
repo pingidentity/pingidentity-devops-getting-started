@@ -29,15 +29,15 @@ The DevOps process:
   You should have at least 2 environments (non-production and production). This gives you room to test everything before putting it into production. 
 
 * Environments are nearly identical.
-  
+
   All deployments should be stringently validated before rolling into production. To be confident in your manual and automated tests, your environments need to be as close to identical as possible. In an ideal world, environments have dummy data, but function exactly the same. You know you're doing a good job when the only thing that changes (related to configuration) between environments is URLs, endpoints, and variable values.
 
 * Containers in production are immutable.
-  
+
   Nobody is perfect. So, we should never trust manual changes directly in production. You should disable all admin access to production.
 
 * All configurations are maintained in source control.
-  
+
   If you can roll it out, you better be able to roll it back too!
 
 Our example environment is set up with Apache JMeter throwing load to a Kubernetes service (which routes load to downstream PingFederate containers). This Kubernetes service is essentially a load balancer that follows a round-robin strategy with keep-alive.
