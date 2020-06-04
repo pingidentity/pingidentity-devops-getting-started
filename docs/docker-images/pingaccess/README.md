@@ -61,6 +61,7 @@ docker logs -f pingaccess
 If using the command above with the embedded [server profile](https://pingidentity-devops.gitbook.io/devops/config/containeranatomy), log in with:
 * https://localhost:9000
   * Username: Administrator
+  * Password: 2FederateM0re
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingaccess/hooks/README.md) for details on all pingaccess hook scripts
 

@@ -51,6 +51,7 @@ docker logs -f pingdatagovernancepap
 Log in with:
 * https://localhost:8443/
   * Username: admin
+  * Password: password123
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatagovernancepap/hooks/README.md) for details on all pingdatagovernancepap hook scripts
 
