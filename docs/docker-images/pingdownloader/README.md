@@ -13,11 +13,43 @@ docker run pingidentity/pingdownloader -p <product_name>
 ```
 ### Options
 ```shell
--v, --version: the version of the product to download. by default, the downloader will pull the latest version
+*-p, --product {product-name}    The name of the product bits/license to download
+   
+-v, --version {version-num}      The version of the product bits/license to download.
+                                 by default, the downloader will pull the 
+                                 latest version
 
--c, --conserve-name: use this option to conserve the original file name. By   default, the downloader will rename the file product.zip
+-u, --devops-user {devops-user}  Your Ping DevOps Username
+                                 Alternately, you may pass PING_IDENTITY_DEVOPS_USER
+                                 environment variable
 
--n, --dry-run:	this will cause the URL to be displayed but the the bits not to be downloaded
+-k, --devops-key {devops-key}    Your Ping DevOps Key
+                                 Alternately, you may pass PING_IDENTITY_DEVOPS_KEY
+                                 environment variable
+
+-a, --devops-app {app-name}      Your App Name
+
+-r, --repository                 The URL of the repository to use to get the bits
+
+-m, --metadata-file              The file name with the repository metadata
+
+
+For product downloads:
+
+-c, --conserve-name              Use this option to conserve the original 
+                                 file name by default, the downloader will
+                                 rename the file product.zip
+
+-n, --dry-run:                   This will cause the URL to be displayed 
+                                 but the the bits not to be downloaded
+
+--verify-gpg-signature           Verify the GPG signature. The bits are removed in
+                                 the event verification fails
+
+
+For license downloads:
+
+*-l, --license                   Download a license file
 
 ```
 ## Examples
