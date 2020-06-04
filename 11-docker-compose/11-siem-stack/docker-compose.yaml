@@ -13,7 +13,7 @@ services:
       - SOCKET_PORT_AUDIT=20514
       - SOCKET_PROTOCOL=TCP
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     ports:
       - "9031:9031"
       - "9999:9999"
@@ -37,7 +37,7 @@ services:
       - SOCKET_PORT_AUDIT=20517
       - SOCKET_PROTOCOL=TCP
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     ports:
       - "9000:9000"
       - "3000:3000"
@@ -56,7 +56,7 @@ services:
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingdirectory
       - ES_ADMIN_PD_USER_PASS=$ES_ADMIN_PD_USER_PASS
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     ports:
       - "1636:636"
       - "1443:443"

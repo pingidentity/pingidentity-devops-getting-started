@@ -12,10 +12,7 @@ services:
       - SERVER_PROFILE_PDG_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PDG_PATH=baseline/pingdatagovernance
     env_file: 
-      - ~/.pingidentity/devops
-    #volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingdatagovernance:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
+      - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
         soft: 16384
@@ -29,6 +26,8 @@ services:
     networks:
       - pingnet-dmz
       - pingnet-internal
+    volumes:
+      - pingdatagovernance-out:/opt/out
 
   pingdatagovernancepap:
     image: pingidentity/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
@@ -38,10 +37,7 @@ services:
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernancepap
       - HTTPS_PORT=8443
     env_file: 
-      - ~/.pingidentity/devops
-    # volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingdatagovernancepap:/opt/out
-      #  - ${HOME}/projects/devops/pingidentity-server-profiles/pdg-pap-integration/pingdatagovernancepap:/opt/in
+      - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
         soft: 16384
@@ -53,6 +49,8 @@ services:
       - "8443:8443"
     networks:
       - pingnet-dmz
+    volumes:
+      - pingdatagovernancepap-out:/opt/out
 
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
@@ -60,10 +58,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     env_file:
-      - ~/.pingidentity/devops
-    #volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingdirectory:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
+      - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
         soft: 16384
@@ -76,6 +71,8 @@ services:
       - 1443-1453:443
     networks:
       - pingnet-internal
+    volumes:
+      - pingdirectory-out:/opt/out
 
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
@@ -87,3 +84,8 @@ services:
 networks:
     pingnet-internal:
     pingnet-dmz:
+
+volumes:
+  pingdatagovernance-out:
+  pingdatagovernancepap-out:
+  pingdirectory-out:

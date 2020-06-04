@@ -97,9 +97,8 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     volumes:
       - ./configs/pingdirectory/pd.profile/dsconfig:/opt/in/pd.profile/dsconfig
     #   - ${HOME}/projects/devops/volumes/replicated-pair.pingdirectory:/opt/out
@@ -135,7 +134,6 @@ services:
     command: wait-for pingdirectory:389 -t 900 -- modrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re --entryDN "uid=user.[0-4],ou=people,dc=example,dc=com" --attribute description --valueLength 10 -C 2FederateM0re -r 1
     networks:
       - back-tier
-
 
   pingdirectory-statsd-exporter:
     image: prom/statsd-exporter:v0.14.1

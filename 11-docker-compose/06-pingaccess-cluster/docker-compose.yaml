@@ -7,15 +7,11 @@ services:
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
-      - PING_IDENTITY_ACCEPT_EULA=YES
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
       - PA_CONSOLE_HOST=pingaccess-admin
       - PING_IDENTITY_PASSWORD=2FederateM0re
     env_file:
-     - ~/.pingidentity/devops    
-    # volumes:
-      # - ${HOME}/projects/pingidentity-server-profiles/pa-clustering/pingaccess:/opt/in
-      # - ${HOME}/projects/devops/pingidentity-devops-getting-started/11-docker-compose/06-pingaccess-cluster/out:/opt/out
+     - ${HOME}/.pingidentity/devops
     ports:
       - "9000:9000"
       - "9090:9090"
@@ -23,6 +19,8 @@ services:
       - pingnet
     cap_add:
       - NET_ADMIN
+    volumes:
+      - pingaccess-admin-out:/opt/out
 
   pingaccess:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:6.0.2-edge
@@ -31,14 +29,16 @@ services:
       - VERBOSE=true
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
-      - PING_IDENTITY_ACCEPT_EULA=YES
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
       - PA_CONSOLE_HOST=pingaccess-admin
     env_file:
-     - ~/.pingidentity/devops
+     - ${HOME}/.pingidentity/devops
     ports:
       - 3000-3010:3000
     networks:
       - pingnet              
 networks:
     pingnet:
+
+volumes:
+  pingaccess-admin-out:

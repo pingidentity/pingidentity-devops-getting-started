@@ -34,7 +34,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=getting-started/pingdirectory
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     networks:
       - pingnet
     ulimits:
@@ -48,6 +48,8 @@ services:
       - "1389:389"
       - "1636:636"
       - "1443:443"
+    volumes:
+      - pingdirectory-out:/opt/out
       
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
@@ -57,5 +59,7 @@ services:
       - pingnet
                     
 networks:
-    pingnet:
+  pingnet:
 
+volumes:
+  pingdirectory-out:

@@ -34,16 +34,7 @@ services:
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
       - USER_BASE_DN=o=sync
     env_file:
-      # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
-      # devops user/key details for evaluation licenses and for docker image/git tags
-      - ~/.pingidentity/devops
-    # Example: Examples below for mounting local directories for inbound server profile and persisting
-    #          server build.  The local /opt/out directory must be empty when building new server
-    #             /opt/out - Resulting server build
-    #             /opt/in  - Inbound server-profile detail in liue of SERVER_PROFILE_URL (must be commented out)
-    #volumes:
-    #   - ${HOME}/projects/devops/volumes/simple-sync.pingdirectory:/opt/out
-    #   - ${HOME}/projects/devops/pingidentity-server-profiles/simple-sync/pingdirectory:/opt/in
+      - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
         soft: 16384
@@ -56,6 +47,8 @@ services:
       - "1443:443"
     networks:
       - pingnet
+    volumes:
+      - pingdirectory-out:/opt/out
 
   pingdatasync:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
@@ -64,9 +57,7 @@ services:
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync
       - USER_BASE_DN=o=sync
     env_file:
-      - ~/.pingidentity/devops
-    #volumes:
-    #   - ${HOME}/projects/devops/volumes/simple-sync.pingdatasync:/opt/out
+      - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
         soft: 16384
@@ -79,6 +70,8 @@ services:
       - "2443:443"
     networks:
       - pingnet
+    volumes:
+      - pingdatasync-out:/opt/out
   
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
@@ -88,4 +81,8 @@ services:
       - pingnet  
               
 networks:
-    pingnet:
+  pingnet:
+
+volumes:
+  pingdirectory-out:
+  pingdatasync-out:
