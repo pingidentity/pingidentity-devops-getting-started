@@ -3,10 +3,7 @@ version: '2.4'
 volumes:
     prometheus_data: {}
     grafana_data: {}
-
-networks:
-  front-tier:
-  back-tier:
+    influxdb_data: {}
 
 services:
 
@@ -14,7 +11,7 @@ services:
     image: prom/prometheus:v2.1.0
     volumes:
       - ./configs/prometheus/:/etc/prometheus/
-      - prometheus_data:/prometheus
+      # - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -27,8 +24,6 @@ services:
       - alertmanager:alertmanager
     depends_on:
       - cadvisor
-    networks:
-      - back-tier
     restart: always
 
   node-exporter:
@@ -44,8 +39,6 @@ services:
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     ports:
       - "9100:9100"
-    networks:
-      - back-tier
     restart: always
 
 
@@ -55,8 +48,6 @@ services:
       - "9093:9093"
     volumes:
       - ./configs/alertmanager/:/etc/alertmanager/
-    networks:
-      - back-tier
     restart: always
     command:
       - '--config.file=/etc/alertmanager/config.yml'
@@ -71,8 +62,6 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     ports:
       - "8080:8080"
-    networks:
-      - back-tier
     restart: always
 
   grafana:
@@ -87,10 +76,19 @@ services:
       - ./configs/grafana/provisioning/:/etc/grafana/provisioning/
     env_file:
       - ./configs/grafana/config.monitoring
-    networks:
-      - back-tier
-      - front-tier
     restart: always
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      # - influxdb_data:/var/lib/influxdb/data
+      - ./configs/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
+    environment:
+      - INFLUXDB_DB=jmeter
+      - INFLUXDB_ADMIN_USER=administrator
+      - INFLUXDB_ADMIN_PASSWORD=2FederateM0re
 
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
@@ -98,14 +96,13 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
       - PING_IDENTITY_ACCEPT_EULA=YES
+      - MAKELDIF_USERS=100
     env_file:
       - ~/.pingidentity/devops
     volumes:
       - ./configs/pingdirectory/pd.profile/dsconfig:/opt/in/pd.profile/dsconfig
     #   - ${HOME}/projects/devops/volumes/replicated-pair.pingdirectory:/opt/out
     #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in:ro
-    networks:
-      - back-tier
     ulimits:
       nproc:
         soft: 16384
@@ -118,24 +115,27 @@ services:
       - "1636:636"
       - "1443:443"
 
+  searchrate:
+    image: pingidentity/apache-jmeter:latest
+    command: wait-for pingdirectory:389 -t 900 -- entrypoint.sh start-server
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/ping-devops-program/anydevops
+      - SERVER_PROFILE_PATH=perf/profiles/jmeter
+      - STARTUP_FOREGROUND_OPTS=--nongui -t /opt/out/instance/bin/ldap.jmx -JinfluxdbHost=influxdb -Jretention=autogen -JpdHost=pingdirectory -JpdPort=389 -JupperUid=99 -JsearchrateadminThreadCount=1 -JsearchrateadminDuration=10000 -JthreadCount=0 -Jduration=0
+
   authrate_ok:
     image: pingidentity/ldap-sdk-tools:edge
     command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 10
-    networks:
-      - back-tier
+
 
   authrate_ko:
     image: pingidentity/ldap-sdk-tools:edge
     command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 1
-    networks:
-      - back-tier
+
 
   modrate:
     image: pingidentity/ldap-sdk-tools:edge
     command: wait-for pingdirectory:389 -t 900 -- modrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re --entryDN "uid=user.[0-4],ou=people,dc=example,dc=com" --attribute description --valueLength 10 -C 2FederateM0re -r 1
-    networks:
-      - back-tier
-
 
   pingdirectory-statsd-exporter:
     image: prom/statsd-exporter:v0.14.1
@@ -144,5 +144,3 @@ services:
       - ./configs/statsd-exporter/pingdirectory-statsd-mapping.yml:/tmp/mapping/pingdirectory-statsd-mapping.yml
     ports:
       - "9102:9102"
-    networks:
-      - back-tier

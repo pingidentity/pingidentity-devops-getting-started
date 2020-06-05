@@ -2,30 +2,36 @@
 
 This example illustrates how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.
 
-Monitoring tools used:
-- [Prometheus](https://prometheus.io/)
-- [Grafana](https://grafana.com/)
-- [Alertsmanager](https://github.com/prometheus/alertmanager)
-- [cAdvisor](https://github.com/google/cadvisor)
-- [prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
+Tools in this stack:
+**Gets monitored:**
+  - Ping Identity Software
+
+**Collects Metrics:**
+  - [Prometheus](https://prometheus.io/)
+  - [Alertsmanager](https://github.com/prometheus/alertmanager)
+  - [cAdvisor](https://github.com/google/cadvisor)
+  - [prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
+  - [InfluxDB](https://www.influxdata.com/)
+**Displays Metrics:**
+  - [Grafana](https://grafana.com/)
+
+**Generates Load:**
+  - `pingidentity/ldap-sdk-tools`
+  - `pingidentity/apache-jmeter`
+
 
 > Much of the generic Prometheus work is taken from the [vegasbrianc/prometheus](https://github.com/vegasbrianc/prometheus) repository.
 
 ## What you'll do
 
+
+- Deploy the stack
+- Watch the load it generates
+- learn a bit about using the tools presented
+
 PingDirectory produces a wide array of metrics. These metrics can be delivered in StatsD format to a location of your choosing using the StatsD monitoring endpoint for PingDirectory.
 
 > See the PingDirectory documentation [StatsD Monitoring Endpoint](https://docs.ping.directory/PingDirectory/8.0.0.0/config-guide/statsd-monitoring-endpoint.html#Properties) for more information. 
-
-To get metrics on a dashboard in Grafana, you'll: 
-
-1. Turn on the StatsD monitoring endpoint in PingDirectory.
-
-2. Push metrics in stats to `statsd_exporter`, which formats and hosts the metrics.
-
-3. Have Prometheus scrape the `/metrics` endpoint on `statsd_exporter`.
-
-4. Have a dashboard in Grafana visualize the metrics from Prometheus. 
 
 ## Prerequisites
 
@@ -39,10 +45,22 @@ To get metrics on a dashboard in Grafana, you'll:
     docker-compose up -d
     ```
 
+  Just running this command will:
+    1. Deploy PingIdentity software 
+
+    2. Pull metrics from the Ping Identity software into Prometheus enabled endpoints. (E.g. statsd metrics with `statsd_exporter`, which formats and hosts the metrics.)
+    
+    3. Have Prometheus scrape the `/metrics` endpoint on `statsd_exporter`.
+
+    4. Generate load to have metrics worth looking at. Push metrics from the client application (jmeter) to InfluxDB.
+    
+    5. Deploy a dashboard in Grafana to visualize the metrics from Prometheus and other tools
+
+
 2. Wait for PingDirectory to become healthy. For example:
 
     ```shell
-    docker container ls --filter name=pingdirectory_1 --format 'table {{.Names}}\t{{.Status}}'                                
+    docker container ls --filter name=pingdirectory_1 --format 'table {{.Names}}\t{{.Status}}'                               
     ```
 
    The results displayed will be similar to this:
@@ -81,6 +99,9 @@ There's a lot that can be discussed regarding the configuration. We'll focus on 
 
   `prometheus.yml` simply defines when and where to look for metrics and any relevant alerting files. 
 
+* InfluxDB
+  `influxdb.conf` prepares influxdb to receive metrics from jmeter 
+
 * cAdvisor 
 
   Specifically for Docker Compose, cadvisor mounts to the actual Docker processes. 
@@ -99,16 +120,33 @@ There's a lot that can be discussed regarding the configuration. We'll focus on 
     
   Grafana and Prometheus runtime data is stored in a Docker volume, so if you start and stop the containers, you'll not lose your work. However, it's still a good practice when building dashboards in Grafana, to export the dashboard and add the JSON file to the `dashboards` folder. 
 
+
+
 ### Generate load
 
-When the stack is running, you *can* go to Grafana URL and view the dashboards, but there's little useful data in the dashboards until traffic is going through the containers. 
+#### auto-generated
+Traffic is generated in PingDirectory using our `ldap-sdk-tools` or `apache-jmeter` images. 
+Once PingDirectory is healthy, these tools will run as individual services based on the use case they are achieving.
 
-You can generate traffic in PingDirectory using our `ldap-sdk-tools` utility. 
+You can view the logs of any of these services directly with `docker-compose logs -f <service_name>`.
+Example:
 
-> See [The `ldap-sdk-tools` utility](ldapsdkUtil.md) for more information.
+  ```
+  docker-compose logs -f searchrate
+  ```
 
-1. To run the `ldap-sdk-tools` utility, open a shell in the PingDirectory container: 
+#### BYO Load
 
+**Option 1** 
+The most common way to generate load is by using the pingidentity/apache-jmeter image.
+To be effective with this tool check out the docs on [usage](../docs/docker-images/apache-jmeter/README.md)
+
+**Option 2** 
+To run some other test from the `ldap-sdk-tools` utility, check out the [image docs](../docs/docker-images/ldap-sdk-tools/README.md)
+
+**Option 3** 
+Or you can find tools directly on the pingdirectory server:
+1. 
    ```shell
    docker container exec -it 10-monitoring-stack_pingdirectory_1 sh
    ```
@@ -146,8 +184,9 @@ You can generate traffic in PingDirectory using our `ldap-sdk-tools` utility.
    > You can return to this after you've displayed these traffic metrics, and change the `modrate` parameter settings to see the effect in Grafana. 
 
 ### Display the traffic metrics
+Now that you actually have some data worth looking at... 
 
-The metrics are displayed at these URLs:
+Metrics are displayed at these URLs:
 
 | Tool | Description | URL | Credentials |
 | --- | --- | --- | --- |

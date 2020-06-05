@@ -48,3 +48,12 @@ datasources:
   version: 1
   # <bool> allow users to edit datasources from the UI.
   editable: true
+
+- name: InfluxDB.jmeter
+  type: influxdb
+  access: proxy
+  url: http://influxdb:8086
+  database: jmeter
+  basicAuth: false
+  isDefault: false
+  readOnly: false 
