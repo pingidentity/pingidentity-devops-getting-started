@@ -3,6 +3,7 @@
 This example illustrates how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.
 
 Tools in this stack:
+
 **Gets monitored:**
   - Ping Identity Software
 
@@ -12,6 +13,7 @@ Tools in this stack:
   - [cAdvisor](https://github.com/google/cadvisor)
   - [prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
   - [InfluxDB](https://www.influxdata.com/)
+
 **Displays Metrics:**
   - [Grafana](https://grafana.com/)
 
