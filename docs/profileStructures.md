@@ -22,7 +22,7 @@ You'll find here the server profile structures you can use for each of our produ
 | Path | Location description |
 | :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
-| `instance/server/conf/pingaccess.lic` | Use an existing PingAccess license, rather than the DevOps evaluation license. |
+| `instance/conf/pingaccess.lic` | Use an existing PingAccess license, rather than the DevOps evaluation license. |
 | `instance/conf/pa.jwk` | Used to decrypt a `data.json` configuration upon import |
 | `instance/data/data.json` | A config file that, if found by the container, is uploaded into the container |
 | `instance/data/PingAccess.mv.db` | database binary that would be ingested at container startup if found. |
