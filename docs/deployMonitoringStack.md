@@ -199,6 +199,8 @@ Metrics are displayed at these URLs:
 
 > The Grafana dashboards correspond to the dashboard definitions in `configs/grafana/provisioning/dashboards`.
 
+Once in Grafana, go to Dashboards, then manage. This will show the pre-populated dashboards with your live load results!
+
 ## Cleanup the stack
 
 To bring down the stack and remove the data stored in the Docker volumes, enter:
