@@ -5,13 +5,13 @@ services:
   pingdatagovernance:
     image: pingidentity/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
-    environment: 
+    environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernance
       - SERVER_PROFILE_PARENT=PDG
       - SERVER_PROFILE_PDG_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PDG_PATH=baseline/pingdatagovernance
-    env_file: 
+    env_file:
       - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
@@ -28,15 +28,16 @@ services:
       - pingnet-internal
     volumes:
       - pingdatagovernance-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
 
   pingdatagovernancepap:
     image: pingidentity/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
     # command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
-    environment: 
+    environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernancepap
       - HTTPS_PORT=8443
-    env_file: 
+    env_file:
       - ${HOME}/.pingidentity/devops
     ulimits:
       nproc:
@@ -51,6 +52,7 @@ services:
       - pingnet-dmz
     volumes:
       - pingdatagovernancepap-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/pdg-pap-integration/pingdatagovernancepap:/opt/in
 
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
@@ -73,14 +75,15 @@ services:
       - pingnet-internal
     volumes:
       - pingdirectory-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
 
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - "9443:8443"
-    networks: 
+    networks:
       - pingnet-internal
-              
+
 networks:
     pingnet-internal:
     pingnet-dmz:

@@ -102,7 +102,7 @@ services:
     volumes:
       - ./configs/pingdirectory/pd.profile/dsconfig:/opt/in/pd.profile/dsconfig
     #   - ${HOME}/projects/devops/volumes/replicated-pair.pingdirectory:/opt/out
-    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in:ro
+    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
     ulimits:
       nproc:
         soft: 16384

@@ -4,7 +4,7 @@ version: "2.4"
 services:
   pingaccess-admin:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:6.0.2-edge
-    environment: 
+    environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
@@ -21,11 +21,12 @@ services:
       - NET_ADMIN
     volumes:
       - pingaccess-admin-out:/opt/out
+    #  - ${HOME}/projects/pingidentity-server-profiles/pa-clustering/pingaccess:/opt/in
 
   pingaccess:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:6.0.2-edge
     command: wait-for pingaccess-admin:9000 -t 420 -- entrypoint.sh start-server
-    environment: 
+    environment:
       - VERBOSE=true
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pa-clustering/pingaccess
@@ -36,7 +37,7 @@ services:
     ports:
       - 3000-3010:3000
     networks:
-      - pingnet              
+      - pingnet
 networks:
     pingnet:
 

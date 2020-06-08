@@ -44,6 +44,7 @@ services:
       - pingnet
     volumes:
       - pingfederate-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
 
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
@@ -67,7 +68,8 @@ services:
       - pingnet
     volumes:
       - pingdirectory-out:/opt/out
-                    
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
+
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
@@ -85,9 +87,9 @@ services:
       - ${HOME}/.pingidentity/devops
     ports:
       - "6443:6443"
-    networks: 
+    networks:
       - pingnet
-  
+
 networks:
     pingnet:
 

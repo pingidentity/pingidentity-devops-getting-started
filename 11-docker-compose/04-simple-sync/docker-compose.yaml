@@ -49,6 +49,7 @@ services:
       - pingnet
     volumes:
       - pingdirectory-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/simple-sync/pingdirectory:/opt/in
 
   pingdatasync:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
@@ -72,14 +73,15 @@ services:
       - pingnet
     volumes:
       - pingdatasync-out:/opt/out
-  
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/simple-sync/pingdatasync:/opt/in
+
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - "8443:8443"
-    networks: 
-      - pingnet  
-              
+    networks:
+      - pingnet
+
 networks:
   pingnet:
 
