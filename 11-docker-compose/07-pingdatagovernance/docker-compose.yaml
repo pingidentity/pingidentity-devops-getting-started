@@ -3,7 +3,7 @@ version: "2.4"
 
 services:
   pingdatagovernance:
-    image: pingidentity/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -31,7 +31,7 @@ services:
       - pingnet-internal
 
   pingdatagovernancepap:
-    image: pingidentity/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
     # command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment: 
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -55,7 +55,7 @@ services:
       - pingnet-dmz
 
   pingdirectory:
-    image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
