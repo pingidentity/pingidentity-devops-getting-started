@@ -268,14 +268,11 @@ if ! test -z "${envFile}" ; then
   is_interactive="false"
   prep_variablize
   IFS='='
-  run="true"
-  while "${run}" = "true" ; do
-    read -r destVar sourceHost
-    test $? -ne 0 && run="false"
+  grep -v '^#' "${envFile}" | while read -r destVar sourceHost ; do
     echo "${destVar}  ${sourceHost}"
     check_variablize
     test $? -eq 0 && variablize
-  done < "${envFile}"
+  done
   unset IFS
   return_data
 else
