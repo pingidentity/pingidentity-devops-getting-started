@@ -213,7 +213,7 @@ variablize() {
     echo "INFO: variablizing"
     grep -irl "${sourceHost}" "${configData}" | while read -r fname ; do
       case "${fname}" in 
-        *.json | *.xml | *.dsconfig) mv "${fname}" "${fname}.subst";;
+        *.json | *.xml | *.dsconfig | *.ldif) mv "${fname}" "${fname}.subst";;
         # *.xml) mv "${fname}" "${fname}.subst";;
         *.subst) echo "${fname}" ;;
         *) echo "skipping: ${fname}" ;;
