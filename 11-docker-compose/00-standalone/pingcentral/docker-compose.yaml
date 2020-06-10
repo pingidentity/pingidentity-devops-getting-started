@@ -20,12 +20,15 @@ services:
   pingcentral:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     ports:
       - "9022:9022"
     networks:
       - pingnet
-                    
+    volumes:
+      - pingcentral-out:/opt/out
 networks:
-    pingnet:
+  pingnet:
 
+volumes:
+  pingcentral-out:

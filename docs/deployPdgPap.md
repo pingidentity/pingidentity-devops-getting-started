@@ -16,13 +16,13 @@ This example describes how to build PingDataGovernance policies, and employs ser
 
 ## Deploy the stack
 
-2. `cd` to the to where you have  [11-docker-compose/07-pingdatagovernance](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/07-pingdatagovernance) and run: 
+Go to your local [11-docker-compose/07-pingdatagovernance](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/07-pingdatagovernance) directory, and enter: 
    
    ```shell
    docker-compose up -d
    ```
 
-   When _all_ the containers are 'healthy' you can start testing things. 
+   When _all_ of the containers are healthy, you can start testing. 
 
 ## Log in to the management consoles
 
@@ -30,6 +30,7 @@ This example describes how to build PingDataGovernance policies, and employs ser
   - URL: https://localhost:8443
   - user: admin
   - password: password123
+  
 - PingDataConsole: 
     - URL: https://localhost:9443/console
     - server: pingdatagovernance
@@ -38,7 +39,7 @@ This example describes how to build PingDataGovernance policies, and employs ser
 
 ## Test the default use case
 
-The 'default' use case does the following:
+The default use case does the following:
   
 -  Proxies the PingDirectory Rest API using a mock access token validator.
 
@@ -126,7 +127,7 @@ To test this use case:
    If you want further confirmation, in the Data Console, go to External Servers -> `pingdatagovernancepap` and put some "junk" in the `branch` box. You'll see that PingDataGovernance is unable to find the policy branch. 
 
 
-## Clean up 
+## Clean up the stack
 
 When you're finished testing, remove the containers, network, and related data. Enter:
 
