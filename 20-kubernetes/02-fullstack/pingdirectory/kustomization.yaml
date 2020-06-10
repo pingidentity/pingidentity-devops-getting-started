@@ -1,14 +1,17 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-# comment out what you don't want. 
 resources:
-- pingaccess
-- pingfederate
-- ../01-standalone/pingdataconsole
-- pingdirectory
-- pingdatagovernance
-- pingdatagovernancepap
+- ../../01-standalone/pingdirectory
 
 # The only difference in standalone deployments vs "fullstack" (integrated) is the product configurations. 
 # here we replace standalone server-profiles ("getting-started") with "baseline" for each product
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingdirectory-environment-variables
+  behavior: replace
+  envs:
+    - env_vars.pingdirectory
