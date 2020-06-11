@@ -120,6 +120,17 @@ services:
       # evaluating administrators to tinker with configuration 
       # and preserve their changes across contaner restarts
       - pingdirectory-out:/opt/out
+
+  pingdataconsole:
+    image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    ports:
+      - "8443:8443"
+    mem_limit: 1g
+    memswap_limit: 1g
+    mem_swappiness: 0
+    networks:
+      - pingnet
+
   
 # TEST AUTHENTICATORS (LOAD)
   authrate_ok:
@@ -157,7 +168,6 @@ services:
 
 #ES Server 1
   es01:
-    hostname: es01
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     container_name: es01
     environment:
@@ -210,7 +220,6 @@ services:
 
 #ES Server 2
   es02:
-    hostname: es02
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     container_name: es02
     environment:
@@ -263,7 +272,6 @@ services:
 
 #Generate Certificates if not already on disk, then run the saved state loader to push saved templates and objects into both kibana and elasticsearch
   configure_es_certs_state:
-    hostname: configure_es_certs_state
     container_name: configure_es_certs_state
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     environment:
@@ -298,7 +306,6 @@ services:
 
 #Service that runs and updates both Known TOR and Known Malicious IPs for log enrichment.
   enrichment_service:
-    hostname: enrichment_service
     container_name: enrichment_service
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
     environment:
@@ -325,7 +332,7 @@ services:
 
 #Logstash system is how log4j ships logs into the stack.
   logstash:
-    hostname: logstash
+    container_name: logstash
     image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
     ports:
       - "9600:9600"
