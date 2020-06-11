@@ -46,6 +46,7 @@
 | Phase 8  | Develop Several Custom Alerts               | In Progress |
 | Phase 9  | Develop Production Grade Deployment Doc     | In Progress |
 | Phase 10 | Implement GEO-Distance Impossible detection | Beta        |
+| Phase 11 | Use layered server-profiles                 | In Progress |
 
 
 See [Deploy an Elasticsearch SIEM stack](https://pingidentity-devops.gitbook.io/devops/deploy/deploycompose/deploysiemstack) for more information.

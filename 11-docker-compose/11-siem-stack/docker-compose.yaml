@@ -8,6 +8,7 @@ services:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/server-profiles/pingfederate
+      - SERVER_PROFILE_BRANCH=arno-siem
       # ... the stock baseline
       - SERVER_PROFILE_PARENT=BASELINE
       - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -49,6 +50,7 @@ services:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/server-profiles/pingaccess
+      - SERVER_PROFILE_BRANCH=arno-siem
       # ... the stock baseline
       - SERVER_PROFILE_PARENT=BASELINE
       - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -87,12 +89,14 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
+      # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
       - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/server-profiles/pingdirectory
+      - SERVER_PROFILE_BRANCH=arno-siem
+      # ... the stock baseline
       - SERVER_PROFILE_PARENT=BASELINE
       - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_BASELINE_PATH=baseline/pingdirectory
-
       - ES_ADMIN_PD_USER_PASS=${ES_ADMIN_PD_USER_PASS}
     env_file:
       - ${HOME}/.pingidentity/devops
@@ -128,8 +132,8 @@ services:
       nofile:
         soft: 65535
         hard: 65535
-    mem_limit: 256m
-    memswap_limit: 256m
+    mem_limit: 64m
+    memswap_limit: 64m
     mem_swappiness: 0
     networks:
       - pingnet
@@ -144,8 +148,8 @@ services:
       nofile:
         soft: 65535
         hard: 65535
-    mem_limit: 256m
-    memswap_limit: 256m
+    mem_limit: 64m
+    memswap_limit: 64m
     mem_swappiness: 0
     networks:
       - pingnet
@@ -160,7 +164,7 @@ services:
       - node.name=es01
       - discovery.seed_hosts=es01,es02
       - cluster.initial_master_nodes=es01,es02
-      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
       - xpack.license.self_generated.type=trial
       - xpack.monitoring.collection.enabled=true
@@ -177,8 +181,8 @@ services:
       - xpack.security.authc.realms.native.realm1.order=2
       - xpack.security.authc.realms.ldap.ldap1.order=1
       - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
-      - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=people,dc=example,dc=com
-      - xpack.security.authc.realms.ldap.ldap1.group_search.base_dn=dc=example,dc=com
+      - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=People,dc=example,dc=com
+      - xpack.security.authc.realms.ldap.ldap1.group_search.base_dn=ou=Groups,dc=example,dc=com
       - xpack.security.authc.realms.ldap.ldap1.ssl.verification_mode=none
     ulimits:
       nofile:
@@ -187,6 +191,9 @@ services:
       memlock:
         soft: -1
         hard: -1
+    mem_limit: 2536m
+    memswap_limit: 2536m
+    mem_swappiness: 0
     volumes: 
       - data01:/usr/share/elasticsearch/data
       - certs:/usr/share/elasticsearch/config/certificates
@@ -210,7 +217,7 @@ services:
       - node.name=es02
       - discovery.seed_hosts=es01,es02
       - cluster.initial_master_nodes=es01,es02
-      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
       - xpack.license.self_generated.type=trial
       - xpack.monitoring.collection.enabled=true
@@ -227,7 +234,7 @@ services:
       - xpack.security.authc.realms.native.realm1.order=2
       - xpack.security.authc.realms.ldap.ldap1.order=1
       - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
-      - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=people,dc=example,dc=com
+      - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=People,dc=example,dc=com
       - xpack.security.authc.realms.ldap.ldap1.group_search.base_dn=ou=Groups,dc=example,dc=com
       - xpack.security.authc.realms.ldap.ldap1.ssl.verification_mode=none
     ulimits:
@@ -237,6 +244,9 @@ services:
       memlock:
         soft: -1
         hard: -1
+    mem_limit: 2536m
+    memswap_limit: 2536m
+    mem_swappiness: 0
     volumes: 
       - data02:/usr/share/elasticsearch/data
       - certs:/usr/share/elasticsearch/config/certificates
@@ -257,7 +267,7 @@ services:
     container_name: configure_es_certs_state
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     environment:
-      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     command: >
       bash -c '
         if [[ ! -f /certs/bundle.zip ]]; then
@@ -269,6 +279,9 @@ services:
         sh /usr/share/elasticsearch/config/bootstrap/saved_state_loader.sh
       '
     user: "0"
+    mem_limit: 64m
+    memswap_limit: 64m
+    mem_swappiness: 0
     working_dir: /usr/share/elasticsearch
     volumes: 
       - certs:/certs
@@ -289,7 +302,7 @@ services:
     container_name: enrichment_service
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
     environment:
-      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - THREAT_INTEL_PULL_INTERVAL=600
     command: > 
       bash -c '
@@ -297,6 +310,9 @@ services:
         sh /usr/share/elasticsearch/config/bootstrap/enrichment_wrapper.sh
       '
     user: "0"
+    mem_limit: 128m
+    memswap_limit: 128m
+    mem_swappiness: 0
     working_dir: /usr/share/elasticsearch
     volumes: 
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/config/bootstrap
@@ -335,11 +351,14 @@ services:
       - XPACK_MANAGEMENT_ENABLED=false
       - XPACK_MONITORING_ENABLED=true
       - XPACK_MONITORING_ELASTICSEARCH_USERNAME=elastic
-      - XPACK_MONITORING_ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+      - XPACK_MONITORING_ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - XPACK_MONITORING_ELASTICSEARCH_HOSTS="https://es01:9200"
       - XPACK_MONITORING_ELASTICSEARCH_SSL_CERTIFICATE_AUTHORITY=/usr/share/elasticsearch/config/certificates/es01/es01.crt
-      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - CERTS_DIR=/usr/share/elasticsearch/config/certificates
+    mem_limit: 1200m
+    memswap_limit: 1200m
+    mem_swappiness: 0
     networks:
       - pingnet
 
@@ -350,7 +369,7 @@ services:
     container_name: kibana
     environment:
       - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTICSEARCH_HOSTS="https://es01:9200"
       - SERVER_PORT=5601
       - SERVER_HOST=0.0.0.0
@@ -361,6 +380,9 @@ services:
       - SERVER_SSL_CERTIFICATE=/usr/share/elasticsearch/config/certificates/kibana/kibana.crt
       - SERVER_SSL_KEY=/usr/share/elasticsearch/config/certificates/kibana/kibana.key
       - CERTS_DIR=/usr/share/elasticsearch/config/certificates
+    mem_limit: 1g
+    memswap_limit: 1g
+    mem_swappiness: 0
     volumes:
       - certs:/usr/share/elasticsearch/config/certificates    
     ports:
