@@ -1,12 +1,17 @@
-version: "3.3"
+version: "2"
 
 services:
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
+      # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
-      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingfederate
+      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/server-profiles/pingfederate
+      # ... the stock baseline
+      - SERVER_PROFILE_PARENT=BASELINE
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingfederate
       - PF_LOG_LEVEL=DEBUG
       - SOCKET_HOST=logstash
       - SOCKET_PORT_SYSTEM=20513
@@ -17,20 +22,37 @@ services:
     ports:
       - "9031:9031"
       - "9999:9999"
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    mem_limit: 1g
+    memswap_limit: 1g
+    mem_swappiness: 0
     networks:
       - pingnet
     depends_on:
       - pingdirectory
-#   Use this volume mount to test local configurations
-#   volumes:
-#     - ./baseline/pingfederate:/opt/in
+    volumes:
+      # using the pingfederate-out data container to persist data allows 
+      # evaluating administrators to tinker with configuration 
+      # and preserve their changes across contaner restarts
+      - pingfederate-out:/opt/out
 
   pingaccess:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
+      # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
-      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingaccess
+      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/server-profiles/pingaccess
+      # ... the stock baseline
+      - SERVER_PROFILE_PARENT=BASELINE
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingaccess
       - PA_LOG_LEVEL=DEBUG
       - SOCKET_HOST=logstash 
       - SOCKET_PORT_SYSTEM=20516
@@ -41,38 +63,90 @@ services:
     ports:
       - "9000:9000"
       - "3000:3000"
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    mem_limit: 1g
+    memswap_limit: 1g
+    mem_swappiness: 0
     networks:
       - pingnet
     depends_on:
       - pingdirectory
-#   Use this volume mount to test local configurations
-#   volumes:
-#     - ./baseline/pingaccess:/opt/in
+      - pingfederate
+    volumes:
+      # using the pingfederate-out data container to persist data allows 
+      # evaluating administrators to tinker with configuration 
+      # and preserve their changes across contaner restarts
+      - pingaccess-out:/opt/out
 
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
-      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/baseline/pingdirectory
-      - ES_ADMIN_PD_USER_PASS=$ES_ADMIN_PD_USER_PASS
+      - SERVER_PROFILE_PATH=11-docker-compose/11-siem-stack/server-profiles/pingdirectory
+      - SERVER_PROFILE_PARENT=BASELINE
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingdirectory
+
+      - ES_ADMIN_PD_USER_PASS=${ES_ADMIN_PD_USER_PASS}
     env_file:
       - ${HOME}/.pingidentity/devops
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    mem_limit: 2g
+    memswap_limit: 2g
+    mem_swappiness: 0
     ports:
       - "1636:636"
       - "1443:443"
     networks:
       - pingnet      
+    volumes:
+      # using the pingfederate-out data container to persist data allows 
+      # evaluating administrators to tinker with configuration 
+      # and preserve their changes across contaner restarts
+      - pingdirectory-out:/opt/out
   
 # TEST AUTHENTICATORS (LOAD)
   authrate_ok:
     image: pingidentity/ldap-sdk-tools
     command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 4000
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    mem_limit: 256m
+    memswap_limit: 256m
+    mem_swappiness: 0
     networks:
       - pingnet
 
   authrate_ko:
     image: pingidentity/ldap-sdk-tools
     command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 3000
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    mem_limit: 256m
+    memswap_limit: 256m
+    mem_swappiness: 0
     networks:
       - pingnet
 #END TEST AUTHENTICATORS (LOAD)
@@ -80,7 +154,7 @@ services:
 #ES Server 1
   es01:
     hostname: es01
-    image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     container_name: es01
     environment:
       - node.name=es01
@@ -119,18 +193,18 @@ services:
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
       - "9201:9200"
-    healthcheck:
-      test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
-      interval: 30s
-      timeout: 10s
-      retries: 10
+    # healthcheck:
+    #   test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 10
     networks:
       - pingnet
 
 #ES Server 2
   es02:
     hostname: es02
-    image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     container_name: es02
     environment:
       - node.name=es02
@@ -169,11 +243,11 @@ services:
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
     ports:
       - "9202:9200"
-    healthcheck:
-      test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
-      interval: 30s
-      timeout: 10s
-      retries: 10
+    # healthcheck:
+    #   test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 10
     networks:
     - pingnet
 
@@ -181,7 +255,7 @@ services:
   configure_es_certs_state:
     hostname: configure_es_certs_state
     container_name: configure_es_certs_state
-    image: docker.elastic.co/elasticsearch/elasticsearch:$ELASTIC_VERSION
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     environment:
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
     command: >
@@ -236,7 +310,7 @@ services:
 #Logstash system is how log4j ships logs into the stack.
   logstash:
     hostname: logstash
-    image: docker.elastic.co/logstash/logstash:$ELASTIC_VERSION
+    image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
     ports:
       - "9600:9600"
       - "20513:20513"
@@ -272,7 +346,7 @@ services:
 #Kibana System for visuilizations etc.
   kibana:
     hostname: kibana
-    image: docker.elastic.co/kibana/kibana:$ELASTIC_VERSION
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
     container_name: kibana
     environment:
       - ELASTICSEARCH_USERNAME=elastic
@@ -306,3 +380,6 @@ volumes:
     driver: local
   certs:
     driver: local
+  pingaccess-out:
+  pingfederate-out:
+  pingdirectory-out:
