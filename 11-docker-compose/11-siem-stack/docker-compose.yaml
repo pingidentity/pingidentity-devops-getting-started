@@ -207,8 +207,8 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 2536m
-    memswap_limit: 2536m
+    mem_limit: 4g
+    memswap_limit: 4g
     mem_swappiness: 0
     volumes: 
       - data01:/usr/share/elasticsearch/data
@@ -259,8 +259,8 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 2536m
-    memswap_limit: 2536m
+    mem_limit: 4g
+    memswap_limit: 4g
     mem_swappiness: 0
     volumes: 
       - data02:/usr/share/elasticsearch/data
@@ -392,8 +392,8 @@ services:
       - SERVER_SSL_CERTIFICATE=/usr/share/elasticsearch/config/certificates/kibana/kibana.crt
       - SERVER_SSL_KEY=/usr/share/elasticsearch/config/certificates/kibana/kibana.key
       - CERTS_DIR=/usr/share/elasticsearch/config/certificates
-    mem_limit: 1g
-    memswap_limit: 1g
+    mem_limit: 2g
+    memswap_limit: 2g
     mem_swappiness: 0
     volumes:
       - certs:/usr/share/elasticsearch/config/certificates    
