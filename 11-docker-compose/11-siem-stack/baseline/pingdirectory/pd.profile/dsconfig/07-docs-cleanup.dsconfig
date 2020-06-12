@@ -1,7 +1,0 @@
-#
-# These docs are pruned from the docker to keep size down
-# 
-dsconfig set-connection-handler-prop \
-    --handler-name "HTTPS Connection Handler" \
-    --remove http-servlet-extension:Documentation \
-    --remove "http-servlet-extension:Swagger UI"
