@@ -140,7 +140,7 @@ services:
   authrate_ok:
     image: pingidentity/ldap-sdk-tools
     container_name: authrate_ok
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 4000
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 90
     ulimits:
       nproc:
         soft: 16384
@@ -157,7 +157,7 @@ services:
   authrate_ko:
     image: pingidentity/ldap-sdk-tools
     container_name: authrate_ko
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 3000
+    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
     ulimits:
       nproc:
         soft: 16384
