@@ -3,6 +3,7 @@ version: "2"
 services:
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingfederate
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
       # We apply the SIEM-specific configurations on top of ...
@@ -45,6 +46,7 @@ services:
 
   pingaccess:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingaccess
     command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
     environment:
       # We apply the SIEM-specific configurations on top of ...
@@ -88,6 +90,7 @@ services:
 
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdirectory
     environment:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
@@ -123,6 +126,7 @@ services:
 
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    container_name: pingdataconsole
     ports:
       - "8443:8443"
     mem_limit: 1g
@@ -135,6 +139,7 @@ services:
 # TEST AUTHENTICATORS (LOAD)
   authrate_ok:
     image: pingidentity/ldap-sdk-tools
+    container_name: authrate_ok
     command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 4000
     ulimits:
       nproc:
@@ -151,6 +156,7 @@ services:
 
   authrate_ko:
     image: pingidentity/ldap-sdk-tools
+    container_name: authrate_ko
     command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 3000
     ulimits:
       nproc:
@@ -363,15 +369,14 @@ services:
       - XPACK_MONITORING_ELASTICSEARCH_SSL_CERTIFICATE_AUTHORITY=/usr/share/elasticsearch/config/certificates/es01/es01.crt
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - CERTS_DIR=/usr/share/elasticsearch/config/certificates
-    mem_limit: 1200m
-    memswap_limit: 1200m
+    mem_limit: 2g
+    memswap_limit: 2g
     mem_swappiness: 0
     networks:
       - pingnet
 
 #Kibana System for visuilizations etc.
   kibana:
-    hostname: kibana
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
     container_name: kibana
     environment:
