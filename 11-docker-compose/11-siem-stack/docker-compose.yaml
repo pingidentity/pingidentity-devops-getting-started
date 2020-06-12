@@ -293,8 +293,8 @@ services:
         sh /usr/share/elasticsearch/config/bootstrap/saved_state_loader.sh
       '
     user: "0"
-    mem_limit: 64m
-    memswap_limit: 64m
+    mem_limit: 512m
+    memswap_limit: 512m
     mem_swappiness: 0
     working_dir: /usr/share/elasticsearch
     volumes: 
