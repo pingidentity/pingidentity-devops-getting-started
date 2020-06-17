@@ -1,6 +1,6 @@
 # Troubleshooting
 
-## Getting started
+## Get started
 
 ### Examples not working
 

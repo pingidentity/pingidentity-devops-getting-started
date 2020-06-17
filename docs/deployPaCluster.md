@@ -6,7 +6,7 @@ This use case employs the `pingidentity-server-profiles/pa-clustering` server pr
 
 ## Prerequisites
 
-* You've already been through [Getting Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## What you'll do
 

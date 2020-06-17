@@ -8,7 +8,7 @@
 * [Overview](docs/overview.md)
 * [Getting started](docs/getStarted.md)
   * [DevOps Registration](docs/devopsRegistration.md)
-  * [Using the getting-started repo](docs/getStartedWithGitRepo.md)
+  * [Deploy an example stack](docs/getStartedWithGitRepo.md)
   * [Using your DevOps user and key](docs/devopsUserKey.md)
   * [Using an existing product license](docs/existingLicense.md)
   * [Saving your configuration changes](docs/saveConfigs.md)

@@ -18,7 +18,7 @@ You'll find here information regarding the deployment, management and scaling of
 
 We also highly recommend you are familiar with the information in these AWS articles:
 
-* [Getting Started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html)
+* [Get started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html)
 * [Creating a Cluster with a Fargate Task Using the Amazon ECS CLI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html)
 * [Creating a Cluster with an EC2 Task Using the Amazon ECS CLI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-ec2.html)
 

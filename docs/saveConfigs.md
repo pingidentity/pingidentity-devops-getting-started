@@ -39,7 +39,7 @@ You can mount a Docker volume for containers in a stack or for standalone contai
       pingidentity/pingfederate:edge
   ```
 
-## Getting Started - Docker Compose Mounts
+## Get started - Docker Compose Mounts
 
 Within many of the docker-compose.yaml files in the Getting-Started [repository](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose), volume mounts to `opt/out` have been included to persist your configuration across container restarts.
 
