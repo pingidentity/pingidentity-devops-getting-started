@@ -6,7 +6,7 @@
     * [Version 2004](docs/relnotes-2004.md)
     * [Version 2003](docs/relnotes-2003.md)
 * [Overview](docs/overview.md)
-* [Getting started](docs/getStarted.md)
+* [Get started](docs/getStarted.md)
   * [DevOps Registration](docs/devopsRegistration.md)
   * [Deploy an example stack](docs/getStartedWithGitRepo.md)
   * [Using your DevOps user and key](docs/devopsUserKey.md)
