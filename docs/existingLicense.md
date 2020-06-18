@@ -2,6 +2,14 @@
 
 If you have an existing, valid product license for the product or products you'll be running, you can use this instead of the DevOps evaluation license.
 
+## Prerequisites
+
+* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+
+* You've deployed an example stack. See [Deploy an example stack](getStartedWithGitRepo.md).
+
+## What you'll do
+
 Use either of these two methods to make an existing product license file available to your deployment:
 
 * Copy each license file to the server profile location associated with the product. The default server profile locations are:
@@ -14,11 +22,11 @@ Use either of these two methods to make an existing product license file availab
 
 * Use the instructions in any of these subtopics:
 
-  - **License declarations for stacks** to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
+  - [License declarations for stacks](#license-declarations-for-stacks) to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
 
-  - **License declarations for standalone containers** when bringing up standalone containers.
+  - [License declarations for standalone containers](#license-declarations-for-standalone-containers) when bringing up standalone containers.
 
-  - **Passing a license as a Kubernetes secret** to use an existing license with Kubernetes.
+  - [Passing a license as a Kubernetes secret](#passing-a-license-as-a-kubernetes-secret) to use an existing license with Kubernetes.
 
 ## License declarations for stacks
 
@@ -45,27 +53,27 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
     * PingFederate
       - Expected license file name: `pingfederate.lic`
-      - Mount Path: `/opt/in/instance/server/default/conf/pingfederate.lic`
+      - Mount path: `/opt/in/instance/server/default/conf/pingfederate.lic`
 
     * PingAccess
       - Expected license file name: `pingaccess.lic`
-      - Mount Path: `/opt/in/instance/conf/pingaccess.lic`
+      - Mount path: `/opt/in/instance/conf/pingaccess.lic`
 
     * PingDirectory
       - Expected License file name: `PingDirectory.lic`
-      - Mount Path: `/opt/in/instance/PingDirectory.lic`
+      - Mount path: `/opt/in/instance/PingDirectory.lic`
 
     * PingDataSync
       - Expected license file name: `PingDirectory.lic`
-      - Mount Path: `/opt/in/instance/PingDirectory.lic`
+      - Mount path: `/opt/in/instance/PingDirectory.lic`
 
     * PingDataGovernance
       - Expected license file name: `PingDataGovernance.lic`
-      - Mount Path: `/opt/in/instance/PingDataGovernance.lic`
+      - Mount path: `/opt/in/instance/PingDataGovernance.lic`
 
     * PingCentral
       - Expected license file name: `pingcentral.lic`
-      - Mount Path: `/opt/in/instance/conf/pingcentral.lic`
+      - Mount path: `/opt/in/instance/conf/pingcentral.lic`
 
  3. Repeat this process for the remaining container entries for which you have an existing license.
 
@@ -86,9 +94,9 @@ For a standalone container, use this syntax to make the license file available t
 
 We'll use PingFederate as an example. You'll need to supply your PingFederate license file.
 
-The kustomize tool provides built in generators for creating secrets. In this example, the secret will be generated using the `pingfederate.lic` file.
+The kustomize tool provides built-in generators for creating secrets. In this example, the secret will be generated using the `pingfederate.lic` file.
 
-You'll find the YAML files for this example in the [pingidentity-devops-getting-started/20-kubernetes/07-license-as-secret](../20-kubernetes/07-license-as-secret/) directory.
+You'll find the YAML files for this example in your local `pingidentity-devops-getting-started/20-kubernetes/07-license-as-secret` directory.
 
 ### Prerequisites
 
@@ -102,7 +110,7 @@ You'll find the YAML files for this example in the [pingidentity-devops-getting-
 
 2. Rename the file to `pingfederate.lic`.
 
-3. Copy the YAML files in the [pingidentity-devops-getting-started/20-kubernetes/07-license-as-secret](../20-kubernetes/07-license-as-secret/) directory to your working directory.
+3. Copy the YAML files from your local your local `pingidentity-devops-getting-started/20-kubernetes/07-license-as-secret` directory to your working directory.
 
 4. In the `pingfederate.yaml` file, declare the volume to use for the license:
 
@@ -135,7 +143,7 @@ You'll find the YAML files for this example in the [pingidentity-devops-getting-
 
      * `readOnly` is an optional attribute.
 
-6. In the `kustomization.yaml` yaml file, add your license information to the `secretGenerator` section:
+6. In the `kustomization.yaml` file, add your license information to the `secretGenerator` section:
 
    ```yaml
    secretGenerator:

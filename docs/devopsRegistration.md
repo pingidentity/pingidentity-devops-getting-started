@@ -13,3 +13,4 @@ To get your DevOps user and key:
 
 > For ease of use, we recommend you use the DevOps user and key approach when trying our container and stack examples. However, if you'd rather use an existing Ping Identity product license, see [Use an existing license](existingLicense.md) for instructions before proceeding.
 
+3. Complete setting up your DevOps environment in [Get started](getStarted.md).

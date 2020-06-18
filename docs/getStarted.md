@@ -13,7 +13,8 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 You'll need a product license to run our Docker images. You can use either:
 
 * An evaluation license obtained with a valid DevOps user key. See [DevOps registration](devopsRegistration.md) for more information.
-* A valid product license available with a current Ping Identity customer subscription. See [Using an existing product license](https://pingidentity-devops.gitbook.io/devops/getstarted/existinglicense) for more information.
+  
+* Although you'll first need to complete your [DevOps registration](devopsRegistration.md), you can subsequently use a valid product license available with a current Ping Identity customer subscription. 
 
 ## Set up your DevOps environment
 
@@ -38,6 +39,7 @@ You'll need a product license to run our Docker images. You can use either:
    ```
 
 4. You can use the ping-devops utility to run a quick demonstration of any of our products in your Docker environment. 
+   
    a. To display information about the containers or stacks available using the ping-devops utility, enter:
 
    ```shell
