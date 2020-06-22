@@ -23,7 +23,7 @@ mv pingfederate-10.1.0.zip product.zip
 
 ## Move product.zip to Build Folder
 
-Within the docker-builds repo, there is a folder for each product. Move the product.zip file inside the product/tmp folder
+Within the docker-builds repo, there is a subdirectory for each product. Move the product.zip file inside the **product/tmp** folder
 
 Example
 
@@ -34,7 +34,7 @@ Example
 
 ## Building the Docker Image
 
-Prior to building the image, view the verions.json file in the product folder as you'll need to specify a valid version for the build script. Since you're providing the product zip file, it doesn't really matter which one you select as long as it's valid.
+Prior to building the image, view the **versions.json** file in the product folder as you'll need to specify a valid version for the build script. Since you're providing the product zip file, it doesn't really matter which one you select as long as it's valid.
 
 Using **PingFederate** as an example, you can see that `10.1.0` is a valid product version.
 
@@ -45,12 +45,12 @@ In your terminal, navigate to the base of the `docker-builds` repo.
 Example
 
 ```sh
-cd ~/pingidentity/devops/pingidentity/docker-builds
+cd ~/pingidentity/devops/pingidentity-docker-builds
 ```
 
 Ping Identity Docker Images are built using common foundational layers (JVM, pingcommon, pingdatacommon etc) that the product layer will need. Since you most likely don't have the layers locally we will build the product using the `serial_build.sh` script. Going forward if you wish to use the same foundational layers, you can run the `build_product.sh` script to simply build the top layer.
 
-To build the PingFederate image we'll specify the following options to build_serial
+To build a PingFederate image, specify the following options to `serial_build.sh`
 
 * -p (Product): pingfederate
 * -v (Version): 10.1.0
@@ -67,6 +67,7 @@ Run the following command to build the image
     -s alpine \
     -j az11
 ```
+
 > Note: It is important to build from the base of the repo as shown in the above command.
 
 Once completed, you should see the product and base images
@@ -75,7 +76,7 @@ Once completed, you should see the product and base images
 
 ## Retagging Local Image
 
-If you wish to change the tag of the create image and push to your own registry, use the following command.
+You can change the tag of the created image and push to your own registry, by using the following command.
 
 Command Syntax
 
@@ -92,4 +93,3 @@ Example
 ```
 
 ![Local Build Image List](images/localbuild_tag.png)
-
