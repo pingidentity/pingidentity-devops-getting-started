@@ -13,6 +13,7 @@
   * [Using an existing product license](docs/existingLicense.md)
   * [Saving your configuration changes](docs/saveConfigs.md)
 * [Working with DevOps images](docs/deploy.md)
+  * [Build Product Image Locally](docs/buildLocal.md)
   * [Deploy standalone containers](docs/deployStandalone.md)
   * [Orchestrate with Docker-Compose](docs/deployCompose.md)
     * [Deploy a PingFederate and PingDirectory stack](docs/deploySimpleStack.md)
