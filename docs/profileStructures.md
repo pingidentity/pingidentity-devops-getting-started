@@ -31,17 +31,31 @@ You'll find here the server profile structures you can use for each of our produ
 
 #### PingAccess profiles are typically minimalist
 
-This is because the majority of PingAccess configurations can be found within a `data.json` or `PingAccess.mv.db` file. We highly recommend you primarily use a `data.json` for configurations with very minimal configurations in `PingAccess.mv.db`. You can easily view and manipulate configurations directly in a JSON file as opposed to the binary `PingAccess.mv.db` file. This makes tracking changes in version control easier as well. 
+This is because the majority of PingAccess configurations can be found within a `data.json` or `PingAccess.mv.db` file. We highly recommend you only use `data.json` for configurations and only use `PingAccess.mv.db` if necessary. You can easily view and manipulate configurations directly in a JSON file as opposed to the binary `PingAccess.mv.db` file. This makes tracking changes in version control easier as well. 
 
-> Currently, clustering PingAccess requires using the `PingAccess.mv.db` to set the cluster bind port. 
+~~Currently, clustering PingAccess requires using the `PingAccess.mv.db` to set the cluster bind port~~
+
+PingAccess 6.1.x+ supports using only `data.json`, even when clustering. _However_ on  6.1.0.3 make sure `data.json` is only supplied to the admin node.
 
 <!-- When using a `data.json`, the container uses the PingAccess Admin API to import the data.json. This means: 
 1. The PingAccess server has to be running. So be careful when determining when the container is 'ready' to accept traffic. Check that the configuration has been imported, rather than just that the server is up. Refer to the `liveness.sh` within the image for an example. 
 2. Import only _needs_ to occur on the admin node. Typically engines can be  -->
 
 #### Configuration file names and paths are important
+**For PA 6.1.0+**
 
-The JSON configuration file for PingAccess _must_ be named `data.json` and located in the `instance/data` directory. A corresponding file named `pa.jwk` must also exist in the `instance/conf` directory for the `data.json` file to be decrypted on import. To get a `data.json` and `pa.jwk` that work together, pull them both from the same running PingAccess instance. 
+PingAccess now supports native `data.json` ingetion. *This is the recommended method*. 
+
+Place `data.json` in `/instance/conf/data/start-up-deployer`
+The JSON configuration file for PingAccess _must_ be named `data.json`
+
+**For <= PA 6.0.x**
+
+The JSON configuration file for PingAccess _must_ be named `data.json` and located in the `instance/data` directory. 
+
+**For All**
+A corresponding file named `pa.jwk` must also exist in the `instance/conf` directory for the `data.json` file to be decrypted on import. To get a `data.json` and `pa.jwk` that work together, pull them both from the same running PingAccess instance. 
+
 
 For example, if PingAccess is running in a local docker container you can use these commands to export the `data.json` file and copy the `pa.jwk` file to your local Downloads directory: 
 
@@ -55,19 +69,21 @@ For example, if PingAccess is running in a local docker container you can use th
 
 The PingAccess administrator user password is not found in `data.json`, but in `PingAccess.mv.db`. For this reason, there are environment variables you can use to manage different scenarios:
 
-* `PA_ADMIN_PASSWORD` 
+* `PING_IDENTITY_PASSWORD` 
   
   Use this variable if:
 
-  - Your `PingAccess.mv.db` file has a password other than the default "2Access".
   - You're starting a PingAccess container without any configurations. 
   - You're using only a `data.json` file for configurations.  
+  - Your `PingAccess.mv.db` file has a password other than the default "2Access".
   
-  The `PA_ADMIN_PASSWORD` value will be used for all interactions with the PingAccess Admin API (such as, importing configurations, and creating clustering).
+  The `PING_IDENTITY_PASSWORD` value will be used for all interactions with the PingAccess Admin API (such as, importing configurations, and creating clustering).
 
 * `PA_ADMIN_PASSWORD_INITIAL` 
   
-  Use this with `PA_ADMIN_PASSWORD` to set the runtime admin password if you are overriding the password in `PingAccess.mv.db` (which would require passing both variables).
+  Use this in addition to `PING_IDENTITY_PASSWORD` to change the runtime admin password and override the password in `PingAccess.mv.db`
+
+> **NOTE:** if you use only `data.json` and don't pass `PING_IDENTITY_PASSWORD`, the password will be defaulted to 2FederateM0re. Meaning, **always** use `PING_IDENTITY_PASSWORD`!!
 
 ## PingDirectory
 
