@@ -207,6 +207,7 @@ variablize() {
     sourceHost=$( echo "${sourceHost}" | sed 's/_/\\_/g' )
     sourceHost=$( echo "${sourceHost}" | sed 's/\./\\./g' )
     sourceHost=$( echo "${sourceHost}" | sed 's/\:/\\:/g' )
+    sourceHost=$( echo "${sourceHost}" | sed 's/\//\\\//g' )
     # echo "sourceHostname=${sourceHost}"
     
     # Begin find/replace
@@ -269,9 +270,9 @@ if ! test -z "${envFile}" ; then
   prep_variablize
   IFS='='
   grep -v '^#' "${envFile}" >> "${tmpDir}/env"
-  cat "${tmpDir}/env"
+  # cat "${tmpDir}/env"
   while read -r destVar sourceHost ; do
-    echo "${destVar}  ${sourceHost}"
+    # echo "looking for ${sourceHost}, to replace with ${destVar}  "
     check_variablize
     test $? -eq 0 && variablize
   done < "${tmpDir}/env"
