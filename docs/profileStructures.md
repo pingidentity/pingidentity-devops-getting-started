@@ -29,7 +29,7 @@ You'll find here the server profile structures you can use for each of our produ
 
 ### PingAccess server profile best practices
 
-#### PingAccess profiles are typically minimalist
+**PingAccess profiles are typically minimalist.**
 
 This is because the majority of PingAccess configurations can be found within a `data.json` or `PingAccess.mv.db` file. We highly recommend you only use `data.json` for configurations and only use `PingAccess.mv.db` if necessary. You can easily view and manipulate configurations directly in a JSON file as opposed to the binary `PingAccess.mv.db` file. This makes tracking changes in version control easier as well. 
 
@@ -41,11 +41,11 @@ PingAccess 6.1.x+ supports using only `data.json`, even when clustering. _Howeve
 1. The PingAccess server has to be running. So be careful when determining when the container is 'ready' to accept traffic. Check that the configuration has been imported, rather than just that the server is up. Refer to the `liveness.sh` within the image for an example. 
 2. Import only _needs_ to occur on the admin node. Typically engines can be  -->
 
-#### Config File Usage
+### Config File Usage
 
 Configuration file names and paths are important
 
-##### For PA 6.1.0
+#### For PA 6.1.0
 
 PingAccess now supports native `data.json` ingetion. *This is the recommended method*. 
 
@@ -56,11 +56,11 @@ Additionally, `data.json` that corresponds to earlier PingAccess versions _might
 At least, once you're on 6.1 `data.json` will be forward compatible.
 In the devops world, this means you get to avoid upgrades. This is a huge win. 
 
-**For <= PA 6.0.x**
+#### For <= PA 6.0.x
 
 The JSON configuration file for PingAccess _must_ be named `data.json` and located in the `instance/data` directory. 
 
-**For All**
+#### For All
 A corresponding file named `pa.jwk` must also exist in the `instance/conf` directory for the `data.json` file to be decrypted on import. To get a `data.json` and `pa.jwk` that work together, pull them both from the same running PingAccess instance. 
 
 
@@ -72,7 +72,7 @@ For example, if PingAccess is running in a local docker container you can use th
     docker cp <container_name>:/opt/out/instance/conf/pa.jwk ~/Downloads/pa.jwk
   ```
 
-#### Understanding the password variables
+### Understanding the password variables
 
 The PingAccess administrator user password is not found in `data.json`, but in `PingAccess.mv.db`. For this reason, there are environment variables you can use to manage different scenarios:
 
