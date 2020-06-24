@@ -41,13 +41,20 @@ PingAccess 6.1.x+ supports using only `data.json`, even when clustering. _Howeve
 1. The PingAccess server has to be running. So be careful when determining when the container is 'ready' to accept traffic. Check that the configuration has been imported, rather than just that the server is up. Refer to the `liveness.sh` within the image for an example. 
 2. Import only _needs_ to occur on the admin node. Typically engines can be  -->
 
-#### Configuration file names and paths are important
-**For PA 6.1.0+**
+#### Config File Usage
+
+Configuration file names and paths are important
+
+##### For PA 6.1.0
 
 PingAccess now supports native `data.json` ingetion. *This is the recommended method*. 
 
-Place `data.json` in `/instance/conf/data/start-up-deployer`
+Place `data.json` or `data.json.subst` in `instance/conf/data/start-up-deployer`
 The JSON configuration file for PingAccess _must_ be named `data.json`
+
+Additionally, `data.json` that corresponds to earlier PingAccess versions _might_ be accepted.
+At least, once you're on 6.1 `data.json` will be forward compatible.
+In the devops world, this means you get to avoid upgrades. This is a huge win. 
 
 **For <= PA 6.0.x**
 
