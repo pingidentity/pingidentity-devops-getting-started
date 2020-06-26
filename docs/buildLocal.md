@@ -1,8 +1,8 @@
-# Build Docker Image with Local Zip File
+# Build a Docker product image locally
 
-This example describes how to build a Docker image using the build tools found in Ping Identity's [Docker Builds](https://github.com/pingidentity/pingidentity-docker-builds) repo and a local copy of a product zip file.
+This example describes how to build a Docker image or our products using the build tools found in our [Docker Builds](https://github.com/pingidentity/pingidentity-docker-builds) repo, and a local copy of a product zip file.
 
-## Clone the Docker Builds Repository
+## Clone the `pingidentity-docker-builds` repository
 
 Open a terminal and clone the `pingidentity-docker-builds` repo. Enter:
 
