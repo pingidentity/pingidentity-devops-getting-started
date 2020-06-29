@@ -141,6 +141,34 @@ The current product versions for **edge** and **latest** are
 | PingDirectoryProxy | 8.1.0.0 | 8.0.0.1 |
 | PingCentral | 1.3.0 | 1.3.0 |
 
+## Determine Product Version in Image
+
+If you are unsure of the product version for the container you are running, shell into the container, then echo the IMAGE_VERSION environment variable.
+
+Example
+
+```sh
+docker container exec -it <container id> sh
+echo $IMAGE_VERSION
+```
+
+The IMAGE_VERSION variable will return
+[product]-[container OS]-[jdk]-[**product version**]-[build date]-[git revision].
+
+Sample Output
+IMAGE_VERSION=pingcentral-alpine-az11-1.3.0-200629-bc33
+
+| Key | Value |
+|-----|-----|
+| Product | pingcentral |
+| Container OS | apline |
+| JDK | az11 |
+| Product Version | 1.3.0 |
+| Build Date | 200629* |
+| Git Revision | bc33 |
+
+> \* Date is in YYMMDD format
+
 ## Which release tag to use
 
 You should test all images in development before deploying to production. It's also best practice to use a _full tag_ variation like `pingaccess:5.3.0-alpine-edge`, rather than `pingaccess:edge` to avoid dependency conflicts in server profiles.  In general, we recommend:
