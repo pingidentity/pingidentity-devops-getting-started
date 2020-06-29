@@ -156,7 +156,8 @@ The IMAGE_VERSION variable will return
 [product]-[container OS]-[jdk]-[**product version**]-[build date]-[git revision].
 
 Sample Output
-IMAGE_VERSION=pingcentral-alpine-az11-1.3.0-200629-bc33
+
+`IMAGE_VERSION=pingcentral-alpine-az11-1.3.0-200629-bc33`
 
 | Key | Value |
 |-----|-----|
