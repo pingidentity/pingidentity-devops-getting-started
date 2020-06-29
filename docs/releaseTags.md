@@ -153,7 +153,8 @@ echo $IMAGE_VERSION
 ```
 
 The IMAGE_VERSION variable will return
-[product]-[container OS]-[jdk]-[**product version**]-[build date]-[git revision].
+
+`[product]-[container OS]-[jdk]-[product version]-[build date]-[git revision]`
 
 Sample Output
 
