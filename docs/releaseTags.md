@@ -1,13 +1,6 @@
 # Using release tags
 
-We use multiple tags for each released build image. On our Docker Hub site, you can view the available tags for each image:
-
-* [PingAccess](https://hub.docker.com/r/pingidentity/pingaccess/tags)
-* [PingDataGovernance](https://hub.docker.com/r/pingidentity/pingdatagovernance/tags)
-* [PingDataSync](https://hub.docker.com/r/pingidentity/pingdatasync/tags)
-* [PingDirectory](https://hub.docker.com/r/pingidentity/pingdirectory/tags)
-* [PingFederate](https://hub.docker.com/r/pingidentity/pingfederate/tags)
-* [Ping Data Console](https://hub.docker.com/r/pingidentity/pingdataconsole/tags)
+We use multiple tags for each released build image. On our [Docker Hub](https://hub.docker.com/u/pingidentity) site, you can view the available tags for each image.
 
 > All product containers in a stack must use the same release tag.
 
