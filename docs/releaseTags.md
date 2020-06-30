@@ -127,7 +127,7 @@ Another example:
 
 ## Product Versions for edge and latest
 
-The current product versions for **edge** and **latest** are
+Product versions for **edge** and **latest** as of June 30th, 2020
 
 | Product | edge | latest |
 |------|------|-----|
@@ -140,6 +140,8 @@ The current product versions for **edge** and **latest** are
 | PingDataConsole | 8.1.0.0 | 8.0.0.1 |
 | PingDirectoryProxy | 8.1.0.0 | 8.0.0.1 |
 | PingCentral | 1.3.0 | 1.3.0 |
+
+
 
 ## Determine Product Version in Image
 
