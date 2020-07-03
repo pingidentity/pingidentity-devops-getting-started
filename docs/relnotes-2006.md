@@ -18,7 +18,7 @@
 
 ### New Product Versions
 
-  The following product versions are available on **edge**, **latest** and the **2006** sprint tags:
+  The following new product versions are available using **edge**, **latest** and **2006** image tags:
 
 - **PingFederate 10.1.0**
 
@@ -44,11 +44,11 @@
 
 - **Docker Build Pipeline**
 
-  We've published [documentation](https://pingidentity-devops.gitbook.io/devops/deploy/buildlocal) on how to build a Ping Identity Docker Image using a local zip artifact.
+  - We've published [documentation](https://pingidentity-devops.gitbook.io/devops/deploy/buildlocal) on how to build a Ping Identity Docker Image using a local zip artifact.
 
-  We have improved our reference pipeline to allow for the build of a single product.
+  - We have improved our reference pipeline to allow for the build of a single product.
 
-  We've made several CI/CD enhancements to improve Image qualification (smoke/integration tests).
+  - We've made several CI/CD enhancements to improve Image qualification (smoke/integration tests).
 
 - **Configuration Substitution**
 
