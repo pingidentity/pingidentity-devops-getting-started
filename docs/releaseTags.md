@@ -120,21 +120,20 @@ Another example:
 
 ## Product Versions for edge and latest
 
-Product versions for **edge** and **latest** as of June 30th, 2020
+Product versions for **edge** and **latest** as of July 3rd, 2020
 
 | Product | edge | latest |
 |------|------|-----|
-| PingFederate | 10.1.0 | 10.0.2 |
-| PingDirectory | 8.1.0.0 | 8.0.0.1 |
-| PingAccess | 6.1.0 | 6.0.2 |
-| PingDataGov | 8.1.0.0 | 8.0.0.1 |
-| PingDataGov PAP | 8.1.0.0 | 8.0.0.1 |
-| PingDataSync | 8.1.0.0 | 8.0.0.1 |
-| PingDataConsole | 8.1.0.0 | 8.0.0.1 |
-| PingDirectoryProxy | 8.1.0.0 | 8.0.0.1 |
-| PingCentral | 1.3.0 | 1.3.0 |
-
-
+| PingFederate | 10.1.0 | 10.1.0 |
+| PingDirectory | 8.1.0.0 | 8.1.0.0 |
+| PingAccess | 6.1.0 | 6.1.0 |
+| PingDataGov | 8.1.0.0 | 8.1.0.0 |
+| PingDataGov PAP | 8.1.0.0 | 8.1.0.0 |
+| PingDataSync | 8.1.0.0 | 8.1.0.0 |
+| PingDataConsole | 8.1.0.0 | 8.1.0.0 |
+| PingDirectoryProxy | 8.1.0.0 | 8.1.0.0 |
+| PingDelegator | 4.2.0 | 4.2.0 |
+| PingCentral | 1.4.0 | 1.4.0 |
 
 ## Determine Product Version in Image
 

@@ -1,8 +1,9 @@
 # Table of contents
 
 * [Ping Identity DevOps](docs/README.md)
-* [Release notes (current)](docs/relnotes-2005.md)
+* [Release notes (current)](docs/relnotes-2006.md)
   * [Prior release notes](docs/priorReleases.md)
+    * [Version 2004](docs/relnotes-2005.md)
     * [Version 2004](docs/relnotes-2004.md)
     * [Version 2003](docs/relnotes-2003.md)
 * [Overview](docs/overview.md)
