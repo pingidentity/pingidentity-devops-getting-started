@@ -14,7 +14,7 @@
 
 - **Customer Support Data Collection**
 
-  Included in this release is the Java diagnostic tool to enable embedded customer support data collection. This tool set inculdes [jstat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html), [jmap](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jmap.html) and [jhat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jhat.html)
+  Included in this release is the Java diagnostic tool to enable embedded customer support data collection. This toolset includes [jstat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html), [jmap](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jmap.html) and [jhat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jhat.html)
 
 ### New Product Versions
 
