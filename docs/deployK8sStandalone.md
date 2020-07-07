@@ -30,7 +30,7 @@ You can deploy a single (standalone) product container, or a set of standalone c
    kubectl delete -f <container>/
    ```
 
-   Where \<container> is the name of a product container (such as, `pingfederate`).
+   Where &lt;container&gt; is the name of a product container (such as, `pingfederate`).
 
    For all products in the `01-standalone` directory, enter:
 

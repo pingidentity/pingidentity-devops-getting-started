@@ -45,7 +45,7 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
       - <path>/pingfederate.lic:/opt/in/instance/server/default/conf/pingfederate.lic
     ```
 
-    Where \<path> is the location of your existing PingFederate license file.
+    Where &lt;path&gt; is the location of your existing PingFederate license file.
 
     When the container starts, this will mount `<path>/pingfederate.lic` to this location in the container`/opt/in/instance/server/default/conf/pingfederate.lic`.
 
@@ -121,7 +121,7 @@ You'll find the YAML files for this example in your local `pingidentity-devops-g
          secretName: <pingfederate-license>
    ```
 
-   Where \<product-license-volume> is the volume where it will be referenced from the container, and \<pingfederate-license> is your license information.
+   Where &lt;product-license-volume&gt; is the volume where it will be referenced from the container, and &lt;pingfederate-license&gt; is your license information.
 
 5. Add the following values in the `volumeMounts` section:
 

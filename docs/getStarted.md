@@ -52,7 +52,7 @@ You'll need a product license to run our Docker images. You can use either:
    ping-devops docker <name>
    ```
 
-   Where \<name> is one of the listed container or stack names.
+   Where &lt;name&gt; is one of the listed container or stack names.
 
 5. To start one of the containers or stacks, enter:
 
@@ -60,7 +60,7 @@ You'll need a product license to run our Docker images. You can use either:
     ping-devops docker start <name>
     ```
 
-   Where \<name> is one of the listed container or stack names.
+   Where &lt;name&gt; is one of the listed container or stack names.
 
      > The initial run will ensure dependencies are met (such as, Docker or Docker Compose).
 
