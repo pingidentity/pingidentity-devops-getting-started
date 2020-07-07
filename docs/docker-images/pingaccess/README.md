@@ -30,11 +30,13 @@ this image.
 | PA_ADMIN_PASSWORD_INITIAL  | 2Access  | Change **non-default** password at startup by including this and PA_ADMIN_PASSWORD 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
+| PA_ADMIN_PORT  | 9000  | 
+| PA_ENGINE_PORT  | 3000  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
-- 9000
-- 3000
+- ${PA_ADMIN_PORT}
+- ${PA_ENGINE_PORT}
 - ${HTTPS_PORT}
 
 ## Running a PingDirectory container
