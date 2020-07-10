@@ -31,9 +31,9 @@ Go to your local [11-docker-compose/07-pingdatagovernance](https://github.com/pi
   - user: admin
   - password: password123
   
-- PingDataConsole: 
+- Ping Data Console: 
     - URL: https://localhost:9443/console
-    - server: pingdatagovernance
+    - server: pingdirectory
     - user: administrator
     - password: 2FederateM0re
 
