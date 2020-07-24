@@ -15,9 +15,10 @@ Use either of these two methods to make an existing product license file availab
 * Copy each license file to the server profile location associated with the product. The default server profile locations are:
   - PingFederate: `instance/server/default/conf/pingfederate.lic`
   - PingAccess: `instance/conf/pingaccess.lic`
-  - PingDirectory: `instance/pingdirectory.lic`
-  - PingDataGovernance: `instance/pingdatagovernance.lic`
-  - PingDataSync: `instance/pingdatasync.lic`
+  - PingDirectory: `instance/PingDirectory.lic`
+  - PingDataGovernance: `instance/PingDataGovernance.lic`
+  - PingDataGovernance PAP: `instance/PingDataGovernance.lic`
+  - PingDataSync: `instance/PingDirectory.lic`
   - PingCentral: `instance/conf/pingcentral.lic`
 
 * Use the instructions in any of these subtopics:
@@ -68,6 +69,10 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
       - Mount path: `/opt/in/instance/PingDirectory.lic`
 
     * PingDataGovernance
+      - Expected license file name: `PingDataGovernance.lic`
+      - Mount path: `/opt/in/instance/PingDataGovernance.lic`
+
+    * PingDataGovernance PAP
       - Expected license file name: `PingDataGovernance.lic`
       - Mount path: `/opt/in/instance/PingDataGovernance.lic`
 
