@@ -37,6 +37,7 @@ this image.
 | RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server 
 | DISABLE_SCHEMA_REPLICATION  | false  | Flag to disable schema replication. In a DevOps environment, schema comes from configuration. So it does not need to be replicated. 
 | PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
+| PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
