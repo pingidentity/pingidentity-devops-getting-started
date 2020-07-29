@@ -10,8 +10,8 @@ metadata:
   name: pingaccess-admin
 spec:
   rules:
-  # example pingaccess-admin.example.com
-  - host: pingaccess-admin.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+  # example pingaccess-admin-yourname.ping-devops.com
+  - host: pingaccess-admin-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
       - backend:
@@ -20,7 +20,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - pingaccess-admin.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+    - pingaccess-admin-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     secretName: tls-secret
 
 ---
@@ -37,7 +37,7 @@ metadata:
   name: pingaccess
 spec:
   rules:
-  - host: pingaccess.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+  - host: pingaccess-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
       - backend:

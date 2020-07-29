@@ -10,7 +10,7 @@ metadata:
   name: pingfederate-admin
 spec:
   rules:
-  - host: pingfederate-admin.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+  - host: pingfederate-admin-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
       - backend:
@@ -23,8 +23,8 @@ spec:
         path: /pf-admin-api
   tls:
   - hosts:
-    # example pingfederate-admin.example.com
-    - pingfederate-admin.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+    # example pingfederate-admin-yourname.ping-devops.com
+    - pingfederate-admin-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     secretName: tls-secret
 
 ---
@@ -41,7 +41,7 @@ metadata:
   name: pingfederate
 spec:
   rules:
-  - host: pingfederate.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+  - host: pingfederate-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
       - backend:
@@ -50,5 +50,5 @@ spec:
         path: /
   tls:
   - hosts:
-    - pingfederate.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+    - pingfederate-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     secretName: tls-secret
