@@ -80,6 +80,6 @@
 
 * [License](LICENSE.md)
 * [Disclaimer](DISCLAIMER.md)
-* [Third-Party Software](3RD_PARTY_SOFTWARE.md)
+* [Third-Party software](3RD_PARTY_SOFTWARE.md)
 * [Contributing](CONTRIBUTING.md)
 
