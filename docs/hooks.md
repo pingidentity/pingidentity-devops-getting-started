@@ -10,3 +10,11 @@ In the `entrypoint.sh` startup script, there is an example (stub) provided for t
 
     > It is **critical** that the supplied hook names be used if a you modify `entrypoint.sh` (for example, to make subtle changes to a server profile).
 
+## Using .pre and .post hooks
+
+When DevOps hooks are called during the entrypoint process, any corresponding `.pre` and `.post` hooks will also be called.
+
+Hooks with a `.pre` extension are run before the corresponding hook, and hooks with a `.post` extension are run after the corresponding hook. For example, a script named `80-post-start.sh.pre` will be run just before the `80-post-start.sh` hook starts, and a script named `80-post-start.sh.post` will be run just after that hook completes.
+
+These extensions allow you to define custom scripts to be executed before or after any hook that is run in the container. You can include any custom `.pre` and `.post` hooks in the `hooks` directory of your server profile.
+
