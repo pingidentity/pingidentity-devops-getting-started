@@ -90,7 +90,7 @@ The PingAccess administrator user password is not found in `data.json`, but in `
 | Path | Location description |
 | :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
-| `instance/pingdirectory.lic` | Use an existing PingDirectory license, rather than the DevOps evaluation license. |
+| `instance/PingDirectory.lic` | Use an existing PingDirectory license, rather than the DevOps evaluation license. |
 | `instance/config/schema/` | A custom schema. |
 | `instance/config/keystore` | Certificates in a Java KeyStore (JKS). |
 | `instance/config/keystore.pin` | Certificates in a PKS#12 KeyStore. |
@@ -106,7 +106,7 @@ The PingAccess administrator user password is not found in `data.json`, but in `
 | Path | Location description |
 | :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
-| `instance/pingdatasync.lic` | Use an existing PingDataSync license, rather than the DevOps evaluation license. |
+| `instance/PingDirectory.lic` | Use an existing PingDirectory license (also used for PingDataSync), rather than the DevOps evaluation license. |
 | `instance/config/schema/` | A custom schema. |
 | `instance/config/keystore` | Certificates in a Java KeyStore (JKS). |
 | `instance/config/keystore.pin` | Certificates in a PKS#12 KeyStore. |
