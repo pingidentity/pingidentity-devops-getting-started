@@ -1,5 +1,8 @@
 SERVER_PROFILE_URL=https://www.github.com/pingidentity/pingidentity-server-profiles.git
 SERVER_PROFILE_PATH=pa-clustering/pingaccess
+SERVER_PROFILE_PARENT=ADMIN
+SERVER_PROFILE_ADMIN_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+SERVER_PROFILE_ADMIN_PATH=pa-clustering/pingaccess-admin
 PING_IDENTITY_ACCEPT_EULA=YES
 OPERATIONAL_MODE=CLUSTERED_CONSOLE
 PA_CONSOLE_HOST=pingaccess-admin
