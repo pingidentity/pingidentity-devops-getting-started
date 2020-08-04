@@ -4,10 +4,10 @@ version: "2.4"
 #--------------------------------------------------------------------------------------
 #- Ping Identity fullstack integrated demo
 #-
-#-     app    console            app                                  rest       
+#-     app    console            app                                  rest
 #-     443    9000               6443                                 7443
 #-      |      |                  |                                    |
-#-   +----------------+   +---------------+                         +---------------+   
+#-   +----------------+   +---------------+                         +---------------+
 #-   |   PingAccess   |   | PingDelegator |                         |  PingDataGov  |
 #-   +----------------+   +---------------+                         +---------------+
 #-
@@ -35,7 +35,7 @@ services:
   pingaccess:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
-    environment: 
+    environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingaccess
     env_file:
@@ -58,10 +58,10 @@ services:
   pingdatagovernance:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
-    environment: 
+    environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdatagovernance
-    env_file: 
+    env_file:
       - ${HOME}/.pingidentity/devops
     #volumes:
     #  - ${HOME}/projects/devops/volumes/full-stack.pingdatagovernance:/opt/out
@@ -114,14 +114,14 @@ services:
       - "1389:389"
     networks:
       - pingnet-internal
-  
+
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - "8443:8443"
-    networks: 
+    networks:
       - pingnet-internal
-              
+
   pingcentral:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
     environment:
@@ -130,7 +130,7 @@ services:
       - SERVER_PROFILE_BRANCH=arno-dev-pingcentral
       - PING_CENTRAL_BLIND_TRUST=true
       - PING_CENTRAL_LOG_LEVEL=DEBUG
-    env_file: 
+    env_file:
       - ${HOME}/.pingidentity/devops
     ports:
       - "9022:9022"
@@ -140,14 +140,14 @@ services:
   pingdelegator:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
     environment:
-      - PD_ENGINE_PRIVATE_PORT=1443
+      - PD_ENGINE_PUBLIC_PORT=1443
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdelegator
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
       - "6443:6443"
-    networks: 
+    networks:
       - pingnet-dmz
 
 networks:
