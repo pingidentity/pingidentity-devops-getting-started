@@ -70,7 +70,7 @@ services:
       - "1389:389"
     networks:
       - pingnet
-                    
+
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
@@ -81,15 +81,15 @@ services:
   pingdelegator:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
     environment:
-      - PD_ENGINE_PRIVATE_PORT=1443
+      - PD_ENGINE_PUBLIC_PORT=1443
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdelegator
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
       - "6443:6443"
-    networks: 
+    networks:
       - pingnet
-  
+
 networks:
     pingnet:
