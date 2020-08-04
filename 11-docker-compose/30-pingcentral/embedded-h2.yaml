@@ -1,4 +1,4 @@
-version: '3.1'
+version: '2.4'
 services:
   pingcentral:
     image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
@@ -6,8 +6,7 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingcentral/logging
-      - PING_IDENTITY_ACCEPT_EULA=YES
     env_file:
-      - ~/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     ports:
       - "9022:9022"

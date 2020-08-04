@@ -18,7 +18,7 @@ The build process retrieves the latest versions of:
 
 The DevOps program supports:
 
-* Current and previous major version
+* Support most recent 2 feature releases (major/minor)
 * Latest patch release for each minor version
 
 Examples:
@@ -26,6 +26,6 @@ Examples:
 * Version 10.0 will stop being updated when 10.0.1 is released
 * Once 10.0.2 is released, 10.0.1 will no longer be updated
 * Once 10.1 is available, 10.0.X (Last updated patch release) will continue to be updated
-* Once 11.0 is released, all version 9 images will no longer be built
+* Once 10.2 is released, the latest version 9.X images will no longer be built
 
 >Note: Image versions that have fallen out of Ping's support window will be removed from DockerHub 3 months after support has ended.

@@ -77,7 +77,7 @@ If you are doing API Injections via the PingConfigurator, you will also need a K
 
 [PingConfigurator - Job File](pingconfig-job.yaml)
 
-The list of API Collections being executed can be seen \ modified on this line (this example shows Customer360 + Delegated Admin - Simple):
+The list of API Collections being executed can be seen modified on this line (this example shows Customer360 + Delegated Admin - Simple):
 ```
 - env:
     - name: COLLECTIONS

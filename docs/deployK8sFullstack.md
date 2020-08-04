@@ -22,6 +22,8 @@ PING_IDENTITY_ACCEPT_EULA=YES
    kustomize build . | kubectl apply -f -
    ```
 
+   > Optionally, if you don't want to deploy everything, first comment out what you don't want on `kustomization.yaml`
+
 2. To clean up when you're finished, enter:
 
    ```bash

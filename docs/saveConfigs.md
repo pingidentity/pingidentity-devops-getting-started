@@ -38,3 +38,56 @@ You can mount a Docker volume for containers in a stack or for standalone contai
       --volume <local-path>:/opt/out
       pingidentity/pingfederate:edge
   ```
+
+## Get started - Docker Compose Mounts
+
+Within many of the docker-compose.yaml files in the Getting-Started [repository](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose), volume mounts to `opt/out` have been included to persist your configuration across container restarts.
+
+To view the list of persisted volumes run the command:
+
+```sh
+docker volume list
+```
+
+To view the contents of the /opt/out/ volume when the container is running
+
+```sh
+docker container exec -it <container id> sh
+cd out
+```
+
+To view the contents of the /opt/out/ volume when the container is stopped
+
+```sh
+docker run --rm -i -v=<volume name>:/opt/out alpine ls
+```
+
+To remove a volume
+
+```sh
+docker volume rm <volume name>
+```
+
+To copy files from the container to your local filesystem
+
+```sh
+docker cp \
+   <container id>:<source path> \
+   <destination path>
+eg.
+docker cp \
+   b867054293a1:/opt/out \
+   ~/pingfederate/
+```
+
+To copy files from your local filesystem to the container
+
+```sh
+docker cp \
+   <source path> \
+   <container id>:<destination path>
+eg.
+docker cp \
+   myconnector.jar \
+   bb867054293a186:/opt/out/instance/server/default/deploy/
+```

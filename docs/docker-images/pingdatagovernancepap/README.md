@@ -19,7 +19,7 @@ this image.
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File 
 | LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
-| MAX_HEAP_SIZE  | 384m  | Minimal Heap size required for Ping DataGovernance 
+| MAX_HEAP_SIZE  | 384m  | Minimal Heap size required for Ping DataGovernance PAP 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
@@ -51,6 +51,7 @@ docker logs -f pingdatagovernancepap
 Log in with:
 * https://localhost:8443/
   * Username: admin
+  * Password: password123
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatagovernancepap/hooks/README.md) for details on all pingdatagovernancepap hook scripts
 

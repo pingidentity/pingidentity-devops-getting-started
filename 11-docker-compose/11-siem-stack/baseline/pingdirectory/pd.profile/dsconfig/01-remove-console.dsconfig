@@ -1,3 +1,0 @@
-dsconfig set-connection-handler-prop \
-    --handler-name "HTTPS Connection Handler"  \
-    --reset web-application-extension

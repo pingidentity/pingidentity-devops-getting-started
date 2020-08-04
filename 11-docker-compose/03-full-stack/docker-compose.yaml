@@ -42,18 +42,14 @@ services:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
       # devops user/key details for evaluation licenses and for docker image/git tags
       - ${HOME}/.pingidentity/devops
-    # Example: Examples below for mounting local directories for inbound server profile and persisting
-    #          server build.  The local /opt/out directory must be empty when building new server
-    #             /opt/out - Resulting server build
-    #             /opt/in  - Inbound server-profile detail in liue of SERVER_PROFILE_URL (must be commented out)
-    #volumes:
-    #   - ${HOME}/projects/devops/volumes/full-stack.pingaccess:/opt/out
-    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingaccess:/opt/in
     ports:
       - "443:443"
       - "9000:9000"
     networks:
       - pingnet-dmz
+    volumes:
+      - pingaccess-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingaccess:/opt/in
 
   pingdatagovernance:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
@@ -63,15 +59,15 @@ services:
       - SERVER_PROFILE_PATH=baseline/pingdatagovernance
     env_file:
       - ${HOME}/.pingidentity/devops
-    #volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingdatagovernance:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
     ports:
       - "8080:80"
       - "7443:443"
     networks:
       - pingnet-dmz
       - pingnet-internal
+    volumes:
+      - pingdatagovernance-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
 
   pingfederate:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
@@ -81,15 +77,15 @@ services:
       - SERVER_PROFILE_PATH=baseline/pingfederate
     env_file:
       - ${HOME}/.pingidentity/devops
-    #volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingfederate:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
     ports:
       - "9031:9031"
       - "9999:9999"
     networks:
       - pingnet-dmz
       - pingnet-internal
+    volumes:
+      - pingfederate-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
 
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
@@ -98,9 +94,6 @@ services:
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     env_file:
       - ${HOME}/.pingidentity/devops
-    #volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingdirectory:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
     ulimits:
       nproc:
         soft: 16384
@@ -114,6 +107,9 @@ services:
       - "1389:389"
     networks:
       - pingnet-internal
+    volumes:
+      - pingdirectory-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
 
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
@@ -136,6 +132,9 @@ services:
       - "9022:9022"
     networks:
       - pingnet-internal
+    volumes:
+      - pingcentral-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingcentral:/opt/in
 
   pingdelegator:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
@@ -153,3 +152,10 @@ services:
 networks:
     pingnet-internal:
     pingnet-dmz:
+
+volumes:
+  pingaccess-out:
+  pingdatagovernance-out:
+  pingfederate-out:
+  pingdirectory-out:
+  pingcentral-out:

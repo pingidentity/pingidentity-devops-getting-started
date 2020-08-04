@@ -18,7 +18,7 @@ You'll find here information regarding the deployment, management and scaling of
 
 We also highly recommend you are familiar with the information in these AWS articles:
 
-* [Getting Started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html)
+* [Get started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html)
 * [Creating a Cluster with a Fargate Task Using the Amazon ECS CLI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html)
 * [Creating a Cluster with an EC2 Task Using the Amazon ECS CLI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-ec2.html)
 
@@ -255,7 +255,7 @@ If you have an existing VPC, security group, and two subnets related to the VPC,
 ecs-cli up --vpc <vpc-id> --security-group <security-group-id> --subnets <required-subnet-1>,<required-subnet-2>
 ```
 
-Where \<vpc-id>, \<security-group-id>, and the `--subnets` \<required-subnet-1> and \<required-subnet-2> are all existing resources available to you.
+Where &lt;vpc-id&gt;, &lt;security-group-id&gt;, and the `--subnets` &lt;required-subnet-1&gt; and &lt;required-subnet-2&gt; are all existing resources available to you.
 
 > Ensure the standard PingFederate ports 9031 and 9999 are part of your security group if you wish to use them when deploying PingFederate.
 

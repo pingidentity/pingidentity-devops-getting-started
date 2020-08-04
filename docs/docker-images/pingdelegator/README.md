@@ -20,6 +20,11 @@ this image.
 | PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  | 
 | PD_DELEGATOR_HTTP_PORT  | 6080  | 
 | PD_DELEGATOR_HTTPS_PORT  | 6443  | 
+| PING_CONTAINER_PRIVILEGED  | false  | Container uid/gid and uname/gname that are required for nginx 
+| PING_CONTAINER_UID  | 100  | 
+| PING_CONTAINER_GID  | 101  | 
+| PING_CONTAINER_UNAME  | nginx  | 
+| PING_CONTAINER_GNAME  | nginx  | 
 | PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | The hostname for the public Ping Federate instance used for SSO. 
 | PF_ENGINE_PUBLIC_PORT  | 9031  | The port for the public Ping Federate instance used for SSO. NOTE: If using port 443 along with a base URL with no specified port, set to an empty string. 
 The client id that was set up with Ping Federate for Ping Delegator.

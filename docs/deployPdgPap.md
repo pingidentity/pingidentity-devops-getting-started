@@ -16,15 +16,13 @@ This example describes how to build PingDataGovernance policies, and employs ser
 
 ## Deploy the stack
 
-1. Clone the `pingidentity-server-profiles/baseline/pingdatagovernance` repository to a local directory.
-
-2. Go to the corresponding directory and run: 
+Go to your local [11-docker-compose/07-pingdatagovernance](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/07-pingdatagovernance) directory, and enter: 
    
    ```shell
    docker-compose up -d
    ```
 
-   When all the containers are healthy you can start testing things. 
+   When _all_ of the containers are healthy, you can start testing. 
 
 ## Log in to the management consoles
 
@@ -32,9 +30,10 @@ This example describes how to build PingDataGovernance policies, and employs ser
   - URL: https://localhost:8443
   - user: admin
   - password: password123
-- PingDataConsole: 
+  
+- Ping Data Console: 
     - URL: https://localhost:9443/console
-    - server: pingdatagovernance
+    - server: pingdirectory
     - user: administrator
     - password: 2FederateM0re
 
@@ -42,13 +41,13 @@ This example describes how to build PingDataGovernance policies, and employs ser
 
 The default use case does the following:
   
-1. Proxies the PingDirectory Rest API using a mock access token validator.
+-  Proxies the PingDirectory Rest API using a mock access token validator.
 
-2. If the passed bearer token is valid, PDG-PAP allows it to be forwarded to PingDirectory.
+-  If the passed bearer token is valid, PDG-PAP allows it to be forwarded to PingDirectory.
 
-3. PingDirectory uses the `sub` field in the token along with the the URL path to look up and return a users data. 
+-  PingDirectory uses the `sub` field in the token along with the the URL path to look up and return a users data. 
 
-4. On the returned data, PDG-PAP accepts the response and allows it to be returned to the requestor. 
+-  On the returned data, PDG-PAP accepts the response and allows it to be returned to the requestor. 
 
 To test this use case:
 
@@ -128,7 +127,7 @@ To test this use case:
    If you want further confirmation, in the Data Console, go to External Servers -> `pingdatagovernancepap` and put some "junk" in the `branch` box. You'll see that PingDataGovernance is unable to find the policy branch. 
 
 
-## Clean up 
+## Clean up the stack
 
 When you're finished testing, remove the containers, network, and related data. Enter:
 

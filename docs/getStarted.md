@@ -5,15 +5,16 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 ## Prerequisites
 
 * [Docker](https://docs.docker.com/install/)
-* [Docker Compose](https://docs.docker.com/compose/install/) (already included with Docker Desktop on Mac and Windows)
-* [ping-devops tool](pingDevopsUtil.md#installation)
+* [Docker Compose](https://docs.docker.com/compose/install/) (included with Docker Desktop on Mac and Windows)
+* You've installed the [ping-devops utility](pingDevopsUtil.md#installation).
 
 ### Product license
 
 You'll need a product license to run our Docker images. You can use either:
 
-* An evaluation license obtained with a valid DevOps user key. See [Ping Identity DevOps registration](devopsRegistration.md) for more information.
-* A valid product license available with a current Ping Identity customer subscription. See [Using an existing product license](https://pingidentity-devops.gitbook.io/devops/getstarted/existinglicense) for more information.
+* An evaluation license obtained with a valid DevOps user key. See [DevOps registration](devopsRegistration.md) for more information.
+  
+* Although you'll first need to complete your [DevOps registration](devopsRegistration.md), you can subsequently use a valid product license available with a current Ping Identity customer subscription. 
 
 ## Set up your DevOps environment
 
@@ -38,6 +39,7 @@ You'll need a product license to run our Docker images. You can use either:
    ```
 
 4. You can use the ping-devops utility to run a quick demonstration of any of our products in your Docker environment. 
+   
    a. To display information about the containers or stacks available using the ping-devops utility, enter:
 
    ```shell
@@ -50,7 +52,7 @@ You'll need a product license to run our Docker images. You can use either:
    ping-devops docker <name>
    ```
 
-   Where \<name> is one of the listed container or stack names.
+   Where &lt;name&gt; is one of the listed container or stack names.
 
 5. To start one of the containers or stacks, enter:
 
@@ -58,7 +60,7 @@ You'll need a product license to run our Docker images. You can use either:
     ping-devops docker start <name>
     ```
 
-   Where \<name> is one of the listed container or stack names.
+   Where &lt;name&gt; is one of the listed container or stack names.
 
      > The initial run will ensure dependencies are met (such as, Docker or Docker Compose).
 
@@ -73,12 +75,10 @@ You'll need a product license to run our Docker images. You can use either:
     To remove the container or stack and all associated data, enter
 
     ```shell
-    ping-devops docker rm   pingfederate   # Removes instance and all data
+    ping-devops docker rm  <name> 
     ```
-
-    > When you stop or removed the container or stack, none of the data created when you use the demonstration is persisted. See [Saving your configuration changes](saveConfigs.md) to persist data to a local Docker volume.
 
 ## Next step
 
-* [Using the getting-started repo](getStartedWithGitRepo.md)
+* [Deploy an example stack](getStartedWithGitRepo.md).
 

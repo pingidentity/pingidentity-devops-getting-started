@@ -1,6 +1,6 @@
 # Troubleshooting
 
-## Getting started
+## Get started
 
 ### Examples not working
 
@@ -26,7 +26,7 @@ Possible solutions:
    source <path>/pingidentity-devops-getting-started/bash_profile_devops
    ```
 
-   Where \<path> is the full path to the `pingidentity-devops-getting-started` directory. This entry sources our DevOps aliases.
+   Where &lt;path&gt; is the full path to the `pingidentity-devops-getting-started` directory. This entry sources our DevOps aliases.
 
    There also needs to be another entry for:
    

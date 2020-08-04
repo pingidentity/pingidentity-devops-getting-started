@@ -50,16 +50,12 @@
         }
     ],
     "pingaccess" : [{
-        "validFrom": 20191026,
-        "validTo": 20191031,
-        "subject": "****pingaccess:edge Moving from 5.3.0 to 5.3.1*****",
-        "message": ["Currently, pingaccess:edge uses product version 5.3.0.",
-                    "Configurations (data.json, PingAccess.mv.db) are tightly linked to versions.",
-                    "This version change WILL BREAK your current deployments if you are using",
-                    "pingaccess:edge. ",
-                    "For PingAccess, it is recommended to always use pingaccess:<version>-edge instead.",
-                    "For all tagging best practices please visit: ",
-                    "https://pingidentity-devops.gitbook.io/devops/docker-images"]
+        "validFrom": 20200623,
+        "validTo": 20200710,
+        "subject": "*** PingAccess 6.1.0 data.json support ***",
+        "message": [" PA 6.1.0 now natively supports data.json ingestion",
+                    "This is the recommended approach. More info: ",
+                    "https://pingidentity-devops.gitbook.io/devops/config/containeranatomy/profilestructures#for-pa-6-1-0"]
     }],
     "pingdatagovernance" : [{
         "validFrom": 20200406,

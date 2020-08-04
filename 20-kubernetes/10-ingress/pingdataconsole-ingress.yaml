@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-public
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  labels:
+    role: pingdataconsole
+  name: pingdataconsole
+spec:
+  rules:
+  - host: pingdataconsole-${PING_IDENTITY_DEVOPS_DNS_ZONE}
+    http:
+      paths:
+      - backend:
+          serviceName: pingdataconsole
+          servicePort: 8443
+        path: /
+  tls:
+  - hosts:
+    - pingdataconsole-${PING_IDENTITY_DEVOPS_DNS_ZONE}
+    secretName: tls-secret

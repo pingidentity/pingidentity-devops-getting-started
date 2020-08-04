@@ -1,3 +1,0 @@
-dsconfig set-gauge-prop --gauge-name "CPU Usage (Percent)" --set enabled:false 
-dsconfig set-gauge-prop --gauge-name "License Expiration (Days)" --set enabled:false
-dsconfig set-gauge-prop --gauge-name "Available File Descriptors" --set enabled:false

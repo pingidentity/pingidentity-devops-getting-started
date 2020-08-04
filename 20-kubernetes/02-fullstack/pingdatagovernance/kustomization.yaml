@@ -1,0 +1,17 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+- ../../01-standalone/pingdatagovernance
+
+# The only difference in standalone deployments vs "fullstack" (integrated) is the product configurations. 
+# here we replace standalone server-profiles ("getting-started") with "baseline" for each product
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: pingdatagovernance-environment-variables
+  behavior: replace
+  envs:
+    - env_vars.pingdatagovernance

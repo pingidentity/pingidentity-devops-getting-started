@@ -1,4 +1,4 @@
-# Using the getting-started repo
+# Deploy an example stack
 
 The `pingidentity-devops-getting-started` repository contains all of our working Docker and Kubernetes examples.
 
@@ -8,7 +8,7 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
 ## Prerequisites
 
-* You've already set up your DevOps environment. See [Getting started](getStarted.md).
+* You've already set up your DevOps environment. See [Get started](getStarted.md).
 * [Git](https://git-scm.com/downloads)
 
 

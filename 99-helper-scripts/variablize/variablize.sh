@@ -207,13 +207,14 @@ variablize() {
     sourceHost=$( echo "${sourceHost}" | sed 's/_/\\_/g' )
     sourceHost=$( echo "${sourceHost}" | sed 's/\./\\./g' )
     sourceHost=$( echo "${sourceHost}" | sed 's/\:/\\:/g' )
+    sourceHost=$( echo "${sourceHost}" | sed 's/\//\\\//g' )
     # echo "sourceHostname=${sourceHost}"
     
     # Begin find/replace
     echo "INFO: variablizing"
     grep -irl "${sourceHost}" "${configData}" | while read -r fname ; do
       case "${fname}" in 
-        *.json | *.xml | *.dsconfig) mv "${fname}" "${fname}.subst";;
+        *.json | *.xml | *.dsconfig | *.ldif) mv "${fname}" "${fname}.subst";;
         # *.xml) mv "${fname}" "${fname}.subst";;
         *.subst) echo "${fname}" ;;
         *) echo "skipping: ${fname}" ;;
@@ -268,14 +269,14 @@ if ! test -z "${envFile}" ; then
   is_interactive="false"
   prep_variablize
   IFS='='
-  run="true"
-  while "${run}" = "true" ; do
-    read -r destVar sourceHost
-    test $? -ne 0 && run="false"
-    echo "${destVar}  ${sourceHost}"
+  grep -v '^#' "${envFile}" >> "${tmpDir}/env"
+  # cat "${tmpDir}/env"
+  while read -r destVar sourceHost ; do
+    # echo "looking for ${sourceHost}, to replace with ${destVar}  "
     check_variablize
     test $? -eq 0 && variablize
-  done < "${envFile}"
+  done < "${tmpDir}/env"
+  rm "${tmpDir}/env"
   unset IFS
   return_data
 else

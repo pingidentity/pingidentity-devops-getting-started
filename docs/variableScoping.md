@@ -18,7 +18,7 @@ To see the default environment variables available with any Docker image, you ca
   docker run pingidentity/<product-image>:<tag> env | sort
   ```
 
-  Where \<product-image> is the name of one of our products, and \<tag> is the release tag (such as, `edge`).
+  Where &lt;product-image&gt; is the name of one of our products, and \<tag> is the release tag (such as, `edge`).
 
 See our [Docker images reference](https://pingidentity-devops.gitbook.io/devops/dockerimagesref) for the environment variables available or each product, as well as those available for all products (PingBase). 
 
