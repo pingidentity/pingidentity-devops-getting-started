@@ -28,11 +28,7 @@
 
 - **Docker Build Pipeline**
 
-  - We've made several CI/CD enhancements to improve Image qualification (smoke/integration tests).
-
-- **Configuration Substitution**
-
-  We've made enhancements to explicitly send the variables to be substituted.
+  We've made several CI/CD enhancements to improve Image qualification (smoke/integration tests).
 
 ### Resolved defects
 
