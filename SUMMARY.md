@@ -57,6 +57,7 @@
   * [Adding a message of the day (MOTD)](docs/addMOTD.md)
 * [Managing deployments](docs/manage.md)
   * [Upgrade PingFederate](docs/upgradePingfederate.md)
+  * [Upgrade PingDirectory](docs/upgradePingDirectory.md)
 * [Utilities](docs/devopsUtils.md)
   * [The `ping-devops` utility](docs/pingDevopsUtil.md)
   * [The `ldap-sdk-tools` utility](docs/ldapsdkUtil.md)
