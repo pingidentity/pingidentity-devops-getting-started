@@ -44,6 +44,9 @@ spec:
   replicas: 2
   updateStrategy:
     type: RollingUpdate
+    # # removing the partition triggers the rollout.
+    # rollingUpdate:
+    #   partition: 1
   selector:
     matchLabels:
       role: pingdirectory

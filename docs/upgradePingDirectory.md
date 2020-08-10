@@ -10,7 +10,7 @@ As an example, we'll walk through upgrading a PingDirectory Statefulset 8.0.0.1 
 
 To build confidence in the upgrade process, follow some considerations:
 
-* Avoid combining configuration changes and version upgrades in the same rollout. This add unnecessary complexity to debugging errors during an upgrade.
+* Avoid combining configuration changes and version upgrades in the same rollout. This adds unnecessary complexity to debugging errors during an upgrade.
 * Successfully complete an upgrade in a proper dev/QA environment before trying anything in production. 
 * Upgrades will happen on one server at a time. Ensure you have enough resources on the remaining machines to prevent client impact.
 * Follow a canary deployment pattern (example below) to ensure the changes will be successful before a full rollout. There is no _good_ way to roll back a completed upgrade, so take any steps to avoid the need.

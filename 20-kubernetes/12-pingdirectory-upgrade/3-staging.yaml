@@ -44,7 +44,6 @@ spec:
   replicas: 2
   updateStrategy:
     type: RollingUpdate
-    #this is the important part
     rollingUpdate:
       partition: 1
   selector:
@@ -64,6 +63,8 @@ spec:
         - secretRef:
             name: devops-secret
             optional: true
+        ## this is the only line that changes
+        # image: pingidentity/pingdirectory:8.0.0.1
         image: pingidentity/pingdirectory:8.1.0.0
         lifecycle:
           preStop:
