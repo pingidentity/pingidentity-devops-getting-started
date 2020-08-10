@@ -50,7 +50,9 @@ This process in standard Kubernetes is called a Canary Rollout and is derived fr
 
 ## Setup
 
+
 Start with a PingDirectory statefulset using persistent volumes. 
+> All kubectl commands should be run from their corresponding directory. 
 
   ```
   kubectl apply -f 1-initial.yaml
