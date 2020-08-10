@@ -22,6 +22,7 @@ To build confidence in the upgrade process, follow some considerations:
 * A good understanding of how to use our DevOps server profiles
 * Access to a Kubernetes cluster and a default StorageClass
 * An understanding of statefulsets in Kubernetes is helpful
+* If in your own environment and using mounted licenses, you will need the license for current version to be in /opt/out (persisted volume) and a license corresponding to the new version in /opt/in. (not needed if using devops user/key in evaluation)
 
 ## What you'll do
 
