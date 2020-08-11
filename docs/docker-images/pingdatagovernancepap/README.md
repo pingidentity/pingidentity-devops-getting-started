@@ -23,7 +23,8 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/datagovernance-pap.log  | Files tailed once container has started 
+| TAIL_LOG_PARALLEL  | y  | 
+| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/datagovernance-pap.log \  | Files tailed once container has started 
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API 
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PDG and PAP 
 ## Ports Exposed
