@@ -49,7 +49,7 @@ You'll need a product license to run our Docker images. You can use either:
    b. To display information about one of the listed containers or stacks, enter:
 
    ```shell
-   ping-devops docker <name>
+   ping-devops docker info <name>
    ```
 
    Where &lt;name&gt; is one of the listed container or stack names.
