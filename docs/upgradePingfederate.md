@@ -1,6 +1,6 @@
-# PingFederate upgrade in a DevOps environment
+# Upgrading PingFederate in a DevOps environment
 
-In a DevOps environment, upgrades are drastically simplified through automation, orchestration and separation of concerns. As a result, upgrading to a new version of PingFederate is much more like deploying any other configuration <!-- (link here to doc explaining config deployments) -->. The slight difference is that configuration updates can be achieved with zero downtime and no loss of state, whereas in version upgrades we consciously sacrifice state to maintain zero downtime overall. 
+In a DevOps environment, upgrades are drastically simplified through automation, orchestration and separation of concerns. As a result, upgrading to a new version of PingFederate is much more like deploying any other configuration. <!-- (link here to doc explaining config deployments) --> The slight difference is that configuration updates can be achieved with zero downtime and no loss of state, whereas in version upgrades we consciously sacrifice state to maintain zero downtime overall. 
 
 > You can take a traditional upgrade approach to a containerized environment, but it provides no value above the process described here. 
 
@@ -14,9 +14,13 @@ As an example, we'll walk through upgrading a PingFederate deployment from 9.3.3
 
 ## What you'll do
 
-* [Setup and preparation](#setup-and-preparation)
-* [Upgrade using a local profile](#upgrade-using-a-local-profile)
-* [Blue-Green it](#blue-green-it)
+- [Upgrading PingFederate in a DevOps environment](#upgrading-pingfederate-in-a-devops-environment)
+  - [Prerequisites](#prerequisites)
+  - [What you'll do](#what-youll-do)
+  - [Setup and preparation](#setup-and-preparation)
+  - [Upgrade using a local profile](#upgrade-using-a-local-profile)
+  - [Blue-Green it](#blue-green-it)
+  - [Some final considerations](#some-final-considerations)
 
 ## Setup and preparation
 

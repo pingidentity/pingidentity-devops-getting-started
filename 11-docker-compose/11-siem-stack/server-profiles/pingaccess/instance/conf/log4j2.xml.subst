@@ -685,6 +685,19 @@
                 <KeyValuePair key="method" value="$${ctx:AUDIT.method:-}"/>
                 <KeyValuePair key="requestUri" value="$${ctx:AUDIT.requestUri:-}"/>
                 <KeyValuePair key="responseCode" value="$${ctx:AUDIT.responseCode:-}"/>
+
+		<KeyValuePair key="applicationID" value="$${ctx:AUDIT.applicationID:-}"/>
+		<KeyValuePair key="applicationName" value="$${ctx:AUDIT.applicationName:-}"/>
+		<KeyValuePair key="resourceName" value="$${ctx:AUDIT.resourceName:-}"/>
+		<KeyValuePair key="failedRuleName" value="$${ctx:AUDIT.failedRuleName:-}"/>
+		<KeyValuePair key="failedRuleName" value="$${ctx:AUDIT.failedRuleName:-}"/>
+		<KeyValuePair key="failedRuleType" value="$${ctx:AUDIT.failedRuleType:-}"/>
+		<KeyValuePair key="failedRuleClass" value="$${ctx:AUDIT.failedRuleClass:-}"/>
+		<KeyValuePair key="failedRuleSetName" value="$${ctx:AUDIT.failedRuleSetName:-}"/>
+		<KeyValuePair key="targetHost" value="$${ctx:AUDIT.targetHost:-}"/>
+		<KeyValuePair key="proxyRoundTripMS" value="$${ctx:AUDIT.proxyRoundTripMS:-}"/>
+		<KeyValuePair key="userInfoRoundTripMS" value="$${ctx:AUDIT.userInfoRoundTripMS:-}"/>
+		<KeyValuePair key="siteUnavailableInfo" value="$${ctx:AUDIT.siteUnavailableInfo:-}"/>
               </JSONLayout>
             </PingSyslogLayout>
         </Socket>
