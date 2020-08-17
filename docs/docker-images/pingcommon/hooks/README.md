@@ -18,6 +18,7 @@ List of available hooks:
 * [80-post-start.sh](80-post-start.sh.md)
 * [90-shutdown-sequence.sh](90-shutdown-sequence.sh.md)
 * [pingcommon.lib.sh](pingcommon.lib.sh.md)
+* [pingstate.lib.sh](pingstate.lib.sh.md)
 
 These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
 
