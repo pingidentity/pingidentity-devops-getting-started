@@ -142,50 +142,42 @@ secret-name
 ```
 
 However, there are special use cases that the Ping Identity DevOps images will support depending on the secret name and special keys (i.e. meta information) found in the secret.
-- Storing the key=value pairs as variable settings (i.e. property file)
 - Specifying a path that should copy/link from
 - Specifying special permission to assign the secret (default: `0400`)
 - Specifying that the key contents are base64 encoded, to be decoded when created into container
 
-Special secret metadata is provided by key naems starting with an underscore (_).  The following table provides the *optional* metadata details that can be used in a secret.
+Special secret metadata is provided by key name starting with an underscore (_).  The following table provides the *optional* metadata details that can be used in a secret.
 
 | Metadata            | Options        | Description
 | ------------------- | -------------- | ---------------------------------
-| _type               | properties     | Creates a file with `name=value` for each key/value.  This is optional, and default is to create a file for each key.
-| _location           | {path}         | Places file(s) in this path location.  This is optional, and default is to place in ${SECRETS_DIR} location.
 | _link               | {path}         | Creates link(s) from this path location to file(s). If there is a file in this location, it will be replaced by the symbolic link(s).  This is optional, and default is no link created.
 | _permission         | {unix chmod mode} | Sets permission on created file(s). This is optional, and default is `0400`.
 
 
 
-Example: If the secret has a key/value of the name `_type=properties`, then a property file will be created with each kv pair as an entry in that file.
+Example: If the secret has a key/value of the name `_link`, then a link from that path/{key} to the secret location would be crated.
 
 ```
 Secret: .../app-environment
-  KEY         VALUE
-  ---         -----
-  _type       properties
-  _location   /vault/secrets/app-secrtes/app.props
-  _link       /opt/app/application.properties
-  PROP_1      value 1
-  PROP_2      value 2
+  KEY         VALUE            File Created
+  ---         -----            ------------
+  _link       /opt/app
+  pf.jwk      {"keys"...}      ${SECRET_DIR}/pf.jwk
+  pa.jwk      {"keys"...}      ${SECRET_DIR}/pa.jwk
 ```
 
-would result in the following file:
+would result in the following links:
 
 ```
-/opt/app/application.properites --> /vault/secrets/app-secrtes/app.props
-  CONTENTS
-  --------
-  PROP_1="value 1"
-  PROP_2="value 2"
+/opt/app/pf.jwk --> /vault/secrets/pf.jwk
+/opt/app/pa.jwk --> /vault/secrets/pa.jwk
 ```
 
 Special key name suffixes can be used to perform certain processing on the keys when the file is crated.  The following table provides examples of how keys with special suffixes.
 
 | Key Suffix          | Description
 | ------------------- | ---------------------------------
-| .b64 or .base64     | Specifies that the value is base64 encoded and the resulting file should be decoded when written.
+| .b64 or .base64     | Specifies that the value is base64 encoded and the resulting file should be decoded when written, without the suffix.
 
 Example:
 
@@ -196,14 +188,9 @@ Secret: .../app-environment
   msg.b64     SGVsbG8gV29ybGQhCg==
 ```
 
-would result in the following files:
+would result in the following file:
 
 ```
-/opt/app/msg.b64
-  CONTENTS
-  --------
-  SGVsbG8gV29ybGQhCg==
-
 /opt/app/msg
   CONTENTS
   --------
