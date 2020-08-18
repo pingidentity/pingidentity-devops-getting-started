@@ -154,6 +154,7 @@ Special secret metadata is provided by key naems starting with an underscore (_)
 | _type               | properties     | Creates a file with `name=value` for each key/value.  This is optional, and default is to create a file for each key.
 | _location           | {path}         | Places file(s) in this path location.  This is optional, and default is to place in ${SECRETS_DIR} location.
 | _link               | {path}         | Creates link(s) from this path location to file(s). This is optional, and default is no link created.
+| _permission         | 0444           | Sets permission on created file(s). This is optional, and default is 0400.
 
 
 
