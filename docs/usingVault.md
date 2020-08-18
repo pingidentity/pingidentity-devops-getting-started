@@ -147,22 +147,25 @@ However, there are special use cases that the Ping Identity DevOps images will s
 - Specifying special permission to assign the secret (default: `0400`)
 - Specifying that the key contents are base64 encoded, to be decoded when created into container
 
-Special secret metadata is provided by key naems starting with an underscore (_).  The following table provides metadata details that can be used in a secret.
+Special secret metadata is provided by key naems starting with an underscore (_).  The following table provides the *optional* metadata details that can be used in a secret.
 
-| Variable            | Example     | Description
-| ------------------- | ----------- | ---------------------------------
-| SECRETS_DIR         | /vault/secrets    | Location where secrets will be stored by
+| Metadata            | Options        | Description
+| ------------------- | -------------- | ---------------------------------
+| _type               | properties     | Creates a file with `name=value` for each key/value.  This is optional, and default is to create a file for each key.
+| _location           | {path}         | Places file(s) in this path location.  This is optional, and default is to place in ${SECRETS_DIR} location.
+| _link               | {path}         | Creates link(s) from this path location to file(s). This is optional, and default is no link created.
 
-If the secret has a key/value of the name `_type=properties`, then a property file will be created with each kv pair as an entry in that file.
 
-Example:
+
+Example: If the secret has a key/value of the name `_type=properties`, then a property file will be created with each kv pair as an entry in that file.
 
 ```
 Secret: .../app-environment
   KEY         VALUE
   ---         -----
-  _type       property
-  _name       application.properties
+  _type       properties
+  _location   /vault/secrets/app-secrtes/app.props
+  _link       /opt/app/application.properties
   PROP_1      value 1
   PROP_2      value 2
 ```
@@ -170,7 +173,40 @@ Secret: .../app-environment
 would result in the following file:
 
 ```
-/vault/secrets/
+/opt/app/application.properites --> /vault/secrets/app-secrtes/app.props
+  CONTENTS
+  --------
+  PROP_1="value 1"
+  PROP_2="value 2"
+```
+
+Special key name suffixes can be used to perform certain processing on the keys when the file is crated.  The following table provides examples of how keys with special suffixes.
+
+| Key Suffix          | Description
+| ------------------- | ---------------------------------
+| .b64 or .base64     | Specifies that the value is base64 encoded and the resulting file should be decoded when written.
+
+Example:
+
+```
+Secret: .../app-environment
+  KEY         VALUE
+  ---         -----
+  msg.b64     SGVsbG8gV29ybGQhCg==
+```
+
+would result in the following files:
+
+```
+/opt/app/msg.b64
+  CONTENTS
+  --------
+  SGVsbG8gV29ybGQhCg==
+
+/opt/app/msg
+  CONTENTS
+  --------
+  Hello World!
 ```
 
 ## Providing a tmpfs shared memory volume for secrets
