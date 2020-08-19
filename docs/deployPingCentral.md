@@ -144,7 +144,7 @@ By default, for the purposes of quick setup, the PingCentral container is insecu
 
 Setting `PING_CENTRAL_BLIND_TRUST=false` allows public certificates to be used only by your Ping Identity environments (such as PingFederate), unless you set up the trust store and configure PingCentral to use this trust store.
 
-1. To set up the trust in the container, first create your trust store according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral/page/fqd1571866743761.html).
+1. To set up the trust in the container, first create your trust store according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral-14/page/fqd1571866743761.html).
 
 2. Inject the trust store into the PingCentral container:
 
@@ -217,7 +217,7 @@ services:
 
 * Using the properties file
 
-  1. Update the `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral/page/orc1570565605492.html).
+  1. Update the `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral-14/page/hbh1575916943828.html).
 
   2. Inject the `application.properties.subst` file into the container using the `volumes` definition in the `docker-compose.yml` file to mount `./conf/application.properties` to the `/opt/in/instance/conf/application.properties` volume under the `pingcentral` service of the `docker-compose.yml` file :
 
