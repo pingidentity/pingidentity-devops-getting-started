@@ -14,7 +14,7 @@ Generally, you'll not want your server profiles to be public, and will instead w
 
 ## Using the token in YAML
 
-To use the token in your YAML file, include it in the `Server_Profile` environment variable using this format:
+To use the token in your YAML file, include it in the `SERVER_PROFILE_URL` environment variable using this format:
 ```html
 https://<github-username>:<github-token>@github.com/<your-repository>.git
 ```
