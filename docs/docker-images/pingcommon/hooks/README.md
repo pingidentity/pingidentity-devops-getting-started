@@ -8,6 +8,7 @@ List of available hooks:
 * [05-expand-templates.sh](05-expand-templates.sh.md)
 * [06-copy-product-bits.sh](06-copy-product-bits.sh.md)
 * [07-apply-server-profile.sh](07-apply-server-profile.sh.md)
+* [08-get-secrets.sh](08-get-secrets.sh.md)
 * [09-build-motd.sh](09-build-motd.sh.md)
 * [10-start-sequence.sh](10-start-sequence.sh.md)
 * [17-check-license.sh](17-check-license.sh.md)
