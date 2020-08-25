@@ -52,6 +52,7 @@
   * [Using DevOps hooks](docs/hooks.md)
   * [Using release tags](docs/releaseTags.md)
   * [Using supported images](docs/imageSupport.md)
+  * [Using Hashicorp Vault](docs/usingVault.md)
   * [Securing the containers](docs/secureContainers.md)
   * [Evaluation of Docker base image security](docs/dockerImageSecurity.md)
   * [Adding a message of the day (MOTD)](docs/addMOTD.md)
