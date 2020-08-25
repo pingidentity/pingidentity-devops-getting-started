@@ -9,7 +9,7 @@ spec:
   - name: pa-admin
     port: 9000
   - name: pa-app
-    port: 443
+    port: 3000
   selector:
     role: pingaccess
 ---
@@ -41,7 +41,7 @@ spec:
         name: pingaccess
         ports:
         - containerPort: 9000
-        - containerPort: 443
+        - containerPort: 3000
         resources:
           limits:
             cpu: "1"
