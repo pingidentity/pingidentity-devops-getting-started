@@ -128,7 +128,7 @@ with link:
     /opt/out/instance/server/default/data/pf.jwk --> /run/secrets/pf.jwk
 ```
 
-### Special secret data formats
+## Special secret data formats
 Often, there are secrets that may be of a binary format (i.e. certificates).
 Special key name suffixes can be used to perform certain processing on the keys when the file is craeted.  The following table provides examples of how keys with special suffixes.
 
