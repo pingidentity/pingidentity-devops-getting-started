@@ -1,12 +1,15 @@
 # Deploy a multi-region PingFederate cluster in AWS
 
-In this example, we'll use 2 clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".
+In this example, we'll use 2 PingFederate clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".
 
 ## Prerequisites
 
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+
 * [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
+* AWS account permissions to create clusters
+  
 ## Procedure
 
 1. Configure the AWS CLI. See the AWS document [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) for more information.
@@ -20,9 +23,9 @@ In this example, we'll use 2 clusters, each in a different Amazon Web Services (
    kind: ClusterConfig
 
    metadata:
-     name: pingfed-dev-chrisa-aws-ca-central-1
+     name: pingfed-ca-central-1
      region: ca-central-1
-     version: "1.4"
+     version: "1.17"
 
    vpc: 
      cidr: 172.16.0.0/16
@@ -55,9 +58,9 @@ In this example, we'll use 2 clusters, each in a different Amazon Web Services (
    kind: ClusterConfig
 
    metadata:
-     name: pingfed-dev-chrisa-aws-us-west-2
+     name: pingfed-us-west-2
      region: us-west-2
-     version: "1.4"
+     version: "1.17"
 
    vpc: 
      cidr: 10.0.0.0/16
@@ -88,13 +91,13 @@ In this example, we'll use 2 clusters, each in a different Amazon Web Services (
    a. Create the first cluster. For example:
 
    ```shell
-   eksctl create cluster --config-file=./ca-central-1.yaml --set-kubeconfig-context=true --profile=<your-aws-cli-profile>
+   eksctl create cluster -f ca-central-1.yaml
    ```
 
    b. Create the second cluster. For example:
 
    ```shell
-   eksctl create cluster --config-file=./us-west-2.yaml --set-kubeconfig-context=true --profile=<your-aws-cli-profile>
+   eksctl create cluster -f us-west-2.yaml
    ```
 
 4. Verify the details for the clusters (VPCs) you created. Enter:
