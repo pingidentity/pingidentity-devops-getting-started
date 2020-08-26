@@ -1,7 +1,6 @@
 # The `ping-devops` utility
 
-`ping-devops` is our general DevOps command line utility. 
-
+`ping-devops` is our general DevOps command line utility.
 
 ## Dependent utilities
 
@@ -19,7 +18,7 @@ To perform all of its operations, `ping-devops` has a dependency on these utilit
 * Use Homebrew, to install `ping-devops` on Apple or Linux:
 
   1. To install, enter:
-   
+
       ```bash
       brew tap pingidentity/devops
       brew install ping-devops
@@ -58,18 +57,18 @@ Enter `ping-devops` in a terminal to display the commands listing. The display w
 #####################################################################
 
 General Usage:
-  ping-devops config                            
-  ping-devops info [-v]                         
-  ping-devops version                           
-  ping-devops topic [ {topic-name} ]            
+  ping-devops config
+  ping-devops info [-v]
+  ping-devops version
+  ping-devops topic [ {topic-name} ]
 
 Generate Kubernetes/Kustomize/License Resources:
-  ping-devops generate devops-secret                    
-  ping-devops generate tls-secret {domain}              
-  ping-devops generate ssh-id-secret {ssh id_rsa file}  
-  ping-devops generate license {product}                
-  ping-devops generate license-secret {license file}    
-  ping-devops generate kustomization.yaml              
+  ping-devops generate devops-secret
+  ping-devops generate tls-secret {domain}
+  ping-devops generate ssh-id-secret {ssh id_rsa file}
+  ping-devops generate license {product}
+  ping-devops generate license-secret {license file}
+  ping-devops generate kustomization.yaml
 
 Running Docker/Kubernetes Evironments:
   ping-devops docker     [info|start|stop|rm|clean]
