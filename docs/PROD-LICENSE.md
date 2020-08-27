@@ -22,7 +22,7 @@ Ping Identity will provide a DevOps Key to any user registered with Ping Identit
   * If you don't have an account, please create one.
   * Otherwise, sign-in.
   * Once logged in, you'll be directed to your profile [page](https://support.pingidentity.com/s/)
-  * In the right-side menu, click the 'Register for DevOps Program' button
+  * In the right-side menu, click the 'REGISTER FOR DEVOPS PROGRAM' button
   ![alt text](images/DEVOPS_REGISTRATION.png "Register for DevOps")
   * You'll receive a confirmation message.
   * Your credentials will be forwarded to the email address associated with your Ping Identity account.
