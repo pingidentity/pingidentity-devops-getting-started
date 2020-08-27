@@ -171,10 +171,10 @@ services:
     image: pingidentity/pingfederate:edge
     environment:
     ...
+    tmpfs: /run/secrets
 
-    ################################################
-    # /run/secrets - tmpfs
-    ################################################
+      ---- or -----
+
     volumes:
       - type: tmpfs
         target: /run/secrets
