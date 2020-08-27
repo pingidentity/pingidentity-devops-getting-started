@@ -6,7 +6,7 @@ When starting one of our containers, the container will attempt to find the DevO
 
 To display your current DevOps environment information, run the DevOps command:
 
-  `denv`
+  `ping-devops info`
 
 ## For standalone containers
 
@@ -28,7 +28,7 @@ docker run \
 
 When you're going to deploy a stack, you can use either of these methods to assign the location of the file containing your DevOps registration information:
 
-* The `env_file` configuration option. 
+* The `env_file` configuration option.
 * The DevOps environment variables.
 
 ### Using the `env_file` configuration option
@@ -70,12 +70,12 @@ For example:
 
 Our Kubernetes examples default to look for a Kubernetes secret named `devops-secret`.
 
-You need to create a Kubernetes secret that contains the environment variables `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY`. 
+You need to create a Kubernetes secret that contains the environment variables `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY`.
 
-1. If you don't already know your DevOps credentials, display these using the DevOps command: 
+1. If you don't already know your DevOps credentials, display these using the DevOps command:
 
     ```bash
-    denv
+    ping-devops info
     ```
 
 2. Generate the Kubernetes secret from your DevOps credentials using either the `ping-devops` utility, or manually:
@@ -91,5 +91,3 @@ You need to create a Kubernetes secret that contains the environment variables `
         --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" \
         --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
     ```
-    
-  
