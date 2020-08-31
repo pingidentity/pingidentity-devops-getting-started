@@ -12,9 +12,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
   
 ## Procedure
 
-1. Configure the AWS CLI. See the AWS document [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) for more information.
-
-2. Create the YAML files to configure the the clusters. You'll create the clusters in different AWS regions. We'll be using the `ca-central-1` region and the `us-west-2` region in this document.
+1. Create the YAML files to configure the the clusters. You'll create the clusters in different AWS regions. We'll be using the `ca-central-1` region and the `us-west-2` region in this document.
    
    a. Configure the first cluster. For example, using the `ca-central-1` region and the reserved CIDR 172.16.0.0:
    
@@ -86,7 +84,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
            cloudWatch: true
    ```
 
-3. Create the clusters using `eksctl`. 
+2. Create the clusters using `eksctl`. 
    
    a. Create the first cluster. For example:
 
@@ -100,7 +98,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
    eksctl create cluster -f us-west-2.yaml
    ```
 
-4. Verify the details for the clusters (VPCs) you created. Enter:
+3. Verify the details for the clusters (VPCs) you created. Enter:
    
    ```shell
    aws ec2 describe-vpcs
@@ -110,7 +108,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
 
    > Retain the `VpcId` values for the `ca-central-1` and `us-west-2` VPCs. You'll use these in subsequent steps.
 
-5. Set up VPC peering between the two clusters. You'll create a peering connection from one VPC and accept the peering connection from the other VPC.
+4. Set up VPC peering between the two clusters. You'll create a peering connection from one VPC and accept the peering connection from the other VPC.
    
    a. Create a peering connection from the cluster in the `ca-central-1` region to the cluster in the `us-west-2` region. For example:
 
@@ -136,7 +134,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
    aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id <us-west-2-VpcPeeringConnectionId>
    ```
 
-6. Get the subnets information for each VPC. Each cluster instance uses a different subnet, so there'll be three subnets assigned to each VPC. The information returned will contain the subnet ID for each subnet. You'll use the subnet IDs in the subsequent step to get the associated routing tables.
+5. Get the subnets information for each VPC. Each cluster instance uses a different subnet, so there'll be three subnets assigned to each VPC. The information returned will contain the subnet ID for each subnet. You'll use the subnet IDs in the subsequent step to get the associated routing tables.
    
    a. Get the subnets information for the `ca-central-1` VPC. For example:
 
@@ -158,7 +156,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
 
    > Retain the `SubnetId` value for each subnet. You'll use these in the next step to get the associated routing tables.
 
-7. Get the routing table associated with the subnets for each VPC.
+6. Get the routing table associated with the subnets for each VPC.
    
    a. Get the routing table for each subnet in the `ca-central-1` VPC. For example:
 
@@ -182,7 +180,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
 
    > Retain the `RouteTableId` for each routing table. You'll use this in the next step.
 
-8. Modify the routing tables for each VPC to add a route to the other VPC.
+7. Modify the routing tables for each VPC to add a route to the other VPC.
    
    a. Add a route to the routing table for the `ca-central-1` VPC to the `us-west-2` VPC. For example:
 
@@ -204,7 +202,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
 
    d. If more than one routing table is used for the VPC, repeat the above step for each routing table (`RouteTableId` value).
 
-9. Update the Security Groups for each VPC. You'll get the Security Group IDs for each VPC, then add inbound and outbound rules to both the `us-west-2` VPC, and to the `ca-central-1` VPC.
+8. Update the Security Groups for each VPC. You'll get the Security Group IDs for each VPC, then add inbound and outbound rules to both the `us-west-2` VPC, and to the `ca-central-1` VPC.
     
    a. Get the Security Group information for the `us-west-2` VPC. For example:
 
@@ -266,5 +264,5 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
     --source-group <ca-central-1-GroupId>
    ```
 
-10. 
+9. 
 
