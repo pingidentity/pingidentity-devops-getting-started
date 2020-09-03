@@ -11,6 +11,7 @@
 * [Get started](docs/getStarted.md)
   * [DevOps registration](docs/devopsRegistration.md)
   * [Deploy an example stack](docs/getStartedWithGitRepo.md)
+  * [DevOps Product Licenses](docs/PROD-LICENSE.md)
   * [Using your DevOps user and key](docs/devopsUserKey.md)
   * [Using an existing product license](docs/existingLicense.md)
   * [Saving your configuration changes](docs/saveConfigs.md)
