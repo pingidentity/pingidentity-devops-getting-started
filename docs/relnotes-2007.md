@@ -32,10 +32,10 @@
 
 ### Resolved defects
 
-- (GDO-345) Resolved issue where PingDelegator was using PRIVATE rather than PUBLIC hostnames
+- (GDO-345) Resolved issue where PingDelegator was using PRIVATE rather than PUBLIC hostnames.
 
-- (GDO-346) Resolved issue regarding the default minimum heap for PingDirectory
+- (GDO-346) Resolved issue regarding the default minimum heap for PingDirectory.
 
-- (GDO-380) Resolved issue within PingAccess Clustering (Admin Console) Kubernetes examples
+- (GDO-380) Resolved issue within PingAccess Clustering (Admin Console) Kubernetes examples.
 
-- (GDO-371) Resolved issue where PingDelegator wouldn't start using non-privileged user
+- (GDO-371) Resolved issue where PingDelegator wouldn't start using non-privileged user.

@@ -14,7 +14,7 @@
 
 - **DevOps Program Registration**
 
-  Signing up for the Ping DevOps program is now self-service! Simply follow the instructions found [here](https://pingidentity-devops.gitbook.io/devops/getstarted/prod-license#obtaining-a-ping-identity-devops-user-and-key)
+  Signing up for the Ping DevOps program is now self-service! Simply follow the instructions found [here](https://pingidentity-devops.gitbook.io/devops/getstarted/prod-license#obtaining-a-ping-identity-devops-user-and-key).
 
 ### Improvements
 
@@ -24,16 +24,16 @@
 
 - **Image Restart State**
 
-  A number of enhancements have been made to improve the overall restart flow in our Docker Images
+  A number of enhancements have been made to improve the overall restart flow in our Docker Images.
 
 ### Resolved defects
 
-- (GDO-352) Resolved restart issue in PingDataGovernance PAP
+- (GDO-352) Resolved restart issue in PingDataGovernance PAP.
 
-- (GDO-392) Resolved issue within PingDelegator when DS_PORT variable was undefined
+- (GDO-392) Resolved issue within PingDelegator when DS_PORT variable was undefined.
 
-- (GDO-395) Resolved issue within PingDirectory restart when Java versions changed
+- (GDO-395) Resolved issue within PingDirectory restart when Java versions changed.
 
-- (GDO-397) Resolved issue where PingFederate failed to start in Kubernetes using the full-stack example
+- (GDO-397) Resolved issue where PingFederate failed to start in Kubernetes using the full-stack example.
 
-- (GDO-404) Resolved issue where some users were unable to log into the PingAccess console using the Image edge tag and Baseline server profile
+- (GDO-404) Resolved issue where some users were unable to log into the PingAccess console using the Image edge tag and Baseline server profile.

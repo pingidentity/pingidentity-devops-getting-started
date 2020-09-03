@@ -14,7 +14,7 @@
 
 - **Customer Support Data Collection**
 
-  Included in this release is the Java diagnostic tool to enable embedded customer support data collection. This toolset includes [jstat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html), [jmap](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jmap.html) and [jhat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jhat.html)
+  Included in this release is the Java diagnostic tool to enable embedded customer support data collection. This toolset includes [jstat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html), [jmap](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jmap.html) and [jhat](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jhat.html).
 
 ### New Product Versions
 
@@ -56,8 +56,8 @@
 
 ### Resolved defects
 
-- (GDO-218) Resolved an issue where PingDirectory threw an error on manage-profile during setup
+- (GDO-218) Resolved an issue where PingDirectory threw an error on manage-profile during setup.
 
-- (GDO-289) Resolved an issue where Alpine based image couldn't install pip3
+- (GDO-289) Resolved an issue where Alpine based image couldn't install pip3.
 
-- (GDO-329) Resolved an issue where PingCentral docs were not syncing to GitHub
+- (GDO-329) Resolved an issue where PingCentral docs were not syncing to GitHub.
