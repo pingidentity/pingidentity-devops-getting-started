@@ -1,6 +1,6 @@
 # Deploy a multi-region PingFederate cluster in AWS
 
-In this example, we'll use 2 PingFederate clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".
+In this example, we'll deploy 2 PingFederate clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".
 
 ## Prerequisites
 
@@ -10,7 +10,7 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
 
 * AWS account permissions to create clusters
   
-## Procedure
+## Create the multi-region cluster
 
 1. Create the YAML files to configure the the clusters. You'll create the clusters in different AWS regions. We'll be using the `ca-central-1` region and the `us-west-2` region in this document.
    
@@ -28,12 +28,18 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
    vpc: 
      cidr: 172.16.0.0/16
 
-   nodeGroups:
-     - name: base
-       instanceType: c5.4xlarge
-       minSize: 3
-       maxSize: 3
-       desiredCapacity: 3
+   managedNodeGroups:
+     - name: us-west-2a-worker-nodes
+       instanceType: t3a.2xlarge
+       labels: {}
+       tags: {}
+       minSize: 1
+       maxSize: 2
+       desiredCapacity: 1
+       volumeSize: 12
+       privateNetworking: true
+       ssh:
+         publicKeyPath: ~/.ssh/id_rsa.pub
        iam:
          withAddonPolicies: 
            imageBuilder: true
@@ -47,7 +53,35 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
            albIngress: true
            xRay: true
            cloudWatch: true
+     - name: us-west-2b-worker-nodes
+     instanceType: t3a.2xlarge
+     labels: {}
+     tags: {}
+     minSize: 1
+     maxSize: 2
+     desiredCapacity: 1
+     volumeSize: 12
+     privateNetworking: true
+     ssh:
+       publicKeyPath: ~/.ssh/id_rsa.pub
+     iam:
+       withAddonPolicies:
+           imageBuilder: true
+           autoScaler: true
+           externalDNS: true
+           certManager: true
+           appMesh: true
+           ebs: true
+           fsx: true
+           efs: true
+           albIngress: true
+           xRay: true
+           cloudWatch: true
    ```
+
+   > We recommend you select a VPC with a private IP.
+
+   > The `ssh` entry is optional, allowing you to SSH in to your cluster.
 
    b. Configure the second cluster. For example, using the `us-west-2` region and the reserved CIDR 10.0.0.0:
    
@@ -63,12 +97,18 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
    vpc: 
      cidr: 10.0.0.0/16
 
-   nodeGroups:
-     - name: base
-       instanceType: c5.4xlarge
-       minSize: 3
-       maxSize: 3
-       desiredCapacity: 3
+   managedNodeGroups:
+     - name: us-west-2a-worker-nodes
+       instanceType: t3a.2xlarge
+       labels: {}
+       tags: {}
+       minSize: 1
+       maxSize: 2
+       desiredCapacity: 1
+       volumeSize: 12
+       privateNetworking: true
+       ssh:
+         publicKeyPath: ~/.ssh/id_rsa.pub
        iam:
          withAddonPolicies: 
            imageBuilder: true
@@ -82,20 +122,48 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
            albIngress: true
            xRay: true
            cloudWatch: true
+     - name: us-west-2b-worker-nodes
+     instanceType: t3a.2xlarge
+     labels: {}
+     tags: {}
+     minSize: 1
+     maxSize: 2
+     desiredCapacity: 1
+     volumeSize: 12
+     privateNetworking: true
+     ssh:
+       publicKeyPath: ~/.ssh/id_rsa.pub
+     iam:
+       withAddonPolicies:
+           imageBuilder: true
+           autoScaler: true
+           externalDNS: true
+           certManager: true
+           appMesh: true
+           ebs: true
+           fsx: true
+           efs: true
+           albIngress: true
+           xRay: true
+           cloudWatch: true
    ```
+
+   > We recommend you select a VPC with a private IP.
+
+   > The `ssh` entry is optional, allowing you to SSH in to your cluster.
 
 2. Create the clusters using `eksctl`. 
    
    a. Create the first cluster. For example:
 
    ```shell
-   eksctl create cluster -f ca-central-1.yaml
+   eksctl create cluster -f ca-central-1.yaml --role-arn <aws-role-arn>
    ```
 
    b. Create the second cluster. For example:
 
    ```shell
-   eksctl create cluster -f us-west-2.yaml
+   eksctl create cluster -f us-west-2.yaml --role-arn <aws-role-arn>
    ```
 
 3. Verify the details for the clusters (VPCs) you created. Enter:
@@ -264,5 +332,14 @@ In this example, we'll use 2 PingFederate clusters, each in a different Amazon W
     --source-group <ca-central-1-GroupId>
    ```
 
-9. 
+## Test the cross-cluster connectivity
 
+TBD
+
+## Create an S3 bucket
+
+TBD
+
+## Deploy PingFederate
+
+(I get a 404 on your Github repos, Chris.)
