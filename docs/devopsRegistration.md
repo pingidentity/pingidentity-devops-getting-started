@@ -7,7 +7,7 @@ Registering for our DevOps program grants you credentials that are supplied to o
 To get your DevOps user and key:
 
 1. [Create a Ping Identity account, or sign on to your existing account](https://www.pingidentity.com/en/account/sign-on.html).
-2. Follow the steps to [Request your DevOps key](PROD-LICENSE.md#obtaining-a-ping-identity-devops-user-and-key).
+2. Follow the steps to [Request your DevOps key](https://pingidentity-devops.gitbook.io/devops/getstarted/prod-license#obtaining-a-ping-identity-devops-user-and-key).
 
     Your DevOps credentials (user name and key) will be sent to your email.
 
