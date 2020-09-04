@@ -1,8 +1,9 @@
 # Table of contents
 
 * [Ping Identity DevOps](docs/README.md)
-* [Release notes (current)](docs/relnotes-2007.md)
+* [Release notes (current)](docs/relnotes-2008.md)
   * [Prior release notes](docs/priorReleases.md)
+    * [Version 2007](docs/relnotes-2007.md)
     * [Version 2006](docs/relnotes-2006.md)
     * [Version 2005](docs/relnotes-2005.md)
     * [Version 2004](docs/relnotes-2004.md)
@@ -11,6 +12,7 @@
 * [Get started](docs/getStarted.md)
   * [DevOps registration](docs/devopsRegistration.md)
   * [Deploy an example stack](docs/getStartedWithGitRepo.md)
+  * [DevOps product licenses](docs/PROD-LICENSE.md)
   * [Using your DevOps user and key](docs/devopsUserKey.md)
   * [Using an existing product license](docs/existingLicense.md)
   * [Saving your configuration changes](docs/saveConfigs.md)

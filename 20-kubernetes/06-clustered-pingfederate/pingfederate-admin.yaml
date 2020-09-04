@@ -24,6 +24,8 @@ metadata:
   name: pingfederate-admin
 spec:
   replicas: 1
+  strategy: 
+    type: Recreate
   selector:
     matchLabels:
       role: pingfederate
