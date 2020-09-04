@@ -4,7 +4,7 @@ This provides details for using certificates with the Ping Identity images.  Spe
 
 Currently, certificates can be provided to the PingData products when the containers are started.
 
-Note: Prior to 2008 sprint release, we encouraged these to be placed into the server profile (i.e. .../.sec/keystore).  For seceurity best practices, this is no longer a recommended approach.  Rather a secret shoudl be used to pass this material to the containers.
+> Note: Prior to 2008 sprint release, we encouraged these to be placed into the server profile (i.e. .../.sec/keystore).  For seceurity best practices, this is no longer a recommended approach.  Rather a secret shoudl be used to pass this material to the containers.
 
 ## What you'll do
 
