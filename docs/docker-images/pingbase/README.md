@@ -21,7 +21,7 @@ this image.
 | LOGS_DIR  | ${BASE}/logs  | Path to a volume generically used for logging 
 | PING_IDENTITY_DEVOPS_FILE  | devops-secret  | File name for devops-creds passed as a Docker secret 
 | STAGING_DIR  | ${BASE}/staging  | Path to the staging area where the remote and local server profiles can be merged 
-| SECRETS_DIR  | ${STAGING_DIR}/.sec  | Default path to the secrets 
+| SECRETS_DIR  | /run/secrets  | Default path to the secrets 
 | TOPOLOGY_FILE  | ${STAGING_DIR}/topology.json  | Path to the topology file 
 | HOOKS_DIR  | ${STAGING_DIR}/hooks  | Path where all the hooks scripts are stored 
 | CONTAINER_ENV  | ${STAGING_DIR}/.env  | Environment Property file use to share variables between scripts in container 
@@ -34,6 +34,7 @@ this image.
 | SERVER_ROOT_DIR  | ${OUT_DIR}/instance  | Path from which the runtime executes 
 | SECURITY_CHECKS_STRICT  | false  | Requires strict checks on security 
 | SECURITY_CHECKS_FILENAME  | *.jwk *.pin  | Perform a check for filenames that may violate security (i.e. secret material) 
+| UNSAFE_CONTINUE_ON_ERROR  |   | If this is set to true, then the container will provide a hard warning and continue. 
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}  | License directory and filename 
 | STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to instantiate the container 
 | STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container 

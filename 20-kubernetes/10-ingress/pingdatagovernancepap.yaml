@@ -9,7 +9,7 @@ metadata:
   name: pingdatagovernancepap
 spec:
   rules:
-  - host: pingdatagovernancepap.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+  - host: pingdatagovernancepap-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
       - backend:
@@ -18,5 +18,5 @@ spec:
         path: /
   tls:
   - hosts:
-    - pingdatagovernancepap.${PING_IDENTITY_DEVOPS_DNS_ZONE}
+    - pingdatagovernancepap-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     secretName: tls-secret

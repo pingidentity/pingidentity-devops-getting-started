@@ -1,6 +1,6 @@
 # Get started
 
-You can quickly deploy Docker images of Ping Identity products. We use Docker, Docker Compose, and Kubernetes to deploy our Docker images in stable, network-enabled containers. Our Docker images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers.  
+You can quickly deploy Docker images of Ping Identity products. We use Docker, Docker Compose, and Kubernetes to deploy our Docker images in stable, network-enabled containers. Our Docker images are preconfigured to provide working instances of our products, either as single containers or as orchestrated sets of containers.
 
 ## Prerequisites
 
@@ -13,8 +13,8 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 You'll need a product license to run our Docker images. You can use either:
 
 * An evaluation license obtained with a valid DevOps user key. See [DevOps registration](devopsRegistration.md) for more information.
-  
-* Although you'll first need to complete your [DevOps registration](devopsRegistration.md), you can subsequently use a valid product license available with a current Ping Identity customer subscription. 
+
+* Although you'll first need to complete your [DevOps registration](devopsRegistration.md), you can subsequently use a valid product license available with a current Ping Identity customer subscription.
 
 ## Set up your DevOps environment
 
@@ -22,11 +22,11 @@ You'll need a product license to run our Docker images. You can use either:
 
    > We'll use this as the parent directory for all DevOps examples referenced in our documentation.
 
-2. Configure your DevOps environment:  
+2. Configure your DevOps environment:
 
     ```bash
     ping-devops config
-    ``` 
+    ```
 
    a. Respond to all Docker configuration questions, accepting the defaults if you're not sure.  You can accept the (empty) defaults for Kubernetes. Settings for custom variables aren't needed initially.
 
@@ -38,8 +38,8 @@ You'll need a product license to run our Docker images. You can use either:
    ping-devops info
    ```
 
-4. You can use the ping-devops utility to run a quick demonstration of any of our products in your Docker environment. 
-   
+4. You can use the ping-devops utility to run a quick demonstration of any of our products in your Docker environment.
+
    a. To display information about the containers or stacks available using the ping-devops utility, enter:
 
    ```shell
@@ -49,7 +49,7 @@ You'll need a product license to run our Docker images. You can use either:
    b. To display information about one of the listed containers or stacks, enter:
 
    ```shell
-   ping-devops docker <name>
+   ping-devops docker info <name>
    ```
 
    Where &lt;name&gt; is one of the listed container or stack names.
@@ -75,10 +75,9 @@ You'll need a product license to run our Docker images. You can use either:
     To remove the container or stack and all associated data, enter
 
     ```shell
-    ping-devops docker rm  <name> 
+    ping-devops docker rm  <name>
     ```
 
 ## Next step
 
 * [Deploy an example stack](getStartedWithGitRepo.md).
-

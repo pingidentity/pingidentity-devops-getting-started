@@ -24,10 +24,10 @@ this image.
 | LICENSE_FILE_NAME  | pingaccess.lic  | 
 | LICENSE_SHORT_NAME  | PA  | 
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | 
-| PA_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD:-2FederateM0re}  | Specify a password for administrator user for interaction with admin API 
-| PING_IDENTITY_PASSWORD  | ${PA_ADMIN_PASSWORD}  | 
+| PA_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD}  | 
+| PING_IDENTITY_PASSWORD  | ${PA_ADMIN_PASSWORD}  | Specify a password for administrator user for interaction with admin API 
 | OPERATIONAL_MODE  | STANDALONE  | 
-| PA_ADMIN_PASSWORD_INITIAL  | 2Access  | Change **non-default** password at startup by including this and PA_ADMIN_PASSWORD 
+| PA_ADMIN_PASSWORD_INITIAL  | 2Access  | Change **non-default** password at startup by including this and PING_IDENTITY_PASSWORD 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | 
 | PA_ADMIN_PORT  | 9000  | 

@@ -23,6 +23,10 @@ version: "2.4"
 #-  https://localhost:6443
 #-    Username: administrator
 #-    Password: 2FederateM0re
+#-
+#- NOTE: If you receive an error after pingdelegator login: 'You could not be authenticated'
+#-       some browsers (i.e. Firefox) may require you to accept cert on each port.
+#-       You should be able to goto https://localhost:1443 and accept the cert to continue.
 #-------------------------------------------------------------------------------------
 
 services:
@@ -80,7 +84,7 @@ services:
   pingdelegator:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
     environment:
-      - PD_ENGINE_PRIVATE_PORT=1443
+      - PD_ENGINE_PUBLIC_PORT=1443
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdelegator
     env_file:
