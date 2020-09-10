@@ -4,13 +4,31 @@ In this example, we'll deploy 2 PingFederate clusters, each in a different Amazo
 
 ## Prerequisites
 
-* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
 
-* [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+* [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html), the current version.
 
-* AWS account permissions to create clusters
+* AWS account permissions to create clusters.
   
-## Create the multi-region cluster
+## Configure the AWS CLI
+
+If you've not already done so, configure the AWS CLI to use your profile and credentials:
+
+1. Assign your profile and supply your `aws_access_key_id` and `aws_secret_access_key`. Enter:
+
+   ```shell
+   aws configure --profile=<aws-profile>
+   ```
+
+   Then enter your `aws_access_key_id` and `aws_secret_access_key`.
+
+2. Open your `~/.aws/credentials` file in a text editor and add your AWS `role_arn`. For example:
+   
+   ```shell
+   “role_arn = arn:aws:iam::xxxxxxxx4146:role/GTE”
+   ```
+
+## Create the multi-region clusters
 
 1. Create the YAML files to configure the the clusters. You'll create the clusters in different AWS regions. We'll be using the `ca-central-1` region and the `us-west-2` region in this document.
    
@@ -79,7 +97,7 @@ In this example, we'll deploy 2 PingFederate clusters, each in a different Amazo
            cloudWatch: true
    ```
 
-   > We recommend you select a VPC with a private IP.
+   > For production purposes, select a VPC with a private IP.
 
    > The `ssh` entry is optional, allowing you to SSH in to your cluster.
 
@@ -148,7 +166,7 @@ In this example, we'll deploy 2 PingFederate clusters, each in a different Amazo
            cloudWatch: true
    ```
 
-   > We recommend you select a VPC with a private IP.
+   > For production purposes, select a VPC with a private IP.
 
    > The `ssh` entry is optional, allowing you to SSH in to your cluster.
 
@@ -157,189 +175,189 @@ In this example, we'll deploy 2 PingFederate clusters, each in a different Amazo
    a. Create the first cluster. For example:
 
    ```shell
-   eksctl create cluster -f ca-central-1.yaml --role-arn <aws-role-arn>
+   eksctl create cluster -f ca-central-1.yaml --profile <aws-profile>
    ```
 
    b. Create the second cluster. For example:
 
    ```shell
-   eksctl create cluster -f us-west-2.yaml --role-arn <aws-role-arn>
+   eksctl create cluster -f us-west-2.yaml --profile <aws-profile>
    ```
 
-3. Verify the details for the clusters (VPCs) you created. Enter:
-   
-   ```shell
-   aws ec2 describe-vpcs
-   ```
-
-   This will display information for all of your VPCs. Alternatively, you can log in to AWS and go the the VPC Dashboard page to display the information for selected VPCs.
+3. Log in to the AWS console, go to the **VPC** service, select **Your VPCs** (under Virtual Private Cloud), and note the VPC details for the clusters you've created.
 
    > Retain the `VpcId` values for the `ca-central-1` and `us-west-2` VPCs. You'll use these in subsequent steps.
 
-4. Set up VPC peering between the two clusters. You'll create a peering connection from one VPC and accept the peering connection from the other VPC.
+4. Set up VPC peering between the two clusters. You'll create a peering connection from the cluster in the `us-west-2` region to the cluster in the `ca-central-1` region. You'll do this from the VPC Dashboard as in the prior step.
    
-   a. Create a peering connection from the cluster in the `ca-central-1` region to the cluster in the `us-west-2` region. For example:
-
-   ```shell
-   aws ec2 create-vpc-peering-connection --vpc-id <id-for-ca-central-1> --peer-region ca-central-1 --peer-vpc-id <id-for-us-west-2> --peer-region us-west-2
-   ```
-
-   The `VpcId` for the `ca-central-1` VPC was displayed in the prior step (`aws ec2 describe-vpcs`).
-
-   b. Verify that the peering connection is in the "pending acceptance" state. For example:
-
-   ```shell
-   aws ec2 describe-vpc-peering-connections --filters Name=status-code,Values=pending-acceptance
-   ```
-
-   c. Copy the `VpcPeeringConnectionId` value from the resulting output for the VPC in the `us-west-2` region.
-
-   > Retain the `VpcPeeringConnectionId` value. You'll use this in a subsequent step.
-
-   d. Accept the peering connection for the `us-west-2` VPC (initiated by the `ca-central-1` VPC). For example:
-
-   ```shell
-   aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id <us-west-2-VpcPeeringConnectionId>
-   ```
-
-5. Get the subnets information for each VPC. Each cluster instance uses a different subnet, so there'll be three subnets assigned to each VPC. The information returned will contain the subnet ID for each subnet. You'll use the subnet IDs in the subsequent step to get the associated routing tables.
+   a. In the top right of the page, select the **Oregon** (us-west-2) region.
    
-   a. Get the subnets information for the `ca-central-1` VPC. For example:
+   b. Select **Peering Connections**, and click **Create Peering Connection**. 
+   
+   c. Assign a unique name for the peering connection (for example, us-west-2-to-ca-central-1).
+   
+   d. Under **Select a local VPC to peer with**, enter the `VpcId` value for the `us-west-2` VPC.
 
-   ```shell
-   aws ec2 describe-subnets --filters "Name=vpc-id,Values=<id-for-ca-central-1>"
-   ```
+   e. Under **Select another VPC to peer with**, select **My account** --> **Another region** --> **Canada Central** (ca-central-1).
 
-   Where &lt;id-for-ca-central-1&gt; is the `VpcId` of the `ca-central-1` VPC.
+   f. Under **VPC (Accepter)**, enter the `VpcId` value for the `ca-central-1` region.
 
-   > Retain the `SubnetId` value for each subnet. You'll use these in a subsequent step.
+   g. Click **Create Peering Connection**. When successful, a confirmation is displayed. Click **OK** to continue.
 
-   b. Get the subnets information for the `us-west-2` VPC. For example:
+   h. In the top right of the page, change the region to **Canada Central**.
 
-   ```shell
-   aws ec2 describe-subnets --filters "Name=vpc-id,Values=<id-for-us-west-2>"
-   ```
+   i. Select **Peering Connections**.
 
-   Where &lt;id-for-us-west-2&gt; is the `VpcId` of the `us-west-2` VPC.
+   > Notice that the peering connection status for `us-west-2` shows as `Pending Acceptance`.
 
-   > Retain the `SubnetId` value for each subnet. You'll use these in the next step to get the associated routing tables.
+   j. Select the `ca-central-1` connection, click the **Actions** dropdown list, and select **Accept Request**. You'll be prompted to confirm.
 
+   > The VPC peering connection status should now show as `Active`.
+
+5. Get the subnets information for each cluster node. Each cluster node uses a different subnet, so there'll be three subnets assigned to each VPC. The information displayed will contain the subnet ID for each subnet. You'll use the subnet IDs in the subsequent step to get the associated routing tables.
+   
+   a. In the top right of the page, change the region to **Oregon**.
+   
+   b. Go to the **EC2** service, and select **Instances**. Apply a filter, if needed, to find your nodes for the cluster.
+   
+   c. Select each node, and record the **Subnet ID** of each. You'll use the subnet IDs in a subsequent step. 
+
+   d. In the top right of the page, change the region to **Canada Central**, and repeat the 2 previous steps to find and record the subnet IDs for this VPC.
+   
 6. Get the routing table associated with the subnets for each VPC.
    
-   a. Get the routing table for each subnet in the `ca-central-1` VPC. For example:
+   a. Go to the **VPC** service. (You're still using the Canada Central region.)
 
-   ```shell
-   aws ec2 describe-route-tables --filters "Name=association.subnet-id,Values=<ca-central-1-SubnetId>"
-   ```
+   b. In the VPC Dashboard, select **Subnets**.
 
-   There may be only one routing table associated with all of the subnets for a VPC.
+   c. For each subnet displayed, record the **Routing Table** value. You may have a single routing table for all of your subnets. You'll use the routing table ID or IDs in a subsequent step.
 
-   > Retain the `RouteTableId` value for each routing table. You'll use this in a subsequent step.
-
-   b. Repeat the above step for each of the remaining subnets in the `ca-central-1` cluster.
-
-   c. Get the routing tables for each subnet in the `us-west-2` cluster. For example:
-
-   ```shell
-   aws ec2 describe-route-tables --filters "Name=association.subnet-id,Values=<us-west-2-SubnetId>"
-   ```
-
-   d. Repeat the above step for each of the remaining subnets in the `ca-central-1` cluster.
-
-   > Retain the `RouteTableId` for each routing table. You'll use this in the next step.
-
-7. Modify the routing tables for each VPC to add a route to the other VPC.
+   d. In the top right of the page, change the region to **Oregon**, and repeat the 2 previous steps to find and record the routing table ID or IDs for this VPC.
    
-   a. Add a route to the routing table for the `ca-central-1` VPC to the `us-west-2` VPC. For example:
+7. Modify the routing table or tables for each VPC to add a route to the other VPC using the peering connection you created.
+   
+   a. In the VPC Dashboard, select **Route Tables**. (You're still using the Oregon region.)
 
-   ```shell
-   aws ec2 create-route --route-table-id <ca-central-1-RouteTableId> --destination-cidr-block 10.0.0.0/16 --vpc-peering-connection-id <VpcPeeringConnectionId-value>
-   ```
+   b. Select the route table you recorded for the `us-west-2` (Oregon) VPC, and click the `Routes` button. You should see 2 routes displayed.
 
-   Where &lt;VpcPeeringConnectionId-value&gt; is the ID for the peering connection you created in a prior step.
+   c. Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `ca-central-1` cluster (172.16.0.0/16). 
 
-   b. If more than one routing table is used for the VPC, repeat the above step for each routing table (`RouteTableId` value).
+   d. For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
 
-   c. Add a route to the routing table for the `us-west-2` VPC to the `ca-central-1` VPC. For example:
+      A route for the `ca-central-1` cluster directed to the peering connection is displayed.
+   
+   e. If more than one routing table is used for the `us-west-2` VPC, repeat the previous steps for each routing table.
 
-   ```shell
-   aws ec2 create-route --route-table-id <us-west-2-RouteTableId> --destination-cidr-block 172.16.0.0/16 --vpc-peering-connection-id <VpcPeeringConnectionId-value>
-   ```
+   f. In the top right of the page, change the region to **Canada Central**.
 
-   Where &lt;VpcPeeringConnectionId-value&gt; is the ID for the peering connection you created in a prior step.
+   g. Select the route table you recorded for the `ca-central-1` (Canada Central) VPC, and click the `Routes` button. You should see 2 routes displayed.
 
-   d. If more than one routing table is used for the VPC, repeat the above step for each routing table (`RouteTableId` value).
+   h. Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `us-west-2` cluster (10.0.0.0/16). 
 
-8. Update the Security Groups for each VPC. You'll get the Security Group IDs for each VPC, then add inbound and outbound rules to both the `us-west-2` VPC, and to the `ca-central-1` VPC.
+   i. For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
+
+      A route for the `us-west-2` cluster directed to the peering connection is displayed.
+   
+   j. If more than one routing table is used for the `ca-central-1` VPC, repeat the previous steps for each routing table.
+
+8.  Update the Security Groups for each VPC. You'll get the Security Group IDs for each VPC, then add inbound and outbound rules for both the `us-west-2` VPC, and the `ca-central-1` VPC.
     
-   a. Get the Security Group information for the `us-west-2` VPC. For example:
+       a. In the VPC Dashboard, select **Security Groups**.  (You're still using the Canada Central region.)
 
-   ```shell
-   aws ec2 describe-security-groups --filters "Name=vpc-id,Values=<us-west-2-VpcId>"
-   ```
+       b. Apply a filter to find the security groups for the `ca-central-1` cluster, and select the security group with “-nodegroup” in the name. This is the security group used for the firewall settings for all the worker nodes in the `ca-central-1` cluster.
 
-   Where `VpcId` is the `us-west-2` VPC ID value you saved from a prior step. 
+       c. Click **Inbound Rules** --> **Add Rule**.
+       
+       d. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
 
-   > Retain the `GroupId` value displayed for the Security Group. You'll use this in a subsequent step.
+    *	Protocol: TCP
 
-   b. Get the Security Group information for the `ca-central-1` VPC. For example:
+    *	Port Range: 7600-7700
 
-   ```shell
-   aws ec2 describe-security-groups --filters "Name=vpc-id,Values=<ca-central-1-VpcId>"
-   ```
+    *	Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
 
-   Where `VpcId` is the `ca-central-1` VPC ID value you saved from a prior step. 
+       e. Click **Save Rules** to save the inbound security group rule for the `ca-central-1` cluster.
 
-   > Retain the `GroupId` value displayed for the Security Group. You'll use this in the next step.
+       f. Click **Outbound Rules** --> **Add Rule**.
 
-   c. Add an inbound rule for the Security Group associated with the `us-west-2` VPC. For example:
+       g. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
 
-   ```shell
-   aws ec2 authorize-security-group-ingress \
-    --group-id <us-west-2-GroupId> \
-    --protocol tcp \
-    --port 7600-7700 \
-    --source-group <ca-central-1-GroupId>
-   ```
+    *	Protocol: TCP
 
-   d. Add an outbound rule for the Security Group associated with the `us-west-2` VPC. For example:
+    *	Port Range: 7600-7700
 
-   ```shell
-   aws ec2 authorize-security-group-egress \
-    --group-id <ca-central-1-GroupId> \
-    --protocol tcp \
-    --port 7600-7700 \
-    --source-group <us-west-2-GroupId>
-   ```
+    *	Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
 
-   e. Add an inbound rule for the Security Group associated with the `ca-central-1` VPC. For example:
+       h. Click **Save Rules** to save the outbound security group rule for the `ca-central-1` cluster.
 
-   ```shell
-   aws ec2 authorize-security-group-ingress \
-    --group-id <ca-central-1-GroupId> \
-    --protocol tcp \
-    --port 7600-7700 \
-    --source-group <us-west-2-GroupId>
-   ```
+       i. In the top right of the page, change the region to **Oregon**. You'll now repeat the previous steps to add inbound and outbound rules for the `us-west-2` cluster.
 
-   f. Add an outbound rule for the Security Group associated with the `ca-central-1` VPC. For example:
+       j. Apply a filter to find the security groups for the `us-west-2` cluster, and select the security group with “-nodegroup” in the name. This is the security group used for the firewall settings for all the worker nodes in the `us-west-2` cluster.
 
-   ```shell
-   aws ec2 authorize-security-group-egress \
-    --group-id <us-west-2-GroupId> \
-    --protocol tcp \
-    --port 7600-7700 \
-    --source-group <ca-central-1-GroupId>
-   ```
+       k. Click **Inbound Rules** --> **Add Rule**.
+       
+       l. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
 
-## Test the cross-cluster connectivity
+    *	Protocol: TCP
 
-TBD
+    *	Port Range: 7600-7700
+
+    *	Source: Custom, and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
+
+       m. Click **Save Rules** to save the inbound security group rule for the `us-west-2` cluster.
+
+       n. Click **Outbound Rules** --> **Add Rule**.
+
+       o. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
+
+    *	Protocol: TCP
+
+    *	Port Range: 7600-7700
+
+    *	Source: Custom, and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
+
+       p. Click **Save Rules** to save the outbound security group rule for the `us-west-2` cluster.
 
 ## Create an S3 bucket
 
-TBD
+1. In the AWS console, select the **S3** service.
 
-## Deploy PingFederate
+2. Select **Buckets**, and click **Create Bucket**.
 
-(I get a 404 on your Github repos, Chris.)
+3. Enter a name for the bucket, select a region, and click **Next**.
+
+4. Enable the `encrypt objects` option, and any other options you need. Click **Next**.
+
+5. Select **Block All Public Access**, and click **Next**.
+
+6. Click **Create Bucket**.
+
+7. Select the bucket you just created from the displayed list. A window will open. Click **Copy Bucker ARN**, and retain this information for your security policy.
+
+8. Click on your bucket to open it, and click **Permissions** --> **Bucket Policy**.
+
+9. Use either the policy generator, or manually assign a security policy for the bucket that assigns the cluster user accounts these permissions:
+
+    * GetBucketLocation
+    
+    * ListBucket
+    
+    * DeleteObject /*
+    
+    * GetObject /*
+    
+    * PutObject /*
+
+   > The resource for GetBucketLocation and ListBucket is slightly different than the object permissions.  The resource for GetBucketLocation and ListBucket is just the bucket ARN, but for the 3 object permissions, you must add “/*” on the end.
+
+## Set up and test your clusters
+
+See [?? link do instructions in getting-started repo](??).
