@@ -1,0 +1,92 @@
+version: "2.4"
+# The server profiles used in this example are intended for use with edge versions of the product image only.
+
+#-------------------------------------------------------------------------------------
+#- Ping Identity Simple Sync integrated demo
+#-
+#- PingDataSync will synchronize data from a source tree on a PingDirectory instance
+#- to a destination tree on the same PingDirectory instance.
+#- The entries from ou=source,o=sync to ou=destination,o=sync will be
+#- synchronized every second.
+#-
+#-                +---------------+    +---------------+
+#-                | PingDataSync  |    |PingDataConsole|
+#-                +---------------+    +---------------+
+#-                              \        /
+#-                          +----------------+
+#-                          | PingDirectory  |
+#-                          +----------------+
+#-
+#- To view PingData Console (PingDirectory)
+#-
+#-    https://localhost:8443/
+#-
+#-      Server: pingdirectory
+#-    Username: administrator
+#-    Password: 2FederateM0re
+#-------------------------------------------------------------------------------------
+
+services:
+  pingdirectory:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=simple-sync/pingdirectory
+      - USER_BASE_DN=o=sync
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "1636:636"
+      - "1443:443"
+    networks:
+      - pingnet
+    volumes:
+      - pingdirectory-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/simple-sync/pingdirectory:/opt/in
+
+  pingdatasync:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=simple-sync/pingdatasync
+      - USER_BASE_DN=o=sync
+      - ORCHESTRATION_TYPE=compose
+      - COMPOSE_SERVICE_NAME=12-sync-failover-pair_pingdatasync
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "2636-2646:636"
+      - "2443-2453:443"
+    networks:
+      - pingnet
+    volumes:
+      - pingdatasync-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/simple-sync/pingdatasync:/opt/in
+
+  pingdataconsole:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    ports:
+      - "8443:8443"
+    networks:
+      - pingnet
+
+networks:
+  pingnet:
+
+volumes:
+  pingdirectory-out:
+  pingdatasync-out:
