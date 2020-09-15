@@ -8,7 +8,7 @@ The available hooks are built with the DevOps images, and can be found in the `h
 
 In the `entrypoint.sh` startup script, there is an example (stub) provided for the available hooks for all products.
 
-> It's **critical** that the supplied hook names be used if a you modify `entrypoint.sh` (for example, to make subtle changes to a server profile).
+> It's **critical** that the supplied hook names be used if you modify `entrypoint.sh` (for example, to make subtle changes to a server profile).
 
 ## Using .pre and .post hooks
 

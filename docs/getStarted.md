@@ -6,6 +6,10 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 
 * [Docker](https://docs.docker.com/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/) (included with Docker Desktop on Mac and Windows)
+* Your terminal configuration is set to use the Bash shell.
+  
+  > With Apple macOS Catalina, the Z shell (zsh) is the default shell, rather than Bash. To set your default terminal shell to Bash, enter: `chsh -s /bin/bash`. 
+
 * You've installed the [ping-devops utility](pingDevopsUtil.md#installation).
 
 ### Product license
