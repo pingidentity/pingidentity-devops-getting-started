@@ -1,10 +1,13 @@
 
 # Ping Identity DevOps `pingdatasync` Hooks
-There are no default hooks defined for the `pingdatasync` image.
+List of available hooks:
+* [03-build-run-plan.sh](03-build-run-plan.sh.md)
+* [80-post-start.sh](80-post-start.sh.md)
+* [90-shutdown-sequence.sh](90-shutdown-sequence.sh.md)
 
-Hooks defined by parent images (i.e. pingcommon/pingdatacommon)
-will be inherited by this image.
+These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
 
 ---
+This document auto-generated from _[pingdatasync/opt/staging/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatasync/opt/staging/hooks)_
 
 Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
