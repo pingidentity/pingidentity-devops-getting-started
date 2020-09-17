@@ -1,6 +1,8 @@
-# k8s-multi-clustering-native-s3-ping
+# Kubernetes Multi Region Clustering using Native S3 Ping
 
-## THIS IS AN ADVANCED USE-CASE.  Note the extensive set of pre-requisites required for AWS kubernetes multi-clustering to be successful.
+## Advanced Use-Case
+
+>Note: the extensive set of pre-requisites required for AWS kubernetes multi-clustering to be successful
 
 ## Overview diagram
 
