@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingfederate
+  labels:
+  # Explicit label ensures pointing only to engines. 
+    role: pingfederate
+    tier: engine
+spec:
+  ports:
+    - port: 9031
+      name: https
+  selector:
+    role: pingfederate
+    tier: engine
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingfederate
+  labels:
+    role: pingfederate
+    tier: engine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: pingfederate
+      tier: engine
+  strategy:
+  # Rolling updates allow us to transition engines from one config to another. 
+    type: RollingUpdate
+    rollingUpdate:
+    # configure surge depending on what surge infrastructure can handle
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      name: pingfederate
+      labels:
+        role: pingfederate
+        tier: engine
+        # version is a placeholder to trigger a rolling update. 
+        # ideally, the update should be triggered by changing of the server-profile tag. (example below)
+        version: "0.1"
+    spec:
+      containers:
+      - name: pingfederate
+        image: pingidentity/pingfederate:edge
+        ports:        
+        - containerPort: 9031
+        ## ideally, all profiles (configs) should be tagged in Github. 
+        ##   thus, to deploy a new config, you simply update the tag to point to the new version. 
+        ##   this also enables rollbacks *woot woot*
+        # env:
+        #   - name: SERVER_PROFILE_BRANCH
+        #     value: v1
+        envFrom:
+        - configMapRef:
+            name: pingfederate-engine-environment-variables
+        - secretRef:
+            name: devops-secret
+            optional: true
+        - secretRef:
+            name: s3-bucket-secret
+            optional: true
+        # readiness is important during a rolling update. 
+        readinessProbe:
+          httpGet:
+            path: /pf/heartbeat.ping
+            port: 9031
+            scheme: HTTPS
+          periodSeconds: 10
+        # the prestop 'sleep' should be slightly higher than the lifetime of an _authorization code_
+        # auth codes are not shared across the cluster unless requested, the prestop hook ensures that a 
+        # PF engine is alive and accessible only to other engines long enough to provide auth codes it owns. 
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh","-c","sleep 20"]
+        # resources and limits should be defined, and equivalent to each other. 
+        # these numbers are completely arbitrary and should be configured appropriately. 
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1.5Gi
+          requests:
+            cpu: "1"
+            memory: 1.5Gi
