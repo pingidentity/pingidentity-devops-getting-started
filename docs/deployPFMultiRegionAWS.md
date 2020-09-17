@@ -22,7 +22,7 @@ will generate kubernetes yaml files that include:
 1. Two Configmaps. One for each deployment.
     - These configmaps are nearly identical, but define the operational mode separately.
 
-1. The configmaps include a [profile layer](https://github.com/cjarmst00/pf-k8s-multi-region-clustering/tree/master/server_profiles/pf-k8s-multi-clustering-native-s3-ping) that turns on PingFederate Clustering. This layer simply includes:
+1. The configmaps include a [profile layer](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pf-k8s-multi-clustering-native-s3-ping) that turns on PingFederate Clustering. This layer simply includes:
     - tcp.xml.subst
     - run.properties.subst
     - cluster-adaptive.conf.subst
@@ -45,7 +45,7 @@ Some features are added to the PingFederate Engine Deployment to support zero-do
     - Non-public
     - Well scoped security policy, giving permissions to the service accounts running the EKS pingfederate clusters
     - Encrypted
-  - See example "AWS configuration" instructions [Here](https://google.com)
+  - See example "AWS configuration" instructions [Here](pfMultiRegionAWSPrereq.md)
   - Successfully verified that a pod in one cluster can connect to a pod in the second cluster on ports 7600 and 7700 (directly to the pods back-end IP, not an exposed service)
 
 ## Running

@@ -25,6 +25,7 @@
     * [Deploy PingDirectory with data synchronization using PingDataSync](docs/deploySync.md)
     * [Deploy PingCentral](docs/deployPingCentral.md)
     * [Deploy a PingFederate cluster](docs/deployPfCluster.md)
+    * [Deploy a PingFederate multiregion cluster (AWS)](docs/deployPFMultiRegionAWS.md)
     * [Deploy a PingAccess cluster](docs/deployPaCluster.md)
     * [Deploy PingDataGovernance with PAP](docs/deployPdgPap.md)
     * [Deploy a monitoring stack](docs/deployMonitoringStack.md)
