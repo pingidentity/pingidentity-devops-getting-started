@@ -37,6 +37,7 @@
       * [Orchestrate a replicated PingDirectory deployment](docs/deployK8sReplicated.md)
       * [Orchestrate a PingAccess cluster deployment](docs/deployK8sPA-cluster.md)
       * [Orchestrate a PingFederate cluster deployment](docs/deployK8sPF-cluster.md)
+      * [Deploy a PingFederate multiregion cluster (AWS)](docs/deployPFMultiRegionAWS.md)
     * [Kubernetes deployments for cloud platforms](docs/deployK8sCloud.md)
       * [Deploy to Amazon Web Services EKS](docs/deployK8s-AWS.md)
       * [Deploy to Azure Kubernetes Service](docs/deployK8s-AKS.md)

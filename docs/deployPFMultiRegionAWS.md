@@ -1,363 +1,124 @@
-# Deploy a multi-region PingFederate cluster in AWS
+# Kubernetes Multi Region Clustering using Native S3 Ping
 
-In this example, we'll deploy 2 PingFederate clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".
+## Advanced Use-Case
 
-## Prerequisites
+>Note: the extensive set of pre-requisites required for AWS kubernetes multi-clustering to be successful
 
-* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+## Overview diagram
 
-* [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html), the current version.
+![PingFederate AWS MultiRegion Deployment Diagram](images/pf_aws_overview_diagram.png)
 
-* AWS account permissions to create clusters.
-  
-## Configure the AWS CLI
+## What you will do
 
-If you've not already done so, configure the AWS CLI to use your profile and credentials:
+You will deploy a multi-region adaptive Pingfederate cluster across multiple AWS EKS regional clusters.
+The `kustomization.yaml` in the 'engines' and 'admin-console' directories build on top of the standard DevOps PingFederate deployments.
+From each of these directories, running `kustomize build .`
+will generate kubernetes yaml files that include:
 
-1. Assign your profile and supply your `aws_access_key_id` and `aws_secret_access_key`. Enter:
+1. Two deployments:
+    - `pingfederate-admin` represents the admin console.
+    - `pingfederate` represents the engine(s)
 
-   ```shell
-   aws configure --profile=<aws-profile>
+1. Two Configmaps. One for each deployment.
+    - These configmaps are nearly identical, but define the operational mode separately.
+
+1. The configmaps include a [profile layer](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pf-k8s-multi-clustering-native-s3-ping) that turns on PingFederate Clustering. This layer simply includes:
+    - tcp.xml.subst
+    - run.properties.subst
+    - cluster-adaptive.conf.subst
+
+1. Two Services:
+    - One for each of the two deployments (9999 and 9031).
+
+## PingFederate Engine Lifecycle
+
+Some features are added to the PingFederate Engine Deployment to support zero-downtime configuration deployments. explanations for these features are stored as comments in `pingfederate-engine.yaml`.
+
+## Pre-reqs
+
+- Two EKS clusters created with the following requirements:
+  - VPC IPs selected from RFC1918 CIDR blocks
+  - The two cluster VPCs peered together
+  - All appropriate routing tables modified in both clusters to send cross cluster traffic to the VPC peer connection
+  - Security groups on both clusters to allow traffic for ports 7600 and 7700 to pass
+  - Create an S3 bucket with all appropriate security permissions
+    - Non-public
+    - Well scoped security policy, giving permissions to the service accounts running the EKS pingfederate clusters
+    - Encrypted
+  - See example "AWS configuration" instructions [Here](pfMultiRegionAWSPrereq.md)
+  - Successfully verified that a pod in one cluster can connect to a pod in the second cluster on ports 7600 and 7700 (directly to the pods back-end IP, not an exposed service)
+
+## Running
+
+Clone this repository to get the kubernetes yaml and configuration files for the exercise, then:
+
+1. Bring up the admin console in the first kubernetes cluster:
+
+   ```bash
+   cd admin-console
    ```
 
-   Then enter your `aws_access_key_id` and `aws_secret_access_key`.
+   - Modify the 'env_vars.pingfederate-admin' file to include the name of the AWS S3 bucket, and the region of the S3 bucket to be used for the cluster list, as well as the appropriate region for adaptive clustering (PF_NODE_GROUP_ID)
 
-2. Open your `~/.aws/credentials` file in a text editor and add your AWS `role_arn`. For example:
-   
-   ```shell
-   “role_arn = arn:aws:iam::xxxxxxxx4146:role/GTE”
+   ```bash
+   kustomize build . | kubectl apply -f -
    ```
 
-## Create the multi-region clusters
+1. Wait for the pingfederate-admin pod to be running, then validate you can log into the console. You can port-forward the admin service and look at clustering via the admin console.
 
-1. Create the YAML files to configure the the clusters. You'll create the clusters in different AWS regions. We'll be using the `ca-central-1` region and the `us-west-2` region in this document.
-   
-   a. Configure the first cluster. For example, using the `ca-central-1` region and the reserved CIDR 172.16.0.0:
-   
-   ```yaml
-   apiVersion: eksctl.io/v1alpha5
-   kind: ClusterConfig
-
-   metadata:
-     name: pingfed-ca-central-1
-     region: ca-central-1
-     version: "1.17"
-
-   vpc: 
-     cidr: 172.16.0.0/16
-
-   managedNodeGroups:
-     - name: us-west-2a-worker-nodes
-       instanceType: t3a.2xlarge
-       labels: {}
-       tags: {}
-       minSize: 1
-       maxSize: 2
-       desiredCapacity: 1
-       volumeSize: 12
-       privateNetworking: true
-       ssh:
-         publicKeyPath: ~/.ssh/id_rsa.pub
-       iam:
-         withAddonPolicies: 
-           imageBuilder: true
-           autoScaler: true
-           externalDNS: true
-           certManager: true
-           appMesh: true
-           ebs: true
-           fsx: true
-           efs: true
-           albIngress: true
-           xRay: true
-           cloudWatch: true
-     - name: us-west-2b-worker-nodes
-     instanceType: t3a.2xlarge
-     labels: {}
-     tags: {}
-     minSize: 1
-     maxSize: 2
-     desiredCapacity: 1
-     volumeSize: 12
-     privateNetworking: true
-     ssh:
-       publicKeyPath: ~/.ssh/id_rsa.pub
-     iam:
-       withAddonPolicies:
-           imageBuilder: true
-           autoScaler: true
-           externalDNS: true
-           certManager: true
-           appMesh: true
-           ebs: true
-           fsx: true
-           efs: true
-           albIngress: true
-           xRay: true
-           cloudWatch: true
+   ```bash
+   kubectl port-forward svc/pingfederate 9999:9999
    ```
 
-   > For production purposes, select a VPC with a private IP.
+1. Bring up one engine in the first kubernetes cluster:
 
-   > The `ssh` entry is optional, allowing you to SSH in to your cluster.
-
-   b. Configure the second cluster. For example, using the `us-west-2` region and the reserved CIDR 10.0.0.0:
-   
-   ```yaml
-   apiVersion: eksctl.io/v1alpha5
-   kind: ClusterConfig
-
-   metadata:
-     name: pingfed-us-west-2
-     region: us-west-2
-     version: "1.17"
-
-   vpc: 
-     cidr: 10.0.0.0/16
-
-   managedNodeGroups:
-     - name: us-west-2a-worker-nodes
-       instanceType: t3a.2xlarge
-       labels: {}
-       tags: {}
-       minSize: 1
-       maxSize: 2
-       desiredCapacity: 1
-       volumeSize: 12
-       privateNetworking: true
-       ssh:
-         publicKeyPath: ~/.ssh/id_rsa.pub
-       iam:
-         withAddonPolicies: 
-           imageBuilder: true
-           autoScaler: true
-           externalDNS: true
-           certManager: true
-           appMesh: true
-           ebs: true
-           fsx: true
-           efs: true
-           albIngress: true
-           xRay: true
-           cloudWatch: true
-     - name: us-west-2b-worker-nodes
-     instanceType: t3a.2xlarge
-     labels: {}
-     tags: {}
-     minSize: 1
-     maxSize: 2
-     desiredCapacity: 1
-     volumeSize: 12
-     privateNetworking: true
-     ssh:
-       publicKeyPath: ~/.ssh/id_rsa.pub
-     iam:
-       withAddonPolicies:
-           imageBuilder: true
-           autoScaler: true
-           externalDNS: true
-           certManager: true
-           appMesh: true
-           ebs: true
-           fsx: true
-           efs: true
-           albIngress: true
-           xRay: true
-           cloudWatch: true
+   ```bash
+   cd ../engines
    ```
 
-   > For production purposes, select a VPC with a private IP.
+   - Modify the 'env_vars.pingfederate-engine' file to include the name of the AWS S3 bucket, and the region of the S3 bucket to be used for the cluster list, as well as the appropriate region for   adaptive clustering (PF_NODE_GROUP_ID)
 
-   > The `ssh` entry is optional, allowing you to SSH in to your cluster.
-
-2. Create the clusters using `eksctl`. 
-   
-   a. Create the first cluster. For example:
-
-   ```shell
-   eksctl create cluster -f ca-central-1.yaml --profile <aws-profile>
+   ```bash
+   kustomize build . | kubectl apply -f -
    ```
 
-   b. Create the second cluster. For example:
+   - You can watch the admin console to make sure the engine appears in the cluster list.   It would also be wise at this point to check the contents of the S3 bucket and make sure that both the IPs for the admin console and the engine node have been successfully written in.
 
-   ```shell
-   eksctl create cluster -f us-west-2.yaml --profile <aws-profile>
+1. Scale up more engines in the first kubernetes cluster:
+
+   ```bash
+      kubectl scale deployment pingfederate --replicas=2
    ```
 
-3. Log in to the AWS console, go to the **VPC** service, select **Your VPCs** (under Virtual Private Cloud), and note the VPC details for the clusters you've created.
-
-   > Retain the `VpcId` values for the `ca-central-1` and `us-west-2` VPCs. You'll use these in subsequent steps.
-
-4. Set up VPC peering between the two clusters. You'll create a peering connection from the cluster in the `us-west-2` region to the cluster in the `ca-central-1` region. You'll do this from the VPC Dashboard as in the prior step.
-   
-   a. In the top right of the page, select the **Oregon** (us-west-2) region.
-   
-   b. Select **Peering Connections**, and click **Create Peering Connection**. 
-   
-   c. Assign a unique name for the peering connection (for example, us-west-2-to-ca-central-1).
-   
-   d. Under **Select a local VPC to peer with**, enter the `VpcId` value for the `us-west-2` VPC.
-
-   e. Under **Select another VPC to peer with**, select **My account** --> **Another region** --> **Canada Central** (ca-central-1).
-
-   f. Under **VPC (Accepter)**, enter the `VpcId` value for the `ca-central-1` region.
-
-   g. Click **Create Peering Connection**. When successful, a confirmation is displayed. Click **OK** to continue.
-
-   h. In the top right of the page, change the region to **Canada Central**.
-
-   i. Select **Peering Connections**.
-
-   > Notice that the peering connection status for `us-west-2` shows as `Pending Acceptance`.
-
-   j. Select the `ca-central-1` connection, click the **Actions** dropdown list, and select **Accept Request**. You'll be prompted to confirm.
-
-   > The VPC peering connection status should now show as `Active`.
-
-5. Get the subnets information for each cluster node. Each cluster node uses a different subnet, so there'll be three subnets assigned to each VPC. The information displayed will contain the subnet ID for each subnet. You'll use the subnet IDs in the subsequent step to get the associated routing tables.
-   
-   a. In the top right of the page, change the region to **Oregon**.
-   
-   b. Go to the **EC2** service, and select **Instances**. Apply a filter, if needed, to find your nodes for the cluster.
-   
-   c. Select each node, and record the **Subnet ID** of each. You'll use the subnet IDs in a subsequent step. 
-
-   d. In the top right of the page, change the region to **Canada Central**, and repeat the 2 previous steps to find and record the subnet IDs for this VPC.
-   
-6. Get the routing table associated with the subnets for each VPC.
-   
-   a. Go to the **VPC** service. (You're still using the Canada Central region.)
-
-   b. In the VPC Dashboard, select **Subnets**.
-
-   c. For each subnet displayed, record the **Routing Table** value. You may have a single routing table for all of your subnets. You'll use the routing table ID or IDs in a subsequent step.
-
-   d. In the top right of the page, change the region to **Oregon**, and repeat the 2 previous steps to find and record the routing table ID or IDs for this VPC.
-   
-7. Modify the routing table or tables for each VPC to add a route to the other VPC using the peering connection you created.
-   
-   a. In the VPC Dashboard, select **Route Tables**. (You're still using the Oregon region.)
-
-   b. Select the route table you recorded for the `us-west-2` (Oregon) VPC, and click the `Routes` button. You should see 2 routes displayed.
-
-   c. Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `ca-central-1` cluster (172.16.0.0/16). 
-
-   d. For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
-
-      A route for the `ca-central-1` cluster directed to the peering connection is displayed.
-   
-   e. If more than one routing table is used for the `us-west-2` VPC, repeat the previous steps for each routing table.
-
-   f. In the top right of the page, change the region to **Canada Central**.
-
-   g. Select the route table you recorded for the `ca-central-1` (Canada Central) VPC, and click the `Routes` button. You should see 2 routes displayed.
-
-   h. Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `us-west-2` cluster (10.0.0.0/16). 
-
-   i. For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
-
-      A route for the `us-west-2` cluster directed to the peering connection is displayed.
-   
-   j. If more than one routing table is used for the `ca-central-1` VPC, repeat the previous steps for each routing table.
-
-8.  Update the Security Groups for each VPC. You'll get the Security Group IDs for each VPC, then add inbound and outbound rules for both the `us-west-2` VPC, and the `ca-central-1` VPC.
-    
-       a. In the VPC Dashboard, select **Security Groups**.  (You're still using the Canada Central region.)
-
-       b. Apply a filter to find the security groups for the `ca-central-1` cluster, and select the security group with “-nodegroup” in the name. This is the security group used for the firewall settings for all the worker nodes in the `ca-central-1` cluster.
-
-       c. Click **Inbound Rules** --> **Add Rule**.
-       
-       d. Select these values for the rule:
-       
-    *	Type:  Custom TCP Rule
-
-    *	Protocol: TCP
-
-    *	Port Range: 7600-7700
-
-    *	Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
-
-       e. Click **Save Rules** to save the inbound security group rule for the `ca-central-1` cluster.
-
-       f. Click **Outbound Rules** --> **Add Rule**.
-
-       g. Select these values for the rule:
-       
-    *	Type:  Custom TCP Rule
-
-    *	Protocol: TCP
-
-    *	Port Range: 7600-7700
-
-    *	Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
-
-       h. Click **Save Rules** to save the outbound security group rule for the `ca-central-1` cluster.
-
-       i. In the top right of the page, change the region to **Oregon**. You'll now repeat the previous steps to add inbound and outbound rules for the `us-west-2` cluster.
-
-       j. Apply a filter to find the security groups for the `us-west-2` cluster, and select the security group with “-nodegroup” in the name. This is the security group used for the firewall settings for all the worker nodes in the `us-west-2` cluster.
-
-       k. Click **Inbound Rules** --> **Add Rule**.
-       
-       l. Select these values for the rule:
-       
-    *	Type:  Custom TCP Rule
-
-    *	Protocol: TCP
-
-    *	Port Range: 7600-7700
-
-    *	Source: Custom, and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
-
-       m. Click **Save Rules** to save the inbound security group rule for the `us-west-2` cluster.
-
-       n. Click **Outbound Rules** --> **Add Rule**.
-
-       o. Select these values for the rule:
-       
-    *	Type:  Custom TCP Rule
-
-    *	Protocol: TCP
-
-    *	Port Range: 7600-7700
-
-    *	Source: Custom, and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
-
-       p. Click **Save Rules** to save the outbound security group rule for the `us-west-2` cluster.
-
-## Create an S3 bucket
-
-1. In the AWS console, select the **S3** service.
-
-2. Select **Buckets**, and click **Create Bucket**.
-
-3. Enter a name for the bucket, select a region, and click **Next**.
-
-4. Enable the `encrypt objects` option, and any other options you need. Click **Next**.
-
-5. Select **Block All Public Access**, and click **Next**.
-
-6. Click **Create Bucket**.
-
-7. Select the bucket you just created from the displayed list. A window will open. Click **Copy Bucker ARN**, and retain this information for your security policy.
-
-8. Click on your bucket to open it, and click **Permissions** --> **Bucket Policy**.
-
-9. Use either the policy generator, or manually assign a security policy for the bucket that assigns the cluster user accounts these permissions:
-
-    * GetBucketLocation
-    
-    * ListBucket
-    
-    * DeleteObject /*
-    
-    * GetObject /*
-    
-    * PutObject /*
-
-   > The resource for GetBucketLocation and ListBucket is slightly different than the object permissions.  The resource for GetBucketLocation and ListBucket is just the bucket ARN, but for the 3 object permissions, you must add “/*” on the end.
-
-## Follow the Getting Started Exercise
-
-https://github.com/cjarmst00/pf-k8s-multi-region-clustering/tree/master/getting_started/kubernetes/pf-k8s-multi-clustering-native-s3-ping
+   - Again, validate that any new engines have successfully joined the cluster and written their IP to the S3 bucket
+
+1. Scale up engines in the 2nd kubernetes cluster:
+   - Use kubectx to switch context to the 2nd kubernetes cluster
+   - Modify the env_vars.pingfederate-engine file to include the second region for adaptive clustering
+     (PF_NODE_GROUP_ID)
+
+   ```bash
+   kustomize build . | kubectl apply -f -
+   kubectl scale deployment pingfederate --replicas=2
+   ```
+
+   - Again, validate that any new engines have successfully joined the cluster and written their IP to the S3 bucket
+
+## Cleanup the second cluster containing only engines
+
+```bash
+kubectl scale deployment/pingfederate --replicas=0
+cd engines
+kustomize build . | kubectl delete -f -
+```
+
+## Cleanup the first cluster containing engines and admin console
+
+```bash
+kubectx <first cluster>
+kubectl scale deployment/pingfederate --replicas=0
+kubectl scale deployment/pingfederate-admin --replicas=0
+kustomize build . | kubectl delete -f -
+cd ../admin-console
+kustomize build . | kubectl delete -f -
+```
