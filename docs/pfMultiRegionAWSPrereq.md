@@ -358,6 +358,3 @@ If you've not already done so, configure the AWS CLI to use your profile and cre
 
    > The resource for GetBucketLocation and ListBucket is slightly different than the object permissions.  The resource for GetBucketLocation and ListBucket is just the bucket ARN, but for the 3 object permissions, you must add “/*” on the end.
 
-## Follow the Getting Started Exercise
-
-https://github.com/cjarmst00/pf-k8s-multi-region-clustering/tree/master/getting_started/kubernetes/pf-k8s-multi-clustering-native-s3-ping
