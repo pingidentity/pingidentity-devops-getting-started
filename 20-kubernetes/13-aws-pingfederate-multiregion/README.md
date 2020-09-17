@@ -1,0 +1,1 @@
+See [Deploy a PingFederate cluster](../../docs/deployPFMultiRegionAWS.md) for more information.
