@@ -14,7 +14,7 @@ One of the most common errors is due to having stale images. Our development is 
 
 ### Misconfigured `~/.bash_profile` file
 
-If your containers are not able to pull a license based on your DevOps user name and key, or running `dhelp` returns an error, there may be some misconfiguration in your `~/.bash_profile` file. 
+If your containers are not able to pull a license based on your DevOps user name and key, or running `dhelp` returns an error, there may be some misconfiguration in your `~/.bash_profile` file.
 
 Possible solutions:
 
@@ -29,50 +29,50 @@ Possible solutions:
    Where &lt;path&gt; is the full path to the `pingidentity-devops-getting-started` directory. This entry sources our DevOps aliases.
 
    There also needs to be another entry for:
-   
+
    ```text
    sourcePingIdentityFiles
    ```
 
    This entry sources the Ping Identity file aliases.
-   
+
    Make sure there are not old versions or duplicates of these entries.
 
-3. If you are running in Kubernetes, keep in mind that your `PING_IDENTITY_DEVOPS_USER` and key are local variables and need to be [passed as a secret](existingLicense.md) in your cluster.  
+3. If you are running in Kubernetes, keep in mind that your `PING_IDENTITY_DEVOPS_USER` and key are local variables and need to be [passed as a secret](existingLicense.md) in your cluster.
 
 
 ### Products unable to get the evaluation license
 
-If a product instance or instances are unable to get the evaluation license, an error similar to this may be generated: 
+If a product instance or instances are unable to get the evaluation license, an error similar to this may be generated:
 
   ```shell
   ----- Starting hook: /opt/staging/hooks/17-check-license.sh
   Pulling evaluation license from Ping Identity for:
-                Prod License: PD - v7.3 
+                Prod License: PD - v7.3
                 DevOps User: some-devops-user@example.com...
   Unable to download evaluation product.lic (000), most likely due to invalid PING_IDENTITY_DEVOPS_USER/PING_IDENTITY_DEVOPS_KEY
 
   ##################################################################################
   ############################        ALERT        #################################
   ##################################################################################
-  # 
+  #
   # No Ping Identity License File (PingDirectory.lic) was found in the server profile.
-  # No Ping Identity DevOps User or Key was passed.  
-  # 
-  # 
+  # No Ping Identity DevOps User or Key was passed.
+  #
+  #
   # More info on obtaining your DevOps User and Key can be found at:
-  #      https://pingidentity-devops.gitbook.io/devops/prod-license
-  # 
+  #     https://pingidentity-devops.gitbook.io/devops/getstarted/devopsregistration
+  #
   ##################################################################################
   CONTAINER FAILURE: License File absent
   CONTAINER FAILURE: Error running 17-check-license.sh
   CONTAINER FAILURE: Error running 10-start-sequence.sh
   ```
 
-This can be caused by: 
+This can be caused by:
 
 1. An invalid DevOps user name or key (as noted in the error). This is usually caused by some issue with the variables being passed in. To verify the variables are available to the shell running (when running Docker commands), enter:
-  
+
    ```shell
    echo $PING_IDENTITY_DEVOPS_USER $PING_IDENTITY_DEVOPS_KEY
    ```
@@ -88,6 +88,6 @@ This can be caused by:
    If the license server isn't accessible, an error similar to this is returned:
 
    ```shell
-   { "error":"missing devops-user header" }%             
+   { "error":"missing devops-user header" }%
    ```
 
