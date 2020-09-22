@@ -207,7 +207,3 @@ spec:
     secret:
       secretName: pingfederate-license
 ```
-
-## Support
-
-If you have any quesitons or issues, please contact [devops\_program@pingidentity.com](mailto:devops_program@pingidentity.com).

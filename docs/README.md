@@ -18,7 +18,7 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
 ## Overview
 
-See [Overview](overview.md) for descriptions of the components of our DevOps architecture and repositories. 
+See [Overview](overview.md) for descriptions of the components of our DevOps architecture and repositories.
 
 ## Get started
 
@@ -26,7 +26,11 @@ See [Get started](getStarted.md) to quickly deploy a preconfigured DevOps image 
 
 ## Contact us
 
-If you find functionality missing that you believe may be of benefit to other Ping Identity customers, create a feature request in [Docker builds](https://github.com/pingidentity/pingidentity-docker-builds), or email the DevOps team at devops_program@pingidentity.com.
+If you find functionality missing that you believe may be of benefit to other Ping Identity customers:
+
+* Log a [GitHub Issue](https://github.com/pingidentity/pingidentity-devops-getting-started/issues)
+* Ask a question on our [Cloud DevOps Community](https://support.pingidentity.com/s/topic/0TO1W000000IF8fWAG/cloud-devops-community)
+* Create a Ping Identity [Support Case](https://support.pingidentity.com/s/)
 
 ## Copyright
 

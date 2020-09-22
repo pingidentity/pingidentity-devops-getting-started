@@ -24,7 +24,7 @@ Please understand that enhancement requests are reviewed and prioritized interna
 
 #### Alternate routes for submitting bugs and suggesting enhancements
 
-If you would rather not have your issue discussed in public, you can email bug reports or enhancement requests to [devops\_program@pingidentity.com](mailto:devops_program@pingidentity.com).
+If you would rather not have your issue discussed on the public repository, you can open an issue from Ping Identity's [Support Portal](https://support.pingidentity.com/s/).
 
 ### Contributing Code Changes
 
