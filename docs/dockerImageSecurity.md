@@ -52,3 +52,6 @@ For all of the reasons described this comparison of distro's and more, we've sel
 * [CentOS CVEs](https://www.cvedetails.com/product/18131/Centos-Centos.html?vendor_id=10167)
 * [Redhat Enterprise Linux CVEs](https://www.cvedetails.com/product/78/Redhat-Enterprise-Linux.html?vendor_id=25)
 
+## Ping Identity's Docker Image Hardening Guide
+
+View Ping Identity's [hardening guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide) which outlines best practices for securing your product Docker Image.

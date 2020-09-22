@@ -57,3 +57,7 @@ Cons:
 
 * User does not have a home directory, some tools will or may have issues running properly or as expected
 * For this pattern to work, at build time, we need to leave permissions open to the world since the user does not exist in /etc/password and inodes cannot be tied to it at runtime
+
+## Ping Identity's Docker Image Hardening Guide
+
+View Ping Identity's [hardening guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide) which outlines best practices for securing your product Docker Image.
