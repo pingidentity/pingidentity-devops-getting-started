@@ -6,7 +6,7 @@ Generally, you'll not want your server profiles to be public, and will instead w
 
 1. In Github, go to `Settings` --> `Developer Settings` --> `Personal access tokens`.
 2. Click `Generate new token` and assign the token a name.
-3. Grant the token priviledge to the `repo` group.
+3. Grant the token privilege to the `repo` group.
 
     > Copy the token to a secure location. You'll not be able to view the token again.
 
@@ -29,7 +29,7 @@ SERVER_PROFILE_URL=https://github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva
 Typically, variables in a `SERVER_PROFILE_URL` string will not be replaced. However, certain Git user and password variables, can be replaced:
 
 * Include either or both `${SERVER_PROFILE_GIT_USER}` and `${SERVER_PROFILE_GIT_PASSWORD}` in your server profile URL to substitute for those variables using values defined in your YAML files. For example:
-  
+
   ```yaml
   SERVER_PROFILE_URL=https://${SERVER_PROFILE_GIT_USER}:${SERVER_PROFILE_GIT_PASSWORD}@github.com/pingidentity/server_profile.git
   ```
