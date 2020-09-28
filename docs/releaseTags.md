@@ -72,13 +72,13 @@ But what if you want bleeding edge features *and* a stable build image? For this
 
 ## Product Versions for edge and latest
 
-Product versions for **edge** and **latest** as of July 3rd, 2020
+Product versions for **edge** and **latest** as of September 28th, 2020
 
 | Product | edge | latest |
 |------|------|-----|
-| PingFederate | 10.1.0 | 10.1.0 |
+| PingFederate | 10.1.1 | 10.1.0 |
 | PingDirectory | 8.1.0.0 | 8.1.0.0 |
-| PingAccess | 6.1.0 | 6.1.0 |
+| PingAccess | 6.1.2 | 6.1.1 |
 | PingDataGov | 8.1.0.0 | 8.1.0.0 |
 | PingDataGov PAP | 8.1.0.0 | 8.1.0.0 |
 | PingDataSync | 8.1.0.0 | 8.1.0.0 |
@@ -89,14 +89,14 @@ Product versions for **edge** and **latest** as of July 3rd, 2020
 
 ## Find the product version for an image
 
-If you're unsure of the product version for the container you are running, shell into the container, then echo the IMAGE_VERSION environment variable. For example:
+If you're unsure of the product version for the container you are running, shell into the container, then echo the $IMAGE_VERSION environment variable. For example:
 
 ```sh
 docker container exec -it <container id> sh
 echo $IMAGE_VERSION
 ```
 
-The IMAGE_VERSION variable will return the version in this format: `[product]-[container OS]-[jdk]-[product version]-[build date]-[git revision]`. For example: 
+The IMAGE_VERSION variable will return the version in this format: `[product]-[container OS]-[jdk]-[product version]-[build date]-[git revision]`. For example:
 
 ```shell
 IMAGE_VERSION=pingcentral-alpine-az11-1.3.0-200629-bc33
