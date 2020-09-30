@@ -39,7 +39,7 @@ used, then it may come from a parent container
 - ${PA_ENGINE_PORT}
 - ${HTTPS_PORT}
 
-## Running a PingDirectory container
+## Running a PingAccess container
 To run a PingAccess container:
 
 ```shell
