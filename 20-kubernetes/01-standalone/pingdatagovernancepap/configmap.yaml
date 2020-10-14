@@ -3,7 +3,7 @@ data:
   PING_IDENTITY_ACCEPT_EULA: "YES"
   SERVER_PROFILE_PATH: pdg-pap-integration/pingdatagovernancepap
   SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-server-profiles.git
-  REST_API_HOSTNAME: localhost
+  PING_EXTERNAL_BASE_URL: localhost
 kind: ConfigMap
 metadata:
   labels:
