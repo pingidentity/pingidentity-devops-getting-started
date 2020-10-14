@@ -14,7 +14,7 @@ spec:
       paths:
       - backend:
           serviceName: pingdatagovernancepap
-          servicePort: 9443
+          servicePort: 8443
         path: /
   tls:
   - hosts:
