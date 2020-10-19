@@ -12,7 +12,7 @@ services:
     env_file:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
       # devops user/key details for evaluation licenses and for docker image/git tags
-      -${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/devops
     # Example: Examples below for mounting local directories for inbound server profile and persisting
     #          server build.  The local /opt/out directory must be empty when building new server
     #             /opt/out - Resulting server build
