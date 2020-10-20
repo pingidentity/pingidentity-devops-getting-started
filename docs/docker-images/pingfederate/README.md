@@ -33,6 +33,7 @@ this image.
 | PF_DEBUG_PORT  | 9030  | 
 | PF_ENGINE_PORT  | 9031  | 
 | PF_ADMIN_PORT  | 9999  | 
+| HSM_MODE  | OFF  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
