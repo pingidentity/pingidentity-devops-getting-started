@@ -6,7 +6,9 @@ To get started, complete the following steps:
 
 1. Inject your Ping DevOps secrets.  There are a couple of options for injecting a license.
 
-   * Eval License - Use your `PING_IDENTITY_DEVOPS_USER/PING_IDENTITY_DEVOPS_KEY` credentials.  For more infomration on using `ping-devops` utility click [here](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
+   * Eval License - Use your `PING_IDENTITY_DEVOPS_USER/PING_IDENTITY_DEVOPS_KEY` credentials.
+     * For more information on obtaining credentials click [here](https://pingidentity-devops.gitbook.io/devops/getstarted/prod-license#obtaining-a-ping-identity-devops-user-and-key).
+     * For more infomration on using `ping-devops` utility click [here](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
 
         ```shell
         ping-devops generate devops-secret | kubectl -apply -f -
@@ -19,7 +21,9 @@ To get started, complete the following steps:
         kubectl create secret generic pingfederate-license --from-file ./pingfederate.lic
 
         # You will need to include values (see --set below) when you install a chart
-        # instructing the install to use the license secret
+        # instructing the install to use the license secret.  Addtionaly, you can
+        # include that licenseSecretName in a values.yaml file passed with the -f option
+
         helm install \
             pingfederate \
             --set licenseSecretName=pingfederate-license \
@@ -29,9 +33,13 @@ To get started, complete the following steps:
 
 2. Install Helm
 
-    ```shell
-    brew install helm
-    ```
+   * Installing on MacOS (or linux with brew)
+
+       ```shell
+       brew install helm
+       ```
+
+   * Installing on other OS - https://helm.sh/docs/intro/install/
 
 3. Add Helm Ping DevOps Repo
 
