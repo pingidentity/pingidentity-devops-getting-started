@@ -23,7 +23,7 @@ To get started, complete the following steps:
         helm install \
             pingfederate \
             --set licenseSecretName=pingfederate-license \
-            --set pingdevops.pingfederate.license.acceptEULA=YES \
+            --set global.envs.PING_IDENTITY_ACCEPT_EULA=YES \
             ping-devops/pingfederate
         ```
 
@@ -51,15 +51,14 @@ To get started, complete the following steps:
     helm repo update
     ```
 
-6. Create a `devops-values.yaml` file
-    * Simple (Vanilla config) - [devops-values.yaml](./devops-values.yaml)
+6. Create a values file (i.e. `devops-values.yaml`)
+    * Simple (Vanilla config)
 
         ```yaml
-        # Default values for PingDevops (pingfederate).
-        pigndevops:
-          pingfederate:
-            license:
-              acceptEULA: "YES"
+        # Default values for PingDevOps charts
+        global:
+          envs:
+            PING_IDENTITY_ACCEPT_EULA: "YES"
         ```
 
 7. Install a Ping DevOps Chart
@@ -81,7 +80,7 @@ View kubernetes resources installed
 ```shell
 kubectl get all
 
-# or
+# or get even more (ing, pvc)
 
 kubectl get pods,svc,deploy,rs,sts,job,ing,pvc
 ```
@@ -93,5 +92,3 @@ View Logs:
 
 kubectl logs -f service/pf-pingfederate
 ```
-
-
