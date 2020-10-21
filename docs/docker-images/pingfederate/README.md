@@ -34,6 +34,9 @@ this image.
 | PF_ENGINE_PORT  | 9031  | 
 | PF_ADMIN_PORT  | 9999  | 
 | HSM_MODE  | OFF  | 
+| OPERATIONAL_MODE  | STANDALONE  | 
+| BULK_CONFIG_DIR  | ${OUT_DIR}/instance/bulk-config  | 
+| BULK_CONFIG_FILE  | data.json  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
