@@ -1,0 +1,19 @@
+#################################################################
+# Ping DevOps Helm Values - Running simplestack
+#
+# To run a chart using these values:
+#
+#    helm install {release} {chart} -f replicated-directory-values.yaml
+#################################################################
+
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+
+pingdirectory:
+  container:
+    replicaCount: 2
+
+  envs:
+    MAKELDIF_USERS: 10000
+    TAIL_LOG_FILES: ""

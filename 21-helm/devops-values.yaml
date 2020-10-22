@@ -1,0 +1,11 @@
+#################################################################
+# Ping DevOps Helm Values - Running simplestack
+#
+# To run a chart using these values:
+#
+#    helm install {release} {chart} -f devops-values.yaml
+#################################################################
+
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
