@@ -14,7 +14,7 @@ To get started, complete the following steps:
         ping-devops generate devops-secret | kubectl -apply -f -
         ```
 
-   * Using license file - In a controlled environment, the helm chart can be run with a valid license file.  Add the license file as a secret as shown (example using pingfederate):
+   * ***CURRENTLY TBD*** - Using license file - In a controlled environment, the helm chart can be run with a valid license file.  Add the license file as a secret as shown (example using pingfederate):
 
         ```shell
 
@@ -72,11 +72,11 @@ To get started, complete the following steps:
 7. Install a Ping DevOps Chart
 
 Install a chart using the `helm install {release} {chart} ...` using the example
-below.  In this case, it is installing a `pingfederate` chart with the release name of
+below.  In this case, it is installing a `pingfederate-admin` chart with the release name of
 `pf`.
 
 ```shell
-helm install pf ping-devops/pingfederate -f devops-values.yaml
+helm install pf ping-devops/pingfederate-admin -f devops-values.yaml
 ```
 
 ## Accessing Deployments
@@ -96,7 +96,7 @@ kubectl get pods,svc,deploy,rs,sts,job,ing,pvc
 View Logs:
 
 ```shell
-# kubectl logs -f service/{release}-{product}
+# kubectl logs -f pod/{release}-{product}-...
 
-kubectl logs -f service/pf-pingfederate
+kubectl logs -f pod/pf-pingfederate-admin-...
 ```
