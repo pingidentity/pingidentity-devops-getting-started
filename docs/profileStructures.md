@@ -12,9 +12,10 @@ You'll find in this document the server profile structures you can use for each 
 | :--- | :--- |
 | `instance` | Any file that you want to be used at product runtime, in accordance with the directory layout of the product. |
 | `instance/server/default/conf/pingfederate.lic` | Use an existing PingFederate license, rather than the DevOps evaluation license. |
-| `instance/server/default/data/data.zip` | A configuration archive you've exported from PingFederate. |
+| `instance/server/default/data` | An unzipped configuration archive exported from PingFederate. |
+| `instance/bulk-config/data.json` | A json export from the PingFed admin api `/bulk/export` |
 | `instance/server/default/deploy/OAuthPlayground.war` | Automatically deploy the OAuthPlayground web application. |
-| `instance/server/default/conf/META-INF/hivemodule.xml` | Apply a Hive module configuration to the container. |
+| `instance/server/default/conf/META-INF/hivemodule.xml` | Apply a Hive module configuration to the container. Typically used for configurations like persisting OAuth clients, grants, and sessions to an external DB. |
 
 
 ## PingAccess
