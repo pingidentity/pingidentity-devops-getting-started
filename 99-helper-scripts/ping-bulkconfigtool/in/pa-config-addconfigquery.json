@@ -1,0 +1,71 @@
+{
+  "search-replace":[
+    {
+      "search": "data-holder.local",
+      "replace": "${BASE_HOSTNAME}",
+      "apply-env-file": false
+    }
+  ],
+  "change-value":[
+  	{
+  	  "parameter-name": "keyPairId",
+      "matching-identifier": 
+          {
+          	"id-name": "name",
+          	"id-value": "ENGINE"
+          },
+  	  "new-value": 8
+  	},
+  	{
+  	  "parameter-name": "keyPairId",
+      "matching-identifier": 
+          {
+          	"id-name": "name",
+          	"id-value": "ADMIN"
+          },
+  	  "new-value": 5
+  	}
+  ],
+  "remove-config":[
+  	{
+  	  "key": "alias",
+	  "value": "ca-keypair-.*"
+  	}
+  ],
+  "add-config":[
+	  {
+	    "resourceType": "httpsListeners",
+	    "item":
+			{
+			    "id": 4,
+			    "name": "CONFIG QUERY",
+			    "keyPairId": 5,
+			    "useServerCipherSuiteOrder": true,
+			    "restartRequired": false
+			}
+	  }
+  ],
+  "expose-parameters":[
+    {
+      "parameter-name": "fileData",
+      "unique-identifiers": [
+          "alias"
+      ]
+    },
+    {
+      "parameter-name": "encryptedValue",
+      "replace-name": "value",
+      "unique-identifiers": [
+          "name"
+      ]
+    },
+    {
+      "parameter-name": "password",
+      "unique-identifiers": [
+          "alias"
+      ]
+    }
+  ]
+}
+
+
