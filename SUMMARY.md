@@ -48,6 +48,7 @@
   * [Server profile anatomy](docs/containerAnatomy.md)
     * [Server profile structures](docs/profileStructures.md)
     * [Customizing server profiles](docs/profiles.md)
+    * [Build Your Own PingFederate Profile](docs/buildPingFederateProfile.md)
     * [Layering server profiles](docs/profilesLayered.md)
     * [Environment substitution](docs/profilesSubstitution.md)
     * [Using private Github repositories](docs/privateRepos.md)
