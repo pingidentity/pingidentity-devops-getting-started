@@ -6,7 +6,8 @@ To get started, complete the following steps:
 
 1. Inject your Ping DevOps secrets.  There are a couple of options for injecting a license.
 
-   * Eval License - Use your `PING_IDENTITY_DEVOPS_USER/PING_IDENTITY_DEVOPS_KEY` credentials.
+   * Eval License - Use your `PING_IDENTITY_DEVOPS_USER/PING_IDENTITY_DEVOPS_KEY` credentials
+   along with your `PING_IDENTITY_ACCEPT_EULA` setting.
      * For more information on obtaining credentials click [here](https://pingidentity-devops.gitbook.io/devops/getstarted/prod-license#obtaining-a-ping-identity-devops-user-and-key).
      * For more infomration on using `ping-devops` utility click [here](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
 
@@ -59,7 +60,9 @@ To get started, complete the following steps:
     helm repo update
     ```
 
-6. Create a values file (i.e. `devops-values.yaml`)
+6. OPTIONAL - Create a values file (i.e. `devops-values.yaml`). Example below shows how to
+   pass the `PING_IDENTITY_ACCEPT_EULA` as a envs config.  This isn't needed if you are using
+   the `devops-secret` as explained in first step.
     * Simple (Vanilla config)
 
         ```yaml
@@ -74,6 +77,12 @@ To get started, complete the following steps:
 Install a chart using the `helm install {release} {chart} ...` using the example
 below.  In this case, it is installing a `pingfederate-admin` chart with the release name of
 `pf`.
+
+```shell
+helm install pf ping-devops/pingfederate-admin
+```
+
+or, if you have a `devops-values.yaml` file to include:
 
 ```shell
 helm install pf ping-devops/pingfederate-admin -f devops-values.yaml
