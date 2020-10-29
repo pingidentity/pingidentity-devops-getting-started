@@ -29,9 +29,9 @@ this image.
 | PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  | Public hostname of the DA app 
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
-| ROOT_USER_PASSWORD_FILE  |   | 
-| ADMIN_USER_PASSWORD_FILE  |   | 
-| ENCRYPTION_PASSWORD_FILE  |   | 
+| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password 
+| ADMIN_USER_PASSWORD_FILE  |   | Location of file with the admin password, used as the password replication admin Defaults to the /SECRETS_DIR/admin-user-password 
+| ENCRYPTION_PASSWORD_FILE  |   | Location of file with the passphrase for setting up encryption Defaults to the /SECRETS_DIR/encryption-password 
 | TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/access \  | Files tailed once container has started 
 | MAKELDIF_USERS  | 0  | Number of users to auto-populate using make-ldif templates 
 | RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server 
