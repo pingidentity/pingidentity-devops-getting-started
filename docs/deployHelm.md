@@ -15,23 +15,6 @@ To get started, complete the following steps:
         ping-devops generate devops-secret | kubectl -apply -f -
         ```
 
-   * ***CURRENTLY TBD*** - Using license file - In a controlled environment, the helm chart can be run with a valid license file.  Add the license file as a secret as shown (example using pingfederate):
-
-        ```shell
-
-        kubectl create secret generic pingfederate-license --from-file ./pingfederate.lic
-
-        # You will need to include values (see --set below) when you install a chart
-        # instructing the install to use the license secret.  Addtionaly, you can
-        # include that licenseSecretName in a values.yaml file passed with the -f option
-
-        helm install \
-            pingfederate \
-            --set licenseSecretName=pingfederate-license \
-            --set global.envs.PING_IDENTITY_ACCEPT_EULA=YES \
-            ping-devops/pingfederate
-        ```
-
 2. Install Helm
 
    * Installing on MacOS (or linux with brew)
@@ -45,13 +28,13 @@ To get started, complete the following steps:
 3. Add Helm Ping DevOps Repo
 
     ```shell
-    helm repo add ping-devops https://helm.pingidentity.com/devops/
+    helm repo add pingidentity https://helm.pingidentity.com/devops/
     ```
 
 4. List Ping DevOps Charts
 
     ```shell
-    helm search repo ping-devops
+    helm search repo pingidentity
     ```
 
 5. Update local machine with latest charts
@@ -60,26 +43,14 @@ To get started, complete the following steps:
     helm repo update
     ```
 
-6. OPTIONAL - Create a values file (i.e. `devops-values.yaml`). Example below shows how to
-   pass the `PING_IDENTITY_ACCEPT_EULA` as a envs config.  This isn't needed if you are using
-   the `devops-secret` as explained in first step.
-    * Simple (Vanilla config)
-
-        ```yaml
-        # Default values for PingDevOps charts
-        global:
-          envs:
-            PING_IDENTITY_ACCEPT_EULA: "YES"
-        ```
-
-7. Install a Ping DevOps Chart
+6. Install a Ping DevOps Chart
 
 Install a chart using the `helm install {release} {chart} ...` using the example
 below.  In this case, it is installing a `pingfederate-admin` chart with the release name of
 `pf`.
 
 ```shell
-helm install pf ping-devops/pingfederate-admin
+helm install pf pingidentity/pingfederate-admin
 ```
 
 or, if you have a `devops-values.yaml` file to include:
@@ -108,4 +79,12 @@ View Logs:
 # kubectl logs -f pod/{release}-{product}-...
 
 kubectl logs -f pod/pf-pingfederate-admin-...
+```
+
+## Uninstalling Deployment
+
+To uninstall a release from helm, use the following `helm uninstall` command:
+
+```shell
+helm uninstall pf
 ```
