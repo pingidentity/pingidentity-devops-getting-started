@@ -80,6 +80,7 @@
   * [PingDataSync](docs/docker-images/pingdatasync/README.md)
   * [PingDelegator](docs/docker-images/pingdelegator/README.md)
   * [PingCentral](docs/docker-images/pingcentral/README.md)
+  * [PingIntelligence](docs/docker-images/pingintelligence/README.md)
   * [ldap-sdk-tools](docs/docker-images/ldap-sdk-tools/README.md)
   * [Ping Data Console](docs/docker-images/pingdataconsole/README.md)
   * [PingDownloader](docs/docker-images/pingdownloader/README.md)
