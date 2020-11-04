@@ -31,6 +31,7 @@
     * [Deploy a monitoring stack](docs/deployMonitoringStack.md)
     * [Deploy an Elasticsearch SIEM stack](docs/deploySiemStack.md)
   * [Orchestrate with Kubernetes](docs/deployK8s.md)
+    * [Deploy with PingIdentiy Helm Charts](docs/deployHelm.md)
     * [PingDirectory deployments across Kubernetes clusters](docs/deployK8sPD-clusters.md)
     * [Kubernetes deployments for general use](docs/deployK8sGeneral.md)
       * [Orchestrate standalone deployments](docs/deployK8sStandalone.md)
