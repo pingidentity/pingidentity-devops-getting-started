@@ -11,7 +11,8 @@ that can be used in administering PingDirectory Users/Groups.
 - pingidentity/pingdownloader - Used to download product bits
 
 ## Environment Variables
-The following environment `ENV` variables can be used with 
+In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
+the following environment `ENV` variables can be used with 
 this image. 
 
 | ENV Variable  | Default     | Description
@@ -27,14 +28,7 @@ this image.
 | PING_CONTAINER_GNAME  | nginx  | 
 | PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | The hostname for the public Ping Federate instance used for SSO. 
 | PF_ENGINE_PUBLIC_PORT  | 9031  | The port for the public Ping Federate instance used for SSO. NOTE: If using port 443 along with a base URL with no specified port, set to an empty string. 
-The client id that was set up with Ping Federate for Ping Delegator.
-## Environment Variables
-The following environment `ENV` variables can be used with 
-this image. 
-
-| ENV Variable  | Default     | Description
-| ------------: | ----------- | ---------------------------------
-| PF_DELEGATOR_CLIENTID  | dadmin  | 
+| PF_DELEGATOR_CLIENTID  | dadmin  | The client id that was set up with Ping Federate for Ping Delegator. 
 | PD_ENGINE_PUBLIC_HOSTNAME  | localhost  | The hostname for the DS instance the app will be interfacing with. 
 | PD_ENGINE_PUBLIC_PORT  | 1443  | The HTTPS port for the DS instance the app will be interfacing with. 
 | PD_DELEGATOR_TIMEOUT_LENGTH_MINS  | 30  | The length of time (in minutes) until the session will require a new login attempt 
