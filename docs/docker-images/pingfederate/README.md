@@ -24,17 +24,20 @@ this image.
 | LICENSE_FILE_NAME  | pingfederate.lic  | 
 | LICENSE_SHORT_NAME  | PF  | 
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | 
-| OPERATIONAL_MODE  | STANDALONE  | 
-| CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | 
-| PF_ENGINE_DEBUG  | false  | 
-| PF_ADMIN_DEBUG  | false  | 
-| PF_DEBUG_PORT  | 9030  | 
-| PF_ENGINE_PORT  | 9031  | 
-| PF_ADMIN_PORT  | 9999  | 
-| HSM_MODE  | OFF  | 
-| OPERATIONAL_MODE  | STANDALONE  | 
+| PF_ADMIN_PORT  | 9999  | Defines the port on which the PingFederate administrative console and API runs. 
+| PF_ENGINE_PORT  | 9031  | Defines the port on which PingFederate listens for encrypted HTTPS (SSL/TLS) traffic. 
+| PF_ENGINE_DEBUG  | false  | Flag to turn on PingFederate Engine debugging Used in run.sh 
+| PF_ADMIN_DEBUG  | false  | Flag to turn on PingFederate Admin debugging Used in run.sh 
+| PF_DEBUG_PORT  | 9030  | Defines the port on which PingFederate opens up a java debugging port. Used in run.sh 
+| OPERATIONAL_MODE  | STANDALONE  | Operational Mode Indicates the operational mode of the runtime server in run.properties Options include STANDALONE, CLUSTERED_CONSOLE, CLUSTERED_ENGINE. 
+| PF_CONSOLE_AUTHENTICATION  |   | Defines mechamism for console authentication in run.properties. Options include none, native, LDAP, cert, RADIUS, OIDC. If not set, default is native. 
+| PF_ADMIN_API_AUTHENTICATION  |   | Defines mechamism for admin api authentication in run.properties. Options include none, native, LDAP, cert, RADIUS, OIDC. If not set, default is native. 
+| HSM_MODE  | OFF  | Hardware Security Module Mode in run.properties Options include OFF, AWSCLOUDHSM, NCIPHER, LUNA, BCFIPS. 
+| PF_LDAP_USERNAME  | cn=pingfederate  | This is the username for an account within the LDAP Directory Server that can be used to perform user lookups for authentication and other user level search operations.  Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP 
+| PF_LDAP_PASSWORD  | OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRW1JY1UxOVdueSIsInZlcnNpb24iOiI5LjIuMS4xIn0..euBO0bawJz3XC_plAjxECg.yF7BpnCTPZlpZUo21WQ5IQ.YlLtlJTxXhrp3LsxyQDo5g  | This is the password for the Username specified above. This property should be obfuscated using the 'obfuscate.sh' utility. Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP 
+| CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | IP address for cluster communication.  Set to NON_LOOPBACK to allow the system to choose an available non-loopback IP address. 
 | BULK_CONFIG_DIR  | ${OUT_DIR}/instance/bulk-config  | 
 | BULK_CONFIG_FILE  | data.json  | 
 ## Ports Exposed
