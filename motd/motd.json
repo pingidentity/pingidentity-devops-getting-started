@@ -73,6 +73,19 @@
                     "manage-profile setup to build images.  This will expect to ",
                     "find itmes like dsconfig to reside under pd.profile/dsconfig "]
     }],
+    "ldap-sdk-tools" : [{
+        "validFrom": 20201101,
+        "validTo": 20991231,
+        "subject": "Example commands to search/test Ping Directory instances",
+        "message": ["  ldapsearch --hostname ${PD_ENGINE_PRIVATE_HOSTNAME} --port 389 \\",
+                    "             --bindDN cn=administrator --bindPassword 2FederateM0re \\",
+                    "             uid=user.1",
+                    " ",
+                    "  searchrate --hostname ${PD_ENGINE_PRIVATE_HOSTNAME} --port 389 \\",
+                    "             --bindDN cn=administrator --bindPassword 2FederateM0re \\",
+                    "             --baseDN dc=example,dc=com --scope sub --filter '(uid=user.[0-19999])' \\",
+                    "             --attribute givenName --numThreads 10"]
+    }],
     "pingdirectory" : [],
     "pingdirectoryproxy" : [],
     "pingfederate" : []
