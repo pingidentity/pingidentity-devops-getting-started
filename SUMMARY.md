@@ -40,6 +40,7 @@
       * [Orchestrate a PingAccess cluster deployment](docs/deployK8sPA-cluster.md)
       * [Orchestrate a PingFederate cluster deployment](docs/deployK8sPF-cluster.md)
       * [Deploy a PingFederate multiregion cluster (AWS)](docs/deployPFMultiRegionAWS.md)
+        * [Multiregion PingFederate cluster prereq AWS setup](docs/pfMultiRegionAWSPrereq.md)
     * [Kubernetes deployments for cloud platforms](docs/deployK8sCloud.md)
       * [Deploy to Amazon Web Services EKS](docs/deployK8s-AWS.md)
       * [Deploy to Azure Kubernetes Service](docs/deployK8s-AKS.md)
