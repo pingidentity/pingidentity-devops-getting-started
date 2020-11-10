@@ -25,7 +25,7 @@ this image.
 | STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
 | TAIL_LOG_PARALLEL  | y  | 
 | TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/datagovernance-pap.log \  | Files tailed once container has started 
-| REST_API_HOSTNAME  | localhost  | Hostname used for the REST API 
+| REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead) 
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PDG and PAP 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
@@ -33,15 +33,48 @@ used, then it may come from a parent container
 - ${HTTPS_PORT}
 
 ## Running a PingDataGovernance PAP container
-To run a PingDataGovernance PAP container:
 
-```she   ll
+A PingDataGovernance PAP may be set up in one of two modes:
+
+* **Demo mode**: Uses insecure username/password authentication.
+* **OIDC mode**: Uses an OpenID Connect provider for authentication.
+
+To run a PingDataGovernance PAP container in demo mode:
+
+```
   docker run \
            --name pingdatagovernancepap \
+           --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
            --publish 8443:443 \
            --detach \
            pingidentity/pingdatagovernancepap:edge
 ```
+
+Log in with:
+* https://my-pap-hostname:8443/
+  * Username: admin
+  * Password: password123
+
+To run a PingDataGovernance PAP container in OpenID Connect mode, specify
+the `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` environment
+variables:
+
+```
+  docker run \
+           --name pingdatagovernancepap \
+           --env PING_OIDC_CONFIGURATION_ENDPOINT=https://my-oidc-provider/.well-known/openid-configuration \
+           --env PING_CLIENT_ID=b1929abc-e108-4b4f-83d467059fa1 \
+           --publish 8443:443 \
+           --detach \
+           pingidentity/pingdatagovernancepap:edge
+```
+
+Note: If both `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` are
+not specified, then the PAP will be set up in demo mode.
+
+Log in with:
+* https://my-pap-hostname:8443/
+  * Provide credentials as prompted by the OIDC provider
 
 Follow Docker logs with:
 
@@ -49,10 +82,33 @@ Follow Docker logs with:
 docker logs -f pingdatagovernancepap
 ```
 
-Log in with:
-* https://localhost:8443/
-  * Username: admin
-  * Password: password123
+
+## Specifying the external hostname and port
+
+The PAP consists of a client-side application that runs in the user's web
+browser and a backend REST API service that runs within the container. So
+that the client-side application can successfully make API calls to the
+backend, the PAP must be configured with an externally accessible
+hostname:port. If the PAP is configured in OIDC mode, then the external
+hostname:port pair is also needed so that the PAP can correctly generate its
+OIDC redirect URI.
+
+Use the `PING_EXTERNAL_BASE_URL` environment variable to specify the PAP's
+external hostname and port using the form `hostname[:port]`, where `hostname`
+is the hostname of the Docker host and `port` is the PAP container's published
+port. If the published port is 443, then it should be omitted.
+
+For example:
+
+```
+  docker run \
+           --name pingdatagovernancepap \
+           --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
+           --publish 8443:443 \
+           --detach \
+           pingidentity/pingdatagovernancepap:edge
+```
+
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatagovernancepap/hooks/README.md) for details on all pingdatagovernancepap hook scripts
 

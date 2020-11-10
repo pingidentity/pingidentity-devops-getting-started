@@ -5,6 +5,7 @@ List of available hooks:
 * [183-run-setup.sh](183-run-setup.sh.md)
 * [80-post-start.sh](80-post-start.sh.md)
 * [81-install-policies.sh](81-install-policies.sh.md)
+* [pingdatagovernancepap.lib.sh](pingdatagovernancepap.lib.sh.md)
 
 These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
 
