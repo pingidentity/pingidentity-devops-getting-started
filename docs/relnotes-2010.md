@@ -32,7 +32,7 @@
 
   - Updated to version 5.1.1
 
-- **ping-devops**
+- **ping-devops CLI**
 
   - Added functionality to generate K8s license and version secret directly from the evaluation license service.
 
