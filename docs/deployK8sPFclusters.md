@@ -17,13 +17,13 @@ This section will focus on the optimal use of PingFederate features. Adaptive cl
 
 There are two main dynamic discovery options: 
 
-**For PF < 10.1.x Using S3**
-
-  ![PingFederate AWS MultiRegion Deployment Diagram](images/pf_aws_overview_diagram.png)
-
 **For GA PF 10.2 onward, Using DNS_PING**
   
   ![PingFederate DNS PING MultiRegion Diagram](images/pf_dns_ping_overview_diagram.png)
+
+**For PF < 10.1.x Using S3**
+
+  ![PingFederate AWS MultiRegion Deployment Diagram](images/pf_aws_overview_diagram.png)
 
 In either scenario, some pre-reqs must be achieved
 
@@ -62,6 +62,6 @@ Yaml files that include:
 
 For items specific to using S3 or DNS_PING follow the respective docs. 
 
-- [PF < 10.1.x Using S3](deployPFMultiRegionAWS.md) (referencing AWS S3, with possible application to Azure)
-
 - [GA PF 10.2 onward, Using DNS_PING](deployPFMultiRegionDNS.md)
+
+- [PF < 10.1.x Using S3](deployPFMultiRegionAWS.md) (referencing AWS S3, with possible application to Azure)
