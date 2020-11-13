@@ -4,41 +4,90 @@ This example is an extension of the topic *Orchestrate a replicated PingDirector
 
 ![K8S Multi-Cluster Overview](images/multi-k8s-cluster-pingdirectory-overview.png)
 
+## Overview
+
+Having a replicated PingDirectory topology across multiple kubernetes clusters is desired for highly-availabile active/active deployments as well as active/partial-active scenarios where a hot backup is expected. 
+
+PingIdentity PingDirectory Docker Images abstract away much of the complexity of replication initialization scripts, even across clusters. Instead, the focus is on 
+providing accessible DNS hostnames across clusters and environment variables to build ordinal hostnames for each Directory instance. 
+
+### What you will do
+
+- First understand what PingDirectory containers look for in order to create the replication topology.
+- Then determine the variables needed to create your hostnames
+- Additional variables for use-case flexibility
+- Walk through what happens when a cluster starts
+- Then look at the reference deployment examples for ideas on what may work best in your infrastructure. 
+
 Because details within each Kubernetes cluster are well-hidden from outside the cluster, external access to each pod within the cluster is required. The PingDirectory images will set up access to each of the pods using load-balancers from an external host, to allow each pod to communicate over the LDAP and replication protocols.
 
-## Modes of Deployment
+## PingDirectory Host-naming
 
-There are two types of deployments: using a single load-balancer (such as, AWS NLB), 
-or multiple load-balancers.
+The most important aspect of a successful PingDirectory cross-cluster deployment assigning accessible and logical dns hostnames. 
+Rules:
+1. Each pingdirectory needs it's own hostname avaialable in DNS
+2. hostname will have a space for the ordinal representing the instance in the statefulset
+3. all hostnames are accessible to all directory instances
 
-### Single load-balancer
+These rules still leave plenty of room for flexibility. Especially when accounting for cluster-native DNS names Kubernetes creates.
 
-Here's a diagram of how a single load-balancer can be used:
+### Single-cluster Multiple-namespace
+For example, if you were to simulate a "multi-cluster" environment in a single cluster, you could just set up two namespaces and create a separate ClusterIP service for each directory. It would env up like so: 
 
-![Single load-balancer](images/multi-k8s-cluster-pingdirectory-single-lb.png)
+**Primary Cluster**
 
-* Advantages
-  * Decreased cost of a single load-balancer.
-  * Single IP required.
-  * Easier DNS management.
-    * Wildcard DNS domain.
-    * Or separate hosts pointing to load-balancer.
-* Disadvantages
-  * More port mapping requirements.
-  * Many external ports to manage and track.
+| Pod | Service Name | Namespace | Hostname
+|-----|-----|-----|-----|
+|pindirectory-0 | pingdirectory-0 | primary | pingdirectory-0.primary|
+|pindirectory-1 | pingdirectory-1 | primary | pingdirectory-1.primary|
+|pindirectory-2 | pingdirectory-2 | primary | pingdirectory-2.primary|
 
-### Multiple load-balancers
+**Secondary Cluster**
 
-Here's a diagram of how a single load-balancer can be used:
+| Pod | Service Name | Namespace | Hostname
+|-----|-----|-----|-----|
+|pindirectory-0 | pingdirectory-0 | secondary | pingdirectory-0.secondary|
+|pindirectory-1 | pingdirectory-1 | secondary | pingdirectory-1.secondary|
+|pindirectory-2 | pingdirectory-2 | secondary | pingdirectory-2.secondary|
 
-![Multiple load-balancers](images/multi-k8s-cluster-pingdirectory-multi-lb.png)
+### External DNS names
+In a Prod Environment with external hostnames it may look more like:
 
-* Advantages
-  * Use the same well-known port (such as, 636/8989).
-  * Separate IP addresses per instance.
-* Disadvantages
-  * DNS management
-    * Separate hostname required per instance.
+**us-west cluster**
+| Pod | Service Name | DNS / Hostname
+|-----|-----|-----|
+|pindirectory-0 | pingdirectory-0 | pingdirectory-0-us-west.ping-devops.com|
+|pindirectory-1 | pingdirectory-1 | pingdirectory-1-us-west.ping-devops.com|
+|pindirectory-2 | pingdirectory-2 | pingdirectory-2-us-west.ping-devops.com|
+
+**us-east cluster**
+| Pod | Service Name | DNS / Hostname
+|-----|-----|-----|
+|pindirectory-0 | pingdirectory-0 | pingdirectory-0-us-east.ping-devops.com|
+|pindirectory-1 | pingdirectory-1 | pingdirectory-1-us-east.ping-devops.com|
+|pindirectory-2 | pingdirectory-2 | pingdirectory-2-us-east.ping-devops.com|
+
+## Variables to Create Hostnames
+
+To provide flexibility on how PingDirectory will find other instances, a full dns hostname is broken into multiple variables. 
+
+| Variable | Required | Description |
+|---|:---:|---|
+| `K8S_POD_HOSTNAME_PREFIX` |     | The string used as the prefix for all host names.  Defaults to name of `StatefulSet`. |
+| `K8S_POD_HOSTNAME_SUFFIX` |     | The string used as the suffix for all pod host names.  Defaults to `K8S_CLUSTER`. |
+| `K8S_SEED_HOSTNAME_SUFFIX` |     | The string used as the suffix for all seed host names.  Defaults to `K8S_SEED_CLUSTER` (discussed later). |
+
+A full hostname is created like: 
+```
+${K8S_POD_HOSTNAME_PREFIX}<instance-ordinal>${K8S_SEED_HOSTNAME_SUFFIX}
+```
+
+### Using previous hostname examples
+| hostname | K8S_POD_HOSTNAME_PREFIX | K8S_POD_HOSTNAME_SUFFIX | K8S_SEED_HOSTNAME_SUFFIX |
+|---|:---:|---|---|
+| pingdirectory-0.primary|`pingdirectory-`| `.primary`|`.primary`|
+| pingdirectory-2-us-west.ping-devops.com| `pingdirectory-`|`-us-west.ping-devops.com`|`-us-west.ping-devops.com`|
+
 
 ## Environment variables
 
@@ -85,6 +134,75 @@ These environment variable settings would map out like this:
 |      |     | pingdirectory-0.eu-west-1 | pd-0.eu-cluster.ping-devops.com | 8600  | 8700 |
 |      |     | pingdirectory-1.eu-west-1 | pd-1.eu-cluster.ping-devops.com | 8601  | 8701 |
 |      |     | pingdirectory-2.eu-west-1 | pd-2.eu-cluster.ping-devops.com | 8602  | 8702 |
+
+## Cluster Startup Walkthrough
+
+Yes, that was a _ton_ of variable conversation.
+This is done to for flexibility to accomodate various infrastructure constraints. For example, in some environments you cannot use the same port for each instance, so we must accommodate incrementing ports.
+
+Next, it's helpful to know what happens when a cluster starts, to understand why the initial creation of a cluster must be very prescriptive. 
+
+1. The first pod must start on it's own and become healthy. This is critical to prevent replication islands. The very first time the very first pod starts, we call it "GENESIS". All other pods are dependent on this `SEED_POD` in the `SEED_CLUSTER` starting correctly on it's own. The entire purpose of defining `SEED_POD` and `SEED_CLUSTER` variables is avoid multiple genesis scenarios. 
+
+> Since we are deploying a statefulset, you can deploy the entire first cluster at once. Statefulsets create one pod in the number of replicas at a time. 
+
+1. once the first pod is healthy, it begins dns querying combinations of hostnames at their LDAPS port to find another Directory instance. 
+
+In our first cluster, this would be the hostname of pingdirectory-1. but it could also be pingdirectory-0 of another cluster. Once the query returns successful, creation of the replication topology automatically begins. 
+
+1. From this point onward, the order in which instances start is less important. 
+
+
+### Note on Replication Traffic
+
+It may not always be clear what truly happens during "replication". Though it is partially proprietary, you can think of it like so: 
+
+1. A modify request arrives at one pod. 
+
+1. The corresponding Directory instance, say pingdirectory-0, makes the change locally, and tracks the change in the changelog. 
+
+1. Then it broadcasts the change out to all other instances with the time of change. This request is added to a message queue of sorts on the other instances and processed in order. 
+
+If you think about this, it starts to make sense why horizontal scaling of directories isn't something to be taken lightly. 
+
+## Reference Modes of Deployment
+
+There are multiple types of deployments that have been tested because of various infrastructure constraints. There will be discussed here.
+
+## VPC Peered K8s Clusters
+
+This example should be possible in most 
+
+
+### Single load-balancer
+
+Here's a diagram of how a single load-balancer can be used:
+
+![Single load-balancer](images/multi-k8s-cluster-pingdirectory-single-lb.png)
+
+* Advantages
+  * Decreased cost of a single load-balancer.
+  * Single IP required.
+  * Easier DNS management.
+    * Wildcard DNS domain.
+    * Or separate hosts pointing to load-balancer.
+* Disadvantages
+  * More port mapping requirements.
+  * Many external ports to manage and track.
+
+### Multiple load-balancers
+
+Here's a diagram of how a single load-balancer can be used:
+
+![Multiple load-balancers](images/multi-k8s-cluster-pingdirectory-multi-lb.png)
+
+* Advantages
+  * Use the same well-known port (such as, 636/8989).
+  * Separate IP addresses per instance.
+* Disadvantages
+  * DNS management
+    * Separate hostname required per instance.
+
 
 ## `StatefulSet` pod services
 
