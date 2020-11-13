@@ -27,7 +27,7 @@ spec:
   ports:
   - name: ldaps
     port: 1636
-  - name: ssl
+  - name: https
     port: 1443
   - name: ldap
     port: 1389
