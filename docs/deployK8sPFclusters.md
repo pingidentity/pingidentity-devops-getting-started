@@ -17,11 +17,13 @@ This section will focus on the optimal use of PingFederate features. Adaptive cl
 
 There are two main dynamic discovery options: 
 
-For PF < 10.1.x Using S3 ()
-![PingFederate AWS MultiRegion Deployment Diagram](images/pf_aws_overview_diagram.png)
+**For PF < 10.1.x Using S3**
 
-For **GA** PF 10.2 onward, Using DNS_PING
-![PingFederate DNS PING MultiRegion Diagram](images/pf_dns_ping_diagram.png)
+  ![PingFederate AWS MultiRegion Deployment Diagram](images/pf_aws_overview_diagram.png)
+
+**For GA PF 10.2 onward, Using DNS_PING**
+  
+  ![PingFederate DNS PING MultiRegion Diagram](images/pf_dns_ping_overview_diagram.png)
 
 In either scenario, some pre-reqs must be achieved
 
@@ -33,8 +35,8 @@ In either scenario, some pre-reqs must be achieved
   - Security groups on both clusters to allow traffic for ports 7600 and 7700 to pass
   - Successfully verified that a pod in one cluster can connect to a pod in the second cluster on ports 7600 and 7700 (directly to the pods back-end IP, not an exposed service)
   > See example "AWS configuration" instructions [Here](deployK8s-AWS.md)
-  - envsubst
-  - kustomize
+- envsubst
+- kustomize
 
 ## Constants
 
@@ -45,10 +47,10 @@ Yaml files that include:
     - `pingfederate-admin` represents the admin console.
     - `pingfederate` represents the engine(s)
 
-2. Two Configmaps. One for each deployment.
+1. Two Configmaps. One for each deployment.
     - These configmaps are nearly identical, but define the operational mode separately.
 
-3. Profile Files: 
+1. Profile Files: 
     - run.properties.subst
     - cluster-adaptive.conf.subst
     - tcp.xml.subst (using S3_PING, NATIVE_S3_PING, or DNS_PING)
@@ -58,7 +60,8 @@ Yaml files that include:
 
 ## Variables
 
-For items specific to using S3 or DNS_PING follow the respective docs, and come back. 
+For items specific to using S3 or DNS_PING follow the respective docs. 
 
-[PF < 10.1.x Using S3](deployPFMultiRegionAWS.md) (referencing AWS S3, with possible application to Azure)
-[GA PF 10.2 onward, Using DNS_PING](deployPFMultiRegionDNS.md)
+- [PF < 10.1.x Using S3](deployPFMultiRegionAWS.md) (referencing AWS S3, with possible application to Azure)
+
+- [GA PF 10.2 onward, Using DNS_PING](deployPFMultiRegionDNS.md)
