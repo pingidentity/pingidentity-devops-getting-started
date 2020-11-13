@@ -1,0 +1,1 @@
+See [Deploy a PingFederate cluster](../../docs/deployPFMultiRegionDNS.md) for more information.

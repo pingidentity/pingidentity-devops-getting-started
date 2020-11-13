@@ -1,17 +1,55 @@
 # Kubernetes Multi Region Clustering using Native S3 Ping
 
-## Advanced Use-Case
-
->Note: the extensive set of pre-requisites required for AWS kubernetes multi-clustering to be successful
-
-## Overview diagram
+This document is specific to dynamic discovery with  NATIVE_S3_PING and is an extension of [PingFederate Cluster Across Multiple Kubernetes Clusters](./deployK8sPFclusters.md). This is the validated approach for PingFederate < 10.2
 
 ![PingFederate AWS MultiRegion Deployment Diagram](images/pf_aws_overview_diagram.png)
+
+## AWS S3 Pre-reqs
+- Create an S3 bucket with all appropriate security permissions
+  - Non-public
+  - Well scoped security policy, giving permissions to the service accounts running the EKS pingfederate clusters
+  - Encrypted
+
+
+### Create an S3 bucket
+
+1. In the AWS console, select the **S3** service.
+
+2. Select **Buckets**, and click **Create Bucket**.
+
+3. Enter a name for the bucket, select a region, and click **Next**.
+
+4. Enable the `encrypt objects` option, and any other options you need. Click **Next**.
+
+5. Select **Block All Public Access**, and click **Next**.
+
+6. Click **Create Bucket**.
+
+7. Select the bucket you just created from the displayed list. A window will open. Click **Copy Bucker ARN**, and retain this information for your security policy.
+
+8. Click on your bucket to open it, and click **Permissions** --> **Bucket Policy**.
+
+9. Use either the policy generator, or manually assign a security policy for the bucket that assigns the cluster user accounts these permissions:
+
+    * GetBucketLocation
+    
+    * ListBucket
+    
+    * DeleteObject /*
+    
+    * GetObject /*
+    
+    * PutObject /*
+
+   > The resource for GetBucketLocation and ListBucket is slightly different than the object permissions.  The resource for GetBucketLocation and ListBucket is just the bucket ARN, but for the 3 object permissions, you must add “/*” on the end.
+
+
 
 ## What you will do
 
 You will deploy a multi-region adaptive Pingfederate cluster across multiple AWS EKS regional clusters.
 The `kustomization.yaml` in the 'engines' and 'admin-console' directories build on top of the standard DevOps PingFederate deployments.
+
 From each of these directories, running `kustomize build .`
 will generate kubernetes yaml files that include:
 
@@ -34,19 +72,6 @@ will generate kubernetes yaml files that include:
 
 Some features are added to the PingFederate Engine Deployment to support zero-downtime configuration deployments. explanations for these features are stored as comments in `pingfederate-engine.yaml`.
 
-## Pre-reqs
-
-- Two EKS clusters created with the following requirements:
-  - VPC IPs selected from RFC1918 CIDR blocks
-  - The two cluster VPCs peered together
-  - All appropriate routing tables modified in both clusters to send cross cluster traffic to the VPC peer connection
-  - Security groups on both clusters to allow traffic for ports 7600 and 7700 to pass
-  - Create an S3 bucket with all appropriate security permissions
-    - Non-public
-    - Well scoped security policy, giving permissions to the service accounts running the EKS pingfederate clusters
-    - Encrypted
-  - See example "AWS configuration" instructions [Here](pfMultiRegionAWSPrereq.md)
-  - Successfully verified that a pod in one cluster can connect to a pod in the second cluster on ports 7600 and 7700 (directly to the pods back-end IP, not an exposed service)
 
 ## Running
 
