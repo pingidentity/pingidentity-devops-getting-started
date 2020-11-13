@@ -1,353 +1,333 @@
-# Deploy to Amazon Web Services EKS
+# Prepare AWS EKS for Multi-Region Deployments
 
-You'll find here information regarding the deployment, management and scaling of our product containers to AWS using Amazon's:
-
-* Elastic Kubernetes Service (EKS).
-* Elastic Container Service (ECS):
-  * Using Fargate.
-  * Using EC2.
+In this example, we'll deploy 2 Kubernetes clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".
 
 ## Prerequisites
 
-* You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* You've created a Kubernetes cluster on AWS EKS.
-* You've created a Kubernetes secret using your DevOps credentials. See the *For Kubernetes* topic in [Using your DevOps user and key](devopsUserKey.md).
-* You've downloaded and installed the [AWS CLI](https://aws.amazon.com/cli/).
-* You've downloaded and installed [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
-* You've downloaded and installed [eksctl](https://eksctl.io).
+* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
 
-We also highly recommend you are familiar with the information in these AWS articles:
+* [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html), the current version.
 
-* [Get started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html)
-* [Creating a Cluster with a Fargate Task Using the Amazon ECS CLI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html)
-* [Creating a Cluster with an EC2 Task Using the Amazon ECS CLI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-ec2.html)
+* AWS account permissions to create clusters.
+  
+## Configure the AWS CLI
 
-## Create a cluster using the EKS CLI
+If you've not already done so, configure the AWS CLI to use your profile and credentials:
 
-You'll create a cluster on EKS is with the `eksctl` CLI tool. 
+1. Assign your profile and supply your `aws_access_key_id` and `aws_secret_access_key`. Enter:
 
-1. If you've not already done so, set up your AWS configuration and credentials using the `aws configure` command.
-2. Create a 2 node cluster using `eksctl`. (Use `eksctl create cluster -h` to see all options when creating a cluster). For example:
-
-   > Different versions are available with EKS, depending on your AWS region.
-
-   ```bash
-   eksctl create cluster \
-       --name ping-devops-test \
-       --tags owner=${USER} \
-       --version 1.12 \
-       --nodegroup-name standard-workers \
-       --node-type m5d.large \
-       --nodes 2 \
-       --nodes-min 1 \
-       --nodes-max 4 \
-       --node-ami auto
+   ```shell
+   aws configure --profile=<aws-profile>
    ```
 
-   It may take several minutes to create the clusters, because virtual private clouds (VPCs), security groups, and EC2 instances will be created in this process. It's ready when you see output similar to this:
+   Then enter your `aws_access_key_id` and `aws_secret_access_key`.
 
-   `[✔] EKS cluster "ping-devops-test" in "us-east-2" region is ready`
-
-3. After the cluster is created, you can display the cluster and nodegroup details using:
-
-   ```bash
-   eksctl get cluster   --name=ping-devops-test
+2. Open your `~/.aws/credentials` file in a text editor and add your AWS `role_arn`. For example:
+   
+   ```shell
+   “role_arn = arn:aws:iam::xxxxxxxx4146:role/xxx”
    ```
 
-   ```bash
-   eksctl get nodegroup --cluster=ping-devops-test
-   ```
+## Create the multi-region clusters
 
-   Get information on the nodes using `kubectl`:
-
-   ```bash
-   kubectl get nodes
-   ```
-
-4. The cluster we created started with 2 nodes. You can scale the cluster using `eksctl scale nodegroup`. For example:
-
-   ```bash
-   eksctl scale nodegroup --cluster=ping-devops-test --nodes=3 standard-workers
-   ```
-
-5. When you're ready to delete the cluster, use `eksctl delete cluster`. For example:
-
-   ```bash
-   eksctl delete cluster --name=ping-devops-test
-   ```
-
-## Create a cluster using the ECS CLI 
-
-### Initial setup
-
-1. Configure your profile and credentials on your host using `ecs-cli`. For example:
-
-   > You'll need to either set a variable for your `$AWS_ACCESS_KEY_ID`  and `$AWS_SECRET_ACCESS_KEY` values, or replace them in the example.
-
-   ```bash
-   ecs-cli configure profile \
-     --access-key $AWS_ACCESS_KEY_ID \
-     --secret-key $AWS_SECRET_ACCESS_KEY
-   ```
-
-   This command creates a `~/.ecs/credential` file that looks similar to this:
-
-   ```bash
-   $ more ~/.ecs/credentials
-   version: v1
-   default: default
-   ecs_profiles:
-     default:
-       aws_access_key_id: **** your aws access key id ****
-       aws_secret_access_key: **** your aws secret key key ****
-   ```
-
-2. Configure a cluster definition on your host using `ecs-cli configure`. For example:
-
-   > The example configures a local cluster, creating a future cluster in `us-east-2`. You should changes this to a region you want to run in.
-
-   ```bash
-   ecs-cli configure \
-           --cluster ping-devops-ecs-cluster \
-           --default-launch-type FARGATE \
-           --region us-east-2  \
-           --config-name ping-devops-ecs-config
-   ```
-
-   This will create a `~/.ecs/config` file that looks similar to this:
-
-   ```bash
-   more ~/.ecs/config
-   version: v1
-   default: ping-devops-ecs-config
-   clusters:
-     ping-devops-ecs-config:
-       cluster: ping-devops-ecs-cluster
-       region: us-east-2
-       default_launch_type: FARGATE
-   ```
-
-### Provide access to CloudWatch logs
-
-Amazon ECS needs permissions for your Fargate task to store logs in AWS's CloudWatch monitoring service. These permissions are covered by the Task Execution IAM role. 
-
-To create the Task Execution IAM role using the AWS CLI:
-
-1. Create a file named `task-execution-assume-role.json` with this content:
-
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Sid": "",
-         "Effect": "Allow",
-         "Principal": {
-           "Service": "ecs-tasks.amazonaws.com"
-         },
-         "Action": "sts:AssumeRole"
-       }
-     ]
-   }
-   ```
-
-2. Create the task execution role as follows:
-
-   ```bash
-   aws iam --region us-west-2 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json
-   ```
-
-3. Attach the task execution role policy as follows:
-
-   ```bash
-   aws iam --region us-west-2 attach-role-policy --role-name ecsTaskExecutionRole --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
-   ```
-
-See [Amazon ECS Task Execution IAM Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html) and [Creating a Cluster with a Fargate Task Using the Amazon ECS CLI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html) for more information.
-
-### Create the cluster on ECS
-
-You need to create an ECS cluster on which to host services and containers. Using the ECS CLI, you have a choice. You can either:
-
-* Create all related aspects of a cluster (VPC, Subnets, Security-groups) during cluster creation. 
-* Leverage existing resources. 
-
-#### Create all related aspects of a cluster on ECS during cluster creation
-
-Your AWS ID or Role needs to have the AWS authorization necessary to create a cluster.
-
-1. To create a cluster on ECS, enter either: 
- 
-   ```bash
-   ecs:CreateCluster
-   ```
-
-   or, if you have a role that is used within your `.aws/config`:
-
-   ```bash
-   ecs:CreateCluster --aws-profile <profile-name>
-   ```
-
-2. Start the cluster. Enter:
-
-   ```bash
-   ecs-cli up
-   ```
-
-   The resulting ouput will be similar to this:
-
-   ```text
-   INFO[0001] Created cluster                               cluster=ping-devops-ecs-cluster region=us-east-2
-   INFO[0002] Waiting for your cluster resources to be created...
-   INFO[0002] Cloudformation stack status                   stackStatus=CREATE_IN_PROGRESS
-   INFO[0064] Cloudformation stack status                   stackStatus=CREATE_IN_PROGRESS
-   VPC created: vpc-*********************
-   Subnet created: subnet-*********************
-   Subnet created: subnet-*********************
-   Cluster creation succeeded.
-   ```
-
-3. Capture the VPC and Subnet ID's displayed. You'll use these in subsequent steps.
-
-4. Now that you've started the cluster, you need to create a security group to protect the VPC. You'll use the VPC ID returned in the prior step. Your AWS ID or Role needs to have the AWS authorization necessary to create a security group. To create a security group for the cluster, enter: 
- 
-   ```bash
-   aws ec2 create-security-group \
-       --group-name "ping-devops-ecs-sg" \
-       --description "Ping DevOps Security Group" \
-       --vpc-id "<vpc-id-created-in-prior-step>"
-   ```
-
-   or, if you have a role that is used within your `.aws/config`:
-
-   ```bash
-   aws ec2 create-security-group \
-       --group-name "ping-devops-ecs-sg" \
-       --description "Ping DevOps Security Group" \
-       --vpc-id "<vpc-id-created-in-prior-step>"
-       --profile "<your-profile-name>"
-   ```
-
-   The resulting ouput will be similar to this:
-
-   ```text
-   {
-     "GroupId": "sg-********************"
-   }
-   ```
-
-5. Use the `GroupId` value returned in the prior step to add an Ingress point of ports 9999 and 9031 to access the PingFederate container that you'll deploy.
-
-   ```bash
-   aws ec2 authorize-security-group-ingress \
-       --protocol tcp \
-       --port 9031 \
-       --port 9999 \
-       --cidr 0.0.0.0/0 \
-       --group-id "<group-id-created-in-prior-step>"
-   ```
-
-#### Create a cluster on ECS using existing resources
-
-If you have an existing VPC, security group, and two subnets related to the VPC, you can leverage these resources to create the cluster using the `ecs-cli up` command. For example:  
-
-```bash
-ecs-cli up --vpc <vpc-id> --security-group <security-group-id> --subnets <required-subnet-1>,<required-subnet-2>
-```
-
-Where &lt;vpc-id&gt;, &lt;security-group-id&gt;, and the `--subnets` &lt;required-subnet-1&gt; and &lt;required-subnet-2&gt; are all existing resources available to you.
-
-> Ensure the standard PingFederate ports 9031 and 9999 are part of your security group if you wish to use them when deploying PingFederate.
-
-### Deploy PingFederate as a service in an ECS cluster
-
-You'll create `docker-compose.yml` and `ecs-params.yml` files based on these AWS instructions:
-
-> Note the `.yml` extension, as opposed to `.yaml` for the AWS YAML files.
-
-* [Using Docker Compose File Syntax](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-parameters.html)
-* [Using Amazon ECS Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-ecsparams.html)
-
-> You'll update these files with your specific configuration details.
-
-1. Create the `docker-compose.yml` file based on the AWS instructions. For example:
-
+1. Create the YAML files to configure the the clusters. You'll create the clusters in different AWS regions. We'll be using the `ca-central-1` region and the `us-west-2` region in this document.
+   
+   a. Configure the first cluster. For example, using the `ca-central-1` region and the reserved CIDR 172.16.0.0:
+   
    ```yaml
-   version: "3"
+   apiVersion: eksctl.io/v1alpha5
+   kind: ClusterConfig
 
-   services:
-     pingfederate:
-       image: pingidentity/pingfederate:edge
-       environment:
-         - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-         - SERVER_PROFILE_PATH=getting-started/pingfederate
-       ports:
-         - 9031:9031
-         - 9999:9999
-       logging:
-         driver: awslogs
-         options:
-           awslogs-group: ping-devops-ecs-logs
-           awslogs-region: us-east-2
-           awslogs-stream-prefix: ping-devops
+   metadata:
+     name: pingfed-ca-central-1
+     region: ca-central-1
+     version: "1.17"
+
+   vpc: 
+     cidr: 172.16.0.0/16
+
+   managedNodeGroups:
+     - name: us-west-2a-worker-nodes
+       instanceType: t3a.2xlarge
+       labels: {}
+       tags: {}
+       minSize: 1
+       maxSize: 2
+       desiredCapacity: 1
+       volumeSize: 12
+       privateNetworking: true
+       ssh:
+         publicKeyPath: ~/.ssh/id_rsa.pub
+       iam:
+         withAddonPolicies: 
+           imageBuilder: true
+           autoScaler: true
+           externalDNS: true
+           certManager: true
+           appMesh: true
+           ebs: true
+           fsx: true
+           efs: true
+           albIngress: true
+           xRay: true
+           cloudWatch: true
+     - name: us-west-2b-worker-nodes
+     instanceType: t3a.2xlarge
+     labels: {}
+     tags: {}
+     minSize: 1
+     maxSize: 2
+     desiredCapacity: 1
+     volumeSize: 12
+     privateNetworking: true
+     ssh:
+       publicKeyPath: ~/.ssh/id_rsa.pub
+     iam:
+       withAddonPolicies:
+           imageBuilder: true
+           autoScaler: true
+           externalDNS: true
+           certManager: true
+           appMesh: true
+           ebs: true
+           fsx: true
+           efs: true
+           albIngress: true
+           xRay: true
+           cloudWatch: true
    ```
 
-2. Create the `ecs-params.yml` file based on the AWS instructions. For example:
+   > For production purposes, select a VPC with a private IP.
 
+   > The `ssh` entry is optional, allowing you to SSH in to your cluster.
+
+   b. Configure the second cluster. For example, using the `us-west-2` region and the reserved CIDR 10.0.0.0:
+   
    ```yaml
-   version: 1
-   task_definition:
-     task_execution_role: ecsTaskExecutionRole
-     ecs_network_mode: awsvpc
-     task_size:
-       mem_limit: 2.0GB
-       cpu_limit: 1024
-   run_params:
-     network_configuration:
-       awsvpc_configuration:
-         subnets:
-           - "subnet-<replace with subnet 1 from prior step>"
-           - "subnet-<replace with subnet 2 from prior step>"
-         security_groups:
-           - "sg-<replace with security group id from prior step>"
-         assign_public_ip: ENABLED
+   apiVersion: eksctl.io/v1alpha5
+   kind: ClusterConfig
+
+   metadata:
+     name: pingfed-us-west-2
+     region: us-west-2
+     version: "1.17"
+
+   vpc: 
+     cidr: 10.0.0.0/16
+
+   managedNodeGroups:
+     - name: us-west-2a-worker-nodes
+       instanceType: t3a.2xlarge
+       labels: {}
+       tags: {}
+       minSize: 1
+       maxSize: 2
+       desiredCapacity: 1
+       volumeSize: 12
+       privateNetworking: true
+       ssh:
+         publicKeyPath: ~/.ssh/id_rsa.pub
+       iam:
+         withAddonPolicies: 
+           imageBuilder: true
+           autoScaler: true
+           externalDNS: true
+           certManager: true
+           appMesh: true
+           ebs: true
+           fsx: true
+           efs: true
+           albIngress: true
+           xRay: true
+           cloudWatch: true
+     - name: us-west-2b-worker-nodes
+     instanceType: t3a.2xlarge
+     labels: {}
+     tags: {}
+     minSize: 1
+     maxSize: 2
+     desiredCapacity: 1
+     volumeSize: 12
+     privateNetworking: true
+     ssh:
+       publicKeyPath: ~/.ssh/id_rsa.pub
+     iam:
+       withAddonPolicies:
+           imageBuilder: true
+           autoScaler: true
+           externalDNS: true
+           certManager: true
+           appMesh: true
+           ebs: true
+           fsx: true
+           efs: true
+           albIngress: true
+           xRay: true
+           cloudWatch: true
    ```
 
-3. From the directory where you created the `docker-compose.yml` and `ecs-params.yml` files, start the PingFederate service. Enter:
+   > For production purposes, select a VPC with a private IP.
 
-   ```bash
-   ecs-cli compose --project-name pingfederate-devops \
-       service up \
-       --cluster ping-devops-ecs-cluster
-       --create-log-groups
+   > The `ssh` entry is optional, allowing you to SSH in to your cluster.
+
+2. Create the clusters using `eksctl`. 
+   
+   a. Create the first cluster. For example:
+
+   ```shell
+   eksctl create cluster -f ca-central-1.yaml --profile <aws-profile>
    ```
 
-   > Only specify `--create-log-groups` on the first run.
+   b. Create the second cluster. For example:
 
-
-1. To display the PingFederate service status, enter:
-
-   ```bash
-   ecs-cli compose --project-name pingfederate-devops service ps
+   ```shell
+   eksctl create cluster -f us-west-2.yaml --profile <aws-profile>
    ```
 
-2. To bring the service down, enter:
+3. Log in to the AWS console, go to the **VPC** service, select **Your VPCs** (under Virtual Private Cloud), and note the VPC details for the clusters you've created.
 
-   ```bash
-   ecs-cli compose service down
-   ```
+   > Retain the `VpcId` values for the `ca-central-1` and `us-west-2` VPCs. You'll use these in subsequent steps.
 
-3. When you want to delete the cluster, enter:
+4. Set up VPC peering between the two clusters. You'll create a peering connection from the cluster in the `us-west-2` region to the cluster in the `ca-central-1` region. You'll do this from the VPC Dashboard as in the prior step.
+   
+   a. In the top right of the page, select the **Oregon** (us-west-2) region.
+   
+   b. Select **Peering Connections**, and click **Create Peering Connection**. 
+   
+   c. Assign a unique name for the peering connection (for example, us-west-2-to-ca-central-1).
+   
+   d. Under **Select a local VPC to peer with**, enter the `VpcId` value for the `us-west-2` VPC.
 
-   ```bash
-   ecs-cli down
-   ```
+   e. Under **Select another VPC to peer with**, select **My account** --> **Another region** --> **Canada Central** (ca-central-1).
 
-   The resulting output will be similar to this:
+   f. Under **VPC (Accepter)**, enter the `VpcId` value for the `ca-central-1` region.
 
-   ```bash
-   INFO[0004] Waiting for your cluster resources to be deleted...
-   INFO[0004] Cloudformation stack status                   stackStatus=DELETE_IN_PROGRESS
-   INFO[0066] Deleted cluster                               cluster=ping-devops-ecs-cluster
-   ```
+   g. Click **Create Peering Connection**. When successful, a confirmation is displayed. Click **OK** to continue.
+
+   h. In the top right of the page, change the region to **Canada Central**.
+
+   i. Select **Peering Connections**.
+
+   > Notice that the peering connection status for `us-west-2` shows as `Pending Acceptance`.
+
+   j. Select the `ca-central-1` connection, click the **Actions** dropdown list, and select **Accept Request**. You'll be prompted to confirm.
+
+   > The VPC peering connection status should now show as `Active`.
+
+5. Get the subnets information for each cluster node. Each cluster node uses a different subnet, so there'll be three subnets assigned to each VPC. The information displayed will contain the subnet ID for each subnet. You'll use the subnet IDs in the subsequent step to get the associated routing tables.
+   
+   a. In the top right of the page, change the region to **Oregon**.
+   
+   b. Go to the **EC2** service, and select **Instances**. Apply a filter, if needed, to find your nodes for the cluster.
+   
+   c. Select each node, and record the **Subnet ID** of each. You'll use the subnet IDs in a subsequent step. 
+
+   d. In the top right of the page, change the region to **Canada Central**, and repeat the 2 previous steps to find and record the subnet IDs for this VPC.
+   
+6. Get the routing table associated with the subnets for each VPC.
+   
+   a. Go to the **VPC** service. (You're still using the Canada Central region.)
+
+   b. In the VPC Dashboard, select **Subnets**.
+
+   c. For each subnet displayed, record the **Routing Table** value. You may have a single routing table for all of your subnets. You'll use the routing table ID or IDs in a subsequent step.
+
+   d. In the top right of the page, change the region to **Oregon**, and repeat the 2 previous steps to find and record the routing table ID or IDs for this VPC.
+   
+7. Modify the routing table or tables for each VPC to add a route to the other VPC using the peering connection you created.
+   
+   a. In the VPC Dashboard, select **Route Tables**. (You're still using the Oregon region.)
+
+   b. Select the route table you recorded for the `us-west-2` (Oregon) VPC, and click the `Routes` button. You should see 2 routes displayed.
+
+   c. Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `ca-central-1` cluster (172.16.0.0/16). 
+
+   d. For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
+
+      A route for the `ca-central-1` cluster directed to the peering connection is displayed.
+   
+   e. If more than one routing table is used for the `us-west-2` VPC, repeat the previous steps for each routing table.
+
+   f. In the top right of the page, change the region to **Canada Central**.
+
+   g. Select the route table you recorded for the `ca-central-1` (Canada Central) VPC, and click the `Routes` button. You should see 2 routes displayed.
+
+   h. Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `us-west-2` cluster (10.0.0.0/16). 
+
+   i. For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
+
+      A route for the `us-west-2` cluster directed to the peering connection is displayed.
+   
+   j. If more than one routing table is used for the `ca-central-1` VPC, repeat the previous steps for each routing table.
+
+8.  Update the Security Groups for each VPC. You'll get the Security Group IDs for each VPC, then add inbound and outbound rules for both the `us-west-2` VPC, and the `ca-central-1` VPC.
+    
+       a. In the VPC Dashboard, select **Security Groups**.  (You're still using the Canada Central region.)
+
+       b. Apply a filter to find the security groups for the `ca-central-1` cluster, and select the security group with “-nodegroup” in the name. This is the security group used for the firewall settings for all the worker nodes in the `ca-central-1` cluster.
+
+       c. Click **Inbound Rules** --> **Add Rule**.
+       
+       d. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
+
+    *	Protocol: TCP
+
+    *	Port Range: 7600-7700
+        > These ports are for are specific to PingFederate Clustering, adjust based on your products. 
+
+    *	Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
+
+       e. Click **Save Rules** to save the inbound security group rule for the `ca-central-1` cluster.
+
+       f. Click **Outbound Rules** --> **Add Rule**.
+
+       g. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
+
+    *	Protocol: TCP
+
+    *	Port Range: 7600-7700
+        > These ports are for are specific to PingFederate Clustering, adjust based on your products. 
+
+    *	Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
+
+       h. Click **Save Rules** to save the outbound security group rule for the `ca-central-1` cluster.
+
+       i. In the top right of the page, change the region to **Oregon**. You'll now repeat the previous steps to add inbound and outbound rules for the `us-west-2` cluster.
+
+       j. Apply a filter to find the security groups for the `us-west-2` cluster, and select the security group with “-nodegroup” in the name. This is the security group used for the firewall settings for all the worker nodes in the `us-west-2` cluster.
+
+       k. Click **Inbound Rules** --> **Add Rule**.
+       
+       l. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
+
+    *	Protocol: TCP
+
+    *	Port Range: 7600-7700
+        > These ports are for are specific to PingFederate Clustering, adjust based on your products. 
+
+    *	Source: Custom, and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
+
+       m. Click **Save Rules** to save the inbound security group rule for the `us-west-2` cluster.
+
+       n. Click **Outbound Rules** --> **Add Rule**.
+
+       o. Select these values for the rule:
+       
+    *	Type:  Custom TCP Rule
+
+    *	Protocol: TCP
+
+    *	Port Range: 7600-7700
+        > These ports are for are specific to PingFederate Clustering, adjust based on your products. 
+
+    *	Source: Custom, and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
+
+       p. Click **Save Rules** to save the outbound security group rule for the `us-west-2` cluster.
+
 

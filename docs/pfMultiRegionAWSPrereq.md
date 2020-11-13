@@ -326,35 +326,4 @@ If you've not already done so, configure the AWS CLI to use your profile and cre
 
        p. Click **Save Rules** to save the outbound security group rule for the `us-west-2` cluster.
 
-## Create an S3 bucket
-
-1. In the AWS console, select the **S3** service.
-
-2. Select **Buckets**, and click **Create Bucket**.
-
-3. Enter a name for the bucket, select a region, and click **Next**.
-
-4. Enable the `encrypt objects` option, and any other options you need. Click **Next**.
-
-5. Select **Block All Public Access**, and click **Next**.
-
-6. Click **Create Bucket**.
-
-7. Select the bucket you just created from the displayed list. A window will open. Click **Copy Bucker ARN**, and retain this information for your security policy.
-
-8. Click on your bucket to open it, and click **Permissions** --> **Bucket Policy**.
-
-9. Use either the policy generator, or manually assign a security policy for the bucket that assigns the cluster user accounts these permissions:
-
-    * GetBucketLocation
-    
-    * ListBucket
-    
-    * DeleteObject /*
-    
-    * GetObject /*
-    
-    * PutObject /*
-
-   > The resource for GetBucketLocation and ListBucket is slightly different than the object permissions.  The resource for GetBucketLocation and ListBucket is just the bucket ARN, but for the 3 object permissions, you must add “/*” on the end.
 

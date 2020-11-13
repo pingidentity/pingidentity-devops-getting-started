@@ -4,6 +4,19 @@ This example is an extension of the topic *Orchestrate a replicated PingDirector
 
 ![K8S Multi-Cluster Overview](images/multi-k8s-cluster-pingdirectory-overview.png)
 
+## Overview
+
+Having a replicated PingDirectory topology across multiple kubernetes clusters is desired for highly-availabile active/active deployments as well as active/partial-active scenarios where a hot backup is expected. 
+
+PingIdentity PingDirectory Docker Images abstract away much of the complexity of replication initialization scripts, even across clusters. Instead, the focus is on 
+providing accessible DNS hostnames across clusters and environment variables to build ordinal hostnames for each Directory instance. 
+
+## What you will do
+
+- First understand what PingDirectory containers look for in order to create the replication topology.
+- Then determine the variables needed to create your hostnames
+- Then look at the reference deployment examples for ideas on what may work best in your infrastructure. 
+
 Because details within each Kubernetes cluster are well-hidden from outside the cluster, external access to each pod within the cluster is required. The PingDirectory images will set up access to each of the pods using load-balancers from an external host, to allow each pod to communicate over the LDAP and replication protocols.
 
 ## Modes of Deployment
