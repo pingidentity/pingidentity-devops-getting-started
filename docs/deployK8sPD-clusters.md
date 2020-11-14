@@ -169,9 +169,44 @@ If you think about this, it starts to make sense why horizontal scaling of direc
 
 There are multiple types of deployments that have been tested because of various infrastructure constraints. There will be discussed here.
 
-## VPC Peered K8s Clusters
+### Multi-cluster Simulations
+#### Single Namespace
 
-This example should be possible in most 
+`20-kubernetes/09-multi-k8s-pingdirectory/single-namespace`
+This is the simplest example. It's good to just see what logs on a cross-cluster topology look likea
+- relies only on dns names that kubernetes provides. 
+- All traffic is in one namespace so it should have no network constraints. 
+
+```
+kubectl apply -f 01-west.yaml
+```
+
+...wait for pingdirectory-0 to be healthy...
+
+```
+kubectl apply -f 02-east.yaml
+```
+
+
+> note, stern makes viewing logs so much easier. `stern pingdirectory`
+
+#### Single Cluster Multiple Namespaces
+
+`20-kubernetes/09-multi-k8s-pingdirectory/single-cluster-two-namespaces`
+
+This example can be used when you only have one cluster available for testing
+
+
+### VPC Peered K8s Clusters
+
+These example should be possible in most kubernetes providers as long as you can: 
+- give external dns names to clusterIP services
+- have replication and ldaps ports peered (open) between clusters
+
+Consider the [eks peering config](./deployK8s-AWS.md) example if you want to test this. 
+
+
+
 
 
 ### Single load-balancer

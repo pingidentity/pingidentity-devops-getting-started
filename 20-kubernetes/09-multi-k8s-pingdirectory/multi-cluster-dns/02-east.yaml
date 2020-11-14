@@ -1,0 +1,262 @@
+apiVersion: v1
+data:
+  ## sample full hostname: pingdirectory-0-west.ping-devops.com
+  K8S_STATEFUL_SET_NAME: pingdirectory
+  K8S_STATEFUL_SET_SERVICE_NAME: pingdirectory-cluster
+  K8S_CLUSTERS: west east
+  K8S_CLUSTER: east
+  K8S_SEED_CLUSTER: west
+  K8S_NUM_REPLICAS: "3"
+  K8S_POD_HOSTNAME_PREFIX: pingdirectory-
+  K8S_POD_HOSTNAME_SUFFIX:  -east.ping-devops.com
+  K8S_SEED_HOSTNAME_SUFFIX:  -west.ping-devops.com
+  K8S_INCREMENT_PORTS: "false"
+  REPLICATION_PORT: "8989"
+  LDAP_PORT: "7389"
+  LDAPS_PORT: "7636"
+  HTTPS_PORT: "7443"
+  PING_CONTAINER_PRIVILEGED: "false"
+  MAKELDIF_USERS: "1000"
+  ORCHESTRATION_TYPE: KUBERNETES
+  PING_IDENTITY_ACCEPT_EULA: "YES"
+  SERVER_PROFILE_PATH: baseline/pingdirectory
+  SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-server-profiles.git
+  TAIL_LOG_FILES: '""'
+
+kind: ConfigMap
+metadata:
+  annotations: {}
+  namespace: east
+  labels:
+    role: pingdirectory
+  name: pingdirectory-environment-variables
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: east
+  labels:
+    role: pingdirectory
+  name: pingdirectory
+spec:
+  ports:
+  - name: ldaps
+    port: 7636
+  - name: ssl
+    port: 7443
+  - name: ldap
+    port: 7389
+  selector:
+    role: pingdirectory
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: east
+  annotations: 
+    external-dns.alpha.kubernetes.io/hostname: "pingdirectory-0-east.ping-devops.com"
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  labels:
+    role: pingdirectory
+  name: pingdirectory-0
+spec:
+  clusterIP: None
+  ports:
+  - name: ldaps
+    port: 7636
+  - name: replication
+    port: 8989
+  - port: 7443
+    name: https
+  publishNotReadyAddresses: true
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: 
+    external-dns.alpha.kubernetes.io/hostname: "pingdirectory-1-east.ping-devops.com"
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  namespace: east
+  labels:
+    role: pingdirectory
+  name: pingdirectory-1
+spec:
+  clusterIP: None
+  ports:
+  - name: ldaps
+    port: 7636
+  - name: replication
+    port: 8989
+  - port: 7443
+    name: https
+  publishNotReadyAddresses: true
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: 
+    external-dns.alpha.kubernetes.io/hostname: "pingdirectory-2-east.ping-devops.com"
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  namespace: east
+  labels:
+    role: pingdirectory
+  name: pingdirectory-2
+spec:
+  clusterIP: None
+  ports:
+  - name: ldaps
+    port: 7636
+  - name: replication
+    port: 8989
+  - port: 7443
+    name: https
+  publishNotReadyAddresses: true
+  selector:
+    statefulset.kubernetes.io/pod-name: pingdirectory-2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: east
+  labels:
+    role: pingdirectory
+  name: pingdirectory-cluster
+spec:
+  clusterIP: None
+  ports:
+  - name: ldaps
+    port: 7636
+  selector:
+    role: pingdirectory
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: east
+  labels:
+    role: pingdirectory
+  name: pingdirectory
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      role: pingdirectory
+  serviceName: pingdirectory-cluster
+  template:
+    metadata:
+      labels:
+        role: pingdirectory
+      name: pingdirectory
+    spec:
+      nodeSelector: {}
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: pingdirectory-environment-variables
+        - secretRef:
+            name: devops-secret
+            optional: true
+        image: pingidentity/pingdirectory:edge
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - /preStop.sh
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /opt/liveness.sh
+          initialDelaySeconds: 300
+          periodSeconds: 30
+        name: pingdirectory
+        ports:
+        - containerPort: 7636
+        - containerPort: 7443
+        - containerPort: 7389
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /opt/liveness.sh
+        resources:
+          limits:
+            cpu: "6"
+            memory: 2Gi
+          requests:
+            cpu: "2"
+            memory: 2Gi
+  #       volumeMounts:
+  #       - mountPath: /opt/out
+  #         name: out-dir
+  #     terminationGracePeriodSeconds: 300
+  #     volumes:
+  #     - name: out-dir
+  #       persistentVolumeClaim:
+  #         claimName: out-dir
+  # volumeClaimTemplates:
+  # - metadata:
+  #     name: out-dir
+  #   spec:
+  #     accessModes:
+  #     - ReadWriteOnce
+  #     resources:
+  #       requests:
+  #         storage: 3Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: east
+  labels:
+    role: pingdataconsole
+  name: pingdataconsole
+spec:
+  ports:
+  - name: https
+    port: 8443
+  selector:
+    role: pingdataconsole
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: east
+  labels:
+    role: pingdataconsole
+  name: pingdataconsole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: pingdataconsole
+  template:
+    metadata:
+      labels:
+        role: pingdataconsole
+      name: pingdataconsole
+    spec:
+      containers:
+      - image: pingidentity/pingdataconsole:edge
+        name: pingdataconsole
+        ports:
+        - containerPort: 8443
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi
+          requests:
+            cpu: "1"
+            memory: 2Gi
