@@ -9,7 +9,7 @@ spec:
   ports:
   - name: ldaps
     port: 636
-  - name: ssl
+  - name: https
     port: 443
   - name: ldap
     port: 389
