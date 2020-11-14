@@ -27,16 +27,17 @@ Additionally, all files that are included in the profile should also be environm
 
 ## Bulk API Export Profile Method
 
-#### What You'll Do
+### What You'll Do
 
 A summary of the resulting process: 
+
 1. Export a `data.json` from /bulk/export
 2. Configure and run bulkconfig tool
 3. Export Key Pairs
 4. base64 encode exported key pairs
 5. add `data.json.subst` to your profile at `instance/bulk-config/data.json.subst`
 
-> Before addressing the above steps, we will look at this in a more comprehensive way
+> Rather than just following the above steps, we will look at this comprehensively to understand purpose. Use the steps for reference as needed
 
 A PingFederate Admin/Console will import a `data.json` on startup if it finds it in `instance/bulk-config/data.json`. 
 
@@ -129,8 +130,41 @@ The variablized `data.json.subst` is now a good candidate to for commiting to so
 
 ### Additional Notes
 
-- The bulk api export is intended to be used as aa _bulk_ import. The `/bulk/import` endpoint is destructive and overwrites the entire current admin config.
+- The bulk api export is intended to be used as a _bulk_ import. The `/bulk/import` endpoint is destructive and overwrites the entire current admin config.
 - If you are in a clustered environment, the pingfederate image will import the `data.json` and also replicate the configuration to engines in the cluster. 
 
 
 ## Config Archive Profiles
+
+### Comparing Profile Methods
+Configuration Archive based profiles have some pros/cons to weigh when compared to bulk api export profiles. You will find bulk api export profiles to be more advantageous in most scenarios besides devops principle purists.
+
+Pros:
+
+- The `/data` folder, opposed to a `data.json` file, is better for [profile layering](profilesLayered.md)
+- Configuration is available on engines at startup. This:
+  - lowers dependency on the admin at initial cluster startup
+  - enables mixed configurations in a single cluster. Canary-like "roll-out" instead of config pushed to all engines at once.
+
+Cons:
+
+- The `/data` folder contains key pairs in a `.jks` so externally managing keys is very difficult. 
+- encrypted data is scattered throughout the folder creating dependency on the master encryption key. 
+
+### What You'll Do
+
+A summary of the resulting process: 
+1. Export a `data.zip`
+2. Optionally, variablize
+3. Replace data folder
+
+<!-- 1. Export a configuration archive. 
+This can be done through the UI `System > Server > Configuration Archive`
+Or via Admin API: 
+  ```
+  curl -u administrator:2FederateM0re -H "X-XSRF-Header: PingFederate" -k https://pingfederate-admin.com/pf-admin-api/v1/configArchive/export --output "${HOME}/Downloads/data.zip" 
+  ```
+
+  ```
+  unzip -d data /path/to/data.zip
+  ``` -->
