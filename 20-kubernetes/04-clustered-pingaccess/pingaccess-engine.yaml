@@ -37,6 +37,13 @@ spec:
       - name: init
         image: curlimages/curl:latest
         command: ['sh', '-c', 'until curl --connect-timeout 1 --silent -k https://pingaccess-admin:9000 ; do echo waiting for admin ; sleep 3 ; done']
+        resources:
+          limits:
+            cpu: 50m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
       containers:
       - name: pingaccess
         image: pingidentity/pingaccess:edge
