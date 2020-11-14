@@ -11,13 +11,14 @@ Having a replicated PingDirectory topology across multiple kubernetes clusters i
 PingIdentity PingDirectory Docker Images abstract away much of the complexity of replication initialization scripts, even across clusters. Instead, the focus is on 
 providing accessible DNS hostnames across clusters and environment variables to build ordinal hostnames for each Directory instance. 
 
-### What you will do
+### Contents
 
-- First understand what PingDirectory containers look for in order to create the replication topology.
-- Then determine the variables needed to create your hostnames
-- Additional variables for use-case flexibility
-- Walk through what happens when a cluster starts
-- Then look at the reference deployment examples for ideas on what may work best in your infrastructure. 
+1. [PingDirectory container keys to success](#pingdirectory-host-naming)
+1. [Draft Hostnames](#variables-to-create-hostnames) - determine the variables needed to create your hostnames
+1. [Additional variables](#environment-variables) - for use-case flexibility
+1. [Cluster startup background](#cluster-startup-walkthrough) -Walk through what happens when a cluster starts
+1. [Design infrastructure to match hostnames](#reference-modes-of-deployment) - based on your infrastructure constraints, you may need to alter your hostname plans. Use these reference examples to help. 
+1. Test the Deployment - use the `11-replication-timing` folder to test replication speeds
 
 Because details within each Kubernetes cluster are well-hidden from outside the cluster, external access to each pod within the cluster is required. The PingDirectory images will set up access to each of the pods using load-balancers from an external host, to allow each pod to communicate over the LDAP and replication protocols.
 
@@ -168,14 +169,19 @@ If you think about this, it starts to make sense why horizontal scaling of direc
 ## Reference Modes of Deployment
 
 There are multiple types of deployments that have been tested because of various infrastructure constraints. There will be discussed here.
+The example files in `09-multi-k8s-pingdirectory` show that the biggest key is having a way to provide an accessible hostname to all the other pods. In most examples this is done by creating a service name and using `statefulset.kubernetes.io/pod-name` as the selector to isolate one pod. 
 
 ### Multi-cluster Simulations
+
+These are examples for demo environments to get a feel for what a multi-region deployment looks like.
+
 #### Single Namespace
 
-`20-kubernetes/09-multi-k8s-pingdirectory/single-namespace`
-This is the simplest example. It's good to just see what logs on a cross-cluster topology look likea
+`20-kubernetes/09-multi-k8s-pingdirectory/01-single-namespace`
+This is the least constrained example. It's good to just see what logs on a cross-cluster topology look likea
 - relies only on dns names that kubernetes provides. 
 - All traffic is in one namespace so it should have no network constraints. 
+
 
 ```
 kubectl apply -f 01-west.yaml
@@ -187,15 +193,36 @@ kubectl apply -f 01-west.yaml
 kubectl apply -f 02-east.yaml
 ```
 
+> note, logs with [stern](https://github.com/wercker/stern) look better. `brew install stern`
 
-> note, stern makes viewing logs so much easier. `stern pingdirectory`
+watch the logs
+```
+stern pingdirectory
+```
+or
+```
+kubectl logs -f -l role=pingdirectory 
+```
+
+Once the all the instances are up and running, you should see something similar to:
+![single-ns-cluster-logs](images/pd-multi-single-ns.png)
 
 #### Single Cluster Multiple Namespaces
 
-`20-kubernetes/09-multi-k8s-pingdirectory/single-cluster-two-namespaces`
+`20-kubernetes/09-multi-k8s-pingdirectory/02-single-cluster-two-namespaces`
 
 This example can be used when you only have one cluster available for testing
 
+The files in this example are templates and expect namespaces to be added. 
+
+```
+export NAMESPACE_1=<west-namespace>
+export NAMESPACE_2=<east-namespace>
+envsubst < 03-multi-cluster-dns/01-west.yaml | kubectl apply -f -
+envsubst < 03-multi-cluster-dns/02-east.yaml | kubectl apply -f -
+```
+
+Then watch logs. 
 
 ### VPC Peered K8s Clusters
 
@@ -205,11 +232,36 @@ These example should be possible in most kubernetes providers as long as you can
 
 Consider the [eks peering config](./deployK8s-AWS.md) example if you want to test this. 
 
+#### Using External DNS Names
 
+![pd-multi-dns-diagrams](images/pd-multi-dns-diagram.png)
 
+`20-kubernetes/09-multi-k8s-pingdirectory/03-multi-cluster-dns`
+This example uses [headless services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) instead of regular clusterIp services. This is necessary in a VPC peered environment because typically the route-tables and ip ranges you've peered correspond to container ip addresses, not service addresses. If you were to use clusterIp addresses, the instances may, unexpectedly, not have network connectivity to each other. 
+The headless services use externalDNS to dynamically add records to the DNS provider (example, Route53)
 
+This example likely requires some more care, you'll want to sift through the yamls to understand what is going on. 
+
+Once the example is stood up, you will see logs similar to: 
+
+![pd-multi-dns-logs](images/pd-multi-dns-logs.png)
+
+### Without VPC peering
+
+Some organizations do not allow VPC peering, or similar networking functions. Or, there may be no way to create external hostnames on clusterIp services. Here are some examples that may help. 
+
+#### Using NodePorts
+
+In a scenario where you do not have VPC peering, or must create external DNS names manually, it may be beneficial to use NodePorts.
+
+To do this: 
+- use the `20-kubernetes/09-multi-k8s-pingdirectory/03-multi-cluster-dns` example as reference
+- make the pod-selector services NodePort services instead of clusterIp. 
+- optionally remove the external name, and create a routable dns name. If these names are being manually, then create the services and assign names before starting the statefulset. 
 
 ### Single load-balancer
+
+> The following examples are for extremely constrained environments, where traffic must go out through an external loadbalancer. For many purposes, these can be considered deprecated. Doing replication through loadbalancers should be avoided when possible. 
 
 Here's a diagram of how a single load-balancer can be used:
 
