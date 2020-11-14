@@ -11,7 +11,7 @@ Having a replicated PingDirectory topology across multiple kubernetes clusters i
 PingIdentity PingDirectory Docker Images abstract away much of the complexity of replication initialization scripts, even across clusters. Instead, the focus is on 
 providing accessible DNS hostnames across clusters and environment variables to build ordinal hostnames for each Directory instance. 
 
-### Contents
+### What You'll Do
 
 1. [PingDirectory container keys to success](#pingdirectory-host-naming)
 1. [Draft Hostnames](#variables-to-create-hostnames) - determine the variables needed to create your hostnames
@@ -205,6 +205,7 @@ kubectl logs -f -l role=pingdirectory
 ```
 
 Once the all the instances are up and running, you should see something similar to:
+
 ![single-ns-cluster-logs](images/pd-multi-single-ns.png)
 
 #### Single Cluster Multiple Namespaces
