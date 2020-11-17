@@ -5,7 +5,7 @@ This directory contains scripts and deployment files to help with the deployment
 ## Prerequisites
 
 * You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* You've created a Kubernetes cluster on AKS. 
+* You've created a Kubernetes cluster on AKS.
 * You've created a Kubernetes secret using your DevOps credentials. See the *For Kubernetes* topic in [Using your DevOps user and key](devopsUserKey.md).
 * You've downloaded and installed the [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli).
 
@@ -45,19 +45,19 @@ We also highly recommend you are familiar with the information in these AKS arti
 4. From your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory, start our fullstack example in AKS. Enter:
 
    ```bash
-   ./setup -u fullstack
+   kustomize build . | kubectl apply -f -
    ```
 
 5. To display the status of the environment, enter:
 
    ```bash
-   ./status
+   kubectl get all
    ```
 
 6. To clean up the environment, enter:
 
    ```bash
-   ./cleanup -u fullstack
+   kustomize build . | kubectl delete -f -
    ```
 
 7. To clean up the Azure Resource Group and all associated resources, including the AKS cluster created, enter:
