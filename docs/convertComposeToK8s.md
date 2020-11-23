@@ -6,14 +6,14 @@
 
 * Access to a Kuberenetes cluster or namespace.
 
-* You've installed [`kompose`](https://kompose.io/). 
+* You've installed [`kompose`](https://kompose.io/).
 
 * You've installed the [`ping-devops`](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil) utility.
 
 * You've created your Kubernetes secret using the `ping-devops` utility. For example
-    
+
     ```shell
-    ping-devops generate devops-secret > devops-secret.yaml
+    ping-devops generate devops-secret | kubectl apply -f -
     ```
     You'll use this file for all of the Docker Compose orchestrations you want to convert.
 
@@ -29,7 +29,7 @@ I use a set of files in Compose stacks - you'll need the following:
 
 * (Optional) `postman_vars.json` (If you're using `PingConfigurator` with API Collections - [Customer360](https://github.com/pingidentity/Customer360) / [Workforce360](https://github.com/pingidentity/Workforce360))
 
-Put all the files above into a folder and run:  
+Put all the files above into a folder and run:
 `kompose convert -f {{folder}}/docker-compose.yaml --volumes configMap`
 
 This should generate a bunch of yamls that describe the Kubernetes `services` and `deployments`
@@ -85,7 +85,7 @@ The list of API Collections being executed can be seen modified on this line (th
 ```
 
 ### Ingress Controllers
-In order to get access into the Kubernetes services, Ingress Controllers need to be defined.  
+In order to get access into the Kubernetes services, Ingress Controllers need to be defined.
 ![Kubernetes - Ingress Controllers](PingSolutions-K8s-Deployments.png)
 
 A standard Ingress Controller is used to grant access to the Ping Admin consoles:
@@ -102,7 +102,7 @@ A standard Ingress Controller is used to grant access to the Ping Admin consoles
 
 [Ingress Controller - Ping Admin Consoles](pingadminconsoles-ingress.yaml)
 
-Another Ingress Controller is used to send all **client** traffic to the PingAccess Service:  
+Another Ingress Controller is used to send all **client** traffic to the PingAccess Service:
 
 [Ingress Controller - Ping Access](pingaccess-ingress.yaml)
 
@@ -116,7 +116,7 @@ Another Ingress Controller is used to send all **client** traffic to the PingAcc
 To see how the deployment is progressing:
 
 | Command | What it does |
-| ----- | ----- | 
+| ----- | ----- |
 | `kubectl get pods` | Gets the list of Pods in the deployment |
 | `kubectl logs -f pod/{{pod}}` | Get the logs from a Pod |
 | `kubectl logs -f service/{{service}}` | Get the logs from the Service (this is easier) |
