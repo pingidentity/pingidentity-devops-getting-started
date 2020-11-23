@@ -6,10 +6,10 @@ This example is an extension of the topic *Orchestrate a replicated PingDirector
 
 ## Overview
 
-Having a replicated PingDirectory topology across multiple kubernetes clusters is desired for highly-availabile active/active deployments as well as active/partial-active scenarios where a hot backup is expected. 
+Having a replicated PingDirectory topology across multiple kubernetes clusters is desired for highly-availabile active/active deployments as well as active/partial-active scenarios where a hot backup is expected.
 
-PingIdentity PingDirectory Docker Images abstract away much of the complexity of replication initialization scripts, even across clusters. Instead, the focus is on 
-providing accessible DNS hostnames across clusters and environment variables to build ordinal hostnames for each Directory instance. 
+PingIdentity PingDirectory Docker Images abstract away much of the complexity of replication initialization scripts, even across clusters. Instead, the focus is on
+providing accessible DNS hostnames across clusters and environment variables to build ordinal hostnames for each Directory instance.
 
 ### What You'll Do
 
@@ -17,14 +17,14 @@ providing accessible DNS hostnames across clusters and environment variables to 
 1. [Draft Hostnames](#variables-to-create-hostnames) - determine the variables needed to create your hostnames
 1. [Additional variables](#environment-variables) - for use-case flexibility
 1. [Cluster startup background](#cluster-startup-walkthrough) -Walk through what happens when a cluster starts
-1. [Design infrastructure to match hostnames](#reference-modes-of-deployment) - based on your infrastructure constraints, you may need to alter your hostname plans. Use these reference examples to help. 
+1. [Design infrastructure to match hostnames](#reference-modes-of-deployment) - based on your infrastructure constraints, you may need to alter your hostname plans. Use these reference examples to help.
 1. Test the Deployment - use the `11-replication-timing` folder to test replication speeds
 
 Because details within each Kubernetes cluster are well-hidden from outside the cluster, external access to each pod within the cluster is required. The PingDirectory images will set up access to each of the pods using load-balancers from an external host, to allow each pod to communicate over the LDAP and replication protocols.
 
 ## PingDirectory Host-naming
 
-The most important aspect of a successful PingDirectory cross-cluster deployment assigning accessible and logical dns hostnames. 
+The most important aspect of a successful PingDirectory cross-cluster deployment assigning accessible and logical dns hostnames.
 Rules:
 1. Each pingdirectory needs it's own hostname avaialable in DNS
 2. hostname will have a space for the ordinal representing the instance in the statefulset
@@ -33,7 +33,7 @@ Rules:
 These rules still leave plenty of room for flexibility. Especially when accounting for cluster-native DNS names Kubernetes creates.
 
 ### Single-cluster Multiple-namespace
-For example, if you were to simulate a "multi-cluster" environment in a single cluster, you could just set up two namespaces and create a separate ClusterIP service for each directory. It would env up like so: 
+For example, if you were to simulate a "multi-cluster" environment in a single cluster, you could just set up two namespaces and create a separate ClusterIP service for each directory. It would env up like so:
 
 **Primary Cluster**
 
@@ -70,7 +70,7 @@ In a Prod Environment with external hostnames it may look more like:
 
 ## Variables to Create Hostnames
 
-To provide flexibility on how PingDirectory will find other instances, a full dns hostname is broken into multiple variables. 
+To provide flexibility on how PingDirectory will find other instances, a full dns hostname is broken into multiple variables.
 
 | Variable | Required | Description |
 |---|:---:|---|
@@ -78,7 +78,7 @@ To provide flexibility on how PingDirectory will find other instances, a full dn
 | `K8S_POD_HOSTNAME_SUFFIX` |     | The string used as the suffix for all pod host names.  Defaults to `K8S_CLUSTER`. |
 | `K8S_SEED_HOSTNAME_SUFFIX` |     | The string used as the suffix for all seed host names.  Defaults to `K8S_SEED_CLUSTER` (discussed later). |
 
-A full hostname is created like: 
+A full hostname is created like:
 ```
 ${K8S_POD_HOSTNAME_PREFIX}<instance-ordinal>${K8S_SEED_HOSTNAME_SUFFIX}
 ```
@@ -141,35 +141,35 @@ These environment variable settings would map out like this:
 Yes, that was a _ton_ of variable conversation.
 This is done to for flexibility to accomodate various infrastructure constraints. For example, in some environments you cannot use the same port for each instance, so we must accommodate incrementing ports.
 
-Next, it's helpful to know what happens when a cluster starts, to understand why the initial creation of a cluster must be very prescriptive. 
+Next, it's helpful to know what happens when a cluster starts, to understand why the initial creation of a cluster must be very prescriptive.
 
-1. The first pod must start on it's own and become healthy. This is critical to prevent replication islands. The very first time the very first pod starts, we call it "GENESIS". All other pods are dependent on this `SEED_POD` in the `SEED_CLUSTER` starting correctly on it's own. The entire purpose of defining `SEED_POD` and `SEED_CLUSTER` variables is avoid multiple genesis scenarios. 
+1. The first pod must start on it's own and become healthy. This is critical to prevent replication islands. The very first time the very first pod starts, we call it "GENESIS". All other pods are dependent on this `SEED_POD` in the `SEED_CLUSTER` starting correctly on it's own. The entire purpose of defining `SEED_POD` and `SEED_CLUSTER` variables is avoid multiple genesis scenarios.
 
-> Since we are deploying a statefulset, you can deploy the entire first cluster at once. Statefulsets create one pod in the number of replicas at a time. 
+> Since we are deploying a statefulset, you can deploy the entire first cluster at once. Statefulsets create one pod in the number of replicas at a time.
 
-1. once the first pod is healthy, it begins dns querying combinations of hostnames at their LDAPS port to find another Directory instance. 
+1. once the first pod is healthy, it begins dns querying combinations of hostnames at their LDAPS port to find another Directory instance.
 
-In our first cluster, this would be the hostname of pingdirectory-1. but it could also be pingdirectory-0 of another cluster. Once the query returns successful, creation of the replication topology automatically begins. 
+In our first cluster, this would be the hostname of pingdirectory-1. but it could also be pingdirectory-0 of another cluster. Once the query returns successful, creation of the replication topology automatically begins.
 
-1. From this point onward, the order in which instances start is less important. 
+1. From this point onward, the order in which instances start is less important.
 
 
 ### Note on Replication Traffic
 
-It may not always be clear what truly happens during "replication". Though it is partially proprietary, you can think of it like so: 
+It may not always be clear what truly happens during "replication". Though it is partially proprietary, you can think of it like so:
 
-1. A modify request arrives at one pod. 
+1. A modify request arrives at one pod.
 
-1. The corresponding Directory instance, say pingdirectory-0, makes the change locally, and tracks the change in the changelog. 
+1. The corresponding Directory instance, say pingdirectory-0, makes the change locally, and tracks the change in the changelog.
 
-1. Then it broadcasts the change out to all other instances with the time of change. This request is added to a message queue of sorts on the other instances and processed in order. 
+1. Then it broadcasts the change out to all other instances with the time of change. This request is added to a message queue of sorts on the other instances and processed in order.
 
-If you think about this, it starts to make sense why horizontal scaling of directories isn't something to be taken lightly. 
+If you think about this, it starts to make sense why horizontal scaling of directories isn't something to be taken lightly.
 
 ## Reference Modes of Deployment
 
 There are multiple types of deployments that have been tested because of various infrastructure constraints. There will be discussed here.
-The example files in `09-multi-k8s-pingdirectory` show that the biggest key is having a way to provide an accessible hostname to all the other pods. In most examples this is done by creating a service name and using `statefulset.kubernetes.io/pod-name` as the selector to isolate one pod. 
+The example files in `09-multi-k8s-pingdirectory` show that the biggest key is having a way to provide an accessible hostname to all the other pods. In most examples this is done by creating a service name and using `statefulset.kubernetes.io/pod-name` as the selector to isolate one pod.
 
 ### Multi-cluster Simulations
 
@@ -179,8 +179,8 @@ These are examples for demo environments to get a feel for what a multi-region d
 
 `20-kubernetes/09-multi-k8s-pingdirectory/01-single-namespace`
 This is the least constrained example. It's good to just see what logs on a cross-cluster topology look likea
-- relies only on dns names that kubernetes provides. 
-- All traffic is in one namespace so it should have no network constraints. 
+- relies only on dns names that kubernetes provides.
+- All traffic is in one namespace so it should have no network constraints.
 
 
 ```
@@ -201,7 +201,7 @@ stern pingdirectory
 ```
 or
 ```
-kubectl logs -f -l role=pingdirectory 
+kubectl logs -f -l role=pingdirectory
 ```
 
 Once the all the instances are up and running, you should see something similar to:
@@ -214,7 +214,7 @@ Once the all the instances are up and running, you should see something similar 
 
 This example can be used when you only have one cluster available for testing
 
-The files in this example are templates and expect namespaces to be added. 
+The files in this example are templates and expect namespaces to be added.
 
 ```
 export NAMESPACE_1=<west-namespace>
@@ -223,46 +223,46 @@ envsubst < 03-multi-cluster-dns/01-west.yaml | kubectl apply -f -
 envsubst < 03-multi-cluster-dns/02-east.yaml | kubectl apply -f -
 ```
 
-Then watch logs. 
+Then watch logs.
 
 ### VPC Peered K8s Clusters
 
-These example should be possible in most kubernetes providers as long as you can: 
+These example should be possible in most kubernetes providers as long as you can:
 - give external dns names to clusterIP services
 - have replication and ldaps ports peered (open) between clusters
 
-Consider the [eks peering config](./deployK8s-AWS.md) example if you want to test this. 
+Consider the [eks peering config](./deployK8s-AWS.md) example if you want to test this.
 
 #### Using External DNS Names
 
 ![pd-multi-dns-diagrams](images/pd-multi-dns-diagram.png)
 
 `20-kubernetes/09-multi-k8s-pingdirectory/03-multi-cluster-dns`
-This example uses [headless services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) instead of regular clusterIp services. This is necessary in a VPC peered environment because typically the route-tables and ip ranges you've peered correspond to container ip addresses, not service addresses. If you were to use clusterIp addresses, the instances may, unexpectedly, not have network connectivity to each other. 
+This example uses [headless services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) instead of regular clusterIp services. This is necessary in a VPC peered environment because typically the route-tables and ip ranges you've peered correspond to container ip addresses, not service addresses. If you were to use clusterIp addresses, the instances may, unexpectedly, not have network connectivity to each other.
 The headless services use externalDNS to dynamically add records to the DNS provider (example, Route53)
 
-This example likely requires some more care, you'll want to sift through the yamls to understand what is going on. 
+This example likely requires some more care, you'll want to sift through the yamls to understand what is going on.
 
-Once the example is stood up, you will see logs similar to: 
+Once the example is stood up, you will see logs similar to:
 
 ![pd-multi-dns-logs](images/pd-multi-dns-logs.png)
 
 ### Without VPC peering
 
-Some organizations do not allow VPC peering, or similar networking functions. Or, there may be no way to create external hostnames on clusterIp services. Here are some examples that may help. 
+Some organizations do not allow VPC peering, or similar networking functions. Or, there may be no way to create external hostnames on clusterIp services. Here are some examples that may help.
 
 #### Using NodePorts
 
 In a scenario where you do not have VPC peering, or must create external DNS names manually, it may be beneficial to use NodePorts.
 
-To do this: 
+To do this:
 - use the `20-kubernetes/09-multi-k8s-pingdirectory/03-multi-cluster-dns` example as reference
-- make the pod-selector services NodePort services instead of clusterIp. 
-- optionally remove the external name, and create a routable dns name. If these names are being manually, then create the services and assign names before starting the statefulset. 
+- make the pod-selector services NodePort services instead of clusterIp.
+- optionally remove the external name, and create a routable dns name. If these names are being manually, then create the services and assign names before starting the statefulset.
 
 ### Single load-balancer
 
-> The following examples are for extremely constrained environments, where traffic must go out through an external loadbalancer. For many purposes, these can be considered deprecated. Doing replication through loadbalancers should be avoided when possible. 
+> The following examples are for extremely constrained environments, where traffic must go out through an external loadbalancer. For many purposes, these can be considered deprecated. Doing replication through loadbalancers should be avoided when possible.
 
 Here's a diagram of how a single load-balancer can be used:
 
@@ -433,9 +433,9 @@ example deployment across 3 clusters in AWS EKS:
 * eu-west-1
 
 First, deploy the nginx services and configmap for the example.  This will allow
-the services to be reached by the nginx controller via an AWS Network Load 
+the services to be reached by the nginx controller via an AWS Network Load
 Balancer (nlb).  You must run these with a aws/kubernetes profile allowing for
-apply into the `ingress-nginx-public` namespace.  Also, be aware that there may 
+apply into the `ingress-nginx-public` namespace.  Also, be aware that there may
 already be other definitions found.  You may need to merge.
 
 ```
@@ -443,7 +443,7 @@ already be other definitions found.  You may need to merge.
   kubectl apply -f nginx-tcp-services.yaml
 ```
 
-The `cluster.sh` script will create the .yaml necessary to deploy a set of Ping 
+The `cluster.sh` script will create the .yaml necessary to deploy a set of Ping
 Directory instances in each cluster and replication between.
 
 ```
@@ -485,12 +485,12 @@ Replace `your-cluster-name` with the name use are using.  Using the cluster name
    ./cluster.sh delete --cluster us-east-2 --context your-cluster-name --dry-run
 ```
 
-This will create a .yaml called `ouptut-us-east-2.yaml`.  
+This will create a .yaml called `ouptut-us-east-2.yaml`.
 
 Next, ensure that your `devops-secret` and `tls-secret` are created.
 
 ```
-  ping-devops generate devops-secret | kubectl create -f -
+  ping-devops generate devops-secret | kubectl apply -f -
   ping-devops generate tls-secret ping-devops.com | kubectl create -f -
 ```
 
