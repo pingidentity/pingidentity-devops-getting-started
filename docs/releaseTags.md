@@ -150,7 +150,8 @@ The available operating systems for a container are:
 * Centos: [centos](https://hub.docker.com/_/centos)
 
 Some examples:
-```
+
+```bash
 pingaccess:alpine-edge
 pingaccess:ubuntu-latest
 pingfederate:1909-centos
@@ -160,16 +161,18 @@ Each of these tags references a specific operating system, and specific base rel
 
 ### `{{productVersion}}`-`{{operatingSystem}}`
 
-The format is: `{{product}}:{{productVersion}-{{operatingSystem}}-{{baseTag}}`.
+The format is: `{{product}}:{{productVersion}}-{{operatingSystem}}-{{baseTag}}`.
 
 > The order of `{{operatingSystem}}-{{baseTag}}` is important and slightly different depending on the base release tag.
 
 Some examples:
-```
+
+```bash
 pingaccess:5.3.0-alpine-edge
 pingaccess:5.3.0-ubuntu-latest
 pingfederate:1909-centos-5.3.0
 ```
+
 Each of these tags reference a specific operating system, product version and base tag.
 
 Another example:

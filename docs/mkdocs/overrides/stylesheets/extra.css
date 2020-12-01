@@ -5,57 +5,56 @@
 
 .md-header {
     /* Top white bar */
-    background-color: #ffffff;
-    height: 92px;
+    background-color: #3e4547;
+    height: 62px;
     color: white;
-    padding-top: 7px;
+    padding-top: 6px;
 }
 
 .md-tabs {
     /* Horizontal menu bar */
-    background-color: #7093a9;
+    background-color: #3e4547;
 }
 
 .md-header-nav__title,
 .md-search,
 .md-header-nav__source {
     /* Header top padding (excludes logo) */
-    padding-top: 18px;
+    padding-top: 3px;
 }
 
 .md-header-nav__button.md-logo {
     /* Ping Identity logo */
     background-image: url('https://www.pingidentity.com/content/dam/ping-6-2-assets/topnav-json-configs/Ping-Logo.svg');
-    width: 70px;
-    height: 70px;
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
 }
 
 .md-header-nav__ellipsis.md-ellipsis,
 .md-header-nav__topic.md-ellipsis {
     /* Site title */
-    color: #262626;
-    font-size: 170%;
-    font-family: "proxima-nova", helvetica, arial, sans-serif;
+    color: #FFFFFF;
+    font-size: 110%;
 }
 
 .md-source__repository {
     /* Repository text color */
-    color: #262626;
+    color: #FFFFFF;
 }
 
 .md-source__icon {
     /* Github icon color */
-    color: #474f51;
+    color: #FFFFFF;
 }
 
-.md-search__input:hover {
+.md-search__input {
     /* Search box hover background color */
     background-color: #babbbb;
 }
 
-.md-search__input {
+.md-search__input:hover {
     background-color: #c4c8c9;
-    /* background-color: #ebf4f7; */
 }
 
 .md-nav__item .md-nav__link--active {
@@ -78,7 +77,6 @@
 .md-typeset a:hover {
     /* Hyperlink link color */
     color: #d02735;
-    /* font-weight: bold; */
 }
 
 .md-tabs__link--active {
@@ -88,7 +86,7 @@
 
 .md-footer-nav {
     /* Footer navigation background */
-    background-color: #263746
+    background-color: #616161
 }
 
 .md-footer-meta.md-typeset {
@@ -104,4 +102,10 @@
 .highlight .m {
     /* Code highlight color */
     color: #1c1b1b
+}
+
+.md-header-nav__button.md-icon {
+    /* Menu hamburger icon */
+    color: #FFFFFF;
+    padding-top: 10px;
 }
