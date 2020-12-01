@@ -2,16 +2,19 @@ site_name: Ping Identity DevOps
 repo_name: pingidentity/pingidentity-devops-getting-started
 repo_url: https://github.com/pingidentity/pingidentity-devops-getting-started
 site_url: https://devops.pingidentity.com/
+extra_css:
+  - mkdocs/overrides/stylesheets/extra.css
 
 theme:
   name: material
+  custom_dir: docs/mkdocs/overrides
 
   features:
     - navigation.tabs
     - instant
 
   palette:
-    scheme: preference
+   # scheme: preference
     primary: indigo
     accent: blue
 
@@ -32,18 +35,9 @@ markdown_extensions:
       permalink: " ¶"
 
 nav:
-  - Ping Identity DevOps: "README.md"
-  - Release Notes:
-      - Current: "relnotes-2010.md"
-      - Version 2009: "relnotes-2009.md"
-      - Version 2008: "relnotes-2008.md"
-      - Version 2007: "relnotes-2007.md"
-      - Version 2006: "relnotes-2006.md"
-      - Version 2005: "relnotes-2005.md"
-      - Version 2004: "relnotes-2004.md"
-      - Version 2003: "relnotes-2003.md"
-  - Overview: "overview.md"
-  - Get started:
+  - DEVOPS @ PING: "README.md"
+  - OVERVIEW: "overview.md"
+  - GET STARTED:
       - Introduction: "getStarted.md"
       - DevOps registration: "devopsRegistration.md"
       - Deploy an example stack: "getStartedWithGitRepo.md"
@@ -51,7 +45,7 @@ nav:
       - Using your DevOps user and key: "devopsUserKey.md"
       - Using an existing product license: "existingLicense.md"
       - Saving your configuration changes: "saveConfigs.md"
-  - Working with DevOps images:
+  - WORKING WITH IMAGES:
       - Introduction: "deploy.md"
       - Build a Docker product image locally: "buildLocal.md"
       - Deploy standalone containers: "deployStandalone.md"
@@ -87,7 +81,7 @@ nav:
               - Deploy to Azure Kubernetes Service: "deployK8s-AKS.md"
               - Sizing Kubernetes clusters: "k8sClusterSizing.md"
           - Deploy Hashicorp Vault: "deployVault.md"
-  - Customizing deployments:
+  - CUSTOMIZING:
       - Introduction: "config.md"
       - Server profile anatomy:
           - Introduction: "containerAnatomy.md"
@@ -106,7 +100,7 @@ nav:
       - Using Hashicorp Vault: "usingVault.md"
       - Securing the containers: "secureContainers.md"
       - Evaluation of Docker base image security: "dockerImageSecurity.md"
-      - Adding a message of the day (MOTD": "addMOTD.md"
+      - Adding a message of the day (MOTD): "addMOTD.md"
       - Managing deployments:
           - Introduction: "manage.md"
           - Upgrading PingFederate: "upgradePingfederate.md"
@@ -135,9 +129,18 @@ nav:
           - PingCommon: "docker-images/pingcommon/README.md"
           - PingDataCommon: "docker-images/pingdatacommon/README.md"
           - Apache JMeter: "docker-images/apache-jmeter/README.md"
+  - RELEASE NOTES:
+      - Current: "relnotes-2010.md"
+      - Version 2009: "relnotes-2009.md"
+      - Version 2008: "relnotes-2008.md"
+      - Version 2007: "relnotes-2007.md"
+      - Version 2006: "relnotes-2006.md"
+      - Version 2005: "relnotes-2005.md"
+      - Version 2004: "relnotes-2004.md"
+      - Version 2003: "relnotes-2003.md"
 
-  - License](LICENSE.md"
-  - Disclaimer](DISCLAIMER.md"
-  - Third-Party software](3RD_PARTY_SOFTWARE.md"
-  - Contributing](CONTRIBUTING.md"
+  - LICENSE: LICENSE.md
+  - DISCLAIMER: DISCLAIMER.md
+  - THIRD-PARTY SOFTWARE: 3RD_PARTY_SOFTWARE.md
+  - CONTRIBUTING: CONTRIBUTING.md
 

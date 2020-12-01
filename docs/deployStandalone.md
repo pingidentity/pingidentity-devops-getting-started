@@ -18,8 +18,8 @@ You can use the list of [getting-started server-profiles](https://github.com/pin
 ## Deploy a single container
 
 1. Use the `docker run` command to deploy a container. For example:
-   
-    ```bash
+
+    ```shell
     docker run -d --publish 9876:9999 \
       --name pingfederate \
       --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \

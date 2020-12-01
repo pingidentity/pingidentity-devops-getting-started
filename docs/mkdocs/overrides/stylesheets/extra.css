@@ -1,0 +1,107 @@
+.md-typeset h1 {
+    /* H1 header color */
+    color: #B8232F
+}
+
+.md-header {
+    /* Top white bar */
+    background-color: #ffffff;
+    height: 92px;
+    color: white;
+    padding-top: 7px;
+}
+
+.md-tabs {
+    /* Horizontal menu bar */
+    background-color: #7093a9;
+}
+
+.md-header-nav__title,
+.md-search,
+.md-header-nav__source {
+    /* Header top padding (excludes logo) */
+    padding-top: 18px;
+}
+
+.md-header-nav__button.md-logo {
+    /* Ping Identity logo */
+    background-image: url('https://www.pingidentity.com/content/dam/ping-6-2-assets/topnav-json-configs/Ping-Logo.svg');
+    width: 70px;
+    height: 70px;
+}
+
+.md-header-nav__ellipsis.md-ellipsis,
+.md-header-nav__topic.md-ellipsis {
+    /* Site title */
+    color: #262626;
+    font-size: 170%;
+    font-family: "proxima-nova", helvetica, arial, sans-serif;
+}
+
+.md-source__repository {
+    /* Repository text color */
+    color: #262626;
+}
+
+.md-source__icon {
+    /* Github icon color */
+    color: #474f51;
+}
+
+.md-search__input:hover {
+    /* Search box hover background color */
+    background-color: #babbbb;
+}
+
+.md-search__input {
+    background-color: #c4c8c9;
+    /* background-color: #ebf4f7; */
+}
+
+.md-nav__item .md-nav__link--active {
+    /* Selected left side menu item */
+    color: #B8232F;
+    font-weight: bold;
+}
+
+.md-nav__item .md-nav__link:hover {
+    /* Left side menu hover link color */
+    color: #B8232F;
+}
+
+.md-typeset a {
+    /* Hyperlink link color */
+    color: #B8232F;
+    word-break: break-word;
+}
+
+.md-typeset a:hover {
+    /* Hyperlink link color */
+    color: #d02735;
+    /* font-weight: bold; */
+}
+
+.md-tabs__link--active {
+    /* Left menu font */
+    font-weight: bold;
+}
+
+.md-footer-nav {
+    /* Footer navigation background */
+    background-color: #263746
+}
+
+.md-footer-meta.md-typeset {
+    /* MKDocs footer background color */
+    background-color: #262626;
+}
+
+.md-clipboard.md-icon:hover {
+    /* Copy to clipboard hover color */
+    color: #d02735
+}
+
+.highlight .m {
+    /* Code highlight color */
+    color: #1c1b1b
+}
