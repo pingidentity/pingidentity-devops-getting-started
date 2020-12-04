@@ -7,8 +7,8 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 * [Docker](https://docs.docker.com/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/) (included with Docker Desktop on Mac and Windows)
 * Your terminal configuration is set to use the Bash shell.
-  
-  > With Apple macOS Catalina, the Z shell (zsh) is the default shell, rather than Bash. To set your default terminal shell to Bash, enter: `chsh -s /bin/bash`. 
+
+  > With Apple macOS Catalina, the Z shell (zsh) is the default shell, rather than Bash. To set your default terminal shell to Bash, enter: `chsh -s /bin/bash`.
 
 * You've installed the [ping-devops utility](pingDevopsUtil.md#installation).
 
@@ -60,9 +60,9 @@ You'll need a product license to run our Docker images. You can use either:
 
 5. To start one of the containers or stacks, enter:
 
-    ```shell
-    ping-devops docker start <name>
-    ```
+   ```shell
+   ping-devops docker start <name>
+   ```
 
    Where &lt;name&gt; is one of the listed container or stack names.
 
@@ -72,15 +72,15 @@ You'll need a product license to run our Docker images. You can use either:
 
    To stop the container or stack, enter:
 
-    ```shell
-    ping-devops docker stop <name>
-    ```
+   ```shell
+   ping-devops docker stop <name>
+   ```
 
-    To remove the container or stack and all associated data, enter
+   To remove the container or stack and all associated data, enter
 
-    ```shell
-    ping-devops docker rm  <name>
-    ```
+   ```shell
+   ping-devops docker rm  <name>
+   ```
 
 ## Next step
 

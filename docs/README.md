@@ -6,15 +6,15 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
 * **Streamlined deployments**
 
-  Deploy and run workloads on our solutions without the need for additional hardware or VMs.
+    Deploy and run workloads on our solutions without the need for additional hardware or VMs.
 
 * **Consistent and flexible**
 
-  Maintain all configurations and dependencies, ensuring consistent environments. Containers are portable and can be used on nearly any machine.
+    Maintain all configurations and dependencies, ensuring consistent environments. Containers are portable and can be used on nearly any machine.
 
 * **Optimized sizing**
 
-  Orchestration of containers allows organizations to increase fault tolerance, availability, and better manage costs by auto-scaling to application demand.
+    Orchestration of containers allows organizations to increase fault tolerance, availability, and better manage costs by auto-scaling to application demand.
 
 ## Overview
 

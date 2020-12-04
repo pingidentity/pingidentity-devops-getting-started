@@ -166,7 +166,7 @@ The `/opt/in` directory overlays files onto the products runtime filesystem, the
 
 Sample docker run command with mounted license:
 
-```bash
+```shell
 docker run \
     --name pingfederate \
     --volume <local/path/to/pingfederate.lic>:/opt/in/instance/server/default/conf/pingfederate.lic
@@ -175,8 +175,8 @@ docker run \
 
 Sample docker-compose.yaml with mounted license:
 
-```bash
-version: "3.1"
+```shell
+version: "2.4"
 services:
   pingfederate:
     image: pingidentity/pingfederate:edge
@@ -188,13 +188,13 @@ services:
 
 Create a Kubernetes secret from the license file
 
-```bash
+```shell
 kubectl create secret generic pingfederate-license --from-file=./pingfederate.lic
 ```
 
 Then mount it to the pod
 
-```bash
+```shell
 spec:
   containers:
   - name: pingfederate

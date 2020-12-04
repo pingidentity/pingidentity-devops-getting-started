@@ -13,21 +13,21 @@ If you have an existing, valid product license for the product or products you'l
 Use either of these two methods to make an existing product license file available to your deployment:
 
 * Copy each license file to the server profile location associated with the product. The default server profile locations are:
-  - PingFederate: `instance/server/default/conf/pingfederate.lic`
-  - PingAccess: `instance/conf/pingaccess.lic`
-  - PingDirectory: `instance/PingDirectory.lic`
-  - PingDataGovernance: `instance/PingDataGovernance.lic`
-  - PingDataGovernance PAP: `instance/PingDataGovernance.lic`
-  - PingDataSync: `instance/PingDirectory.lic`
-  - PingCentral: `instance/conf/pingcentral.lic`
+  * PingFederate: `instance/server/default/conf/pingfederate.lic`
+  * PingAccess: `instance/conf/pingaccess.lic`
+  * PingDirectory: `instance/PingDirectory.lic`
+  * PingDataGovernance: `instance/PingDataGovernance.lic`
+  * PingDataGovernance PAP: `instance/PingDataGovernance.lic`
+  * PingDataSync: `instance/PingDirectory.lic`
+  * PingCentral: `instance/conf/pingcentral.lic`
 
 * Use the instructions in any of these subtopics:
 
-  - [License declarations for stacks](#license-declarations-for-stacks) to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
+  * [License declarations for stacks](#license-declarations-for-stacks) to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
 
-  - [License declarations for standalone containers](#license-declarations-for-standalone-containers) when bringing up standalone containers.
+  * [License declarations for standalone containers](#license-declarations-for-standalone-containers) when bringing up standalone containers.
 
-  - [Passing a license as a Kubernetes secret](#passing-a-license-as-a-kubernetes-secret) to use an existing license with Kubernetes.
+  * [Passing a license as a Kubernetes secret](#passing-a-license-as-a-kubernetes-secret) to use an existing license with Kubernetes.
 
 ## License declarations for stacks
 
@@ -39,9 +39,7 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
     ```yaml
     pingfederate:
-    .
-    .
-    .
+    ...
     volumes:
       - <path>/pingfederate.lic:/opt/in/instance/server/default/conf/pingfederate.lic
     ```
@@ -53,32 +51,32 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
     The mount paths must match the expected license path for the product. These mount paths are:
 
     * PingFederate
-      - Expected license file name: `pingfederate.lic`
-      - Mount path: `/opt/in/instance/server/default/conf/pingfederate.lic`
+      * Expected license file name: `pingfederate.lic`
+      * Mount path: `/opt/in/instance/server/default/conf/pingfederate.lic`
 
     * PingAccess
-      - Expected license file name: `pingaccess.lic`
-      - Mount path: `/opt/in/instance/conf/pingaccess.lic`
+      * Expected license file name: `pingaccess.lic`
+      * Mount path: `/opt/in/instance/conf/pingaccess.lic`
 
     * PingDirectory
-      - Expected License file name: `PingDirectory.lic`
-      - Mount path: `/opt/in/instance/PingDirectory.lic`
+      * Expected License file name: `PingDirectory.lic`
+      * Mount path: `/opt/in/instance/PingDirectory.lic`
 
     * PingDataSync
-      - Expected license file name: `PingDirectory.lic`
-      - Mount path: `/opt/in/instance/PingDirectory.lic`
+      * Expected license file name: `PingDirectory.lic`
+      * Mount path: `/opt/in/instance/PingDirectory.lic`
 
     * PingDataGovernance
-      - Expected license file name: `PingDataGovernance.lic`
-      - Mount path: `/opt/in/instance/PingDataGovernance.lic`
+      * Expected license file name: `PingDataGovernance.lic`
+      * Mount path: `/opt/in/instance/PingDataGovernance.lic`
 
     * PingDataGovernance PAP
-      - Expected license file name: `PingDataGovernance.lic`
-      - Mount path: `/opt/in/instance/PingDataGovernance.lic`
+      * Expected license file name: `PingDataGovernance.lic`
+      * Mount path: `/opt/in/instance/PingDataGovernance.lic`
 
     * PingCentral
-      - Expected license file name: `pingcentral.lic`
-      - Mount path: `/opt/in/instance/conf/pingcentral.lic`
+      * Expected license file name: `pingcentral.lic`
+      * Mount path: `/opt/in/instance/conf/pingcentral.lic`
 
  3. Repeat this process for the remaining container entries for which you have an existing license.
 
@@ -158,7 +156,7 @@ You'll find the YAML files for this example in your local `pingidentity-devops-g
        type: Opaque
    ```
 
-   The \<pingfederate-license> value must match the \<pingfederate-license> `secretName` value you specified in `pingfederate.yaml`.
+   The `<pingfederate-license>` value must match the `<pingfederate-license>` `secretName` value you specified in `pingfederate.yaml`.
 
 7. Deploy your license. In your working directory, enter:
 
