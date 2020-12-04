@@ -2,7 +2,7 @@
 
 We enable DevOps professionals, administrators and developers with tools, frameworks, blueprints and reference architectures to deploy Ping Identity software in the cloud.
 
-## Why Ping Identity solutions for DevOps?
+## Benefits of DevOps
 
 * **Streamlined deployments**
 
@@ -20,18 +20,14 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
 See [Overview](overview.md) for descriptions of the components of our DevOps architecture and repositories.
 
-## Get started
+## Get Started
 
 See [Get started](getStarted.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
 
-## Contact us
+## Contact Us
 
 If you find functionality missing that you believe may be of benefit to other Ping Identity customers:
 
 * Log a [GitHub Issue](https://github.com/pingidentity/pingidentity-devops-getting-started/issues)
 * Ask a question on our [Cloud DevOps Community](https://support.pingidentity.com/s/topic/0TO1W000000IF8fWAG/cloud-devops-community)
 * Create a Ping Identity [Support Case](https://support.pingidentity.com/s/)
-
-## Copyright
-
-Copyright © 2020 Ping Identity. All rights reserved.

@@ -36,53 +36,53 @@ markdown_extensions:
       permalink: " ¶"
 
 nav:
-  - DEVOPS @ PING: "README.md"
-  - OVERVIEW: "overview.md"
-  - GET STARTED:
+  - DevOps @ Ping: "README.md"
+  - Overview: "overview.md"
+  - Get Started:
       - Introduction: "getStarted.md"
-      - DevOps registration: "devopsRegistration.md"
-      - Deploy an example stack: "getStartedWithGitRepo.md"
-      - DevOps product licenses: "PROD-LICENSE.md"
-      - Using your DevOps user and key: "devopsUserKey.md"
-      - Using an existing product license: "existingLicense.md"
-      - Saving your configuration changes: "saveConfigs.md"
-  - WORKING WITH IMAGES:
+      - Devops Registration: "devopsRegistration.md"
+      - Deploy Example Stack: "getStartedWithGitRepo.md"
+      - Devops Product Licenses: "prodLicense.md"
+      - Using Your Devops User and Key: "devopsUserKey.md"
+      - Using Existing Product License: "existingLicense.md"
+      - Saving Your Configuration Changes: "saveConfigs.md"
+  - Working With Images:
       - Introduction: "deploy.md"
-      - Build a Docker product image locally: "buildLocal.md"
-      - Deploy standalone containers: "deployStandalone.md"
+      - Build a Docker Product Image Locally: "buildLocal.md"
+      - Deploy Standalone Containers: "deployStandalone.md"
       - Orchestrate with Docker-Compose:
           - Introduction: "deployCompose.md"
-          - Deploy a PingFederate and PingDirectory stack: "deploySimpleStack.md"
-          - Deploy a replicated PingDirectory pair: "deployReplication.md"
-          - Deploy PingDirectory with data synchronization using PingDataSync: "deploySync.md"
+          - Deploy a PingFederate and PingDirectory Stack: "deploySimpleStack.md"
+          - Deploy a Replicated PingDirectory Pair: "deployReplication.md"
+          - Deploy PingDirectory with Data Synchronization Using PingDataSync: "deploySync.md"
           - Deploy PingCentral: "deployPingCentral.md"
-          - Deploy a PingFederate cluster: "deployPfCluster.md"
-          - Deploy a PingAccess cluster: "deployPaCluster.md"
+          - Deploy a PingFederate Cluster: "deployPfCluster.md"
+          - Deploy a PingAccess Cluster: "deployPaCluster.md"
           - Deploy PingDataGovernance with PAP: "deployPdgPap.md"
-          - Deploy a monitoring stack: "deployMonitoringStack.md"
-          - Deploy an Elasticsearch SIEM stack: "deploySiemStack.md"
+          - Deploy a Monitoring Stack: "deployMonitoringStack.md"
+          - Deploy an Elasticsearch SIEM Stack: "deploySiemStack.md"
       - Orchestrate with Kubernetes:
           - Introduction: "deployK8s.md"
           - Deploy with PingIdentiy Helm Charts: "deployHelm.md"
-          - PingDirectory deployments across Kubernetes clusters: "deployK8sPD-clusters.md"
-          - Kubernetes deployments for general use:
+          - PingDirectory Deployments Across Kubernetes Clusters: "deployK8sPD-clusters.md"
+          - Kubernetes Deployments For General Use:
               - Introduction: "deployK8sGeneral.md"
-              - Orchestrate standalone deployments: "deployK8sStandalone.md"
-              - Orchestrate a full stack deployment: "deployK8sFullstack.md"
-              - Orchestrate a replicated PingDirectory deployment: "deployK8sReplicated.md"
-              - Orchestrate a PingAccess cluster deployment: "deployK8sPA-cluster.md"
-              - Orchestrate a PingFederate cluster deployment: "deployK8sPF-cluster.md"
+              - Orchestrate Standalone Deployments: "deployK8sStandalone.md"
+              - Orchestrate a Full Stack Deployment: "deployK8sFullstack.md"
+              - Orchestrate a Replicated PingDirectory Deployment: "deployK8sReplicated.md"
+              - Orchestrate a PingAccess Cluster Deployment: "deployK8sPA-cluster.md"
+              - Orchestrate a PingFederate Cluster Deployment: "deployK8sPF-cluster.md"
               - Deploy PingFederate Across Multiple Kubernetes Clusters:
                   - Introduction: "deployK8sPFclusters.md"
                   - PingFederate Across Kubernetes with DNS: "deployPFMultiRegionDNS.md"
                   - PingFederate Across Kubernetes with S3: "deployPFMultiRegionAWS.md"
-          - Kubernetes deployments for cloud platforms:
+          - Kubernetes Deployments For Cloud Platforms:
               - Introduction: "deployK8sCloud.md"
-              - Deploy Peered EKS clusters: "deployK8s-AWS.md"
+              - Deploy Peered EKS Clusters: "deployK8s-AWS.md"
               - Deploy to Azure Kubernetes Service: "deployK8s-AKS.md"
-              - Sizing Kubernetes clusters: "k8sClusterSizing.md"
+              - Sizing Kubernetes Clusters: "k8sClusterSizing.md"
           - Deploy Hashicorp Vault: "deployVault.md"
-  - CUSTOMIZING:
+  - Customizing:
       - Introduction: "config.md"
       - Server Profiles:
           - Introduction: "containerAnatomy.md"
@@ -129,7 +129,7 @@ nav:
           - PingCommon: "docker-images/pingcommon/README.md"
           - PingDataCommon: "docker-images/pingdatacommon/README.md"
           - Apache JMeter: "docker-images/apache-jmeter/README.md"
-  - RELEASE NOTES:
+  - Release Notes:
       - Current: "relnotes-2010.md"
       - Version 2009: "relnotes-2009.md"
       - Version 2008: "relnotes-2008.md"
@@ -139,8 +139,8 @@ nav:
       - Version 2004: "relnotes-2004.md"
       - Version 2003: "relnotes-2003.md"
 
-  - LICENSE: LICENSE.md
-  - DISCLAIMER: DISCLAIMER.md
-  - THIRD-PARTY SOFTWARE: 3RD_PARTY_SOFTWARE.md
-  - CONTRIBUTING: CONTRIBUTING.md
+  - License: license.md
+  - Disclaimer: disclaimer.md
+  - Third-Party Software: 3rd_party_software.md
+  - Contributing: contributing.md
 
