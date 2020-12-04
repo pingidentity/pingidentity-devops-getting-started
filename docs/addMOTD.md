@@ -1,6 +1,6 @@
-# Adding a message of the day (MOTD)
+# Adding a MOTD
 
-You can create a message of the day JSON file to be used to provide an MOTD file to our product containers when they start.
+You can create a message of the day (MOTD) JSON file to be used to provide an MOTD file to our product containers when they start.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Test the new messages in the `motd.json` file using the `test-motd.sh` script. T
    ```
 
 2. To test the `motd.json` file you created in your server profile directory:
-  
+
    a. Copy the `test-motd.sh` script located in the `pingidentity-devops-getting-started/motd` directory to your server profile directory.
 
    b. Enter:
@@ -38,7 +38,7 @@ Test the new messages in the `motd.json` file using the `test-motd.sh` script. T
 3. To test the `motd.json` with a server profile located in a Github repository:
 
    a. Ensure the `test-motd.sh` script is located in the local, cloned repository.
-   
+
    b. From the local, cloned repository, enter:
 
    ```bash
@@ -59,7 +59,7 @@ The example below shows the messages that will be displayed for all product imag
             "message": ["This is line # 1",
                         "",
                         "This is line # 3",]
-        },     
+        },
         {
             "validFrom": 20190801,
             "validTo": 20190830,
