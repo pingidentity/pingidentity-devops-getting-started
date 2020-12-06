@@ -85,7 +85,7 @@ nav:
   - Customizing:
       - Introduction: "config.md"
       - Server Profiles:
-          - Introduction: "containerAnatomy.md"
+          - Deployment: "containerAnatomy.md"
           - Structure: "profileStructures.md"
           - Customization: "profiles.md"
           - Build Your Own ...: "buildPingFederateProfile.md"
