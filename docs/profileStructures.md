@@ -94,7 +94,7 @@ Example at [getting-started/pingaccess](https://github.com/pingidentity/pingiden
 
 ## Ping Data Products
 
-For the most part, all the Ping Data Products (PingDirectory, PingDataSync, PingDataGovernance, PingDirectoryProxy) are
+The Ping Data Products (PingDirectory, PingDataSync, PingDataGovernance, PingDirectoryProxy)
 follow the same structure for server-profiles.
 
 Example at [getting-started/pingdirectory](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started/pingdirectory).
