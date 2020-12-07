@@ -49,8 +49,9 @@ nav:
   - Working With Images:
       - Introduction: "deploy.md"
       - Build a Docker Product Image Locally: "buildLocal.md"
-      - Deploy Standalone Containers: "deployStandalone.md"
-      - Orchestrate with Docker-Compose:
+      # TODO: Requires rework once image docker run commands are linked
+      #- Deploy Standalone Containers: "deployStandalone.md"
+      - Deploy with Docker-Compose:
           - Introduction: "deployCompose.md"
           - Deploy a PingFederate and PingDirectory Stack: "deploySimpleStack.md"
           - Deploy a Replicated PingDirectory Pair: "deployReplication.md"
@@ -61,7 +62,7 @@ nav:
           - Deploy PingDataGovernance with PAP: "deployPdgPap.md"
           - Deploy a Monitoring Stack: "deployMonitoringStack.md"
           - Deploy an Elasticsearch SIEM Stack: "deploySiemStack.md"
-      - Orchestrate with Kubernetes:
+      - Deploy with Kubernetes:
           - Introduction: "deployK8s.md"
           - Deploy with PingIdentiy Helm Charts: "deployHelm.md"
           - PingDirectory Deployments Across Kubernetes Clusters: "deployK8sPD-clusters.md"

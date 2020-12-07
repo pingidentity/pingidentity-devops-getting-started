@@ -15,7 +15,7 @@ By registering for Ping Identity's DevOps program, you will be issued credential
 * [Server Profile Product License](#server-profile-product-license)
 * [Mount Existing Product License](#mount-existing-product-license)
 
-## Obtaining a Ping Identity DevOps User and Key
+## Obtaining DevOps User and Key
 
 Ping Identity will provide a DevOps Key to any user registered with Ping Identity. You must follow the steps listed below to obtain a Ping Identity DevOps User and Key
 
@@ -62,7 +62,7 @@ are set up to use this property file by default.
 
 For more detail, run the `ping-devops info` to get your DevOps environment information.
 
-### Example with Docker Run Command
+### Example Docker Run Command
 
 An example of running a docker image using the `docker run` command would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
 
@@ -78,7 +78,7 @@ docker run \
            pingidentity/pingdirectory
 ```
 
-### Example with a YAML file
+### Example YAML file
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
 
@@ -94,7 +94,7 @@ An example of running a docker image using any docker .yaml file would look like
 ...
 ```
 
-### Example with .yaml file and inline environment variables
+### Example Inline Env Variables
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
 
