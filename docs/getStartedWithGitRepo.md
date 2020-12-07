@@ -55,38 +55,14 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
 1. Log in to the management consoles for the products:
 
-    * Ping Data Console for PingDirectory
-        * Console URL: `https://localhost:8443/console`
-        * Server: pingdirectory
-        * User: Administrator
-        * Password: 2FederateM0re
-
-    * PingFederate
-        * Console URL: `https://localhost:9999/pingfederate/app`
-        * User: Administrator
-        * Password: 2FederateM0re
-
-    * PingAccess
-        * Console URL: `https://localhost:9000`
-        * User: Administrator
-        * Password: 2FederateM0re
-
-    * Ping Data Console for DataGovernance
-        * Console URL: `https://localhost:8443/console`
-        * Server: pingdatagovernance
-        * User: Administrator
-        * Password: 2FederateM0re
-
-    * PingCentral
-        * Console URL: `https://localhost:9022`
-        * User: Administrator
-        * Password: 2Federate
-
-    * Apache Directory Studio for PingDirectory
-        * LDAP Port: 1636
-        * LDAP BaseDN: dc=example,dc=com
-        * Root Username: cn=administrator
-        * Root Password: 2FederateM0re
+    | Product | URL | Credentials |
+    | --- | --- | --- |
+    | PingFederate | [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app) | <ul> <li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+    | PingDirectory | [https://localhost:8443/console](https://localhost:8443/console) | <ul> <li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+    | PingAccess | [https://localhost:9000](https://localhost:9000) | <ul> <li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+    | PingDataGovernance | [https://localhost:8443/console](https://localhost:8443/console) | <ul> <li>Server: pingdatagovernance</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+    | PingCentral | [https://localhost:9022](https://localhost:9022) | <ul> <li>Username: administrator</li><li>Password: 2Federate</li></ul> |
+    | Apache Directory Studio for PingDirectory | - | <ul> <li>LDAP Port: 1636</li><li>LDAP BaseDN: dc=example,dc=com</li><li>Root Username: cn=administrator</li><li>Root Password: 2FederateM0re</li></ul> |
 
 1. When you no longer want to run the stack, you can either stop or remove the stack.
 

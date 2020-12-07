@@ -50,11 +50,9 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
 1. To view the running instance, log in to PingDirectory using the Ping Data Console:
 
-   * Ping Data Console for PingDirectory
-     * Console URL: `https://localhost:8443/console`
-     * Server: pingdirectory
-     * User: Administrator
-     * Password: 2FederateM0re
+      | Product | URL | Credentials |
+      | --- | --- | --- |
+      | Ping Data Console | [https://localhost:8443/console](https://localhost:8443/console) | <ul><li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
 
 ## Test Deployment
 

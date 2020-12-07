@@ -1,14 +1,14 @@
-# Deploy an Elasticsearch SIEM stack
+# Deploy an Elasticsearch SIEM Stack
 
 This example deploys a PingFederate, PingAccess, and PingDirectory stack with Elasticsearch infrastructure built in for visualizing traffic and other security or log data. The architecture looks like this:
 
 ![alt text](images/Architecture.png "Architecture Overview")
 
-* Threat intel and TOR Endpoints are  provided by AlienVault and the TOR Network Endpoint List. 
+* Threat intel and TOR Endpoints are  provided by AlienVault and the TOR Network Endpoint List.
 
-* Threat feeds are updated on an interval via setting an environment variable in `docker-compose.yaml` .
+* Threat feeds are updated on an interval via setting an environment variable in `docker-compose.yaml`.
 
-> **Warning**: This stack is not intended for production environments.   
+> **Warning**: This stack is not intended for production environments.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 
 1. From the `pingidentity-devops-getting-started` directory, pull the repo to ensure that you have current files:
 
-   ```shell  
+   ```shell
    git pull
    ```
 
@@ -58,10 +58,10 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 1. From the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory, start the stack:
 
    ```shell
-   docker-compose up -d  
+   docker-compose up -d
    ```
 
-   Monitor the container startup using one of these commands: 
+   Monitor the container startup using one of these commands:
 
    ```shell
    docker-compose ps
@@ -71,7 +71,7 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
    docker-compose logs --follow
    ```
 
-2. (Optional) If you're using Slack, and you've already created your Webhook URL (see the optional prerequisite above), you can run the Slack configuration script to configure slack alerts: 
+2. (Optional) If you're using Slack, and you've already created your Webhook URL (see the optional prerequisite above), you can run the Slack configuration script to configure slack alerts:
 
    ```shell
    ./config_slack_alerts
@@ -84,13 +84,13 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 
    You don't need to provide your Webhook URL in the future. If you don't provide it, it simply will not update it.
 
-   You can re-run this script any time. This will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder. 
+   You can re-run this script any time. This will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder.
 
 ## Post-deployment
 
-When PingDirectory is up and healthy: 
+When PingDirectory is up and healthy:
 
-* Kibana console: 
+* Kibana console:
 
   - URL: `https://localhost:5601/`.
   - User name: `es_admin` or `elastic` (local user).
@@ -98,10 +98,10 @@ When PingDirectory is up and healthy:
 
 * Kibana saved objects
 
-  You can load the saved objects by going to "Saved Objects" under the Kibana settings and exporting all. The exported file is saved in `./elasticsearch-siem/kibana_config/kib_base.ndjson`. 
+  You can load the saved objects by going to "Saved Objects" under the Kibana settings and exporting all. The exported file is saved in `./elasticsearch-siem/kibana_config/kib_base.ndjson`.
 
 * Elasticsearch templates for indexes
-  
+
   Index mappings and config are stored in the `./elasticsearch-siem/index_templates` directory. The scripts will load the template or templates when the cluster state is green.
 
 * Logstash pipeline
@@ -119,7 +119,7 @@ There are persistent volumes used for Elasticsearch data and certificates, so yo
 
 ```shell
 docker-compose down
-docker volume prune 
+docker volume prune
 ```
 
 ## Dashboard Examples
@@ -155,7 +155,7 @@ For Log4J, PingDirectory sends logs on 1 Syslog port using a custom mapping.
 
 ![alt text](images/pingdirectory_dashboard.png "PingDirectory Demo Dashboard")
 
-## Included Slack alerts 
+## Included Slack alerts
 
 These can be customized through Watchers:
 

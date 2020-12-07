@@ -60,7 +60,7 @@ nav:
           - Deploy PingFederate Cluster: "deployPfCluster.md"
           - Deploy PingAccess Cluster: "deployPaCluster.md"
           - Deploy PingDataGovernance with PAP: "deployPdgPap.md"
-          - Deploy a Monitoring Stack: "deployMonitoringStack.md"
+          - Deploy Monitoring Stack: "deployMonitoringStack.md"
           - Deploy an Elasticsearch SIEM Stack: "deploySiemStack.md"
       - Deploy with Kubernetes:
           - Introduction: "deployK8s.md"

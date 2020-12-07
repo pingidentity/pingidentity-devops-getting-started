@@ -40,16 +40,10 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
 1. Log in to the management consoles:
 
-   * Ping Data Console for PingDirectory
-     * Console URL: `https://localhost:8443/console`
-     * Server: pingdirectory
-     * User: Administrator
-     * Password: 2FederateM0re
-
-   * PingFederate
-     * Console URL: `https://localhost:9999/pingfederate/app`
-     * User: Administrator
-     * Password: 2FederateM0re
+      | Product | URL | Credentials |
+      | --- | --- | --- |
+      | Ping Data Console | [https://localhost:8443/console](https://localhost:8443/console) | <ul><li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+      | PingFederate | [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app) | <ul><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
 
 1. When you no longer want to run this stack, you can either stop the running stack, or bring the stack down.
 
