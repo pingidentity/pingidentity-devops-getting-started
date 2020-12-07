@@ -47,6 +47,10 @@ To run a PingDataGovernance PAP container in demo mode:
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
            --publish 8443:443 \
            --detach \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingdatagovernancepap:edge
 ```
 
@@ -62,10 +66,15 @@ variables:
 ```
   docker run \
            --name pingdatagovernancepap \
+           --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
            --env PING_OIDC_CONFIGURATION_ENDPOINT=https://my-oidc-provider/.well-known/openid-configuration \
            --env PING_CLIENT_ID=b1929abc-e108-4b4f-83d467059fa1 \
            --publish 8443:443 \
            --detach \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingdatagovernancepap:edge
 ```
 
@@ -106,6 +115,10 @@ For example:
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
            --publish 8443:443 \
            --detach \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingdatagovernancepap:edge
 ```
 

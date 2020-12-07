@@ -50,6 +50,10 @@ To run a PingAccess container:
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingaccess \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingaccess:edge
 ```
 

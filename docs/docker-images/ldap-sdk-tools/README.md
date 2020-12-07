@@ -17,15 +17,15 @@ this image.
 | SHIM  | ${SHIM}  | 
 | PATH  | /opt/tools:${PATH}  | 
 ## List all available tools
-`docker run -it --rm pingidentity/ldap-sdk-tools ls`
+`docker run -it --rm pingidentity/ldap-sdk-tools:edge ls`
 
 ## Use LDAPSearch
 ### Get some help
-`docker run -it --rm pingidentity/ldap-sdk-tools ldapsearch --help`
+`docker run -it --rm pingidentity/ldap-sdk-tools:edge ldapsearch --help`
 
 ### Simple search
 ```Bash
-docker run -it --rm pingidentity/ldap-sdk-tools \
+docker run -it --rm pingidentity/ldap-sdk-tools:edge \
     ldapsearch \
         -b dc=example,dc=com \
         -p 1389 "(objectClass=*)"
@@ -35,7 +35,7 @@ docker run -it --rm pingidentity/ldap-sdk-tools \
 ```Bash
 docker run -it --rm \
     -v /tmp:/opt/out \
-    pingidentity/ldap-sdk-tools \
+    pingidentity/ldap-sdk-tools:edge \
     ldapsearch \
         --baseDN dc=example,dc=com \
         --port 1389 \
@@ -49,7 +49,7 @@ PWD=2FederateM0re
 mkdir -p /tmp/hibp
 docker run -it --rm \
   -v /tmp/hibp:/opt/out \
-  pingidentity/ldap-sdk-tools \
+  pingidentity/ldap-sdk-tools:edge \
   manage-certificates trust-server-certificate \
     --hostname haveibeenpwned.com \
     --port 443 \
