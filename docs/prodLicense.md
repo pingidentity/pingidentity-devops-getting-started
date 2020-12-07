@@ -4,7 +4,10 @@ In order to run the Ping Identity DevOps images, a valid product license is requ
 
 #### Evaluation License
 
-By registering for Ping Identity's DevOps program, you will be issued credentials that will automate the process of retreiving evalution product licensea. Please note that evalution licenses are short lived and should **not** be used in production deployments.
+By registering for Ping Identity's DevOps program, you will be issued credentials that will automate the process of retreiving evalution product license.
+
+!!! warning "Evaluation License"
+    Please note that evaluation licenses are short lived (30 days) and should **not** be used in production deployments.
 
 * [Obtaining a Ping Identity DevOps User and Key](#obtaining-a-ping-identity-devops-user-and-key)
 * [Saving your DevOps User/Key](#saving-your-devops-user-and-key)
@@ -12,7 +15,6 @@ By registering for Ping Identity's DevOps program, you will be issued credential
 
 #### Existing license
 
-* [Server Profile Product License](#server-profile-product-license)
 * [Mount Existing Product License](#mount-existing-product-license)
 
 ## Obtaining DevOps User and Key
@@ -109,17 +111,6 @@ An example of running a docker image using any docker .yaml file would look like
       - PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
 ...
 ```
-
-## Server Profile Product License
-
-You can also use an existing valid product license file the product/version combo you are running, by placing them into the proper directory of your server profile. The default server profile location and file name for each product are as follows:
-
-Note: You do not need to do this if you are using your DevOps User/Key. If you have provided license files as part of your server profile and a DevOps User/Key, it will ignore the DevOps User/Key.
-
-* PingFederate - `instance/server/default/conf/pingfederate.lic`
-* PingAccess - `instance/conf/pingaccess.lic`
-* PingDirectory - `instance/PingDirectory.lic`
-* PingDataSync - `instance/PingDirectory.lic`
 
 ## Mount Existing Product License
 

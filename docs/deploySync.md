@@ -51,7 +51,8 @@ The stack will sync entries from `ou=source,o=sync` to `ou=destination,o=sync` e
 1. In a second window, make a change to the `ou=source,o=sync` tree:
 
       ```text
-      docker container exec -it 04-simple-sync_pingdirectory_1 /opt/out/instance/bin/ldapmodify
+      docker container exec -it 04-simple-sync_pingdirectory_1 \
+      /opt/out/instance/bin/ldapmodify
       dn: uid=user.0,ou=people,ou=source,o=sync
       changetype: modify
       replace: description

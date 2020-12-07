@@ -4,7 +4,8 @@ To save any configuration changes you make when using the products in the stack,
 
 You'll mount a Docker volume location to the Docker `/opt/out` directory for the container. The location must be to a directory you've not already created. Our Docker containers use the `/opt/out` directory to store application data.
 
-> Make sure the local directory is not already created. Docker needs to create this directory for the mount to `/opt/out`.
+!!! warning "Mounting to /opt/out"
+    Make sure the local directory is not already created. Docker needs to create this directory for the mount to `/opt/out`.
 
 You can mount a Docker volume for containers in a stack or for standalone containers.
 
