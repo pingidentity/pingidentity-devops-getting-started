@@ -16,26 +16,26 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
 1. Go to your local `pingidentity-devops-getting-started/11-docker-compose/01-simple-stack` directory. Enter:
 
-      ```bash
-         docker-compose up -d
+      ```sh
+      docker-compose up -d
       ```
 
 1. Check that the containers are healthy and running:
 
-      ```bash
-         docker-compose ps
+      ```sh
+      docker-compose ps
       ```
 
       To display the startup logs:
 
-      ```bash
-         docker-compose logs -f
+      ```sh
+      docker-compose logs -f
       ```
 
       To see the logs for a particular product container at any point, enter:
 
-      ```bash
-         docker-compose logs <product-container-name>
+      ```sh
+      docker-compose logs <product-container-name>
       ```
 
 1. Log in to the management consoles:
@@ -55,12 +55,12 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
       To stop the running stack without removing any of the containers or associated Docker networks, enter:
 
-      ```bash
+      ```sh
       docker-compose stop
       ```
 
       To remove all of the containers and associated Docker networks, enter:
 
-      ```bash
+      ```sh
       docker-compose down
       ```

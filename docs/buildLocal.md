@@ -81,8 +81,8 @@ docker tag [image id] \
 For example:
 
 ```sh
- docker tag a379dffedf13 \
- gcp.io/pingidentity/pingfederate:localbuild
+docker tag a379dffedf13 \
+gcp.io/pingidentity/pingfederate:localbuild
 ```
 
 ![Local Build Image List](images/localbuild_tag.png)

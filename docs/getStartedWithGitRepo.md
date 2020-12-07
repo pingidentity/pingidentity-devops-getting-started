@@ -17,7 +17,7 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
     > The ${PING_IDENTITY_DEVOPS_HOME} environment variable was set when you ran `ping-devops config`.
 
-    ```shell
+    ```sh
     cd ${PING_IDENTITY_DEVOPS_HOME}
     git clone \
       https://github.com/pingidentity/pingidentity-devops-getting-started.git
@@ -31,7 +31,7 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
     1. To start the stack, go to your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
-        ```shell
+        ```sh
         docker-compose up -d
         ```
 
@@ -39,7 +39,7 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
     1. Use this command to display the logs as the stack starts:
 
-        ```shell
+        ```sh
         docker-compose logs -f
         ```
 
@@ -91,12 +91,12 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
     To stop the running stack (doesn't remove any of the containers or associated Docker networks or volumes), enter:
 
-    ```bash
+    ```sh
     docker-compose stop
     ```
 
     To stop the stack and remove all of the containers and associated Docker networks (preservers volumes), enter:
 
-    ```bash
+    ```sh
     docker-compose down
     ```

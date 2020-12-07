@@ -30,14 +30,14 @@ You can mount a Docker volume for containers in a stack or for standalone contai
 
 ## Bind Mounting For a Standalone Container
 
-* Add a `volume` entry to the `docker run` command:
+Add a `volume` entry to the `docker run` command:
 
-      ```bash
-      docker run \
-            --name pingfederate \
-            --volume <local-path>:/opt/out
-            pingidentity/pingfederate:edge
-      ```
+   ```bash
+   docker run \
+      --name pingfederate \
+      --volume <local-path>:/opt/out \
+   pingidentity/pingfederate:edge
+   ```
 
 ## Get Started - Docker Compose Mounts
 

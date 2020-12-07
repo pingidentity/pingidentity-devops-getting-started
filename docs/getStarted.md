@@ -32,9 +32,9 @@ You'll need a product license to run our Docker images. You can use either:
       ping-devops config
       ```
 
-      a. Respond to all Docker configuration questions, accepting the defaults if you're not sure.  You can accept the (empty) defaults for Kubernetes. Settings for custom variables aren't needed initially.
+      1. Respond to all Docker configuration questions, accepting the defaults if you're not sure.  You can accept the (empty) defaults for Kubernetes. Settings for custom variables aren't needed initially.
 
-      b. All of your responses are stored as settings in your local `~/.pingidentity/devops` file. Allow the configuration script to source this file in your shell profile (for example, ~/.bash_profile).
+      1. All of your responses are stored as settings in your local `~/.pingidentity/devops` file. Allow the configuration script to source this file in your shell profile (for example, ~/.bash_profile).
 
 1. To display your DevOps environment settings, enter:
 

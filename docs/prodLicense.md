@@ -1,4 +1,4 @@
-# Obtain and Use Product Licenses
+# DevOps Product Licenses
 
 In order to run the Ping Identity DevOps images, a valid product license is required. There are several ways to obtain a product license to run the images:
 
@@ -47,8 +47,8 @@ Once `ping-devops` is installed and configured it will place your DEVOPS USER/KE
 `~/.pingidentity/devops`.  with the following variable names set (see example below).
 
 ```text
-    PING_IDENTITY_DEVOPS_USER=jsmith@example.com
-    PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
+PING_IDENTITY_DEVOPS_USER=jsmith@example.com
+PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
 ```
 
 You can always view these settings with the `ping-devops info` command after you've configured them.
@@ -66,23 +66,23 @@ For more detail, run the `ping-devops info` to get your DevOps environment infor
 
 An example of running a docker image using the `docker run` command would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
 
-```text
+```sh
 docker run \
-           --name pingdirectory \
-           --publish 1389:389 \
-           --publish 8443:443 \
-           --detach \
-           --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
-           --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
-           --env-file ~/.pingidentity/devops \
-           pingidentity/pingdirectory
+  --name pingdirectory \
+  --publish 1389:389 \
+  --publish 8443:443 \
+  --detach \
+  --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
+  --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
+  --env-file ~/.pingidentity/devops \
+  pingidentity/pingdirectory
 ```
 
 ### Example YAML file
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
 
-```text
+```yaml
 ...
   pingdirectory:
     image: pingidentity/pingdirectory
@@ -98,7 +98,7 @@ An example of running a docker image using any docker .yaml file would look like
 
 An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
 
-```text
+```yaml
 ...
   pingdirectory:
     image: pingidentity/pingdirectory
@@ -167,16 +167,16 @@ The `/opt/in` directory overlays files onto the products runtime filesystem, the
 
 Sample docker run command with mounted license:
 
-```shell
+```sh
 docker run \
-    --name pingfederate \
-    --volume <local/path/to/pingfederate.lic>:/opt/in/instance/server/default/conf/pingfederate.lic
-    pingidentity/pingfederate:edge
+  --name pingfederate \
+  --volume <local/path/to/pingfederate.lic>:/opt/in/instance/server/default/conf/pingfederate.lic
+  pingidentity/pingfederate:edge
 ```
 
 Sample docker-compose.yaml with mounted license:
 
-```shell
+```sh
 version: "2.4"
 services:
   pingfederate:
@@ -189,13 +189,14 @@ services:
 
 Create a Kubernetes secret from the license file
 
-```shell
-kubectl create secret generic pingfederate-license --from-file=./pingfederate.lic
+```sh
+kubectl create secret generic pingfederate-license \
+  --from-file=./pingfederate.lic
 ```
 
 Then mount it to the pod
 
-```shell
+```sh
 spec:
   containers:
   - name: pingfederate

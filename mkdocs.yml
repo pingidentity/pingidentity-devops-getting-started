@@ -40,10 +40,10 @@ nav:
   - Overview: "overview.md"
   - Get Started:
       - Introduction: "getStarted.md"
-      - Devops Registration: "devopsRegistration.md"
+      - DevOps Registration: "devopsRegistration.md"
       - Deploy Example Stack: "getStartedWithGitRepo.md"
-      - Devops Product Licenses: "prodLicense.md"
-      - Using Your Devops User and Key: "devopsUserKey.md"
+      - DevOps Product Licenses: "prodLicense.md"
+      - Using Your DevOps User and Key: "devopsUserKey.md"
       - Using Existing Product License: "existingLicense.md"
       - Saving Your Configuration Changes: "saveConfigs.md"
   - Working With Images:
@@ -55,7 +55,7 @@ nav:
           - Introduction: "deployCompose.md"
           - Deploy a PingFederate and PingDirectory Stack: "deploySimpleStack.md"
           - Deploy a Replicated PingDirectory Pair: "deployReplication.md"
-          - Deploy PingDirectory with Data Synchronization Using PingDataSync: "deploySync.md"
+          - Deploy PingDirectory and PingDataSync: "deploySync.md"
           - Deploy PingCentral: "deployPingCentral.md"
           - Deploy a PingFederate Cluster: "deployPfCluster.md"
           - Deploy a PingAccess Cluster: "deployPaCluster.md"
