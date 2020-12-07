@@ -12,11 +12,11 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 
 ## Prerequisites
 
-* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 * For most Linux distributions (local or on a platform), you'll need to increase the `vm.max_map_count` setting to support the necessary heap size. Enter:
 
-  ```shell
+  ```sh
   sudo sysctl -w vm.max_map_count=262144
   ```
 
@@ -30,71 +30,71 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 
 * If you're using Slack, you can generate a Slack Webhook URL from the Slack Admin for alerting: `https://api.slack.com/messaging/webhooks`.
 
-## Inital setup
+## Instal Setup
 
 1. From the `pingidentity-devops-getting-started` directory, pull the repo to ensure that you have current files:
 
-   ```shell
-   git pull
-   ```
+      ```sh
+      git pull
+      ```
 
-2. Go to the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory.
+1. Go to the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory.
 
-3. Create a `siem.env` file in the `11-siem-stack` directory, and copy these entries into the `siem.env` file:
+1. Create a `siem.env` file in the `11-siem-stack` directory, and copy these entries into the `siem.env` file:
 
-   ```shell
-   COMPOSE_PROJECT_NAME=es
-   ELASTIC_VERSION=7.6.1
+      ```sh
+      COMPOSE_PROJECT_NAME=es
+      ELASTIC_VERSION=7.6.1
 
-   ELASTIC_PASSWORD=2FederateM0re
-   ES_ADMIN_PD_USER_PASS=FederateTheB3st!
+      ELASTIC_PASSWORD=2FederateM0re
+      ES_ADMIN_PD_USER_PASS=FederateTheB3st!
 
-   PING_IDENTITY_DEVOPS_USER=<your-username>
-   PING_IDENTITY_DEVOPS_KEY=<your-key>
-   ```
+      PING_IDENTITY_DEVOPS_USER=<your-username>
+      PING_IDENTITY_DEVOPS_KEY=<your-key>
+      ```
 
-## Deploy the stack
+## Deploy Stack
 
 1. From the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory, start the stack:
 
-   ```shell
-   docker-compose up -d
-   ```
+      ```sh
+      docker-compose up -d
+      ```
 
-   Monitor the container startup using one of these commands:
+      Monitor the container startup using one of these commands:
 
-   ```shell
-   docker-compose ps
-   ```
+      ```sh
+      docker-compose ps
+      ```
 
-   ```shell
-   docker-compose logs --follow
-   ```
+      ```sh
+      docker-compose logs -f
+      ```
 
-2. (Optional) If you're using Slack, and you've already created your Webhook URL (see the optional prerequisite above), you can run the Slack configuration script to configure slack alerts:
+1. (Optional) If you're using Slack, and you've already created your Webhook URL (see the optional prerequisite above), you can run the Slack configuration script to configure slack alerts:
 
-   ```shell
-   ./config_slack_alerts
-   ```
+      ```sh
+      ./config_slack_alerts
+      ```
 
-   The script prompts for your Webhook URL and Elasticsearch password.
+      The script prompts for your Webhook URL and Elasticsearch password.
 
-   * The Webhook URL updates the destination for your alerts within Slack.
-   * The password is used to push watchers into Elasticsearch.
+      * The Webhook URL updates the destination for your alerts within Slack.
+      * The password is used to push watchers into Elasticsearch.
 
-   You don't need to provide your Webhook URL in the future. If you don't provide it, it simply will not update it.
+      You don't need to provide your Webhook URL in the future. If you don't provide it, it simply will not update it.
 
-   You can re-run this script any time. This will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder.
+      You can re-run this script any time. This will update and push new watchers you create from the `./elasticsearch-siem/watchers` folder.
 
-## Post-deployment
+## Post-Deployment
 
 When PingDirectory is up and healthy:
 
 * Kibana console:
 
-  - URL: `https://localhost:5601/`.
-  - User name: `es_admin` or `elastic` (local user).
-  - Password: FederateTheB3st! (the `ES_ADMIN_PD_USER_PASS` value in the `siem.env` file you created).
+  * URL: `https://localhost:5601/`.
+  * User name: `es_admin` or `elastic` (local user).
+  * Password: FederateTheB3st! (the `ES_ADMIN_PD_USER_PASS` value in the `siem.env` file you created).
 
 * Kibana saved objects
 
@@ -106,45 +106,45 @@ When PingDirectory is up and healthy:
 
 * Logstash pipeline
 
-  - TOR Enrichment
-  - Threat Intel (Alien Vault Provided)
-  - GEO IP Lookup
-  - GEO Distance Query (template driven)
-  - Data Parsing
-  - The Logstash pipeline is stored in the directory structure. It includes parsers for all Ping Identity log sources.
+  * TOR Enrichment
+  * Threat Intel (Alien Vault Provided)
+  * GEO IP Lookup
+  * GEO Distance Query (template driven)
+  * Data Parsing
+  * The Logstash pipeline is stored in the directory structure. It includes parsers for all Ping Identity log sources.
 
-## Cleaning up
+## Cleaning Up
 
 There are persistent volumes used for Elasticsearch data and certificates, so you'll also need to clear the volumes when you bring the stack down. Enter:
 
-```shell
+```sh
 docker-compose down
 docker volume prune
 ```
 
 ## Dashboard Examples
 
-### PingFederate Threat Intel dashboard
+### PingFederate Threat Intel Dashboard
 
 ![alt text](images/threat_intel_dash.png "SIEM Dashboard")
 
-### Ping Identity SIEM dashboard
+### Ping Identity SIEM Dashboard
 
 ![alt text](images/dashboard.png "SIEM Dashboard")
 
-### Ping Federate dashboard
+### Ping Federate Dashboard
 
 Audit and System logs are delivered (set to Debug by default). For Log4J, PingFederate sends logs on 2 different Syslog ports using a custom mapping.
 
 ![alt text](images/pingfederate_dashboard.png "PingFederate Basic Demo Dashboard")
 
-### PingAccess dashboard
+### PingAccess Dashboard
 
 Audit and System logs are delivered (set to Debug by default). For Log4J, PingAccess sends logs on 2 different Syslog ports using a custom mapping.
 
 ![alt text](images/pingaccess_dashboard.png "PingAccess Basic Demo Dashboard")
 
-### PingDirectory dashboard
+### PingDirectory Dashboard
 
 Audit logs are being delivered. There are 2 containers that produce load. These are disabled by default. You can uncomment these entries in the `docker-compose.yaml` file to use them:
 
@@ -155,7 +155,7 @@ For Log4J, PingDirectory sends logs on 1 Syslog port using a custom mapping.
 
 ![alt text](images/pingdirectory_dashboard.png "PingDirectory Demo Dashboard")
 
-## Included Slack alerts
+## Included Slack Alerts
 
 These can be customized through Watchers:
 

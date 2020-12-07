@@ -8,7 +8,7 @@ There are tools in this stack to:
 
 * Ping Identity software
 
-**Collect metrics**:
+**Collect Metrics**:
 
 * [Prometheus](https://prometheus.io/)
 * [Alertsmanager](https://github.com/prometheus/alertmanager)
@@ -16,11 +16,11 @@ There are tools in this stack to:
 * [prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
 * [InfluxDB](https://www.influxdata.com/)
 
-**Display metrics**:
+**Display Metrics**:
 
 * [Grafana](https://grafana.com/)
 
-**Generate load**:
+**Generate Load**:
 
 * `pingidentity/ldap-sdk-tools`
 * `pingidentity/apache-jmeter`
@@ -199,7 +199,7 @@ Metrics are displayed at these URLs:
 
 In Grafana, go to Dashboards -> Manage. The pre-populated dashboards with your live load results are displayed.
 
-## Clean Up The Stack
+## Finishing Up
 
 To bring down the stack and remove the data stored in the Docker volumes, enter:
 
