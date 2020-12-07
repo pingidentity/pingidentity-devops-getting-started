@@ -70,9 +70,9 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 1. Log in to the PingFederate administrator console:
 
-    * Console URL: https://localhost:9999/pingfederate/app
-    * User: Administrator
-    * Password: 2FederateM0re
+    | Product | Connection Details |
+    | --- | --- |
+    | [PingFederate](https://localhost:9999/pingfederate/app) | <ul> <li>URL: [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
 
 ## Verify Cluster Status
 

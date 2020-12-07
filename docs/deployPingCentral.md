@@ -48,9 +48,9 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 1. Log in to the management consoles:
 
-   * Console URL: `https://localhost:9022`
-   * User: Administrator
-   * Password: 2Federate
+    | Product | Connection Details |
+    | --- | --- |
+    | [PingCentral](https://localhost:9022) | <ul><li>URL: [https://localhost:9022](https://localhost:9022)</li><li>Username: administrator</li><li>Password: 2Federate</li></ul> |
 
 1. Copy the MySQL database hostkey created on initial startup in `./conf/pingcentral.jwk` to your local `/tmp` directory. You'll need the hostkey in a subsequent step.
 
@@ -68,7 +68,7 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
       docker-compose down
       ```
 
-## Preserve the Database
+## Preserve Database
 
 To preserve any updates to the MySQL database, you need to mount the `./conf/mysql/data` directory to the `/var/lib/mysql` volume. You also need to mount `./conf/pingcentral.jwk` to `/opt/server/conf/pingcentral.jwk` to save the hostkey file created on initial startup of the PingCentral container. You'll need the saved hostkey to access the database.
 
@@ -234,27 +234,27 @@ services:
 
 * Using environment variables
 
-  To enable SSO using environment variables, add `environment` definitions for these environment variables.
+      To enable SSO using environment variables, add `environment` definitions for these environment variables.
 
-  For stacks, add the definitions to the `docker-compose.yml` file. For example:
+      For stacks, add the definitions to the `docker-compose.yml` file. For example:
 
-    ```yaml
-    services:
-      pingcentral:
-        environment:
-          - pingcentral.sso.oidc.enabled=true
-          - pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031
-          - pingcentral.sso.oidc.client-id=ac_oic_client_id
-          - pingcentral.sso.oidc.client-secret=ClientSecretHere
-          - pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
-    ```
+      ```yaml
+      services:
+        pingcentral:
+          environment:
+            - pingcentral.sso.oidc.enabled=true
+            - pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031
+            - pingcentral.sso.oidc.client-id=ac_oic_client_id
+            - pingcentral.sso.oidc.client-secret=ClientSecretHere
+            - pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
+      ```
 
-  For standalone PingCentral containers:
+      For standalone PingCentral containers:
 
-    ```sh
-    docker run --env pingcentral.sso.oidc.enabled=true \
-      --env pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031 \
-      --env pingcentral.sso.oidc.client-id=ac_oic_client_id \
-      --env pingcentral.sso.oidc.client-secret=ClientSecretHere \
-      --env pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
-    ```
+      ```sh
+      docker run --env pingcentral.sso.oidc.enabled=true \
+        --env pingcentral.sso.oidc.issuer-uri=https://pingfedenvironment.ping-eng.com:9031 \
+        --env pingcentral.sso.oidc.client-id=ac_oic_client_id \
+        --env pingcentral.sso.oidc.client-secret=ClientSecretHere \
+        --env pingcentral.sso.oidc.oauth-jwk-set-uri=https://pingfedenvironment.ping-eng.com:9031/ext/oauth/pingcentral/jwks
+      ```

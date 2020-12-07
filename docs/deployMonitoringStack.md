@@ -184,18 +184,16 @@ docker-compose logs -f searchrate
 
 ### Display the Traffic Metrics
 
-Now that you have data:
-
 Metrics are displayed at these URLs:
 
-| Tool | Description | URL | Credentials |
-| --- | --- | --- | --- |
-| Grafana | Data displayed in dashboards. | `http://localhost:3000` | admin / 2FederateM0re |
-| PingDirectory | Raw StatsD data. | `http://localhost:9102/metrics` | administrator / 2FederateM0re |
-| cAdvisor | Container resource metrics. | `http://localhost:8080` | n/a |
-| node-exporter | Raw node metrics. | `http://localhost:9100/metrics` | n/a |
-| alertmanager | Alerts displayed. | `http://localhost:9093/#/alerts` | n/a |
-| Prometheus | To query collected data. | `https://localhost:9090` | n/a |
+| Tool | Description | Connection Details |
+| --- | --- | --- |
+| [Grafana](http://localhost:3000) | Data displayed in dashboards | <ul> <li>URL: [http://localhost:3000](http://localhost:3000)</li><li>Username: admin</li><li>Password: 2FederateMore</li></ul> |
+| [PingDirectory](http://localhost:9102/metrics) | Raw StatsD data | <ul> <li>URL: [http://localhost:9102/metrics](http://localhost:9102/metrics)</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+| [cAdvisor](http://localhost:8080) | Container resource metrics | URL: [http://localhost:8080](http://localhost:8080) |
+| [node-exporter](http://localhost:9100/metrics) | Raw node metrics | URL: [http://localhost:9100/metrics](http://localhost:9100/metrics) |
+| [alertmanager](http://localhost:9093/#/alert) | Alerts displayed | URL: [http://localhost:9093/#/alerts](http://localhost:9093/#/alerts) |
+| [Prometheus](https://localhost:9090) | Query collected data | URL: [https://localhost:9090](https://localhost:9090) |
 
 > The Grafana dashboards correspond to the dashboard definitions in `configs/grafana/provisioning/dashboards`.
 

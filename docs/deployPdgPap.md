@@ -26,16 +26,10 @@ When _all_ of the containers are healthy, you can start testing.
 
 ## Login To The Management Consoles
 
-* PingDataGovernance - Policy Administration Point (PAP)
-    * URL: https://localhost:8443
-    * User: admin
-    * Password: password123
-
-* Ping Data Console
-    * URL: https://localhost:9443/console
-    * Server: pingdirectory
-    * User: administrator
-    * Password: 2FederateM0re
+| Product | Connection Details |
+    | --- | --- |
+    | [Ping Data Console](https://localhost:9443/console) | <ul><li>URL: [https://localhost:9443/console](https://localhost:9443/console)</li><li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+    | [PingDataGovernance PAP](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatagovernance</li><li>Username: admin</li><li>Password: password123</li></ul> |
 
 ## Test Default Use Case
 
@@ -50,18 +44,20 @@ To test this use case:
 
 1. Access the PingDataGovernance server:
 
-   ```sh
-   curl -k 'https://localhost:7443/pd-rest-api/uid=user.1,ou=people,dc=example,dc=com' \
-   --header 'Authorization: Bearer { "active":true,"sub" : "user.1", "clientId":"client1","scope":"ds" }'
-   ```
+      ```sh
+      curl -k 'https://localhost:7443/pd-rest-api/uid=user.1,ou=people,dc=example,dc=com' \
+      --header 'Authorization: Bearer { "active":true,"sub" : "user.1", "clientId":"client1","scope":"ds" }'
+      ```
 
 1. Monitor the logs. To watch a request flow through all of the tools, you can `tail -f` each of these logs:
 
    * PingDataGovernance:
 
-        ```sh
-        docker container exec -it 07-pingdatagovernance_pingdatagovernance_1 tail -f /opt/out/instance/logs/policy-decision
-        ```
+      ```sh
+      docker container exec -it \
+        07-pingdatagovernance_pingdatagovernance_1 \
+        tail -f /opt/out/instance/logs/policy-decision
+      ```
 
       (`Ctrl+c` to exit)
 

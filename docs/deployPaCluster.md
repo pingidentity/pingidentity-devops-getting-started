@@ -45,9 +45,9 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 1. Log in to the PingAccess administrator console:
 
-      * Console URL: https://localhost:9000
-      * User: Administrator
-      * Password: 2FederateM0re
+      | Product | Connection Details |
+      | --- | --- |
+      | [PingAccess](https://localhost:9000) | <ul><li>URL: [https://localhost:9000](https://localhost:9000)</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
 
 ## Verify Cluster Status
 
