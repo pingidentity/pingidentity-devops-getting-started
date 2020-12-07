@@ -1,14 +1,14 @@
-# Using an existing product license
+# Using an Existing Product License
 
 If you have an existing, valid product license for the product or products you'll be running, you can use this instead of the DevOps evaluation license.
 
 ## Prerequisites
 
-* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
-* You've deployed an example stack. See [Deploy an example stack](getStartedWithGitRepo.md).
+* You've deployed an example stack. See [Deploy an Example Stack](getStartedWithGitRepo.md).
 
-## What you'll do
+## What You'Ll Do
 
 Use either of these two methods to make an existing product license file available to your deployment:
 
@@ -23,13 +23,13 @@ Use either of these two methods to make an existing product license file availab
 
 * Use the instructions in any of these subtopics:
 
-  * [License declarations for stacks](#license-declarations-for-stacks) to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
+  * [License Declarations For Stacks](#license-declarations-for-stacks) to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save your configuration changes](saveConfigs.md) for instructions in using local Docker volumes.
 
-  * [License declarations for standalone containers](#license-declarations-for-standalone-containers) when bringing up standalone containers.
+  * [License Declarations For Standalone Containers](#license-declarations-for-standalone-containers) when bringing up standalone containers.
 
-  * [Passing a license as a Kubernetes secret](#passing-a-license-as-a-kubernetes-secret) to use an existing license with Kubernetes.
+  * [Passing a License S a Kubernetes Secret](#passing-a-license-as-a-kubernetes-secret) to use an existing license with Kubernetes.
 
-## License declarations for stacks
+## License Declarations For Stacks
 
 For our Docker stacks, copy each license file to the `/opt/in` volume that you've mounted. The `/opt/in` directory overlays files onto the products runtime file system. The license needs to be named correctly and mounted in the exact location where the product checks for valid licenses.
 
@@ -80,7 +80,7 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
  3. Repeat this process for the remaining container entries for which you have an existing license.
 
-## License declarations for standalone containers
+## License Declarations For Standalone Containers
 
 For a standalone container, use this syntax to make the license file available to the deployment:
 
@@ -93,7 +93,7 @@ For a standalone container, use this syntax to make the license file available t
 
    Where `<path>` and the `/opt/in` mount path are as specified for our Docker stacks above.
 
-## Passing a license as a Kubernetes secret
+## Passing a License as a Kubernetes Secret
 
 We'll use PingFederate as an example. You'll need to supply your PingFederate license file.
 
