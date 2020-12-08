@@ -134,14 +134,14 @@ nav:
           - Adding a MOTD: "addMOTD.md"
           - Build Local Images: "buildLocal.md"
   - Release Notes:
-      - Current: "relnotes-2010.md"
-      - Version 2009: "relnotes-2009.md"
-      - Version 2008: "relnotes-2008.md"
-      - Version 2007: "relnotes-2007.md"
-      - Version 2006: "relnotes-2006.md"
-      - Version 2005: "relnotes-2005.md"
-      - Version 2004: "relnotes-2004.md"
-      - Version 2003: "relnotes-2003.md"
+      - Current: "release-notes/relnotes-2010.md"
+      - Version 2009: "release-notes/relnotes-2009.md"
+      - Version 2008: "release-notes/relnotes-2008.md"
+      - Version 2007: "release-notes/relnotes-2007.md"
+      - Version 2006: "release-notes/relnotes-2006.md"
+      - Version 2005: "release-notes/relnotes-2005.md"
+      - Version 2004: "release-notes/relnotes-2004.md"
+      - Version 2003: "release-notes/relnotes-2003.md"
 
   - License: license.md
   - Disclaimer: disclaimer.md
