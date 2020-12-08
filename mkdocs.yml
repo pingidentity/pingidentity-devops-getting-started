@@ -85,7 +85,7 @@ nav:
           - Deploy Hashicorp Vault: "deployVault.md"
   - Customizing:
       - Introduction: "config.md"
-      - Server Profiles:
+      - Server Profile:
           - Deployment: "containerAnatomy.md"
           - Structure: "profileStructures.md"
           - Customization: "profiles.md"
@@ -93,13 +93,12 @@ nav:
           - Layering: "profilesLayered.md"
           - Env Substitution: "profilesSubstitution.md"
           - Private Github Repos: "privateRepos.md"
+      - Vault/Secrets: "usingVault.md"
       - Customizing YAML files: "yamlFiles.md"
       - Variables and Scope: "variableScoping.md"
       - Using Certificates: "usingCertificates.md"
-      - Using DevOps Hooks: "hooks.md"
       - Using Release Tags: "releaseTags.md"
       - Using Supported Images: "imageSupport.md"
-      - Using Hashicorp Vault: "usingVault.md"
       - Securing the Containers: "secureContainers.md"
       - Eval of DevOps Image Security: "dockerImageSecurity.md"
       - Adding a MOTD: "addMOTD.md"
@@ -130,6 +129,8 @@ nav:
           - PingCommon: "docker-images/pingcommon/README.md"
           - PingDataCommon: "docker-images/pingdatacommon/README.md"
           - Apache JMeter: "docker-images/apache-jmeter/README.md"
+      - Advanced:
+          - DevOps Hooks: "hooks.md"
   - Release Notes:
       - Current: "relnotes-2010.md"
       - Version 2009: "relnotes-2009.md"
