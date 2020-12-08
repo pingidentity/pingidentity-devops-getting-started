@@ -6,16 +6,16 @@ To get started, complete the following steps:
 
 1. Inject your Ping DevOps secrets.  There are a couple of options for injecting a license.
 
-   * Eval License - Use your `PING_IDENTITY_DEVOPS_USER/PING_IDENTITY_DEVOPS_KEY` credentials
+   * Evaluation License - Use your `PING_IDENTITY_DEVOPS_USER/PING_IDENTITY_DEVOPS_KEY` credentials
    along with your `PING_IDENTITY_ACCEPT_EULA` setting.
-     * For more information on obtaining credentials click [here](https://pingidentity-devops.gitbook.io/devops/getstarted/prod-license#obtaining-a-ping-identity-devops-user-and-key).
-     * For more infomration on using `ping-devops` utility click [here](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
+     * For more information on obtaining credentials click [here](prodLicense.md#obtaining-a-ping-identity-devops-user-and-key).
+     * For more information on using `ping-devops` utility click [here](pingDevopsUtil.md).
 
         ```shell
         ping-devops generate devops-secret | kubectl -apply -f -
         ```
 
-2. Install Helm
+1. Install Helm
 
    * Installing on MacOS (or linux with brew)
 
@@ -23,27 +23,27 @@ To get started, complete the following steps:
        brew install helm
        ```
 
-   * Installing on other OS - https://helm.sh/docs/intro/install/
+   * Installing on other OS - [https://helm.sh/docs/intro/install/](https://helm.sh/docs/intro/install/)
 
-3. Add Helm Ping DevOps Repo
+1. Add Helm Ping DevOps Repo
 
     ```shell
     helm repo add pingidentity https://helm.pingidentity.com/devops/
     ```
 
-4. List Ping DevOps Charts
+1. List Ping DevOps Charts
 
     ```shell
     helm search repo pingidentity
     ```
 
-5. Update local machine with latest charts
+1. Update local machine with latest charts
 
     ```shell
     helm repo update
     ```
 
-6. Install a Ping DevOps Chart
+1. Install a Ping DevOps Chart
 
 Install a chart using the `helm install {release} {chart} ...` using the example
 below.  In this case, it is installing a `pingfederate-admin` chart with the release name of
