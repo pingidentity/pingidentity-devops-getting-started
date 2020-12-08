@@ -1,5 +1,6 @@
-# Release notes
-## DevOps Docker builds, version 2004
+# Release Notes
+
+## DevOps Docker Builds, Version 2004
 
 ### New Features
 
@@ -9,37 +10,37 @@
 
 - **PingCentral**
 
-  The PingCentral Docker image is now available. See the [Ping Identity Docker hub](https://hub.docker.com/r/pingidentity/pingcentral).
+      The PingCentral Docker image is now available. See the [Ping Identity Docker hub](https://hub.docker.com/r/pingidentity/pingcentral).
 
 - **Docker Compose**
 
-  We've standardized our Docker Compose references.
+      We've standardized our Docker Compose references.
 
 - **Performance**
 
-  We've built a performance framework.
+      We've built a performance framework.
 
 - **PingFederate version 10.0.2**
 
-  We've updated the PingFederate 10 Docker image for the 10.0.2 release.
+      We've updated the PingFederate 10 Docker image for the 10.0.2 release.
 
 - **The ping-devops utility**
 
-  We've added major enhancements to our ping-devops utility. See [The ping-devops utility](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
+      We've added major enhancements to our ping-devops utility. See [The ping-devops Utility](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
 
 - **PingDirectory replication**
 
-  We've added support for PingDirectory replication using Docker Compose.
+      We've added support for PingDirectory replication using Docker Compose.
 
 - **Variables and scope**
 
-  We've added documentation to help with understanding the effective scope of variables. See [Variables and scope](https://pingidentity-devops.gitbook.io/devops/config/variablescoping).
+      We've added documentation to help with understanding the effective scope of variables. See [Variables and Scope](https://pingidentity-devops.gitbook.io/devops/config/variablescoping).
 
 - **Elasticsearch SIEM stack**
 
-  We've added documentation for our Elasticsearch SIEM stack. See [Deploy an Elasticsearch SIEM stack](https://pingidentity-devops.gitbook.io/devops/deploy/deploycompose/deploysiemstack).
+      We've added documentation for our Elasticsearch SIEM stack. See [Deploy an Elasticsearch SIEM Stack](https://pingidentity-devops.gitbook.io/devops/deploy/deploycompose/deploysiemstack).
 
-### Resolved defects
+### Resolved Defects
 
 - (GDO-1) Resolved issue where users were unable to override root and admin user passwords (PingDirectory).
 - (GDO-129) Removed the console from Ping Data products when the server profile isn't specified.
