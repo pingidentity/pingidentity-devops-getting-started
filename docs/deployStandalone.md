@@ -12,7 +12,7 @@ You can use the list of [getting-started server-profiles](https://github.com/pin
 
 ## Prerequisites
 
-  * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+  * You've already been through [Get started](get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 
 ## Deploy a single container

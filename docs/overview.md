@@ -28,8 +28,8 @@ For configuration management, we use:
 - Shell scripts (hooks) to automate certain operations for a product.
 - Release tags to give you a choice between stable builds or the current (potentially unstable) builds.
 
-By default, our Docker images run as root within the container. For instructions on how to change this, see [Securing the Containers](secureContainers.md).
+By default, our Docker images run as root within the container. For instructions on how to change this, see [Securing the Containers](how-to/secureContainers.md).
 
 ## Licensing
 
-See [Licensing](license.md) for information.
+See [Licensing](LICENSE.md) for information.

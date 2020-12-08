@@ -1,6 +1,6 @@
 # Using Your Devops User and Key
 
-When starting one of our containers, the container will attempt to find the DevOps registration information first in the DevOps property file located in `~/.pingidentity/devops`. This property file was created when you set up the DevOps environment (see [Get Started](getStarted.md). If the DevOps registration information isn't found there, the container will check for environment variables assigned in the `docker run` command for standalone containers or in the YAML file for a stack.
+When starting one of our containers, the container will attempt to find the DevOps registration information first in the DevOps property file located in `~/.pingidentity/devops`. This property file was created when you set up the DevOps environment (see [Get Started](../get-started/getStarted.md). If the DevOps registration information isn't found there, the container will check for environment variables assigned in the `docker run` command for standalone containers or in the YAML file for a stack.
 
 ## Display Your Devops Information
 

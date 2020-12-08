@@ -13,7 +13,7 @@ Note: Configuring failover requires a PingDataSync version of at least 8.2.0.0.
 
 ## Prerequisites
 
-* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get started](get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## Deploy the PingDirectory and PingDataSync stack
 
