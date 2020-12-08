@@ -10,7 +10,7 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
 ## Prerequisites
 
-* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## Deploy Stack
 

@@ -22,7 +22,7 @@ See [Overview](overview.md) for descriptions of the components of our DevOps arc
 
 ## Get Started
 
-See [Get started](getStarted.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
+See [Get Started](getStarted.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
 
 ## Contact Us
 

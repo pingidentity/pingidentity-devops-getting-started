@@ -4,7 +4,7 @@ This use case employs the `pingidentity-server-profiles/baseline/pingcentral` se
 
 ## Prerequisites
 
-* You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get Started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * Either:
   * Clone the [`pingidentity-server-profiles`](https://github.com/pingidentity/pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory.
   * Fork the [`pingidentity-server-profiles`](https://github.com/pingidentity/pingidentity-server-profiles) repository to your Github repository, then clone this repository to a local directory.
