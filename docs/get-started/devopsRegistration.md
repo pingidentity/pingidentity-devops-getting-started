@@ -2,9 +2,6 @@
 
 Registering for our DevOps Program grants you credentials that are supplied to our containers through environment variables. This streamlines license issues by allowing the container to automatically retrieve an evaluation license upon container startup.
 
-!!! warning "Evaluation Licenses Lifespan"
-    Evaluation licenses are short-lived (30 days) and *not* intended for use in production deployments.
-
 To get your DevOps user and key:
 
 1. Create or sign into a Ping Identity [account](https://www.pingidentity.com/en/account/sign-on.html).

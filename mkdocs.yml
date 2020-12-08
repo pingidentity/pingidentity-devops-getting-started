@@ -39,12 +39,12 @@ nav:
   - DevOps @ Ping: "README.md"
   - Overview: "overview.md"
   - Get Started:
-      - Introduction: "getStarted.md"
-      - DevOps Registration: "devopsRegistration.md"
-      - Deploy Example Stack: "getStartedWithGitRepo.md"
-      - DevOps Product Licenses: "prodLicense.md"
-      - Using Your DevOps User and Key: "devopsUserKey.md"
-      - Saving Your Configuration Changes: "saveConfigs.md"
+      - Introduction: "get-started/getStarted.md"
+      - DevOps Registration: "get-started/devopsRegistration.md"
+      - Using Your DevOps User and Key: "get-started/devopsUserKey.md"
+      - DevOps Product Licenses: "get-started/prodLicense.md"
+      #- Saving Your Configuration Changes: "saveConfigs.md"
+      - Deploy Example Stack: "get-started/getStartedWithGitRepo.md"
   - Deployment:
       - Introduction: "deploy.md"
       # TODO: Requires rework once image docker run commands are linked
