@@ -44,7 +44,6 @@ nav:
       - Deploy Example Stack: "getStartedWithGitRepo.md"
       - DevOps Product Licenses: "prodLicense.md"
       - Using Your DevOps User and Key: "devopsUserKey.md"
-      - Using Existing Product License: "existingLicense.md"
       - Saving Your Configuration Changes: "saveConfigs.md"
   - Working With Images:
       - Introduction: "deploy.md"
@@ -83,29 +82,31 @@ nav:
               - Deploy to Azure Kubernetes Service: "deployK8s-AKS.md"
               - Sizing Kubernetes Clusters: "k8sClusterSizing.md"
           - Deploy Hashicorp Vault: "deployVault.md"
-  - Customizing:
-      - Introduction: "config.md"
+  - How To:
+      - Use Existing Licenses: "existingLicense.md"
       - Server Profile:
           - Deployment: "containerAnatomy.md"
-          - Structure: "profileStructures.md"
           - Customization: "profiles.md"
           - Build Your Own ...: "buildPingFederateProfile.md"
           - Layering: "profilesLayered.md"
           - Env Substitution: "profilesSubstitution.md"
           - Private Github Repos: "privateRepos.md"
       - Vault/Secrets: "usingVault.md"
-      - Customizing YAML files: "yamlFiles.md"
-      - Variables and Scope: "variableScoping.md"
-      - Using Certificates: "usingCertificates.md"
-      - Using Release Tags: "releaseTags.md"
-      - Using Supported Images: "imageSupport.md"
       - Securing the Containers: "secureContainers.md"
-      - Eval of DevOps Image Security: "dockerImageSecurity.md"
-      - Adding a MOTD: "addMOTD.md"
-      - Managing Deployments:
+      - Upgrading Deployments:
           - Introduction: "manage.md"
           - Upgrading PingFederate: "upgradePingfederate.md"
           - Upgrading PingDirectory: "upgradePingDirectory.md"
+  - Reference:
+      - Introduction: "config.md"
+      - Server Profile: "profileStructures.md"
+      - Docker Compose YAML: "yamlFiles.md"
+      - Variables and Scope: "variableScoping.md"
+      - Certificates: "usingCertificates.md"
+      - Image Info:
+          - Release Tags: "releaseTags.md"
+          - Using Supported Images: "imageSupport.md"
+          - DevOps Image Security: "dockerImageSecurity.md"
       - Utilities:
           - ping-devops: "pingDevopsUtil.md"
           - ldap-sdk-tools: "ldapsdkUtil.md"
@@ -129,8 +130,9 @@ nav:
           - PingCommon: "docker-images/pingcommon/README.md"
           - PingDataCommon: "docker-images/pingdatacommon/README.md"
           - Apache JMeter: "docker-images/apache-jmeter/README.md"
-      - Advanced:
+      - Advanced Topics:
           - DevOps Hooks: "hooks.md"
+          - Adding a MOTD: "addMOTD.md"
   - Release Notes:
       - Current: "relnotes-2010.md"
       - Version 2009: "relnotes-2009.md"
