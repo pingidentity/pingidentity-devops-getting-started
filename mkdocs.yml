@@ -45,9 +45,8 @@ nav:
       - DevOps Product Licenses: "prodLicense.md"
       - Using Your DevOps User and Key: "devopsUserKey.md"
       - Saving Your Configuration Changes: "saveConfigs.md"
-  - Working With Images:
+  - Deployment:
       - Introduction: "deploy.md"
-      - Build Image Locally: "buildLocal.md"
       # TODO: Requires rework once image docker run commands are linked
       #- Deploy Standalone Containers: "deployStandalone.md"
       - Deploy with Docker-Compose:
@@ -133,6 +132,7 @@ nav:
       - Advanced Topics:
           - DevOps Hooks: "hooks.md"
           - Adding a MOTD: "addMOTD.md"
+          - Build Local Images: "buildLocal.md"
   - Release Notes:
       - Current: "relnotes-2010.md"
       - Version 2009: "relnotes-2009.md"
