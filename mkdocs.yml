@@ -108,7 +108,7 @@ nav:
           - Using Supported Images: "reference/imageSupport.md"
           - DevOps Image Security: "reference/dockerImageSecurity.md"
       - Utilities:
-          - ping-devops: "reference/pingDevopsUtil.md"
+          - ping-devops: "get-started/pingDevopsUtil.md"
           - ldap-sdk-tools: "reference/ldapsdkUtil.md"
       - Troubleshooting: "reference/troubleshooting.md"
       - DevOps Images Reference:
@@ -144,7 +144,7 @@ nav:
       - Version 2004: "release-notes/relnotes-2004.md"
       - Version 2003: "release-notes/relnotes-2003.md"
 
-  - License: LICENSE.md
+  - License: license.md
   - Disclaimer: disclaimer.md
-  - Third-Party Software: 3RD_PARTY_SOFTWARE.md
-  - Contributing: CONTRIBUTING.md
+  - Third-Party Software: 3rd_party_software.md
+  - Contributing: contributing.md

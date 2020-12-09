@@ -32,4 +32,4 @@ By default, our Docker images run as root within the container. For instructions
 
 ## Licensing
 
-See [Licensing](LICENSE.md) for information.
+See [Licensing](license.md) for information.

@@ -10,10 +10,10 @@ We enable DevOps professionals, administrators and developers with tools, framew
         <a class="assetlinks" href="https://hub.docker.com/u/pingidentity" target=”_blank”>Docker Images</a>
     </span>
 </div>
-<div class="banner" onclick="window.open('https://github.com/search?q=topic%3Aping-devops+org%3Apingidentity+fork%3Atrue','');">
+<div class="banner" onclick="window.open('https://github.com/topics/ping-devops','');">
     <img class="assets" src="images/github-logo.png"/>
     <span class="caption">
-        <a class="assetlinks" href="https://github.com/search?q=topic%3Aping-devops+org%3Apingidentity+fork%3Atrue" target=”_blank”>Github Repos</a>
+        <a class="assetlinks" href="https://github.com/topics/ping-devops" target=”_blank”>Github Repos</a>
     </span>
 </div>
 <div class="banner" onclick="window.open('https://support.pingidentity.com/s/topic/0TO1W000000IF30WAG/cloud-devops','');">
@@ -43,7 +43,7 @@ See [Overview](overview.md) for descriptions of the components of our DevOps arc
 
 ## Get Started
 
-See [Get Started](getStarted.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
+See [Get Started](get-started/getStarted.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
 
 ## Contact Us
 
