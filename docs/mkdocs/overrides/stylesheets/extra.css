@@ -109,3 +109,39 @@
     color: #FFFFFF;
     padding-top: 10px;
 }
+
+div.banner {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    width: 30%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 8px 6px -6px black;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+div.banner:hover {
+    border-color: #B8232F;
+    box-shadow: 0 8px 6px -6px #616161;
+}
+
+.caption {
+    display: block;
+}
+
+.assets {
+    height: 105px;
+    width: 105px;
+}
+
+a.assetlinks:visited {
+    color: #B8232F;
+}
