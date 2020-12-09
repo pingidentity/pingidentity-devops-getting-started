@@ -4,7 +4,7 @@ In order to run the Ping Identity DevOps images, a valid product license is requ
 
 #### Evaluation License
 
-By registering for Ping Identity's DevOps program, you will be issued credentials that will automate the process of retreiving evalution product license.
+By registering for Ping Identity's DevOps program, you'll be issued credentials that will automate the process of retrieving evaluation product license.
 
 !!! warning "Evaluation License"
     Please note that evaluation licenses are short lived (30 days) and should **not** be used in production deployments.
