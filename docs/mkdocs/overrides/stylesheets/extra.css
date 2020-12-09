@@ -110,7 +110,8 @@
     padding-top: 10px;
 }
 
-div.banner {
+div.banner,
+div.iconbox {
     vertical-align: top;
     display: inline-block;
     text-align: center;
@@ -125,6 +126,10 @@ div.banner {
     margin-top: 20px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+div.iconbox {
+    margin-bottom: 20px;
 }
 
 div.banner:hover {

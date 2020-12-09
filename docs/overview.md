@@ -6,6 +6,19 @@ When you're ready, begin with our [Get Started](get-started/getStarted.md) guide
 
 ## DevOps Docker Images
 
+<div class="iconbox" onclick="window.open('https://hub.docker.com/u/pingidentity','');">
+    <img class="assets" src="../images/docker-logo.png" />
+    <span class="caption">
+        <a class="assetlinks" href="https://hub.docker.com/u/pingidentity" target=”_blank”>Docker Images</a>
+    </span>
+</div>
+<div class="iconbox">
+    <img class="assets" src="../images/github-logo.png"/>
+    <span class="caption">
+        <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-devops-docker-builds" target=”_blank”>Docker Builds</a>
+    </span>
+</div>
+
 We make available preconfigured Docker Images of our products in Docker containers. Each of our containers is a complete working product instance, immediately usable when deployed. Our Docker stacks are integrated collections of these containers, preconfigured to interoperate with the containers in the stack.
 
 You'll find information about our available Docker Images in the [pingidentity-docker-builds](https://github.com/pingidentity/pingidentity-docker-builds) repository or on our [Docker Hub](https://hub.docker.com/u/pingidentity/) site.
@@ -13,6 +26,13 @@ You'll find information about our available Docker Images in the [pingidentity-d
 The Docker images are automatically pulled from our repository the first time you deploy a product container or orchestrated set of containers. Alternatively, you can pull the images from our [Docker Hub](https://hub.docker.com/u/pingidentity/) site.
 
 ## Deployment Examples
+
+<div class="iconbox">
+    <img class="assets" src="../images/github-logo.png"/>
+    <span class="caption">
+        <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-devops-getting-started" target=”_blank”>DevOps Getting Started</a>
+    </span>
+</div>
 
 We supply examples for deploying our products as standalone containers, as a Docker Compose stack, or as an orchestrated set using Kubernetes.
 
