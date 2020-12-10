@@ -2,7 +2,7 @@
 
 ## Get started
 
-### Examples not working
+### Examples Not Working
 
 One of the most common errors is due to having stale images. Our development is highly dynamic and Docker images can rapidly change. To avoid issues with stale images, you can have Docker pull the latest images by removing all the local. Enter:
 
@@ -20,27 +20,27 @@ Possible solutions:
 
 1. If you have *just* run `./setup` for the first time, make sure you are have done so in a fresh terminal, or have run `source ~/.bash_profile`.
 
-2. If running `echo PING_IDENTITY_DEVOPS_USER` returns nothing in a fresh terminal, it's likely your `~/.bash_profile` file is misconfigured. There are two entries that need to be there:
+1. If running `echo PING_IDENTITY_DEVOPS_USER` returns nothing in a fresh terminal, it's likely your `~/.bash_profile` file is misconfigured. There are two entries that need to be there:
 
-   ```text
-   source <path>/pingidentity-devops-getting-started/bash_profile_devops
-   ```
+      ```text
+      source <path>/pingidentity-devops-getting-started/bash_profile_devops
+      ```
 
-   Where &lt;path&gt; is the full path to the `pingidentity-devops-getting-started` directory. This entry sources our DevOps aliases.
+      Where &lt;path&gt; is the full path to the `pingidentity-devops-getting-started` directory. This entry sources our DevOps aliases.
 
-   There also needs to be another entry for:
+      There also needs to be another entry for:
 
-   ```text
-   sourcePingIdentityFiles
-   ```
+      ```text
+      sourcePingIdentityFiles
+      ```
 
-   This entry sources the Ping Identity file aliases.
+      This entry sources the Ping Identity file aliases.
 
-   Make sure there are not old versions or duplicates of these entries.
+      Make sure there are not old versions or duplicates of these entries.
 
-3. If you are running in Kubernetes, keep in mind that your `PING_IDENTITY_DEVOPS_USER` and key are local variables and need to be [passed as a secret](../how-to/existingLicense.md) in your cluster.
+1. If you are running in Kubernetes, keep in mind that your `PING_IDENTITY_DEVOPS_USER` and key are local variables and need to be [Passed as a Secret](../how-to/existingLicense.md) in your cluster.
 
-### Products unable to get the evaluation license
+### Unable To Retrieve Evaluation License
 
 If a product instance or instances are unable to get the evaluation license, an error similar to this may be generated:
 
@@ -72,20 +72,20 @@ This can be caused by:
 
 1. An invalid DevOps user name or key (as noted in the error). This is usually caused by some issue with the variables being passed in. To verify the variables are available to the shell running (when running Docker commands), enter:
 
-   ```shell
-   echo $PING_IDENTITY_DEVOPS_USER $PING_IDENTITY_DEVOPS_KEY
-   ```
+      ```shell
+      echo $PING_IDENTITY_DEVOPS_USER $PING_IDENTITY_DEVOPS_KEY
+      ```
 
-2. A bad Docker image. Pull the Docker image again to verify.
+1. A bad Docker image. Pull the Docker image again to verify.
 
-3. Network connectivity to the license server is blocked. To test this, from the machine that is running the container, enter:
+1. Network connectivity to the license server is blocked. To test this, from the machine that is running the container, enter:
 
-   ```shell
-   curl -k https://license.pingidentity.com/devops/v2/license
-   ```
+      ```shell
+      curl -k https://license.pingidentity.com/devops/v2/license
+      ```
 
-   If the license server isn't accessible, an error similar to this is returned:
+      If the license server isn't accessible, an error similar to this is returned:
 
-   ```shell
-   { "error":"missing devops-user header" }%
-   ```
+      ```shell
+      { "error":"missing devops-user header" }
+      ```

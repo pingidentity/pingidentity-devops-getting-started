@@ -40,7 +40,7 @@ nav:
   - Overview: "overview.md"
   - Get Started:
       - Introduction: "get-started/getStarted.md"
-      - ping-devops Tool: "get-started/pingDevopsUtil.md"
+      - ping-devops Utility: "get-started/pingDevopsUtil.md"
       - DevOps Registration: "get-started/devopsRegistration.md"
       - Using Your DevOps User and Key: "get-started/devopsUserKey.md"
       - DevOps Product Licenses: "get-started/prodLicense.md"
@@ -108,7 +108,7 @@ nav:
           - Using Supported Images: "reference/imageSupport.md"
           - DevOps Image Security: "reference/dockerImageSecurity.md"
       - Utilities:
-          - ping-devops: "get-started/pingDevopsUtil.md"
+          #- ping-devops: "reference/pingDevopsUtil.md"
           - ldap-sdk-tools: "reference/ldapsdkUtil.md"
       - Troubleshooting: "reference/troubleshooting.md"
       - DevOps Images Reference:

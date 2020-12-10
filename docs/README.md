@@ -16,24 +16,30 @@ We enable DevOps professionals, administrators and developers with tools, framew
         <a class="assetlinks" href="https://github.com/topics/ping-devops" target=”_blank”>Github Repos</a>
     </span>
 </div>
+<div class="banner" onclick="window.open('https://helm.pingidentity.com','');">
+    <img class="assets" src="images/helm-logo.png"/>
+    <span class="caption">
+        <a class="assetlinks" href="https://helm.pingidentity.com" target=”_blank”>Helm Charts</a>
+    </span>
+</div>
 <div class="banner" onclick="window.open('https://support.pingidentity.com/s/topic/0TO1W000000IF30WAG/cloud-devops','');">
     <img class="assets" src="images/ping-logo.png"/>
     <span class="caption">
-        <a class="assetlinks" href="https://support.pingidentity.com/s/topic/0TO1W000000IF30WAG/cloud-devops" target=”_blank”>DevOps Community</a>
+        <a class="assetlinks" href="https://support.pingidentity.com/s/topic/0TO1W000000IF30WAG/cloud-devops" target=”_blank”>Community</a>
     </span>
 </div>
 
 ## Benefits of DevOps
 
-* **Streamlined deployments**
+* **Streamlined Deployments**
 
     Deploy and run workloads on our solutions without the need for additional hardware or VMs.
 
-* **Consistent and flexible**
+* **Consistent and Flexible**
 
     Maintain all configurations and dependencies, ensuring consistent environments. Containers are portable and can be used on nearly any machine.
 
-* **Optimized sizing**
+* **Optimized Sizing**
 
     Orchestration of containers allows organizations to increase fault tolerance, availability, and better manage costs by auto-scaling to application demand.
 

@@ -118,7 +118,7 @@ div.iconbox {
     border-style: solid;
     border-width: 1px;
     border-color: black;
-    width: 30%;
+    width: 20%;
     padding-top: 10px;
     padding-bottom: 10px;
     box-shadow: 0 8px 6px -6px black;
@@ -130,6 +130,7 @@ div.iconbox {
 
 div.iconbox {
     margin-bottom: 20px;
+    width: 30%;
 }
 
 div.banner:hover {

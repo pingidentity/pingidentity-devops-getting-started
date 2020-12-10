@@ -2,7 +2,7 @@
 
 Each of the Docker images use a server profile structure that is specific to each product.
 The structure (directory paths and data) of the server profile differs between products.
-Depending on how you [deploy your server profile](../how-to/containerAnatomy.md), it is will be pulled/mounted
+Depending on how you [Deploy Your Server Profile](../how-to/containerAnatomy.md), it is will be pulled/mounted
 into `/opt/in` on the container and used to stage your deployment.
 
 Below, you will find the server profile structures for each of our products with some example usages.
@@ -120,5 +120,5 @@ Example at [getting-started/pingdirectory](https://github.com/pingidentity/pingi
     ```
 
     Follow instructions provided when you run the `generate-profile` to ensure that you include any additional
-    comoponents, such as `encryption-settings`
+    components, such as `encryption-settings`
 

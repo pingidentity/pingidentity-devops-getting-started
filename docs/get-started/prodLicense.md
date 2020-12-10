@@ -11,7 +11,7 @@ By registering for Ping Identity's DevOps program, you'll be issued credentials 
 
 * [Using your DevOps User/Key](#using-your-devops-user-and-key)
 
-#### Existing license
+#### Existing License
 
 * [Mount Existing Product License](#mount-existing-product-license)
 
@@ -19,8 +19,7 @@ By registering for Ping Identity's DevOps program, you'll be issued credentials 
 
 When starting an image, you can provide your devops property file `~/.pingidentity/devops` or using the individual environment variables.
 
->The examples provided for standalone and docker-compose
-are set up to use this property file by default.
+>The examples provided for docker-compose are set up to use this property file by default.
 
 For more detail, run the `ping-devops info` to get your DevOps environment information.
 

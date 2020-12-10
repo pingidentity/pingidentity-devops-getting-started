@@ -1,8 +1,8 @@
-# Using release tags
+# Using Release Tags
 
-We use multiple tags for each released build image. On our [Docker Hub](https://hub.docker.com/u/pingidentity) site, you can view the available tags for each image.
+Ping Identity uses multiple tags for each released build image. On our [Docker Hub](https://hub.docker.com/u/pingidentity) site, you can view the available tags for each image.
 
-> All product containers in a stack must use the same release tag.
+> All product containers in a stack should use the same release tag.
 
 ## Tagging Format
 
@@ -18,7 +18,7 @@ Where `<ping-product>` is the name of the product container and `${PING_IDENTITY
 image: pingidentity/<ping-product>:edge
 ```
 
-## Base release tags
+## Base Release Tags
 
 The base release tags for a build are:
 
@@ -56,7 +56,7 @@ The `sprint` release tag is a build number and indicates a stable build that is 
 
 For example, `pingfederate:1909`.
 
-## Which release tag to use
+## Which Release Tag To Use
 
 You should test all images in development before deploying to production. It's also best practice to use a _full tag_ variation like `pingaccess:5.3.0-alpine-edge`, rather than `pingaccess:edge` to avoid dependency conflicts in server profiles.  In general, we recommend:
 
@@ -87,7 +87,7 @@ Product versions for **edge** and **latest** as of September 28th, 2020
 | PingDelegator | 4.2.0 | 4.2.0 |
 | PingCentral | 1.4.0 | 1.4.0 |
 
-## Find the product version for an image
+## Find The Product Version for an Image
 
 If you're unsure of the product version for the container you are running, shell into the container, then echo the $IMAGE_VERSION environment variable. For example:
 
@@ -115,7 +115,7 @@ Where:
 
 > \* Date is in YYMMDD format
 
-## Additional release tags
+## Additional Release Tags
 
 Each of the base release tags also has additional variations that you can use in combination, if you need other options:
 

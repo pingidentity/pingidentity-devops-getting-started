@@ -1,4 +1,4 @@
-# Evaluation of Docker base image security
+# Evaluation of Docker Base Image Security
 
 In CIS (Center for Internet Security) [Docker Benchmark v1.2.0](https://www.cisecurity.org/benchmark/docker/), one of the recommendations says, "4.3 Ensure that unnecessary packages are not installed in the container." It further states, "You should consider using a minimal base image rather than the standard Red Hat/CentOS/Debian images if you can. Some of the options available include BusyBox and Alpine." Is Alpine Docker image really more secure than other, more popular Linux distributions?
 
@@ -8,7 +8,7 @@ So, let's take a look at the security aspects of different Linux distributions. 
 
 To evaluate Alpine’s security, we'll compare it with the following popular Linux distros: Ubuntu, CentOS, and Red Hat Enterprise Linux 7. We'll use the latest version (as of March 12, 2020) of each distro’s Docker image and compare them in four different areas: image size, number of packages installed by default, number of historical vulnerabilities reported on [cvedetails.com](https://www.cvedetails.com/), and the number of vulnerabilities reported by the Clair scan.
 
-This table summarises the numbers for each distro:
+This table summarizes the numbers for each distribution:
 
 | | Alpine | Ubuntu | CentOS | RHEL7 |
 | --- | --- | --- | --- | --- |
@@ -54,4 +54,4 @@ For all of the reasons described this comparison of distro's and more, we've sel
 
 ## Ping Identity's Docker Image Hardening Guide
 
-View Ping Identity's [hardening guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide) which outlines best practices for securing your product Docker Image.
+View Ping Identity's [Hardening Guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide) which outlines best practices for securing your product Docker Image.
