@@ -8,7 +8,7 @@ Profiles can be used in these ways:
 * Build into the image
 * Mounted as a container volume
 
-## Pulled at startup
+## Pulled at Startup
 
 Pass a Github-based URL and path as environment variables that point to a server profile. If the container sees these variables:
 
@@ -31,7 +31,7 @@ Cons:
 
 * Adds download time at container startup.
 
-## Built into the image
+## Built Into The Image
 
 Build your own image from one of our Docker images and copy the profile files in. This is useful when you have no access to the Github repository, or if you're often spinning containers up and down. For example, if you made a Dockerfile at this location: https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline, the relevant entries might look similar to this:
 
@@ -48,7 +48,7 @@ Cons:
 
 * Tedious to build images when making iterative changes.
 
-## Mounted as a Docker volume
+## Mounted as a Docker Volume
 
 Using `docker-compose` you can bind-mount a host file system location to a location in the container. This is useful when you're developing a server profile, and you want to be able to quickly make changes to the profile and spin up a container against it. For example, if you have a profile in same directory as your `docker-compose.yaml` file, you can add a bind-mount volume to /opt/in like this:
 

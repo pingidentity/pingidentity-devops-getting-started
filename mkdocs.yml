@@ -89,7 +89,7 @@ nav:
           - Customization: "how-to/profiles.md"
           - Build Your Own ...: "how-to/buildPingFederateProfile.md"
           - Layering: "how-to/profilesLayered.md"
-          - Env Substitution: "how-to/profilesSubstitution.md"
+          - ENV Substitution: "how-to/profilesSubstitution.md"
           - Private Github Repos: "how-to/privateRepos.md"
       - Vault/Secrets: "how-to/usingVault.md"
       - Securing the Containers: "how-to/secureContainers.md"
