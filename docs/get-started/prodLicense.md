@@ -81,35 +81,14 @@ The `/opt/in` directory overlays files onto the products runtime filesystem, the
 
 ### Example Mounts
 
-#### PingFederate
-
-* Expected license file name: `pingfederate.lic`
-* Mount Path: `/opt/in/instance/server/default/conf/pingfederate.lic`
-
-#### PingAccess
-
-* Expected license file name: `pingaccess.lic`
-* Mount Path: `opt/in/instance/conf/pingaccess.lic`
-
-#### PingDirectory
-
-* Expected License file name: `PingDirectory.lic`
-* Mount Path: `/opt/in/instance/PingDirectory.lic`
-
-#### PingDataSync
-
-* Expected license file name: `PingDirectory.lic`
-* Mount Path: `/opt/in/instance/PingDirectory.lic`
-
-#### PingDataGovernance
-
-* Expected license file name: `PingDataGovernance.lic`
-* Mount Path: `/opt/in/instance/PingDataGovernance.lic`
-
-#### PingCentral
-
-* Expected license file name: `pingcentral.lic`
-* Mount Path: `/opt/in/instance/conf/pingcentral.lic`
+|  Product | File Name  |  Mount Path |
+|---|---|---|
+| **PingFederate**  | pingfederate.lic  |  /opt/in/instance/server/default/conf/pingfederate.lic |
+| **PingAccess** | pingaccess.lic  | /opt/in/instance/conf/pingaccess.lic  |
+| **PingDirectory** | PingDirectory.lic  | /opt/in/instance/PingDirectory.lic  |
+| **PingDataSync** | PingDirectory.lic  | /opt/in/instance/PingDirectory.lic  |
+| **PingDataGovernance** | PingDataGovernance.lic  | /opt/in/instance/PingDataGovernance.lic  |
+| **PingCentral** | pingcentral.lic  | /opt/in/instance/conf/pingcentral.lic  |
 
 ### Volume Mount Syntax
 

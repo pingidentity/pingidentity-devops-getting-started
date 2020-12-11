@@ -47,35 +47,16 @@ For our Docker stacks, copy each license file to the `/opt/in` volume that you'v
 
     When the container starts, this will mount `<path>/pingfederate.lic` to this location in the container`/opt/in/instance/server/default/conf/pingfederate.lic`.
 
-    The mount paths must match the expected license path for the product. These mount paths are:
+    The mount paths must match the expected license path for the product.
 
-    * **PingFederate**
-        * Expected license file name: `pingfederate.lic`
-        * Mount path: `/opt/in/instance/server/default/conf/pingfederate.lic`
-
-    * **PingAccess**
-        * Expected license file name: `pingaccess.lic`
-        * Mount path: `/opt/in/instance/conf/pingaccess.lic`
-
-    * **PingDirectory**
-        * Expected License file name: `PingDirectory.lic`
-        * Mount path: `/opt/in/instance/PingDirectory.lic`
-
-    * **PingDataSync**
-        * Expected license file name: `PingDirectory.lic`
-        * Mount path: `/opt/in/instance/PingDirectory.lic`
-
-    * **PingDataGovernance**
-        * Expected license file name: `PingDataGovernance.lic`
-        * Mount path: `/opt/in/instance/PingDataGovernance.lic`
-
-    * **PingDataGovernance PAP**
-        * Expected license file name: `PingDataGovernance.lic`
-        * Mount path: `/opt/in/instance/PingDataGovernance.lic`
-
-    * **PingCentral**
-        * Expected license file name: `pingcentral.lic`
-        * Mount path: `/opt/in/instance/conf/pingcentral.lic`
+    |  Product | File Name  |  Mount Path |
+    |---|---|---|
+    | **PingFederate**  | pingfederate.lic  |  /opt/in/instance/server/default/conf/pingfederate.lic |
+    | **PingAccess** | pingaccess.lic  | /opt/in/instance/conf/pingaccess.lic  |
+    | **PingDirectory** | PingDirectory.lic  | /opt/in/instance/PingDirectory.lic  |
+    | **PingDataSync** | PingDirectory.lic  | /opt/in/instance/PingDirectory.lic  |
+    | **PingDataGovernance** | PingDataGovernance.lic  | /opt/in/instance/PingDataGovernance.lic  |
+    | **PingCentral** | pingcentral.lic  | /opt/in/instance/conf/pingcentral.lic  |
 
  1. Repeat this process for the remaining container entries for which you have an existing license.
 

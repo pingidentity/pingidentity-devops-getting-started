@@ -7,13 +7,13 @@ When you're ready, begin with our [Get Started](get-started/getStarted.md) guide
 ## DevOps Docker Images
 
 <div class="iconbox" onclick="window.open('https://hub.docker.com/u/pingidentity','');">
-    <img class="assets" src="../images/docker-logo.png" />
+    <img class="assets" src="../images/logos/docker.png" />
     <span class="caption">
         <a class="assetlinks" href="https://hub.docker.com/u/pingidentity" target=”_blank”>Docker Images</a>
     </span>
 </div>
-<div class="iconbox">
-    <img class="assets" src="../images/github-logo.png"/>
+<div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-devops-docker-builds','');">
+    <img class="assets" src="../images/logos/github.png"/>
     <span class="caption">
         <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-devops-docker-builds" target=”_blank”>Docker Builds</a>
     </span>
@@ -27,8 +27,8 @@ The Docker images are automatically pulled from our repository the first time yo
 
 ## Deployment Examples
 
-<div class="iconbox">
-    <img class="assets" src="../images/github-logo.png"/>
+<div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-devops-getting-started','');">
+    <img class="assets" src="../images/logos/github.png"/>
     <span class="caption">
         <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-devops-getting-started" target=”_blank”>DevOps Getting Started</a>
     </span>
