@@ -112,24 +112,27 @@
 
 div.banner,
 div.iconbox {
-    vertical-align: top;
-    display: inline-block;
-    text-align: center;
+    border-color: black;
+    border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-    border-color: black;
-    width: 20%;
-    padding-top: 10px;
-    padding-bottom: 10px;
     box-shadow: 0 8px 6px -6px black;
+    cursor: pointer;
+    display: inline-block;
     margin-right: 20px;
     margin-top: 20px;
-    border-radius: 5px;
-    cursor: pointer;
+    min-width: 120px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: top;
+    width: 20%;
 }
 
 div.iconbox {
     margin-bottom: 20px;
+    min-width: 180px;
+    max-width: 280px;
     width: 30%;
 }
 
@@ -160,9 +163,11 @@ a.assetlinks:visited {
 }
 
 .md-nav__source {
+    /* Slider Git Repo */
     --md-primary-fg-color--dark: hsla(193, 7%, 26%, 1)
 }
 
 .md-nav--primary .md-nav__item--active>.md-nav__link {
+    /* Slider active menu */
     --md-typeset-a-color: hsla(354, 70%, 43%, 1);
 }
