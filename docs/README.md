@@ -5,25 +5,25 @@ We enable DevOps professionals, administrators and developers with tools, framew
 ## DevOps Resources
 
 <div class="banner" onclick="window.open('https://hub.docker.com/u/pingidentity','');">
-    <img class="assets" src="images/docker-logo.png" />
+    <img class="assets" src="images/logos/docker.png" />
     <span class="caption">
         <a class="assetlinks" href="https://hub.docker.com/u/pingidentity" target=”_blank”>Docker Images</a>
     </span>
 </div>
 <div class="banner" onclick="window.open('https://github.com/topics/ping-devops','');">
-    <img class="assets" src="images/github-logo.png"/>
+    <img class="assets" src="images/logos/github.png"/>
     <span class="caption">
         <a class="assetlinks" href="https://github.com/topics/ping-devops" target=”_blank”>Github Repos</a>
     </span>
 </div>
 <div class="banner" onclick="window.open('https://helm.pingidentity.com','');">
-    <img class="assets" src="images/helm-logo.png"/>
+    <img class="assets" src="images/logos/helm.png"/>
     <span class="caption">
         <a class="assetlinks" href="https://helm.pingidentity.com" target=”_blank”>Helm Charts</a>
     </span>
 </div>
 <div class="banner" onclick="window.open('https://support.pingidentity.com/s/topic/0TO1W000000IF30WAG/cloud-devops','');">
-    <img class="assets" src="images/ping-logo.png"/>
+    <img class="assets" src="images/logos/ping.png"/>
     <span class="caption">
         <a class="assetlinks" href="https://support.pingidentity.com/s/topic/0TO1W000000IF30WAG/cloud-devops" target=”_blank”>Community</a>
     </span>
