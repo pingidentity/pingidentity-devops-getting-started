@@ -1,4 +1,4 @@
-# Upgrading PingFederate in a DevOps environment
+# Upgrading PingFederate
 
 In a DevOps environment, upgrades are drastically simplified through automation, orchestration and separation of concerns. As a result, upgrading to a new version of PingFederate is much more like deploying any other configuration. <!-- (link here to doc explaining config deployments) --> The slight difference is that configuration updates can be achieved with zero downtime and no loss of state, whereas in version upgrades we consciously sacrifice state to maintain zero downtime overall.
 
@@ -14,15 +14,15 @@ As an example, we'll walk through upgrading a PingFederate deployment from 9.3.3
 
 ## What you'll do
 
-- [Upgrading PingFederate in a DevOps environment](#upgrading-pingfederate-in-a-devops-environment)
-  - [Prerequisites](#prerequisites)
-  - [What you'll do](#what-youll-do)
-  - [Setup and preparation](#setup-and-preparation)
-  - [Upgrade using a local profile](#upgrade-using-a-local-profile)
-  - [Blue-Green it](#blue-green-it)
-  - [Some final considerations](#some-final-considerations)
+* [Upgrading PingFederate in a DevOps environment](#upgrading-pingfederate-in-a-devops-environment)
+    * [Prerequisites](#prerequisites)
+    * [What you'll do](#what-youll-do)
+    * [Setup and preparation](#setup-and-preparation)
+    * [Upgrade using a local profile](#upgrade-using-a-local-profile)
+    * [Blue-Green Deployment](#blue-green-deployment)
+    * [Some final considerations](#some-final-considerations)
 
-## Setup and preparation
+## Setup and Preparation
 
 The most important factor to a successful version upgrade is preparing an environment for success. This means using the DevOps process, and a blue-green deployment. For a blue-green Kubernetes deployment, we simply update a selector on a service.
 
@@ -52,7 +52,7 @@ The key here is that the service is pointing to this deployment of PingFederate 
 
 > A deployment in Kubernetes manages containers in pods, defining things like which containers to run, how many containers, the metadata labels, and the update strategy.
 
-## Upgrade using a local profile
+## Upgrade Using a Local Profile
 
 With your environment set up properly, you can do the product upgrade offline. Offline here means we'll pull the profile into a Docker container on our local workstation to upgrade it.
 
@@ -65,39 +65,37 @@ Some details of the upgrade process may be different for you, based on your Ping
 
 1. Check out a PingFederate feature branch (such as, `pf-10.0.0`) off of the master of _your_ current version of PingFederate (9.3.3 in our example).
 
-2. Spin up a PingFederate deployment based on this branch with the `/opt/out` volume mounted. For clarity, let's do this in Docker Compose and assume the mount looks something like this: `~/tmp/pf93/instance:/opt/out/instance`. Once the container is healthy, stop the container.
+1. Spin up a PingFederate deployment based on this branch with the `/opt/out` volume mounted. For clarity, let's do this in Docker Compose and assume the mount looks something like this: `~/tmp/pf93/instance:/opt/out/instance`. Once the container is healthy, stop the container.
 
-3. Download the latest version of the PingFederate Server distribution ZIP file from the Ping Identity website. Extract the distribution ZIP file into `~/tmp/pf93`.
+1. Download the latest version of the PingFederate Server distribution ZIP file from the Ping Identity website. Extract the distribution ZIP file into `~/tmp/pf93`.
 
-4. Go to the `~/tmp/pf93` directory, and run the PingFederate upgrade utility:
+1. Go to the `~/tmp/pf93` directory, and run the PingFederate upgrade utility:
 
-   ```shell
-   ./upgrade.sh <pf_install_source> [-l <newPingFederateLicense>] [-c].
-   ```
+    ```shell
+    ./upgrade.sh <pf_install_source> [-l <newPingFederateLicense>] [-c].
+    ```
 
-   > See [Upgrading PingFederate on Linux systems](https://docs.pingidentity.com/bundle/pingfederate-100/page/ukh1564003034797.html) for more information.
+    > See [Upgrading PingFederate on Linux Systems](https://docs.pingidentity.com/bundle/pingfederate-100/page/ukh1564003034797.html) for more information.
 
-5. The result is an upgraded PingFederate profile with a lot of bloat. Let's clean this up so that we're able to run `git diff` and see _only_ upgraded files. A good text editor (such as, Microsoft Visual Studio Code) with Git extensions is invaluable for this process.
+1. The result is an upgraded PingFederate profile with a lot of bloat. Let's clean this up so that we're able to run `git diff` and see _only_ upgraded files. A good text editor (such as, Microsoft Visual Studio Code) with Git extensions is invaluable for this process.
 
-   a. Copy over files from your new profile `~/tmp/pf93/instance` on top of your current profile. Be careful not to directly copy over and replace `.subst` files. If you are using Visual Studio Code, you can `right-click` -> Select for compare on the old file and `right-click`>'Compare with selected' on the new file. This compares line-by-line diffs. If all you see is your variables, you can ignore the whole file.
+    1. Copy over files from your new profile `~/tmp/pf93/instance` on top of your current profile. Be careful not to directly copy over and replace `.subst` files. If you are using Visual Studio Code, you can `right-click` -> Select for compare on the old file and `right-click`>'Compare with selected' on the new file. This compares line-by-line diffs. If all you see is your variables, you can ignore the whole file.
 
 6. After you test the upgrade, push your changes to Git.
 
-## Blue-Green it
+## Blue-Green Deployment
 
 Now that you have a new profile, you can stand up a new deployment that uses it and flip all of the traffic over to it.
 
 1. Stand up a new deployment using:
 
-   * The correct product image version.
-
-   * The new profile.
-
-   * A label on the deployment that distinguishes it from the prior deployment (such as, `version: 10.0.0`).
+    * The correct product image version.
+    * The new profile.
+    * A label on the deployment that distinguishes it from the prior deployment (such as, `version: 10.0.0`).
 
 2. When the deployment is healthy and ready to accept traffic, update the selector on the Kubernetes service. This routes all traffic to the new PingFederate deployment without downtime occurring.
 
-## Some final considerations
+## Some Final Considerations
 
 Using DevOps processes can mean that things like comfortable setup processes and admin UIs in production are sacrificed, but for most organizations, the resulting zero downtime for rollouts and rollbacks is easily worth it.
 

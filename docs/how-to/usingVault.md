@@ -2,16 +2,17 @@
 
 This provides details for using Hashicorp Vault and secrets with Ping Identity DevOps Images.
 
-## What you'll do
+## What You'll Do
 
 The examples below will explain and show examples of:
-- Using HashiCorp Vault Secrets in native PingIdentity DevOps Images
-- Using HashiCorp Vault Injector in kubernetes deployments
+
+* Using HashiCorp Vault Secrets in native PingIdentity DevOps Images
+* Using HashiCorp Vault Injector in kubernetes deployments
 
 ## Prerequisites
 
-- You've already been through [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-- Have a running Hashicorp Vault instance.  Refer to [Deploy Hashicorp Vault](../deployment/deployVault.md) for information on deploying a vault if you need one.
+* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Have a running Hashicorp Vault instance.  Refer to [Deploy Hashicorp Vault](../deployment/deployVault.md) for information on deploying a vault if you need one.
 
 ## Kubernetes - HashiCorp Vault Injector
 
@@ -22,34 +23,33 @@ If the HashiCorp Vault Injector Agent is installed, annotations can be added to 
 Pod, Deployment, StatefulSet resource to pull in the secrets.  The snippet below provides an example set
 of annotations (placed in to the metadata of the container) to pull in a `pf.jwk` secret into a container.
 
-!!! note
+!!! example "Helm Chart Stateful Set"
     This is an StatefulSet example created using the [PingIdentity DevOps Helm Chart](https://helm.pingidentity.com).
-
-``` yaml
-apiVersion: apps/v1
-kind: StatefulSet
-spec:
-  template:
-    metadata:
-      annotations:
-        vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/agent-inject-secret-devops-secret.env.json: secret/.../devops-secret.env
-        vault.hashicorp.com/agent-inject-template-devops-secret.env.json: |
-          {{ with secret "secret/.../devops-secret.env" -}}
-          {{ .Data.data | toJSONPretty }}
-          {{- end }}
-        vault.hashicorp.com/agent-inject-secret-devops-secret.env.json: secret/.../passwords
-        vault.hashicorp.com/agent-inject-template-passwords.json: |
-          {{ with secret "secret/.../passwords" -}}
-          {{ .Data.data | toJSONPretty }}
-          {{- end }}
-        vault.hashicorp.com/agent-pre-populate-only: "true"
-        vault.hashicorp.com/log-level: info
-        vault.hashicorp.com/preserve-secret-case: "true"
-        vault.hashicorp.com/role: k8s-default
-        vault.hashicorp.com/secret-volume-path: /run/secrets
-```
+    ```yaml
+    apiVersion: apps/v1
+    kind: StatefulSet
+    spec:
+      template:
+        metadata:
+          annotations:
+            vault.hashicorp.com/agent-init-first: "true"
+            vault.hashicorp.com/agent-inject: "true"
+            vault.hashicorp.com/agent-inject-secret-devops-secret.env.json: secret/.../devops-secret.env
+            vault.hashicorp.com/agent-inject-template-devops-secret.env.json: |
+              {{ with secret "secret/.../devops-secret.env" -}}
+              {{ .Data.data | toJSONPretty }}
+              {{- end }}
+            vault.hashicorp.com/agent-inject-secret-devops-secret.env.json: secret/.../passwords
+            vault.hashicorp.com/agent-inject-template-passwords.json: |
+              {{ with secret "secret/.../passwords" -}}
+              {{ .Data.data | toJSONPretty }}
+              {{- end }}
+            vault.hashicorp.com/agent-pre-populate-only: "true"
+            vault.hashicorp.com/log-level: info
+            vault.hashicorp.com/preserve-secret-case: "true"
+            vault.hashicorp.com/role: k8s-default
+            vault.hashicorp.com/secret-volume-path: /run/secrets
+    ```
 
 ### Secrets - Variables
 
@@ -71,7 +71,7 @@ with NAME=VALUE pairs, and available to the container environment when starting 
               PING_IDENTITY_DEVOPS_KEY="xxxxx-xxxx-xxxxx-xxxxx-xxxx"
     ```
 
-### Secret - files
+### Secret - Files
 
 Using example above, the value for secret `secret/.../passwords` json will be pulled into the container as  `/run/secrets/passwords.json` and for every key/value
 in that secret a file will be created with the name of the `key` and contents of `value`.
