@@ -154,3 +154,15 @@ a.assetlinks:visited {
 [data-md-color-accent=blue] {
     --md-accent-fg-color: hsla(354, 70%, 43%, 1)
 }
+
+.md-nav--primary .md-nav__title[for=__drawer] {
+    --md-primary-fg-color: hsla(0, 0%, 38%, 1)
+}
+
+.md-nav__source {
+    --md-primary-fg-color--dark: hsla(193, 7%, 26%, 1)
+}
+
+.md-nav--primary .md-nav__item--active>.md-nav__link {
+    --md-typeset-a-color: hsla(354, 70%, 43%, 1);
+}
