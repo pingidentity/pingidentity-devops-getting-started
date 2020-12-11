@@ -150,3 +150,7 @@ div.banner:hover {
 a.assetlinks:visited {
     color: #B8232F;
 }
+
+[data-md-color-accent=blue] {
+    --md-accent-fg-color: hsla(354, 70%, 43%, 1)
+}
