@@ -1,4 +1,4 @@
-# Securing the containers
+# Securing the Containers
 
 By default, Ping Identity Docker Images run as root within the container. When deploying these images into your production environment, you may wish to secure them by using one of the following patterns which we describe below, in order of preference.
 
@@ -8,7 +8,7 @@ Linux namespaces provide isolation for running processes, limiting their access 
 
 The best way to prevent privilege-escalation attacks from within a container is to configure your container’s applications to run as unprivileged users. For containers whose processes must run as the root user within the container, you can re-map this user to a less-privileged user on the Docker host.
 
-Please view the Docker’s in-depth [documentation](https://docs.docker.com/engine/security/userns-remap/) on this pattern for more information.
+Please view the Docker’s in-depth [Documentation](https://docs.docker.com/engine/security/userns-remap/) on this pattern for more information.
 
 ## Inside-Out Pattern
 
@@ -21,7 +21,7 @@ Overview of the bootstrap process:
 * Create the group with provided group ID or 9999
 * Create the user with provided user ID or 9031
 * Strip ownership but for user:group
-* Stepdown from root to user
+* Step-down from root to user
 
 This pattern has the benefit of removing permissions from anything but the specified user.
 
@@ -44,7 +44,7 @@ Cons:
 
 * Implementation is vendor-specific and may require more introspection on the part of the deployer
 
-## Outside-In Pattern (Kubernetes security-context)
+## Outside-In Pattern (Kubernetes Security-Context)
 
 Using the outside-in pattern, you will specify the user to run as via the Docker API (Docker Run, Compose, etc). This user will need to exist on the host machine if you wish to mount a volume from the host into the container and file ownership IDs need to agree.
 
@@ -60,4 +60,4 @@ Cons:
 
 ## Ping Identity's Docker Image Hardening Guide
 
-View Ping Identity's [hardening guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide) which outlines best practices for securing your product Docker Image.
+View Ping Identity's [Hardening Guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide) which outlines best practices for securing your product Docker Image.
