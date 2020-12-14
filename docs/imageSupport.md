@@ -29,3 +29,20 @@ Examples:
 * Once 10.2 is released, the latest version 9.X images will no longer be built
 
 >Note: Image versions that have fallen out of Ping's support window will be removed from DockerHub 3 months after support has ended.
+
+Current Matrix For actively maintained images:
+
+| Product               | Actively Maintained Image |
+|-----------------------|---------------------------|
+| PingAccess            | 6.1, 6.0                  |
+| PingCentral           | 1.5, 1.4                  |
+| PingDataConsole       | 8.1, 8.0                  |
+| PingDataGovernance    | 8.1, 8.0                  |
+| PingDataGovernancePAP | 8.1, 8.0                  |
+| PingDataSync          | 8.1, 8.0                  |
+| PingDelegator         | 4.4.0                     |
+| PingDirectory         | 8.1, 8.0                  |
+| PingDirectoryProxy    | 8.1, 8.0                  |
+| PingIntelligence      | 4.3                       |
+| PingFederate          | 10.0, 10.1                |
+|-----------------------|---------------------------|
