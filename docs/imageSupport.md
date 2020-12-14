@@ -30,7 +30,7 @@ Examples:
 
 >Note: Image versions that have fallen out of Ping's support window will be removed from DockerHub 3 months after support has ended.
 
-Current Matrix For actively maintained images:
+Current matrix of actively maintained images:
 
 | Product               | Actively Maintained Image |
 |-----------------------|---------------------------|
