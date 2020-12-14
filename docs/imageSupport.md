@@ -45,4 +45,3 @@ Current Matrix For actively maintained images:
 | PingDirectoryProxy    | 8.1, 8.0                  |
 | PingIntelligence      | 4.3                       |
 | PingFederate          | 10.0, 10.1                |
-|-----------------------|---------------------------|
