@@ -1,16 +1,16 @@
-# Ping Identity Docker Image Support
+# Ping Identity Docker Image Support Policy
 
 ## Overview
 
-Unlike traditionally delivered software, Docker Images include product artifacts, operating system, Java Development Kit (JDK)
-and miscellaneous tools/libraries (Git, SSH, SSL) to run the software.
+Unlike software delivered as an archive, Docker Images include product artifacts, OS shim, an optimized JVM build
+and miscellaneous tools/libraries (Git, SSH, SSL) to run the software and automation scripts.
 
-Due to the number of dependency updates and to ensure all patches are captured, Ping Identity builds supported product images semi-weekly (edge), releasing a stable build each month (sprint and latest).
+Due to the number of dependency updates and to ensure all patches are kept up to date, Ping Identity actively maintains product images semi-weekly (edge), releasing a stable build each month (sprint and latest).
 
 The build process retrieves the latest versions of:
 
-* Operating System (Alpine)
-* JDK
+* Operating System Shim (Alpine)
+* Optimized Java VM
 * Product files
 * Supporting tools/libraries
 
