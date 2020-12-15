@@ -13,13 +13,13 @@ You can have as many layers as needed. Each layer of the configuration is *copie
 
 * You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
-## What you'll do
+## What You'll Do
 
 * Create a layered server profile.
 * Assign the environment variables for the deployment.
 * Deploy the layered server profile.
 
-## Create a layered server profile
+## Create a Layered Server Profile
 
 We'll use PingFederate and our server profile located in the [pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started/pingfederate) repository. We recommend you fork this repository to your Github repository, then pull your Github repository to to a local directory. When we've finished creating the layered profile, you can then push your updates the your Github repository, and reference your Github repository as an environment variable to run the deployment.
 

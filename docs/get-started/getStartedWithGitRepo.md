@@ -11,7 +11,7 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 * You've already set up your DevOps environment. See [Get Started](../get-started/getStarted.md).
 * Installed [Git](https://git-scm.com/downloads)
 
-## Clone the getting-started Repo
+## Clone the `getting-started` Repo
 
 1. Clone the `pingidentity-devops-getting-started` repository to your local ${PING_IDENTITY_DEVOPS_HOME} directory:
 

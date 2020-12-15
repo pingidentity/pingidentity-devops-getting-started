@@ -15,7 +15,7 @@ To ensure a successful upgrade process:
 
 ## Prerequisites
 
-* You've already been through [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * You've cloned or downloaded the `pingidentity-devops-getting-started/20-kubernetes/12-pingdirectory-upgrade` repository to your local `${HOME}/projects/devops` directory.
 * A good understanding of how to use our DevOps server profiles.
 * Access to a Kubernetes cluster and a default StorageClass.
@@ -24,10 +24,10 @@ To ensure a successful upgrade process:
 
 ## What You'll Do
 
-* [Setup](#setup). Start with a base stack.
-* [Partition](#partition). Set up a partition to make changes on just one node.
-* [Stage](#stage). Deploy changes to one node and fix any errors.
-* [Rollout](#rollout). Rollout changes to other nodes.
+* Start with a base stack.
+* Set up a partition to make changes on just one node.
+* Deploy changes to one node and fix any errors.
+* Rollout changes to other nodes.
 
 ## Summary
 

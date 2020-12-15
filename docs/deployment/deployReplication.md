@@ -46,7 +46,8 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
       docker-compose logs <product-container-name>
       ```
 
-      > Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose Command Line Reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
+    !!! note "DevOps Aliases"
+        Enter `dhelp` for a listing of the DevOps command aliases. See the [Docker Compose Command Line Reference](https://docs.docker.com/compose/reference/overview/) for the Docker Compose commands.
 
 1. To view the running instance, log in to PingDirectory using the Ping Data Console:
 
@@ -97,16 +98,24 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
       # description: Made this change on the first container.
       ```
 
-1. When you no longer want to run this stack, bring the stack down.
+## Clean Up
 
-      To remove all of the containers and associated Docker networks, enter:
+When you no longer want to run this stack, bring the stack down.
 
-      ```sh
-      docker-compose down
-      ```
+To remove all of the containers and associated Docker networks, enter:
 
-      To stop the running stack without removing any of the containers or associated Docker networks, enter:
+```sh
+docker-compose down
+```
 
-      ```sh
-      docker-compose stop
-      ```
+To stop the running stack without removing any of the containers or associated Docker networks, enter:
+
+```sh
+docker-compose stop
+```
+
+To remove attached Docker Volumes
+
+```sh
+docker volume prune
+```

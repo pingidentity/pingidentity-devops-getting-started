@@ -1,4 +1,4 @@
-# Third-Party software
+# Third-Party Software
 
 Ping Identity Docker Images bundle various third-party tools to enable product functionality. Review the list below for references.
 

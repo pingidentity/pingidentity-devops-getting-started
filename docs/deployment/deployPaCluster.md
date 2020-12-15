@@ -1,4 +1,4 @@
-# Deploy a PingAccess cluster
+# Deploy PingAccess Cluster
 
 This use case employs the `pingidentity-server-profiles/pa-clustering` server profile. This server profile contains an H2 database engine located in `pingidentity-server-profiles/pa-clustering/pingaccess/instance/data/PingAccess.mv.db`. H2 is configured to reference the PingAccess Admin engine at `pingaccess:9090`.
 
@@ -15,7 +15,7 @@ This use case employs the `pingidentity-server-profiles/pa-clustering` server pr
 * Replicate the cluster configuration.
 * Scale the PingAccess engines.
 
-## Deploy PingAccess Cluster
+## Deploy Cluster
 
 You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-getting-started/11-docker-compose/06-pingaccess-cluster` directory to deploy the cluster.
 
@@ -43,7 +43,7 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
       docker-compose logs <product-container-name>
       ```
 
-1. Log in to the PingAccess administrator console:
+1. Log in to the PingAccess Administrator Console:
 
       | Product | Connection Details |
       | --- | --- |
@@ -53,9 +53,9 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 Check the status of the cluster using either the admin console or the Admin REST API:
 
-* To use the administrator console:
+* To use the Administrator Console:
 
-  1. Log in to the administrator console: `https://localhost:9000`
+  1. Log in to the Administrator Console: `https://localhost:9000`
   1. Go to Settings. You should see your engine(s) here.
 
 * To use the PingAccess Admin REST API, enter:
@@ -130,9 +130,15 @@ To scale up to 2 engine nodes:
 docker-compose up -d --scale pingaccess-engine=2
 ```
 
-## Finishing
+## Clean Up
 
-When you no longer want to run the cluster, you can either stop the running stack, or bring the stack down.
+When you no longer want to run this stack, bring the stack down.
+
+To remove all of the containers and associated Docker networks, enter:
+
+```sh
+docker-compose down
+```
 
 To stop the running stack without removing any of the containers or associated Docker networks, enter:
 
@@ -140,8 +146,8 @@ To stop the running stack without removing any of the containers or associated D
 docker-compose stop
 ```
 
-To remove all of the containers and associated Docker networks, enter:
+To remove attached Docker Volumes
 
 ```sh
-docker-compose down
+docker volume prune
 ```

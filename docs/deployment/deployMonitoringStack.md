@@ -4,28 +4,15 @@ This example illustrates how to use Cloud Native Computing Foundation (CNCF) mon
 
 There are tools in this stack to:
 
-**Monitor**:
+| Tool | Purpose |
+| --- | --- |
+| **Monitor** | <ul><li>Ping Identity Software</li></ul> |
+| **Collect Metrics** | <ul><li>[Prometheus](https://prometheus.io/)</li><li>[Alertsmanager](https://github.com/prometheus/alertmanager)</li><li>[cAdvisor](https://github.com/google/cadvisor)</li><li>[prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)</li><li>[InfluxDB](https://www.influxdata.com/)</li></ul> |
+| **Display Metrics** | <ul><li>[Grafana](https://grafana.com/)</li></ul> |
+| **Generate Load** | <ul><li>pingidentity/ldap-sdk-tools</li><li>pingidentity/apache-jmeter</li></ul> |
 
-* Ping Identity software
-
-**Collect Metrics**:
-
-* [Prometheus](https://prometheus.io/)
-* [Alertsmanager](https://github.com/prometheus/alertmanager)
-* [cAdvisor](https://github.com/google/cadvisor)
-* [prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)
-* [InfluxDB](https://www.influxdata.com/)
-
-**Display Metrics**:
-
-* [Grafana](https://grafana.com/)
-
-**Generate Load**:
-
-* `pingidentity/ldap-sdk-tools`
-* `pingidentity/apache-jmeter`
-
-> Much of the generic Prometheus work is taken from the [vegasbrianc/prometheus](https://github.com/vegasbrianc/prometheus) repository.
+!!! note "Prometheus"
+    Much of the generic Prometheus work is taken from the [vegasbrianc/prometheus](https://github.com/vegasbrianc/prometheus) repository.
 
 ## Prerequisites
 
@@ -44,7 +31,7 @@ PingDirectory produces a wide array of metrics. These metrics can be delivered i
 
 > See the PingDirectory documentation [StatsD Monitoring Endpoint](https://docs.ping.directory/PingDirectory/8.0.0.0/config-guide/statsd-monitoring-endpoint.html#Properties) for more information.
 
-## Deploy the Monitoring Stack
+## Deploy Stack
 
 1. From `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack` run:
 
@@ -83,7 +70,8 @@ PingDirectory produces a wide array of metrics. These metrics can be delivered i
 
 There's a lot that can be discussed regarding the configuration. We'll focus on what is key to making this use case functional with minimal intervention, and describe what you may want to edit.
 
-> All of the relevant configurations are located in your local `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack/configs` directory.
+!!! info "View Configuration"
+    All relevant configurations are located in your local `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack/configs` directory.
 
 * The PingDirectory configuration looks like this:
 
@@ -130,7 +118,7 @@ You can view the logs of any of these services directly with `docker-compose log
 docker-compose logs -f searchrate
 ```
 
-#### Generating Your Own Load
+#### Generating Load
 
 * **Option 1**
 
@@ -182,7 +170,7 @@ docker-compose logs -f searchrate
 
         > You also can return to the terminal running `modrate` after you change the `modrate` parameter settings to see the effect in Grafana.
 
-### Display the Traffic Metrics
+### Display Metrics
 
 Metrics are displayed at these URLs:
 

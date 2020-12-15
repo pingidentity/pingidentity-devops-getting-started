@@ -12,15 +12,12 @@ As an example, we'll walk through upgrading a PingFederate deployment from 9.3.3
 * A good understanding of how to use our DevOps server profiles.
 * An understanding of blue-green deployments in Kubernetes is helpful.
 
-## What you'll do
+## What You'll Do
 
-* [Upgrading PingFederate in a DevOps environment](#upgrading-pingfederate-in-a-devops-environment)
-    * [Prerequisites](#prerequisites)
-    * [What you'll do](#what-youll-do)
-    * [Setup and preparation](#setup-and-preparation)
-    * [Upgrade using a local profile](#upgrade-using-a-local-profile)
-    * [Blue-Green Deployment](#blue-green-deployment)
-    * [Some final considerations](#some-final-considerations)
+* Setup and preparation
+* Upgrade using a local profile
+* Blue-Green Deployment
+* Some final considerations
 
 ## Setup and Preparation
 

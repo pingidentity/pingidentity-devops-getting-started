@@ -70,24 +70,24 @@ But what if you want bleeding edge features *and* a stable build image? For this
 
 > Docker images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.
 
-## Product Versions for edge and latest
+## Product Versions - edge and latest
 
-Product versions for **edge** and **latest** as of September 28th, 2020
+Product versions for **edge** and **latest** as of December 15th, 2020
 
 | Product | edge | latest |
 |------|------|-----|
-| PingFederate | 10.1.1 | 10.1.0 |
-| PingDirectory | 8.1.0.0 | 8.1.0.0 |
-| PingAccess | 6.1.2 | 6.1.1 |
-| PingDataGov | 8.1.0.0 | 8.1.0.0 |
-| PingDataGov PAP | 8.1.0.0 | 8.1.0.0 |
-| PingDataSync | 8.1.0.0 | 8.1.0.0 |
-| PingDataConsole | 8.1.0.0 | 8.1.0.0 |
-| PingDirectoryProxy | 8.1.0.0 | 8.1.0.0 |
-| PingDelegator | 4.2.0 | 4.2.0 |
-| PingCentral | 1.4.0 | 1.4.0 |
+| **PingFederate** | 10.1.3 | 10.1.3 |
+| **PingDirectory** | 8.1.0.2 | 8.1.0.0 |
+| **PingAccess** | 6.2.0 | 6.1.3 |
+| **PingDataGov** | 8.1.0.0 | 8.1.0.0 |
+| **PingDataGov PAP** | 8.1.0.0 | 8.1.0.0 |
+| **PingDataSync** | 8.1.0.0 | 8.1.0.0 |
+| **PingDataConsole** | 8.1.0.0 | 8.1.0.0 |
+| **PingDirectoryProxy** | 8.1.0.0 | 8.1.0.0 |
+| **PingDelegator** | 4.4.0 | 4.2.1 |
+| **PingCentral** | 1.5.0 | 1.5.0 |
 
-## Find The Product Version for an Image
+## Determine Image Product Version
 
 If you're unsure of the product version for the container you are running, shell into the container, then echo the $IMAGE_VERSION environment variable. For example:
 
@@ -114,72 +114,3 @@ Where:
 | Git Revision | bc33 |
 
 > \* Date is in YYMMDD format
-
-## Additional Release Tags
-
-Each of the base release tags also has additional variations that you can use in combination, if you need other options:
-
-* `{{productVersion}}`
-* `{{operatingSystem}}`
-
-### `{{productVersion}}`
-
-The format is: `{{product}}:{{productVersion}}-{{baseTag}}`.
-
-> The order of `{{productVersion}}-{{baseTag}}` is important and slightly different depending on the base tag.
-
-Some examples:
-```
-pingaccess:5.3.0-edge
-pingaccess:5.3.0-latest
-pingaccess:1909-5.3.0
-```
-
-Each of these examples references a specific product version, and specific base release tag. When `{{operatingSystem}}` isn't specified, Alpine is used by default.
-
-### `{{operatingSystem}}`
-
-The format is: `{{product}}:{{operatingSystem}}-{{baseTag}}`.
-
-> The order of `{{operatingSystem}}-{{baseTag}}` is important and slightly different depending on the base tag.
-
-The available operating systems for a container are:
-
-* Alpine: [openjdk:8-jre-alpine](https://hub.docker.com/_/openjdk)
-* Ubuntu: [ubuntu:disco](https://hub.docker.com/_/ubuntu)
-* Centos: [centos](https://hub.docker.com/_/centos)
-
-Some examples:
-
-```bash
-pingaccess:alpine-edge
-pingaccess:ubuntu-latest
-pingfederate:1909-centos
-```
-
-Each of these tags references a specific operating system, and specific base release tag. When `{{productVersion}}` isn't specified, the latest available version is used.
-
-### `{{productVersion}}`-`{{operatingSystem}}`
-
-The format is: `{{product}}:{{productVersion}}-{{operatingSystem}}-{{baseTag}}`.
-
-> The order of `{{operatingSystem}}-{{baseTag}}` is important and slightly different depending on the base release tag.
-
-Some examples:
-
-```bash
-pingaccess:5.3.0-alpine-edge
-pingaccess:5.3.0-ubuntu-latest
-pingfederate:1909-centos-5.3.0
-```
-
-Each of these tags reference a specific operating system, product version and base tag.
-
-Another example:
-
-`pingaccess:1908-alpine-5.3.0`
-
-* `1908`: Version of our build image (YYMM format).
-* `alpine`: Container operating system.
-* `5.3.0`: PingAccess product version.
-

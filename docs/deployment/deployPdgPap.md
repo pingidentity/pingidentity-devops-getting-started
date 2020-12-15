@@ -108,10 +108,24 @@ To test this use case:
 
     If you want further confirmation, in the Data Console, go to External Servers -> `pingdatagovernancepap` and put some "junk" in the `branch` box. You'll see that PingDataGovernance is unable to find the policy branch.
 
-## Finishing Up
+## Clean Up
 
-When you're finished testing, remove the containers, network, and related data. Enter:
+When you no longer want to run this stack, bring the stack down.
+
+To remove all of the containers and associated Docker networks, enter:
 
 ```sh
 docker-compose down
+```
+
+To stop the running stack without removing any of the containers or associated Docker networks, enter:
+
+```sh
+docker-compose stop
+```
+
+To remove attached Docker Volumes
+
+```sh
+docker volume prune
 ```

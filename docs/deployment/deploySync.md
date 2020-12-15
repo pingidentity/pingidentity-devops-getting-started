@@ -78,16 +78,24 @@ The stack will sync entries from `ou=source,o=sync` to `ou=destination,o=sync` e
       # description: Change to source user.0
       ```
 
-1. When you no longer want to run this stack, you can either bring the stack down (recommended), or stop the running stack.
+## Clean Up
 
-      To stop the running stack without removing any of the containers or associated Docker networks, enter:
+When you no longer want to run this stack, bring the stack down.
 
-      ```sh
-      docker-compose stop
-      ```
+To remove all of the containers and associated Docker networks, enter:
 
-      To remove all of the containers and associated Docker networks, enter:
+```sh
+docker-compose down
+```
 
-      ```sh
-      docker-compose down
-      ```
+To stop the running stack without removing any of the containers or associated Docker networks, enter:
+
+```sh
+docker-compose stop
+```
+
+To remove attached Docker Volumes
+
+```sh
+docker volume prune
+```

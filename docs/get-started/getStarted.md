@@ -8,7 +8,8 @@ You can quickly deploy Docker images of Ping Identity products. We use Docker, D
 * [Docker Compose](https://docs.docker.com/compose/install/) (included with Docker Desktop on Mac and Windows)
 * Your terminal configuration is set to use the Bash shell.
 
-      > With Apple macOS Catalina, the Z shell (zsh) is the default shell, rather than Bash. To set your default terminal shell to Bash, enter: `chsh -s /bin/bash`.
+    !!! info "Default Shell"
+        With Apple macOS Catalina, the Z shell (zsh) is the default shell, rather than Bash. To set your default terminal shell to Bash, enter: `chsh -s /bin/bash`.
 
 * You've installed the [ping-devops](pingDevopsUtil.md#installation) utility.
 
@@ -20,15 +21,16 @@ You'll need a product license to run our Docker images. You can use either:
 
 * Although you'll first need to complete your DevOps Registration, you can subsequently use a valid product license available with a current Ping Identity customer subscription.
 
-## Set up your DevOps environment
+## Set Up Your Devops Environment
 
 1. Open a terminal and create a local DevOps directory named `${HOME}/projects/devops`.
 
-      > We'll use this as the parent directory for all DevOps examples referenced in our documentation.
+    !!! info "Parent Directory"
+        We'll use this as the parent directory for all DevOps examples referenced in our documentation.
 
 1. Configure your DevOps environment:
 
-      ```shell
+      ```sh
       ping-devops config
       ```
 
@@ -38,7 +40,7 @@ You'll need a product license to run our Docker images. You can use either:
 
 1. To display your DevOps environment settings, enter:
 
-      ```shell
+      ```sh
       ping-devops info
       ```
 
@@ -46,7 +48,7 @@ You'll need a product license to run our Docker images. You can use either:
 
       a. To display information about the containers or stacks available using the ping-devops utility, enter:
 
-      ```shell
+      ```sh
       ping-devops docker info
       ```
 
@@ -60,7 +62,7 @@ You'll need a product license to run our Docker images. You can use either:
 
 1. To start one of the containers or stacks, enter:
 
-      ```shell
+      ```sh
       ping-devops docker start <name>
       ```
 
@@ -72,12 +74,12 @@ You'll need a product license to run our Docker images. You can use either:
 
       To stop the container or stack, enter:
 
-      ```shell
+      ```sh
       ping-devops docker stop <name>
       ```
 
       To remove the container or stack and all associated data, enter
 
-      ```shell
+      ```sh
       ping-devops docker rm  <name>
       ```

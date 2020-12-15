@@ -11,7 +11,7 @@ This scenario makes sense you have:
 If all configuration changes are delivered via pipeline, and traffic wouldn't cross-regions, having separate PingFederate clusters can work.
 
 !!! note
-    The set of pre-requisites required for AWS kubernetes multi-clustering to be successful is found [Here](deployK8s-AWS.md)
+    The set of pre-requisites required for AWS Kubernetes multi-clustering to be successful is found [Here](deployK8s-AWS.md)
 
 ## Overview
 
@@ -29,7 +29,7 @@ There are two main dynamic discovery options:
 
   ![PingFederate AWS MultiRegion Deployment Diagram](../images/pf_aws_overview_diagram.png)
 
-In either scenario, some pre-reqs must be achieved
+In either scenario, some prerequisites must be achieved
 
 ## Prerequisites
 

@@ -14,8 +14,8 @@ Follow the steps listed below to register
   * You'll receive a confirmation message.
   * Your credentials will be forwarded to the email address associated with your Ping Identity account.
 
->Important: Upon receiving your key, ensure that you follow the instructions below for
-saving these via the `ping-devops` utility.
+!!! info "Saving Credentials"
+    Upon receiving your key, ensure that you follow the instructions below for saving these via the `ping-devops` utility.
 
 Example:
 
@@ -26,7 +26,8 @@ Example:
 
 The best way to save your DevOps User/Key is to use the Ping Identity DevOps utility `ping-devops`.
 
->Installation instructions for `ping-devops` can be found in the [ping-devops Tool](pingDevopsUtil.md) document.
+!!! info "ping-devops Setup"
+    Installation instructions for `ping-devops` can be found in the [ping-devops Tool](pingDevopsUtil.md) document.
 
 To save your DevOps credentials, run `ping-devops config` and supply your credentials when prompted.
 

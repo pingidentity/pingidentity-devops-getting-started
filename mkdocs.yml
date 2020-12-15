@@ -74,7 +74,7 @@ nav:
               - Orchestrate a PingFederate Cluster Deployment: "deployment/deployK8sPF-cluster.md"
               - Deploy PingFederate Across Multiple Kubernetes Clusters:
                   - Introduction: "deployment/deployK8sPFclusters.md"
-                  - AWS MultiRegion Prereq: "deployment/pfMultiRegionAWSPrereq.md"
+                  - AWS Multi-Region Prereq: "deployment/pfMultiRegionAWSPrereq.md"
                   - PingFederate Across Kubernetes with DNS: "deployment/deployPFMultiRegionDNS.md"
                   - PingFederate Across Kubernetes with S3: "deployment/deployPFMultiRegionAWS.md"
           - Kubernetes Deployments For Cloud Platforms:

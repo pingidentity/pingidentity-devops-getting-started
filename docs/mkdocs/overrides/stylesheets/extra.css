@@ -136,7 +136,8 @@ div.iconbox {
     width: 30%;
 }
 
-div.banner:hover {
+div.banner:hover,
+div.iconbox:hover {
     border-color: #B8232F;
     box-shadow: 0 8px 6px -6px #616161;
 }

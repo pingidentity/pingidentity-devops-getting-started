@@ -1,5 +1,12 @@
 # Deploy Ping DevOps Charts using Helm
 
+<div class="iconbox" onclick="window.open('https://helm.pingidentity.com','');">
+    <img class="assets" src="../../images/logos/helm.png"/>
+    <span class="caption">
+        <a class="assetlinks" href="https://helm.pingidentity.com" target=”_blank”>Helm Charts Repo</a>
+    </span>
+</div>
+
 Helm is a package deployment tool for Kubernetes. It can be used with PingDevops to deploy all the components of the Solution with a simple command.
 
 To get started, complete the following steps:

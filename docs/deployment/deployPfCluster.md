@@ -1,4 +1,4 @@
-# Deploy a PingFederate Cluster
+# Deploy PingFederate Cluster
 
 This use case employs server profile layering, using the PingFederate server profile in `pingidentity-server-profiles/pf-dns-ping-clustering/pingfederate` directory as the base layer profile. This server profile contains two files critical to PingFederate clustering:
 
@@ -40,7 +40,7 @@ See [Layering Server Profiles](../how-to/profilesLayered.md) for more informatio
 * Replicate the cluster configuration.
 * Scale the PingFederate engines.
 
-## Deploy PingFederate Cluster
+## Deploy Cluster
 
 You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-getting-started/11-docker-compose/05-pingfederate-cluster` directory to deploy the cluster.
 
@@ -68,7 +68,7 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
       docker-compose logs <product-container-name>
       ```
 
-1. Log in to the PingFederate administrator console:
+1. Log in to the PingFederate Administrator Console:
 
     | Product | Connection Details |
     | --- | --- |
@@ -78,9 +78,9 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
 Check the status of the cluster using either or the PingFederate Admin REST API:
 
-* To use the administrator console:
+* To use the Administrator Console:
 
-  1. Log in to the administrator console: `https://localhost:9999/pingfederate/app`.
+  1. Log in to the Administrator Console: `https://localhost:9999/pingfederate/app`.
   1. Go to System --> Cluster Management and click `Cluster Status`.
 
 * To use the PingFederate Admin REST API, enter:
@@ -118,13 +118,13 @@ Check the status of the cluster using either or the PingFederate Admin REST API:
   }
   ```
 
-## ReplicateConfiguration
+## Replicate Configuration
 
-Replicate configuration across the cluster using the either the PingFederate administrator console or the PingFederate Admin REST API:
+Replicate configuration across the cluster using the either the PingFederate Administrator Console or the PingFederate Admin REST API:
 
-* To use the administrator console:
+* To use the Administrator Console:
 
-    1. Log in to the administrator console: `https://localhost:9999/pingfederate/app`.
+    1. Log in to the Administrator Console: `https://localhost:9999/pingfederate/app`.
     1. Go to System --> Cluster Management and click `Replicate Configuration`.
 
 * To use the PingFederate Admin REST API, enter:
@@ -142,7 +142,7 @@ Replicate configuration across the cluster using the either the PingFederate adm
   {"resultId":"success","message":"Operation succeeded."}
   ```
 
-## Scale the Engines
+## Scale Engines
 
 To scale up to 2 engine nodes:
 
@@ -150,18 +150,24 @@ To scale up to 2 engine nodes:
 docker-compose up -d --scale pingfederate=2
 ```
 
-## Finishing
+## Clean Up
 
-When you no longer want to run the cluster, you can either stop the running stack, or bring the stack down.
+When you no longer want to run this stack, bring the stack down.
 
- To stop the running stack without removing any of the containers or associated Docker networks, enter:
+To remove all of the containers and associated Docker networks, enter:
+
+```sh
+docker-compose down
+```
+
+To stop the running stack without removing any of the containers or associated Docker networks, enter:
 
 ```sh
 docker-compose stop
 ```
 
- To remove all of the containers and associated Docker networks, enter:
+To remove attached Docker Volumes
 
 ```sh
-docker-compose down
+docker volume prune
 ```

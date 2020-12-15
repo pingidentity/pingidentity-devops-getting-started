@@ -2,7 +2,7 @@
 
 You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
 
-## What You'Ll Do
+## What You'll Do
 
 * Deploy the stack.
 * Log in to the management consoles.
@@ -45,16 +45,24 @@ You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
     | [PingFederate](https://localhost:9999/pingfederate/app) | <ul> <li>URL: [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
     | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
 
-1. When you no longer want to run this stack, you can either stop the running stack, or bring the stack down.
+## Clean Up
 
-      To stop the running stack without removing any of the containers or associated Docker networks, enter:
+When you no longer want to run this stack, you can either stop the running stack, or bring the stack down.
 
-      ```sh
-      docker-compose stop
-      ```
+To stop the running stack without removing any of the containers or associated Docker networks, enter:
 
-      To remove all of the containers and associated Docker networks, enter:
+```sh
+docker-compose stop
+```
 
-      ```sh
-      docker-compose down
-      ```
+To remove all of the containers and associated Docker networks, enter:
+
+```sh
+docker-compose down
+```
+
+To remove attached Docker Volumes
+
+```sh
+docker volume prune
+```
