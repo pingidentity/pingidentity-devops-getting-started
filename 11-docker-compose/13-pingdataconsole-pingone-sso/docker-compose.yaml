@@ -1,0 +1,78 @@
+version: "2.4"
+#-------------------------------------------------------------------------------------
+#- Ping Identity PingDataConsole SSO with PingOne demo
+#-
+#- The PingDataConsole can be configured to use SSO with PingOne. Once you've configured an
+#- application in PingOne for the console, you can replace the PD_CONSOLE_SSO_ISSUER_URI,
+#- PD_CONSOLE_SSO_CLIENT_ID, and PD_CONSOLE_SSO_CLIENT_SECRET variables in this file with
+#- the corresponding values from PingOne. You will also need to create an identity in
+#- PingOne that corresponds to a Root DN configured in PingDirectory. The sample user in
+#- this demo is Jane Smith (username jsmith). 
+#-
+#-                          +---------------+
+#-                          |PingDataConsole|
+#-                          +---------------+
+#-                                  |
+#-                          +----------------+
+#-                          | PingDirectory  |
+#-                          +----------------+
+#-
+#- To view PingData Console goto:
+#- 
+#-    https://localhost:8443/
+#-    
+#-      Server: pingdirectory
+#-    Username: administrator
+#-    Password: 2FederateM0re
+#-
+#- To view users in Ping Directory (via REST) goto:
+#-    https://localhost:1443/directory/v1/ou=people,dc=example,dc=com/subtree?searchScope=singlelevel
+#-
+#-    Username: cn=administrator
+#-    Password: 2FederateM0re
+#-------------------------------------------------------------------------------------
+
+services:
+  pingdirectory:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=pingdataconsole-sso/pingdirectory
+      - PD_CONSOLE_SSO_ISSUER_URI=https://example.com
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    networks:
+      - pingnet
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "2389:389"
+      - "2636:636"
+      - "2443:443"
+    volumes:
+      - pingdirectory-out:/opt/out
+      
+  pingdataconsole:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=pingdataconsole-sso/pingdataconsole
+      - PD_CONSOLE_SSO_ENABLED=true
+      - PD_CONSOLE_SSO_ISSUER_URI=https://example.com
+      - PD_CONSOLE_SSO_CLIENT_ID=client_id
+      - PD_CONSOLE_SSO_CLIENT_SECRET=client_secret
+    ports:
+      - "8443:8443"
+    networks: 
+      - pingnet
+                    
+networks:
+  pingnet:
+
+volumes:
+  pingdirectory-out:
