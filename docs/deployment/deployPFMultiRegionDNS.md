@@ -1,4 +1,4 @@
-# Kubernetes Multi Region Clustering using Native S3 Ping
+# Kubernetes Multi Region Clustering using DNS
 
 This document is specific to dynamic discovery with DNS_PING and is an extension of [PingFederate Cluster Across Multiple Kubernetes Clusters](./deployK8sPFclusters.md). This is the recommended approach for **GA** PingFederate 10.2+
 
