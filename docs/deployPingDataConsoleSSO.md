@@ -14,6 +14,7 @@ Note: Configuring SSO with PingOne requires PingDirectory and PingDataConsole ve
 
 * You've already been through [Get started](getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * You've set up an application in PingOne representing your PingDataConsole instance. See the PingDirectory documentation ("Configuring PingOne to use SSO for the PingData Administrative Console") for details. You will need the Issuer, Client ID, and Client Secret values from PingOne.
+* You've created a user in PingOne corresponding to a root user DN in PingDirectory. This example expects a user named Jane Smith, with username jsmith.
 * You've set the variable values from PingOne in your local `devops/pingidentity-devops-getting-started/11-docker-compose/13-pingdataconsole-pingone-sso/docker-compose.yml`.
 
 ## Deploy the PingDirectory and PingDataConsole stack
@@ -46,7 +47,7 @@ Note: Configuring SSO with PingOne requires PingDirectory and PingDataConsole ve
 
 1. In a browser, go to `https://localhost:8443/console/login`
 
-2. You should be redirected to a PingOne login page. Login with a PingOne user that corresponds to a configured Root DN. You should be successfully logged in to the console, where you can manage your PingDirectory instance.
+2. You should be redirected to a PingOne login page. Login with a PingOne user that corresponds to a configured root user DN (jsmith). You can generate an initial password for the user in PingOne. You should be successfully logged in to the console, where you can manage your PingDirectory instance.
 
 3. When you no longer want to run this stack, you can either bring the stack down (recommended), or stop the running stack.
 

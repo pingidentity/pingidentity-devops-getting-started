@@ -5,9 +5,9 @@ version: "2.4"
 #- The PingDataConsole can be configured to use SSO with PingOne. Once you've configured an
 #- application in PingOne for the console, you can replace the PD_CONSOLE_SSO_ISSUER_URI,
 #- PD_CONSOLE_SSO_CLIENT_ID, and PD_CONSOLE_SSO_CLIENT_SECRET variables in this file with
-#- the corresponding values from PingOne. You will also need to create an identity in
-#- PingOne that corresponds to a Root DN configured in PingDirectory. The sample user in
-#- this demo is Jane Smith (username jsmith). 
+#- the corresponding values from PingOne. You will also need to create a user in
+#- PingOne that corresponds to a root user DN configured in PingDirectory. The expected root
+#- user in this demo is Jane Smith (username jsmith).
 #-
 #-                          +---------------+
 #-                          |PingDataConsole|
