@@ -5,7 +5,7 @@ function prop {
 echo "Creating output folder..."
 mkdir -p out/pingfederate
 
-echo "Downloading config from https://localhost:9999..."
+echo "Downloading config from $(prop 'PINGFEDERATE_ADMIN_BASEURL')..."
 curl -X GET --basic -u $(prop 'PINGFEDERATE_ADMIN_CREDENTIALS') --header 'Content-Type: application/json' --header 'X-XSRF-Header: PingFederate' $(prop 'PINGFEDERATE_ADMIN_BASEURL')/pf-admin-api/v1/bulk/export --insecure > ./out/pf-export.json
 
 echo "Creating/modifying ./out/pingfederate/pf.env and ./out/pingfederate/requestBody.json.subst..."
