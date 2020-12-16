@@ -48,14 +48,13 @@ nav:
       - Deploy Example Stack: "get-started/getStartedWithGitRepo.md"
   - Deployment:
       - Introduction: "deployment/deploy.md"
-      # TODO: Requires rework once image docker run commands are linked
-      #- Deploy Standalone Containers: "deployStandalone.md"
       - Deploy with Docker-Compose:
           - Introduction: "deployment/deployCompose.md"
           - Deploy PingFederate and PingDirectory Stack: "deployment/deploySimpleStack.md"
           - Deploy Replicated PingDirectory Pair: "deployment/deployReplication.md"
           - Deploy PingDirectory and PingDataSync: "deployment/deploySync.md"
           - Deploy PingDataSync Failover Server: "deployment/deploySyncFailover.md"
+          - Deploy PingDataConsole with PingOne SSO: "deployment/deployPingDataConsoleSSO.md"
           - Deploy PingCentral: "deployment/deployPingCentral.md"
           - Deploy PingFederate Cluster: "deployment/deployPfCluster.md"
           - Deploy PingAccess Cluster: "deployment/deployPaCluster.md"
