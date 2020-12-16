@@ -1,4 +1,5 @@
 site_name: Ping Identity DevOps
+site_description: This is just a test
 repo_name: pingidentity/pingidentity-devops-getting-started
 repo_url: https://github.com/pingidentity/pingidentity-devops-getting-started
 site_url: https://devops.pingidentity.com/
@@ -44,7 +45,6 @@ nav:
       - DevOps Registration: "get-started/devopsRegistration.md"
       - Using Your DevOps User and Key: "get-started/devopsUserKey.md"
       - DevOps Product Licenses: "get-started/prodLicense.md"
-      #- Saving Your Configuration Changes: "saveConfigs.md"
       - Deploy Example Stack: "get-started/getStartedWithGitRepo.md"
   - Deployment:
       - Introduction: "deployment/deploy.md"

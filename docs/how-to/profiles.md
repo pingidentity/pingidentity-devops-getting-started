@@ -87,7 +87,7 @@ We'll use a PingFederate installation as an example. This method uses a server p
 1. Deploy the PingFederate container. The environment variables `SERVER_PROFILE_URL` and `SERVER_PROFILE_PATH` direct Docker to use the server profile you've modified and pushed to Github.
 
     !!! note "Saving Changes"
-        To save any changes you make after the container is running, add the entry `--volume <local-path>:/opt/out` to the `docker run` command, where &lt;local-path&gt; is a directory you've not already created. See [Saving Your Changes](../saveConfigs.md) for more information.
+        To save any changes you make after the container is running, add the entry `--volume <local-path>:/opt/out` to the `docker run` command, where &lt;local-path&gt; is a directory you've not already created. See [Saving Your Changes](../how-to/saveConfigs.md) for more information.
 
     For example:
 

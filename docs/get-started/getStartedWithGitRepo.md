@@ -28,7 +28,7 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 1. Deploy the full stack of our product containers:
 
     !!! note "Initial Deployment"
-        For your initial deployment of the stack, we recommend you make no changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. For subsequent deployments, see [Saving Your Configuration Changes](../saveConfigs.md).
+        For your initial deployment of the stack, we recommend you make no changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. For subsequent deployments, see [Saving Your Configuration Changes](../how-to/saveConfigs.md).
 
     1. To start the stack, go to your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 

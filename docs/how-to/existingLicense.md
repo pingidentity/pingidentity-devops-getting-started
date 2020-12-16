@@ -11,7 +11,7 @@ If you have an existing, valid product license for the product or products you'l
 
 Use the instructions in any of these subtopics:
 
-* [License Declarations For Stacks](#license-declarations-for-stacks) to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save Your Configuration Changes](../saveConfigs.md) for instructions in using local Docker volumes.
+* [License Declarations For Stacks](#license-declarations-for-stacks) to persist the license information in the local Docker volume that can be used for runtime startup information. See [Save Your Configuration Changes](../how-to/saveConfigs.md) for instructions in using local Docker volumes.
 * [License Declarations For Standalone Containers](#license-declarations-for-standalone-containers) when bringing up standalone containers.
 * [Passing a License as a Kubernetes Secret](#passing-a-license-as-a-kubernetes-secret) to use an existing license with Kubernetes.
 
