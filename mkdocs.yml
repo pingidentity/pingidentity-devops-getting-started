@@ -1,8 +1,8 @@
 site_name: Ping Identity DevOps
-site_description: This is just a test
 repo_name: pingidentity/pingidentity-devops-getting-started
 repo_url: https://github.com/pingidentity/pingidentity-devops-getting-started
 site_url: https://devops.pingidentity.com/
+copyright: © Copyright 2020 Ping Identity
 extra_css:
   - mkdocs/overrides/stylesheets/extra.css
 
