@@ -51,7 +51,7 @@ services:
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
-      - 9031-9041:9031
+      - 9031-9051:9031
     networks:
       - pingnet
 

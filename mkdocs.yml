@@ -1,0 +1,153 @@
+site_name: Ping Identity DevOps
+repo_name: pingidentity/pingidentity-devops-getting-started
+repo_url: https://github.com/pingidentity/pingidentity-devops-getting-started
+site_url: https://devops.pingidentity.com/
+copyright: © Copyright 2021 Ping Identity
+extra_css:
+  - mkdocs/overrides/stylesheets/extra.css
+
+theme:
+  name: material
+  custom_dir: docs/mkdocs/overrides
+  favicon: images/favicon.png
+
+  features:
+    - navigation.tabs
+    - instant
+
+  palette:
+   # scheme: preference
+    primary: indigo
+    accent: blue
+
+edit_uri: ""
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji
+  - admonition
+  - codehilite
+  - pymdownx.inlinehilite
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences
+  - meta
+  - toc:
+      # insert a blank space before the character
+      permalink: " ¶"
+
+nav:
+  - DevOps @ Ping: "README.md"
+  - Overview: "overview.md"
+  - Get Started:
+      - Introduction: "get-started/getStarted.md"
+      - ping-devops Utility: "get-started/pingDevopsUtil.md"
+      - DevOps Registration: "get-started/devopsRegistration.md"
+      - Using Your DevOps User and Key: "get-started/devopsUserKey.md"
+      - DevOps Product Licenses: "get-started/prodLicense.md"
+      - Deploy Example Stack: "get-started/getStartedWithGitRepo.md"
+  - Deployment:
+      - Introduction: "deployment/deploy.md"
+      - Deploy with Docker-Compose:
+          - Introduction: "deployment/deployCompose.md"
+          - Deploy PingFederate and PingDirectory Stack: "deployment/deploySimpleStack.md"
+          - Deploy Replicated PingDirectory Pair: "deployment/deployReplication.md"
+          - Deploy PingDirectory and PingDataSync: "deployment/deploySync.md"
+          - Deploy PingDataSync Failover Server: "deployment/deploySyncFailover.md"
+          - Deploy PingDataConsole with PingOne SSO: "deployment/deployPingDataConsoleSSO.md"
+          - Deploy PingCentral: "deployment/deployPingCentral.md"
+          - Deploy PingFederate Cluster: "deployment/deployPfCluster.md"
+          - Deploy PingAccess Cluster: "deployment/deployPaCluster.md"
+          - Deploy PingDataGovernance with PAP: "deployment/deployPdgPap.md"
+          - Deploy Monitoring Stack: "deployment/deployMonitoringStack.md"
+          - Deploy an Elasticsearch SIEM Stack: "deployment/deploySiemStack.md"
+      - Deploy with Kubernetes:
+          - Introduction: "deployment/deployK8s.md"
+          - Deploy with PingIdentiy Helm Charts: "deployment/deployHelm.md"
+          - PingDirectory Deployments Across Kubernetes Clusters: "deployment/deployK8sPD-clusters.md"
+          - Kubernetes Deployments For General Use:
+              - Introduction: "deployment/deployK8sGeneral.md"
+              - Orchestrate Standalone Deployments: "deployment/deployK8sStandalone.md"
+              - Orchestrate a Full Stack Deployment: "deployment/deployK8sFullstack.md"
+              - Orchestrate a Replicated PingDirectory Deployment: "deployment/deployK8sReplicated.md"
+              - Orchestrate a PingAccess Cluster Deployment: "deployment/deployK8sPA-cluster.md"
+              - Orchestrate a PingFederate Cluster Deployment: "deployment/deployK8sPF-cluster.md"
+              - Deploy PingFederate Across Multiple Kubernetes Clusters:
+                  - Introduction: "deployment/deployK8sPFclusters.md"
+                  - AWS Multi-Region Prereq: "deployment/pfMultiRegionAWSPrereq.md"
+                  - PingFederate Across Kubernetes with DNS: "deployment/deployPFMultiRegionDNS.md"
+                  - PingFederate Across Kubernetes with S3: "deployment/deployPFMultiRegionAWS.md"
+          - Kubernetes Deployments For Cloud Platforms:
+              - Introduction: "deployment/deployK8sCloud.md"
+              - Deploy Peered EKS Clusters: "deployment/deployK8s-AWS.md"
+              - Deploy to Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
+              - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
+          - Deploy Hashicorp Vault: "deployment/deployVault.md"
+  - How To:
+      - Use Existing Licenses: "how-to/existingLicense.md"
+      - Server Profile:
+          - Deployment: "how-to/containerAnatomy.md"
+          - Customization: "how-to/profiles.md"
+          - Saving Configurations: "how-to/saveConfigs.md"
+          - Build Your Own ...: "how-to/buildPingFederateProfile.md"
+          - Layering: "how-to/profilesLayered.md"
+          - ENV Substitution: "how-to/profilesSubstitution.md"
+          - Private Github Repos: "how-to/privateRepos.md"
+      - Vault/Secrets: "how-to/usingVault.md"
+      - Securing the Containers: "how-to/secureContainers.md"
+      - Upgrading Deployments:
+          - Introduction: "how-to/manage.md"
+          - Upgrading PingFederate: "how-to/upgradePingfederate.md"
+          - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
+  - Reference:
+      - Introduction: "reference/config.md"
+      - Server Profile: "reference/profileStructures.md"
+      - Docker Compose YAML: "reference/yamlFiles.md"
+      - Variables and Scope: "reference/variableScoping.md"
+      - Certificates: "reference/usingCertificates.md"
+      - Image Info:
+          - Release Tags: "reference/releaseTags.md"
+          - Using Supported Images: "reference/imageSupport.md"
+          - DevOps Image Security: "reference/dockerImageSecurity.md"
+      - Utilities:
+          #- ping-devops: "reference/pingDevopsUtil.md"
+          - ldap-sdk-tools: "reference/ldapsdkUtil.md"
+      - Troubleshooting: "reference/troubleshooting.md"
+      - DevOps Images Reference:
+          - Introduction: "reference/dockerImagesRef.md"
+          - PingFederate: "docker-images/pingfederate/README.md"
+          - PingAccess: "docker-images/pingaccess/README.md"
+          - PingDirectory: "docker-images/pingdirectory/README.md"
+          - PingDirectoryProxy: "docker-images/pingdirectoryproxy/README.md"
+          - PingDataGovernance: "docker-images/pingdatagovernance/README.md"
+          - PingDataGovernance PAP: "docker-images/pingdatagovernancepap/README.md"
+          - PingDataSync: "docker-images/pingdatasync/README.md"
+          - PingDelegator: "docker-images/pingdelegator/README.md"
+          - PingCentral: "docker-images/pingcentral/README.md"
+          - PingIntelligence: "docker-images/pingintelligence/README.md"
+          - ldap-sdk-tools: "docker-images/ldap-sdk-tools/README.md"
+          - Ping Data Console: "docker-images/pingdataconsole/README.md"
+          - PingDownloader: "docker-images/pingdownloader/README.md"
+          - PingBase: "docker-images/pingbase/README.md"
+          - PingCommon: "docker-images/pingcommon/README.md"
+          - PingDataCommon: "docker-images/pingdatacommon/README.md"
+          - Apache JMeter: "docker-images/apache-jmeter/README.md"
+      - Advanced Topics:
+          - DevOps Hooks: "reference/hooks.md"
+          - Adding a MOTD: "reference/addMOTD.md"
+          - Build Local Images: "reference/buildLocal.md"
+  - Release Notes:
+      - Current: "release-notes/relnotes-2011.md"
+      - Version 2010: "release-notes/relnotes-2010.md"
+      - Version 2009: "release-notes/relnotes-2009.md"
+      - Version 2008: "release-notes/relnotes-2008.md"
+      - Version 2007: "release-notes/relnotes-2007.md"
+      - Version 2006: "release-notes/relnotes-2006.md"
+      - Version 2005: "release-notes/relnotes-2005.md"
+      - Version 2004: "release-notes/relnotes-2004.md"
+      - Version 2003: "release-notes/relnotes-2003.md"
+
+  - License: license.md
+  - Disclaimer: disclaimer.md
+  - Third-Party Software: 3rdPartySoftware.md
+  - Contributing: contributing.md

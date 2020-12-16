@@ -1,0 +1,174 @@
+.md-typeset h1 {
+    /* H1 header color */
+    color: #B8232F
+}
+
+.md-header {
+    /* Top white bar */
+    background-color: #3e4547;
+    height: 62px;
+    color: white;
+    padding-top: 6px;
+}
+
+.md-tabs {
+    /* Horizontal menu bar */
+    background-color: #3e4547;
+}
+
+.md-header-nav__title,
+.md-search,
+.md-header-nav__source {
+    /* Header top padding (excludes logo) */
+    padding-top: 3px;
+}
+
+.md-header-nav__button.md-logo {
+    /* Ping Identity logo */
+    background-image: url('https://www.pingidentity.com/content/dam/ping-6-2-assets/topnav-json-configs/Ping-Logo.svg');
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+}
+
+.md-header-nav__ellipsis.md-ellipsis,
+.md-header-nav__topic.md-ellipsis {
+    /* Site title */
+    color: #FFFFFF;
+    font-size: 110%;
+}
+
+.md-source__repository {
+    /* Repository text color */
+    color: #FFFFFF;
+}
+
+.md-source__icon {
+    /* Github icon color */
+    color: #FFFFFF;
+}
+
+.md-search__input {
+    /* Search box hover background color */
+    background-color: #babbbb;
+}
+
+.md-search__input:hover {
+    background-color: #c4c8c9;
+}
+
+.md-nav__item .md-nav__link--active {
+    /* Selected left side menu item */
+    color: #B8232F;
+    font-weight: bold;
+}
+
+.md-nav__item .md-nav__link:hover {
+    /* Left side menu hover link color */
+    color: #B8232F;
+}
+
+.md-typeset a {
+    /* Hyperlink link color */
+    color: #B8232F;
+    word-break: break-word;
+}
+
+.md-typeset a:hover {
+    /* Hyperlink link color */
+    color: #d02735;
+}
+
+.md-tabs__link--active {
+    /* Left menu font */
+    font-weight: bold;
+}
+
+.md-footer-nav {
+    /* Footer navigation background */
+    background-color: #616161
+}
+
+.md-footer-meta.md-typeset {
+    /* MKDocs footer background color */
+    background-color: #262626;
+}
+
+.md-clipboard.md-icon:hover {
+    /* Copy to clipboard hover color */
+    color: #d02735
+}
+
+.highlight .m {
+    /* Code highlight color */
+    color: #1c1b1b
+}
+
+.md-header-nav__button.md-icon {
+    /* Menu hamburger icon */
+    color: #FFFFFF;
+    padding-top: 10px;
+}
+
+div.banner,
+div.iconbox {
+    border-color: black;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 8px 6px -6px black;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 20px;
+    min-width: 120px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: top;
+    width: 20%;
+}
+
+div.iconbox {
+    margin-bottom: 20px;
+    min-width: 180px;
+    max-width: 280px;
+    width: 30%;
+}
+
+div.banner:hover,
+div.iconbox:hover {
+    border-color: #B8232F;
+    box-shadow: 0 8px 6px -6px #616161;
+}
+
+.caption {
+    display: block;
+}
+
+.assets {
+    height: 105px;
+    width: 105px;
+}
+
+a.assetlinks:visited {
+    color: #B8232F;
+}
+
+[data-md-color-accent=blue] {
+    --md-accent-fg-color: hsla(354, 70%, 43%, 1)
+}
+
+.md-nav--primary .md-nav__title[for=__drawer] {
+    --md-primary-fg-color: hsla(0, 0%, 38%, 1)
+}
+
+.md-nav__source {
+    /* Slider Git Repo */
+    --md-primary-fg-color--dark: hsla(193, 7%, 26%, 1)
+}
+
+.md-nav--primary .md-nav__item--active>.md-nav__link {
+    /* Slider active menu */
+    --md-typeset-a-color: hsla(354, 70%, 43%, 1);
+}
