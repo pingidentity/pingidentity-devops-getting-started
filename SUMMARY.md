@@ -32,6 +32,7 @@
     * [Deploy PingDataGovernance with PAP](docs/deployPdgPap.md)
     * [Deploy a monitoring stack](docs/deployMonitoringStack.md)
     * [Deploy an Elasticsearch SIEM stack](docs/deploySiemStack.md)
+    * [Deploy PingDataConsole with PingOne SSO enabled](docs/deployPingDataConsoleSSO.md)
   * [Orchestrate with Kubernetes](docs/deployK8s.md)
     * [Deploy with PingIdentiy Helm Charts](docs/deployHelm.md)
     * [PingDirectory deployments across Kubernetes clusters](docs/deployK8sPD-clusters.md)
