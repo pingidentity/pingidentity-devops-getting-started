@@ -89,6 +89,7 @@ nav:
       - Server Profile:
           - Deployment: "how-to/containerAnatomy.md"
           - Customization: "how-to/profiles.md"
+          - Saving Configurations: "how-to/saveConfigs.md"
           - Build Your Own ...: "how-to/buildPingFederateProfile.md"
           - Layering: "how-to/profilesLayered.md"
           - ENV Substitution: "how-to/profilesSubstitution.md"
