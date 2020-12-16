@@ -6,7 +6,7 @@
 
 - **Secret Management**
 
-      A number of key enhancements have been made to natively support secret management within our Docker Images. See [Documentation](https://pingidentity-devops.gitbook.io/devops/config/usingvault) for implementation details.
+      A number of key enhancements have been made to natively support secret management within our Docker Images. See [Documentation](../how-to/usingVault.md) for implementation details.
 
 - **DevOps Development Mode**
 
@@ -14,7 +14,7 @@
 
 - **DevOps Program Registration**
 
-      Signing up for the Ping DevOps program is now self-service! Simply follow the instructions found [Here](https://pingidentity-devops.gitbook.io/devops/getstarted/prod-license#obtaining-a-ping-identity-devops-user-and-key).
+      Signing up for the Ping DevOps program is now self-service! Simply follow the instructions found [Here](../get-started/devopsRegistration.md).
 
 ### Improvements
 

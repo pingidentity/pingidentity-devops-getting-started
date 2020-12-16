@@ -1,6 +1,6 @@
 # Using Hashicorp Vault
 
-This provides details for using Hashicorp Vault and secrets with Ping Identity DevOps Images.
+This documentation provides details for using Hashicorp Vault and secrets with Ping Identity DevOps Images.
 
 ## What You'll Do
 

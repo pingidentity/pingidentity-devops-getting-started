@@ -22,7 +22,7 @@
 
 - **Docker Image Startup Flexibility**
 
-      We've added the ability for end users to customize the startup sequence for Docker Images using **pre** and **post** hooks. See our [Documentation](https://pingidentity-devops.gitbook.io/devops/config/hooks#using-pre-and-post-hooks) for implementation details.
+      We've added the ability for end users to customize the startup sequence for Docker Images using **pre** and **post** hooks. See our [Documentation](../reference/hooks.md) for implementation details.
 
 ### Improvements
 

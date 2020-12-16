@@ -6,7 +6,7 @@
 
 - **PingFederate Multi-region Clustering**
 
-      We've published our [Reference Architecture](https://pingidentity-devops.gitbook.io/devops/deploy/deployk8s/deployk8sgeneral/deploypfmultiregionaws) for deploying PingFederate across multiple AWS regions using Kubernetes.
+      We've published our [Reference Architecture](../deployment/deployK8sPFclusters.md) for deploying PingFederate across multiple AWS regions using Kubernetes.
 
 - **PingDataSync Clustering**
 
@@ -14,7 +14,7 @@
 
 - **Certificate Management Usage**
 
-      We've added documentation for DevOps [Certificate Management](https://pingidentity-devops.gitbook.io/devops/config/usingcertificates).
+      We've added documentation for DevOps [Certificate Management](../reference/usingCertificates.md).
 
 ### PingAccess Release
 
@@ -25,7 +25,7 @@ PingAccess 6.1.2 is now available using **edge**, **latest** and **2009** image 
   Looking to see what the next official product release will contain? Start using the beta and early access builds today.
 
 - PingFederate 10.2.0-Beta
-- PingAccess 6.2.0-Bet
+- PingAccess 6.2.0-Beta
 - PingDirectory 8.2.0.0-EA
 - PingDirectoryProxy 8.2.0.0-EA
 - PingDataGovernance 8.2.0.0-EA
@@ -36,4 +36,4 @@ PingAccess 6.1.2 is now available using **edge**, **latest** and **2009** image 
 
 - **Image Hardening**
 
-      We've updated our Image hardening [guide](https://pingidentity-devops.gitbook.io/devops/config/securecontainers) to help secure your production deployments.
+      We've updated our Image hardening [Guide](../how-to/secureContainers.md) to help secure your production deployments.

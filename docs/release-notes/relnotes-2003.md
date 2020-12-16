@@ -42,7 +42,7 @@
 
 - **The ping-devops Utility**
 
-      We've added Kubernetes license secret generation, and server profile generation for PingDirectory  to the ping-devops utility. See [The ping-devops utility](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
+      We've added Kubernetes license secret generation, and server profile generation for PingDirectory  to the ping-devops utility. See [The ping-devops utility](../get-started/pingDevopsUtil.md).
 
 - **A New Hook**
 
@@ -66,7 +66,7 @@
 
 - **Docker Base Image Security**
 
-      We've documented an evaluation of Docker base image security. See [Evaluation of Docker Base Image Security](https://pingidentity-devops.gitbook.io/devops/config/dockerimagesecurity).
+      We've documented an evaluation of Docker base image security. See [Evaluation of Docker Base Image Security](../reference/dockerImageSecurity.md).
 
 ### Resolved Defects
 
@@ -83,4 +83,4 @@
 
 ### Qualified
 
-- (GDO-42) Verified the ability to run our Docker containers as a non-root user. See [Securing the Containers](https://pingidentity-devops.gitbook.io/devops/config/securecontainers).
+- (GDO-42) Verified the ability to run our Docker containers as a non-root user. See [Securing the Containers](../how-to/secureContainers.md).

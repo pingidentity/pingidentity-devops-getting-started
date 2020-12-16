@@ -10,11 +10,11 @@
 
 - **PingIntelligence (ASE) Docker Image**
 
-      PingIntelligence (ASE) is now available on DockerHub! Pull the 4.3 ASE image [here](https://hub.docker.com/r/pingidentity/pingintelligence).
+      PingIntelligence (ASE) is now available on DockerHub! Pull the 4.3 ASE image [Here](https://hub.docker.com/r/pingidentity/pingintelligence).
 
 - **PingFederate Bulk API Configuration Management**
 
-      We've added tooling and documentation for managing PingFederate configuration using the build API export and import. View the latest documentation [here](https://pingidentity-devops.gitbook.io/devops/config/containeranatomy/buildpingfederateprofile).
+      We've added tooling and documentation for managing PingFederate configuration using the build API export and import. View the latest documentation [Here](../how-to/buildPingFederateProfile.md).
 
 ### Enhancements
 

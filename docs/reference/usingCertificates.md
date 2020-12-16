@@ -8,7 +8,7 @@ Currently, certificates can be provided to the PingData products when the contai
     We encouraged these to be placed into the server profile (i.e. .../.sec/keystore).  For security best practices, this is no longer a recommended approach.
     Rather a secret should be used to pass this material to the containers.
 
-## What you'll do
+## What You'll Do
 
 The examples below will explain and show examples of:
 

@@ -26,7 +26,7 @@
 
 - **The ping-devops utility**
 
-      We've added major enhancements to our ping-devops utility. See [The ping-devops Utility](https://pingidentity-devops.gitbook.io/devops/devopsutils/pingdevopsutil).
+      We've added major enhancements to our ping-devops utility. See [The ping-devops Utility](../get-started/pingDevopsUtil.md).
 
 - **PingDirectory replication**
 
@@ -34,11 +34,11 @@
 
 - **Variables and scope**
 
-      We've added documentation to help with understanding the effective scope of variables. See [Variables and Scope](https://pingidentity-devops.gitbook.io/devops/config/variablescoping).
+      We've added documentation to help with understanding the effective scope of variables. See [Variables and Scope](../reference/variableScoping.md).
 
 - **Elasticsearch SIEM stack**
 
-      We've added documentation for our Elasticsearch SIEM stack. See [Deploy an Elasticsearch SIEM Stack](https://pingidentity-devops.gitbook.io/devops/deploy/deploycompose/deploysiemstack).
+      We've added documentation for our Elasticsearch SIEM stack. See [Deploy an Elasticsearch SIEM Stack](../deployment/deploySiemStack.md).
 
 ### Resolved Defects
 

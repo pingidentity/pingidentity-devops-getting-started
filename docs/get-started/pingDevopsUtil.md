@@ -58,7 +58,7 @@ Enter `ping-devops` in a terminal to display the commands listing. The display w
 #####################################################################
 #  Ping Identity DevOps (version 0.7.1)
 #
-#  Documentation: https://pingidentity-devops.gitbook.io/devops/
+#  Documentation: https://devops.pingidentity.com
 #   GitHub Repos: https://github.com/topics/ping-devops
 #####################################################################
 

@@ -36,7 +36,7 @@
       We've made improvements to PingDirectory's liveness check to better inform dependant services on the status of the Directory service.
 
 - **Docker Build Pipeline**
-      - We've published [Documentation](https://pingidentity-devops.gitbook.io/devops/deploy/buildlocal) on how to build a Ping Identity Docker Image using a local zip artifact.
+      - We've published [Documentation](../reference/buildLocal.md) on how to build a Ping Identity Docker Image using a local zip artifact.
 
       - We have improved our reference pipeline to allow for the build of a single product.
 
