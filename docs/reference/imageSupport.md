@@ -1,37 +1,36 @@
-# Ping Identity Docker Image Support
+# Ping Identity Docker Image Support Policy
 
 ## Overview
 
-Unlike traditionally delivered software, Docker Images include product artifacts, operating system, Java Development Kit (JDK)
-and miscellaneous tools/libraries (Git, SSH, SSL) to run the software.
+Unlike software delivered as an archive, Docker Images include product artifacts, OS shim, an optimized JVM build
+and miscellaneous tools/libraries (Git, SSH, SSL) to run the software and automation scripts.
 
-Due to the number of dependency updates and to ensure all patches are captured, Ping Identity builds supported product images semi-weekly (edge), releasing a stable build each month (sprint and latest).
+Due to the number of dependency updates and to ensure all patches are kept up to date, Ping Identity actively maintains product images semi-weekly (edge), releasing a stable build each month (sprint and latest).
 
 The build process retrieves the latest versions of:
 
-* Operating System (Alpine)
-* JDK
+* Operating System Shim (Alpine)
+* Optimized Java VM
 * Product files
 * Supporting tools/libraries
 
-## Supported Image Versions
+## Actively Maintained Images
 
-The DevOps program supports:
+The DevOps program actively maintains docker images for:
 
-* Support most recent 2 feature releases (major/minor)
-* Latest patch release for each minor version
+* the two (2) most recent feature releases (major/minor) of each product
+* the latest patch release for each minor version
 
 Examples:
 
-* Version 10.0 will stop being updated when 10.0.1 is released
-* Once 10.0.2 is released, 10.0.1 will no longer be updated
-* Once 10.1 is available, 10.0.X (Last updated patch release) will continue to be updated
-* Once 10.2 is released, the latest version 9.X images will no longer be built
+* If we currently maintain images for PingFederate 10.0 and 10.1, when PingFederate 10.2 is released, docker images with PingFederate 10.0 will no longer be actively maintained.
+* If a patch is released for 10.1, it supersedes the previous patch. In other words, if we currently maintain an image for PingFederate 10.1.2, when PingFederate 10.1.3 is released it replaces 10.1.2.
 
-!!! warning "DockerHub Images"
-    Image versions that have fallen out of Ping's support window will be removed from DockerHub 3 months after support has ended.
+!!! warning "Docker Hub Images"
+    Image versions that have fallen out of Ping's image active maintenance window will be removed from DockerHub 3 months after it was last actively maintained.
 
-Current matrix of actively maintained images:
+**Current** matrix of actively maintained images:
+
 
 | Product               | Actively Maintained Image |
 | --- | --- |
