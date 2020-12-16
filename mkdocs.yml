@@ -55,6 +55,7 @@ nav:
           - Deploy PingFederate and PingDirectory Stack: "deployment/deploySimpleStack.md"
           - Deploy Replicated PingDirectory Pair: "deployment/deployReplication.md"
           - Deploy PingDirectory and PingDataSync: "deployment/deploySync.md"
+          - Deploy PingDataSync Failover Server: "deployment/deploySyncFailover.md"
           - Deploy PingCentral: "deployment/deployPingCentral.md"
           - Deploy PingFederate Cluster: "deployment/deployPfCluster.md"
           - Deploy PingAccess Cluster: "deployment/deployPaCluster.md"
