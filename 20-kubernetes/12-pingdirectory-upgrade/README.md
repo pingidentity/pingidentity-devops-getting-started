@@ -1,1 +1,1 @@
-See [Upgrade PingDirectory](../../docs/upgradePingDirectory.md) for more information.
+See [Upgrade PingDirectory](../../docs/how-to/upgradePingDirectory.md) for more information.

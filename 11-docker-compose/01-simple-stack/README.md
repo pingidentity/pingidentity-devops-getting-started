@@ -1,1 +1,1 @@
-See [Deploy a simple stack with PingFederate and PingDirectory](../../docs/deploySimpleStack.md) for more information.
+See [Deploy a simple stack with PingFederate and PingDirectory](../../docs/deployment/deploySimpleStack.md) for more information.

@@ -1,1 +1,1 @@
-See [Deploy a PingFederate cluster](../../docs/deployPFMultiRegionAWS.md) for more information.
+See [Deploy a PingFederate cluster](../../docs/deployment/deployPFMultiRegionAWS.md) for more information.

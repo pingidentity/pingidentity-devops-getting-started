@@ -1,1 +1,1 @@
-See [Kubernetes deployments for general use](../docs/deployK8sGeneral.md) for more information.
+See [Kubernetes deployments for general use](../docs/deployment/deployK8sGeneral.md) for more information.

@@ -1,1 +1,1 @@
-See [Deploy PingDirectory and PingDataSync](../../docs/deploySync.md) for more information.
+See [Deploy PingDirectory and PingDataSync](../../docs/deployment/deploySync.md) for more information.

@@ -1,1 +1,1 @@
-See [Deploy a monitoring stack](../../docs/deployMonitoringStack.md) for more information.
+See [Deploy a monitoring stack](../../docs/deployment/deployMonitoringStack.md) for more information.

@@ -1,1 +1,1 @@
-See [Orchestrate standalone deployments](../../docs/deployK8sStandalone.md) for more information.
+See [Orchestrate standalone deployments](../../docs/deployment/deployK8sStandalone.md) for more information.
