@@ -12,10 +12,10 @@ When you're ready, begin with our [Get Started](get-started/getStarted.md) guide
         <a class="assetlinks" href="https://hub.docker.com/u/pingidentity" target=”_blank”>Docker Images</a>
     </span>
 </div>
-<div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-devops-docker-builds','');">
+<div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-docker-builds','');">
     <img class="assets" src="../images/logos/github.png"/>
     <span class="caption">
-        <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-devops-docker-builds" target=”_blank”>Docker Builds</a>
+        <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-docker-builds" target=”_blank”>Docker Builds</a>
     </span>
 </div>
 

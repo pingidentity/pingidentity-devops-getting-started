@@ -116,7 +116,7 @@ This is a process that can be used for all encrypted items and environment speci
 
 Now, if you follow this through the entire data.json, it would take a while, and you would be left with a file that is unacceptable for source control (since it's completely unencrypted). So, the next logical step is to abstract the unencrypted values and replace with variables. Then the values can be stored in a secrets management and the variablized file can be in source control.
 
-Doing all this would manually would take a long time, fortunately, there's the [ping-bulkconfig-tool](../99-helper-scripts/ping-bulkconfigtool).
+Doing all this would manually would take a long time, fortunately, there's the [ping-bulkconfig-tool](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/99-helper-scripts/ping-bulkconfigtool).
 Detailed steps for using the tool are documented next to where it is stored. The general concept is to point the tool at the `data.json` and a config file. After running you will be left with a `data.json.subst` and a list of environment variables waiting to be filled.
 
 The `data.json.subst` form of our example above will look like:
