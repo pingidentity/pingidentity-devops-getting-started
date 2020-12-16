@@ -52,6 +52,10 @@ The easiest way to test test a simple standalone image of PingDataGovernance is 
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingdatagovernance \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
           pingidentity/pingdatagovernance:edge
 ```
 
@@ -64,17 +68,6 @@ You can view the Docker logs with the command:
 You should see the ouptut from a PingDataGovernance install and configuration, ending with a message the the PingDataGovernance has
 started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` afer to stop tailing the logs.
 
-
-## Connection with a REST Client
-Connection a REST client from Postman or a browser using the default ports and credentials.  The
-following url will provie a list of all SCIM2 schemas available.  It will be empty until
-some resoruces are configured.
-
-|                 |                                   |
-| --------------: | --------------------------------- |
-| URL             | https://localhost:8443/scim/v2/Schemas |
-| Username        | cn=administrator                  |
-| Password        | 2FederateM0re                     |
 
 ## Stopping/Removing the container
 To stop the container:

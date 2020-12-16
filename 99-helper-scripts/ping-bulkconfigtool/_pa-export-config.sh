@@ -6,7 +6,7 @@ echo "Creating output folder..."
 mkdir -p out/pingaccess/standalone
 mkdir -p out/pingaccess/clustered
 
-echo "Downloading config from https://localhost:9000..."
+echo "Downloading config from $(prop 'PINGACCESS_ADMIN_BASEURL')..."
 curl -X GET --basic -u $(prop 'PINGACCESS_ADMIN_CREDENTIALS') --header 'Content-Type: application/json' --header 'X-XSRF-Header: PingAccess' $(prop 'PINGACCESS_ADMIN_BASEURL')/pa-admin-api/v3/config/export --insecure > out/pa-export.json
 
 echo "Creating/modifying out/pingaccess/pa.env and out/pingaccess/standalone/data.json.subst..."

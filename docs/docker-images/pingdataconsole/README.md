@@ -28,7 +28,11 @@ To run a PingDataConsole container:
            --name pingdataconsole \
            --publish ${HTTPS_PORT}:${HTTPS_PORT} \
            --detach \
-           pingidentity/pingdataconsole
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
+           pingidentity/pingdataconsole:edge
 ```
 
 

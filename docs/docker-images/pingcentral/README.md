@@ -39,6 +39,10 @@ To run a PingCentral container with your devops configuration file:
 ```shell docker run -Pt \
            --name pingcentral \
            --env-file ~/.pingidentity/devops \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingcentral:edge
 ```
 or with long options in the background:
@@ -48,6 +52,10 @@ or with long options in the background:
            --publish 9022:9022 \
            --detach \
            --env-file ~/.pingidentity/devops \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingcentral:edge
 ```
 
@@ -58,8 +66,9 @@ or if you want to specify everything yourself:
            --publish 9022:9022 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
-           --env PING_IDENTITY_DEVOPS_USER=<yourdevopsuser@example.com> \
-           --env PING_IDENTITY_DEVOPS_KEY=<yourdevopskeyhere> \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingcentral:edge
 ```
 
