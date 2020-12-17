@@ -22,18 +22,18 @@ tmpDir="tmp"
 usage ()
 {
 cat <<END_USAGE
-Usage:  {options} 
+Usage:  {options}
     NOTE: case-insensitivity is not supported
     where {options} include:
 
     *-p, --path {path/to/data_to_variablize}
         path to the file or directory to variablize (e.g. ~/pf/instance/data/data.zip)
     -e, --env-file
-        path to environment file to use INSTEAD of source an variable 
+        path to environment file to use INSTEAD of source an variable
     -s, --source
         instead of env-file, search for single string. (e.g. devops.pingidentity.com)
     -d, --destination
-        if passing --source, variable name that will replace source 
+        if passing --source, variable name that will replace source
         (e.g. 'PF_ENGINE_HOSTNAME' will turn to '\${PF_ENGINE_HOSTNAME}')
     -B, --backup
         create config.bak for backup
@@ -58,19 +58,19 @@ exit_usage()
 while ! test -z ${1} ; do
   case "${1}" in
     -s|--source)
-      shift 
+      shift
       if test -z "${1}" ; then
         exit_usage "Error: source paramater not passed "
       fi
       sourceHost="${1}" ;;
     -v|--variable|-d|--destination)
-      shift 
+      shift
       if test -z "${1}" ; then
         exit_usage "Error: destination paramater not passed "
       fi
       destVar="${1}" ;;
     -e|--env-file)
-      shift 
+      shift
       if test -z "${1}" ; then
         exit_usage "Error: env-file paramater not passed "
       elif test ! -f ${1} ; then
@@ -92,19 +92,19 @@ while ! test -z ${1} ; do
     # -I|--interactive)
     #   is_interactive="true" ;;
     -h|--help)
-      exit_usage "The goal of this script find and replace 
+      exit_usage "The goal of this script find and replace
   hostnames with variables on a PF or PA config archive
   This is helpful when using the config in a docker server-profile.
   More info on server-profiles:
-  https://pingidentity-devops.gitbook.io/devops/server-profiles
-  This can accept config exports from either PingFederate or PingAccess.   
-  
+  https://devops.pingidentity.com/reference/profileStructures/
+  This can accept config exports from either PingFederate or PingAccess.
+
   The BEST way to use this script is to:
   1. place all hosts and output_variables in a txt file. Like so:
-  
-  PF_HOSTNAME=federate.dev.pingidentity.com 
+
+  PF_HOSTNAME=federate.dev.pingidentity.com
   PF_HOSTNAME=federate.prod.pingidentity.com
-  PA_HOSTNAME=access.dev.pingidentity.com 
+  PA_HOSTNAME=access.dev.pingidentity.com
   variable=string
 
   2. run command like so:
@@ -119,7 +119,7 @@ while ! test -z ${1} ; do
   examples:
     ./variablize_pf_pa_config.sh -p path/to/pingfederate-data-09-16-2019.zip \\
       -e /path/to/env_hosts -B -o data
-    this will output a substed data directory. 
+    this will output a substed data directory.
 
     ./variablize_pf_pa_config.sh -p path/to/pa-data-09-16-2019.16.28.30.json \\
        -e /path/to/env_hosts -B -o data.json.subst
@@ -132,10 +132,10 @@ while ! test -z ${1} ; do
   shift
 done
 
-if test -n "${sourceHost}" -o -n "${destVar}" ; then 
+if test -n "${sourceHost}" -o -n "${destVar}" ; then
   test -n "${envFile}" && exit_usage "can't send source/dest AND env file"
 fi
-if test -z "${sourceHost}" -o -z "${destVar}" ; then 
+if test -z "${sourceHost}" -o -z "${destVar}" ; then
   test -z "${envFile}" && exit_usage "must send source/dest OR env file"
 fi
 
@@ -147,19 +147,19 @@ prep_variablize(){
   mkdir -p ${tmpDir}
 
   if test -f "${inConfigFpath}" ; then
-    case "${inConfigBase}" in 
-        *.zip | *.zip.subst) 
+    case "${inConfigBase}" in
+        *.zip | *.zip.subst)
           cp "${inConfigFpath}" "${tmpDir}/data.zip"
           unzip -qd "${tmpDir}/data" "${tmpDir}/data.zip"
           configData="${tmpDir}/data" ;;
-        # TODO: see if this is needed. 
+        # TODO: see if this is needed.
         # *.subst)
         #   cp "${inConfigFpath}" "${tmpDir}/${inConfigBase}"
         # ;;
         *)
           cp "${inConfigFpath}" "${tmpDir}/${inConfigBase}"
           configData="${tmpDir}/${inConfigBase}"
-          # TODO: see if this is needed. 
+          # TODO: see if this is needed.
           # returnData="${tmpDir}/${inConfigBase}.subst"
         ;;
       esac
@@ -196,12 +196,12 @@ check_variablize() {
 }
 
 variablize() {
-  
+
     # prep variables
     destVar=$( echo "${destVar}" | sed 's/-/\\-/g' )
     destVar=$( echo "${destVar}" | sed 's/_/\\_/g' )
     destVar=$( echo "${destVar}" | sed 's/\./\\./g' )
-    # destVar=$( echo "${destVar}" | sed 's/\$/\\$/g' ) 
+    # destVar=$( echo "${destVar}" | sed 's/\$/\\$/g' )
     # echo "destVar=${destVar}"
     sourceHost=$( echo "${sourceHost}" | sed 's/-/\\-/g' )
     sourceHost=$( echo "${sourceHost}" | sed 's/_/\\_/g' )
@@ -209,11 +209,11 @@ variablize() {
     sourceHost=$( echo "${sourceHost}" | sed 's/\:/\\:/g' )
     sourceHost=$( echo "${sourceHost}" | sed 's/\//\\\//g' )
     # echo "sourceHostname=${sourceHost}"
-    
+
     # Begin find/replace
     echo "INFO: variablizing"
     grep -irl "${sourceHost}" "${configData}" | while read -r fname ; do
-      case "${fname}" in 
+      case "${fname}" in
         *.json | *.xml | *.dsconfig | *.ldif) mv "${fname}" "${fname}.subst";;
         # *.xml) mv "${fname}" "${fname}.subst";;
         *.subst) echo "${fname}" ;;
@@ -231,7 +231,7 @@ return_data() {
   if test -n "${outputName}" ; then
     case "${outputName}" in
       *.zip | *.zip.subst)
-        # case "${inConfigBase}" in 
+        # case "${inConfigBase}" in
         #   *.zip | *.zip.subst)
         #     # cd "${tmpDir}"
           zip -qr "${outputName}" "${configData}"
@@ -244,8 +244,8 @@ return_data() {
         returnData="${tmpDir}/${outputName}"
       ;;
     esac
-  else 
-    case "${inConfigBase}" in 
+  else
+    case "${inConfigBase}" in
       *.zip | *.zip.subst)
         cd "${tmpDir}" || exit_usage "can't cd"
         zip -qr "data.zip.subst" "$(basename "${configData}")"
@@ -256,9 +256,9 @@ return_data() {
         returnData="${configData}"
     esac
   fi
-  
+
   if test "${variablized}" = "true" ; then
-    
+
     rm -rf "${inConfigFpath}"
     cp -fr "${returnData}" "${inConfigDir}/."
   fi

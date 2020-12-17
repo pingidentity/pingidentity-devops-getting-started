@@ -1,1 +1,1 @@
-See [Using release tags](https://pingidentity-devops.gitbook.io/devops/config/releasetags) for more information. 
+See [Using release tags](../reference/releaseTags.md) for more information.

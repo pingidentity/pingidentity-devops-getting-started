@@ -20,7 +20,7 @@ To see the default environment variables available with any Docker image, you ca
 
   Where &lt;product-image&gt; is the name of one of our products, and \<tag> is the release tag (such as, `edge`).
 
-See our [Docker Images Reference](https://pingidentity-devops.gitbook.io/devops/dockerimagesref) for the environment variables available or each product, as well as those available for all products (PingBase).
+See our [Docker Images Reference](dockerImagesRef.md) for the environment variables available or each product, as well as those available for all products (PingBase).
 
 ## Orchestration Scope
 

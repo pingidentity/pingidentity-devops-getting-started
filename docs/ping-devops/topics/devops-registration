@@ -1,7 +1,7 @@
 
-Registering for our DevOps program grants you credentials that can be 
-provided as variables to our containers. This streamlines license issues 
-by allowing the container to automatically retrieve an evaluation license 
+Registering for our DevOps program grants you credentials that can be
+provided as variables to our containers. This streamlines license issues
+by allowing the container to automatically retrieve an evaluation license
 upon container startup.
 
     **************************************************************
@@ -11,25 +11,25 @@ upon container startup.
 
 Follow these 2 steps to register:
 
- 1. Create a Ping Identity account, or verify sign on to your existing 
+ 1. Create a Ping Identity account, or verify sign on to your existing
     account.
 
        https://www.pingidentity.com/en/account/sign-on.html
 
   2. Request your DevOps key.
 
-       https://bit.ly/ping-devops-request
+       https://devops.pingidentity.com/get-started/devopsRegistration/
 
-     Your DevOps user name and key will be sent to your email. This will  
+     Your DevOps user name and key will be sent to your email. This will
      generally take only a few business hours.
 
-  3. Upon receiving your PING_IDENTITY_DEVOPS_USER and 
+  3. Upon receiving your PING_IDENTITY_DEVOPS_USER and
      PING_IDENTITY_DEVOPS_KEY add them to your config using command:
 
        ping-devops config
 
-For ease of use, we recommend you use the DevOps user name and key approach 
-when evaluating our container use-cases. However, if you'd rather use an 
-existing Ping Identity product license, see the following documenation.
+For ease of use, we recommend you use the DevOps user name and key approach
+when evaluating our container use-cases. However, if you'd rather use an
+existing Ping Identity product license, see the following documentation.
 
-       https://pingidentity-devops.gitbook.io/devops/getstarted/existinglicense
+       https://devops.pingidentity.com/how-to/existingLicense/

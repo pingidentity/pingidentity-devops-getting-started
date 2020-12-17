@@ -1,28 +1,26 @@
-
 {
-    "example" : [
-        {
-            "validFrom": 20190101,
-            "validTo": 20191231,
-            "subject": "Example Subject",
-            "message": ["Example Message Line # 1",
-                        "Example Message Line # 2"]
-        }
-    ],
-    "devops" : [
-        {
+    "example": [{
+        "validFrom": 20190101,
+        "validTo": 20191231,
+        "subject": "Example Subject",
+        "message": ["Example Message Line # 1",
+            "Example Message Line # 2"
+        ]
+    }],
+    "devops": [{
             "validFrom": 20190803,
             "validTo": 20190826,
             "subject": "DEVOPS-USER and DEVOPS-KEY Required after Aug 19th, 2019",
             "message": ["Currently, if no PINGIDENTITY_DEVOPS_USER or PINGIDENTITY_DEVOPS_KEY",
-                        "are provided, a default evaluation user/key is used.",
-                        "",
-                        "After August 19th, 2019, the evaluation user/key will no longer be ",
-                        "available, and a personal DEVOPS_USER/DEVOPS_KEY will be required.",
-                        "",
-                        "Details on obtaining these can be found at:",
-                        "",
-                        "    https://pingidentity-devops.gitbook.io/devops/getstarted/devopsregistration"]
+                "are provided, a default evaluation user/key is used.",
+                "",
+                "After August 19th, 2019, the evaluation user/key will no longer be ",
+                "available, and a personal DEVOPS_USER/DEVOPS_KEY will be required.",
+                "",
+                "Details on obtaining these can be found at:",
+                "",
+                "    https://devops.pingidentity.com/get-started/devopsRegistration/"
+            ]
         },
         {
             "validFrom": 20191201,
@@ -49,44 +47,48 @@
             ]
         }
     ],
-    "pingaccess" : [{
+    "pingaccess": [{
         "validFrom": 20200623,
         "validTo": 20200710,
         "subject": "*** PingAccess 6.1.0 data.json support ***",
         "message": [" PA 6.1.0 now natively supports data.json ingestion",
-                    "This is the recommended approach. More info: ",
-                    "https://pingidentity-devops.gitbook.io/devops/config/containeranatomy/profilestructures#for-pa-6-1-0"]
+            "This is the recommended approach. More info: ",
+            "https://devops.pingidentity.com/reference/profileStructures/#pingaccess"
+        ]
     }],
-    "pingdatagovernance" : [{
+    "pingdatagovernance": [{
         "validFrom": 20200406,
         "validTo": 20200530,
         "subject": "**** pingdatagovernance v8 images now use pd.profile *****",
         "message": ["With the version 8 pingdatagovernance images, they now use ",
-                    "manage-profile setup to build images.  This will expect to ",
-                    "find itmes like dsconfig to reside under pd.profile/dsconfig "]
+            "manage-profile setup to build images.  This will expect to ",
+            "find items like dsconfig to reside under pd.profile/dsconfig "
+        ]
     }],
-    "pingdatasync" : [{
+    "pingdatasync": [{
         "validFrom": 20200406,
         "validTo": 20200530,
         "subject": "**** pingdatasync v8 images now use pd.profile *****",
         "message": ["With the version 8 pingdatasync images, they now use ",
-                    "manage-profile setup to build images.  This will expect to ",
-                    "find itmes like dsconfig to reside under pd.profile/dsconfig "]
+            "manage-profile setup to build images.  This will expect to ",
+            "find items like dsconfig to reside under pd.profile/dsconfig "
+        ]
     }],
-    "ldap-sdk-tools" : [{
+    "ldap-sdk-tools": [{
         "validFrom": 20201101,
         "validTo": 20991231,
         "subject": "Example commands to search/test Ping Directory instances",
         "message": ["  ldapsearch --hostname ${PD_ENGINE_PRIVATE_HOSTNAME} --port 389 \\",
-                    "             --bindDN cn=administrator --bindPassword 2FederateM0re \\",
-                    "             uid=user.1",
-                    " ",
-                    "  searchrate --hostname ${PD_ENGINE_PRIVATE_HOSTNAME} --port 389 \\",
-                    "             --bindDN cn=administrator --bindPassword 2FederateM0re \\",
-                    "             --baseDN dc=example,dc=com --scope sub --filter '(uid=user.[0-19999])' \\",
-                    "             --attribute givenName --numThreads 10"]
+            "             --bindDN cn=administrator --bindPassword 2FederateM0re \\",
+            "             uid=user.1",
+            " ",
+            "  searchrate --hostname ${PD_ENGINE_PRIVATE_HOSTNAME} --port 389 \\",
+            "             --bindDN cn=administrator --bindPassword 2FederateM0re \\",
+            "             --baseDN dc=example,dc=com --scope sub --filter '(uid=user.[0-19999])' \\",
+            "             --attribute givenName --numThreads 10"
+        ]
     }],
-    "pingdirectory" : [],
-    "pingdirectoryproxy" : [],
-    "pingfederate" : []
+    "pingdirectory": [],
+    "pingdirectoryproxy": [],
+    "pingfederate": []
 }
