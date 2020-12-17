@@ -42,7 +42,7 @@ Follow Docker logs with:
 docker logs -f pingdataconsole
 ```
 
-If using the command above with the embedded [server profile](https://pingidentity-devops.gitbook.io/devops/config/containeranatomy), log in with:
+If using the command above with the embedded [server profile](https://devops.pingidentity.com/reference/config/), log in with:
 * http://localhost:${HTTPS_PORT}/console/login
 ```
 Server: pingdirectory

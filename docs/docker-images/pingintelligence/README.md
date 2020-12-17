@@ -6,11 +6,11 @@ and associated hook scripts to create and run PingIntelligence ASE instances.
 
 ## Related Docker Images
 - pingidentity/pingbase - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingbase)**
+	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
 - pingidentity/pingdownloader - Used to download product bits
 
 ## Environment Variables
-In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
+In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
 the following environment `ENV` variables can be used with 
 this image. 
 

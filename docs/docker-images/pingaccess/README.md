@@ -7,12 +7,12 @@ Engine nodes.
 
 ## Related Docker Images
 - `pingidentity/pingbase` - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/dockerimagesref/pingbase)**
+	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
 - `pingidentity/pingcommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
 
 ## Environment Variables
-In addition to environment variables inherited from **[pingidentity/pingbase](https://pingidentity-devops.gitbook.io/devops/docker-images/pingbase)**,
+In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
 the following environment `ENV` variables can be used with 
 this image. 
 
@@ -64,7 +64,7 @@ Follow Docker logs with:
 docker logs -f pingaccess
 ```
 
-If using the command above with the embedded [server profile](https://pingidentity-devops.gitbook.io/devops/config/containeranatomy), log in with:
+If using the command above with the embedded [server profile](https://devops.pingidentity.com/reference/config/), log in with:
 * https://localhost:9000
   * Username: Administrator
   * Password: 2FederateM0re
