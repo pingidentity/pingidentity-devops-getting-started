@@ -60,7 +60,7 @@ If a product instance or instances are unable to get the evaluation license, an 
   #
   #
   # More info on obtaining your DevOps User and Key can be found at:
-  #     https://pingidentity-devops.gitbook.io/devops/getstarted/devopsregistration
+  #     https://devops.pingidentity.com/get-started/devopsRegistration/
   #
   ##################################################################################
   CONTAINER FAILURE: License File absent
