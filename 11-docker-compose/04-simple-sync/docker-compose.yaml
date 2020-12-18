@@ -17,13 +17,13 @@ version: "2.4"
 #-                          | PingDirectory  |
 #-                          +----------------+
 #-
-#- To view PingData Console (PingDirectory)
+#-  PingDirectory Console                         PingDataSync Console
+#-  ---------------------------                   ---------------------------
+#-  https://localhost:8443/                       https://localhost:8443
+#-  Server: pingdirectory:636                     Server: pingdatasync:636
+#-  Username: administrator                       Username: administrator
+#-  Password: 2FederateM0re                       Password: 2FederateM0re
 #-
-#-    https://localhost:8443/
-#-
-#-      Server: pingdirectory
-#-    Username: administrator
-#-    Password: 2FederateM0re
 #-------------------------------------------------------------------------------------
 
 services:

@@ -28,8 +28,8 @@ When _all_ of the containers are healthy, you can start testing.
 
 | Product | Connection Details |
     | --- | --- |
-    | [Ping Data Console](https://localhost:9443/console) | <ul><li>URL: [https://localhost:9443/console](https://localhost:9443/console)</li><li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
-    | [PingDataGovernance PAP](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatagovernance</li><li>Username: admin</li><li>Password: password123</li></ul> |
+    | [Ping Data Console](https://localhost:9443/console) | <ul><li>URL: [https://localhost:9443/console](https://localhost:9443/console)</li><li>Server: pingdirectory:636</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+    | [PingDataGovernance PAP](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatagovernance:636</li><li>Username: admin</li><li>Password: password123</li></ul> |
 
 ## Test Default Use Case
 
