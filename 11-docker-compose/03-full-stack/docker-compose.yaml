@@ -1,12 +1,12 @@
 version: "2.4"
 # The server profiles used in this example are intended for use with edge versions of the product image only.
 
-#--------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------
 #- Ping Identity fullstack integrated demo
 #-
-#-     app    console            app                                  rest
-#-     443    9000               6443                                 7443
-#-      |      |                  |                                    |
+#-     app    console            app                                       rest
+#-     443    9000               6443                                      7443
+#-      |      |                  |                                         |
 #-   +----------------+   +---------------+                         +---------------+
 #-   |   PingAccess   |   | PingDelegator |                         |  PingDataGov  |
 #-   +----------------+   +---------------+                         +---------------+
@@ -18,18 +18,18 @@ version: "2.4"
 #-   | PingFederate  |    |  PingCentral  |    |PingDataConsole|    | PingDirectory |
 #-   +---------------+    +---------------+    +---------------+    +---------------+
 #-
-#-   +-----------------------+--------------------------------------------------------+
-#-   |  Product Console/App  |  URL                                                   |
-#-   |                       |    username: administrator                             |
-#-   |                       |    password: 2FederateM0re                             |
-#-   +-----------------------+--------------------------------------------------------+
-#-   |  PingAccess           |  https://localhost:9000/                               |
-#-   |  PingFederate         |  https://localhost:9999/pingfederate/app               |
-#-   |  PingDelegator        |  https://localhost:6443/                               |
-#-   |  PingDirectory        |  https://localhost:8443/   (Server=pingdirectory)      |
-#-   |  PingDataGovernance   |  https://localhost:8443/   (Server=pingdatagovernance) |
-#-   +-----------------------+--------------------------------------------------------+
-#--------------------------------------------------------------------------------------
+#-   +-----------------------+----------------------------------------------------------+
+#-   |  Product Console/App  |  URL                                                     |
+#-   |                       |    username: administrator                               |
+#-   |                       |    password: 2FederateM0re                               |
+#-   +-----------------------+----------------------------------------------------------+
+#-   |  PingAccess           |  https://localhost:9000/                                 |
+#-   |  PingFederate         |  https://localhost:9999/pingfederate/app                 |
+#-   |  PingDelegator        |  https://localhost:6443/                                 |
+#-   |  PingDirectory        |  https://localhost:8443/ (Server=pingdirectory:636)      |
+#-   |  PingDataGovernance   |  https://localhost:8443/ (Server=pingdatagovernance:636) |
+#-   +-----------------------+----------------------------------------------------------+
+#----------------------------------------------------------------------------------------
 
 services:
   pingaccess:

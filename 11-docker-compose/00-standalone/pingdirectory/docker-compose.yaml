@@ -13,10 +13,10 @@ version: "2.4"
 #-                          +----------------+
 #-
 #- To view PingData Console goto:
-#- 
+#-
 #-    https://localhost:8443/
-#-    
-#-      Server: pingdirectory
+#-
+#-      Server: pingdirectory:636
 #-    Username: administrator
 #-    Password: 2FederateM0re
 #-
@@ -50,14 +50,14 @@ services:
       - "1443:443"
     volumes:
       - pingdirectory-out:/opt/out
-      
+
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
     ports:
       - "8443:8443"
-    networks: 
+    networks:
       - pingnet
-                    
+
 networks:
   pingnet:
 

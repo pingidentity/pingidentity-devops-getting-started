@@ -53,7 +53,7 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
       | Product | Connection Details |
     | --- | --- |
-    | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+    | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory:636</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
 
 ## Test Deployment
 

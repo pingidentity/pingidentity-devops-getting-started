@@ -25,7 +25,7 @@ version: "2.4"
 #-
 #-    https://localhost:8443/
 #-
-#-      Server: pingdirectory
+#-      Server: pingdirectory:636
 #-    Username: administrator
 #-    Password: 2FederateM0re
 #-------------------------------------------------------------------------------------

@@ -14,7 +14,7 @@ version: "2.4"
 #-  PingFederate Console                         PingDataConsole (PingDirectory)
 #-  --------------------                         -------------------------------
 #-  https://localhost:9999/pingfederate/app      https://localhost:8443
-#-    Username: administrator                        Server: pingdirectory
+#-    Username: administrator                        Server: pingdirectory:636
 #-    Password: 2FederateM0re                      Username: administrator
 #-                                                 Password: 2FederateM0re
 #-
