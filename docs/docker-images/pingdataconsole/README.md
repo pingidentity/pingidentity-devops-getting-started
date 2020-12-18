@@ -45,11 +45,11 @@ docker logs -f pingdataconsole
 If using the command above with the embedded [server profile](https://devops.pingidentity.com/reference/config/), log in with:
 * http://localhost:${HTTPS_PORT}/console/login
 ```
-Server: pingdirectory
+Server: pingdirectory:636
 Username: administrator
 Password: 2FederateM0re
 ```
->make sure you have a PingDirectory running
+> make sure you have a PingDirectory running
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdataconsole/hooks/README.md) for details on all pingdataconsole hook scripts
 
