@@ -1,5 +1,5 @@
 
-# Ping Identity Docker Image - `pingdataconsole`
+# Ping Identity Docker Image - `ldap-sdk-tools`
 
 This docker image provides an apine image with the LDAP Client
 SDK tools to be used against other PingDirectory instances.
