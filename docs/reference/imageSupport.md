@@ -34,16 +34,16 @@ Examples:
 
 | Product               | Actively Maintained Image |
 | --- | --- |
-| PingAccess            | <ul><li>6.1</li><li>6.0</li></ul> |
-| PingCentral           | <ul><li>1.5</li><li>1.4</li></ul> |
-| PingDataConsole       | <ul><li>8.1</li><li>8.0</li></ul> |
-| PingDataGovernance    | <ul><li>8.1</li><li>8.0</li></ul> |
-| PingDataGovernancePAP | <ul><li>8.1</li><li>8.0</li></ul> |
-| PingDataSync          | <ul><li>8.1</li><li>8.0</li></ul> |
+| PingAccess            | <ul><li>6.2</li><li>6.1</li></ul> |
+| PingCentral           | <ul><li>1.6</li><li>1.5</li></ul> |
+| PingDataConsole       | <ul><li>8.2</li><li>8.1</li></ul> |
+| PingDataGovernance    | <ul><li>8.2</li><li>8.1</li></ul> |
+| PingDataGovernancePAP | <ul><li>8.2</li><li>8.1</li></ul> |
+| PingDataSync          | <ul><li>8.2</li><li>8.1</li></ul> |
 | PingDelegator         | <ul><li>4.4.0</li></ul> |
-| PingDirectory         | <ul><li>8.1</li><li>8.0</li></ul> |
-| PingDirectoryProxy    | <ul><li>8.1</li><li>8.0</li></ul> |
-| PingFederate          | <ul><li>10.0</li><li>10.1</li></ul> |
-| PingIntelligence      | <ul><li>4.3</li></ul> |
+| PingDirectory         | <ul><li>8.2</li><li>8.1</li></ul> |
+| PingDirectoryProxy    | <ul><li>8.2</li><li>8.1</li></ul> |
+| PingFederate          | <ul><li>10.2</li><li>10.1</li></ul> |
+| PingIntelligence      | <ul><li>4.4</li></ul> |
 
 !!! info "Last Update  Dec 15, 2020"
