@@ -373,7 +373,7 @@ public class App {
 					return null;
 
 				if(returnUidValue != null)
-					return returnUidValue;
+					return getEscapedValue(returnUidValue);
 			}
 			
 			if(arrayPeers != null)
