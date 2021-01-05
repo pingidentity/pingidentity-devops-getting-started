@@ -21,7 +21,8 @@
       "parameter-name": "encryptedValue",
       "replace-name": "value",
       "unique-identifiers": [
-          "name"
+          "name",
+          "name~Username/value"
       ]
     },
     {
