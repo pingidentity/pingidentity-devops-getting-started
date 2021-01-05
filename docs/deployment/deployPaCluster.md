@@ -47,7 +47,7 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
 
       | Product | Connection Details |
       | --- | --- |
-      | [PingAccess](https://localhost:9000) | <ul><li>URL: [https://localhost:9000](https://localhost:9000)</li><li>Username: administrator</li><li>Password: 2FederateMore</li></ul> |
+      | [PingAccess](https://localhost:9000) | <ul><li>URL: [https://localhost:9000](https://localhost:9000)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
 
 ## Verify Cluster Status
 
