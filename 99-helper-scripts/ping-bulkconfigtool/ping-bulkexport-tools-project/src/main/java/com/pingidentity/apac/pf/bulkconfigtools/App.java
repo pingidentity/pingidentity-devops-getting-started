@@ -374,7 +374,10 @@ public class App {
 				if(returnUidValue != null)
 					return returnUidValue;
 			}
-
+			
+			if(arrayPeers != null)
+				return getUniqueIdentifier(path, configJSON, jsonObject, parentObject, null);
+			
 			return "";
 		}
 
