@@ -356,8 +356,9 @@ public class App {
 				
 				if(arrayPeers != null)
 				{
-					if(getUIDFromPeer(arrayPeers, uid) != null)
-						returnUidValue = getUIDFromPeer(arrayPeers, uid);
+					String localUID = getUniqueIdentifier(path, configJSON, jsonObject, parentObject, null);
+					if(getUIDFromPeer(arrayPeers, uid, localUID) != null)
+						returnUidValue = getUIDFromPeer(arrayPeers, uid, localUID);
 				}
 				
 				if(returnUidValue == null)
@@ -384,7 +385,7 @@ public class App {
 		return null;
 	}
 
-	private String getUIDFromPeer(JSONArray arrayPeers, String uid) {
+	private String getUIDFromPeer(JSONArray arrayPeers, String uid, String localUID) {
 		
 		if(arrayPeers == null)
 			return null;
@@ -413,7 +414,7 @@ public class App {
 			String matchingValue = String.valueOf(currentPeerJSON.get(searchName));
 			
 			if(matchingValue != null && matchingValue.equals(searchNameValue))
-				return getEscapedValue(searchNameValue + "_" + String.valueOf(currentPeerJSON.get(peerClaimValue)));
+				return getEscapedValue(localUID + "_" + searchNameValue + "_" + String.valueOf(currentPeerJSON.get(peerClaimValue)));
 		}
 		
 		return null;
