@@ -17,8 +17,8 @@ import org.json.JSONObject;
 
 public class App {
 
-	private final static String DEFAULT_IN_CONFIG = "in/pf-config-2.json";
-	private final static String DEFAULT_IN_BULKCONFIG = "in/pf-export-2.json";
+	private final static String DEFAULT_IN_CONFIG = "in/pf-config.json";
+	private final static String DEFAULT_IN_BULKCONFIG = "in/pf-export.json";
 	private final static String DEFAULT_IN_ENVPROPERTIES = "in/out-pf-env.properties";
 	private final static String DEFAULT_IN_OUTCONFIG = "in/out-pf-bulk-config.json";
 
@@ -85,10 +85,10 @@ public class App {
 	private void processBulkJSON() throws RemoveNodeException {
 
 		if(this.inConfigExposeParametersArray != null)
-			processBulkJSONNode("", this.inBulkJSON, null);
+			processBulkJSONNode("", this.inBulkJSON, null, null);
 	}
 
-	private void processBulkJSONNode(String path, JSONObject jsonObject, JSONObject parentObject) throws RemoveNodeException {
+	private void processBulkJSONNode(String path, JSONObject jsonObject, JSONObject parentObject, JSONArray arrayPeers) throws RemoveNodeException {
 
 		processRemoveConfig(jsonObject);
 		processChangeValue(jsonObject);
@@ -101,7 +101,7 @@ public class App {
 
 		System.out.println("Path: " + path);
 
-		processExposeConfig(path, jsonObject, parentObject);
+		processExposeConfig(path, jsonObject, parentObject, arrayPeers);
 
 		for(String key : jsonObject.keySet())
 		{
@@ -113,7 +113,7 @@ public class App {
 
 				try
 				{
-					processBulkJSONNode(newPath, currentJSON, jsonObject);
+					processBulkJSONNode(newPath, currentJSON, jsonObject, null);
 				}catch(RemoveNodeException e)
 				{
 					jsonObject.remove(key);
@@ -133,7 +133,7 @@ public class App {
 					{
 						try
 						{
-							processBulkJSONNode(newPath, (JSONObject) currentObject, jsonObject);
+							processBulkJSONNode(newPath, (JSONObject) currentObject, jsonObject, jsonArray);
 							newJSONArray.put(currentObject);
 
 						}catch(RemoveNodeException e)
@@ -229,7 +229,7 @@ public class App {
 		}
 	}
 
-	private void processExposeConfig(String path, JSONObject jsonObject, JSONObject parentObject)
+	private void processExposeConfig(String path, JSONObject jsonObject, JSONObject parentObject, JSONArray arrayPeers)
 	{
 
 		if(this.inConfigExposeParametersArray != null)
@@ -253,7 +253,7 @@ public class App {
 					else
 						replaceValue = String.valueOf(jsonObject.get(parameterName));
 
-					String currentIdentifier = getUniqueIdentifier(path, configJSON, jsonObject, parentObject);
+					String currentIdentifier = getUniqueIdentifier(path, configJSON, jsonObject, parentObject, arrayPeers);
 
 					if(currentIdentifier == null)
 						continue;
@@ -332,7 +332,7 @@ public class App {
 		return configNameList;
 	}
 
-	private String getUniqueIdentifier(String path, JSONObject configJSON, JSONObject jsonObject, JSONObject parentObject) {
+	private String getUniqueIdentifier(String path, JSONObject configJSON, JSONObject jsonObject, JSONObject parentObject, JSONArray arrayPeers) {
 
 		if(configJSON.has("unique-identifiers"))
 		{
@@ -353,11 +353,21 @@ public class App {
 					uid = uidConfig;
 
 				String returnUidValue = null;
-				if(jsonObject.has(uid))
-					returnUidValue = String.valueOf(jsonObject.get(uid));
-				else if(parentObject != null && parentObject.has(uid))
-					returnUidValue = String.valueOf(parentObject.get(uid));
-
+				
+				if(arrayPeers != null)
+				{
+					if(getUIDFromPeer(arrayPeers, uid) != null)
+						returnUidValue = getUIDFromPeer(arrayPeers, uid);
+				}
+				
+				if(returnUidValue == null)
+				{
+					if(arrayPeers == null && jsonObject.has(uid))
+						returnUidValue = String.valueOf(jsonObject.get(uid));
+					else if(parentObject != null && parentObject.has(uid))
+						returnUidValue = String.valueOf(parentObject.get(uid));
+				}
+				
 				if(expectedUIDValue != null && (returnUidValue == null || !returnUidValue.equals(expectedUIDValue)))
 					return null;
 
@@ -368,6 +378,41 @@ public class App {
 			return "";
 		}
 
+		return null;
+	}
+
+	private String getUIDFromPeer(JSONArray arrayPeers, String uid) {
+		
+		if(arrayPeers == null)
+			return null;
+		
+		if(!uid.contains("/"))
+			return null;
+		
+		String searchComponent = uid.substring(0, uid.indexOf("/"));
+		String peerClaimValue = uid.substring(uid.indexOf("/") + 1);
+		
+		if(!searchComponent.contains("~"))
+			return null;
+		
+		String [] searchComponentSplit = searchComponent.split("\\~");
+		
+		String searchName = searchComponentSplit[0];
+		String searchNameValue = searchComponentSplit[1];
+		
+		for(Object currentPeer : arrayPeers)
+		{
+			JSONObject currentPeerJSON = (JSONObject) currentPeer;
+			
+			if(!currentPeerJSON.has(searchName))
+				continue;
+			
+			String matchingValue = String.valueOf(currentPeerJSON.get(searchName));
+			
+			if(matchingValue != null && matchingValue.equals(searchNameValue))
+				return getEscapedValue(searchNameValue + "_" + String.valueOf(currentPeerJSON.get(peerClaimValue)));
+		}
+		
 		return null;
 	}
 
