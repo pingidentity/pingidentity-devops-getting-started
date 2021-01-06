@@ -39,11 +39,11 @@ markdown_extensions:
 nav:
   - DevOps @ Ping:
       - Home: "README.md"
+      - Overview: "overview.md"
       - License: license.md
       - Disclaimer: disclaimer.md
       - Third-Party Software: 3rdPartySoftware.md
       - Contributing: contributing.md
-  - Overview: "overview.md"
   - Get Started:
       - Introduction: "get-started/getStarted.md"
       - ping-devops Utility: "get-started/pingDevopsUtil.md"
