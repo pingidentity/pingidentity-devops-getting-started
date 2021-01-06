@@ -37,7 +37,12 @@ markdown_extensions:
       permalink: " ¶"
 
 nav:
-  - DevOps @ Ping: "README.md"
+  - DevOps @ Ping:
+      - Home: "README.md"
+      - License: license.md
+      - Disclaimer: disclaimer.md
+      - Third-Party Software: 3rdPartySoftware.md
+      - Contributing: contributing.md
   - Overview: "overview.md"
   - Get Started:
       - Introduction: "get-started/getStarted.md"
@@ -148,7 +153,4 @@ nav:
       - Version 2004: "release-notes/relnotes-2004.md"
       - Version 2003: "release-notes/relnotes-2003.md"
 
-  - License: license.md
-  - Disclaimer: disclaimer.md
-  - Third-Party Software: 3rdPartySoftware.md
-  - Contributing: contributing.md
+
