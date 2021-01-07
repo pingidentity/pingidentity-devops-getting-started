@@ -26,6 +26,8 @@ this image.
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | 
+| PF_LOG_SIZE_MAX  | 10000 KB  | Defines the log file size max for ALL appenders 
+| PF_LOG_NUMBER  | 2  | Defines the maximum of log files to retain upon rotation 
 | PF_ADMIN_PORT  | 9999  | Defines the port on which the PingFederate administrative console and API runs. 
 | PF_ENGINE_PORT  | 9031  | Defines the port on which PingFederate listens for encrypted HTTPS (SSL/TLS) traffic. 
 | PF_ENGINE_DEBUG  | false  | Flag to turn on PingFederate Engine debugging Used in run.sh 
