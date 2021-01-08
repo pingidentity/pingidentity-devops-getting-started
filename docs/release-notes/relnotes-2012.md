@@ -50,13 +50,13 @@ The following table includes product versions and their accompanying Image build
 |------|------|------|
 | PingAccess | <b>6.2.0</b><br/>6.1.3 | 6.0.4 |
 | PingCentral |<b>1.6.0</b><br/>1.5.0 |  |
-| PingDataConsole | <b>8.2.0</b><br/>8.1.0.0 | 8.0.0 |
-| PingDataGovernance | <b>8.2.0</b><br/>8.1.0.0 | 8.0.0.1 |
-| PingDataGovernance PAP | <b>8.2.0</b><br/>8.1.0.0 | 8.0.0.1 |
-| PingDataSync | <b>8.2.0</b><br/>8.1.0.0 | 8.0.0.1 |
+| PingDataConsole | <b>8.2.0.0</b><br/>8.1.0.0 | 8.0.0.1 |
+| PingDataGovernance | <b>8.2.0.0</b><br/>8.1.0.0 | 8.0.0.1 |
+| PingDataGovernance PAP | <b>8.2.0.0</b><br/>8.1.0.0 | 8.0.0.1 |
+| PingDataSync | <b>8.2.0.0</b><br/>8.1.0.0 | 8.0.0.1 |
 | PingDelegator | <b>4.4.0</b> | 4.2.1 |
-| PingDirectory | <b>8.2.0</b><br/>8.1.0.0 | 8.0.0.1 |
-| PingDirectoryProxy | <b>8.2.0</b><br/>8.1.0.0 | 8.0.0.1 |
+| PingDirectory | <b>8.2.0.0</b><br/>8.1.0.0 | 8.0.0.1 |
+| PingDirectoryProxy | <b>8.2.0.0</b><br/>8.1.0.0 | 8.0.0.1 |
 | PingFederate | 10.2.0<br/><b>10.1.3</b> | 10.1.2|
 | PingIntelligence | <b>4.4</b> | 4.3 |
 
