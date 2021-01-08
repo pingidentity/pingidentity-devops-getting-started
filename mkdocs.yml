@@ -144,7 +144,8 @@ nav:
           - Adding a MOTD: "reference/addMOTD.md"
           - Build Local Images: "reference/buildLocal.md"
   - Release Notes:
-      - Current: "release-notes/relnotes-2011.md"
+      - Current: "release-notes/relnotes-2012.md"
+      - Version 2011: "release-notes/relnotes-2011.md"
       - Version 2010: "release-notes/relnotes-2010.md"
       - Version 2009: "release-notes/relnotes-2009.md"
       - Version 2008: "release-notes/relnotes-2008.md"
