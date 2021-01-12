@@ -63,6 +63,7 @@ services:
       - USER_BASE_DN=o=sync
       - ORCHESTRATION_TYPE=compose
       - COMPOSE_SERVICE_NAME=12-sync-failover-pair_pingdatasync
+      - PING_IDENTITY_PASSWORD=2FederateM0re
     env_file:
       - ${HOME}/.pingidentity/devops
     ulimits:
@@ -77,9 +78,6 @@ services:
       - "2443-2453:443"
     networks:
       - pingnet
-    volumes:
-      - pingdatasync-out:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/simple-sync/pingdatasync:/opt/in
 
   pingdataconsole:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
