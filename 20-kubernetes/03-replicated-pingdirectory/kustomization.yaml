@@ -33,7 +33,7 @@ patches:
     kind: StatefulSet
     name: pingdirectory
   patch: |-
-    - op: add
+    - op: replace
       path: /spec/serviceName
       value: pingdirectory-cluster
 - target:
