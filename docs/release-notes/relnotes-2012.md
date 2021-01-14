@@ -38,6 +38,7 @@
 ### Resolved Defects
 
 - (GDO-362) Resolved issue where PingDirectory instances become active prior to being fully synchronized.
+- (GDO-502) Resolved potential vulnerability by updating Ping Data products to Spring Framework v4.3.29.
 - (GDO-544) Resolved issue where PingDataGovernance PAP images' MAX_HEAP_SIZE variable had no effect.
 - (GDO-618) Resolved issue where base layer was missing JMX agent.
 - (GDO-640) Resolved issue where wait-for command didn't honor timeout when waiting for host:port.
