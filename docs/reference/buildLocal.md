@@ -2,10 +2,10 @@
 
 This example describes how to build a Docker image or our products using the build tools found in our [Docker Builds](https://github.com/pingidentity/pingidentity-docker-builds) repo, and a local copy of a product zip file.
 
-<div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-devops-docker-builds','');">
+<div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-docker-builds','');">
     <img class="assets" src="../../images/logos/github.png"/>
     <span class="caption">
-        <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-devops-docker-builds" target=”_blank”>Docker Builds</a>
+        <a class="assetlinks" href="https://github.com/pingidentity/pingidentity-docker-builds" target=”_blank”>Docker Builds</a>
     </span>
 </div>
 ## Clone Build Repository
