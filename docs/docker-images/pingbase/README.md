@@ -21,6 +21,8 @@ this image.
 | LOGS_DIR  | ${BASE}/logs  | Path to a volume generically used for logging 
 | PING_IDENTITY_DEVOPS_FILE  | devops-secret  | File name for devops-creds passed as a Docker secret 
 | STAGING_DIR  | ${BASE}/staging  | Path to the staging area where the remote and local server profiles can be merged 
+| STAGING_MANIFEST  | ${BASE}/staging-manifest.txt  | Path to a manifest of files expected in the staging dir on first image startup 
+| CLEAN_STAGING_DIR  | true  | Whether to clean the staging dir when the image starts 
 | SECRETS_DIR  | /run/secrets  | Default path to the secrets 
 | TOPOLOGY_FILE  | ${STAGING_DIR}/topology.json  | Path to the topology file 
 | HOOKS_DIR  | ${STAGING_DIR}/hooks  | Path where all the hooks scripts are stored 
