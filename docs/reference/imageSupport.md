@@ -29,21 +29,5 @@ Examples:
 !!! warning "Docker Hub Images"
     Image versions that have fallen out of Ping's image active maintenance window will be removed from DockerHub 3 months after it was last actively maintained.
 
-**Current** matrix of actively maintained images:
-
-
-| Product               | Actively Maintained Image |
-| --- | --- |
-| PingAccess            | <ul><li>6.2</li><li>6.1</li></ul> |
-| PingCentral           | <ul><li>1.6</li><li>1.5</li></ul> |
-| PingDataConsole       | <ul><li>8.2</li><li>8.1</li></ul> |
-| PingDataGovernance    | <ul><li>8.2</li><li>8.1</li></ul> |
-| PingDataGovernancePAP | <ul><li>8.2</li><li>8.1</li></ul> |
-| PingDataSync          | <ul><li>8.2</li><li>8.1</li></ul> |
-| PingDelegator         | <ul><li>4.4.0</li></ul> |
-| PingDirectory         | <ul><li>8.2</li><li>8.1</li></ul> |
-| PingDirectoryProxy    | <ul><li>8.2</li><li>8.1</li></ul> |
-| PingFederate          | <ul><li>10.2</li><li>10.1</li></ul> |
-| PingIntelligence      | <ul><li>4.4</li></ul> |
-
-!!! info "Last Update  Dec 15, 2020"
+!!! Info "Active Build Product Versions"
+    To view products and versions actively being built, navigate to the most recent **Release Notes**.
