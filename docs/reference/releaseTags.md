@@ -70,23 +70,6 @@ But what if you want bleeding edge features *and* a stable build image? For this
 
 > Docker images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.
 
-## Product Versions - edge and latest
-
-Product versions for **edge** and **latest** as of December 15th, 2020
-
-| Product | edge | latest |
-|------|------|-----|
-| **PingFederate** | 10.1.3 | 10.1.3 |
-| **PingDirectory** | 8.1.0.2 | 8.1.0.0 |
-| **PingAccess** | 6.2.0 | 6.1.3 |
-| **PingDataGov** | 8.1.0.0 | 8.1.0.0 |
-| **PingDataGov PAP** | 8.1.0.0 | 8.1.0.0 |
-| **PingDataSync** | 8.1.0.0 | 8.1.0.0 |
-| **PingDataConsole** | 8.1.0.0 | 8.1.0.0 |
-| **PingDirectoryProxy** | 8.1.0.0 | 8.1.0.0 |
-| **PingDelegator** | 4.4.0 | 4.2.1 |
-| **PingCentral** | 1.5.0 | 1.5.0 |
-
 ## Determine Image Product Version
 
 If you're unsure of the product version for the container you are running, shell into the container, then echo the $IMAGE_VERSION environment variable. For example:
