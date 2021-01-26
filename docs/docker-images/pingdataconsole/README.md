@@ -14,7 +14,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  | Flag to force a run of dsjavaproperties --initialize. When this is false, the java.properties file will only be regenerated on a restart when there is a change in JVM or a change in the product-specific java options, such as changing the MAX_HEAP_SIZE value. 
+| SHIM  | ${SHIM}  | 
 | HTTP_PORT  | 8080  | 
 | HTTPS_PORT  | 8443  | 
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  | 
