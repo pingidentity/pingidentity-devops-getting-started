@@ -123,7 +123,6 @@ services:
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingcentral/dev-unsecure
-      - SERVER_PROFILE_BRANCH=arno-dev-pingcentral
       - PING_CENTRAL_BLIND_TRUST=true
       - PING_CENTRAL_LOG_LEVEL=DEBUG
     env_file:
