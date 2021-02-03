@@ -5,7 +5,10 @@ This docker image includes the Ping Identity PingDataGovernance PAP product bina
 and associated hook scripts to create and run a PingDataGovernance PAP instance.
 
 ## Related Docker Images
-- `tomcat:8-jre8-alpine` - Tomcat engine to serve PingDataConsole .war file
+- `pingidentity/pingbase` - Parent Image
+	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
+- `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
+- `pingidentity/pingdownloader` - Used to download product bits
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
