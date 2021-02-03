@@ -3,6 +3,9 @@ data:
   PING_IDENTITY_ACCEPT_EULA: "YES"
   SERVER_PROFILE_PATH: getting-started/pingdirectory
   SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-server-profiles.git
+  ORCHESTRATION_TYPE: KUBERNETES
+  K8S_STATEFUL_SET_NAME: pingdirectory
+  K8S_STATEFUL_SET_SERVICE_NAME: pingdirectory-cluster
 kind: ConfigMap
 metadata:
   labels:
