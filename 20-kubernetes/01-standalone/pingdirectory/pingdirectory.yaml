@@ -14,7 +14,28 @@ spec:
     port: 389
   selector:
     role: pingdirectory
+
 ---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: pingdirectory
+  name: pingdirectory-cluster
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  publishNotReadyAddresses: true
+  clusterIP: None
+  ports:
+  - name: ldaps
+    port: 636
+  selector:
+    role: pingdirectory
+
+---
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -26,7 +47,7 @@ spec:
   selector:
     matchLabels:
       role: pingdirectory
-  serviceName: pingdirectory
+  serviceName: pingdirectory-cluster
   template:
     metadata:
       labels:
