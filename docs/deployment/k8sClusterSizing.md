@@ -27,7 +27,7 @@ To understand which sizing option to select, let's examine the pros and cons.
 ### Cons
 
 * High availability is difficult to achieve with a minimal set of nodes. If your application has 50 instances with 25 pods per node and a node goes down, you've lost 50% of your service.
-  
+
 * Scaling: When autoscaling your cluster, the increment size becomes larger, which may result in provisioning more hardware than what is required.
 
 ## Option 2: more, smaller nodes
@@ -39,7 +39,7 @@ To understand which sizing option to select, let's examine the pros and cons.
 ### Cons
 
 * More system overhead to manage all of the nodes.
-  
+
 * Possible under-utilization, as the nodes may be too small to add additional services.
 
 ## Guidance
@@ -53,7 +53,7 @@ To determine the physical instance type, multiply the desired resources for each
 ### Example service using 3 pods per node
 
 * Typically deployed with 2 CPU and 4GB RAM.
-  
+
 * Multiply by 3.
 
 * Node requirement: 6 CPU 12 GB RAM.
@@ -62,6 +62,6 @@ To determine the physical instance type, multiply the desired resources for each
 
 For these requirements in Amazon Web Services (AWS), a `c5.2xlarge` type (8 CPU / 16 Gb RAM) may be the instance type selected.
 
-To determine the base number of nodes required, divide the number of pods by 3 to determine your minumum cluster size.
+To determine the base number of nodes required, divide the number of pods by 3 to determine your minimum cluster size.
 
 Ensure that you add definitions for cluster horizontal auto-scaling to ensure your cluster scales in or out as needed.
