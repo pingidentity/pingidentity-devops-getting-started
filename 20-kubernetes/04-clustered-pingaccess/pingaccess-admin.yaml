@@ -43,7 +43,7 @@ spec:
             name: devops-secret
             optional: true
         name: pingaccess-admin
-        image: pingidentity/pingaccess:edge
+        image: pingidentity/pingaccess:6.1.0-edge
         ports:
         - containerPort: 9000
         - containerPort: 9090
