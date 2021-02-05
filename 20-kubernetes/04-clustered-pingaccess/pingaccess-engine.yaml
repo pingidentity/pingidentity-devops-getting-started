@@ -46,8 +46,8 @@ spec:
             memory: 128Mi
       containers:
       - name: pingaccess
-        image: pingidentity/pingaccess:edge
-        ports:        
+        image: pingidentity/pingaccess:6.1.0-edge
+        ports:
         - containerPort: 3000
         envFrom:
         - configMapRef:
