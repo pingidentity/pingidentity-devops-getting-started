@@ -26,9 +26,6 @@ The PingData products (i.e. PingDirectory, PingDataSync, PingDataGovernance, Pin
 It is best practice to use non-persistent location (i.e. /run/secrets) to store these files.
 If not certificate is provided, the container/product will generate a self-signed certificate.  Please see important note below for PingDirectory.
 
-!!! important "If you intended to RESTART the PingDirectory"
-    you MUST provide a certificate on the initial setup of the container.
-
 The default location for certificates and associated files are listed below (assumes a default SECRETS_DIR variable of `/run/secrets`).
 
 |                      | Variable Used        | Default Location/Value<br>/run/secrets... | Notes                                                |
