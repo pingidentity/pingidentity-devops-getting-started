@@ -12,24 +12,24 @@ and associated hook scripts to create and run a PingDataSync instance.
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
-the following environment `ENV` variables can be used with 
-this image. 
+the following environment `ENV` variables can be used with
+this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  | 
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | PingIdentity license version 
-| LICENSE_FILE_NAME  | PingDirectory.lic  | 
-| LICENSE_SHORT_NAME  | PD  | 
-| LICENSE_VERSION  | ${LICENSE_VERSION}  | 
-| PING_PRODUCT  | PingDataSync  | 
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
-| STARTUP_FOREGROUND_OPTS  | --nodetach  | 
-| RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for manage-topology and remove-defunct-server 
-| ADMIN_USER_NAME  | admin  | Failover administrative user 
-| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password 
-| ADMIN_USER_PASSWORD_FILE  |   | 
-| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
+| SHIM  | ${SHIM}  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | PingIdentity license version
+| LICENSE_FILE_NAME  | PingDirectory.lic  |
+| LICENSE_SHORT_NAME  | PD  |
+| LICENSE_VERSION  | ${LICENSE_VERSION}  |
+| PING_PRODUCT  | PingDataSync  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |
+| STARTUP_FOREGROUND_OPTS  | --nodetach  |
+| RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for manage-topology and remove-defunct-server
+| ADMIN_USER_NAME  | admin  | Failover administrative user
+| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password
+| ADMIN_USER_PASSWORD_FILE  |   |
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  |
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -59,4 +59,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document auto-generated from _[pingdatasync/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatasync/Dockerfile)_
 
-Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

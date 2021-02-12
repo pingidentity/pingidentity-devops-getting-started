@@ -6,4 +6,4 @@ that will be used during the manage-profile setup
 ---
 This document auto-generated from _[pingdirectory/hooks/182-template-to-ldif.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/hooks/182-template-to-ldif.sh)_
 
-Copyright (c)  2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

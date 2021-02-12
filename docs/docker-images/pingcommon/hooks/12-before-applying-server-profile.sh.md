@@ -10,4 +10,4 @@ the staging area to avoid certain file from being overridden for example
 ---
 This document auto-generated from _[pingcommon/hooks/12-before-applying-server-profile.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/hooks/12-before-applying-server-profile.sh)_
 
-Copyright (c)  2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

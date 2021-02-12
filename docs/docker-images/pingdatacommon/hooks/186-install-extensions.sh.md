@@ -4,4 +4,4 @@
 ---
 This document auto-generated from _[pingdatacommon/hooks/186-install-extensions.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/hooks/186-install-extensions.sh)_
 
-Copyright (c)  2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

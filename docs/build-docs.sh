@@ -50,7 +50,7 @@ append_footer()
     append_doc "---"
     append_doc "This document auto-generated from _[${_srcFile}](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/${_srcFile})_"
     append_doc ""
-    append_doc "Copyright (c)  2020 Ping Identity Corporation. All rights reserved."
+    append_doc "Copyright (c)  2021 Ping Identity Corporation. All rights reserved."
 }
 
 #
@@ -112,7 +112,7 @@ parse_hooks()
     mkdir -p "docker-images/${_dockerImage}/hooks"
 
     echo "Parsing hooks for ${_dockerImage}..."
-    
+
     _hookFiles=""
 
     for _hookFile in $(ls ${_hooksDir}); do
@@ -158,18 +158,18 @@ parse_dockerfile()
 {
     _dockerImage="${1}"
     _dockerFile="${DOCKER_BUILD_DIR}/${_dockerImage}/Dockerfile"
- 
+
     mkdir -p "docker-images/${_dockerImage}"
 
     _docFile="docker-images/${_dockerImage}/README.md"
     rm -f "${_docFile}"
 
     echo "Parsing Dockerfile ${_dockerImage}..."
-        
+
     append_header
 
     cat "${_dockerFile}" | while read -r line ; do
-        
+
         #
         # Parse the ENV Description
         #   Example: $-- This is the description
@@ -187,12 +187,12 @@ parse_dockerfile()
            [ "$(echo "${line}" | cut -c-12)" = "ONBUILD ENV " ]; then
             ENV_VARIABLE=$(echo "${line}" | sed -e 's/=/x=x/' -e 's/^.*ENV \(.*\)x=x.*/\1/')
             ENV_VALUE=$(echo "${line}" | sed -e 's/=/x=x/' -e 's/^.*x=x\(.*\)/\1/' -e 's/^"\(.*\)"$/\1/')
-            
+
             append_env_table_header
 
             append_env_variable "${ENV_VARIABLE}" "${ENV_DESCRIPTION}" "${ENV_VALUE}"
             ENV_DESCRIPTION=""
-        
+
             continue
         fi
 
@@ -203,7 +203,7 @@ parse_dockerfile()
         if [ "$(echo "${line}" | cut -c-7)" = "EXPOSE " ] ||
            [ "$(echo "${line}" | cut -c-15)" = "ONBUILD EXPOSE " ]; then
             EXPOSE_PORTS=$(echo "${line}" | sed 's/^.*EXPOSE \(.*\)$/\1/')
-    
+
             append_expose_ports "${EXPOSE_PORTS}"
 
             continue
@@ -233,7 +233,7 @@ parse_dockerfile()
 #
 dockerImages="pingaccess pingfederate pingdirectory pingdatasync
 pingbase pingcommon pingdatacommon
-pingdataconsole pingdownloader ldap-sdk-tools 
+pingdataconsole pingdownloader ldap-sdk-tools
 pingdirectoryproxy pingdelegator apache-jmeter"
 #
 # Parse the provided arguments, if any
@@ -248,7 +248,7 @@ while ! test -z "${1}" ; do
             fi
             dockerImages="${1}"
             ;;
-        
+
         --help)
             usage
             ;;
