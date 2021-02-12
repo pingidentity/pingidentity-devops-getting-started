@@ -8,4 +8,4 @@
 ---
 This document auto-generated from _[pingcommon/opt/staging/hooks/09-build-motd.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/09-build-motd.sh)_
 
-Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

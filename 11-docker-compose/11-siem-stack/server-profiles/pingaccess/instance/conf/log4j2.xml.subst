@@ -2,7 +2,7 @@
 
 <!--
   ~ ****************************************************
-  ~  Copyright (C) 2017 Ping Identity Corporation
+  ~  Copyright (c) 2021 Ping Identity Corporation
   ~  All rights reserved.
   ~
   ~  The contents of this file are the property of Ping Identity Corporation.
@@ -17,7 +17,7 @@
   ~  http://www.pingidentity.com
   ~ ******************************************************
   -->
-  
+
   <!-- ===================================================================== -->
 <!--                                                                       -->
 <!--  Log4J2 Configuration                                                 -->
@@ -667,7 +667,7 @@
 
         <!-- The below two sockets are used as socket connections to send logstash logs directly over pre-defined ports and protocols -->
         <Socket name="SYSLOG" host="${SOCKET_HOST}" port="${SOCKET_PORT_SYSTEM}" protocol="${SOCKET_PROTOCOL}">
-            <PingSyslogLayout facility="LOCAL0"> 
+            <PingSyslogLayout facility="LOCAL0">
                 <JSONLayout complete="true" compact="true" eventEol="true" objectMessageAsJsonObject="true" properties="true" />
             </PingSyslogLayout>
         </Socket>
@@ -675,7 +675,7 @@
         <Socket name="SYSLOG_AUDIT" host="${SOCKET_HOST}" port="${SOCKET_PORT_AUDIT}" protocol="${SOCKET_PROTOCOL}">
             <PingSyslogLayout>
               <JSONLayout complete="true" compact="true" eventEol="true" objectMessageAsJsonObject="true" >
-                <KeyValuePair key="date" value="$${date:yyyy-MM-dd'T'HH:mm:ssZ}"/>  
+                <KeyValuePair key="date" value="$${date:yyyy-MM-dd'T'HH:mm:ssZ}"/>
                 <KeyValuePair key="exchangeId" value="$${ctx:exchangeId:-}"/>
                 <KeyValuePair key="trackingId" value="$${ctx:AUDIT.trackingId:-}"/>
                 <KeyValuePair key="roundTripMS" value="$${ctx:AUDIT.roundTripMS:-}"/>

@@ -9,16 +9,16 @@ the Ping Identity DevOps PingData product images.
 - `pingidentity/pingcommon` - Parent Image
 
 ## Environment Variables
-The following environment `ENV` variables can be used with 
-this image. 
+The following environment `ENV` variables can be used with
+this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  |
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatacommon/hooks/README.md) for details on all pingdatacommon hook scripts
 
 ---
 This document auto-generated from _[pingdatacommon/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/Dockerfile)_
 
-Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

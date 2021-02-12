@@ -1,6 +1,6 @@
 # Disclaimer
 
-Copyright \(C\) 2020 Ping Identity Corporation
+Copyright \(C\) 2021 Ping Identity Corporation
 All rights reserved.
 
 Ping Identity Corporation
