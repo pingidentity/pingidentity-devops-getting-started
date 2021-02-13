@@ -12,23 +12,23 @@ and associated hook scripts to create and run PingCentral in a container.
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
-the following environment `ENV` variables can be used with
-this image.
+the following environment `ENV` variables can be used with 
+this image. 
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |
-| PING_CENTRAL_SERVER_PORT  | 9022  |
-| PING_PRODUCT  | PingCentral  |
-| LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  |
-| LICENSE_FILE_NAME  | pingcentral.lic  |
-| LICENSE_SHORT_NAME  | PC  |
-| LICENSE_VERSION  | ${LICENSE_VERSION}  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/application.log  |
-| PING_CENTRAL_LOG_LEVEL  | INFO  |
-| PING_CENTRAL_BLIND_TRUST  | false  |
-| PING_CENTRAL_VERIFY_HOSTNAME  | true  |
+| SHIM  | ${SHIM}  | 
+| PING_CENTRAL_SERVER_PORT  | 9022  | 
+| PING_PRODUCT  | PingCentral  | 
+| LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  | 
+| LICENSE_FILE_NAME  | pingcentral.lic  | 
+| LICENSE_SHORT_NAME  | PC  | 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | 
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | 
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/application.log  | 
+| PING_CENTRAL_LOG_LEVEL  | INFO  | 
+| PING_CENTRAL_BLIND_TRUST  | false  | 
+| PING_CENTRAL_VERIFY_HOSTNAME  | true  | 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -88,4 +88,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document auto-generated from _[pingcentral/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcentral/Dockerfile)_
 
-Copyright (c) 2021 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2020 Ping Identity Corporation. All rights reserved.

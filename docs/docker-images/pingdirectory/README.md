@@ -13,31 +13,31 @@ instances.
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
-the following environment `ENV` variables can be used with
-this image.
+the following environment `ENV` variables can be used with 
+this image. 
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |
-| PING_PRODUCT  | PingDirectory  | PingIdentity license version Ping product name
-| LICENSE_FILE_NAME  | PingDirectory.lic  | Name of License File
-| LICENSE_SHORT_NAME  | PD  | Shortname used when retrieving license from License Server
-| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server
-| REPLICATION_PORT  | 8989  | Default PingDirectory Replication Port
-| ADMIN_USER_NAME  | admin  | Replication administrative user
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |
-| PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  | Public hostname of the DA app
-| STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled
-| STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled
-| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password
-| ADMIN_USER_PASSWORD_FILE  |   | Location of file with the admin password, used as the password replication admin Defaults to the /SECRETS_DIR/admin-user-password
-| ENCRYPTION_PASSWORD_FILE  |   | Location of file with the passphrase for setting up encryption Defaults to the /SECRETS_DIR/encryption-password
-| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/access \  | Files tailed once container has started
-| MAKELDIF_USERS  | 0  | Number of users to auto-populate using make-ldif templates
-| RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server
-| DISABLE_SCHEMA_REPLICATION  | false  | Flag to disable schema replication. In a DevOps environment, schema comes from configuration. So it does not need to be replicated.
-| PD_PROFILE  | ${STAGING_DIR}/pd.profile  |
-| PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE
+| SHIM  | ${SHIM}  | 
+| PING_PRODUCT  | PingDirectory  | PingIdentity license version Ping product name 
+| LICENSE_FILE_NAME  | PingDirectory.lic  | Name of License File 
+| LICENSE_SHORT_NAME  | PD  | Shortname used when retrieving license from License Server 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
+| REPLICATION_PORT  | 8989  | Default PingDirectory Replication Port 
+| ADMIN_USER_NAME  | admin  | Replication administrative user 
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
+| PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  | Public hostname of the DA app 
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
+| STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
+| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password 
+| ADMIN_USER_PASSWORD_FILE  |   | Location of file with the admin password, used as the password replication admin Defaults to the /SECRETS_DIR/admin-user-password 
+| ENCRYPTION_PASSWORD_FILE  |   | Location of file with the passphrase for setting up encryption Defaults to the /SECRETS_DIR/encryption-password 
+| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/access \  | Files tailed once container has started 
+| MAKELDIF_USERS  | 0  | Number of users to auto-populate using make-ldif templates 
+| RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server 
+| DISABLE_SCHEMA_REPLICATION  | false  | Flag to disable schema replication. In a DevOps environment, schema comes from configuration. So it does not need to be replicated. 
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | 
+| PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -116,4 +116,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document auto-generated from _[pingdirectory/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/Dockerfile)_
 
-Copyright (c) 2021 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2020 Ping Identity Corporation. All rights reserved.

@@ -12,24 +12,24 @@ and associated hook scripts to create and run a PingDataGovernance PAP instance.
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
-the following environment `ENV` variables can be used with
-this image.
+the following environment `ENV` variables can be used with 
+this image. 
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |
-| PING_PRODUCT  | PingDataGovernance-PAP  | PingIdentity license version Ping product name
-| LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File
-| LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server
-| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server
-| MAX_HEAP_SIZE  | 384m  | Minimal Heap size required for Ping DataGovernance PAP
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |
-| STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled
-| STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled
-| TAIL_LOG_PARALLEL  | y  |
-| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/datagovernance-pap.log \  | Files tailed once container has started
-| REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead)
-| DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PDG and PAP
+| SHIM  | ${SHIM}  | 
+| PING_PRODUCT  | PingDataGovernance-PAP  | PingIdentity license version Ping product name 
+| LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File 
+| LICENSE_SHORT_NAME  | PG  | Shortname used when retrieving license from License Server 
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server 
+| MAX_HEAP_SIZE  | 384m  | Minimal Heap size required for Ping DataGovernance PAP 
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | 
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
+| STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrive connections be made until server has been started with replication enabled 
+| TAIL_LOG_PARALLEL  | y  | 
+| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/datagovernance-pap.log \  | Files tailed once container has started 
+| REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead) 
+| DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PDG and PAP 
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -158,4 +158,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document auto-generated from _[pingdatagovernancepap/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatagovernancepap/Dockerfile)_
 
-Copyright (c) 2021 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2020 Ping Identity Corporation. All rights reserved.

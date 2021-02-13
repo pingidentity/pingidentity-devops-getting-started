@@ -13,19 +13,19 @@ to perform tasks aside a running set of pods/containers.
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
-the following environment `ENV` variables can be used with
-this image.
+the following environment `ENV` variables can be used with 
+this image. 
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |
-| PING_PRODUCT  | PingToolkit  |
-| STARTUP_COMMAND  | tail  |
-| STARTUP_FOREGROUND_OPTS  | -f /dev/null  |
+| SHIM  | ${SHIM}  | 
+| PING_PRODUCT  | PingToolkit  | 
+| STARTUP_COMMAND  | tail  | 
+| STARTUP_FOREGROUND_OPTS  | -f /dev/null  | 
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingtoolkit/hooks/README.md) for details on all pingtoolkit hook scripts
 
 ---
 This document auto-generated from _[pingtoolkit/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingtoolkit/Dockerfile)_
 
-Copyright (c) 2021 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
