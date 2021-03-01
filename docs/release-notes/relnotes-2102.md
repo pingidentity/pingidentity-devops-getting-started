@@ -26,11 +26,11 @@
 
 ### Resolved Defects
 
-- (GDO-382) - Unable to RESTART PingDirectory when upgrading 7.3 to 8.1 due to license
-- (GDO-543) - Update "Related Docker Images" in PAP Dockerfile
-- (GDO-672) - manage-profile setup dsconfig error
-- (GDO-680) - set_server_available and set_server_unavailable methods are very slow
-- (GDO-311) - Updated 05-expand-templates.sh to no longer build data.zip if a _data.zip_ directory is found in the profile
+- (GDO-382) - Resolved issue where PingDirectory is unable to restart when upgrading 7.3 to 8.1 due to a license error.
+- (GDO-543) - Updated "Related Docker Images" documentation in PAP Dockerfile.
+- (GDO-672) - Resolved issue with 'manage-profile setup' signaling a dsconfig error.
+- (GDO-680) - Resolved issue with PingDirectory set_server_available and set_server_unavailable methods being very.
+- (GDO-311) - Updated 05-expand-templates.sh to no longer build data.zip if a _data.zip_ directory is found in the profile.
 
 ### Product Build Matrix
 
