@@ -3,6 +3,6 @@
  This script is called to determine the plan for the server as it starts up.
 
 ---
-This document auto-generated from _[pingdatasync/opt/staging/hooks/03-build-run-plan.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatasync/opt/staging/hooks/03-build-run-plan.sh)_
+This document is auto-generated from _[pingdatasync/opt/staging/hooks/03-build-run-plan.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatasync/opt/staging/hooks/03-build-run-plan.sh)_
 
-Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

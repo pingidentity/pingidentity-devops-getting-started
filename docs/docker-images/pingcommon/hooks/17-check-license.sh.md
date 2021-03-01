@@ -6,6 +6,6 @@
    make call to obtain a license from license server
 
 ---
-This document auto-generated from _[pingcommon/opt/staging/hooks/17-check-license.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/17-check-license.sh)_
+This document is auto-generated from _[pingcommon/opt/staging/hooks/17-check-license.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/17-check-license.sh)_
 
-Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

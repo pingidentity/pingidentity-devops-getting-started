@@ -9,13 +9,13 @@ SDK tools to be used against other PingDirectory instances.
 - `openjdk:8-jre8-alpine` - Alpine server to run LDAP SDK Tools from
 
 ## Environment Variables
-The following environment `ENV` variables can be used with 
-this image. 
+The following environment `ENV` variables can be used with
+this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  | 
-| PATH  | /opt/tools:${PATH}  | 
+| SHIM  | ${SHIM}  |  |
+| PATH  | /opt/tools:${PATH}  |  |
 ## List all available tools
 `docker run -it --rm pingidentity/ldap-sdk-tools:edge ls`
 
@@ -64,6 +64,6 @@ keytool -list \
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/ldap-sdk-tools/hooks/README.md) for details on all ldap-sdk-tools hook scripts
 
 ---
-This document auto-generated from _[ldap-sdk-tools/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/ldap-sdk-tools/Dockerfile)_
+This document is auto-generated from _[ldap-sdk-tools/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/ldap-sdk-tools/Dockerfile)_
 
-Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.

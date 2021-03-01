@@ -17,7 +17,7 @@ docker run --env PING_IDENTITY_DEVOPS_USER --env PING_IDENTITY_DEVOPS_KEY pingid
 
 -c, --conserve-name: use this option to conserve the original file name. By   default, the downloader will rename the file product.zip
 
--n, --dry-run:	this will cause the URL to be displayed but the the bits not to be downloaded
+-n, --dry-run: this will cause the URL to be displayed but the the bits not to be downloaded
 
 ```
 ## Examples
@@ -39,6 +39,6 @@ docker run --env PING_IDENTITY_DEVOPS_USER --env PING_IDENTITY_DEVOPS_KEY --rm -
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdownloader/hooks/README.md) for details on all pingdownloader hook scripts
 
 ---
-This document auto-generated from _[pingdownloader/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdownloader/Dockerfile)_
+This document is auto-generated from _[pingdownloader/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdownloader/Dockerfile)_
 
-Copyright (c) 2020 Ping Identity Corporation. All rights reserved.
+Copyright (c) 2021 Ping Identity Corporation. All rights reserved.
