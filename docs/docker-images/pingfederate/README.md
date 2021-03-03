@@ -40,6 +40,7 @@ this image.
 | PF_LDAP_USERNAME  | cn=pingfederate  | This is the username for an account within the LDAP Directory Server that can be used to perform user lookups for authentication and other user level search operations.  Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
 | PF_LDAP_PASSWORD  | OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRW1JY1UxOVdueSIsInZlcnNpb24iOiI5LjIuMS4xIn0..euBO0bawJz3XC_plAjxECg.yF7BpnCTPZlpZUo21WQ5IQ.YlLtlJTxXhrp3LsxyQDo5g  | This is the password for the Username specified above. This property should be obfuscated using the 'obfuscate.sh' utility. Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
 | CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | IP address for cluster communication.  Set to NON_LOOPBACK to allow the system to choose an available non-loopback IP address.  |
+| PF_PROVISIONER_MODE  | OFF  | Optional variable to enable provisioner on pingfederate  |
 | BULK_CONFIG_DIR  | ${OUT_DIR}/instance/bulk-config  |  |
 | BULK_CONFIG_FILE  | data.json  |  |
 ## Ports Exposed
