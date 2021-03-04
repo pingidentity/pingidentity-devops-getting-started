@@ -219,7 +219,7 @@ public class App {
 				String matchingName = String.valueOf(matchingIdentifier.get("id-name"));
 				String matchingValue = String.valueOf(matchingIdentifier.get("id-value"));
 
-				if(jsonObject.has(matchingName) && jsonObject.get(matchingName).equals(matchingValue))
+				if(jsonObject.has(matchingName) && jsonObject.get(matchingName).toString().matches(matchingValue))
 				{
 					Object newValue = configJSON.get("new-value");
 					jsonObject.put(key, newValue);
