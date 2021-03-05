@@ -16,8 +16,8 @@ spec:
     statefulset.kubernetes.io/pod-name: pingdirectory-0
   ports:
   - protocol: TCP
-    port: 636
-    targetPort: 636
+    port: 1636
+    targetPort: 1636
     name: ldaps
   - protocol: TCP
     port: 8989
@@ -38,8 +38,8 @@ spec:
     statefulset.kubernetes.io/pod-name: pingdirectory-1
   ports:
   - protocol: TCP
-    port: 636
-    targetPort: 636
+    port: 1636
+    targetPort: 1636
     name: ldaps
   - protocol: TCP
     port: 8989
@@ -60,8 +60,8 @@ spec:
     statefulset.kubernetes.io/pod-name: pingdirectory-2
   ports:
   - protocol: TCP
-    port: 636
-    targetPort: 636
+    port: 1636
+    targetPort: 1636
     name: ldaps
   - protocol: TCP
     port: 8989

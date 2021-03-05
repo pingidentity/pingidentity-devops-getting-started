@@ -18,10 +18,10 @@ version: "2.4"
 
 services:
   pingfederate:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=getting-started/pingfederate
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:10.2.2-alpine-az11-GDO-542-delegator-unpriviliged-user-d2a6
+    #environment:
+    #  - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+    #  - SERVER_PROFILE_PATH=baseline/pingfederate
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
@@ -30,7 +30,7 @@ services:
     networks:
       - pingnet
     volumes:
-      - pingfederate-out:/opt/out
+      - /Users/henryrecker/workspace/devops/pingidentity-server-profiles/baseline/pingfederate:/opt/in
 
 networks:
   pingnet:

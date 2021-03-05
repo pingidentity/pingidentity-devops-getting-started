@@ -53,7 +53,7 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
 
       | Product | Connection Details |
     | --- | --- |
-    | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory:636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
 
 ## Test Deployment
 
@@ -65,7 +65,7 @@ You'll use Docker Compose to deploy a replicated pair of PingDirectory container
          /opt/out/instance/bin/ldapmodify
 
       ...
-      # Successfully connected to localhost:636
+      # Successfully connected to localhost:1636
       ```
 
       Then copy and paste this entire block:

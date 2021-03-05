@@ -87,7 +87,7 @@ run_interactive()
 # Example Commands:
 #  List of ldapsdk binaries: ls
 #  Get ldapsearch help docs: ./ldapsearch --help
-#  Query directory root DSE: ./ldapsearch -h pingdirectory -p 389 -b \"\" -s base objectclass=*
+#  Query directory root DSE: ./ldapsearch -h pingdirectory -p 1389 -b \"\" -s base objectclass=*
 ###############################################################################################
 "
   ${DOCKER_CMD}

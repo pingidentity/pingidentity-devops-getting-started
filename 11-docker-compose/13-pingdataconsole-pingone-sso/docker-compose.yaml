@@ -52,9 +52,9 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "2389:389"
-      - "2636:636"
-      - "2443:443"
+      - "2389:1389"
+      - "2636:1636"
+      - "2443:1443"
     volumes:
       - pingdirectory-out:/opt/out
       

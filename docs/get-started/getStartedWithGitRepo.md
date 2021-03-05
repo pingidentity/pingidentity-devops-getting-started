@@ -58,10 +58,10 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
     | Product | Connection Details |
     | --- | --- |
     | [PingFederate](https://localhost:9999/pingfederate/app) | <ul> <li>URL: [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory:636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingAccess](https://localhost:9000) | <ul><li>URL: [https://localhost:9000](https://localhost:9000)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDataGovernance](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatagovernance:636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDataSync](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatasync:636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingDataGovernance](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatagovernance:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingDataSync](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatasync:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingCentral](https://localhost:9022) | <ul><li>URL: [https://localhost:9022](https://localhost:9022)</li><li>Username: administrator</li><li>Password: 2Federate</li></ul> |
     | Apache Directory Studio for PingDirectory |<ul> <li>LDAP Port: 1636</li><li>LDAP BaseDN: dc=example,dc=com</li><li>Root Username: cn=administrator</li><li>Root Password: 2FederateM0re</li></ul> |
 

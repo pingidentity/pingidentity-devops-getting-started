@@ -9,9 +9,9 @@ spec:
   - name: http
     port: 80
   - name: https
-    port: 443
+    port: 1443
   - name: ldaps
-    port: 636
+    port: 1636
   selector:
     role: pingdatagovernance
 ---
@@ -43,8 +43,8 @@ spec:
         name: pingdatagovernance
         ports:
         - containerPort: 80
-        - containerPort: 443
-        - containerPort: 636
+        - containerPort: 1443
+        - containerPort: 1636
         resources:
           limits:
             cpu: "1"

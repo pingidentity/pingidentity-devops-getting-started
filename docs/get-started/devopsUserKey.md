@@ -15,8 +15,8 @@ When using the `docker run` command to start a container, you can assign the `--
 ```bash
 docker run \
   --name pingdirectory \
-  --publish 1389:389 \
-  --publish 8443:443 \
+  --publish 1389:1389 \
+  --publish 8443:1443 \
   --detach \
   --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
   --env SERVER_PROFILE_PATH=getting-started/pingdirectory \

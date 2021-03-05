@@ -11,7 +11,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 #-
 #- Setup a port-forward on port 1443 to the pingdirectory REST service.
 #-
-#-    kubectl port-forward service/pingdirectory 1443:443 1389:389 1636:636
+#-    kubectl port-forward service/pingdirectory 1443:1443 1389:1389 1636:1636
 #-
 #- To view users in Ping Directory (via REST) with curl:
 #-

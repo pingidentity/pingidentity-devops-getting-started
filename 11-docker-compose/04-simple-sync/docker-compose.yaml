@@ -20,7 +20,7 @@ version: "2.4"
 #-  PingDirectory Console                         PingDataSync Console
 #-  ---------------------------                   ---------------------------
 #-  https://localhost:8443/                       https://localhost:8443
-#-  Server: pingdirectory:636                     Server: pingdatasync:636
+#-  Server: pingdirectory:1636                     Server: pingdatasync:1636
 #-  Username: administrator                       Username: administrator
 #-  Password: 2FederateM0re                       Password: 2FederateM0re
 #-
@@ -43,8 +43,8 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "1636:636"
-      - "1443:443"
+      - "1636:1636"
+      - "1443:1443"
     networks:
       - pingnet
     volumes:
@@ -67,8 +67,8 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "2636:636"
-      - "2443:443"
+      - "2636:1636"
+      - "2443:1443"
     networks:
       - pingnet
     volumes:

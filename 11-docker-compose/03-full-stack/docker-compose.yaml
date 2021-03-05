@@ -5,7 +5,7 @@ version: "2.4"
 #- Ping Identity fullstack integrated demo
 #-
 #-     app    console            app                                       rest
-#-     443    9000               6443                                      7443
+#-     2443   9000               6443                                      7443
 #-      |      |                  |                                         |
 #-   +----------------+   +---------------+                         +---------------+
 #-   |   PingAccess   |   | PingDelegator |                         |  PingDataGov  |
@@ -26,8 +26,8 @@ version: "2.4"
 #-   |  PingAccess           |  https://localhost:9000/                                 |
 #-   |  PingFederate         |  https://localhost:9999/pingfederate/app                 |
 #-   |  PingDelegator        |  https://localhost:6443/                                 |
-#-   |  PingDirectory        |  https://localhost:8443/ (Server=pingdirectory:636)      |
-#-   |  PingDataGovernance   |  https://localhost:8443/ (Server=pingdatagovernance:636) |
+#-   |  PingDirectory        |  https://localhost:8443/ (Server=pingdirectory:1636)      |
+#-   |  PingDataGovernance   |  https://localhost:8443/ (Server=pingdatagovernance:1636) |
 #-   +-----------------------+----------------------------------------------------------+
 #----------------------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ services:
       # devops user/key details for evaluation licenses and for docker image/git tags
       - ${HOME}/.pingidentity/devops
     ports:
-      - "443:443"
+      - "2443:1443"
       - "9000:9000"
     networks:
       - pingnet-dmz
@@ -53,7 +53,7 @@ services:
 
   pingdatagovernance:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdatagovernance
@@ -61,7 +61,7 @@ services:
       - ${HOME}/.pingidentity/devops
     ports:
       - "8080:80"
-      - "7443:443"
+      - "7443:1443"
     networks:
       - pingnet-dmz
       - pingnet-internal
@@ -71,7 +71,7 @@ services:
 
   pingfederate:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
@@ -102,9 +102,9 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "1636:636"
-      - "1443:443"
-      - "1389:389"
+      - "1636:1636"
+      - "1443:1443"
+      - "1389:1389"
     networks:
       - pingnet-internal
     volumes:

@@ -303,7 +303,7 @@ Here's a diagram of how a single load balancer can be used:
 
 Advantages
 
-* Use the same well-known port (such as, 636/8989)
+* Use the same well-known port (such as, 1636/8989)
 * Separate IP addresses per instance
 
  Disadvantages
@@ -394,7 +394,7 @@ spec:
       port: 80
       targetPort: http
     - name: https
-      port: 443
+      port: 1443
       targetPort: https
     - name: ldaps-pingdiretory-0
       port: 8600

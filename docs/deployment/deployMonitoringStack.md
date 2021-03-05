@@ -142,7 +142,7 @@ docker-compose logs -f searchrate
 
         ```sh
         modrate \
-        --hostname localhost --port 636 --bindDN cn=administrator --bindPassword 2FederateM0re \
+        --hostname localhost --port 1636 --bindDN cn=administrator --bindPassword 2FederateM0re \
         --entryDN "uid=user.[0-4],ou=people,dc=example,dc=com" \
         --useSSL --trustAll \
         --attribute description --valueLength 12 --numThreads 10 --ratePerSecond 20
@@ -155,7 +155,7 @@ docker-compose logs -f searchrate
         ```sh
         PingDirectory:ca3f124e78aa:/opt
         > modrate \
-        >   --hostname localhost --port 636 --bindDN cn=administrator --bindPassword 2FederateM0re \
+        >   --hostname localhost --port 1636 --bindDN cn=administrator --bindPassword 2FederateM0re \
         >   --entryDN "uid=user.[0-4],ou=people,dc=example,dc=com" \
         >   --useSSL --trustAll \
         >   --attribute description --valueLength 12 --numThreads 10 --ratePerSecond 20
