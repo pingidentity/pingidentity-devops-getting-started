@@ -49,4 +49,4 @@
 | Phase 11 | Use layered server-profiles                 | In Progress |
 
 
-See [Deploy an Elasticsearch SIEM stack](../../docs/deployment/deploysiemstack.md) for more information.
+See [Deploy an Elasticsearch SIEM stack](../../docs/deployment/deploySiemStack.md) for more information.
