@@ -1,6 +1,6 @@
 # Securing the Containers
 
-## NOTE: As of the 2103 release, Ping Identity Docker Images run as a non-privileged user by default. The processes described on this page are necessary only for earlier versions of the images.
+## NOTE: As of the 2103 (March 2021) release, Ping Identity Docker Images run as a non-privileged user by default. The processes described on this page are necessary only for earlier versions of the images.
 
 By default, Ping Identity Docker Images run as root within the container. When deploying these images into your production environment, you may wish to secure them by using one of the following patterns which we describe below, in order of preference.
 
