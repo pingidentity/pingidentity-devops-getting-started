@@ -143,3 +143,23 @@ spec:
     secret:
       secretName: pingfederate-license
 ```
+
+#### Helm
+
+Create a Kubernetes secret from the license file
+
+```sh
+kubectl create secret generic pingfederate-license \
+  --from-file=./pingfederate.lic
+```
+
+Add the secretVolumes within your values.yaml deployment file
+
+```sh
+pingfederate-admin:
+  ...
+  secretVolumes:
+    pingfederate-license:
+      items:
+        pingfederate.lic: /opt/in/instance/server/default/conf/pingfederate.lic
+```
