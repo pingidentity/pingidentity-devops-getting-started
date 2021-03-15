@@ -14,7 +14,7 @@ The build process retrieves the latest versions of:
 * Product files
 * Supporting tools/libraries
 
-## Actively Maintained Images
+## Actively Maintained Product Versions
 
 The DevOps program actively maintains docker images for:
 
@@ -31,3 +31,10 @@ Examples:
 
 !!! Info "Active Build Product Versions"
     To view products and versions actively being built, navigate to the most recent **Release Notes**.
+
+## Supported OS Shim and Java Version
+
+The Devops program uses [Alpine](https://hub.docker.com/_/alpine) as its base OS shim. Reasons why are described in "[Evaluation of Docker Base Image Security](./dockerImageSecurity.md)".
+If rare scenarios where the consumer absolutely cannot run an Alpine based image, there is an option to "[Build a Docker Product Image Locally](./buildLocal.md)".
+
+Running custom built images with other Linux distros should not cause an issue, but it cannot be guaranteed that the products will function as expected since these are not verified for compatibility. Additionally Ping Identity Support on custom images may be challenging and experience longer delays. 
