@@ -90,6 +90,7 @@ nav:
               - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
           - Deploy Hashicorp Vault: "deployment/deployVault.md"
   - How To:
+      - Use Existing Licenses: "how-to/existingLicense.md"
       - Server Profile:
           - Deployment: "how-to/containerAnatomy.md"
           - Customization: "how-to/profiles.md"
