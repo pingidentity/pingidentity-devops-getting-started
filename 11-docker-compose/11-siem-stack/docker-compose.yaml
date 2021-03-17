@@ -4,7 +4,7 @@ services:
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingfederate
-    command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:1389 -t 800 -- entrypoint.sh start-server
     environment:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
@@ -47,7 +47,7 @@ services:
   pingaccess:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingaccess
-    command: wait-for pingdirectory:389 -t 800 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:1389 -t 800 -- entrypoint.sh start-server
     environment:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
@@ -114,8 +114,8 @@ services:
     memswap_limit: 2g
     mem_swappiness: 0
     ports:
-      - "1636:636"
-      - "1443:443"
+      - "1636:1636"
+      - "1443:1443"
     networks:
       - pingnet      
     volumes:
@@ -140,7 +140,7 @@ services:
   authrate_ok:
     image: pingidentity/ldap-sdk-tools
     container_name: authrate_ok
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 90
+    command: wait-for pingdirectory:1389 -t 900 -- authrate -h pingdirectory -p 1389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C 2FederateM0re -r 90
     ulimits:
       nproc:
         soft: 16384
@@ -157,7 +157,7 @@ services:
   authrate_ko:
     image: pingidentity/ldap-sdk-tools
     container_name: authrate_ko
-    command: wait-for pingdirectory:389 -t 900 -- authrate -h pingdirectory -p 389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
+    command: wait-for pingdirectory:1389 -t 900 -- authrate -h pingdirectory -p 1389 -D cn=administrator -w 2FederateM0re -b dc=example,dc=com -f "(uid=user.[0-4])" -C badPassword -r 10
     ulimits:
       nproc:
         soft: 16384
@@ -196,7 +196,7 @@ services:
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/es01/es01.key
       - xpack.security.authc.realms.native.realm1.order=2
       - xpack.security.authc.realms.ldap.ldap1.order=1
-      - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
+      - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:1636
       - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=People,dc=example,dc=com
       - xpack.security.authc.realms.ldap.ldap1.group_search.base_dn=ou=Groups,dc=example,dc=com
       - xpack.security.authc.realms.ldap.ldap1.ssl.verification_mode=none
@@ -248,7 +248,7 @@ services:
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/es02/es02.key
       - xpack.security.authc.realms.native.realm1.order=2
       - xpack.security.authc.realms.ldap.ldap1.order=1
-      - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:636
+      - xpack.security.authc.realms.ldap.ldap1.url=ldaps://pingdirectory:1636
       - xpack.security.authc.realms.ldap.ldap1.user_search.base_dn=ou=People,dc=example,dc=com
       - xpack.security.authc.realms.ldap.ldap1.group_search.base_dn=ou=Groups,dc=example,dc=com
       - xpack.security.authc.realms.ldap.ldap1.ssl.verification_mode=none

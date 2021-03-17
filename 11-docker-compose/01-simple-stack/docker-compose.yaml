@@ -14,7 +14,7 @@ version: "2.4"
 #-  PingFederate Console                         PingDataConsole (PingDirectory)
 #-  --------------------                         -------------------------------
 #-  https://localhost:9999/pingfederate/app      https://localhost:8443
-#-    Username: administrator                        Server: pingdirectory:636
+#-    Username: administrator                        Server: pingdirectory:1636
 #-    Password: 2FederateM0re                      Username: administrator
 #-                                                 Password: 2FederateM0re
 #-
@@ -32,7 +32,7 @@ version: "2.4"
 services:
   pingfederate:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingdirectory:389 -t 900 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:1389 -t 900 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
@@ -65,9 +65,9 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "1636:636"
-      - "1443:443"
-      - "1389:389"
+      - "1636:1636"
+      - "1443:1443"
+      - "1389:1389"
     networks:
       - pingnet
     volumes:

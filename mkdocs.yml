@@ -105,6 +105,7 @@ nav:
           - Introduction: "how-to/manage.md"
           - Upgrading PingFederate: "how-to/upgradePingfederate.md"
           - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
+          - Migrating to Unprivileged Images: "how-to/migratingRootToUnprivileged.md"
   - Reference:
       - Introduction: "reference/config.md"
       - Server Profile: "reference/profileStructures.md"

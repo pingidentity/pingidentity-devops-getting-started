@@ -4,7 +4,7 @@ version: "2.4"
 services:
   pingdatagovernance:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
+    command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernance
@@ -22,7 +22,7 @@ services:
         hard: 65535
     ports:
       - "8080:80"
-      - "7443:443"
+      - "7443:1443"
     networks:
       - pingnet-dmz
       - pingnet-internal
@@ -32,7 +32,7 @@ services:
 
   pingdatagovernancepap:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernancepap:${PING_IDENTITY_DEVOPS_TAG}
-    # command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
+    # command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernancepap
@@ -69,8 +69,8 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - 1636-1646:636
-      - 1443-1453:443
+      - 1636-1646:1636
+      - 1443-1453:1443
     networks:
       - pingnet-internal
     volumes:

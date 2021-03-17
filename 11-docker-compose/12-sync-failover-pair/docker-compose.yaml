@@ -25,7 +25,7 @@ version: "2.4"
 #-
 #-    https://localhost:8443/
 #-
-#-      Server: pingdirectory:636
+#-      Server: pingdirectory:1636
 #-    Username: administrator
 #-    Password: 2FederateM0re
 #-------------------------------------------------------------------------------------
@@ -47,8 +47,8 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "1636:636"
-      - "1443:443"
+      - "1636:1636"
+      - "1443:1443"
     networks:
       - pingnet
     volumes:
@@ -74,8 +74,8 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "2636-2646:636"
-      - "2443-2453:443"
+      - "2636-2646:1636"
+      - "2443-2453:1443"
     networks:
       - pingnet
 

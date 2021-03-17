@@ -7,11 +7,11 @@ metadata:
 spec:
   ports:
   - name: ldaps
-    port: 636
+    port: 1636
   - name: https
-    port: 443
+    port: 1443
   - name: ldap
-    port: 389
+    port: 1389
   selector:
     role: pingdirectory
 
@@ -30,7 +30,7 @@ spec:
   clusterIP: None
   ports:
   - name: ldaps
-    port: 636
+    port: 1636
   selector:
     role: pingdirectory
 
@@ -79,9 +79,9 @@ spec:
           periodSeconds: 30
         name: pingdirectory
         ports:
-        - containerPort: 636
-        - containerPort: 443
-        - containerPort: 389
+        - containerPort: 1636
+        - containerPort: 1443
+        - containerPort: 1389
         readinessProbe:
           exec:
             command:
