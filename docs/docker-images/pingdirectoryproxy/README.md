@@ -18,6 +18,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingDirectoryProxy  | PingIdentity license version Ping product name  |
 | LICENSE_FILE_NAME  | PingDirectory.lic  | Name of License File  |
 | LICENSE_SHORT_NAME  | PD  | Short name used when retrieving license from License Server  |
@@ -46,8 +48,8 @@ The easiest way to test test a simple standalone image of PingDirectoryProxy is 
 ```
   docker run \
            --name pingdirectoryproxy \
-           --publish 1389:389 \
-           --publish 8443:443 \
+           --publish 1389:1389 \
+           --publish 8443:1443 \
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=baseline/pingdirectoryproxy \
@@ -85,7 +87,7 @@ Connect an LDAP Client (such as Apache Directory Studio) to this container using
 
 |                 |                                   |
 | --------------: | --------------------------------- |
-| LDAP Port       | 1389 (mapped to 389)              |
+| LDAP Port       | 1389                              |
 | LDAP Base DN    | dc=example,dc=com                 |
 | Root Username   | cn=administrator                  |
 | Root Password   | 2FederateM0re                     |

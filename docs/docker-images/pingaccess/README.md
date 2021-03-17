@@ -19,6 +19,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingAccess  |  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  |  |
 | LICENSE_FILE_NAME  | pingaccess.lic  |  |
@@ -46,7 +48,7 @@ To run a PingAccess container:
   docker run \
            --name pingaccess \
            --publish 9000:9000 \
-           --publish 443:443 \
+           --publish 443:1443 \
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingaccess \

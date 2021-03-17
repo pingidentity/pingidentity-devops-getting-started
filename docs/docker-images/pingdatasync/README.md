@@ -18,6 +18,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | PingIdentity license version  |
 | LICENSE_FILE_NAME  | PingDirectory.lic  |  |
 | LICENSE_SHORT_NAME  | PD  |  |
@@ -42,8 +44,8 @@ used, then it may come from a parent container
 ```
   docker run \
            --name pingdatasync \
-           --publish 1389:389 \
-           --publish 8443:443 \
+           --publish 1389:1389 \
+           --publish 8443:1443 \
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=simple-sync/pingdatasync \

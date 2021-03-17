@@ -18,6 +18,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingIntelligence_ASE  | PingIdentity license version Ping product name  |
 | LICENSE_FILE_NAME  | PingIntelligence.lic  | Name of License File  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/config  |  |

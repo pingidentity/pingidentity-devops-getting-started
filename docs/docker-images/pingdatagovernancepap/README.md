@@ -18,6 +18,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingDataGovernance-PAP  | PingIdentity license version Ping product name  |
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File  |
 | LICENSE_SHORT_NAME  | PG  | Short name used when retrieving license from License Server  |
@@ -48,7 +50,7 @@ To run a PingDataGovernance PAP container in demo mode:
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
-           --publish 8443:443 \
+           --publish 8443:1443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER \
@@ -72,7 +74,7 @@ variables:
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
            --env PING_OIDC_CONFIGURATION_ENDPOINT=https://my-oidc-provider/.well-known/openid-configuration \
            --env PING_CLIENT_ID=b1929abc-e108-4b4f-83d467059fa1 \
-           --publish 8443:443 \
+           --publish 8443:1443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER \
@@ -116,7 +118,7 @@ For example:
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
-           --publish 8443:443 \
+           --publish 8443:1443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER \
@@ -146,7 +148,7 @@ For example, to perform backups daily at UTC noon and place backups in
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
            --env PING_BACKUP_SCHEDULE="0 0 12 * * ?" \
            --env PING_H2_BACKUP_DIR=/opt/out/backup \
-           --publish 8443:443 \
+           --publish 8443:1443 \
            --detach \
            pingidentity/pingdatagovernancepap:edge
 ```

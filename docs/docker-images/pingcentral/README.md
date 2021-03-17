@@ -18,6 +18,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_CENTRAL_SERVER_PORT  | 9022  |  |
 | PING_PRODUCT  | PingCentral  |  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  |  |

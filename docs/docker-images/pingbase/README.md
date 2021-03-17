@@ -10,8 +10,6 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version, set by build process of the docker build  |
-| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  | Image git revision, set by build process of the docker build  |
 | PING_IDENTITY_ACCEPT_EULA  | NO  | Must be set to 'YES' for the container to start  |
 | BASE  | ${BASE:-/opt}  | Location of the top level directory where everything is located in image/container  |
 | IN_DIR  | ${BASE}/in  | Location of a local server-profile volume  |
@@ -54,10 +52,10 @@ this image.
 | PING_PRODUCT  |   | The name of Ping product.  Should be overridden by child images.  |
 | PING_PRODUCT_VALIDATION  | true|i.e. PingFederate,PingDirectory|Must be a valid Ping prouduct type  |  |
 | ADDITIONAL_SETUP_ARGS  |   | List of setup arguments passed to Ping Data setup-arguments.txt file  |
-| LDAP_PORT  | 389  | Port over which to communicate for LDAP  |
-| LDAPS_PORT  | 636  | Port over which to communicate for LDAPS  |
-| HTTPS_PORT  | 443  | Port over which to communicate for HTTPS  |
-| JMX_PORT  | 689  | Port for monitoring over JMX protocol  |
+| LDAP_PORT  | 1389  | Port over which to communicate for LDAP  |
+| LDAPS_PORT  | 1636  | Port over which to communicate for LDAPS  |
+| HTTPS_PORT  | 1443  | Port over which to communicate for HTTPS  |
+| JMX_PORT  | 1689  | Port for monitoring over JMX protocol  |
 | ORCHESTRATION_TYPE  |   | The type of orchestration tool used to run the container, normally set in the deployment (.yaml) file.  Expected values include: - compose - swarm - kubernetes Defaults to blank (i.e. No type is set)  |
 | USER_BASE_DN  | dc=example,dc=com  |  |
 | DOLLAR  | '$'  |  |
@@ -84,11 +82,6 @@ this image.
 | ENV  | ${BASE}/.profile  |  |
 | MOTD_URL  | https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  | Instructs the image to pull the MOTD json from the followig URL. If this MOTD_URL variable is empty, then no motd will be downloaded. The format of this MOTD file must match the example provided in the url: https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/motd/motd.json  |
 | PS1  | \${PING_PRODUCT}:\h:\w\n>   | Default shell prompt (i.e. productName:hostname:workingDir)  |
-| PING_CONTAINER_PRIVILEGED  | true  | Whether to run the process as Root or not if set to false, user spec can be left to default (uid:9031, gid:9999) or a custom uid can be passed with PING_CONTAINER_UID and PING_CONTAINER_GID  |
-| PING_CONTAINER_UID  | 9031  | The user ID the product will use if PING_CONTAINER_PRIVILEGED is set to false  |
-| PING_CONTAINER_GID  | 9999  | The group ID the product will use if PING_CONTAINER_PRIVILEGED is set to false  |
-| PING_CONTAINER_UNAME  | ping  | The user name the product will use if PING_CONTAINER_PRIVILEGED is set to false and a user with that ID does not exist already  |
-| PING_CONTAINER_GNAME  | identity  | The group name the product will use if PING_CONTAINER_PRIVILEGED is set to false and a group with that ID does not exist already  |
 | JAVA_HOME  | /opt/java  |  |
 | PATH  | ${JAVA_HOME}/bin:${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  |  |
 ## Docker Container Hook Scripts

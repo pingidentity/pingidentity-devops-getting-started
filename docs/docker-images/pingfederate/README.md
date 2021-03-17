@@ -19,6 +19,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingFederate  |  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  |  |
 | LICENSE_FILE_NAME  | pingfederate.lic  |  |

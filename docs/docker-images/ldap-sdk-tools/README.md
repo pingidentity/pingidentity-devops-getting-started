@@ -15,6 +15,8 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PATH  | /opt/tools:${PATH}  |  |
 ## List all available tools
 `docker run -it --rm pingidentity/ldap-sdk-tools:edge ls`
@@ -52,7 +54,7 @@ docker run -it --rm \
   pingidentity/ldap-sdk-tools:edge \
   manage-certificates trust-server-certificate \
     --hostname haveibeenpwned.com \
-    --port 443 \
+    --port 1443 \
     --keystore /opt/out/hibp-2019.jks \
     --keystore-password ${PWD}
 ls -all /tmp/hibp
