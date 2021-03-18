@@ -11,13 +11,13 @@ By registering for Ping Identity's DevOps program, you'll be issued credentials 
 
 Evaluation licenses can only be used with images published in the last 90 days.
 If you wish to continue to use an image that was published more than 90 days ago, you must obtain a product license.
-Once you have product license for the product and version of the more-than-90-days-old image, follow the instructions to [mount the product license](../how-to/existingLicense).
+Once you have product license for the product and version of the more-than-90-days-old image, follow the instructions to [mount the product license](../how-to/existingLicense.md).
 
 * [Using your DevOps User/Key](#using-your-devops-user-and-key)
 
 #### Existing License
 
-* [Mount Existing Product License](../how-to/existingLicense)
+* [Mount Existing Product License](../how-to/existingLicense.md)
 
 ## Using Your DevOps User and Key
 
