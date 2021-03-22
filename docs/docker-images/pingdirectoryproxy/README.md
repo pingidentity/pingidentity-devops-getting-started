@@ -18,20 +18,21 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| PING_PRODUCT  | PingDirectoryProxy  | PingIdentity license version Ping product name  |
-| LICENSE_FILE_NAME  | PingDirectory.lic  | Name of License File  |
+| PING_PRODUCT  | PingDirectoryProxy  | Ping product name  |
+| LICENSE_FILE_NAME  | PingDirectory.lic  | Name of license File  |
 | LICENSE_SHORT_NAME  | PD  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
 | ADMIN_USER_NAME  | admin  | Replication administrative user  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  | Public hostname of the DA app  |
-| STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrative connections be made until server has been started with replication enabled  |
-| STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrative connections be made until server has been started with replication enabled  |
-| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password  |
-| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/access \  | Files tailed once container has started  |
-| PD_PROFILE  | ${STAGING_DIR}/pd.profile  |  |
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
+| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
+| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to /SECRETS_DIR/root-user-password  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access ${SERVER_ROOT_DIR}/logs/errors ${SERVER_ROOT_DIR}/logs/failed-ops ${SERVER_ROOT_DIR}/logs/config-audit.log ${SERVER_ROOT_DIR}/logs/tools/*.log* ${SERVER_BITS_DIR}/logs/tools/*.log*  | Files tailed once container has started  |
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
+
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -104,6 +105,7 @@ To remove the container:
 ```
   docker container rm -f pingdirectoryproxy
 ```
+
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdirectoryproxy/hooks/README.md) for details on all pingdirectoryproxy hook scripts
 

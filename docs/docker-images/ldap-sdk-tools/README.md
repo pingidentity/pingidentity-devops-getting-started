@@ -15,7 +15,7 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PATH  | /opt/tools:${PATH}  |  |
 ## List all available tools
@@ -62,6 +62,7 @@ keytool -list \
   -keystore /tmp/hibp/hibp-2019.jks \
   -storepass ${PWD}
 ```
+
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/ldap-sdk-tools/hooks/README.md) for details on all ldap-sdk-tools hook scripts
 
