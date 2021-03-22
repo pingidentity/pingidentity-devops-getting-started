@@ -2,7 +2,7 @@
 In the 2103 release (scheduled for early April 2021), our product images were updated to run with an unprivileged user by default. Prior to this release, images ran as root by default. This page describes some of the potential issues you may encounter when migrating to these newer images.
 
 ## Persistent volumes
-Persistent volumes created attached to our older containers will have files owned by the root user. When the default non-privileged user attempts to use these existing volumes, there may be file permission errors. To avoid this, you can create a fresh deployment that does not use the old volumes, or you can continue to run the containers as root.
+Persistent volumes created with our older containers will have files owned by the root user. When the default non-privileged user attempts to use these existing volumes, there may be file permission errors. To avoid this, you can create a fresh deployment that does not use the old volumes, or you can continue to run the containers as root.
 
 ## Default ports
 In our older images, certain default ports (`LDAP_PORT`, `LDAPS_PORT`, `HTTPS_PORT`, and `JMX_PORT`) were set to privileged values (`389`, `636`, `443`, and `689`, respectively). The newer images do not use these values since they run as a non-privileged user. The updated default ports are `1389`, `1636`, `1443`, and `1689`. If necessary you can maintain the old values by setting the corresponding environment variables and running the container as root.
