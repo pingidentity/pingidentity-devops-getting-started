@@ -52,7 +52,11 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
     | --- | --- |
     | [PingCentral](https://localhost:9022) | <ul><li>URL: [https://localhost:9022](https://localhost:9022)</li><li>Username: administrator</li><li>Password: 2Federate</li></ul> |
 
-1. Copy the MySQL database hostkey created on initial startup in `./conf/pingcentral.jwk` to your local `/tmp` directory. You'll need the hostkey in a subsequent step.
+1. Copy the MySQL database hostkey created on initial startup located in the container to your local `/tmp` directory. You'll need the hostkey in a subsequent step. When you are in your /tmp directory enter:
+      
+      ```sh
+      docker cp pingcentral_container_name:/opt/out/instance/conf/pingcentral.jwk .
+      ```
 
 1. When you no longer want to run this stack, you can either stop the running stack, or bring the stack down.
 
@@ -121,6 +125,7 @@ To preserve any updates to the MySQL database, you need to mount the `./conf/mys
           networks:
             - pingnet
       ```
+1. If the `/conf` directory does not exist, go ahead and create it. Once it has been created copy the hostkey `pingcentral.jwk` from the `/tmp` directory to the new `/conf` directory.
 
 1. Save `docker-compose.yml` and start the stack:
 
@@ -135,6 +140,13 @@ To preserve any updates to the MySQL database, you need to mount the `./conf/mys
       ```
 
       The hostkey will now be persisted and available at each startup.
+      
+1. If you encounter any permission issues, you will need to specify in the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file to run as the root user:
+    ```yaml
+    services:
+      pingcentral:
+        user: root
+    ```
 
 ## Configure Trust
 
