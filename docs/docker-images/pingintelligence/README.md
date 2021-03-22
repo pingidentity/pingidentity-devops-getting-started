@@ -18,16 +18,16 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| PING_PRODUCT  | PingIntelligence_ASE  | Ping product name  |
-| LICENSE_FILE_NAME  | PingIntelligence.lic  | Name of license File  |
-| LICENSE_DIR  | ${SERVER_ROOT_DIR}/config  | License directory  |
+| PING_PRODUCT  | PingIntelligence_ASE  | PingIdentity license version Ping product name  |
+| LICENSE_FILE_NAME  | PingIntelligence.lic  | Name of License File  |
+| LICENSE_DIR  | ${SERVER_ROOT_DIR}/config  |  |
 | LICENSE_SHORT_NAME  | pingintelligence  | Shortname used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start_ase.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
-| STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
-| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start_ase.sh  |  |
+| STARTUP_FOREGROUND_OPTS  |   |  |
+| STARTUP_BACKGROUND_OPTS  |   |  |
 | ROOT_USER_PASSWORD_FILE  |   |  |
 | ADMIN_USER_PASSWORD_FILE  |   |  |
 | ENCRYPTION_PASSWORD_FILE  |   |  |
@@ -81,7 +81,6 @@ this image.
 | PING_INTELLIGENCE_ABS_ENABLE_SSL  | true  | Setting this value to true will enable encrypted communication with ABS.  |
 | PING_INTELLIGENCE_ABS_CA_CERT_PATH  |   | Configure the location of ABS's trusted CA certificates.  |
 | TAIL_LOG_FILES  |   | Files tailed once container has started  |
-
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingintelligence/hooks/README.md) for details on all pingintelligence hook scripts
 

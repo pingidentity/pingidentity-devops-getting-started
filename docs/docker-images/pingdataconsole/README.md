@@ -15,13 +15,13 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  | Flag to force a run of dsjavaproperties --initialize. When this is false, the java.properties file will only be regenerated on a restart when there is a change in JVM or a change in the product-specific java options, such as changing the MAX_HEAP_SIZE value.  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| HTTP_PORT  | 8080  | PingDataConsole HTTP listen port  |
-| HTTPS_PORT  | 8443  | PingDataConsole HTTPS listen port  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
-| STARTUP_FOREGROUND_OPTS  | run  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
-| STARTUP_BACKGROUND_OPTS  | start  | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
+| HTTP_PORT  | 8080  |  |
+| HTTPS_PORT  | 8443  |  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  |  |
+| STARTUP_FOREGROUND_OPTS  | run  |  |
+| STARTUP_BACKGROUND_OPTS  | start  |  |
 ## Run
 To run a PingDataConsole container:
 
@@ -52,7 +52,6 @@ Username: administrator
 Password: 2FederateM0re
 ```
 > make sure you have a PingDirectory running
-
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdataconsole/hooks/README.md) for details on all pingdataconsole hook scripts
 

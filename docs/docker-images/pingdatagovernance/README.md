@@ -19,21 +19,20 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| PING_PRODUCT  | PingDataGovernance  | Ping product name  |
-| LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of license file  |
+| PING_PRODUCT  | PingDataGovernance  | PingIdentity license version Ping product name  |
+| LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of License File  |
 | LICENSE_SHORT_NAME  | PG  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
 | MAX_HEAP_SIZE  | 1g  | Minimal Heap size required for Ping DataGovernance  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | The command that the entrypoint will execute in the foreground to instantiate the container  |
-| STARTUP_FOREGROUND_OPTS  | --nodetach  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
-| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
-| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to /SECRETS_DIR/root-user-password  |
-| ENCRYPTION_PASSWORD_FILE  |   | Location of file with the passphrase for setting up encryption Defaults to /SECRETS_DIR/encryption-password  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |  |
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | Adding lockdown mode so non administrative connections be made until server has been started with replication enabled  |
+| STARTUP_BACKGROUND_OPTS  |   | Adding lockdown mode so non administrative connections be made until server has been started with replication enabled  |
+| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password  |
+| ENCRYPTION_PASSWORD_FILE  |   | Location of file with the passphrase for setting up encryption Defaults to the /SECRETS_DIR/encryption-password  |
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access  | Files tailed once container has started  |
-| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
-
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  |  |
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -84,7 +83,6 @@ To remove the container:
 ```
   docker container rm -f pingdatagovernance
 ```
-
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatagovernance/hooks/README.md) for details on all pingdatagovernance hook scripts
 

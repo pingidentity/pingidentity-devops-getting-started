@@ -5,11 +5,10 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  | Image version and git revision, set by build process of the docker build  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
+| SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the pipeline  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
-
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  |  |
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/apache-jmeter/hooks/README.md) for details on all apache-jmeter hook scripts
 
