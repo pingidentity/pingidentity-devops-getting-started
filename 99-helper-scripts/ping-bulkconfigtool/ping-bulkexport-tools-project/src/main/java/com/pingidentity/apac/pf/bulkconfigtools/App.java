@@ -494,12 +494,28 @@ public class App {
 
 		for(Object key : this.returnProperties.keySet())
 		{
-			String value = this.returnProperties.getProperty(String.valueOf(key), "");
+			String keyStr = String.valueOf(key);
+			
+			// Preventing Keystore Data from being presented if we don't know what the password is
+			if(keyStr.endsWith("_fileData"))
+			{
+				String passwordKey = keyStr.substring(0, keyStr.length() - "_fileData".length()) + "_password";
+				String passwordValue = this.returnProperties.getProperty(passwordKey, "");
+				boolean containsPassword = this.returnProperties.containsKey(passwordKey);
+				
+				if(containsPassword && passwordValue.equals(""))
+				{
+					pw.println(keyStr + "=");
+					continue;
+				}
+			}
+			
+			String value = this.returnProperties.getProperty(keyStr, "");
 			if(value.equals("null"))
 				value = "";
 
 			String finalValue = value.replaceAll("\\n", "").replaceAll("\\r", "").replaceAll("\\\\", "\\\\").replace("-----BEGIN CERTIFICATE-----", "").replace("-----END CERTIFICATE-----", "");
-			pw.println(String.valueOf(key) + "=" + finalValue);
+			pw.println(keyStr + "=" + finalValue);
 		}
 
 		pw.close();
