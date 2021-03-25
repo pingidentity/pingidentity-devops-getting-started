@@ -71,6 +71,10 @@ this image.
 | PDG_ENGINE_PRIVATE_HOSTNAME  | pingdatagovernance  | PDG (PingDataGovernance) private hostname  |
 | PDGP_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDGP (PingDataGovernance-PAP) public hostname that may be used in redirects  |
 | PDGP_ENGINE_PRIVATE_HOSTNAME  | pingdatagovernancepap  | PDGP (PingDataGovernance-PAP) private hostname  |
+| PAZ_ENGINE_PUBLIC_HOSTNAME  | localhost  | PAZ (PingAuthorize) public hostname that may be used in redirects  |
+| PAZ_ENGINE_PRIVATE_HOSTNAME  | pingauthorize  | PAZ (PingAuthorize) private hostname  |
+| PAZP_ENGINE_PUBLIC_HOSTNAME  | localhost  | PAZP (PingAuthorize-PAP) public hostname that may be used in redirects  |
+| PAZP_ENGINE_PRIVATE_HOSTNAME  | pingauthorizepap  | PAZP (PingAuthorize-PAP) private hostname  |
 | PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) engine public hostname that may be used in redirects  |
 | PF_ENGINE_PRIVATE_HOSTNAME  | pingfederate  | PF (PingFederate) engine private hostname  |
 | PF_ADMIN_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) admin public hostname that may be used in redirects  |

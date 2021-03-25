@@ -1,7 +1,7 @@
 
 # Ping Identity DevOps `pingdelegator` Hook - `02-get-remote-server-profile.sh.post`
  This hook may be used to set the server if there is a setup procedure
- >Note: The PingData (i.e. Directory, DataSync, DataGovernance, DirectoryProxy)
+ >Note: The PingData (i.e. Directory, DataSync, PingAuthorize, DirectoryProxy)
  products will all provide this
 
 ---
