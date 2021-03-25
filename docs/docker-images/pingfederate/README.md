@@ -19,15 +19,15 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| PING_PRODUCT  | PingFederate  |  |
-| LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  |  |
-| LICENSE_FILE_NAME  | pingfederate.lic  |  |
-| LICENSE_SHORT_NAME  | PF  |  |
-| LICENSE_VERSION  | ${LICENSE_VERSION}  |  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  |  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  |  |
+| PING_PRODUCT  | PingFederate  | Ping product name  |
+| LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  | License directory  |
+| LICENSE_FILE_NAME  | pingfederate.lic  | Name of license file  |
+| LICENSE_SHORT_NAME  | PF  | Short name used when retrieving license from License Server  |
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | Files tailed once container has started  |
 | PF_LOG_SIZE_MAX  | 10000 KB  | Defines the log file size max for ALL appenders  |
 | PF_LOG_NUMBER  | 2  | Defines the maximum of log files to retain upon rotation  |
 | PF_ADMIN_PORT  | 9999  | Defines the port on which the PingFederate administrative console and API runs.  |
@@ -47,6 +47,7 @@ this image.
 | PF_PROVISIONER_GRACE_PERIOD  | 600  | Provisioner Failover Grace Period in run.properties Grace period, in seconds. Default 600 seconds  |
 | BULK_CONFIG_DIR  | ${OUT_DIR}/instance/bulk-config  |  |
 | BULK_CONFIG_FILE  | data.json  |  |
+
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -80,6 +81,7 @@ If using the command above with the embedded [server profile](https://devops.pin
 * https://localhost:9999/pingfederate/app
   * Username: Administrator
   * Password: 2FederateM0re
+
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingfederate/hooks/README.md) for details on all pingfederate hook scripts
 

@@ -18,20 +18,21 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | PingIdentity license version  |
-| LICENSE_FILE_NAME  | PingDirectory.lic  |  |
-| LICENSE_SHORT_NAME  | PD  |  |
-| LICENSE_VERSION  | ${LICENSE_VERSION}  |  |
-| PING_PRODUCT  | PingDataSync  |  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |  |
-| STARTUP_FOREGROUND_OPTS  | --nodetach  |  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/sync  | Files tailed once container has started  |
+| LICENSE_FILE_NAME  | PingDirectory.lic  | Name of license file  |
+| LICENSE_SHORT_NAME  | PD  | Short name used when retrieving license from License Server  |
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
+| PING_PRODUCT  | PingDataSync  | Ping product name  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | The command that the entrypoint will execute in the foreground to instantiate the container  |
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
 | RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for manage-topology and remove-defunct-server  |
 | ADMIN_USER_NAME  | admin  | Failover administrative user  |
-| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to the /SECRETS_DIR/root-user-password  |
-| ADMIN_USER_PASSWORD_FILE  |   |  |
-| PD_PROFILE  | ${STAGING_DIR}/pd.profile  |  |
+| ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to /SECRETS_DIR/root-user-password  |
+| ADMIN_USER_PASSWORD_FILE  |   | Location of file with the admin password, used as the password replication admin Defaults to /SECRETS_DIR/admin-user-password  |
+| PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
+
 ## Ports Exposed
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
@@ -55,6 +56,7 @@ used, then it may come from a parent container
            --tmpfs /run/secrets \
            pingidentity/pingdatasync:edge
 ```
+
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatasync/hooks/README.md) for details on all pingdatasync hook scripts
 

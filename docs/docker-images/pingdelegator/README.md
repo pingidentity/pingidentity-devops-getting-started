@@ -18,7 +18,7 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  |  |
 | PD_DELEGATOR_HTTP_PORT  | 6080  |  |
@@ -32,9 +32,9 @@ this image.
 | PD_DELEGATOR_HEADER_BAR_LOGO  |   | The filename used as the logo in the header bar, relative to this application's build directory. Note about logos: The size of the image will be scaled down to fit 22px of height and a max-width of 150px. For best results, it is advised to make the image close to this height and width ratio as well as to crop out any blank spacing around the logo to maximize its presentation. e.g. '${SERVER_ROOT_DIR}/html/delegator/images/my_company_logo.png'  |
 | PD_DELEGATOR_DADMIN_API_NAMESPACE  |   | The namespace for the Delegated Admin API on the DS instance. In most cases, this does not need to be set here. e.g. 'dadmin/v2'  |
 | PD_DELEGATOR_PROFILE_SCOPE_ENABLED  | false  | Set to true if the "profile" scope is supported for the Delegated Admin OIDC client on PingFederate and you wish to use it to show the current user's name in the navigation.  |
-| STARTUP_COMMAND  | nginx  |  |
-| STARTUP_FOREGROUND_OPTS  | -c ${SERVER_ROOT_DIR}/etc/nginx.conf  |  |
-| STARTUP_BACKGROUND_OPTS  | ${STARTUP_FOREGROUND_OPTS}  |  |
+| STARTUP_COMMAND  | nginx  | The command that the entrypoint will execute in the foreground to instantiate the container  |
+| STARTUP_FOREGROUND_OPTS  | -c ${SERVER_ROOT_DIR}/etc/nginx.conf  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
+| STARTUP_BACKGROUND_OPTS  | ${STARTUP_FOREGROUND_OPTS}  | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
 ## Run
 To run a PingDelegator container with HTTPS_PORT=6443 (6443 is simply a convetion for
 PingDelegator so conflicts are reduced with other container HTTPS ports):
@@ -58,6 +58,7 @@ tool can be used:
 ```shell
   ping-devops docker start simplestack
 ```
+
 ## Docker Container Hook Scripts
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdelegator/hooks/README.md) for details on all pingdelegator hook scripts
 
