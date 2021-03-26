@@ -176,6 +176,16 @@ Example: Renaming the Administrator's substitution name to leverage the common P
   ]
 ```
 
+#### sort-arrays
+- Configure the array members that need to be sorted. This ensures the array is created consistently to improve git diff.
+
+Example: Sort the roles and scopes arrays.
+```
+  "sort-arrays":[
+        "roles","scopes"
+  ]
+```
+
 ## Run the export utility.
 
 1. In terminal, navigate to the ping-bulkconfigtools folder.
