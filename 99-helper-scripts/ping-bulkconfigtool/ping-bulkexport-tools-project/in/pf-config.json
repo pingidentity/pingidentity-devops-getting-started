@@ -1,4 +1,7 @@
 {
+  "sort-arrays":[
+        "roles","scopes"
+  ],
   "config-aliases":[
 	{
 	  "config-names":[
