@@ -1,4 +1,7 @@
 {
+  "sort-arrays":[
+	  "pathPrefixes","supportedDestinations","pathPatterns","virtualHostIds"
+  ],
   "search-replace":[
     {
       "search": "data-holder.local",
