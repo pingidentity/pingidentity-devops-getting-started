@@ -90,6 +90,7 @@ this image.
 | PATH  | ${JAVA_HOME}/bin:${BASE}:${SERVER_ROOT_DIR}/bin:${PATH}  | PATH used by the container  |
 
 ## Docker Container Hook Scripts
+
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingbase/hooks/README.md) for details on all pingbase hook scripts
 
 ---

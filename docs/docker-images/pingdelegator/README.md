@@ -6,9 +6,10 @@ that can be used in administering PingDirectory Users/Groups.
 
 ## Related Docker Images
 - `pingidentity/pingbase` - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
+> This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingcommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
+
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
@@ -61,6 +62,7 @@ tool can be used:
 ```
 
 ## Docker Container Hook Scripts
+
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdelegator/hooks/README.md) for details on all pingdelegator hook scripts
 
 ---

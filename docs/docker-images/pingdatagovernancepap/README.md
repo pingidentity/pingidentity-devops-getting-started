@@ -6,9 +6,10 @@ and associated hook scripts to create and run a PingDataGovernance PAP instance.
 
 ## Related Docker Images
 - `pingidentity/pingbase` - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
+> This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
+
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
@@ -34,8 +35,10 @@ this image.
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PDG and PAP  |
 
 ## Ports Exposed
+
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
+
 - ${HTTPS_PORT}
 
 ## Running a PingDataGovernance PAP container
@@ -157,6 +160,7 @@ For example, to perform backups daily at UTC noon and place backups in
 
 
 ## Docker Container Hook Scripts
+
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdatagovernancepap/hooks/README.md) for details on all pingdatagovernancepap hook scripts
 
 ---

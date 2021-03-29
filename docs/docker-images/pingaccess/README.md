@@ -6,8 +6,9 @@ and associated hook scripts to create and run both PingAccess Admin and
 Engine nodes.
 
 ## Related Docker Images
+
 - `pingidentity/pingbase` - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
+> This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingcommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
 
@@ -36,13 +37,16 @@ this image.
 | PING_IDENTITY_PASSWORD  | ${PA_ADMIN_PASSWORD}  | Specify a password for administrator user for interaction with admin API  |
 
 ## Ports Exposed
+
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
+
 - ${PA_ADMIN_PORT}
 - ${PA_ENGINE_PORT}
 - ${HTTPS_PORT}
 
 ## Running a PingAccess container
+
 To run a PingAccess container:
 
 ```shell
@@ -60,7 +64,6 @@ To run a PingAccess container:
            pingidentity/pingaccess:edge
 ```
 
-
 Follow Docker logs with:
 
 ```
@@ -68,11 +71,13 @@ docker logs -f pingaccess
 ```
 
 If using the command above with the embedded [server profile](https://devops.pingidentity.com/reference/config/), log in with:
-* https://localhost:9000
-  * Username: Administrator
-  * Password: 2FederateM0re
+
+- https://localhost:9000
+  - Username: Administrator
+  - Password: 2FederateM0re
 
 ## Docker Container Hook Scripts
+
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingaccess/hooks/README.md) for details on all pingaccess hook scripts
 
 ---

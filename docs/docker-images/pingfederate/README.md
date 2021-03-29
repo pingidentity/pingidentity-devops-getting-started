@@ -7,7 +7,7 @@ Engine nodes.
 
 ## Related Docker Images
 - `pingidentity/pingbase` - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
+> This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingcommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
 
@@ -49,8 +49,10 @@ this image.
 | BULK_CONFIG_FILE  | data.json  |  |
 
 ## Ports Exposed
+
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
+
 - 9031
 - 9999
 
@@ -83,6 +85,7 @@ If using the command above with the embedded [server profile](https://devops.pin
   * Password: 2FederateM0re
 
 ## Docker Container Hook Scripts
+
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingfederate/hooks/README.md) for details on all pingfederate hook scripts
 
 ---

@@ -7,9 +7,10 @@ and associated hook scripts to create and run PingCentral in a container.
 
 ## Related Docker Images
 - `pingidentity/pingbase` - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
+> This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingcommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
+
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
@@ -34,8 +35,10 @@ this image.
 | PING_CENTRAL_VERIFY_HOSTNAME  | true  |  |
 
 ## Ports Exposed
+
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
+
 - 9022
 
 ## Running a PingCentral container
@@ -88,6 +91,7 @@ If using the command above with the embedded [server profile](https://devops.pin
   * Password: 2Federate
 
 ## Docker Container Hook Scripts
+
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingcentral/hooks/README.md) for details on all pingcentral hook scripts
 
 ---

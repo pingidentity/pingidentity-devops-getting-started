@@ -7,9 +7,10 @@ instances.
 
 ## Related Docker Images
 - `pingidentity/pingbase` - Parent Image
-	>**This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**
+> This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
+
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
@@ -42,8 +43,10 @@ this image.
 | PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE  |
 
 ## Ports Exposed
+
 The following ports are exposed from the container.  If a variable is
 used, then it may come from a parent container
+
 - ${LDAP_PORT}
 - ${LDAPS_PORT}
 - ${HTTPS_PORT}
@@ -114,6 +117,7 @@ To remove the container:
 ```
 
 ## Docker Container Hook Scripts
+
 Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/docs/docker-images/pingdirectory/hooks/README.md) for details on all pingdirectory hook scripts
 
 ---
