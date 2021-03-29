@@ -41,7 +41,6 @@ used, then it may come from a parent container
 - ${LDAPS_PORT}
 - ${HTTPS_PORT}
 - ${JMX_PORT}
-- 5005
 
 ## Running a PingDataGovernance container
 

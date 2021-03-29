@@ -1,4 +1,5 @@
 
+
 # Ping Identity DevOps Docker Image - `pingdirectoryproxy`
 
 This docker image includes the Ping Identity PingDirectoryProxy product binaries
@@ -40,7 +41,6 @@ used, then it may come from a parent container
 - ${LDAPS_PORT}
 - ${HTTPS_PORT}
 - ${JMX_PORT}
-- 5005
 
 ## Running a PingDirectoryProxy container
 

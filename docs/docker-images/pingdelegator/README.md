@@ -35,6 +35,7 @@ this image.
 | STARTUP_COMMAND  | nginx  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | STARTUP_FOREGROUND_OPTS  | -c ${SERVER_ROOT_DIR}/etc/nginx.conf  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
 | STARTUP_BACKGROUND_OPTS  | ${STARTUP_FOREGROUND_OPTS}  | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
+
 ## Run
 To run a PingDelegator container with HTTPS_PORT=6443 (6443 is simply a convetion for
 PingDelegator so conflicts are reduced with other container HTTPS ports):

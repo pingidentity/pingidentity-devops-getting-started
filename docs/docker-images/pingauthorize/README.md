@@ -1,4 +1,5 @@
 
+
 # Ping Identity DevOps Docker Image - `pingauthorize`
 
 This docker image includes the Ping Identity PingAuthorize product binaries
@@ -41,7 +42,6 @@ used, then it may come from a parent container
 - ${LDAPS_PORT}
 - ${HTTPS_PORT}
 - ${JMX_PORT}
-- 5005
 
 ## Running a PingAuthorize container
 

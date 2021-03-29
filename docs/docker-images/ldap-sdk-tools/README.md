@@ -18,6 +18,7 @@ this image.
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PATH  | /opt/tools:${PATH}  |  |
+
 ## List all available tools
 `docker run -it --rm pingidentity/ldap-sdk-tools:edge ls`
 
