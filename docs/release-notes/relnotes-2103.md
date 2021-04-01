@@ -10,7 +10,7 @@
 
 - **Layer simplification**
 
-      We've consolidated layers in our images where possible, greatly reducing image sizes.
+      We've consolidated layers in our images where possible.
 
 ### Enhancements
 
