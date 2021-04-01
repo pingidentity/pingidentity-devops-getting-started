@@ -20,6 +20,10 @@ spec:
           serviceName: pingfederate
           servicePort: 9999
         path: /pf-admin-api
+      - backend:
+          serviceName: pingfederate
+          servicePort: 9999
+        path: /render
   - host: pingfederate-${PING_IDENTITY_DEVOPS_DNS_ZONE}
     http:
       paths:
