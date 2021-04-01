@@ -16,11 +16,15 @@ spec:
       - backend:
           serviceName: pingfederate-admin
           servicePort: 9999
-        path: /pingfederate
-      - backend:
-          serviceName: pingfederate-admin
-          servicePort: 9999
-        path: /pf-admin-api
+        path: /
+#       - backend:
+#           serviceName: pingfederate-admin
+#           servicePort: 9999
+#         path: /pf-admin-api
+#       - backend:
+#           serviceName: pingfederate-admin
+#           servicePort: 9999
+#         path: /render
   tls:
   - hosts:
     # example pingfederate-admin-yourname.ping-devops.com
