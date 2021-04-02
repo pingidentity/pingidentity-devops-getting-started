@@ -29,7 +29,6 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |  |
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | Prevent the server from starting in the background  |
 | STARTUP_BACKGROUND_OPTS  |   |  |
-| TAIL_LOG_PARALLEL  | y  |  |
 | TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/pingauthorize-pap.log  | Files tailed once container has started  |
 | ${SERVER_ROOT_DIR}/logs/setup.log \  | ${SERVER_ROOT_DIR}/logs/setup.log  |  |
 | ${SERVER_ROOT_DIR}/logs/start-server.log \  | ${SERVER_ROOT_DIR}/logs/start-server.log  |  |
