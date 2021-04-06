@@ -123,6 +123,8 @@ nav:
       - DevOps Images Reference:
           - Introduction: "reference/dockerImagesRef.md"
           - PingAccess: "docker-images/pingaccess/README.md"
+          - PingAuthorize: "docker-images/pingauthorize/README.md"
+          - PingAuthorize PAP: "docker-images/pingauthorizepap/README.md"
           - PingBase: "docker-images/pingbase/README.md"
           - PingCentral: "docker-images/pingcentral/README.md"
           - PingCommon: "docker-images/pingcommon/README.md"
