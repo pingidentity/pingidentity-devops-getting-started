@@ -1,3 +1,15 @@
+v0.7.3
+ - Fix an issue with incorrect tls-secret key/crt generation
+ - Add pingauthorize and pingauthorizepolicyeditor to list of products allowing generation of eval licenses
+
+v0.7.2 (skipped)
+
+v0.7.1
+ - Added inclusion of PING_IDENTITY_ACCEPT_EULA variable to the devops-secret generated using
+  ping-devops generate devops-secret
+
+ - Added helm aliases, and over helm help hhelp
+
 v0.7.0
  - Added ability to generate kubenetes license-secrets directly from tool by only providing
    the product/version.  This will also create the secret with the productname in the secret
