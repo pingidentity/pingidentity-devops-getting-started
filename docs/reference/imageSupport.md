@@ -27,7 +27,7 @@ Examples:
 * If a patch is released for 10.1, it supersedes the previous patch. In other words, if we currently maintain an image for PingFederate 10.1.2, when PingFederate 10.1.3 is released it replaces 10.1.2.
 
 !!! warning "Docker Hub Images"
-    Images that have fallen out of Ping's active maintenance window will be removed from DockerHub 1 year after it was last built.
+    Images that have fallen out of Ping's active maintenance window will be removed from DockerHub 1 year after they were last built.
 
 !!! Info "Active Build Product Versions"
     To view products and versions actively being built, navigate to the most recent **Release Notes**.
