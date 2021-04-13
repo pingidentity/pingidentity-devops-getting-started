@@ -18,6 +18,30 @@ Where `<ping-product>` is the name of the product container and `${PING_IDENTITY
 image: pingidentity/<ping-product>:edge
 ```
 
+## Which Release Tag To Use
+
+Which tag you should use depends on what you are looking to accomplish.
+
+**Production Stability**
+For customers in production environments, stability is often the most sought after quality. For the least dependencies and thus most stability:
+  - Use the [digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests) of a _full sprint tag_ that includes the [sprint](#sprint) version and product version. 
+    - For example: `pingidentity/pingfederate:2103-10.2.2`. To pull its corresponding digest: 
+      ```
+        docker pull pingidentity/pingfederate@sha256:cef3a089e941c837aa598739f385722157eae64510108e81b2064953df2e9537
+      ```
+  - Additionally, **do not** rely on ping to maintain docker images on docker hub. Instead pull the image of choice, and maintain it in your own image registry. Common providers include: JFrog, AWS ECR, Google GCR, Azure ACR. 
+
+**Latest Image Features** 
+
+For demonstrations and testing latest features use an `edge` based image. Even for demos and testing it's a good practice to use a _full tag_ variation like `pingfederate:10.2.2-edge`, rather than `pingfederate:edge` to avoid dependency conflicts in server profiles.
+
+**Evergreen Bleeding Edge** 
+
+If you have an inclination for pain, use plain `edge`. This is the absolute latest product version and image features, with zero guarantees for stability. 
+Typically this is only attractive to Ping employees or partners.
+
+> Docker images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.
+
 ## Base Release Tags
 
 The base release tags for a build are:
@@ -34,41 +58,35 @@ The `edge` release tag refers to "bleeding edge", indicating a build similar to 
 * Latest build image enhancements and fixes from our current sprint.
 * Runs on the Linux Alpine OS.
 
-For example, `pingaccess:edge`.
+Example: `pingidentity/pingfederate:edge`, `pingidentity/pingfederate:10.2.2-edge`.
 
 ### latest
 
-The `latest` release tag indicates the latest stable release. This is a _sliding_ tag that marks the stable release for the latest sprint. The `latest` release is characterized by:
+`edge `is tagged as `latest` at the beginning of each month. The release tag indicates the latest stable release. This is a _sliding_ tag that marks the stable release for the latest sprint. The `latest` release is characterized by:
 
 * Latest product version
 * All completed and qualified enhacements and fixes from the prior monthly sprint.
 * Runs on the Linux Alpine OS.
 
-For example, `pingfederate:latest`.
+Example: `pingfederate:latest`, `pingfederate:10.2.2-latest`
 
 ### sprint
 
-The `sprint` release tag is a build number and indicates a stable build that is guaranteed to not change. The `sprint` number uses the YYMM format. For example, 1909 = September 2020.
+In addition to becoming `latest`, `edge` also is tagged as a stable `sprint` each month.  The `sprint` release tag is a build number indicating a stable build that won't change. The `sprint` number uses the YYMM format. For example, 2103 = April 2021.  The `latest` release is characterized by:
 
 * Latest product version at the time the sprint ended.
 * All completed and qualified enhacements and fixes from the specified monthly sprint. The Docker images are generated at the end of the specified monthly sprint.
 * Runs on the Linux Alpine OS.
 
-For example, `pingfederate:1909`.
+Example: `pingfederate:2103`, `pingidentity/pingfederate:2103-10.2.2`
 
-## Which Release Tag To Use
+> At the beginning of the month, all the stars align. On April 1, 2021 `edge`, `latest`, and `2103` for any product were all the same image and had the same sha:digest. On April 2nd, `edge` left `latest` and `2103` behind.
 
-You should test all images in development before deploying to production. It's also best practice to use a _full tag_ variation like `pingaccess:5.3.0-alpine-edge`, rather than `pingaccess:edge` to avoid dependency conflicts in server profiles.  In general, we recommend:
+### sprint Point Release
 
-* Use the `edge` release tag for demonstrations and testing latest features. `edge` is not suited for production use cases, because the underlying image is subject to change and backwards-compatibility is not guaranteed.
+Occasionally a bug may be found on a stable release, to avoid changing a `sprint` tag, a point release would be pushed to move `latest` forward.
 
-* Use the `sprint` release tag for development and production. The `sprint` tag is the _only_ tag that is guaranteed to not change and as such provides the most stability for repeatable deployment in development and production environments.
-
-* Use the `latest` in those rare scenarios that require stability between product sprints, but can accept a sliding tag.
-
-But what if you want bleeding edge features *and* a stable build image? For this, the best option is to periodically pull the Docker images having the base tag and store them in a local or private repository.
-
-> Docker images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.
+Example: `pingfederate:2103.1`, `pingidentity/pingfederate:2103.1-10.2.2`
 
 ## Determine Image Product Version
 
