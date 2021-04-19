@@ -27,7 +27,7 @@ Because details within each Kubernetes cluster are well-hidden from outside the 
 The most important aspect of a successful PingDirectory cross-cluster deployment assigning accessible and logical dns hostnames.
 Rules:
 
-1. Each pingdirectory needs it's own hostname avaialable in DNS
+1. Each PingDirectory needs it's own hostname available in DNS
 1. hostname will have a space for the ordinal representing the instance in the statefulset
 1. all hostnames are accessible to all directory instances
 
