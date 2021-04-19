@@ -107,8 +107,8 @@ We can take advantage of some AWS services to simplify our deployment architectu
 
    ```shell
    kubectl create secret generic dynamodb-access-secret-keys \
-     --from-literal=AWS_ACCESS_KEY_ID=<your_aws_acccess_key> \
-     --from-literal=AWS_SECRET_ACCESS_KEY=<your_aws_acccess_key_secret>
+     --from-literal=AWS_ACCESS_KEY_ID=<your_aws_access_key> \
+     --from-literal=AWS_SECRET_ACCESS_KEY=<your_aws_access_key_secret>
    ```
 
 3. Kubernetes can provide the secrets as environment variables that Vault can use, so you do not accidentally expose your the secret outside of Kubernetes. Update the `values.yaml` file to include your AWS key and secret within the `extraSecretEnvironmentVars` section:
