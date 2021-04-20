@@ -72,7 +72,7 @@ You can view the Docker logs with the command:
 ```
 
 You should see the ouptut from a PingAuthorize install and configuration, ending with a message the the PingAuthorize has
-started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` afer to stop tailing the logs.
+started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` after to stop tailing the logs.
 
 
 ## Stopping/Removing the container
