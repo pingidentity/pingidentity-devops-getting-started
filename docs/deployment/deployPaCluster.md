@@ -1,3 +1,6 @@
+---
+title: Deploy PingAccess Cluster
+---
 # Deploy PingAccess Cluster
 
 This use case employs the `pingidentity-server-profiles/pa-clustering` server profile. This server profile contains an H2 database engine located in `pingidentity-server-profiles/pa-clustering/pingaccess/instance/data/PingAccess.mv.db`. H2 is configured to reference the PingAccess Admin engine at `pingaccess:9090`.
