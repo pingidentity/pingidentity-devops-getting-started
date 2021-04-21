@@ -1,3 +1,6 @@
+---
+title: Orchestrate a Replicated PingDirectory Deployment
+---
 # Orchestrate a Replicated PingDirectory Deployment
 
 You'll use kustomize for the replicated deployment of PingDirectory from your local `pingidentity-devops-getting-started/20-kubernetes/03-replicated-pingdirectory` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdirectory` and `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingdataconsole` directories for the base product configurations. You'll use the PingDirectory server profile in our [pingidentity-server-profiles/baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) repository.

@@ -1,3 +1,6 @@
+---
+title: Adding a Message of the Day (MOTD)
+---
 # Adding a MOTD
 
 You can create a message of the day (MOTD) JSON file to be used to provide an MOTD file to our product containers when they start.

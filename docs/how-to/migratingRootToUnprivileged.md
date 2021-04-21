@@ -1,3 +1,6 @@
+---
+title: Migrating from privileged images to unprivileged-by-default images
+---
 # Migrating from privileged images to unprivileged-by-default images
 In the [2103 release](https://devops.pingidentity.com/release-notes/relnotes-2103/), our product images were updated to run with an unprivileged user by default. Prior to this release, images ran as root by default. This page describes some of the potential issues you may encounter when migrating to these newer images.
 

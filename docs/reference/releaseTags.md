@@ -1,3 +1,6 @@
+---
+title:  Using Release Tags
+---
 # Using Release Tags
 
 Ping Identity uses multiple tags for each released build image. On our [Docker Hub](https://hub.docker.com/u/pingidentity) site, you can view the available tags for each image.
@@ -24,20 +27,20 @@ Which tag you should use depends on what you are looking to accomplish.
 
 **Production Stability**
 For customers in production environments, stability is often the most sought after quality. For the least dependencies and thus most stability:
-  - Use the [digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests) of a _full sprint tag_ that includes the [sprint](#sprint) version and product version. 
-    - For example: `pingidentity/pingfederate:2103-10.2.2`. To pull its corresponding digest: 
+  - Use the [digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests) of a _full sprint tag_ that includes the [sprint](#sprint) version and product version.
+    - For example: `pingidentity/pingfederate:2103-10.2.2`. To pull its corresponding digest:
       ```
         docker pull pingidentity/pingfederate@sha256:cef3a089e941c837aa598739f385722157eae64510108e81b2064953df2e9537
       ```
-  - Additionally, **do not** rely on ping to maintain docker images on docker hub. Instead pull the image of choice, and maintain it in your own image registry. Common providers include: JFrog, AWS ECR, Google GCR, Azure ACR. 
+  - Additionally, **do not** rely on ping to maintain docker images on docker hub. Instead pull the image of choice, and maintain it in your own image registry. Common providers include: JFrog, AWS ECR, Google GCR, Azure ACR.
 
-**Latest Image Features** 
+**Latest Image Features**
 
 For demonstrations and testing latest features use an `edge` based image. Even for demos and testing it's a good practice to use a _full tag_ variation like `pingfederate:10.2.2-edge`, rather than `pingfederate:edge` to avoid dependency conflicts in server profiles.
 
-**Evergreen Bleeding Edge** 
+**Evergreen Bleeding Edge**
 
-If you have an inclination for pain, use plain `edge`. This is the absolute latest product version and image features, with zero guarantees for stability. 
+`edge` is the absolute latest product version and image features, with zero guarantees for stability.
 Typically this is only attractive to Ping employees or partners.
 
 > Docker images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.

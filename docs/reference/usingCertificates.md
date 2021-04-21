@@ -1,3 +1,6 @@
+---
+title:  Using Certificates with Images
+---
 # Using Certificates with Images
 
 This provides details for using certificates with the Ping Identity images.  Specifically, the preferred locations to place the certificate and pin/key files to provide best security practices and use by the underlying Ping Identity product.

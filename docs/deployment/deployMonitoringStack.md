@@ -1,3 +1,6 @@
+---
+title: Deploy Monitoring Stack
+---
 # Deploy Monitoring Stack
 
 This example illustrates how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.

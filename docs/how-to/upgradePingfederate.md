@@ -1,3 +1,6 @@
+---
+title: Upgrading PingFederate
+---
 # Upgrading PingFederate
 
 In a DevOps environment, upgrades are drastically simplified through automation, orchestration and separation of concerns. As a result, upgrading to a new version of PingFederate is much more like deploying any other configuration. <!-- (link here to doc explaining config deployments) --> The slight difference is that configuration updates can be achieved with zero downtime and no loss of state, whereas in version upgrades we consciously sacrifice state to maintain zero downtime overall.

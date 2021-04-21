@@ -1,3 +1,6 @@
+---
+title: Environment Substitution
+---
 # Environment Substitution
 
 In a typical environment, a product configuration is moved from server to server. Hostnames, endpoints, DNS information, and more need a way to be easily modified.

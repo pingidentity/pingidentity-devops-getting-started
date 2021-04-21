@@ -1,3 +1,6 @@
+---
+title: DevOps Docker Builds, Version 2007 (July 2020)
+---
 # Release Notes
 
 ## DevOps Docker Builds, Version 2007 (July 2020)

@@ -1,3 +1,6 @@
+---
+title: Orchestrate a PingAccess Cluster Deployment
+---
 # Orchestrate a PingAccess Cluster Deployment
 
 You'll use kustomize for the PingAccess cluster deployment from your local `pingidentity-devops-getting-started/20-kubernetes/04-clustered-pingaccess` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. You'll use the server profile in our [pingidentity-server-profiles/pa-clustering](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/pa-clustering) repository.

@@ -1,3 +1,6 @@
+---
+title: Orchestrate Deployments with Kubernetes
+---
 # Orchestrate Deployments with Kubernetes
 
 The Kubernetes examples contain configurations and scripts to orchestrate deployments of our DevOps Images for:

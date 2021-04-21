@@ -1,3 +1,6 @@
+---
+title: Orchestrate Standalone Deployments
+---
 # Orchestrate Standalone Deployments
 
 You'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory as the base product configurations with the server profiles in our [pingidentity-server-profiles/getting-started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) repository.

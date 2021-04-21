@@ -1,3 +1,6 @@
+---
+title: PingFederate Cluster Across Multiple Kubernetes Clusters
+---
 # PingFederate Cluster Across Multiple Kubernetes Clusters
 
 This section will discuss deploying a single PingFederate cluster that spans across multiple Kubernetes clusters.

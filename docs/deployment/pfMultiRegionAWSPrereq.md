@@ -1,3 +1,6 @@
+---
+title: AWS Multi-Region PingFederate Cluster (Prerequisite)
+---
 # AWS Multi-Region PingFederate Cluster (Prerequisite)
 
 In this example, we'll deploy 2 PingFederate clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".

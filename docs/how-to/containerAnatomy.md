@@ -1,3 +1,6 @@
+---
+title: Server Profile Deployment
+---
 # Deployment
 
 Any configuration that is deployed with one of our product containers can be considered a "server profile". A profile typically looks like a set of files.

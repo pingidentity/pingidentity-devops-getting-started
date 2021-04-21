@@ -1,3 +1,6 @@
+---
+title: Docker Builds - Hooks
+---
 # Docker Builds - Hooks
 
 **Audience** - Operators of DevOps Cloud environments. Not intended for Developers and admins of the Ping Identity products.

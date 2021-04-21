@@ -1,3 +1,6 @@
+---
+title: Deploy PingCentral
+---
 # Deploy PingCentral
 
 This use case employs the `pingidentity-server-profiles/baseline/pingcentral` server profile. This server profile contains a MySQL database engine located in `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db`.
@@ -53,7 +56,7 @@ You'll use the `docker-compose.yaml` file in your local `pingidentity-devops-get
     | [PingCentral](https://localhost:9022) | <ul><li>URL: [https://localhost:9022](https://localhost:9022)</li><li>Username: administrator</li><li>Password: 2Federate</li></ul> |
 
 1. Copy the MySQL database hostkey created on initial startup located in the container to your local `/tmp` directory. You'll need the hostkey in a subsequent step. When you are in your /tmp directory enter:
-      
+
       ```sh
       docker cp pingcentral_container_name:/opt/out/instance/conf/pingcentral.jwk .
       ```
@@ -140,7 +143,7 @@ To preserve any updates to the MySQL database, you need to mount the `./conf/mys
       ```
 
       The hostkey will now be persisted and available at each startup.
-      
+
 1. If you encounter any permission issues, you will need to specify in the `pingidentity-devops-getting-started/11-docker-compose/30-pingcentral/docker-compose.yml` file to run as the root user:
     ```yaml
     services:

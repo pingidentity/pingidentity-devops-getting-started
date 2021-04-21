@@ -1,3 +1,6 @@
+---
+title: Deploy PingDataConsole with PingOne SSO enabled
+---
 # Deploy PingDataConsole with PingOne SSO enabled
 
 You'll use Docker Compose to deploy a PingDirectory and PingDataConsole stack. PingDataConsole will have SSO enabled with PingOne.

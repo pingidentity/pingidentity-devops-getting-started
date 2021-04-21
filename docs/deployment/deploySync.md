@@ -1,3 +1,6 @@
+---
+title: Deploy PingDirectory and PingDataSync
+---
 # Deploy PingDirectory and PingDataSync
 
 You'll use Docker Compose to deploy a PingDirectory and PingDataSync stack. PingDataSync will synchronize data from a source tree on a PingDirectory instance to a destination tree on the same PingDirectory instance. The entries from `ou=source,o=sync` to `ou=destination,o=sync` will be synchronized every second.

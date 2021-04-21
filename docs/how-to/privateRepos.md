@@ -1,3 +1,6 @@
+---
+title: Using Private git Repositories
+---
 # Using Private git Repositories
 
 Generally, you'll not want your server profiles to be public, and will instead want to persist your server profiles in private git repositories. To use server profiles with private repositories, you will need to either pull using HTTPS or using SSH. For HTTPS with GitHub, you'll need to generate an access token in GitHub, then specify the access token in the URL you assign to the `SERVER_PROFILE_URL` environment variable in your YAML files. For SSH, you'll need to include your keys and known hosts in the image under `/home/ping/.ssh`.

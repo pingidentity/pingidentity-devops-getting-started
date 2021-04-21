@@ -1,3 +1,6 @@
+---
+title:  Server Profile Structures
+---
 # Server Profile Structures
 
 Each of the Docker images use a server profile structure that is specific to each product.

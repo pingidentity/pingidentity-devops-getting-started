@@ -1,3 +1,6 @@
+---
+title: Orchestrate a PingFederate Cluster Deployment
+---
 # Orchestrate a PingFederate Cluster Deployment
 
 You'll use kustomize for the PingFederate cluster deployment from your local `pingidentity-devops-getting-started/20-kubernetes/06-clustered-pingfederate` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations.
