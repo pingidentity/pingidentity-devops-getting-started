@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingbase`
+---
 
 # Ping Identity Docker Image - `pingbase`
 

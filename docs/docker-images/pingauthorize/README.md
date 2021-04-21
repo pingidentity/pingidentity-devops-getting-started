@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingauthorize`
+---
 
 
 # Ping Identity DevOps Docker Image - `pingauthorize`

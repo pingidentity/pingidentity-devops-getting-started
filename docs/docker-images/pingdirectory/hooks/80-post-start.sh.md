@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingdirectory` Hook - `80-post-start.sh`
+---
 
 # Ping Identity DevOps `pingdirectory` Hook - `80-post-start.sh`
  This hook configures pingdirectory replication

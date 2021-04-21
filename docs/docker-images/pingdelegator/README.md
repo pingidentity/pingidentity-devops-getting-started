@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingdelegator`
+---
 
 # Ping Identity Docker Image - `pingdelegator`
 

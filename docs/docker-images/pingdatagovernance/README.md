@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingdatagovernance`
+---
 
 # Ping Identity DevOps Docker Image - `pingdatagovernance`
 

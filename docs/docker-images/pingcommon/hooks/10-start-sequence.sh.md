@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `10-start-sequence.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `10-start-sequence.sh`
 

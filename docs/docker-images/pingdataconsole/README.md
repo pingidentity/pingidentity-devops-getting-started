@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingdataconsole`
+---
 
 # Ping Identity Docker Image - `pingdataconsole`
 

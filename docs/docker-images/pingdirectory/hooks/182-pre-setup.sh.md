@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingdirectory` Hook - `182-pre-setup.sh`
+---
 
 # Ping Identity DevOps `pingdirectory` Hook - `182-pre-setup.sh`
 

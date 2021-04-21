@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingfederate` Hook - `85-import-configuration.sh`
+---
 
 # Ping Identity DevOps `pingfederate` Hook - `85-import-configuration.sh`
 

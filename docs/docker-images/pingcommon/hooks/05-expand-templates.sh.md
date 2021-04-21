@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `05-expand-templates.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `05-expand-templates.sh`
  Using the envsubst command, this will look through any files in the

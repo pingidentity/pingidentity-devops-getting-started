@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `06-copy-product-bits.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `06-copy-product-bits.sh`
  Copies the server bits from the image into the SERVER_ROOT_DIR if

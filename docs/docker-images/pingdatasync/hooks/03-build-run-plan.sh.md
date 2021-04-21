@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingdatasync` Hook - `03-build-run-plan.sh`
+---
 
 # Ping Identity DevOps `pingdatasync` Hook - `03-build-run-plan.sh`
  This script is called to determine the plan for the server as it starts up.
