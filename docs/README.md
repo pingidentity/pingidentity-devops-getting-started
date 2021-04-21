@@ -1,3 +1,6 @@
+---
+title: Home
+---
 # Ping Identity DevOps
 
 We enable DevOps professionals, administrators and developers with tools, frameworks, blueprints and reference architectures to deploy Ping Identity software in the cloud.
