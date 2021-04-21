@@ -1,3 +1,6 @@
+---
+title: Deploy an Example Stack
+---
 # Deploy an Example Stack
 
 The `pingidentity-devops-getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) contains all of our working Docker and Kubernetes examples.

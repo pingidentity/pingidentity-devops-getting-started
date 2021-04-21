@@ -1,3 +1,6 @@
+---
+title:  Variables and Scope
+---
 # Variables and Scope
 
 DevOps variables provide a way to store and reuse values with our Docker containers, ultimately used by our Docker Image hooks to customize configurations.

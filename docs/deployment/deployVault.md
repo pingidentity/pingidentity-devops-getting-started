@@ -1,3 +1,6 @@
+---
+title: Deploy Hashicorp Vault
+---
 # Deploy Hashicorp Vault
 
 This is an example of deploying Hashicorp Vault (Vault) with PingFederate and PingAccess to manage their corresponding master keys (`pf.pwk` and `pa.pwk`). Using Vault, you can also manage license files, DevOps keys, product secrets, and others.

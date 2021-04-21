@@ -1,3 +1,6 @@
+---
+title:  Troubleshooting
+---
 # Troubleshooting
 
 ## Get started

@@ -1,3 +1,6 @@
+---
+title: Customizing Server Profiles
+---
 # Customizing Server Profiles
 
 When you deployed the full stack of product containers in [Getting Started](../get-started/getStarted.md), you were employing the server profiles associated with each of our products. In the YAML files, you'll see entries such as this for each product instance:

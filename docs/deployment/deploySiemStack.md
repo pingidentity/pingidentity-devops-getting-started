@@ -1,3 +1,6 @@
+---
+title: Deploy an Elasticsearch SIEM Stack
+---
 # Deploy an Elasticsearch SIEM Stack
 
 This example deploys a PingFederate, PingAccess, and PingDirectory stack with Elasticsearch infrastructure built in for visualizing traffic and other security or log data. The architecture looks like this:

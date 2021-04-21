@@ -1,3 +1,6 @@
+---
+title: Working with DevOps Images
+---
 # Working with DevOps Images
 
 After you've deployed a set of our DevOps Images using the full-stack server profile in [Get Started](../get-started/getStarted.md), you're set up to move on to deployments using server profiles that may more closely reflect use cases you want to test out. Your choices at this point are:

@@ -1,3 +1,6 @@
+---
+title: Kubernetes Multi Region Clustering using Native S3 Ping
+---
 # Kubernetes Multi Region Clustering using Native S3 Ping
 
 This document is specific to dynamic discovery with  NATIVE_S3_PING and is an extension of [PingFederate Cluster Across Multiple Kubernetes Clusters](./deployK8sPFclusters.md). This is the validated approach for PingFederate < 10.2

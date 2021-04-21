@@ -1,3 +1,6 @@
+---
+title: Build Your Own Docker Images
+---
 # Build Your Own Docker Images
 
 This document explains the Ping Identity Docker images and how they are built.

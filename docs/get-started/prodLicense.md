@@ -1,3 +1,6 @@
+---
+title: DevOps Product Licenses
+---
 # DevOps Product Licenses
 
 In order to run the Ping Identity DevOps images, a valid product license is required. There are several ways to obtain a product license to run the images:

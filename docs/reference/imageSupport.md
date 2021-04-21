@@ -1,3 +1,6 @@
+---
+title: Ping Identity Docker Image Support Policy
+---
 # Ping Identity Docker Image Support Policy
 
 ## Overview

@@ -1,3 +1,6 @@
+---
+title: Deploy a Replicated PingDirectory Pair
+---
 # Deploy a Replicated PingDirectory Pair
 
 You'll use Docker Compose to deploy a replicated pair of PingDirectory containers.

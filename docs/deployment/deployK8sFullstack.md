@@ -1,3 +1,6 @@
+---
+title: Orchestrate a Full Stack Deployment
+---
 # Orchestrate a Full Stack Deployment
 
 You'll use kustomize for the full stack deployment from your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations. However, this time we'll use the server profiles in our [pingidentity-server-profiles/baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) repository, rather than the [pingidentity-server-profiles/getting-started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) repository, as we did for the standalone deployments.

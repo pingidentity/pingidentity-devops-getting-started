@@ -1,3 +1,6 @@
+---
+title: Layering Server Profiles
+---
 # Layering Server Profiles
 
 One of the benefits of our Docker images is the ability to layer product configuration. By using small discrete portions of your configuration, you can build and assemble a server profile based on multiple installations of a product.

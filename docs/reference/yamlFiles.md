@@ -1,3 +1,6 @@
+---
+title:  Customizing YAML files
+---
 # Customizing YAML files
 
 Docker Compose uses YAML files to configure a stack's containers on startup. You can customize our YAML files or use them as the basis for creating your own. See the Docker [Compose File Reference](https://docs.docker.com/compose/compose-file/) for more information.

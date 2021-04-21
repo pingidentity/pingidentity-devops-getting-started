@@ -1,3 +1,6 @@
+---
+title: Evaluation of Docker Base Image Security
+---
 # Evaluation of Docker Base Image Security
 
 In CIS (Center for Internet Security) [Docker Benchmark v1.2.0](https://www.cisecurity.org/benchmark/docker/), one of the recommendations says, "4.3 Ensure that unnecessary packages are not installed in the container." It further states, "You should consider using a minimal base image rather than the standard Red Hat/CentOS/Debian images if you can. Some of the options available include BusyBox and Alpine." Is Alpine Docker image really more secure than other, more popular Linux distributions?

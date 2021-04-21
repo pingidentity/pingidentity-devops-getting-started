@@ -1,3 +1,6 @@
+---
+title: Kubernetes Deployments for General Use
+---
 # Kubernetes Deployments for General Use
 
 In all of these examples, we'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory to supply the base product configurations.

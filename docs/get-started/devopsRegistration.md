@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Registration
+---
 # Ping Identity DevOps Registration
 
 Registering for Ping Identity's DevOps Program grants you credentials that when supplied to product containers will automatically retrieve an evaluation license upon startup.

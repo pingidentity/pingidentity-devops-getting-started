@@ -1,3 +1,6 @@
+---
+title: Using DevOps Hooks
+---
 # Using DevOps Hooks
 
 Our DevOps hooks are build-specific scripts that are called or can be called by the `entrypoint.sh` script that is used to start up our product containers.

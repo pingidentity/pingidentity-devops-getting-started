@@ -1,3 +1,6 @@
+---
+title: Deploy PingDataGovernance with an External Policy Administration Point
+---
 # Deploy PingDataGovernance with an External Policy Administration Point
 
 This example describes how to build PingDataGovernance policies, and employs server profile layering. The base profile, `pingidentity-server-profiles/baseline/pingdatagovernance`, configures PingDirectory and PingDataGovernance to proxy the PingDirectory Rest API and uses an embedded PingDataGovernance policy as the Policy Decision Service. A second layer `pingidentity-server-profiles/pdg-pap-integration` switches the Policy Decision Service to use an external PingDataGovernance Policy Administration Point (PDG-PAP).

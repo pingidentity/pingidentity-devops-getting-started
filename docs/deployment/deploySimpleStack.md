@@ -1,3 +1,6 @@
+---
+title: Deploy a PingFederate and PingDirectory Stack
+---
 # Deploy a PingFederate and PingDirectory Stack
 
 You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.

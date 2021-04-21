@@ -1,3 +1,6 @@
+---
+title: Upgrading PingDirectory
+---
 # Upgrading PingDirectory
 
 Because PingDirectory is essentially a database, in it's container form each node in a cluster has its own persisted volume. Additionally, because PingDirectory is an application that _focuses_ on state, rolling out an upgrade isn't really the same as any other configuration update. However, the product software, and scripts in the image provide a process through which upgrades are drastically simplified.

@@ -1,3 +1,6 @@
+---
+title: Kubernetes deployments for cloud platforms
+---
 # Kubernetes deployments for cloud platforms
 
 We currently have instructions and examples for deploying our product containers using Kubernetes on these platforms:

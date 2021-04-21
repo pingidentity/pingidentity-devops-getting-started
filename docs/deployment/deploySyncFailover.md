@@ -1,3 +1,6 @@
+---
+title: Deploy a PingDataSync Failover Server
+---
 # Deploy a PingDataSync Failover Server
 
 You'll use Docker Compose to deploy a PingDirectory and PingDataSync stack. PingDataSync will synchronize data from a source tree on a PingDirectory instance to a destination tree on the same PingDirectory instance. The entries from `ou=source,o=sync` to `ou=destination,o=sync` will be synchronized every second. Then you will scale up the PingDataSync service to enable failover, so that if an active PingDataSync server goes down, a second server will automatically become active and pick up where the first left off.

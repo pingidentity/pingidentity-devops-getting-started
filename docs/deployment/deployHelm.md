@@ -1,3 +1,6 @@
+---
+title: Deploy Ping DevOps Charts using Helm
+---
 # Deploy Ping DevOps Charts using Helm
 
 <div class="iconbox" onclick="window.open('https://helm.pingidentity.com','');">
