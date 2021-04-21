@@ -1,3 +1,6 @@
+---
+title: Contributing
+---
 # Contributing
 
 Thanks for taking the time to contribute!
