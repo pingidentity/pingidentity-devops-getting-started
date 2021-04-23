@@ -120,6 +120,7 @@ nav:
           #- ping-devops: "reference/pingDevopsUtil.md"
           - ldap-sdk-tools: "reference/ldapsdkUtil.md"
       - Troubleshooting: "reference/troubleshooting.md"
+      - FAQs: "reference/faqs.md"
       - DevOps Images Reference:
           - Introduction: "reference/dockerImagesRef.md"
           - PingAccess: "docker-images/pingaccess/README.md"
