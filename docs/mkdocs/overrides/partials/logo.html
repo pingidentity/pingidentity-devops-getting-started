@@ -1,7 +1,3 @@
 <!-- Logo -->
 {% if config.theme.logo %}
-  <img src="{{ config.theme.logo | url }}" alt="logo" />
-{% else %}
-  {% set icon = config.theme.icon.logo or "material/library" %}
-
-{% endif %}
+<img class="md-header-nav__button.md-logo" src="{{ config.theme.logo | url }}" alt="logo" /> {% else %} {% set icon = config.theme.icon.logo or "material/library" %} {% endif %}
