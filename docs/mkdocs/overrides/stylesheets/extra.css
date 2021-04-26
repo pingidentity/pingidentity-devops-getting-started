@@ -23,6 +23,7 @@
     padding-top: 3px;
 }
 
+.md-header__button.md-logo,
 .md-header-nav__button.md-logo {
     /* Ping Identity logo */
     background-image: url('https://www.pingidentity.com/content/dam/ping-6-2-assets/topnav-json-configs/Ping-Logo.svg');
