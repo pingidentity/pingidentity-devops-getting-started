@@ -88,7 +88,7 @@ The core command for generating a profile is: `manage-profile generate-profile`.
 Following the kubernetes example, you can copy out the generated profile with: 
 
   ```
-  kubectl cp prod-pingdirectory-0:/tmp/pd.profile pd.profile
+  kubectl cp pingdirectory-0:/tmp/pd.profile pd.profile
   ```
 
   Sample output:
