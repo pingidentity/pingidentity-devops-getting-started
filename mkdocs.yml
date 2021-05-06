@@ -95,7 +95,9 @@ nav:
           - Deployment: "how-to/containerAnatomy.md"
           - Customization: "how-to/profiles.md"
           - Saving Configurations: "how-to/saveConfigs.md"
-          - Build Your Own ...: "how-to/buildPingFederateProfile.md"
+          - Build Your Own:
+              - PingFederate Profile: "how-to/buildPingFederateProfile.md"
+              - PingDirectory Profile: "how-to/buildPingDirectoryProfile.md"
           - Layering: "how-to/profilesLayered.md"
           - ENV Substitution: "how-to/profilesSubstitution.md"
           - Private Github Repos: "how-to/privateRepos.md"

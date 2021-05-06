@@ -1,5 +1,5 @@
 ---
-title: Build Profile From Current Deployment
+title: Build PingFederate Profile
 ---
 # Build Profile From Current Deployment
 
