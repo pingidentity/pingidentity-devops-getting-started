@@ -11,13 +11,13 @@ This document will show a simple example of building a PingDirectory profile fro
 
 ## Prerequisite
 
-* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* [Get Started](../get-started/getStarted.md)
 
 * A running PingDirectory instance of 8.0.0.0 or later, with shell access on the machine or in the container.
 
-* You understand our [Product Container Anatomy](containerAnatomy.md).
+* Understanding of [Product Container Anatomy](containerAnatomy.md).
 
-* Recommended: You've read through [Customizing Server Profiles](profiles.md)
+* Recommended: [Customizing Server Profiles](profiles.md)
 
 ## Start Building
 
