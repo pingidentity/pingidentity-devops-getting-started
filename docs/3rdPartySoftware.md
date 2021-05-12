@@ -19,4 +19,4 @@ Ping Identity Docker Images bundle various third-party tools to enable product f
 
 * [Jq](https://stedolan.github.io/jq/download/). MIT licensing.
 
-* [Gnupg](https://gnupg.org/). GNU general Public License.
+* [Gnupg](https://gnupg.org/). GNU general Public License. 
