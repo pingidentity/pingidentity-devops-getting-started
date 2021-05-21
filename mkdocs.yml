@@ -95,7 +95,9 @@ nav:
           - Deployment: "how-to/containerAnatomy.md"
           - Customization: "how-to/profiles.md"
           - Saving Configurations: "how-to/saveConfigs.md"
-          - Build Your Own ...: "how-to/buildPingFederateProfile.md"
+          - Build Your Own:
+              - PingFederate Profile: "how-to/buildPingFederateProfile.md"
+              - PingDirectory Profile: "how-to/buildPingDirectoryProfile.md"
           - Layering: "how-to/profilesLayered.md"
           - ENV Substitution: "how-to/profilesSubstitution.md"
           - Private Github Repos: "how-to/privateRepos.md"
@@ -148,7 +150,8 @@ nav:
           - Adding a MOTD: "reference/addMOTD.md"
           - Build Local Images: "reference/buildLocal.md"
   - Release Notes:
-      - Current: "release-notes/relnotes-2103.md"
+      - Current: "release-notes/relnotes-2104.md"
+      - Version 2103: "release-notes/relnotes-2103.md"
       - Version 2102: "release-notes/relnotes-2102.md"
       - Version 2101: "release-notes/relnotes-2101.md"
       - Version 2012: "release-notes/relnotes-2012.md"
