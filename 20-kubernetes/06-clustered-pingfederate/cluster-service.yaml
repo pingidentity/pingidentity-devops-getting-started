@@ -14,5 +14,9 @@ spec:
       port: 7600
       protocol: TCP
       targetPort: 7600
+    - name: cluster-failover
+      port: 7700
+      protocol: TCP
+      targetPort: 7700
   selector:
     role: pingfederate
