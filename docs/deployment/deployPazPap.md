@@ -1,9 +1,9 @@
 ---
-title: Deploy PingDataGovernance with an External Policy Administration Point
+title: Deploy PingAuthorize with an External Policy Editor
 ---
-# Deploy PingDataGovernance with an External Policy Administration Point
+# Deploy PingAuthorize with an External Policy Editor
 
-This example describes how to build PingDataGovernance policies, and employs server profile layering. The base profile, `pingidentity-server-profiles/baseline/pingdatagovernance`, configures PingDirectory and PingDataGovernance to proxy the PingDirectory Rest API and uses an embedded PingDataGovernance policy as the Policy Decision Service. A second layer `pingidentity-server-profiles/pdg-pap-integration` switches the Policy Decision Service to use an external PingDataGovernance Policy Administration Point (PDG-PAP).
+This example describes how to build PingAuthorize policies, and employs server profile layering. The base profile, `pingidentity-server-profiles/baseline/pingauthorize`, configures PingDirectory and PingAuthorize to proxy the PingDirectory Rest API and uses an embedded PingAuthorize policy as the Policy Decision Service. A second layer `pingidentity-server-profiles/paz-pap-integration` switches the Policy Decision Service to use an external PingAuthorize Policy Editor (PAZ-PAP).
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ This example describes how to build PingDataGovernance policies, and employs ser
 
 ## Deploy The Stack
 
-Go to your local [11-docker-compose/07-pingdatagovernance](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/07-pingdatagovernance) directory, and enter:
+Go to your local [11-docker-compose/07-pingauthorize](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/07-pingauthorize) directory, and enter:
 
 ```sh
 docker-compose up -d
@@ -32,21 +32,21 @@ When _all_ of the containers are healthy, you can start testing.
 | Product | Connection Details |
     | --- | --- |
     | [PingDirectory](https://localhost:9443/console) | <ul><li>URL: [https://localhost:9443/console](https://localhost:9443/console)</li><li>Server: pingdirectory:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDataGovernance](https://localhost:9443/console) | <ul><li>URL: [https://localhost:9443/console](https://localhost:9443/console)</li><li>Server: pingdatagovernance:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDataGovernance PAP](https://localhost:8443) | <ul><li>URL: [https://localhost:8443](https://localhost:8443)</li><li>Username: admin</li><li>Password: password123</li></ul> |
+    | [PingAuthorize](https://localhost:9443/console) | <ul><li>URL: [https://localhost:9443/console](https://localhost:9443/console)</li><li>Server: pingauthorize:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingAuthorize PAP](https://localhost:8443) | <ul><li>URL: [https://localhost:8443](https://localhost:8443)</li><li>Username: admin</li><li>Password: password123</li></ul> |
 
 ## Test Default Use Case
 
 The default use case does the following:
 
 * Proxies the PingDirectory Rest API using a mock access token validator.
-* If the passed bearer token is valid, PDG-PAP allows it to be forwarded to PingDirectory.
+* If the passed bearer token is valid, PAZ-PAP allows it to be forwarded to PingDirectory.
 * PingDirectory uses the `sub` field in the token along with the the URL path to look up and return a users data.
-* On the returned data, PDG-PAP accepts the response and allows it to be returned to the requestor.
+* On the returned data, PAZ-PAP accepts the response and allows it to be returned to the requestor.
 
 To test this use case:
 
-1. Access the PingDataGovernance server:
+1. Access the PingAuthorize server:
 
       ```sh
       curl -k 'https://localhost:7443/pd-rest-api/uid=user.1,ou=people,dc=example,dc=com' \
@@ -55,12 +55,10 @@ To test this use case:
 
 1. Monitor the logs. To watch a request flow through all of the tools, you can `tail -f` each of these logs:
 
-   * PingDataGovernance:
+   * PingAuthorize:
 
       ```sh
-      docker container exec -it \
-        07-pingdatagovernance_pingdatagovernance_1 \
-        tail -f /opt/out/instance/logs/policy-decision
+      docker container logs -f 07-pingauthorize_pingauthorize_1
       ```
 
       (`Ctrl+c` to exit)
@@ -68,13 +66,13 @@ To test this use case:
    * PAP (standard container logs):
 
      ```sh
-     docker container logs -f 07-pingdatagovernance_pingdatagovernancepap_1
+     docker container logs -f 07-pingauthorize_pingauthorizepap_1
      ```
 
-   * PingDirectory (standard container logs). Because the baseline profile has debug mode on, when you make a successful request through PingDataGovernance to PingDirectory, you'll see successful `BIND` and `SEARCH` logs containing the user you searched for:
+   * PingDirectory (standard container logs). Because the baseline profile has debug mode on, when you make a successful request through PingAuthorize to PingDirectory, you'll see successful `BIND` and `SEARCH` logs containing the user you searched for:
 
      ```sh
-     docker container logs -f 07-pingdatagovernance_pingdirectory_1
+     docker container logs -f 07-pingauthorize_pingdirectory_1
      ```
 
 1. Display the configurations in Data Console:
@@ -93,9 +91,9 @@ To test this use case:
 1. Open PAP.
 1. Define a policy.
 1. Select `external` for the Policy Decision Service in Data Console.
-1. In Data Console, go to External Servers -> `pingdatagovernancepap`, and enter your policy name in the `branch` field.
+1. In Data Console, go to External Servers -> `pingauthorizepap`, and enter your policy name in the `branch` field.
 1. Save your changes.
-1. Make a request to the PingDataGovernance server again (as you did when testing the default use case):
+1. Make a request to the PingAuthorize server again (as you did when testing the default use case):
 
     ```sh
     curl -k 'https://localhost:7443/pd-rest-api/uid=user.1,ou=people,dc=example,dc=com' \
@@ -104,13 +102,13 @@ To test this use case:
 
     Watch the same logs, and you'll see your policy being used.
 
-    In PDG-PAP, this will look similar to:
+    In PAZ-PAP, this will look similar to:
 
     ```sh
     172.20.0.3 - - [20/May/2020:15:27:06 +0000] "POST /api/governance-engine?decision-node=e51688ff-1dc9-4b6c-bb36-8af64d02e9d1&branch=<YOUR POLICY BRANCH NAME HERE> HTTP/1.1" 400 118 "-" "Jersey/2.17 (Apache HttpClient 4.5)" 6
     ```
 
-    If you want further confirmation, in the Data Console, go to External Servers -> `pingdatagovernancepap` and put some "junk" in the `branch` box. You'll see that PingDataGovernance is unable to find the policy branch.
+    If you want further confirmation, in the Data Console, go to External Servers -> `pingauthorizepap` and put some "junk" in the `branch` box. You'll see that PingAuthorize is unable to find the policy branch.
 
 ## Clean Up
 

@@ -1,0 +1,96 @@
+version: "2.4"
+# The server profiles used in this example are intended for use with edge versions of the product image only.
+
+services:
+  pingauthorize:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingauthorize:${PING_IDENTITY_DEVOPS_TAG}
+    command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=paz-pap-integration/pingauthorize
+      - SERVER_PROFILE_PARENT=PAZ
+      - SERVER_PROFILE_PAZ_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PAZ_PATH=baseline/pingauthorize
+      - SERVER_PROFILE_BRANCH=DS-44102-pingauthorize
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "8080:80"
+      - "7443:1443"
+    networks:
+      - pingnet-dmz
+      - pingnet-internal
+    volumes:
+      - pingauthorize-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingauthorize:/opt/in
+
+  pingauthorizepap:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingauthorizepap:${PING_IDENTITY_DEVOPS_TAG}
+    # command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=paz-pap-integration/pingauthorizepap
+      - HTTPS_PORT=8443
+      - SERVER_PROFILE_BRANCH=DS-44102-pingauthorize
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "8443:8443"
+    networks:
+      - pingnet-dmz
+    volumes:
+      - pingauthorizepap-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/paz-pap-integration/pingauthorizepap:/opt/in
+
+  pingdirectory:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    environment:
+      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_PATH=baseline/pingdirectory
+    env_file:
+      - ${HOME}/.pingidentity/devops
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - 1636-1646:1636
+      - 1443-1453:1443
+    networks:
+      - pingnet-internal
+    volumes:
+      - pingdirectory-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
+
+  pingdataconsole:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    ports:
+      - "9443:8443"
+    networks:
+      - pingnet-internal
+
+networks:
+    pingnet-internal:
+    pingnet-dmz:
+
+volumes:
+  pingauthorize-out:
+  pingauthorizepap-out:
+  pingdirectory-out:
