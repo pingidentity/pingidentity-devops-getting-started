@@ -151,7 +151,7 @@ nav:
           - Build Local Images: "reference/buildLocal.md"
   - Release Notes:
       - Current: "release-notes/relnotes-2105.md"
-      - Version 2103: "release-notes/relnotes-2104.md"
+      - Version 2104: "release-notes/relnotes-2104.md"
       - Version 2103: "release-notes/relnotes-2103.md"
       - Version 2102: "release-notes/relnotes-2102.md"
       - Version 2101: "release-notes/relnotes-2101.md"
