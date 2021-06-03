@@ -11,7 +11,6 @@ services:
       - SERVER_PROFILE_PARENT=PAZ
       - SERVER_PROFILE_PAZ_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PAZ_PATH=baseline/pingauthorize
-      - SERVER_PROFILE_BRANCH=DS-44102-pingauthorize
     env_file:
       - ${HOME}/.pingidentity/devops
     ulimits:
@@ -38,7 +37,6 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=paz-pap-integration/pingauthorizepap
       - HTTPS_PORT=8443
-      - SERVER_PROFILE_BRANCH=DS-44102-pingauthorize
     env_file:
       - ${HOME}/.pingidentity/devops
     ulimits:
