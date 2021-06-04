@@ -37,6 +37,13 @@ markdown_extensions:
       # insert a blank space before the character
       permalink: " ¶"
 
+plugins:
+  - search:
+        separator: '[\s\-\.]+'
+  - redirects:
+     redirect_maps:
+       deployment/deployPdgPap.md: "deployment/deployPazPap.md"
+
 nav:
   - DevOps @ Ping:
       - Home: "README.md"
@@ -165,7 +172,3 @@ nav:
       - Version 2005: "release-notes/relnotes-2005.md"
       - Version 2004: "release-notes/relnotes-2004.md"
       - Version 2003: "release-notes/relnotes-2003.md"
-plugins:
-  - redirects:
-      redirect_maps:
-        deployment/deployPdgPap.md: "deployment/deployPazPap.md"
