@@ -76,7 +76,7 @@ The core command for generating a profile is: `manage-profile generate-profile`.
   ```
 
 !!! Info "Note other paths that are not included"
-    The `manage-profile generate-profie` command outputs valuable information about what is and isn't included in the generated profile.
+    The `manage-profile generate-profile` command outputs valuable information about what is and isn't included in the generated profile.
 
 !!! warning "Don't put secrets in your profile!"
     Secrets should not be included in your profile, so they are not included in the profile generation by default.
@@ -138,7 +138,7 @@ Now you can put `pd.profile` at the [root of your profile](https://github.com/pi
 
 ### Other Files
 
-Aside from what is generated via `manage-profile generate-profie`, you may want to include other files. These files should be siblings to `pd.profile` at the root of the profile. see [baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline/pingdirectory) for an example structure.
+Aside from what is generated via `manage-profile generate-profile`, you may want to include other files. These files should be siblings to `pd.profile` at the root of the profile. see [baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline/pingdirectory) for an example structure.
 
 ## What is in a Profile
 
