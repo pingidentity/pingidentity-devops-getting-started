@@ -8,7 +8,7 @@ version: "2.4"
 #-     2443   9000               6443                                      7443
 #-      |      |                  |                                         |
 #-   +----------------+   +---------------+                         +---------------+
-#-   |   PingAccess   |   | PingDelegator |                         |  PingDataGov  |
+#-   |   PingAccess   |   | PingDelegator |                         | PingAuthorize |
 #-   +----------------+   +---------------+                         +---------------+
 #-
 #-     login  console            app                console           rest    ldaps
@@ -26,8 +26,8 @@ version: "2.4"
 #-   |  PingAccess           |  https://localhost:9000/                                 |
 #-   |  PingFederate         |  https://localhost:9999/pingfederate/app                 |
 #-   |  PingDelegator        |  https://localhost:6443/                                 |
-#-   |  PingDirectory        |  https://localhost:8443/ (Server=pingdirectory:1636)      |
-#-   |  PingDataGovernance   |  https://localhost:8443/ (Server=pingdatagovernance:1636) |
+#-   |  PingDirectory        |  https://localhost:8443/ (Server=pingdirectory:1636)     |
+#-   |  PingAuthorize        |  https://localhost:8443/ (Server=pingauthorize:1636)     |
 #-   +-----------------------+----------------------------------------------------------+
 #----------------------------------------------------------------------------------------
 
@@ -51,12 +51,12 @@ services:
       - pingaccess-out:/opt/out
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingaccess:/opt/in
 
-  pingdatagovernance:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
+  pingauthorize:
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingauthorize:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=baseline/pingdatagovernance
+      - SERVER_PROFILE_PATH=baseline/pingauthorize
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
@@ -66,8 +66,8 @@ services:
       - pingnet-dmz
       - pingnet-internal
     volumes:
-      - pingdatagovernance-out:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
+      - pingauthorize-out:/opt/out
+    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingauthorize:/opt/in
 
   pingfederate:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
@@ -154,7 +154,7 @@ networks:
 
 volumes:
   pingaccess-out:
-  pingdatagovernance-out:
+  pingauthorize-out:
   pingfederate-out:
   pingdirectory-out:
   pingcentral-out:

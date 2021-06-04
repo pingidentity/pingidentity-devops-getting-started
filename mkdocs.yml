@@ -64,7 +64,7 @@ nav:
           - Deploy PingCentral: "deployment/deployPingCentral.md"
           - Deploy PingFederate Cluster: "deployment/deployPfCluster.md"
           - Deploy PingAccess Cluster: "deployment/deployPaCluster.md"
-          - Deploy PingDataGovernance with PAP: "deployment/deployPdgPap.md"
+          - Deploy PingAuthorize with the Policy Editor: "deployment/deployPazPap.md"
           - Deploy Monitoring Stack: "deployment/deployMonitoringStack.md"
           - Deploy an Elasticsearch SIEM Stack: "deployment/deploySiemStack.md"
       - Deploy with Kubernetes:
@@ -165,3 +165,7 @@ nav:
       - Version 2005: "release-notes/relnotes-2005.md"
       - Version 2004: "release-notes/relnotes-2004.md"
       - Version 2003: "release-notes/relnotes-2003.md"
+plugins:
+  - redirects:
+      redirect_maps:
+        deployment/deployPdgPap.md: "deployment/deployPazPap.md"

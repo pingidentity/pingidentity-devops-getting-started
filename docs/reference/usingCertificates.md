@@ -25,7 +25,7 @@ The examples below will explain and show examples of:
 
 ## PingData Image Certificates
 
-The PingData products (i.e. PingDirectory, PingDataSync, PingDataGovernance, PingDirectoryProxy) use a file location to determine certificates/pin files.
+The PingData products (i.e. PingDirectory, PingDataSync, PingAuthorize, PingDirectoryProxy) use a file location to determine certificates/pin files.
 It is best practice to use non-persistent location (i.e. /run/secrets) to store these files.
 If no certificate is provided, the container/product will generate a self-signed certificate.
 

@@ -17,7 +17,8 @@ The `/opt/in` directory overlays files onto the products runtime filesystem, the
 | **PingAccess** | pingaccess.lic  | /opt/in/instance/conf/pingaccess.lic  |
 | **PingDirectory** | PingDirectory.lic  | /opt/in/pd.profile/server-root/pre-setup/PingDirectory.lic  |
 | **PingDataSync** | PingDirectory.lic  | /opt/in/instance/PingDirectory.lic  |
-| **PingDataGovernance** | PingDataGovernance.lic  | /opt/in/instance/PingDataGovernance.lic  |
+| **PingAuthorize** | PingAuthorize.lic  | /opt/in/instance/PingAuthorize.lic  |
+| **PingAuthorize PAP** | PingAuthorize.lic  | /opt/in/instance/PingAuthorize.lic  |
 | **PingCentral** | pingcentral.lic  | /opt/in/instance/conf/pingcentral.lic  |
 
 ### Volume Mount Syntax

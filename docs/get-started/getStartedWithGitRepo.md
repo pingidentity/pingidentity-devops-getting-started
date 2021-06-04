@@ -16,12 +16,12 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
 ## Clone the `getting-started` Repo
 
-1. Clone the `pingidentity-devops-getting-started` repository to your local ${PING_IDENTITY_DEVOPS_HOME} directory:
+1. Clone the `pingidentity-devops-getting-started` repository to your local `${PING_IDENTITY_DEVOPS_HOME}` directory:
 
-    > The ${PING_IDENTITY_DEVOPS_HOME} environment variable was set when you ran `ping-devops config`.
+    > The `${PING_IDENTITY_DEVOPS_HOME}` environment variable was set when you ran `ping-devops config`.
 
     ```sh
-    cd ${PING_IDENTITY_DEVOPS_HOME}
+    cd "${PING_IDENTITY_DEVOPS_HOME}"
     git clone \
       https://github.com/pingidentity/pingidentity-devops-getting-started.git
     ```
@@ -63,20 +63,20 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
     | [PingFederate](https://localhost:9999/pingfederate/app) | <ul> <li>URL: [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingAccess](https://localhost:9000) | <ul><li>URL: [https://localhost:9000](https://localhost:9000)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDataGovernance](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatagovernance:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingAuthorize](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingauthorize:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingDataSync](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdatasync:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingCentral](https://localhost:9022) | <ul><li>URL: [https://localhost:9022](https://localhost:9022)</li><li>Username: administrator</li><li>Password: 2Federate</li></ul> |
     | Apache Directory Studio for PingDirectory |<ul> <li>LDAP Port: 1636</li><li>LDAP BaseDN: dc=example,dc=com</li><li>Root Username: cn=administrator</li><li>Root Password: 2FederateM0re</li></ul> |
 
-1. When you no longer want to run the stack, you can either stop or remove the stack.
+1. When you no longer want to run the stack, you can either stop or remove it.
 
-    To stop the running stack (doesn't remove any of the containers or associated Docker networks or volumes), enter:
+    To stop the running stack without removing any of the containers, associated Docker networks, or volumes, enter:
 
     ```sh
     docker-compose stop
     ```
 
-    To stop the stack and remove all of the containers and associated Docker networks (preservers volumes), enter:
+    Alternatively, to stop the stack and remove all of the containers and associated Docker networks (volumes are still preserved), enter:
 
     ```sh
     docker-compose down
