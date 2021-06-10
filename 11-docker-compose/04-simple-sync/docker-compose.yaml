@@ -29,6 +29,7 @@ version: "2.4"
 services:
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
@@ -53,6 +54,7 @@ services:
 
   pingdatasync:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync

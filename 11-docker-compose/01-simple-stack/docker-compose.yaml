@@ -33,6 +33,7 @@ services:
   pingfederate:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:1389 -t 900 -- entrypoint.sh start-server
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
@@ -52,6 +53,7 @@ services:
 
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
@@ -83,6 +85,7 @@ services:
 
   pingdelegator:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
+    tmpfs: /run/secrets
     environment:
       - PD_ENGINE_PUBLIC_PORT=1443
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git

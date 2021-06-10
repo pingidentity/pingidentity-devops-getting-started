@@ -5,6 +5,7 @@ services:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingfederate
     command: wait-for pingdirectory:1389 -t 800 -- entrypoint.sh start-server
+    tmpfs: /run/secrets
     environment:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
@@ -48,6 +49,7 @@ services:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingaccess
     command: wait-for pingdirectory:1389 -t 800 -- entrypoint.sh start-server
+    tmpfs: /run/secrets
     environment:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git
@@ -91,6 +93,7 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingdirectory
+    tmpfs: /run/secrets
     environment:
       # We apply the SIEM-specific configurations on top of ...
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-devops-getting-started.git

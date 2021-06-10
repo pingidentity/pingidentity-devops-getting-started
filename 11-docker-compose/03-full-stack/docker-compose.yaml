@@ -35,6 +35,7 @@ services:
   pingaccess:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingaccess
@@ -54,6 +55,7 @@ services:
   pingdatagovernance:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdatagovernance
@@ -72,6 +74,7 @@ services:
   pingfederate:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
@@ -89,6 +92,7 @@ services:
 
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
@@ -120,6 +124,7 @@ services:
 
   pingcentral:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingcentral/dev-unsecure
@@ -137,6 +142,7 @@ services:
 
   pingdelegator:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
+    tmpfs: /run/secrets
     environment:
       - PD_ENGINE_PUBLIC_PORT=1443
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
