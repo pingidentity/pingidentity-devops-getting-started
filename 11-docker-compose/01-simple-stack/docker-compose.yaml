@@ -33,6 +33,7 @@ services:
   pingfederate:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:1389 -t 900 -- entrypoint.sh start-server
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -53,6 +54,7 @@ services:
 
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -85,6 +87,7 @@ services:
 
   pingdelegator:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdelegator:${PING_IDENTITY_DEVOPS_TAG}
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       - PD_ENGINE_PUBLIC_PORT=1443

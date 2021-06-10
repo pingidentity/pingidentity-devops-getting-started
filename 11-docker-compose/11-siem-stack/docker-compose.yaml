@@ -5,6 +5,7 @@ services:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingfederate
     command: wait-for pingdirectory:1389 -t 800 -- entrypoint.sh start-server
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       # We apply the SIEM-specific configurations on top of ...
@@ -49,6 +50,7 @@ services:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingaccess
     command: wait-for pingdirectory:1389 -t 800 -- entrypoint.sh start-server
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       # We apply the SIEM-specific configurations on top of ...
@@ -93,6 +95,7 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     container_name: pingdirectory
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       # We apply the SIEM-specific configurations on top of ...

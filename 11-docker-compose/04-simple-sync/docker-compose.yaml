@@ -29,6 +29,7 @@ version: "2.4"
 services:
   pingdirectory:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -54,6 +55,7 @@ services:
 
   pingdatasync:
     image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git

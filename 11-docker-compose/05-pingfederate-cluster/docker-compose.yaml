@@ -4,6 +4,7 @@ version: "2.4"
 services:
   pingfederate-admin:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       # Server Profile - Clustering
@@ -33,6 +34,7 @@ services:
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server
+    # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
       # Server Profile - Clustering
