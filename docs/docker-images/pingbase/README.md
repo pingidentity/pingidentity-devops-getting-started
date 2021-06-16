@@ -51,6 +51,7 @@ this image.
 | LOCATION_VALIDATION  | true|Any string denoting a logical/physical location|Must be a string  |  |
 | MAX_HEAP_SIZE  | 384m  | Heap size (for java products)  |
 | JVM_TUNING  | AGGRESSIVE  |  |
+| JAVA_RAM_PERCENTAGE  | 75.0  | Percentage of the container memory to allocate to PingFederate JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | VERBOSE  | false  | Triggers verbose messages in scripts using the set -x option.  |
 | PING_DEBUG  | false  | Set the server in debug mode, with increased output  |
 | PING_PRODUCT  |   | The name of Ping product.  Should be overridden by child images.  |
