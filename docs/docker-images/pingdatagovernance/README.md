@@ -50,7 +50,7 @@ used, then it may come from a parent container
 
 ## Running a PingDataGovernance container
 
-The easiest way to test test a simple standalone image of PingDataGovernance is to cut/paste the following command into a terminal on a machine with docker.
+The easiest way to test a simple standalone image of PingDataGovernance is to cut/paste the following command into a terminal on a machine with docker.
 
 ```
   docker run \

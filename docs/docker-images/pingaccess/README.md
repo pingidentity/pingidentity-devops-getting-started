@@ -36,6 +36,7 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | Files tailed once container has started  |
 | PA_ADMIN_PORT  | 9000  |  |
+| JAVA_RAM_PERCENTAGE  | 60.0  | Percentage of the container memory to allocate to PingAccess JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | PA_ENGINE_PORT  | 3000  |  |
 | PING_IDENTITY_PASSWORD  | ${PA_ADMIN_PASSWORD}  | Specify a password for administrator user for interaction with admin API  |
 
