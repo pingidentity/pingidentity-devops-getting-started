@@ -8,7 +8,7 @@ Registering for Ping Identity's DevOps Program grants you credentials that when 
 Follow the steps listed below to register
 
 * Ensure you have a registered account with Ping Identity.  Not sure, click the link to [Sign On](https://www.pingidentity.com/en/account/sign-on.html) and follow instructions.
-  * If you don't have an account, please create one [Here](https://support.pingidentity.com/s/).
+  * If you don't have an account, please create one [Here](https://www.pingidentity.com/en/account/register.html).
   * Otherwise, sign-in.
   * When signing in select **'Support and Community'** from the account type dropdown
   * Once logged in, you'll be directed to your profile [Page](https://support.pingidentity.com/s/)
