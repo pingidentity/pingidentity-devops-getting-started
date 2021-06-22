@@ -60,7 +60,7 @@ A PingDataGovernance PAP may be set up in one of two modes:
 
 To run a PingDataGovernance PAP container in demo mode:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -74,15 +74,16 @@ To run a PingDataGovernance PAP container in demo mode:
 ```
 
 Log in with:
-* https://my-pap-hostname:8443/
-  * Username: admin
-  * Password: password123
+
+- https://my-pap-hostname:8443/
+    - Username: admin
+    - Password: password123
 
 To run a PingDataGovernance PAP container in OpenID Connect mode, specify
 the `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` environment
 variables:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -101,12 +102,13 @@ Note: If both `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` are
 not specified, then the PAP will be set up in demo mode.
 
 Log in with:
-* https://my-pap-hostname:8443/
-  * Provide credentials as prompted by the OIDC provider
+
+- https://my-pap-hostname:8443/
+    - Provide credentials as prompted by the OIDC provider
 
 Follow Docker logs with:
 
-```
+```sh
 docker logs -f pingdatagovernancepap
 ```
 
@@ -128,7 +130,7 @@ port. If the published port is 443, then it should be omitted.
 
 For example:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -156,7 +158,7 @@ backup output directory.
 For example, to perform backups daily at UTC noon and place backups in
 `/opt/out/backup`:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
