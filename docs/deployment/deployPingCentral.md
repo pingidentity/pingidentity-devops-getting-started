@@ -159,64 +159,10 @@ By default, for the purposes of quick setup, the PingCentral container is insecu
 
 Setting `PING_CENTRAL_BLIND_TRUST=false` allows public certificates to be used only by your Ping Identity environments (such as PingFederate), unless you set up the trust store and configure PingCentral to use this trust store.
 
-1. To set up the trust in the container, first create your trust store according to the [PingCentral documentation](https://docs.pingidentity.com/bundle/pingcentral-14/page/fqd1571866743761.html).
-
-1. Inject the trust store into the PingCentral container:
-
-   * For stacks, inject the trust store using the `volumes` definition in the `docker-compose.yml` file to mount `./conf/keystore.jks` to `/opt/in/instance/conf/keystore.jks`. For example:
-
-     ```yaml
-     services:
-       pingcentral:
-         volumes:
-           - ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
-     ```
-
-   * For standalone PingCentral containers, use:
-
-     ```sh
-     docker run --volume \
-      ./conf/keystore.jks:/opt/in/instance/conf/keystore.jks
-     ```
-
-1. Configure PingCentral to use the created trust either by using environment variables or the properties file:
-
-   * Using environment variables
-
-     * For stacks, specify these environment variables in the `environment` definition of the `docker-compose.yml` file:
-
-       ```yaml
-       services:
-         pingcentral:
-           environment:
-             - server.ssl.trust-any=false
-             - server.ssl.https.verify-hostname=false
-             - server.ssl.delegate-to-system=false
-             - server.ssl.trust-store=/opt/in/instance/conf/keystore.jks
-             - server.ssl.trust-store-password=InsertTruststorePasswordHere
-       ```
-
-     * For standalone PingCentral containers:
-
-       ```sh
-       docker run --env server.ssl.trust-any=false \
-        --env server.ssl.https.verify-hostname=false \
-        --env server.ssl.delegate-to-system=false \
-        --env server.ssl.trust-store=/opt/in/instance/conf/keystore.jks \
-        --env server.ssl.trust-store-password=<InsertTruststorePasswordHere>
-       ```
-
-   * Using properties files
-
-     * Update the following properties in your `pingidentity-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/application.properties.subst` file:
-
-       ```text
-       server.ssl.trust-any
-       server.ssl.https.verify-hostname
-       server.ssl.delegate-to-system
-       server.ssl.trust-store
-       server.ssl.trust-store-password
-       ```
+1. To set up the trust in the container, first set `PING_CENTRAL_BLIND_TRUST=false`.
+2. Start up PingCentral and login.
+3. Navigate to the `Settings` tab, then click on `Trusted CA Certificates` on the left.
+4. Here you will be able to add trusted certificates to connect to your environments.
 
 ## Configure SSO
 
