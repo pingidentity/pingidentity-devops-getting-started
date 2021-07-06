@@ -3,7 +3,7 @@ title: Home
 ---
 # Ping Identity DevOps
 
-We enable DevOps professionals, administrators and developers with tools, frameworks, blueprints and reference architectures to deploy Ping Identity software in the cloud.
+We enable DevOps professionals, administrators, and developers with tools, frameworks, blueprints, and reference architectures to deploy Ping Identity software in the cloud.
 
 ## DevOps Resources
 
@@ -36,7 +36,7 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
 * **Streamlined Deployments**
 
-    Deploy and run workloads on our solutions without the need for additional hardware or VMs.
+    Deploy and run workloads on our solutions without the need for additional hardware or virutal machines (VMs).
 
 * **Consistent and Flexible**
 
@@ -44,20 +44,20 @@ We enable DevOps professionals, administrators and developers with tools, framew
 
 * **Optimized Sizing**
 
-    Orchestration of containers allows organizations to increase fault tolerance, availability, and better manage costs by auto-scaling to application demand.
+    Orchestration of containers allows organizations to increase fault tolerance and availability and to better manage costs by auto-scaling to application demand.
 
 ## Overview
 
-See [Overview](overview.md) for descriptions of the components of our DevOps architecture and repositories.
+For descriptions of the components of our DevOps architecture and repositories, see [Overview](overview.md).
 
 ## Get Started
 
-See [Get Started](get-started/getStarted.md) to quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions.
+To quickly deploy a preconfigured DevOps image of a Ping Identity solution or integrated set of solutions, see [Get Started](get-started/getStarted.md).
 
 ## Contact Us
 
-If you find functionality missing that you believe may be of benefit to other Ping Identity customers:
+If you find functionality missing that you believe might be of benefit to other Ping Identity customers:
 
-* Log a [GitHub Issue](https://github.com/pingidentity/pingidentity-devops-getting-started/issues)
-* Ask a question on our [Cloud DevOps Community](https://support.pingidentity.com/s/topic/0TO1W000000IF8fWAG/cloud-devops-community)
-* Create a Ping Identity [Support Case](https://support.pingidentity.com/s/)
+* Log a [GitHub Issue](https://github.com/pingidentity/pingidentity-devops-getting-started/issues).
+* Ask a question on our [Cloud DevOps Community](https://support.pingidentity.com/s/topic/0TO1W000000IF8fWAG/cloud-devops-community).
+* Create a Ping Identity [Support Case](https://support.pingidentity.com/s/).
