@@ -7,16 +7,18 @@ The `pingidentity-devops-getting-started` [repository](https://github.com/pingid
 
 ## What You'll Do
 
-You'll use Git to clone the `pingidentity-devops-getting-started` repository, and Docker Compose to deploy the full stack example.
+Use Git to clone the `pingidentity-devops-getting-started` repository, and Docker Compose to deploy the full stack example.
 
 ## Prerequisites
 
-* You've already set up your DevOps environment. See [Get Started](../get-started/getStarted.md).
-* Installed [Git](https://git-scm.com/downloads)
+You have:
+
+* Set up your DevOps environment. See [Get Started](../get-started/getStarted.md).
+* Installed [Git](https://git-scm.com/downloads).
 
 ## Clone the `getting-started` Repo
 
-1. Clone the `pingidentity-devops-getting-started` repository to your local `${PING_IDENTITY_DEVOPS_HOME}` directory:
+1. Clone the `pingidentity-devops-getting-started` repository to your local `${PING_IDENTITY_DEVOPS_HOME}` directory.
 
     > The `${PING_IDENTITY_DEVOPS_HOME}` environment variable was set when you ran `ping-devops config`.
 
@@ -28,10 +30,10 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
 ## Deploy the Full Stack
 
-1. Deploy the full stack of our product containers:
+1. Deploy the full stack of our product containers.
 
     !!! note "Initial Deployment"
-        For your initial deployment of the stack, we recommend you make no changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. For subsequent deployments, see [Saving Your Configuration Changes](../how-to/saveConfigs.md).
+        For your initial deployment of the stack, you should avoid making changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. For subsequent deployments, see [Saving Your Configuration Changes](../how-to/saveConfigs.md).
 
     1. To start the stack, go to your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
@@ -39,9 +41,9 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
         docker-compose up -d
         ```
 
-        The full set of our DevOps images is automatically pulled from our repository, if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/).
+        The full set of our DevOps images is automatically pulled from our repository if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/).
 
-    1. Use this command to display the logs as the stack starts:
+    1. To display the logs as the stack starts, enter:
 
         ```sh
         docker-compose logs -f
@@ -49,14 +51,16 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
         Enter `Ctrl+C` to exit the display.
 
-    1. Use either of these commands to display the status of the Docker containers in the stack:
+    1. To display the status of the Docker containers in the stack:
 
-      * `docker ps` (enter this at intervals)
-      * `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`
+       Choose from:
 
-      Refer to the [Docker Compose Documentation](https://docs.docker.com/compose/) for more information.
+       * Enter `docker ps` (enter this at intervals).
+       * Enter `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`.
 
-1. Log in to the management consoles for the products:
+       For more information, see the [Docker Compose Documentation](https://docs.docker.com/compose/).
+
+1. Sign on to the management consoles for the products.
 
     | Product | Connection Details |
     | --- | --- |
@@ -70,14 +74,16 @@ You'll use Git to clone the `pingidentity-devops-getting-started` repository, an
 
 1. When you no longer want to run the stack, you can either stop or remove it.
 
-    To stop the running stack without removing any of the containers, associated Docker networks, or volumes, enter:
+    Choose from:
 
-    ```sh
-    docker-compose stop
-    ```
+    * To stop the running stack without removing any of the containers, associated Docker networks, or volumes, enter:
 
-    Alternatively, to stop the stack and remove all of the containers and associated Docker networks (volumes are still preserved), enter:
+        ```sh
+        docker-compose stop
+        ```
 
-    ```sh
-    docker-compose down
-    ```
+    * To stop the stack and remove all of the containers and associated Docker networks (volumes are still preserved), enter:
+
+        ```sh
+        docker-compose down
+        ```

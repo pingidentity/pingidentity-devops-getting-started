@@ -3,18 +3,18 @@ title: DevOps Product Licenses
 ---
 # DevOps Product Licenses
 
-In order to run the Ping Identity DevOps images, a valid product license is required. There are several ways to obtain a product license to run the images:
+To run the Ping Identity DevOps images, you must have a valid product license. You can use either of the following licenses for DevOps images.
 
 #### Evaluation License
 
-By registering for Ping Identity's DevOps program, you'll be issued credentials that will automate the process of retrieving evaluation product license.
+When you register for Ping Identity's DevOps program, you are issued credentials that automate the process of retrieving an evaluation product license.
 
 !!! warning "Evaluation License"
-    Please note that evaluation licenses are short lived (30 days) and **must not** be used in production deployments.
+    Evaluation licenses are short lived (30 days) and **must not** be used in production deployments.
 
 Evaluation licenses can only be used with images published in the last 90 days.
-If you wish to continue to use an image that was published more than 90 days ago, you must obtain a product license.
-Once you have product license for the product and version of the more-than-90-days-old image, follow the instructions to [mount the product license](../how-to/existingLicense.md).
+If you want to continue to use an image that was published more than 90 days ago, you must obtain a product license.
+After you have a product license for the product and version of the more-than-90-days-old image, follow the instructions to [mount the product license](../how-to/existingLicense.md).
 
 * [Using your DevOps User/Key](#using-your-devops-user-and-key)
 
@@ -24,15 +24,15 @@ Once you have product license for the product and version of the more-than-90-da
 
 ## Using Your DevOps User and Key
 
-When starting an image, you can provide your devops property file `~/.pingidentity/devops` or using the individual environment variables.
+When starting an image, you can provide your DevOps property file `~/.pingidentity/devops` or using the individual environment variables.
 
 >The examples provided for docker-compose are set up to use this property file by default.
 
-For more detail, run the `ping-devops info` to get your DevOps environment information.
+For more details, run the `ping-devops info` to view your DevOps environment information.
 
 ### Example Docker Run Command
 
-An example of running a docker image using the `docker run` command would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
+The following example shows running a Docker image using the `docker run` command.
 
 ```sh
 docker run \
@@ -48,7 +48,7 @@ docker run \
 
 ### Example YAML file
 
-An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
+The following example shows running a Docker image using any Docker .yaml file.
 
 ```yaml
 ...
@@ -64,7 +64,7 @@ An example of running a docker image using any docker .yaml file would look like
 
 ### Example Inline Env Variables
 
-An example of running a docker image using any docker .yaml file would look like the following example \(See the 2 environment variables starting with **PING\_IDENTITY\_DEVOPS**\):
+This example shows running a Docker image using any Docker .yaml file where you specify inline environment variables. \(See the two environment variables starting with **PING\_IDENTITY\_DEVOPS**\).
 
 ```yaml
 ...

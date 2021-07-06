@@ -3,11 +3,11 @@ title: The ping-devops Utility
 ---
 # The `ping-devops` Utility
 
-`ping-devops` is our general DevOps command line utility.
+`ping-devops` is our general DevOps command-line utility.
 
 ## Dependent Utilities
 
-To perform all of its operations, `ping-devops` has a dependency on these utilities:
+To perform all of its operations, `ping-devops` has a dependency on the following utilities:
 
 * openssl
 * base64
@@ -18,7 +18,7 @@ To perform all of its operations, `ping-devops` has a dependency on these utilit
 
 ## Installation and Upgrades
 
-Use Homebrew, to install `ping-devops` on Apple or Linux:
+Use Homebrew to install `ping-devops` on Apple or Linux.
 
 1. To install, enter:
 
@@ -33,15 +33,16 @@ Use Homebrew, to install `ping-devops` on Apple or Linux:
     brew upgrade ping-devops
     ```
 
-1. Check for upgrades regularly.
+1. To check for upgrades, run the following command.
 
-    Run the following command to see if there's an upgrade available:
+    !!! note "Check regularly"
+        Check for upgrades regularly.
 
     ```sh
     ping-devops version
     ```
 
-    The dependent utilities for `ping-devops` will also be installed or upgraded during this process.
+    The dependent utilities for `ping-devops` are also installed or upgraded during this process.
 
 1. On Linux systems, install or upgrade the `ping-devops` utility and `bash_profile` aliases to your current directory by entering:
 
@@ -49,13 +50,13 @@ Use Homebrew, to install `ping-devops` on Apple or Linux:
     curl -sL https://bit.ly/ping-devops-install | bash
     ```
 
-    Follow instructions to copy to the preferred location.
+    Follow instructions to copy to your preferred location.
 
     Ensure you have the dependent utilities for `ping-devops` installed as well.
 
 ## `ping-devops` Usage
 
-Enter `ping-devops` in a terminal to display the commands listing. The display will be similar to this:
+Enter `ping-devops` in a terminal to display the commands listing, which is shown in the following example.
 
 ```sh
 #####################################################################
@@ -81,7 +82,7 @@ Generate Kubernetes/Kustomize/License Resources:
   ping-devops generate license-secret {product} {ver}
   ping-devops generate kustomization.yaml
 
-Running Docker/Kubernetes Evironments:
+Running Docker/Kubernetes Environments:
   ping-devops docker     [info|start|stop|rm|clean]
   ping-devops kubernetes [info|start|rm|clean]
 

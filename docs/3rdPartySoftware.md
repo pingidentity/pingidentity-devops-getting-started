@@ -3,7 +3,7 @@ title: Third-Party Software
 ---
 # Third-Party Software
 
-Ping Identity Docker Images bundle various third-party tools to enable product functionality. Review the list below for references.
+Ping Identity Docker images bundle various third-party tools to enable product functionality. Review the following list for references:
 
 * [OpenJDK](https://openjdk.java.net/legal/gplv2+ce.html). GNU General Public License version 2.0.
 
@@ -19,4 +19,4 @@ Ping Identity Docker Images bundle various third-party tools to enable product f
 
 * [Jq](https://stedolan.github.io/jq/download/). MIT licensing.
 
-* [Gnupg](https://gnupg.org/). GNU general Public License. 
+* [Gnupg](https://gnupg.org/). GNU General Public License.
