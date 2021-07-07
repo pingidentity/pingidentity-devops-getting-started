@@ -21,6 +21,9 @@ title: DevOps Docker Builds, Version 2106 (July 6 2021)
 - **PingDirectory**
     - PingDirectory 8.3.0 and 8.2.0.5 are now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory)
 
+- **PingAuthorize**
+    - PingAuthorize 8.3.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize)
+
 - **PingCentral**
     - PingCentral 1.8 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingcentral)
 
