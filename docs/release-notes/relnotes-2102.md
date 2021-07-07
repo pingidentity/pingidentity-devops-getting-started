@@ -1,9 +1,9 @@
 ---
-title: Devops Docker Builds, Version 2102 (February 2021)
+title: DevOps Docker Builds, Version 2102 (February 2021)
 ---
 # Release Notes
 
-## Devops Docker Builds, Version 2102 (February 2021)
+## DevOps Docker Builds, Version 2102 (February 2021)
 
 ### Enhancements
 
