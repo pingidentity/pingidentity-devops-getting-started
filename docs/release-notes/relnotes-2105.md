@@ -3,7 +3,7 @@ title: Devops Docker Builds, Version 2105 (June 3 2021)
 ---
 # Release Notes
 
-## Devops Docker Builds, Version 2105 (June 3 2021)
+## DevOps Docker Builds, Version 2105 (June 3 2021)
 
 ### New Features
 
@@ -31,10 +31,10 @@ The following table includes product versions and their accompanying Image build
 | PingDataGovernance | <b>8.2.0.3</b><br/>8.1.0.3 |  |
 | PingDataGovernance PAP |  <b>8.2.0.3</b><br/>8.1.0.3 |  |
 | PingDataSync |  8.3.0.0-EA<br/><b>8.2.0.3</b><br/>8.1.0.3 |  |
-| PingDelegator | 4.5.0<b>4.4.1</b><br/>4.2.1 |  |
+| PingDelegator | <b>4.5.0</b><br/>4.4.1<br/>4.2.1 |  |
 | PingDirectory |  8.3.0.0-EA<br/>8.2.0.4<br/><b>8.2.0.3</b><br/>8.1.0.3 |  |
 | PingDirectoryProxy |  8.3.0.0-EA<br/><b>8.2.0.3</b><br/>8.1.0.3 |  |
-| PingFederate | 10.3.0-Beta<b>10.2.3</b><br/>10.1.5 | 10.2.2 |
+| PingFederate | 10.3.0-Beta<br/><b>10.2.3</b><br/>10.1.5 | 10.2.2 |
 | PingIntelligence | <b>4.4</b> |  |
 
 !!! info "Build Matrix Info"

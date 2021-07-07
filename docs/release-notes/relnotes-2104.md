@@ -1,9 +1,9 @@
 ---
-title: Devops Docker Builds, Version 2104 (April 2021)
+title: DevOps Docker Builds, Version 2104 (April 2021)
 ---
 # Release Notes
 
-## Devops Docker Builds, Version 2104 (April 2021)
+## DevOps Docker Builds, Version 2104 (April 2021)
 
 ### New Features
 
