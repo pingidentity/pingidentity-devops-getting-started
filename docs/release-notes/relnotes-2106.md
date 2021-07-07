@@ -18,6 +18,9 @@ title: DevOps Docker Builds, Version 2106 (July 6 2021)
 - **PingAccess**
     - PingAccess 6.3.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess)
 
+- **PingDirectory**
+    - PingDirectory 8.3.0 and 8.2.0.5 are now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory)
+
 - **PingCentral**
     - PingCentral 1.8 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingcentral)
 
@@ -26,9 +29,6 @@ title: DevOps Docker Builds, Version 2106 (July 6 2021)
 
 - **PingIntelligence (ASE)**
     - PingIntelligence 5.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingintelligence)
-
-- **PingData**
-    - Version 8.2.5 has been released for all PingData products (Directory, DataSync, Proxy). View on  [Dockerhub](https://hub.docker.com/r/pingidentity)
 
 - **LDAP SDK**
     - LDAP SDK 6.0.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/ldap-sdk-tools)
