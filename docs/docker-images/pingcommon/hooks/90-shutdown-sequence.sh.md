@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingcommon` Hook - `90-shutdown-sequence.sh`
----
 
 # Ping Identity DevOps `pingcommon` Hook - `90-shutdown-sequence.sh`
  This script may be implemented to gracefully shutdown the container

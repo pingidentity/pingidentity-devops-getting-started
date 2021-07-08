@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingfederate` Hook - `80-post-start.sh`
----
 
 # Ping Identity DevOps `pingfederate` Hook - `80-post-start.sh`
  This script is used to import any configurations that are

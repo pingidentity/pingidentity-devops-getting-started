@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingdatacommon`
----
 
 # Ping Identity Docker Image - `pingdatacommon`
 

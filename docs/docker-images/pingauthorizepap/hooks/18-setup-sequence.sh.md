@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingauthorizepap` Hook - `18-setup-sequence.sh`
----
 
 # Ping Identity DevOps `pingauthorizepap` Hook - `18-setup-sequence.sh`
  Quarterbacks all the scripts associated with the setup of a

@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdirectory` Hook - `pingdirectory.lib.sh`
----
 
 # Ping Identity DevOps `pingdirectory` Hook - `pingdirectory.lib.sh`
 

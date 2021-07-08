@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingaccess` Hook - `51-add-engine.sh`
----
 
 # Ping Identity DevOps `pingaccess` Hook - `51-add-engine.sh`
  This script is started in the background immediately before

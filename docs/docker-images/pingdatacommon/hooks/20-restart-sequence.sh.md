@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdatacommon` Hook - `20-restart-sequence.sh`
----
 
 # Ping Identity DevOps `pingdatacommon` Hook - `20-restart-sequence.sh`
  This hook is called when the container has been built in a prior startup

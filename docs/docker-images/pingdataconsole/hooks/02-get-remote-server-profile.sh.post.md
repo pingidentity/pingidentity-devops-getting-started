@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdataconsole` Hook - `02-get-remote-server-profile.sh.post`
----
 
 # Ping Identity DevOps `pingdataconsole` Hook - `02-get-remote-server-profile.sh.post`
  This hook provides final steps to setup Ping Data Console.

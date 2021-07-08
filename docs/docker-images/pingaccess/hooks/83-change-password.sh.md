@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingaccess` Hook - `83-change-password.sh`
----
 
 # Ping Identity DevOps `pingaccess` Hook - `83-change-password.sh`
 

@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdatagovernancepap` Hook - `81-install-policies.sh`
----
 
 # Ping Identity DevOps `pingdatagovernancepap` Hook - `81-install-policies.sh`
 

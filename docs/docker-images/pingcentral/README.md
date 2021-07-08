@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingcentral`
----
 
 
 # Ping Identity DevOps Docker Image - `pingcentral`

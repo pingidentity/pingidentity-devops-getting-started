@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingfederate` Hook - `83-configure-admin.sh`
----
 
 # Ping Identity DevOps `pingfederate` Hook - `83-configure-admin.sh`
 

@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingintelligence` Hook - `pingintelligence.lib.sh`
----
 
 # Ping Identity DevOps `pingintelligence` Hook - `pingintelligence.lib.sh`
 

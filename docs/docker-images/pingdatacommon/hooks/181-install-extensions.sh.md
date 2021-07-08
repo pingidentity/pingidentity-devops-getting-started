@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdatacommon` Hook - `181-install-extensions.sh`
----
 
 # Ping Identity DevOps `pingdatacommon` Hook - `181-install-extensions.sh`
 

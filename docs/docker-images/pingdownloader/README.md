@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingdownloader`
----
 
 # Ping Identity Docker Image - `pingdownloader`
 

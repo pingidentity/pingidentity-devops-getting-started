@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingdatagovernancepap`
----
 
 # Ping Identity DevOps Docker Image - `pingdatagovernancepap`
 
@@ -12,14 +9,6 @@ and associated hook scripts to create and run a PingDataGovernance PAP instance.
 > This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
-
-## Introducing PingAuthorize™
-Starting with the 8.3 release, PingDataGovernance has been renamed to PingAuthorize. Customers are increasingly applying
-the product to general, externalized, and dynamic authorization use cases, beyond the original privacy and data protection
-use cases of PingDataGovernance, and Ping Identity has updated the name to reflect the growing trend and application of
-Dynamic Authorization.
-
-Please click [here](https://hub.docker.com/r/pingidentity/pingauthorizepap) to view the PingAuthorize PAP Docker Image
 
 
 ## Environment Variables
@@ -40,6 +29,7 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
 | STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
+| TAIL_LOG_PARALLEL  | true  | Set to true to use parallel for the invocation of the tail utility when tailing log files to standard output  |
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/datagovernance-pap.log ${SERVER_ROOT_DIR}/logs/setup.log ${SERVER_ROOT_DIR}/logs/start-server.log ${SERVER_ROOT_DIR}/logs/stop-server.log  | Files tailed once container has started  |
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead)  |
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PDG and PAP  |
@@ -60,7 +50,7 @@ A PingDataGovernance PAP may be set up in one of two modes:
 
 To run a PingDataGovernance PAP container in demo mode:
 
-```sh
+```
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -74,16 +64,15 @@ To run a PingDataGovernance PAP container in demo mode:
 ```
 
 Log in with:
-
-- https://my-pap-hostname:8443/
-    - Username: admin
-    - Password: password123
+* https://my-pap-hostname:8443/
+  * Username: admin
+  * Password: password123
 
 To run a PingDataGovernance PAP container in OpenID Connect mode, specify
 the `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` environment
 variables:
 
-```sh
+```
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -102,13 +91,12 @@ Note: If both `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` are
 not specified, then the PAP will be set up in demo mode.
 
 Log in with:
-
-- https://my-pap-hostname:8443/
-    - Provide credentials as prompted by the OIDC provider
+* https://my-pap-hostname:8443/
+  * Provide credentials as prompted by the OIDC provider
 
 Follow Docker logs with:
 
-```sh
+```
 docker logs -f pingdatagovernancepap
 ```
 
@@ -130,7 +118,7 @@ port. If the published port is 443, then it should be omitted.
 
 For example:
 
-```sh
+```
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -158,7 +146,7 @@ backup output directory.
 For example, to perform backups daily at UTC noon and place backups in
 `/opt/out/backup`:
 
-```sh
+```
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \

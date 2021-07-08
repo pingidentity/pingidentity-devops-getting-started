@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdatasync` Hook - `80-post-start.sh`
----
 
 # Ping Identity DevOps `pingdatasync` Hook - `80-post-start.sh`
  This script is mostly the same as the 80-post-start.sh hook in the

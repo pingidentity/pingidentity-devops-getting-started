@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingdatasync`
----
 
 # Ping Identity DevOps Docker Image - `pingdatasync`
 

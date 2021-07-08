@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingintelligence`
----
 
 # Ping Identity DevOps Docker Image - `pingintelligence-ase`
 
@@ -56,7 +53,7 @@ this image.
 | PING_INTELLIGENCE_ASE_ATTACK_LIST_REFRESH_MINUTES  | 10  | ABS attack list retieval frequency in minutes  |
 | PING_INTELLIGENCE_ASE_HOSTNAME_REFRESH_SECONDS  | 60  | Hostname refresh interval in seconds  |
 | PING_INTELLIGENCE_ASE_DECOY_ALERT_INTERVAL_MINUTES  | 180  | Alert interval for teh decoy services  |
-| PING_INTELLIGENCE_ASE_ENABLE_XFORWARDED_FOR  | false  | Toggle X-Forwarded-For  |
+| PING_INTELLIGENCE_ASE_ENABLE_XFOWARDED_FOR  | false  | Toggle X-Forwarded-For  |
 | PING_INTELLIGENCE_ASE_ENABLE_FIREWALL  | true  | Toggle ASE Firewall  |
 | PING_INTELLIGENCE_ASE_ENABLE_SIDEBAND_KEEPALIVE  | false  | Enable connection keepalive for requests from gateway to ASE in sideband mode When enabled, ASE sends 'Connection: keep-alive' header in response When disabled, ASE sends 'Connection: close' header in response  |
 | PING_INTELLIGENCE_ASE_ENABLE_GOOGLE_PUBSUB  | false  | Enable Google Pub/Sub  |

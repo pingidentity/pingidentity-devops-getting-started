@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingauthorizepap` Hook - `80-post-start.sh`
----
 
 # Ping Identity DevOps `pingauthorizepap` Hook - `80-post-start.sh`
  This script is used to import any configurations that are

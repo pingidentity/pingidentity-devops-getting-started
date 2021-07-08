@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdatagovernancepap` Hook - `pingdatagovernancepap.lib.sh`
----
 
 # Ping Identity DevOps `pingdatagovernancepap` Hook - `pingdatagovernancepap.lib.sh`
 

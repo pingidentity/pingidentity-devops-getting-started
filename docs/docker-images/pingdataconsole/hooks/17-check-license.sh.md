@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdataconsole` Hook - `17-check-license.sh`
----
 
 # Ping Identity DevOps `pingdataconsole` Hook - `17-check-license.sh`
 

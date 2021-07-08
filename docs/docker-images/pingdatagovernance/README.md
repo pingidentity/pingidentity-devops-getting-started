@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingdatagovernance`
----
 
 # Ping Identity DevOps Docker Image - `pingdatagovernance`
 
@@ -13,14 +10,6 @@ instances.
 > This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
-
-## Introducing PingAuthorize™
-Starting with the 8.3 release, PingDataGovernance has been renamed to PingAuthorize. Customers are increasingly applying
-the product to general, externalized, and dynamic authorization use cases, beyond the original privacy and data protection
-use cases of PingDataGovernance, and Ping Identity has updated the name to reflect the growing trend and application of
-Dynamic Authorization.
-
-Please click [here](https://hub.docker.com/r/pingidentity/pingauthorize) to view the PingAuthorize Docker Image
 
 
 ## Environment Variables
@@ -43,7 +32,7 @@ this image.
 | STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
 | ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to /SECRETS_DIR/root-user-password  |
 | ENCRYPTION_PASSWORD_FILE  |   | Location of file with the passphrase for setting up encryption Defaults to /SECRETS_DIR/encryption-password  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/trace ${SERVER_ROOT_DIR}/logs/policy-decision ${SERVER_ROOT_DIR}/logs/ldap-access  | Files tailed once container has started  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access  | Files tailed once container has started  |
 | PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
 
 ## Ports Exposed
@@ -58,9 +47,9 @@ used, then it may come from a parent container
 
 ## Running a PingDataGovernance container
 
-The easiest way to test a simple standalone image of PingDataGovernance is to cut/paste the following command into a terminal on a machine with docker.
+The easiest way to test test a simple standalone image of PingDataGovernance is to cut/paste the following command into a terminal on a machine with docker.
 
-```sh
+```
   docker run \
            --name pingdatagovernance \
            --publish 1389:1389 \
@@ -77,7 +66,7 @@ The easiest way to test a simple standalone image of PingDataGovernance is to cu
 
 You can view the Docker logs with the command:
 
-```sh
+```
   docker logs -f pingdatagovernance
 ```
 
@@ -88,13 +77,13 @@ started.  After it starts, you will see some typical access logs.  Simply ``Ctrl
 ## Stopping/Removing the container
 To stop the container:
 
-```sh
+```
   docker container stop pingdatagovernance
 ```
 
 To remove the container:
 
-```sh
+```
   docker container rm -f pingdatagovernance
 ```
 

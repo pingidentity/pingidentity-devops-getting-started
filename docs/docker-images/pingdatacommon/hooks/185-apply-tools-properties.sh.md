@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdatacommon` Hook - `185-apply-tools-properties.sh`
----
 
 # Ping Identity DevOps `pingdatacommon` Hook - `185-apply-tools-properties.sh`
 

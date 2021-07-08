@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingdirectoryproxy`
----
 
 
 # Ping Identity DevOps Docker Image - `pingdirectoryproxy`
@@ -72,7 +69,7 @@ You can view the Docker logs with the command:
   docker logs -f pingdirectoryproxy
 ```
 
-You should see the output from a PingDirectoryProxy install and configuration, ending with a message the the PingDirectoryProxy has started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` after to stop tailing the logs.
+You should see the output from a PingDirectoryProxy install and configuration, ending with a message the the PingDirectoryProxy has started.  After it starts, you will see some typical access logs.  Simply ``Ctrl-C`` afer to stop tailing the logs.
 
 ## Running a sample 100/sec search rate test
 With the PingDirectoryProxy running from the previous section, you can run a ``searchrate`` job that will send load to the directory at a rate if 100/sec using the following command.

@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdirectory` Hook - `90-shutdown-sequence.sh`
----
 
 # Ping Identity DevOps `pingdirectory` Hook - `90-shutdown-sequence.sh`
  This script handles removing the server from the topology during a shutdown.

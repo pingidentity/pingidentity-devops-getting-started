@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingauthorizepap` Hook - `pingauthorizepap.lib.sh`
----
 
 # Ping Identity DevOps `pingauthorizepap` Hook - `pingauthorizepap.lib.sh`
 

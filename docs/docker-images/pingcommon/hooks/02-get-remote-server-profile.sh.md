@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingcommon` Hook - `02-get-remote-server-profile.sh`
----
 
 # Ping Identity DevOps `pingcommon` Hook - `02-get-remote-server-profile.sh`
  This hook will get bits from a git repo based on SERVER_PROFILE_* variables

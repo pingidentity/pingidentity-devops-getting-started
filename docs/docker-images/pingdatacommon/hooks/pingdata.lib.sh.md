@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingdatacommon` Hook - `pingdata.lib.sh`
----
 
 # Ping Identity DevOps `pingdatacommon` Hook - `pingdata.lib.sh`
 

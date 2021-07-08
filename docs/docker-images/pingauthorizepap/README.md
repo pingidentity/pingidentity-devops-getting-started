@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps Docker Image - `pingauthorizepap`
----
 
 # Ping Identity DevOps Docker Image - `pingauthorizepap`
 
@@ -22,17 +19,21 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| PING_PRODUCT  | PingAuthorize-PAP  | Ping product name  |
-| LICENSE_FILE_NAME  | PingAuthorize.lic  | Name of license File  |
-| LICENSE_SHORT_NAME  | PingAuthorize  | Short name used when retrieving license from License Server  |
+| PING_PRODUCT  | PingAuthorize-PAP  | PingIdentity license version Ping product name  |
+| LICENSE_FILE_NAME  | PingAuthorize.lic  | Name of License File  |
+| LICENSE_SHORT_NAME  | PingAuthorize  | Shortname used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
 | MAX_HEAP_SIZE  | 384m  | Minimal Heap size required for PingAuthorize Policy Editor  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | The command that the entrypoint will execute in the foreground to instantiate the container  |
-| STARTUP_FOREGROUND_OPTS  | --nodetach  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
-| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/pingauthorize-pap.log ${SERVER_ROOT_DIR}/logs/setup.log ${SERVER_ROOT_DIR}/logs/start-server.log ${SERVER_ROOT_DIR}/logs/stop-server.log  | Files tailed once container has started  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |  |
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | Prevent the server from starting in the background  |
+| STARTUP_BACKGROUND_OPTS  |   |  |
+| TAIL_LOG_PARALLEL  | y  |  |
+| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/pingauthorize-pap.log  | Files tailed once container has started  |
+| ${SERVER_ROOT_DIR}/logs/setup.log \  | ${SERVER_ROOT_DIR}/logs/setup.log  |  |
+| ${SERVER_ROOT_DIR}/logs/start-server.log \  | ${SERVER_ROOT_DIR}/logs/start-server.log  |  |
+| ${SERVER_ROOT_DIR}/logs/stop-server.log"  | ${SERVER_ROOT_DIR}/logs/stop-server.log"  |  |
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead)  |
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PAZ and the Policy Editor  |
 
@@ -52,10 +53,10 @@ A PingAuthorize Policy Editor may be set up in one of two modes:
 
 To run a PingAuthorize Policy Editor container in demo mode:
 
-```sh
+```
   docker run \
            --name pingauthorizepap \
-           --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
+           --env PING_EXTERNAL_BASE_URL=my-pe-hostname:8443 \
            --publish 8443:443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
@@ -66,22 +67,21 @@ To run a PingAuthorize Policy Editor container in demo mode:
 ```
 
 Log in with:
-
-- https://my-pap-hostname:8443/
-    - Username: admin
-    - Password: password123
+* https://my-pe-hostname:8443/
+  * Username: admin
+  * Password: password123
 
 To run a PingAuthorize Policy Editor container in OpenID Connect mode, specify
 the `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` environment
 variables:
 
-```sh
+```
   docker run \
            --name pingauthorizepap \
            --env PING_EXTERNAL_BASE_URL=my-pe-hostname:8443 \
            --env PING_OIDC_CONFIGURATION_ENDPOINT=https://my-oidc-provider/.well-known/openid-configuration \
            --env PING_CLIENT_ID=b1929abc-e108-4b4f-83d467059fa1 \
-           --publish 8443:1443 \
+           --publish 8443:443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER \
@@ -94,13 +94,12 @@ Note: If both `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` are
 not specified, then the PingAuthorize Policy Editor will be set up in demo mode.
 
 Log in with:
-
-- https://my-pap-hostname:8443/
-    - Provide credentials as prompted by the OIDC provider
+* https://my-pe-hostname:8443/
+  * Provide credentials as prompted by the OIDC provider
 
 Follow Docker logs with:
 
-```sh
+```
 docker logs -f pingauthorizepap
 ```
 
@@ -110,22 +109,22 @@ docker logs -f pingauthorizepap
 The Policy Editor consists of a client-side application that runs in the user's web
 browser and a backend REST API service that runs within the container. So
 that the client-side application can successfully make API calls to the
-backend, the Policy Editor must be configured with an externally accessible
-hostname:port. If the Policy Editor is configured in OIDC mode, then the external
-hostname:port pair is also needed so that the Policy Editor can correctly generate its
+backend, the PE must be configured with an externally accessible
+hostname:port. If the PE is configured in OIDC mode, then the external
+hostname:port pair is also needed so that the PE can correctly generate its
 OIDC redirect URI.
 
-Use the `PING_EXTERNAL_BASE_URL` environment variable to specify the Policy Editor's
+Use the `PING_EXTERNAL_BASE_URL` environment variable to specify the PE's
 external hostname and port using the form `hostname[:port]`, where `hostname`
-is the hostname of the Docker host and `port` is the Policy Editor container's published
+is the hostname of the Docker host and `port` is the PE container's published
 port. If the published port is 443, then it should be omitted.
 
 For example:
 
-```sh
+```
   docker run \
            --name pingauthorizepap \
-           --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
+           --env PING_EXTERNAL_BASE_URL=my-pe-hostname:8443 \
            --publish 8443:443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
@@ -150,13 +149,13 @@ backup output directory.
 For example, to perform backups daily at UTC noon and place backups in
 `/opt/out/backup`:
 
-```sh
+```
   docker run \
            --name pingauthorizepap \
-           --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
+           --env PING_EXTERNAL_BASE_URL=my-pe-hostname:8443 \
            --env PING_BACKUP_SCHEDULE="0 0 12 * * ?" \
            --env PING_H2_BACKUP_DIR=/opt/out/backup \
-           --publish 8443:1443 \
+           --publish 8443:443 \
            --detach \
            pingidentity/pingauthorizepap:edge
 ```

@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingintelligence` Hook - `50-before-post-start.sh`
----
 
 # Ping Identity DevOps `pingintelligence` Hook - `50-before-post-start.sh`
 

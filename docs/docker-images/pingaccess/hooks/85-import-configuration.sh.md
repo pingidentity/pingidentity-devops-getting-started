@@ -1,6 +1,3 @@
----
-title: Ping Identity DevOps `pingaccess` Hook - `85-import-configuration.sh`
----
 
 # Ping Identity DevOps `pingaccess` Hook - `85-import-configuration.sh`
  This script is started in the background immediately before
