@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingtoolkit` Hook - `17-check-license.sh`
+---
 
 # Ping Identity DevOps `pingtoolkit` Hook - `17-check-license.sh`
 

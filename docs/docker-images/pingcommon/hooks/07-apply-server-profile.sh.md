@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `07-apply-server-profile.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `07-apply-server-profile.sh`
  The server-profiles from:

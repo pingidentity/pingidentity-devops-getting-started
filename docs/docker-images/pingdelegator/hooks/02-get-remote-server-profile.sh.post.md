@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingdelegator` Hook - `02-get-remote-server-profile.sh.post`
+---
 
 # Ping Identity DevOps `pingdelegator` Hook - `02-get-remote-server-profile.sh.post`
  This hook may be used to set the server if there is a setup procedure

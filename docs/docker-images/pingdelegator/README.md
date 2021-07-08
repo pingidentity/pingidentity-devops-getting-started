@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingdelegator`
+---
 
 # Ping Identity Docker Image - `pingdelegator`
 
@@ -38,7 +41,7 @@ this image.
 | STARTUP_BACKGROUND_OPTS  | ${STARTUP_FOREGROUND_OPTS}  | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
 
 ## Run
-To run a PingDelegator container with HTTPS_PORT=6443 (6443 is simply a convetion for
+To run a PingDelegator container with HTTPS_PORT=6443 (6443 is simply a convention for
 PingDelegator so conflicts are reduced with other container HTTPS ports):
 
 ```shell

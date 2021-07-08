@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingdelegator` Hook - `04-check-variables.sh`
+---
 
 # Ping Identity DevOps `pingdelegator` Hook - `04-check-variables.sh`
 

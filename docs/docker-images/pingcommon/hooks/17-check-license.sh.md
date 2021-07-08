@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `17-check-license.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `17-check-license.sh`
  Check for license file

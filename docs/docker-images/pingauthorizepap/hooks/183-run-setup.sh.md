@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingauthorizepap` Hook - `183-run-setup.sh`
+---
 
 # Ping Identity DevOps `pingauthorizepap` Hook - `183-run-setup.sh`
 

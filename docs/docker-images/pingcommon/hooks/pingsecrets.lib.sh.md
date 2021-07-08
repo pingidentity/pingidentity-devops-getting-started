@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `pingsecrets.lib.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `pingsecrets.lib.sh`
 

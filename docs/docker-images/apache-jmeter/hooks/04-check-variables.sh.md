@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `apache-jmeter` Hook - `04-check-variables.sh`
+---
 
 # Ping Identity DevOps `apache-jmeter` Hook - `04-check-variables.sh`
 

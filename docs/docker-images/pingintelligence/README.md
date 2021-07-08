@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingintelligence`
+---
 
 # Ping Identity DevOps Docker Image - `pingintelligence-ase`
 

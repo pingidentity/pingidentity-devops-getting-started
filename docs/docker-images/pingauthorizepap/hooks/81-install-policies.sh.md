@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingauthorizepap` Hook - `81-install-policies.sh`
+---
 
 # Ping Identity DevOps `pingauthorizepap` Hook - `81-install-policies.sh`
 

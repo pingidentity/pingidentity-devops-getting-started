@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingdatacommon` Hook - `18-setup-sequence.sh`
+---
 
 # Ping Identity DevOps `pingdatacommon` Hook - `18-setup-sequence.sh`
  Quarterbacks all the scripts associated with the setup of a

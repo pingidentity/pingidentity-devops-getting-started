@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingauthorizepap`
+---
 
 # Ping Identity DevOps Docker Image - `pingauthorizepap`
 
@@ -19,21 +22,17 @@ this image.
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
 | SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  | Image version and git revision, set by build process of the docker build  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| PING_PRODUCT  | PingAuthorize-PAP  | PingIdentity license version Ping product name  |
-| LICENSE_FILE_NAME  | PingAuthorize.lic  | Name of License File  |
-| LICENSE_SHORT_NAME  | PingAuthorize  | Shortname used when retrieving license from License Server  |
+| PING_PRODUCT  | PingAuthorize-PAP  | Ping product name  |
+| LICENSE_FILE_NAME  | PingAuthorize.lic  | Name of license File  |
+| LICENSE_SHORT_NAME  | PingAuthorize  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
 | MAX_HEAP_SIZE  | 384m  | Minimal Heap size required for PingAuthorize Policy Editor  |
-| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  |  |
-| STARTUP_FOREGROUND_OPTS  | --nodetach  | Prevent the server from starting in the background  |
-| STARTUP_BACKGROUND_OPTS  |   |  |
-| TAIL_LOG_PARALLEL  | y  |  |
-| TAIL_LOG_FILES  | "${SERVER_ROOT_DIR}/logs/pingauthorize-pap.log  | Files tailed once container has started  |
-| ${SERVER_ROOT_DIR}/logs/setup.log \  | ${SERVER_ROOT_DIR}/logs/setup.log  |  |
-| ${SERVER_ROOT_DIR}/logs/start-server.log \  | ${SERVER_ROOT_DIR}/logs/start-server.log  |  |
-| ${SERVER_ROOT_DIR}/logs/stop-server.log"  | ${SERVER_ROOT_DIR}/logs/stop-server.log"  |  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | The command that the entrypoint will execute in the foreground to instantiate the container  |
+| STARTUP_FOREGROUND_OPTS  | --nodetach  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
+| STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/pingauthorize-pap.log ${SERVER_ROOT_DIR}/logs/setup.log ${SERVER_ROOT_DIR}/logs/start-server.log ${SERVER_ROOT_DIR}/logs/stop-server.log  | Files tailed once container has started  |
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead)  |
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PAZ and the Policy Editor  |
 

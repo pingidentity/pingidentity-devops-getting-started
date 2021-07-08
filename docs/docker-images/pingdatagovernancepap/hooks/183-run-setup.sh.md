@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingdatagovernancepap` Hook - `183-run-setup.sh`
+---
 
 # Ping Identity DevOps `pingdatagovernancepap` Hook - `183-run-setup.sh`
 

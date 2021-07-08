@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `09-build-motd.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `09-build-motd.sh`
  Creates a message of the day (MOTD) file based on information prvoded by:

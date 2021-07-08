@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps Docker Image - `pingdatagovernancepap`
+---
 
 # Ping Identity DevOps Docker Image - `pingdatagovernancepap`
 
@@ -29,7 +32,6 @@ this image.
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/start-server  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | STARTUP_FOREGROUND_OPTS  | --nodetach  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
 | STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
-| TAIL_LOG_PARALLEL  | true  | Set to true to use parallel for the invocation of the tail utility when tailing log files to standard output  |
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/datagovernance-pap.log ${SERVER_ROOT_DIR}/logs/setup.log ${SERVER_ROOT_DIR}/logs/start-server.log ${SERVER_ROOT_DIR}/logs/stop-server.log  | Files tailed once container has started  |
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead)  |
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PDG and PAP  |

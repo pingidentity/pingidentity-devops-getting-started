@@ -1,3 +1,6 @@
+---
+title: Ping Identity DevOps `pingcommon` Hook - `01-start-server.sh`
+---
 
 # Ping Identity DevOps `pingcommon` Hook - `01-start-server.sh`
 
