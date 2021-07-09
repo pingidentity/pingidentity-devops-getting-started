@@ -38,11 +38,13 @@ this image.
 | ROOT_USER_PASSWORD_FILE  |   | Location of file with the root user password (i.e. cn=directory manager). Defaults to /SECRETS_DIR/root-user-password  |
 | ADMIN_USER_PASSWORD_FILE  |   | Location of file with the admin password, used as the password replication admin Defaults to /SECRETS_DIR/admin-user-password  |
 | ENCRYPTION_PASSWORD_FILE  |   | Location of file with the passphrase for setting up encryption Defaults to /SECRETS_DIR/encryption-password  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access ${SERVER_ROOT_DIR}/logs/errors ${SERVER_ROOT_DIR}/logs/failed-ops ${SERVER_ROOT_DIR}/logs/config-audit.log ${SERVER_ROOT_DIR}/logs/tools/*.log* ${SERVER_BITS_DIR}/logs/tools/*.log*  | Files tailed once container has started  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access ${SERVER_ROOT_DIR}/logs/errors ${SERVER_ROOT_DIR}/logs/failed-ops ${SERVER_ROOT_DIR}/logs/config-audit.log ${SERVER_ROOT_DIR}/logs/debug-trace ${SERVER_ROOT_DIR}/logs/debug-aci ${SERVER_ROOT_DIR}/logs/tools/*.log* ${SERVER_BITS_DIR}/logs/tools/*.log*   | Files tailed once container has started  |
 | MAKELDIF_USERS  | 0  | Number of users to auto-populate using make-ldif templates  |
 | RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server  |
 | DISABLE_SCHEMA_REPLICATION  | false  | Flag to disable schema replication. In a DevOps environment, schema comes from configuration. So it does not need to be replicated.  |
 | PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
+| FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Councy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off  |
+| FIPS_PROVIDER  | BCFIPS  | BCFIPS is the only provider currently supported -- do not edit  |
 | PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE  |
 
 ## Ports Exposed

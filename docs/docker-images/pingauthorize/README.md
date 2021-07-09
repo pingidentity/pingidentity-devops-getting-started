@@ -53,11 +53,11 @@ used, then it may come from a parent container
 
 The easiest way to test a simple standalone image of PingAuthorize is to cut/paste the following command into a terminal on a machine with docker.
 
-```
+```sh
   docker run \
            --name pingauthorize \
-           --publish 1389:389 \
-           --publish 8443:443 \
+           --publish 1389:1389 \
+           --publish 8443:1443 \
            --detach \
            --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
            --env SERVER_PROFILE_PATH=getting-started/pingauthorize \
@@ -70,7 +70,7 @@ The easiest way to test a simple standalone image of PingAuthorize is to cut/pas
 
 You can view the Docker logs with the command:
 
-```
+```sh
   docker logs -f pingauthorize
 ```
 

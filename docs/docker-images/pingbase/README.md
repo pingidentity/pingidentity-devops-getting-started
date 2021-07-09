@@ -51,6 +51,7 @@ this image.
 | LOCATION_VALIDATION  | true|Any string denoting a logical/physical location|Must be a string  |  |
 | MAX_HEAP_SIZE  | 384m  | Heap size (for java products)  |
 | JVM_TUNING  | AGGRESSIVE  |  |
+| JAVA_RAM_PERCENTAGE  | 75.0  | Percentage of the container memory to allocate to PingFederate JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | VERBOSE  | false  | Triggers verbose messages in scripts using the set -x option.  |
 | PING_DEBUG  | false  | Set the server in debug mode, with increased output  |
 | PING_PRODUCT  |   | The name of Ping product.  Should be overridden by child images.  |
@@ -79,6 +80,7 @@ this image.
 | PAZP_ENGINE_PRIVATE_HOSTNAME  | pingauthorizepap  | PAZP (PingAuthorize-PAP) private hostname  |
 | PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) engine public hostname that may be used in redirects  |
 | PF_ENGINE_PRIVATE_HOSTNAME  | pingfederate  | PF (PingFederate) engine private hostname  |
+| PF_ADMIN_PUBLIC_BASEURL  | https://localhost:9999  | PF (PingFederate) admin public baseurl that may be used in redirects  |
 | PF_ADMIN_PUBLIC_HOSTNAME  | localhost  | PF (PingFederate) admin public hostname that may be used in redirects  |
 | PF_ADMIN_PRIVATE_HOSTNAME  | pingfederate-admin  | PF (PingFederate) admin private hostname  |
 | PA_ENGINE_PUBLIC_HOSTNAME  | localhost  | PA (PingAccess) engine public hostname that may be used in redirects  |

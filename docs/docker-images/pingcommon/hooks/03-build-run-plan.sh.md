@@ -7,9 +7,10 @@ title: Ping Identity DevOps `pingcommon` Hook - `03-build-run-plan.sh`
  Options for the RUN_PLAN and the PD_STATE are as follows:
  RUN_PLAN (Initially set to UNKNOWN)
           START   - Instructs the container to start from scratch.  This is primarily
-                    because a SERVER_ROOT_DIR (i.e. /opt/out/instance) isn't preseent.
+                    because a STARTUP_COMMAND (i.e. /opt/out/instance/bin/run.sh) isn't present.
           RESTART - Instructs the container to restart.  This is primarily because the
-                    SERVER_ROOT_DIR (i.e. /opt/out/instance) is prsent.
+                    STARTUP_COMMAND (i.e. /opt/out/instance/bin/run.sh) is present and typically
+                    signifies that the server bits have been copied and run before
  > NOTE: It will be common for products to override this hook to provide
  > RUN_PLAN directions based on product specifics.
 

@@ -33,6 +33,7 @@ this image.
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | Files tailed once container has started  |
 | PF_LOG_SIZE_MAX  | 10000 KB  | Defines the log file size max for ALL appenders  |
 | PF_LOG_NUMBER  | 2  | Defines the maximum of log files to retain upon rotation  |
+| PF_LOG_LEVEL  | INFO  | General log level -- provide custom log4j2.xml in profile for more detailed control valid values are OFF, ERROR, WARN, INFO, DEBUG  |
 | PF_ADMIN_PORT  | 9999  | Defines the port on which the PingFederate administrative console and API runs.  |
 | PF_ENGINE_PORT  | 9031  | Defines the port on which PingFederate listens for encrypted HTTPS (SSL/TLS) traffic.  |
 | PF_ENGINE_DEBUG  | false  | Flag to turn on PingFederate Engine debugging Used in run.sh  |
@@ -42,12 +43,15 @@ this image.
 | PF_CONSOLE_AUTHENTICATION  |   | Defines mechanism for console authentication in run.properties. Options include none, native, LDAP, cert, RADIUS, OIDC. If not set, default is native.  |
 | PF_ADMIN_API_AUTHENTICATION  |   | Defines mechanism for admin api authentication in run.properties. Options include none, native, LDAP, cert, RADIUS, OIDC. If not set, default is native.  |
 | HSM_MODE  | OFF  | Hardware Security Module Mode in run.properties Options include OFF, AWSCLOUDHSM, NCIPHER, LUNA, BCFIPS.  |
+| PF_BC_FIPS_APPROVED_ONLY  | false  | Defines a variable that allows instantiating non-FIPS crypto/random  |
+| PF_HSM_HYBRID  | false  | Hardware Security Module Hybrid Mode   When PF is in Hybrid mode, certs/keys can be created either on the local trust store or on the HSM.   This can used as a migration strategy towards an HSM setup.  |
 | PF_LDAP_USERNAME  | cn=pingfederate  | This is the username for an account within the LDAP Directory Server that can be used to perform user lookups for authentication and other user level search operations.  Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
 | PF_LDAP_PASSWORD  | OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoiRW1JY1UxOVdueSIsInZlcnNpb24iOiI5LjIuMS4xIn0..euBO0bawJz3XC_plAjxECg.yF7BpnCTPZlpZUo21WQ5IQ.YlLtlJTxXhrp3LsxyQDo5g  | This is the password for the Username specified above. This property should be obfuscated using the 'obfuscate.sh' utility. Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
 | CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | IP address for cluster communication.  Set to NON_LOOPBACK to allow the system to choose an available non-loopback IP address.  |
 | PF_PROVISIONER_MODE  | OFF  | Provisioner Mode in run.properties Options include OFF, STANDALONE, FAILOVER.  |
 | PF_PROVISIONER_NODE_ID  | 1  | Provisioner Node ID in run.properties Initial active provisioning server node ID is 1  |
 | PF_PROVISIONER_GRACE_PERIOD  | 600  | Provisioner Failover Grace Period in run.properties Grace period, in seconds. Default 600 seconds  |
+| JAVA_RAM_PERCENTAGE  | 75.0  | Percentage of the container memory to allocate to PingFederate JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | BULK_CONFIG_DIR  | ${OUT_DIR}/instance/bulk-config  |  |
 | BULK_CONFIG_FILE  | data.json  |  |
 

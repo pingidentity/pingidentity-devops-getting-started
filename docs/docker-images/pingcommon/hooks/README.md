@@ -14,7 +14,6 @@ List of available hooks:
 * [18-setup-sequence.sh](18-setup-sequence.sh.md)
 * [20-restart-sequence.sh](20-restart-sequence.sh.md)
 * [50-before-post-start.sh](50-before-post-start.sh.md)
-* [80-post-start.sh](80-post-start.sh.md)
 * [90-shutdown-sequence.sh](90-shutdown-sequence.sh.md)
 * [pingcommon.lib.sh](pingcommon.lib.sh.md)
 * [pingsecrets.lib.sh](pingsecrets.lib.sh.md)

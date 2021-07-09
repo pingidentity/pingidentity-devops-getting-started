@@ -13,6 +13,14 @@ and associated hook scripts to create and run a PingDataGovernance PAP instance.
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
 
+## Introducing PingAuthorize™
+Starting with the 8.3 release, PingDataGovernance has been renamed to PingAuthorize. Customers are increasingly applying
+the product to general, externalized, and dynamic authorization use cases, beyond the original privacy and data protection
+use cases of PingDataGovernance, and Ping Identity has updated the name to reflect the growing trend and application of
+Dynamic Authorization.
+
+Please click [here](https://hub.docker.com/r/pingidentity/pingauthorizepap) to view the PingAuthorize PAP Docker Image
+
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
@@ -52,7 +60,7 @@ A PingDataGovernance PAP may be set up in one of two modes:
 
 To run a PingDataGovernance PAP container in demo mode:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -66,15 +74,16 @@ To run a PingDataGovernance PAP container in demo mode:
 ```
 
 Log in with:
-* https://my-pap-hostname:8443/
-  * Username: admin
-  * Password: password123
+
+- https://my-pap-hostname:8443/
+    - Username: admin
+    - Password: password123
 
 To run a PingDataGovernance PAP container in OpenID Connect mode, specify
 the `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` environment
 variables:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -93,12 +102,13 @@ Note: If both `PING_OIDC_CONFIGURATION_ENDPOINT` and `PING_CLIENT_ID` are
 not specified, then the PAP will be set up in demo mode.
 
 Log in with:
-* https://my-pap-hostname:8443/
-  * Provide credentials as prompted by the OIDC provider
+
+- https://my-pap-hostname:8443/
+    - Provide credentials as prompted by the OIDC provider
 
 Follow Docker logs with:
 
-```
+```sh
 docker logs -f pingdatagovernancepap
 ```
 
@@ -120,7 +130,7 @@ port. If the published port is 443, then it should be omitted.
 
 For example:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
@@ -148,7 +158,7 @@ backup output directory.
 For example, to perform backups daily at UTC noon and place backups in
 `/opt/out/backup`:
 
-```
+```sh
   docker run \
            --name pingdatagovernancepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \

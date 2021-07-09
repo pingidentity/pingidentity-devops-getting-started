@@ -14,6 +14,14 @@ instances.
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
 - `pingidentity/pingdownloader` - Used to download product bits
 
+## Introducing PingAuthorize™
+Starting with the 8.3 release, PingDataGovernance has been renamed to PingAuthorize. Customers are increasingly applying
+the product to general, externalized, and dynamic authorization use cases, beyond the original privacy and data protection
+use cases of PingDataGovernance, and Ping Identity has updated the name to reflect the growing trend and application of
+Dynamic Authorization.
+
+Please click [here](https://hub.docker.com/r/pingidentity/pingauthorize) to view the PingAuthorize Docker Image
+
 
 ## Environment Variables
 In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
@@ -50,9 +58,9 @@ used, then it may come from a parent container
 
 ## Running a PingDataGovernance container
 
-The easiest way to test test a simple standalone image of PingDataGovernance is to cut/paste the following command into a terminal on a machine with docker.
+The easiest way to test a simple standalone image of PingDataGovernance is to cut/paste the following command into a terminal on a machine with docker.
 
-```
+```sh
   docker run \
            --name pingdatagovernance \
            --publish 1389:1389 \
@@ -69,7 +77,7 @@ The easiest way to test test a simple standalone image of PingDataGovernance is 
 
 You can view the Docker logs with the command:
 
-```
+```sh
   docker logs -f pingdatagovernance
 ```
 
@@ -80,13 +88,13 @@ started.  After it starts, you will see some typical access logs.  Simply ``Ctrl
 ## Stopping/Removing the container
 To stop the container:
 
-```
+```sh
   docker container stop pingdatagovernance
 ```
 
 To remove the container:
 
-```
+```sh
   docker container rm -f pingdatagovernance
 ```
 

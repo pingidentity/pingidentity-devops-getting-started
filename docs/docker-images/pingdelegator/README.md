@@ -36,6 +36,8 @@ this image.
 | PD_DELEGATOR_HEADER_BAR_LOGO  |   | The filename used as the logo in the header bar, relative to this application's build directory. Note about logos: The size of the image will be scaled down to fit 22px of height and a max-width of 150px. For best results, it is advised to make the image close to this height and width ratio as well as to crop out any blank spacing around the logo to maximize its presentation. e.g. '${SERVER_ROOT_DIR}/html/delegator/images/my_company_logo.png'  |
 | PD_DELEGATOR_DADMIN_API_NAMESPACE  |   | The namespace for the Delegated Admin API on the DS instance. In most cases, this does not need to be set here. e.g. 'dadmin/v2'  |
 | PD_DELEGATOR_PROFILE_SCOPE_ENABLED  | false  | Set to true if the "profile" scope is supported for the Delegated Admin OIDC client on PingFederate and you wish to use it to show the current user's name in the navigation.  |
+| NGINX_WORKER_PROCESSES  | auto  | The number of NginX worker processes -- Default: auto  |
+| NGINX_WORKER_CONNECTIONS  | 1024  | The number of NginX worker connections -- Default: 1024  |
 | STARTUP_COMMAND  | nginx  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | STARTUP_FOREGROUND_OPTS  | -c ${SERVER_ROOT_DIR}/etc/nginx.conf  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
 | STARTUP_BACKGROUND_OPTS  | ${STARTUP_FOREGROUND_OPTS}  | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
