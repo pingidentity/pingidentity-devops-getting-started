@@ -1,25 +1,27 @@
 ---
 title: Deploy PingAuthorize with an External Policy Editor
 ---
-# Deploy PingAuthorize with an External Policy Editor
+# Deploying PingAuthorize with an External Policy Editor
 
-This example describes how to build PingAuthorize policies, and employs server profile layering. The base profile, `pingidentity-server-profiles/baseline/pingauthorize`, configures PingDirectory and PingAuthorize to proxy the PingDirectory Rest API and uses an embedded PingAuthorize policy as the Policy Decision Service. A second layer `pingidentity-server-profiles/paz-pap-integration` switches the Policy Decision Service to use an external PingAuthorize Policy Editor (PAZ-PAP).
+This example describes how to build PingAuthorize policies and employs server profile layering. The base profile, `pingidentity-server-profiles/baseline/pingauthorize`, configures PingDirectory and PingAuthorize to proxy the PingDirectory Rest API and uses an embedded PingAuthorize policy as the Policy Decision Service. A second layer `pingidentity-server-profiles/paz-pap-integration` switches the Policy Decision Service to use an external PingAuthorize Policy Editor (PAZ-PAP).
 
-## Prerequisites
+## Before you begin
 
-* You've already been through [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+You must complete [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
-## What You'll Do
+## About this task
 
-* [Deploy the stack](#deploy-the-stack).
-* [Log in to the management consoles](#log-in-to-the-management-consoles).
-* [Test the default use case](#test-the-default-use-case).
-* [Build and test your own policy](#build-and-test-your-own-policy).
-* [Clean up](#clean-up).
+You will:
 
-## Deploy The Stack
+* Deploy the stack
+* Log in to the management consoles
+* Test the default use case
+* Build and test your own policy
+* Clean up
 
-Go to your local [11-docker-compose/07-pingauthorize](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/07-pingauthorize) directory, and enter:
+## Deploying the stack
+
+Go to your local [11-docker-compose/07-pingauthorize](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/11-docker-compose/07-pingauthorize) directory and enter:
 
 ```sh
 docker-compose up -d
@@ -27,7 +29,7 @@ docker-compose up -d
 
 When _all_ of the containers are healthy, you can start testing.
 
-## Login To The Management Consoles
+## Signing on to the management consoles
 
 | Product | Connection Details |
     | --- | --- |
@@ -35,7 +37,7 @@ When _all_ of the containers are healthy, you can start testing.
     | [PingAuthorize](https://localhost:9443/console) | <ul><li>URL: [https://localhost:9443/console](https://localhost:9443/console)</li><li>Server: pingauthorize:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingAuthorize PAP](https://localhost:8443) | <ul><li>URL: [https://localhost:8443](https://localhost:8443)</li><li>Username: admin</li><li>Password: password123</li></ul> |
 
-## Test Default Use Case
+## Testing the default use case
 
 The default use case does the following:
 
@@ -53,7 +55,9 @@ To test this use case:
       --header 'Authorization: Bearer { "active":true,"sub" : "user.1", "clientId":"client1","scope":"ds" }'
       ```
 
-1. Monitor the logs. To watch a request flow through all of the tools, you can `tail -f` each of these logs:
+1. Monitor the logs.
+
+   To watch a request flow through all of the tools, you can `tail -f` each of these logs:
 
    * PingAuthorize:
 
@@ -69,7 +73,7 @@ To test this use case:
      docker container logs -f 07-pingauthorize_pingauthorizepap_1
      ```
 
-   * PingDirectory (standard container logs). Because the baseline profile has debug mode on, when you make a successful request through PingAuthorize to PingDirectory, you'll see successful `BIND` and `SEARCH` logs containing the user you searched for:
+   * PingDirectory (standard container logs). Because the baseline profile has debug mode on, when you make a successful request through PingAuthorize to PingDirectory, you see successful `BIND` and `SEARCH` logs containing the user you searched for:
 
      ```sh
      docker container logs -f 07-pingauthorize_pingdirectory_1
@@ -86,23 +90,23 @@ To test this use case:
    * External Servers
      Display the PAP configuration and define the policy that is being used on PAP.
 
-## Build and Test Your Own Policy
+## Building and testing your own policy
 
 1. Open PAP.
 1. Define a policy.
 1. Select `external` for the Policy Decision Service in Data Console.
-1. In Data Console, go to External Servers -> `pingauthorizepap`, and enter your policy name in the `branch` field.
+1. In Data Console, go to External Servers -> `pingauthorizepap` and enter your policy name in the `branch` field.
 1. Save your changes.
-1. Make a request to the PingAuthorize server again (as you did when testing the default use case):
+1. Make a request to the PingAuthorize server again as you did when testing the default use case:
 
     ```sh
     curl -k 'https://localhost:7443/pd-rest-api/uid=user.1,ou=people,dc=example,dc=com' \
     --header 'Authorization: Bearer { "active":true,"sub" : "user.1", "clientId":"client1","scope":"ds" }'
     ```
 
-    Watch the same logs, and you'll see your policy being used.
+    Watch the same logs to see your policy being used.
 
-    In PAZ-PAP, this will look similar to:
+    In PAZ-PAP, this resembles the following:
 
     ```sh
     172.20.0.3 - - [20/May/2020:15:27:06 +0000] "POST /api/governance-engine?decision-node=e51688ff-1dc9-4b6c-bb36-8af64d02e9d1&branch=<YOUR POLICY BRANCH NAME HERE> HTTP/1.1" 400 118 "-" "Jersey/2.17 (Apache HttpClient 4.5)" 6
@@ -110,7 +114,7 @@ To test this use case:
 
     If you want further confirmation, in the Data Console, go to External Servers -> `pingauthorizepap` and put some "junk" in the `branch` box. You'll see that PingAuthorize is unable to find the policy branch.
 
-## Clean Up
+## Cleaning Up
 
 When you no longer want to run this stack, bring the stack down.
 
@@ -126,7 +130,7 @@ To stop the running stack without removing any of the containers or associated D
 docker-compose stop
 ```
 
-To remove attached Docker Volumes
+To remove attached Docker Volumes, enter:
 
 ```sh
 docker volume prune

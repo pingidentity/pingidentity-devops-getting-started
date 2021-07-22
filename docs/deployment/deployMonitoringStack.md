@@ -1,13 +1,13 @@
 ---
 title: Deploy Monitoring Stack
 ---
-# Deploy Monitoring Stack
+# Deploying a monitoring stack
 
 This example illustrates how to use Cloud Native Computing Foundation (CNCF) monitoring tools with a PingDirectory stack.
 
-There are tools in this stack to:
+The following table lists the actions you might want to take and the available tools.
 
-| Tool | Purpose |
+| Purpose | Tool |
 | --- | --- |
 | **Monitor** | <ul><li>Ping Identity Software</li></ul> |
 | **Collect Metrics** | <ul><li>[Prometheus](https://prometheus.io/)</li><li>[Alertsmanager](https://github.com/prometheus/alertmanager)</li><li>[cAdvisor](https://github.com/google/cadvisor)</li><li>[prometheus/statsd_exporter](https://github.com/prometheus/statsd_exporter)</li><li>[InfluxDB](https://www.influxdata.com/)</li></ul> |
@@ -17,12 +17,16 @@ There are tools in this stack to:
 !!! note "Prometheus"
     Much of the generic Prometheus work is taken from the [vegasbrianc/prometheus](https://github.com/vegasbrianc/prometheus) repository.
 
-## Prerequisites
+## Before you begin
 
-* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+You must:
+
+* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 * Pull our pingidentity-getting-started Git [repo](https://github.com/pingidentity/pingidentity-devops-getting-started) to ensure you have the latest sources.
 
-## What You'll Do
+## About this task
+
+You will:
 
 * Deploy the stack
 * Watch the load it generates
@@ -36,25 +40,27 @@ PingDirectory produces a wide array of metrics. These metrics can be delivered i
 
 ## Deploy Stack
 
-1. From `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack` run:
+1. From `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack`, run:
 
       ```sh
       docker-compose up -d
       ```
 
-      Running this command will:
+      Running this command:
 
-      1. Deploy the PingIdentity software.
+      1. Deploys the Ping Identity software.
 
-      1. Pull metrics from the Ping Identity software into Prometheus-enabled endpoints (such as,  StatsD metrics using `statsd_exporter`, which formats and hosts the metrics).
+      1. Pulls metrics from the Ping Identity software into Prometheus-enabled endpoints (such as,  StatsD metrics using `statsd_exporter`, which formats and hosts the metrics).
 
-      1. Have Prometheus scrape the `/metrics` endpoint on `statsd_exporter`.
+      1. Pushes Prometheus to scrape the `/metrics` endpoint on `statsd_exporter`.
 
-      1. Generate load to have metrics worth looking at, and push the metrics from the client application (JMeter) to InfluxDB.
+      1. Generates load to have metrics worth looking at, and push the metrics from the client application (JMeter) to InfluxDB.
 
-      1. Deploy a dashboard in Grafana to visualize the metrics from Prometheus and other tools.
+      1. Deploys a dashboard in Grafana to visualize the metrics from Prometheus and other tools.
 
-1. Wait for PingDirectory to become healthy. For example:
+1. Wait for PingDirectory to become healthy.
+
+    For example:
 
       ```sh
       docker container ls \
@@ -62,7 +68,7 @@ PingDirectory produces a wide array of metrics. These metrics can be delivered i
         --format 'table {{.Names}}\t{{.Status}}'
       ```
 
-    The results displayed will be similar to this:
+    When PingDirectory is healthy, you see something like the following:
 
       ```sh
       NAMES                                 STATUS
@@ -71,7 +77,7 @@ PingDirectory produces a wide array of metrics. These metrics can be delivered i
 
 ### About the Configuration
 
-There's a lot that can be discussed regarding the configuration. We'll focus on what is key to making this use case functional with minimal intervention, and describe what you may want to edit.
+Because the configuration varies in complexity by use case, this topic focuses on functionality with minimal intervention and what parts you might want to edit.
 
 !!! info "View Configuration"
     All relevant configurations are located in your local `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack/configs` directory.
@@ -85,35 +91,43 @@ There's a lot that can be discussed regarding the configuration. We'll focus on 
                 └── 15-prometheus-stats.dsconfig
     ```
 
-* The baseline server profile.
-* A single file with two `dsconfig` commands to create the StatsD monitoring endpoint and define where to push the metrics.
+* The baseline server profile
+
+    A single file with two `dsconfig` commands to create the StatsD monitoring endpoint and define where to push the metrics.
 
     > Traditional profile layering is thought of as getting the profiles from multiple Git repos. However, sending a portion of a profile using the mounted `/opt/in` volume, and getting the rest of the profile information from a Git repo can still be considered layering.
 
 * StatsD-Exporter
-    * The configuration file `pingdirectory-statsd-mapping.yml` defines which metrics to ingest and how to format them for Prometheus. This file is mounted to a location that is referenced from an argument passed to the startup command from the `docker-compose.yaml` file.
+
+    The configuration file `pingdirectory-statsd-mapping.yml` defines which metrics to ingest and how to format them for Prometheus. This file is mounted to a location that is referenced from an argument passed to the startup command from the `docker-compose.yaml` file.
 * Prometheus
+
   `prometheus.yml` defines when and where to look for metrics and any relevant alerting files.
 * InfluxDB
+
   `influxdb.conf` prepares InfluxDB to receive metrics from JMeter.
 * cAdvisor
+
   Specifically for Docker Compose, cAdvisor mounts to the actual Docker processes.
 * alertmanager
+
   This can be used to set thresholds on metrics, and optionally send notifications. An example threshold is defined in `configs/prometheus/alert.rules`, and referenced in `prometheus.yml`. Sending notifications is defined in `configs/alertmanager/config.yml`.
 * Grafana
+
   Grafana is a data visualizer. In the Grafana configurations, you'll find:
-    * The definition of datasources: `datasources/datasource.yml`.
-    * The definitions of dashboards.
+
+  * The definition of datasources: `datasources/datasource.yml`.
+  * The definitions of dashboards.
 
 !!! note "Runtime Data"
-    Grafana and Prometheus runtime data is stored in a Docker volume, so if you start and stop the containers, you'll not lose your work. However, it's still a good practice when building dashboards in Grafana to export the dashboard and add the JSON file to the `dashboards` folder.
+    Grafana and Prometheus runtime data is stored in a Docker volume, so if you start and stop the containers, you won't lose your work. However, it's still a good practice when building dashboards in Grafana to export the dashboard and add the JSON file to the `dashboards` folder.
 
 ### How Load is Generated
 
 #### Auto-Generated Load
 
 Traffic is generated in PingDirectory using our `ldap-sdk-tools` or `apache-jmeter` images.
-When PingDirectory is healthy, these tools will run as individual services based on the use case being implemented.
+When PingDirectory is healthy, these tools run as individual services based on the use case being implemented.
 
 You can view the logs of any of these services directly with `docker-compose logs -f <service_name>`. For example:
 
@@ -153,7 +167,7 @@ docker-compose logs -f searchrate
 
         > `modrate` runs in the foreground in the container, so be ready to open another terminal if necessary to avoid stopping `modrate`.
 
-        You'll see output similar to:
+        `modrate` produces output like the following:
 
         ```sh
         PingDirectory:ca3f124e78aa:/opt
