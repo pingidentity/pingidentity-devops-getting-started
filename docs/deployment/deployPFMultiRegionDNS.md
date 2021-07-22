@@ -3,7 +3,7 @@ title: Kubernetes Multi Region Clustering using DNS
 ---
 # Kubernetes Multi Region Clustering using DNS
 
-This document is specific to dynamic discovery with DNS_PING and is an extension of [PingFederate Cluster Across Multiple Kubernetes Clusters](./deployK8sPFclusters.md). This is the recommended approach for **GA** PingFederate 10.2+
+This document is specific to dynamic discovery with DNS_PING and is an extension of [PingFederate Cluster Across Multiple Kubernetes Clusters](./deployK8sPFclusters.md). This is the recommended approach for PingFederate 10.2+
 
 ## Overview
 
