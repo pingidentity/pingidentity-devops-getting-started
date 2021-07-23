@@ -34,17 +34,17 @@ You will:
 
 1. To check that PingDirectory and PingDataConsole are healthy and running, enter:
 
-      ```bash
+      ```sh
       docker-compose ps
       ```
 
-      * You can also display the startup logs:
+      You can also display the startup logs:
 
       ```sh
       docker-compose logs -f
       ```
 
-      *  To see the logs for a particular product container at any point, enter:
+      To see the logs for a particular product container at any point, enter:
 
       ```sh
       docker-compose logs <product-container-name>
