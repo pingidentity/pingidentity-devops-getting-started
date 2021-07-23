@@ -1,71 +1,73 @@
 ---
-title: Deploy a PingFederate and PingDirectory Stack
+title: Deploying a PingFederate and PingDirectory Stack
 ---
-# Deploy a PingFederate and PingDirectory Stack
+# Deploying a PingFederate and PingDirectory Stack
 
-You'll use Docker Compose to deploy a PingFederate and PingDirectory stack.
+Use Docker compose to deploy a PingFederate and PingDirectory stack.
 
-## What You'll Do
+## Before you begin
+
+You must complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+
+## About this task
+
+You will:
 
 * Deploy the stack.
-* Log in to the management consoles.
+* Sign on to the management consoles.
 * Bring down or stop the stack.
 
-## Prerequisites
+## Deploying the stack
 
-* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-
-## Deploy Stack
-
-1. Go to your local `pingidentity-devops-getting-started/11-docker-compose/01-simple-stack` directory. Enter:
+1. Go to your local `pingidentity-devops-getting-started/11-docker-compose/01-simple-stack` directory and enter:
 
       ```sh
       docker-compose up -d
       ```
 
-1. Check that the containers are healthy and running:
+1. To check that the containers are healthy and running, enter:
 
       ```sh
       docker-compose ps
       ```
 
-      To display the startup logs:
+      * To display the startup logs, enter:
 
-      ```sh
-      docker-compose logs -f
-      ```
+         ```sh
+         docker-compose logs -f
+         ```
 
-      To see the logs for a particular product container at any point, enter:
+      * To see the logs for a particular product container at any point, enter:
 
-      ```sh
-      docker-compose logs <product-container-name>
-      ```
+         ```sh
+         docker-compose logs <product-container-name>
+         ```
 
-1. Log in to the management consoles:
+1. Sign on to the management consoles:
 
       | Product | Connection Details |
     | --- | --- |
     | [PingFederate](https://localhost:9999/pingfederate/app) | <ul> <li>URL: [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
     | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: pingdirectory</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
 
-## Clean Up
+## Cleaning Up
 
-When you no longer want to run this stack, you can either stop the running stack, or bring the stack down.
+When you no longer want to run this stack, you can either stop the running stack or bring the stack down.
 
-To stop the running stack without removing any of the containers or associated Docker networks, enter:
+* To stop the running stack without removing any of the containers or associated Docker networks, enter:
 
-```sh
-docker-compose stop
-```
+    ```sh
+    docker-compose stop
+    ```
 
-To remove all of the containers and associated Docker networks, enter:
+* To remove all of the containers and associated Docker networks, enter:
 
-```sh
-docker-compose down
-```
+    ```sh
+    docker-compose down
+    ```
 
-To remove attached Docker Volumes
+* To remove attached Docker volumes, enter:
 
-```sh
-docker volume prune
-```
+    ```sh
+    docker volume prune
+    ```

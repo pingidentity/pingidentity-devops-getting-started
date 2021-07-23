@@ -1,49 +1,51 @@
 ---
-title: Deploy PingDirectory and PingDataSync
+title: Deploying PingDirectory and PingDataSync
 ---
-# Deploy PingDirectory and PingDataSync
+# Deploying PingDirectory and PingDataSync
 
-You'll use Docker Compose to deploy a PingDirectory and PingDataSync stack. PingDataSync will synchronize data from a source tree on a PingDirectory instance to a destination tree on the same PingDirectory instance. The entries from `ou=source,o=sync` to `ou=destination,o=sync` will be synchronized every second.
+Use Docker compose to deploy a PingDirectory and PingDataSync stack. PingDataSync will synchronize data from a source tree on a PingDirectory instance to a destination tree on the same PingDirectory instance. The entries from `ou=source,o=sync` to `ou=destination,o=sync` will be synchronized every second.
 
-## What You'll Do
+## Before you begin
+
+You must complete [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+
+## About this task
+
+You will:
 
 * Deploy the PingDirectory and PingDataSync stack.
 * Test the deployment.
 * Bring down or stop the stack.
 
-## Prerequisites
+## Deploying the stack
 
-* You've already been through [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-
-## Deploy Stack
-
-1. Go to your local `devops/pingidentity-devops-getting-started/11-docker-compose/04-simple-sync` directory. Enter:
+1. Go to your local `devops/pingidentity-devops-getting-started/11-docker-compose/04-simple-sync` directory and enter:
 
       ```sh
       docker-compose up -d
       ```
 
-1. Check that PingDirectory and PingDataSync are healthy and running:
+1. To check that PingDirectory and PingDataSync are healthy and running, enter:
 
       ```sh
       docker-compose ps
       ```
 
-      You can also display the startup logs:
+      * To display the startup logs, enter:
 
-      ```sh
-      docker-compose logs -f
-      ```
+         ```sh
+         docker-compose logs -f
+         ```
 
-      To see the logs for a particular product container at any point, enter:
+      * To see the logs for a particular product container at any point, enter:
 
-      ```sh
-      docker-compose logs <product-container-name>
-      ```
+         ```sh
+         docker-compose logs <product-container-name>
+         ```
 
-## Test the Deployment
+## Testing the deployment
 
-The stack will sync entries from `ou=source,o=sync` to `ou=destination,o=sync` every second.
+The stack syncs entries from `ou=source,o=sync` to `ou=destination,o=sync` every second.
 
 1. In one terminal window, tail the logs from the PingDataSync server:
 
@@ -64,7 +66,9 @@ The stack will sync entries from `ou=source,o=sync` to `ou=destination,o=sync` e
       <Ctrl-D>
       ```
 
-1. You'll see messages in the PingDataSync log showing `ADD/MODIFY` of the user sync'd to the `ou=destination,o=sync` tree.  To verify this, enter:
+   You'll see messages in the PingDataSync log showing `ADD/MODIFY` of the user sync'd to the `ou=destination,o=sync` tree.
+
+1. To verify the messages in the PingDataSync log, enter:
 
       ```text
       docker container exec -it \
@@ -74,31 +78,31 @@ The stack will sync entries from `ou=source,o=sync` to `ou=destination,o=sync` e
          -s base '(&)' description
       ```
 
-      Entries similar to this will be returned:
+      Entries similar to the following are returned:
 
       ```text
       # dn: uid=user.0,ou=People,ou=destination,o=sync
       # description: Change to source user.0
       ```
 
-## Clean Up
+## Cleaning Up
 
 When you no longer want to run this stack, bring the stack down.
 
-To remove all of the containers and associated Docker networks, enter:
+* To remove all of the containers and associated Docker networks, enter:
 
-```sh
-docker-compose down
-```
+    ```sh
+     docker-compose down
+    ```
 
-To stop the running stack without removing any of the containers or associated Docker networks, enter:
+* To stop the running stack without removing any of the containers or associated Docker networks, enter:
 
-```sh
-docker-compose stop
-```
+    ```sh
+    docker-compose stop
+    ```
 
-To remove attached Docker Volumes
+* To remove attached Docker volumes, enter:
 
-```sh
-docker volume prune
-```
+    ```sh
+    docker volume prune
+    ```

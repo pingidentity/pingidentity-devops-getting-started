@@ -1,7 +1,7 @@
 ---
-title: Deploy an Elasticsearch SIEM Stack
+title: Deploying an Elasticsearch SIEM Stack
 ---
-# Deploy an Elasticsearch SIEM Stack
+# Deploying an Elasticsearch SIEM Stack
 
 This example deploys a PingFederate, PingAccess, and PingDirectory stack with Elasticsearch infrastructure built in for visualizing traffic and other security or log data. The architecture looks like this:
 
@@ -9,31 +9,33 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 
 * Threat intel and TOR Endpoints are  provided by AlienVault and the TOR Network Endpoint List.
 
-* Threat feeds are updated on an interval via setting an environment variable in `docker-compose.yaml`.
+* Threat feeds are updated on an interval with setting an environment variable in `docker-compose.yaml`.
 
 > **Warning**: This stack is not intended for production environments.
 
-## Prerequisites
+## Before you begin
 
-* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+You must:
 
-* For most Linux distributions (local or on a platform), you'll need to increase the `vm.max_map_count` setting to support the necessary heap size. Enter:
+* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
-  ```sh
-  sudo sysctl -w vm.max_map_count=262144
-  ```
+* For most Linux distributions (local or on a platform), increase the `vm.max_map_count` setting to support the necessary heap size . Enter:
 
-  Your Linux machine needs at least 12 Gb of RAM for Docker to run this stack.
+    ```sh
+    sudo sysctl -w vm.max_map_count=262144
+    ```
 
-* For Apple macos or Microsoft Windows machines, ensure the Docker Resources is set to a *minimum* 10 Gb of RAM, or the containers will crash.
+  Your Linux machine needs at least 12 GB of RAM for Docker to run this stack.
 
-* For Amazon Web Services (AWS) use a M5.XL or M5a.XL VPC. 16 Gb RAM is required, and at least 50 Gb of storage is recommended.
+* For Apple MacOS or Microsoft Windows machines, ensure the Docker Resources is set to a *minimum* 10 GB of RAM. If you don't, the containers will crash.
+
+* For Amazon Web Services (AWS), use a M5.XL or M5a.XL VPC. 16 GB RAM is required with at least 50 GBb of storage.
 
 ### Optional
 
 * If you're using Slack, you can generate a Slack Webhook URL from the Slack Admin for alerting: `https://api.slack.com/messaging/webhooks`.
 
-## Instal Setup
+## Installing setup
 
 1. From the `pingidentity-devops-getting-started` directory, pull the repo to ensure that you have current files:
 
@@ -43,7 +45,7 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 
 1. Go to the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory.
 
-1. Create a `siem.env` file in the `11-siem-stack` directory, and copy these entries into the `siem.env` file:
+1. Create a `siem.env` file in the `11-siem-stack` directory and copy the following entries into the `siem.env` file:
 
       ```sh
       COMPOSE_PROJECT_NAME=es
@@ -56,7 +58,7 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
       PING_IDENTITY_DEVOPS_KEY=<your-key>
       ```
 
-## Deploy Stack
+## Deploying the stack
 
 1. From the `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` directory, start the stack:
 
@@ -105,7 +107,7 @@ When PingDirectory is up and healthy:
 
 * Elasticsearch templates for indexes
 
-  Index mappings and config are stored in the `./elasticsearch-siem/index_templates` directory. The scripts will load the template or templates when the cluster state is green.
+  You can find index mappings and config in the `./elasticsearch-siem/index_templates` directory. The scripts will load the template or templates when the cluster state is green.
 
 * Logstash pipeline
 
@@ -135,41 +137,41 @@ docker volume prune
 
 ![alt text](../images/dashboard.png "SIEM Dashboard")
 
-### Ping Federate Dashboard
+### PingFederate Dashboard
 
-Audit and System logs are delivered (set to Debug by default). For Log4J, PingFederate sends logs on 2 different Syslog ports using a custom mapping.
+Audit and System logs are delivered (set to Debug by default). For Log4J, PingFederate sends logs on two different Syslog ports using a custom mapping.
 
 ![alt text](../images/pingfederate_dashboard.png "PingFederate Basic Demo Dashboard")
 
 ### PingAccess Dashboard
 
-Audit and System logs are delivered (set to Debug by default). For Log4J, PingAccess sends logs on 2 different Syslog ports using a custom mapping.
+Audit and System logs are delivered (set to Debug by default). For Log4J, PingAccess sends logs on two different Syslog ports using a custom mapping.
 
 ![alt text](../images/pingaccess_dashboard.png "PingAccess Basic Demo Dashboard")
 
 ### PingDirectory Dashboard
 
-Audit logs are being delivered. There are 2 containers that produce load. These are disabled by default. You can uncomment these entries in the `docker-compose.yaml` file to use them:
+Audit logs are being delivered. There are two containers that produce load. These are disabled by default. You can uncomment these entries in the `docker-compose.yaml` file to use them:
 
 * authrate_ok
 * authrate_ko
 
-For Log4J, PingDirectory sends logs on 1 Syslog port using a custom mapping.
+For Log4J, PingDirectory sends logs on one Syslog port using a custom mapping.
 
 ![alt text](../images/pingdirectory_dashboard.png "PingDirectory Demo Dashboard")
 
 ## Included Slack Alerts
 
-These can be customized through Watchers:
+You can customized the following alerts through Watchers:
 
-* User authenticates over 1200km away within a 6 hour period.
-* User authenticates successfully from TOR through Ping Federate (potential credential theft).
-* User authenticates successfully from Known Malicious IP through Ping Federate (potential credential theft).
-* Account Lockout detected through Ping Federate (potential brute force).
+* User authenticates over 1200km away within a 6-hour period.
+* User authenticates successfully from TOR through PingFederate (potential credential theft).
+* User authenticates successfully from Known Malicious IP through PingFederate (potential credential theft).
+* Account Lockout detected through PingFederate (potential brute force).
 * Likely SAML signature modifications (forced tampering with authentication protocols).
 
 ### Slack Alert Examples (not all are shown)
 
-These are Low / Medium / High alert examples:
+The following image shows Low / Medium / High alert examples:
 
 ![alt text](../images/slack_alert_examples.png "Successful Login From TOR Networks.")
