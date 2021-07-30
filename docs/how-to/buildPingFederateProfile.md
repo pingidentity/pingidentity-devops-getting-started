@@ -1,55 +1,67 @@
 ---
-title: Build PingFederate Profile
+title: Building a PingFederate profile from your current deployment
 ---
-# Build Profile From Current Deployment
+# Building a PingFederate profile from your current deployment
 
 The term "profile" can vary in many instances. Here we will focus on two types of profiles for PingFederate: configuration archive, and bulk export. We will discuss the similarities and differences between two as well as how to build either from a running PingFederate environment.
 
-## Prerequisite
+## Before you begin
 
-* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+You must:
 
-* You understand our [Product Container Anatomy](containerAnatomy.md).
+* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products
+* Understand our [Product Container Anatomy](containerAnatomy.md)
 
-* Recommended: You've read through [Customizing Server Profiles](profiles.md)
+You should:
 
-## Similarities
+* Review [Customizing Server Profiles](profiles.md)
 
-The two profile methods we are covering are:
+## Overview of profile methods
 
-* **Bulk API Export** - the resulting `.json` from the admin api at /bulk/export. typically saved as `data.json`
-* **Configuration Archive** Pulled either from the admin UI - Server > Configuration Archive or from the admin API at `/configArchive`. We'll call the result of this output `data.zip` or the `/data` folder.
+There are two file-based profile methods that we cover:
+
+* Bulk API Export
+    * The resulting `.json` from the admin API at /bulk/export
+    * Typically saved as `data.json`
+* Configuration Archive
+    * Pulled either from the admin UI - Server > Configuration Archive or from the admin API at `/configArchive`
+    * We call the result of this output `data.zip` or the `/data` folder
 
 <!-- TODO INSERT LINK ON NEXT LINE FOR PF CONFIG DEPLOYMENTS -->
 <!-- Deciding which method you use should be based on how you plan to [deploy configurations updates](LINKNEEDED) -->
 
-Both of these methods are considered file-based profiles. This means a "complete profile" looks like a **subset** of files that you would typically find in a running PingFederate filesystem. Again, this is a **subset** of files. Specifically, the minimal number of files needed to achieve your PingFederate configuration. All additional files that are not specific to your configuration should be left out as they will be filled in by the PingFederate docker image. (Refer to [Container Anatomy](containerAnatomy.md) for additional details).
+A file-based profile means a "complete profile" looks like a **subset** of files that you would typically find in a running PingFederate filesystem.
 
-Considering the above, familiarity with the PingFederate filesystem will help you achieve the optimal profile. Some key information can be found in [profile structures](../reference/profileStructures.md). But, to put it simply, you want to at least save every file outside of `pingfederate/server/default/data` that you've edited
+This subset of files represents the minimal number of files needed to achieve your PingFederate configuration. All additional files that aren't specific to your configuration should be left out because the PingFederate Docker image filles them in. For more information, see [Container Anatomy](containerAnatomy.md).
+
+Familiarity with the PingFederate filesystem will help you achieve the optimal profile. For more information, see [profile structures](../reference/profileStructures.md).
+
+!!! note "Save files"
+    You should save every file outside of `pingfederate/server/default/data` that you've edited.
 
 Additionally, all files that are included in the profile should also be environment agnostic. This typically means turning hostnames and secrets into variables that can be delivered from the [Orchestration Layer](profilesSubstitution.md).
 
-## Bulk API Export Profile Method
+## The Bulk API Export Profile Method
 
-### What You'll Do
+### About this method
 
-A summary of the resulting process:
+You will:
 
 1. Export a `data.json` from /bulk/export
 1. Configure and run bulkconfig tool
 1. Export Key Pairs
 1. base64 encode exported key pairs
-1. add `data.json.subst` to your profile at `instance/bulk-config/data.json.subst`
+1. Add `data.json.subst` to your profile at `instance/bulk-config/data.json.subst`
 
-> Rather than just following the above steps, we will look at this comprehensively to understand purpose. Use the steps for reference as needed
+> Rather than just following the above steps, we will look at this comprehensively to understand purpose. Use the steps for reference as needed.
 
-A PingFederate Admin Console will import a `data.json` on startup if it finds it in `instance/bulk-config/data.json`.
+A PingFederate Admin Console imports a `data.json` on startup if it finds it in `instance/bulk-config/data.json`.
 
-The PF admin api `/bulk/export` endpoint will output a large json blob that is representative of the entire `pingfederate/server/default/data` folder, PingFederate 'core config', or a representation of anything you would configure from the PingFederate UI. You could consider it "the configuration archive in json format".
+The PF admin API `/bulk/export` endpoint outputs a large .json blob that is representative of the entire `pingfederate/server/default/data` folder, PingFederate 'core config', or a representation of anything you would configure from the PingFederate UI. You could consider it "the configuration archive in .json format".
 
-So, you could just:
+#### Steps
 
-1. Go to a running PingFederate, run:
+1. Go to a running PingFederate, and run:
 
     ```sh
     curl \
@@ -59,16 +71,23 @@ So, you could just:
       --user "administrator:${passsword}" > data.json
     ```
 
-1. Save data.json into a profile at `instance/bulk-config/data.json`
-1. Delete everything except `pf.jwk` in `instance/server/default/data`
+1. Save data.json into a profile at `instance/bulk-config/data.json`.
+1. Delete everything except `pf.jwk` in `instance/server/default/data`.
 
-And you will have a bulk api export "profile". This is handy because the entire config is on a single file and if you store it in source control you then only have to compare differences on one file. However, there's _much more_ hidden value beyond being on one file.
+#### Result
 
-### Make the Bulk API Export "Profile Worthy"
+You have a bulk API export "profile". This is handy because the entire config is in a single file and if you store it in source control, then you only have to compare differences in one file. However, there is more value than being in one file.
 
-By default, the resulting `data.json` from the export contains encrypted values, and to import this file, your PingFederate needs to have the corresponding master key (`pf.jwk`) in `pingfederate/server/default/data`. Note, in the devops world, we call this folder `instance/server/default/data`. However, each of the encrypted values also have the option to be replaced with an unencrypted form and, when required, a corresponding password.
+### Making the bulk API export "profile-worthy"
 
-For example the SSL Server Certificate from the [PingFederate Baseline Profile](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline/pingfederate) when exported to data.json looks like:
+By default, the resulting `data.json` from the export contains encrypted values, and to import this file, your PingFederate needs to have the corresponding master key (`pf.jwk`) in `pingfederate/server/default/data`.
+
+!!! Note "Encrypted values in single file"
+    In the DevOps world, we call this folder `instance/server/default/data`. However, each of the encrypted values also have the option to be replaced with an unencrypted form and, when required, a corresponding password.
+
+#### Example
+
+The SSL Server Certificate from the [PingFederate Baseline Profile](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline/pingfederate) when exported to data.json has the following syntax:
 
 ```json
 {
@@ -86,7 +105,7 @@ For example the SSL Server Certificate from the [PingFederate Baseline Profile](
 }
 ```
 
-But this master key dependent form can be converted to:
+You can convert this master key dependent form to:
 
 ```json
 {
@@ -102,10 +121,10 @@ But this master key dependent form can be converted to:
 }
 ```
 
-What happened:
+The process:
 
-1. Exported the private key+cert of the server cert with alias `sslservercert`. Upon export, a password is requested and `2FederateM0re` was used. This results in download of a password protected `.p12` file.
-1. On data.json key name `encryptedPassword` converted to just `password`
+1. You exported the private key+cert of the server cert with alias `sslservercert`. Upon export, a password is requested and `2FederateM0re` was used. This results in download of a password protected `.p12` file.
+1. The data.json key name `encryptedPassword` converted to just `password`.
 1. The value for `fileData` is replaced with a base64 encoded version of the exported `.p12` file.
 
 This is a process that can be used for all encrypted items and environment specific items:
@@ -117,12 +136,14 @@ This is a process that can be used for all encrypted items and environment speci
 * Integration Kit Properties
 * Hostnames
 
-Now, if you follow this through the entire data.json, it would take a while, and you would be left with a file that is unacceptable for source control (since it's completely unencrypted). So, the next logical step is to abstract the unencrypted values and replace with variables. Then the values can be stored in a secrets management and the variablized file can be in source control.
+If you follow this through the entire `data.json`, not only would it take a long time, but you would be left with a file that is unacceptable for source control (since it's completely unencrypted).
 
-Doing all this would manually would take a long time, fortunately, there's the [ping-bulkconfig-tool](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/99-helper-scripts/ping-bulkconfigtool).
-Detailed steps for using the tool are documented next to where it is stored. The general concept is to point the tool at the `data.json` and a config file. After running you will be left with a `data.json.subst` and a list of environment variables waiting to be filled.
+The next logical step is to abstract the unencrypted values and replace with variables. Then, the values can be stored in a secrets management and the variablized file can be in source control.
 
-The `data.json.subst` form of our example above will look like:
+Doing all this would manually would take a long time, but we have the [ping-bulkconfig-tool](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/99-helper-scripts/ping-bulkconfigtool).
+For detailed instructions on using the tool, see the documentation next to where the tool is stored. The general concept is to point the tool at the `data.json` and a config file. After running the tool, you have a `data.json.subst` and a list of environment variables waiting to be filled.
+
+The `data.json.subst` form of our previous example will look like:
 ```json
 {
     "operationType": "SAVE",
@@ -135,37 +156,37 @@ The `data.json.subst` form of our example above will look like:
 }
 ```
 
-The variablized `data.json.subst` is now a good candidate to for committing to source control. The resulting `env_vars` file can be used as a guideline for secrets that should be managed externally and only delivered to the container/image as needed for it's specific environment.
+The variablized `data.json.subst` is now a good candidate to for committing to source control. The resulting `env_vars` file can be used as a guideline for secrets that should be managed externally and only delivered to the container/image as needed for its specific environment.
 
 ### Additional Notes
 
-* The bulk api export is intended to be used as a _bulk_ import. The `/bulk/import` endpoint is destructive and overwrites the entire current admin config.
-* If you are in a clustered environment, the PingFederate image will import the `data.json` and also replicate the configuration to engines in the cluster.
+* The bulk API export is intended to be used as a _bulk_ import. The `/bulk/import` endpoint is destructive and overwrites the entire current admin config.
+* If you are in a clustered environment, the PingFederate image imports the `data.json` and replicates the configuration to engines in the cluster.
 
-## Config Archive Profiles
+## The Configuration Archive Profiles Method
 
-### Comparing Profile Methods
-Configuration Archive based profiles have some pros/cons to weigh when compared to bulk api export profiles. You will find bulk api export profiles to be more advantageous in most scenarios besides devops principle purists.
+### About configuration archive-based profiles
+You should weigh the pros and cons of configuration archive-based profiles compared to bulk API export profiles. Aside from DevOps principle purists, most people find bulk API export profiles to be more advantagous in most scenarios.
 
 Pros:
 
-* The `/data` folder, opposed to a `data.json` file, is better for [profile layering](profilesLayered.md)
-* Configuration is available on engines at startup. This:
-    * lowers dependency on the admin at initial cluster startup
+* The `/data` folder, opposed to a `data.json` file, is better for [profile layering](profilesLayered.md).
+* Configuration is available on engines at startup, which:
+    * lowers dependency on the admin at initial cluster startup.
     * enables mixed configurations in a single cluster. Canary-like "roll-out" instead of config pushed to all engines at once.
 
 Cons:
 
-* The `/data` folder contains key pairs in a `.jks` so externally managing keys is very difficult.
-* Encrypted data is scattered throughout the folder creating dependency on the master encryption key.
+* The `/data` folder contains key pairs in a `.jks`, which makes externally managing keys very difficult.
+* Encrypted data is scattered throughout the folder, creating dependency on the master encryption key.
 
-### What You'll Do
+### About this method
 
-A summary of the resulting process:
+You will:
 
-1. Export a `data.zip`
-1. Optionally, variablize
-1. Replace data folder
+1. Export a `data.zip` archive.
+1. Optionally, variablize.
+1. Replace the data folder.
 
 <!-- 1. Export a configuration archive.
 This can be done through the UI `System > Server > Configuration Archive`
