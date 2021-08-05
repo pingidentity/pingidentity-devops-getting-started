@@ -31,7 +31,7 @@ title: DevOps Docker Builds, Version 2107 (August 4 2021)
       - Baseline now works on both local and Kubernetes environments
 
 - **Helm Charts**
-      - Release 0.6.7 - Probes & Ingress
+      - Release 0.6.8 - Probes & Ingress
 
 ### Resolved Defects
 
