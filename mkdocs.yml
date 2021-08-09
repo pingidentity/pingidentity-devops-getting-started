@@ -123,7 +123,7 @@ nav:
       - Certificates: "reference/usingCertificates.md"
       - Image Info:
           - Release Tags: "reference/releaseTags.md"
-          - Using Supported Images: "reference/imageSupport.md"
+          - Docker Image Support Policy: "reference/imageSupport.md"
           - DevOps Image Security: "reference/dockerImageSecurity.md"
       - Utilities:
           #- ping-devops: "reference/pingDevopsUtil.md"

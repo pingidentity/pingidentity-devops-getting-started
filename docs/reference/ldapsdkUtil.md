@@ -5,25 +5,28 @@ title:  The ldap-sdk-tools utility
 
 The `ldap-sdk-tools` Docker image gives you easy access to our LDAP Client SDK tools for use with PingDirectory.
 
-See the [`pingidentity/ldapsdk` repository](https://github.com/pingidentity/ldapsdk) for complete documentation.
+For complete documentation, see the [`pingidentity/ldapsdk` repository](https://github.com/pingidentity/ldapsdk).
 
-## Setup
+## Setting up the utility
 
-1. The first time you run the `ldapsdk` script, you'll be prompted to configure your settings. From your local `pingidentity-devops-getting-started` directory, enter:
+1. From your local `pingidentity-devops-getting-started` directory, enter:
 
-   ```bash
-   ./ldapsdk
-   ```
-   To edit the settings in the future, enter:
+    ```sh
+    ./ldapsdk
+    ```
 
-   ```bash
-   ldapsdk configure
-   ```
+    When you run the `ldapsdk` script for the first time, you're prompted to configure your settings.
 
-2. You can then start the `ldap-sdk-tools` Docker image by entering:
+    To edit the settings in the future, enter:
 
-   ```bash
-   docker run  -it --rm  --network pingnet  pingidentity/ldap-sdk-tools:latest
+    ```sh
+     ldapsdk configure
    ```
 
-3. Enter `ls` to list the available tools.
+1. To start the `ldap-sdk-tools` Docker image, enter:
+
+    ```sh
+    docker run  -it --rm  --network pingnet  pingidentity/ldap-sdk-tools:latest
+    ```
+
+1. To list the available tools, enter `ls`

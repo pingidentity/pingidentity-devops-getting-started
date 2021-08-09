@@ -3,24 +3,26 @@ title: Using Hashicorp Vault
 ---
 # Using Hashicorp Vault
 
-This documentation provides details for using Hashicorp Vault and secrets with Ping Identity DevOps Images.
+This documentation provides details for using Hashicorp Vault and secrets with Ping Identity DevOps images.
 
-## What You'll Do
+## Before you begin
 
-The examples below will explain and show examples of:
+You must:
 
-* Using HashiCorp Vault Secrets in native PingIdentity DevOps Images
-* Using HashiCorp Vault Injector in kubernetes deployments
+* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Have a running Hashicorp Vault instance.  For imformation on deploying a vault, see [Deploy Hashicorp Vault](../deployment/deployVault.md).
 
-## Prerequisites
+## About this task
 
-* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* Have a running Hashicorp Vault instance.  Refer to [Deploy Hashicorp Vault](../deployment/deployVault.md) for information on deploying a vault if you need one.
+The following examples explain and show:
+
+* How to use HashiCorp Vault Secrets in native PingIdentity DevOps images
+* How to use HashiCorp Vault Injector in Kubernetes deployments
 
 ## Kubernetes - HashiCorp Vault Injector
 
-If you are using Kubernetes to deploy your containers, it's highly recommended to use the HashiCorp Vault Injector.  The section below provides details on
-how to use secrets in a non-kubernetes deployment (i.e. docker-compose).
+If you are using Kubernetes to deploy your containers, it's highly recommended to use the HashiCorp Vault Injector.  The following provides details on
+how to use secrets in a non-Kubernetes deployment, such as Docker-compose.
 
 If the HashiCorp Vault Injector Agent is installed, annotations can be added to the `.yaml` file of a
 Pod, Deployment, StatefulSet resource to pull in the secrets.  The snippet below provides an example set
@@ -56,9 +58,10 @@ of annotations (placed in to the metadata of the container) to pull in a `pf.jwk
 
 ### Secrets - Variables
 
-Using example above, the value for secret `secret/.../devops-secret.env` json will be pulled into the container
-as `/run/secrets/devops-secret.env.json`.  Because this secret ends in the value of `.env`, it will further be turned into a property file
-with NAME=VALUE pairs, and available to the container environment when starting up.
+Using the previous example, the value for secret `secret/.../devops-secret.env` JSON will be pulled into the container as `/run/secrets/devops-secret.env.json`.
+
+Because this secret ends in the value of `.env`, it will further be turned into a property file
+with NAME=VALUE pairs and is available to the container environment on start up.
 
 !!! example "Example of devops-secret.env transformed into files"
     ```json
@@ -76,8 +79,8 @@ with NAME=VALUE pairs, and available to the container environment when starting 
 
 ### Secret - Files
 
-Using example above, the value for secret `secret/.../passwords` json will be pulled into the container as  `/run/secrets/passwords.json` and for every key/value
-in that secret a file will be created with the name of the `key` and contents of `value`.
+Using the previous example, the value for secret `secret/.../passwords` JSON will be pulled into the container as  `/run/secrets/passwords.json` and for every key/value
+in that secret, a file will be created with the name of the `key` and contents of `value`.
 
 !!! example "Example of /run/secrets/passwords.json transformed into files"
     ```json
@@ -97,15 +100,15 @@ in that secret a file will be created with the name of the `key` and contents of
 
 ## Native DevOps HashiCorp Support
 
-Vault secrets can also be used in native PingIdentity DevOps Images regardless of the environment they are deployed in (i.e. kubernetes, docker, docker-compose).  In these cases, there is no injector agent required.
+Vault secrets can also be used in native PingIdentity DevOps images regardless of the environment they are deployed in, for example, Kubernetes, Docker, and Docker-compose.  In these cases, there is no injector agent required.
 
-!!! warning "This does require some type of AuthN to your vault (i.e. USERNAME/PASSWORD or TOKEN).  HashiCorp Injector method is recommended."
+!!! warning "This does require some type of AuthN to your vault, such as USERNAME/PASSWORD or TOKEN.  HashiCorp Injector method is recommended."
 
-The image below depicts the components and steps for pulling secrets into a container at start-up.
+The following image depicts the components and steps for pulling secrets into a container at start-up.
 
 ![Using Vault](../images/usingVault-1.png)
 
-The following variables can be used to deploy images that will pull secrets from the Vault.
+You can use the following variables to deploy images that will pull secrets from the Vault.
 
 | Variable            | Example                        | Description                                                                                                                      |
 | ------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -117,7 +120,7 @@ The following variables can be used to deploy images that will pull secrets from
 | VAULT_AUTH_PASSWORD | 2FederateM0re                  | Password of internal vault identity. Optional if VAULT_TOKEN is provided.                                                        |
 | VAULT_SECRETS       | /pingfederate/encryption-keys  | A list of secrets to pull into the container.  Must be the full secret path used in vault.                                       |
 
-Below is an example of how these would be used in an docker-compose.yaml file.  Note that this example provides 2 secrets as denoted by the VAULT_SECRETS setting.
+The following example shows how these would be used in a docker-compose.yaml file.  This example provides two secrets, as denoted by the VAULT_SECRETS setting.
 
 ``` yaml
 services:
@@ -140,7 +143,8 @@ services:
 The secret types (Variables/Files) are processed the same way as with the HashiCorp Injector Method above.
 
 ## Secrets - Base64
-Often, there are secrets that may be of a binary format (i.e. certificates).
+Often, there are secrets that might be of a binary format, such as certificates.
+
 Special key name suffixes can be used to perform certain processing on the keys when the file is created.  The following table provides examples of how keys with special suffixes.
 
 | Key Suffix      | Description                                                                                                           |
@@ -168,14 +172,15 @@ Special key name suffixes can be used to perform certain processing on the keys 
 
 ## Using tmpfs for Secrets
 
-It is best practice to place secrets in a volume that won't be persisted to storage with the possibility that it
-might be improperly accessed at any point in the future (i.e. backups, environment variables).
+It's best practice to place secrets in a volume that won't be persisted to storage with the possibility that it
+might be improperly accessed at any point in the future, such as backups and environment variables.
 
 Kubernetes automatically provides the default `SECRETS_DIR` of `/run/secrets` for this.
 
-If using docker, it's recommended to create a `tmpfs` type volume and size it to `32m` and mount it to a path of `/run/secrets`.
+If using Docker, you should create a `tmpfs` type volume and size it to `32m` and mount it to a path of `/run/secrets`.
 
-!!! note "Requires docker-compose version 2.4 or later, due to the options provided to the tmpfs volumes definition."
+!!! note "Docker-compose version > 2.4"
+    Requires Docker-compose version 2.4 or later, due to the options provided to the tmpfs volumes definition
 
 !!! example "Creates a `/run/secrets` volume under tmpfs"
     ``` yaml

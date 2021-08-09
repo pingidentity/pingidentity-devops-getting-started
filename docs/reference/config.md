@@ -1,9 +1,9 @@
 ---
 title: Image/Container Anatomy
 ---
-# Introduction
+# Introduction to Image/Container anatomy
 
-## Image/Container Anatomy
+## Container data flows and running state
 
 The diagram below shows the anatomy of a container with flows of data into the container and how it transitions to the eventual running state.
 
@@ -22,29 +22,32 @@ The diagram below shows the anatomy of a container with flows of data into the c
 | OUT               | /opt/out          | rw  | Combo of product bits/configuration resulting in running container configuration.                                 |
 | PERSISTENT VOLUME |                   | rw  | Persistent location of product bits/configuration in external storage (i.e. AWS EBS)                              |
 
-Due to many factors of how an image is deployed:
+Because of many factors of how an image is deployed, the options available and recommended for use of the elements in the previous table can vary greatly:
 
 * Deployment Environment - Kubernetes, Cloud Vendor, Local Docker
-* CI/CD Tools - Kubectl, Helm, Kustomize,  Terraform
+* CI/CD Tools - Kubectl, Helm, Kustomize, Terraform
 * Source Maintenance - Git, Cloud Vendor Volumes
 * Customer Environment - Development, Test, QA, Stage, Prod
 * Security - Test/QA/Production Data, Secrets, Certificates, Secret Management Tools
 
-the options available and recommended for use of the elements above can vary greatly.
 
 Examples might look like:
 
 ### Production Example
 
-The diagram below shows an example in a high-level production scenario in an AWS EKS environment, where HashiCorp Vault is used to provide secrets to the container, Helm used to
-create k8s resources and deploy them, and AWS EBS volumes to persist the state of the container.
+The following diagram shows an example in a high-level production scenario in an Amazon Web Services (AWS) EKS environment, where:
+* HashiCorp Vault is used to provide secrets to the container.
+* Helm is used to create k8s resources and deploy them.
+* AWS EBS volumes is used to persist the state of the container.
 
 ![Production Tools Example](../images/container-anatomy-1-prod.svg)
 
 ### Development Example
 
-The diagram below shows an example in a high-level development scenario in an Azure AKS environment, where no secrets management is used, simple kubectl is used to
-deploy k8s resources, and AWS EBS volumes persist the state of the container.
+The following diagram shows an example in a high-level development scenario in an Azure AKS environment, where:
+* No secrets management is used.
+* Simple kubectl is used to deploy k8s resources.
+* AWS EBS volumes is used to persist the state of the container.
 
 ![Delopment Tools Example](../images/container-anatomy-1-dev.svg)
 
@@ -54,24 +57,27 @@ You can customize our product containers by:
 
 * [Customizing server profiles](../how-to/profiles.md)
 
-    The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles, or use them as a baseline for creating your own. You'll find these in [Baseline server profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) in our pingidentity-server-profiles repository.
+    The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles or use them as a baseline for creating your own.
+
+    You can find these in [Baseline server profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) in our pingidentity-server-profiles repository.
 
 * [Customizing YAML files](yamlFiles.md)
 
-    In the stack-related directories for the deployment examples, you'll find the YAML files used to configure the Docker stack deployment. The YAML files can contain startup configuration settings or references to startup configuration settings (such as, environment variables) for the stack. You can try different configuration settings using these YAML files, or use them as a baseline for creating your own.
+    In the stack-related directories for the deployment examples, you can find the YAML files used to configure the Docker stack deployment. The YAML files can contain startup configuration settings or references to startup configuration settings, such as environment variables, for the stack.
+
+    You can try different configuration settings using these YAML files or use them as a baseline for creating your own.
 
 * [Using DevOps hooks](hooks.md)
 
     Hooks are DevOps shell scripts, generally specific to a product, that you can use to automate certain operations.
-    You'll find the hooks for our builds in the [Docker builds product directories](../docker-builds/README.md).
+
+    You can find the hooks for our builds in the [Docker builds product directories](../docker-builds/README.md).
 
 * [Using release tags](releaseTags.md)
 
-    We use sets of tags for each released build image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You'll find the release tag information in [Docker images](releaseTags.md). You can try different tags in either the standalone startup scripts for the deployment examples, or the YAML files for the orchestrated deployment examples.
+    We use sets of tags for each released build image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You can find the release tag information in [Docker images](releaseTags.md).
 
-* [Securing the containers](../how-to/secureContainers.md)
-
-    By default, our Docker images run as root within the container. Refer to this topic for instructions in changing this.
+    You can try different tags in either the standalone startup scripts for the deployment examples or the YAML files for the orchestrated deployment examples.
 
 * [Adding a message of the day (MOTD)](addMOTD.md)
 
