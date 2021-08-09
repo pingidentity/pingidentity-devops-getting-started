@@ -5,19 +5,26 @@ title: Adding a Message of the Day (MOTD)
 
 You can create a message of the day (MOTD) JSON file to be used to provide an MOTD file to our product containers when they start.
 
-## Prerequisites
+## Before you begin
 
-* You've already been through [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+You must:
 
-## Use a MOTD File
+* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
 
-You can employ a MOTD file in these ways by editing our existing `motd.json` file used by our example use cases, or creating a `motd.json` file in the location of your server profile:
+## Using a MOTD file
 
-1. To use the MOTD with our example uses cases, edit the
+You can employ a MOTD file in by either:
+
+* Editing our existing `motd.json` file used by our example use cases
+* Creating a `motd.json` file in the location of your server profile:
+
+    1. To use the MOTD with our example uses cases, edit the
 `motd/motd.json` file located in your local `pingidentity-devops-getting-started/motd`.
-2. To use a MOTD file for your server profile, create a `motd.json` file in the directory where the `docker-compose.yaml` file you're using for the server profile is located. This `motd.json` file will be appended to the `/etc/motd` file used by the DevOps image.
+    1. To use a MOTD file for your server profile, create a `motd.json` file in the directory where the `docker-compose.yaml` file you're using for the server profile is located.
 
-## Test the MOTD File
+        This `motd.json` file will be appended to the `/etc/motd` file used by the DevOps image.
+
+## Testing the MOTD file
 
 Test the new messages in the `motd.json` file using the `test-motd.sh` script. The script supplies the `JQ_EXPR` value used to pass the message data to the Devops image.
 
@@ -49,7 +56,9 @@ Test the new messages in the `motd.json` file using the `test-motd.sh` script. T
 
 ## Example motd.json
 
-The example below shows the messages that will be displayed for all product images. For this example, the messages will only be shown from the `validFrom` to `validTo` dates:
+The example below shows the messages that are displayed for all product images.
+
+For this example, the messages are only shown from the `validFrom` to `validTo` dates:
 
 ```json
 {

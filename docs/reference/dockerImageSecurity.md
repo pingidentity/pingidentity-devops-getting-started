@@ -3,15 +3,24 @@ title: Evaluation of Docker Base Image Security
 ---
 # Evaluation of Docker Base Image Security
 
-In CIS (Center for Internet Security) [Docker Benchmark v1.2.0](https://www.cisecurity.org/benchmark/docker/), one of the recommendations says, "4.3 Ensure that unnecessary packages are not installed in the container." It further states, "You should consider using a minimal base image rather than the standard Red Hat/CentOS/Debian images if you can. Some of the options available include BusyBox and Alpine." Is Alpine Docker image really more secure than other, more popular Linux distributions?
+In the Center for Internet Security (CIS) [Docker Benchmark v1.2.0](https://www.cisecurity.org/benchmark/docker/), one of the recommendations says, "4.3 Ensure that unnecessary packages are not installed in the container."
 
-So, let's take a look at the security aspects of different Linux distributions. This doesn't necessarily mean that one is the best for Docker base images. Other factors such as usability and compatibility should also be considered when choosing the most suitable Docker image for an organization.
+It further states, "You should consider using a minimal base image rather than the standard Red Hat/CentOS/Debian images if you can. Some of the options available include BusyBox and Alpine."
 
-## Evaluation
+The following sections present security aspects of different Linux distributions compared to Alpine Docker image. This doesn't necessarily mean that one is the best for Docker base images. Other factors, such as usability and compatibility, should also be considered when choosing the most suitable Docker image for an organization.
 
-To evaluate Alpine’s security, we'll compare it with the following popular Linux distros: Ubuntu, CentOS, and Red Hat Enterprise Linux 7. We'll use the latest version (as of March 12, 2020) of each distro’s Docker image and compare them in four different areas: image size, number of packages installed by default, number of historical vulnerabilities reported on [cvedetails.com](https://www.cvedetails.com/), and the number of vulnerabilities reported by the Clair scan.
+## Evaluation overview
 
-This table summarizes the numbers for each distribution:
+To evaluate Alpine’s security, we compared it with the following popular Linux distributions: Ubuntu, CentOS, and Red Hat Enterprise Linux 7.
+
+For this comparison, we used the latest version, as of March 12, 2020, of each distribution’s Docker image and compared them in four different categories:
+
+* Image size
+* Number of packages installed by default
+* Number of historical vulnerabilities reported on [cvedetails.com](https://www.cvedetails.com/)
+* Number of vulnerabilities reported by the Clair scan
+
+The following table summarizes the numbers for each distribution.
 
 | | Alpine | Ubuntu | CentOS | RHEL7 |
 | --- | --- | --- | --- | --- |
@@ -23,29 +32,25 @@ This table summarizes the numbers for each distribution:
 
 > *CVE - Common Vulnerabilities and Exposures
 
-## Image Size
+## Image size
 
-Alpine’s advantage in image size is obvious. Although smaller size doesn’t directly translate into better security, the smaller size does mean less code packed into the image, which means smaller attack surface.
+Alpine has an advantage in image size. Although smaller size doesn’t directly translate into better security, the smaller size does mean less code packed into the image, which means smaller attack surface.
 
-## Number of Packages Installed
+## Number of packages installed
 
-Alpine has the fewest packages out of box. This is not a surprise given its tiny size. Fewer packages means lesser chance of having vulnerabilities in the dependencies - a plus for security.
+Because of Alpine's smaller size, Alpine has the fewest packages out of box. Fewer packages means lesser chance of having vulnerabilities in the dependencies, which is a plus for security.
 
-## Number of Historical CVEs
+## Number of historical CVEs
 
-It’s interesting to see Alpine and CentOS tie for the first place in this category, even though CentOS has a close relationship with RHEL7 and RHEL7 has 600+ reported vulnerabilities.
+Alpine and CentOS both rank highest in number of historical CVEs even though CentOS has a close relationship with RHEL7, and RHEL7 has 600+ reported vulnerabilities.
 
-## Number of Vulnerabilities Reported by Clair
+## Number of vulnerabilities reported by Clair
 
-There is a good chance that some vulnerabilities reported by Clair are not real issues, but their presence is also an issue. It means extra overhead for developers or security teams to triage these findings. This overhead can be avoided if unnecessary dependencies are excluded from the image in the first place.
+Some vulnerabilities reported by Clair might not be real issues, but their presence does mean extra overhead for developers or security teams to triage these findings. This overhead can be avoided if unnecessary dependencies are excluded from the image in the first place.
 
-## Result
+## Final evaluation results
 
-Admittedly, none of the four areas is perfect for evaluating the security of a Linux distro, but in combination, they provide a clear picture that **Alpine** is the winner in this comparison.
-
-## DevOps Docker images
-
-For all of the reasons described this comparison of distro's and more, we've selected Alpine as the distro used for all of our Docker images.
+Although none of the four categories is perfect on its own for evaluating the security of a Linux distribution, in combination, **Alpine** presents greater advantages for use, which is why we selected it as the disribution for all of our Docker images.
 
 ## References
 
@@ -57,4 +62,4 @@ For all of the reasons described this comparison of distro's and more, we've sel
 
 ## Ping Identity's Docker Image Hardening Guide
 
-View Ping Identity's [Hardening Guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide) which outlines best practices for securing your product Docker Image.
+For best practices for securing your product Docker image, see Ping Identity's [Hardening Guide](https://support.pingidentity.com/s/article/Docker-Image-Hardening-Deployment-Guide).
