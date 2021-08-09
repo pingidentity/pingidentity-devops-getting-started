@@ -99,7 +99,7 @@ nav:
       - Operating Patterns:
           - Introduction: "deployment/deploymentPatterns.md"
           - PingFederate: "deployment/managePingFederate.md"
-          - PingDirectory: "deployment/managePingDirectory.md"
+          # - PingDirectory: "deployment/managePingDirectory.md"
   - How To:
       - Use Existing Licenses: "how-to/existingLicense.md"
       - Server Profile:
