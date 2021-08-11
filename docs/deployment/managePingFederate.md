@@ -3,9 +3,7 @@ title: PingFederate Configuration Management
 ---
 # PingFederate Configuration Management
 
-PingFederate has many moving parts which lead to a variety of operating patterns. 
-
-These patterns typically involve a trade-off between ease of implementation and mitigation of deployment risks
+PingFederate has a variety of operating patterns. These patterns typically involve a trade-off between ease of implementation and mitigation of deployment risks
 
 To simplify the moving parts we will categorize PingFederate Configuration into three categories:
 
