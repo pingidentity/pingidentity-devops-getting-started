@@ -76,7 +76,8 @@ nav:
           - Deploy an Elasticsearch SIEM Stack: "deployment/deploySiemStack.md"
       - Deploy with Kubernetes:
           - Introduction: "deployment/deployK8s.md"
-          - Deploy with PingIdentiy Helm Charts: "deployment/deployHelm.md"
+          - Deploy Local Kubernetes Cluster: "deployment/deployLocalK8sCluster.md"
+          - Deploy with Ping Identity Helm Charts: "deployment/deployHelm.md"
           - PingDirectory Deployments Across Kubernetes Clusters: "deployment/deployK8sPD-clusters.md"
           - Kubernetes Deployments For General Use:
               - Introduction: "deployment/deployK8sGeneral.md"
@@ -96,6 +97,10 @@ nav:
               - Deploy to Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
               - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
           - Deploy Hashicorp Vault: "deployment/deployVault.md"
+      - Operating Patterns:
+          - Introduction: "deployment/deploymentPatterns.md"
+          - PingFederate: "deployment/managePingFederate.md"
+          # - PingDirectory: "deployment/managePingDirectory.md"
   - How To:
       - Use Existing Licenses: "how-to/existingLicense.md"
       - Server Profile:
