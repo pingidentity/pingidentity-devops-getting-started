@@ -141,6 +141,7 @@ services:
       - "9022:9022"
     networks:
       - pingnet-internal
+      - pingnet-dmz
     volumes:
       - pingcentral-out:/opt/out
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingcentral:/opt/in
