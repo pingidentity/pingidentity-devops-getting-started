@@ -1,19 +1,79 @@
+[data-md-color-scheme="slate"] {
+    /* Accent color (used for permalink icons) */
+    --md-accent-fg-color: #f4f7bc;
+    /* Content background color */
+    --md-default-bg-color: #474f51;
+    /* H1 text color */
+    --md-typeset-h1-color: #d9dddd;
+    /* Default text color */
+    --md-default-fg-color: white;
+    /* Hyperlink color */
+    --md-link-highlight-color: #f4f7bc;
+    /* Hyperlink hover color */
+    --md-link-hover: #e9eda4;
+    /* Footer background color */
+    --md-footer-bg-color: #3f4447;
+    /* MkDocs footer background color */
+    --md-mkdocs-footer-bg-color: #232629;
+    /* Code block background color */
+    --md-code-bg-color: #1f2224;
+    /* Code block text color */
+    --md-code-fg-color: #eeeeee;
+    /* Icon boxes with images border color */
+    --md-icon-box-border-color: black;
+    /* Icon boxes shadow color */
+    --md-hover-box-hover-shadow-color: #616161;
+    /* Header background color */
+    --md-header-background-color: #3e4547;
+    /* Header text color */
+    --md-header-fg-color: white;
+    /* Header menubar background color */
+    --md-header-menu-background-color: #3e4547;
+}
+
+[data-md-color-scheme="default"] {
+    /* Accent color (used for permalink icons) */
+    --md-accent-fg-color: #B8232F;
+    /* Content background color */
+    --md-default-bg-color: white;
+    /* H1 text color */
+    --md-typeset-h1-color: #B8232F;
+    /* Hyperlink color */
+    --md-link-highlight-color: #B8232F;
+    /* Hyperlink hover color */
+    --md-link-hover: #d02735;
+    /* Footer background color */
+    --md-footer-bg-color: #232629;
+    /* MkDocs footer background color */
+    --md-mkdocs-footer-bg-color: #232629;
+    /* Icon boxes with images border color */
+    --md-icon-box-border-color: black;
+    /* Icon boxes shadow color */
+    --md-hover-box-hover-shadow-color: #616161;
+    /* Header background color */
+    --md-header-background-color: #3e4547;
+    /* Header text color */
+    --md-header-fg-color: white;
+    /* Header menubar background color */
+    --md-header-menu-background-color: #3e4547;
+}
+
 .md-typeset h1 {
     /* H1 header color */
-    color: #B8232F
+    color: var(--md-typeset-h1-color)
 }
 
 .md-header {
     /* Top white bar */
-    background-color: #3e4547;
+    background-color: var(--md-header-background-color);
     height: 62px;
-    color: white;
+    color: var(--md-header-fg-color);
     padding-top: 6px;
 }
 
 .md-tabs {
     /* Horizontal menu bar */
-    background-color: #3e4547;
+    background-color: var(--md-header-menu-background-color);
 }
 
 .md-header-nav__title,
@@ -60,24 +120,24 @@
 
 .md-nav__item .md-nav__link--active {
     /* Selected left side menu item */
-    color: #B8232F;
+    color: var(--md-link-highlight-color);
     font-weight: bold;
 }
 
 .md-nav__item .md-nav__link:hover {
     /* Left side menu hover link color */
-    color: #B8232F;
+    color: var(--md-link-highlight-color);
 }
 
 .md-typeset a {
     /* Hyperlink link color */
-    color: #B8232F;
+    color: var(--md-link-highlight-color);
     word-break: break-word;
 }
 
 .md-typeset a:hover {
     /* Hyperlink link color */
-    color: #d02735;
+    color: var(--md-link-hover);
 }
 
 .md-tabs__link--active {
@@ -85,19 +145,14 @@
     font-weight: bold;
 }
 
-.md-footer-nav {
-    /* Footer navigation background */
-    background-color: #616161
-}
-
 .md-footer-meta.md-typeset {
     /* MKDocs footer background color */
-    background-color: #262626;
+    background-color: var(--md-mkdocs-footer-bg-color)
 }
 
 .md-clipboard.md-icon:hover {
     /* Copy to clipboard hover color */
-    color: #d02735
+    color: var(--md-link-highlight-color)
 }
 
 .highlight .m {
@@ -113,7 +168,7 @@
 
 div.banner,
 div.iconbox {
-    border-color: black;
+    border-color: var(--md-icon-box-border-color);
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
@@ -139,8 +194,8 @@ div.iconbox {
 
 div.banner:hover,
 div.iconbox:hover {
-    border-color: #B8232F;
-    box-shadow: 0 8px 6px -6px #616161;
+    border-color: var(--md-link-hover);
+    box-shadow: 0 8px 6px -6px var(--md-icon-box-hover-shadow-color);
 }
 
 .caption {
@@ -152,13 +207,15 @@ div.iconbox:hover {
     width: 105px;
 }
 
-a.assetlinks:visited {
-    color: #B8232F;
-}
 
-[data-md-color-accent=blue] {
-    --md-accent-fg-color: hsla(354, 70%, 43%, 1)
-}
+/* a.assetlinks:visited {
+    color: var(--md-typeset-h1-color);
+} */
+
+
+/* [data-md-color-accent=blue] {
+    --md-accent-fg-color: var(--md-custom-accent-fg-color);
+} */
 
 .md-nav--primary .md-nav__title[for=__drawer] {
     --md-primary-fg-color: hsla(0, 0%, 38%, 1)
@@ -171,5 +228,13 @@ a.assetlinks:visited {
 
 .md-nav--primary .md-nav__item--active>.md-nav__link {
     /* Slider active menu */
-    --md-typeset-a-color: hsla(354, 70%, 43%, 1);
+    --md-typeset-a-color: var(--md-link-highlight-color)
+}
+
+
+/* TO BE REMOVED */
+
+.md-footer-nav {
+    /* Footer navigation background */
+    background-color: #616161
 }

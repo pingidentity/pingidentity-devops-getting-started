@@ -31,46 +31,46 @@ Variables having orchestration scope are assigned at the orchestration layer.  T
 
 * Using docker run with --env:
 
-  ```shell
-  docker run --env SCOPE=env \
-    pingidentity/pingdirectory:edge env | sort
-  ```
+     ```sh
+     docker run --env SCOPE=env \
+       pingidentity/pingdirectory:edge env | sort
+     ```
 
 * Using docker run with --env-file:
 
-  ```shell
-  echo "SCOPE=env-file"  > /tmp/scope.properties
+     ```sh
+     echo "SCOPE=env-file"  > /tmp/scope.properties
 
-  docker run --env-file /tmp/scope.properties \
-    pingidentity/pingdirectory:edge env | sort
-  ```
+     docker run --env-file /tmp/scope.properties \
+       pingidentity/pingdirectory:edge env | sort
+     ```
 
 * Using Docker Compose (docker-compose.yaml):
 
-  ```yaml
-  environment:
-    - SCOPE=compose
-      env_file:
-    - /tmp/scope.properties
-  ```
+     ```yaml
+     environment:
+       - SCOPE=compose
+         env_file:
+       - /tmp/scope.properties
+     ```
 
 * Using Kubernetes (kustomize.yaml)
 
-  ```yaml
-  env:
-    - name: SCOPE
-      value: kubernetes
-  ```
+     ```yaml
+     env:
+       - name: SCOPE
+         value: kubernetes
+     ```
 
 * Using Kubernetes configMapRef and secretRef (kustomize.yaml)
 
-  ```yaml
-  - envFrom:
-    - configMapRef:
-      name: kubernetes-variables
-    - secretRef:
-      name: kubernetes-secret
-  ```
+     ```yaml
+     - envFrom:
+       - configMapRef:
+         name: kubernetes-variables
+       - secretRef:
+         name: kubernetes-secret
+     ```
 
 ## Server Profile Scope
 

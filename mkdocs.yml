@@ -17,9 +17,18 @@ theme:
     - instant
 
   palette:
-   # scheme: preference
-    primary: indigo
-    accent: blue
+    - media: "(prefers-color-scheme: light)"
+      accent: blue
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: slate)"
+      accent: blue
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
 
 edit_uri: ""
 
