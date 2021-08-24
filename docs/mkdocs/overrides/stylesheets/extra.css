@@ -1,5 +1,5 @@
 [data-md-color-scheme="slate"] {
-    /* Accent color (used for permalink icons) */
+    /* Accent color (used for permalink icons ¶) */
     --md-accent-fg-color: #f4f7bc;
     /* Content background color */
     --md-default-bg-color: #474f51;
@@ -16,7 +16,7 @@
     /* MkDocs footer background color */
     --md-mkdocs-footer-bg-color: #232629;
     /* Code block background color */
-    --md-code-bg-color: #1f2224;
+    --md-code-bg-color: #232629;
     /* Code block text color */
     --md-code-fg-color: #eeeeee;
     /* Icon boxes with images border color */
@@ -39,10 +39,18 @@
     --search-box-background-color: #51585b;
     /* Search box background hover color */
     --search-box-background-hover-color: #5f6568;
+    /* Github repo text */
+    --github-repo-fg-color: var(--md-default-fg-color);
+    /* Github repo icon color */
+    --github-repo-icon-color: white;
+    /* slide out menu git repo background */
+    --github-slide-out-background-color: #242629;
+    /* hamburger icon color*/
+    --hamburger-icon-color: white;
 }
 
 [data-md-color-scheme="default"] {
-    /* Accent color (used for permalink icons) */
+    /* Accent color (used for permalink icons ¶) */
     --md-accent-fg-color: #B8232F;
     /* Content background color */
     --md-default-bg-color: white;
@@ -53,7 +61,7 @@
     /* Hyperlink hover color */
     --md-link-hover: #d02735;
     /* Footer background color */
-    --md-footer-bg-color: #232629;
+    --md-footer-bg-color: #3f4447;
     /* MkDocs footer background color */
     --md-mkdocs-footer-bg-color: #232629;
     /* Icon boxes with images border color */
@@ -76,6 +84,14 @@
     --search-box-background-color: #babbbb;
     /* Search box background hover color */
     --search-box-background-hover-color: #c4c8c9;
+    /* Github repo text */
+    --github-repo-fg-color: white;
+    /* Github repo icon color */
+    --github-repo-icon-color: white;
+    /* slide out menu git repo background */
+    --github-slide-out-background-color: hsla(193, 7%, 26%, 1);
+    /* hamburger icon color*/
+    --hamburger-icon-color: white;
 }
 
 .md-typeset h1 {
@@ -115,18 +131,17 @@
 .md-header-nav__ellipsis.md-ellipsis,
 .md-header-nav__topic.md-ellipsis {
     /* Site title */
-    color: #FFFFFF;
     font-size: 110%;
 }
 
 .md-source__repository {
     /* Repository text color */
-    color: #FFFFFF;
+    color: var(--github-repo-fg-color);
 }
 
 .md-source__icon {
     /* Github icon color */
-    color: #FFFFFF;
+    color: var(--github-repo-icon-color);
 }
 
 .md-search__input {
@@ -182,7 +197,7 @@
 
 .md-header-nav__button.md-icon {
     /* Menu hamburger icon */
-    color: #FFFFFF;
+    color: var(--hamburger-icon-color);
     padding-top: 10px;
 }
 
@@ -192,7 +207,7 @@ div.iconbox {
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-    box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px var(--md-icon-box-border-color);
     cursor: pointer;
     display: inline-block;
     margin-right: 20px;
@@ -233,8 +248,7 @@ div.iconbox:hover {
 }
 
 .md-nav__source {
-    /* Slider Git Repo */
-    --md-primary-fg-color--dark: hsla(193, 7%, 26%, 1)
+    --md-primary-fg-color--dark: var(--github-slide-out-background-color)
 }
 
 .md-nav--primary .md-nav__item--active>.md-nav__link {
