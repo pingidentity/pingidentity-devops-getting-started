@@ -1,4 +1,6 @@
 [data-md-color-scheme="slate"] {
+    /* Ping 'firebrick' red */
+    --ping-red: #b8232f;
     /* Accent color (used for permalink icons) */
     --md-accent-fg-color: #f4f7bc;
     /* Content background color */
@@ -42,18 +44,20 @@
 }
 
 [data-md-color-scheme="default"] {
+    /* Ping 'firebrick' red */
+    --ping-red: #b8232f;
     /* Accent color (used for permalink icons) */
-    --md-accent-fg-color: #B8232F;
+    --md-accent-fg-color: var(--ping-red);
     /* Content background color */
     --md-default-bg-color: white;
     /* H1 text color */
-    --md-typeset-h1-color: #B8232F;
+    --md-typeset-h1-color: var(--ping-red);
     /* Hyperlink color */
-    --md-link-highlight-color: #B8232F;
+    --md-link-highlight-color: var(--ping-red);
     /* Hyperlink hover color */
     --md-link-hover: #d02735;
     /* Footer background color */
-    --md-footer-bg-color: #232629;
+    --md-footer-bg-color: #3f4447;
     /* MkDocs footer background color */
     --md-mkdocs-footer-bg-color: #232629;
     /* Icon boxes with images border color */
