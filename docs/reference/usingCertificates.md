@@ -51,14 +51,14 @@ The default location for certificates and associated files are listed below (ass
 
 !!! example "Specifying your own location for a certificate"
 
-If you are relying on certificates to be mounted to a different locations than the SECRET_DIR location and/or name of the files, you can provide your own values to these variables identified above to specify those locations.  As an example:
+    If you are relying on certificates to be mounted to a different locations than the SECRET_DIR location and/or name of the files, you can provide your own values to these variables identified above to specify those locations.  As an example:
 
-```properties
-KEYSTORE_FILE=/my/path/to/certs/cert-file
-KEYSTORE_PIN_FILE=/my/path/to/certs/cert.pin
-KEYSTORE_TYPE=jks
-CERTIFICATE_NICKNAME=development-cert
-```
+    ```properties
+    KEYSTORE_FILE=/my/path/to/certs/cert-file
+    KEYSTORE_PIN_FILE=/my/path/to/certs/cert.pin
+    KEYSTORE_TYPE=jks
+    CERTIFICATE_NICKNAME=development-cert
+    ```
 
 ## Non PingData Image Cerfificates
 
