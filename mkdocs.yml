@@ -23,7 +23,7 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: slate)"
+    - media: "(prefers-color-scheme: dark)"
       accent: blue
       scheme: slate
       toggle:
