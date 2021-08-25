@@ -44,7 +44,7 @@ title: DevOps Docker Builds, Version 2106 (July 6 2021)
       - Added ability to generate the run.properties and jvm-memory.options files based on supplied environment variables
 
 - **HEAP Awareness**
-      - PingAccess, PingCentral, and JMeter images can now calculate the heap based on the memory allocated to the container
+      - All Ping Identity Docker images can now calculate the heap based on the memory allocated to the container
 
 - **Java Tools**
       - Added jcmd, jstat, jinfo, jmap, jps, jstack tools to images
