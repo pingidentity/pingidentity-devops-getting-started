@@ -56,7 +56,7 @@ To run a PingAuthorize Policy Editor container in demo mode:
   docker run \
            --name pingauthorizepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
-           --publish 8443:443 \
+           --publish 8443:1443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER \
@@ -126,7 +126,7 @@ For example:
   docker run \
            --name pingauthorizepap \
            --env PING_EXTERNAL_BASE_URL=my-pap-hostname:8443 \
-           --publish 8443:443 \
+           --publish 8443:1443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER \
