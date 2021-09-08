@@ -88,7 +88,7 @@ This can be caused by:
 1. Network connectivity to the license server is blocked. To test this, from the machine that's running the container, enter:
 
       ```shell
-      curl -k https://license.pingidentity.com/devops/v2/license
+      curl -k https://license.pingidentity.com/devops/license
       ```
 
       If the license server is accessible, you receive an error similar to this:
