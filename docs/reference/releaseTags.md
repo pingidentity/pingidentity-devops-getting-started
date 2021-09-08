@@ -5,11 +5,12 @@ title:  Using Release Tags
 
 Ping Identity uses multiple tags for each released build image. On our [Docker Hub](https://hub.docker.com/u/pingidentity) site, you can view the available tags for each image.
 
-> All product containers in a stack should use the same release tag.
+!!! info "Multi-product deployment"
+    All product containers in a deployment should use the same release tag.
 
 ## Tagging Format
 
-The format used to specify a release tag for stacks is:
+To specify a release tag for stacks, use the follow format:
 
 ```yaml
 image: pingidentity/<ping-product>:${PING_IDENTITY_DEVOPS_TAG}
@@ -23,27 +24,29 @@ image: pingidentity/<ping-product>:edge
 
 ## Which Release Tag To Use
 
-Which tag you should use depends on what you are looking to accomplish.
+Which tag you should use depends on what you want to accomplish.
 
-**Production Stability**
-For customers in production environments, stability is often the most sought after quality. For the least dependencies and thus most stability:
-  - Use the [digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests) of a _full sprint tag_ that includes the [sprint](#sprint) version and product version.
-    - For example: `pingidentity/pingfederate:2103-10.2.2`. To pull its corresponding digest:
-      ```
+### Production Stability
+
+For customers in production environments, stability is often the most sought after quality. For the least dependencies and the most stability:
+
+* Use the [digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests) of a _full sprint tag_ that includes the [sprint](#sprint) version and product version.
+    * For example: `pingidentity/pingfederate:2103-10.2.2`. To pull its corresponding digest:
+
+        ```sh
         docker pull pingidentity/pingfederate@sha256:cef3a089e941c837aa598739f385722157eae64510108e81b2064953df2e9537
-      ```
-  - Additionally, **do not** rely on ping to maintain docker images on docker hub. Instead pull the image of choice, and maintain it in your own image registry. Common providers include: JFrog, AWS ECR, Google GCR, Azure ACR.
+        ```
 
-**Latest Image Features**
+    * Additionally, **do not** rely on Ping to maintain Docker images on Docker Hub. Instead pull the image of choice and maintain it in your own image registry. Common providers include: JFrog, AWS ECR, Google GCR, Azure ACR.
 
-For demonstrations and testing latest features use an `edge` based image. Even for demos and testing it's a good practice to use a _full tag_ variation like `pingfederate:10.2.2-edge`, rather than `pingfederate:edge` to avoid dependency conflicts in server profiles.
+### Latest Image Features
 
-**Evergreen Bleeding Edge**
+For demonstrations and testing latest features, use an `edge` based image. Even for demos and testing, it's a good practice to use a _full tag_ variation like `pingfederate:10.2.2-edge`, rather than `pingfederate:edge`, to avoid dependency conflicts in server profiles.
+
+### Evergreen Bleeding Edge
 
 `edge` is the absolute latest product version and image features, with zero guarantees for stability.
-Typically this is only attractive to Ping employees or partners.
-
-> Docker images produced before September 1, 2019 having a tag format of `:product-edge` or `:productVersion:edge` will not receive further updates.
+Typically, this is only attractive to Ping employees or partners.
 
 ## Base Release Tags
 
@@ -57,9 +60,9 @@ The base release tags for a build are:
 
 The `edge` release tag refers to "bleeding edge", indicating a build similar to an alpha release. This _sliding_ tag includes the absolute latest hooks and scripts, but is considered highly unstable. The `edge` release is characterized by:
 
-* Latest product version.
-* Latest build image enhancements and fixes from our current sprint.
-* Runs on the Linux Alpine OS.
+* Latest product version
+* Latest build image enhancements and fixes from our current sprint
+* Runs on the Linux Alpine OS
 
 Example: `pingidentity/pingfederate:edge`, `pingidentity/pingfederate:10.2.2-edge`.
 
@@ -68,8 +71,8 @@ Example: `pingidentity/pingfederate:edge`, `pingidentity/pingfederate:10.2.2-edg
 `edge `is tagged as `latest` at the beginning of each month. The release tag indicates the latest stable release. This is a _sliding_ tag that marks the stable release for the latest sprint. The `latest` release is characterized by:
 
 * Latest product version
-* All completed and qualified enhacements and fixes from the prior monthly sprint.
-* Runs on the Linux Alpine OS.
+* All completed and qualified enhacements and fixes from the prior monthly sprint
+* Runs on the Linux Alpine OS
 
 Example: `pingfederate:latest`, `pingfederate:10.2.2-latest`
 
@@ -83,11 +86,9 @@ In addition to becoming `latest`, `edge` also is tagged as a stable `sprint` eac
 
 Example: `pingfederate:2103`, `pingidentity/pingfederate:2103-10.2.2`
 
-> At the beginning of the month, all the stars align. On April 1, 2021 `edge`, `latest`, and `2103` for any product were all the same image and had the same sha:digest. On April 2nd, `edge` left `latest` and `2103` behind.
+### sprint (point release)
 
-### sprint Point Release
-
-Occasionally a bug may be found on a stable release, to avoid changing a `sprint` tag, a point release would be pushed to move `latest` forward.
+Occasionally, a bug might be found on a stable release. To avoid changing a `sprint` tag, a point release would be pushed to move `latest` forward.
 
 Example: `pingfederate:2103.1`, `pingidentity/pingfederate:2103.1-10.2.2`
 
@@ -100,9 +101,15 @@ docker container exec -it <container id> sh
 echo $IMAGE_VERSION
 ```
 
-The IMAGE_VERSION variable will return the version in this format: `[product]-[container OS]-[jdk]-[product version]-[build date]-[git revision]`. For example:
+The IMAGE_VERSION variable returns the version in this format:
 
-```shell
+```sh
+[product]-[container OS]-[jdk]-[product version]-[build date]-[git revision]
+```
+
+For example:
+
+```sh
 IMAGE_VERSION=pingcentral-alpine-az11-1.3.0-200629-bc33
 ```
 
@@ -114,7 +121,8 @@ Where:
 | Container OS | alpine |
 | JDK | az11 |
 | Product Version | 1.3.0 |
-| Build Date | 200629* |
+| Build Date | 200629 |
 | Git Revision | bc33 |
 
-> \* Date is in YYMMDD format
+!!! note "Date Format"
+    Date is in YYMMDD format
