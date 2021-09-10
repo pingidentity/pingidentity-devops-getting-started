@@ -137,6 +137,7 @@ nav:
       - Certificates: "reference/usingCertificates.md"
       - Image Info:
           - Release Tags: "reference/releaseTags.md"
+          - Product & Image Release Matrix: "reference/productVersionMatrix.md"
           - Docker Image Support Policy: "reference/imageSupport.md"
           - DevOps Image Security: "reference/dockerImageSecurity.md"
       - Utilities:
