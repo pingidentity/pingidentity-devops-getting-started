@@ -16,8 +16,6 @@ Examples:
 * PingDirectory 8.2.0.1
     * pingidentity/pingdirectory:`2101-8.2.0.1`
 
-## PingFederate
-
 <object data="../../images/productVersionsAndImageTags.pdf" type="application/pdf" width="100%" height="1000px">
     <embed src="../../images/productVersionsAndImageTags.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../../images/productVersionsAndImageTags.pdf">Download PDF</a>.</p>
