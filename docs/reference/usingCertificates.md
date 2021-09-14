@@ -62,7 +62,7 @@ The default location for certificates and associated files are listed below, ass
     ```
 ## PingData image certificate rotation
 
-As mentioned above, for PingData products, there are variables for Truststore and Keystore. To change certificates, you'll need to update the contents in the server profile or secret store. Once you update the contents, restart the server. The changes will be picked up automatically after the server restarts. If you have multiple certificates on the Keystore, you can use the above-mentioned "CERTIFICATE_NICKNAME" variable to specify the certificate. The container will pick up that certificate from the list in the KEYSTORE_FILE.  Perform a rolling update to prevent downtime. This ensures that other servers will be available when one goes down. Verify that other servers in the cluster have enough capacity to handle the increased load.
+As mentioned above, for the PingData products, there are variables for truststore and keystore. To change certificates, you'll need to update the contents of the truststore or keystore in your server profile or secret store. Once you update the contents, restart the container. The changes will be picked up automatically when the server restarts. If you have multiple certificates in the keystore, you can use the above-mentioned CERTIFICATE_NICKNAME variable to specify the certificate. The container will pick up that certificate from those stored in the keystore. Perform a rolling update to prevent downtime. This ensures that other servers will be available when one goes down. Verify that other servers in the cluster have enough capacity to handle the increased load during the rolling update.
 
 ## Non-PingData image certificates
 
