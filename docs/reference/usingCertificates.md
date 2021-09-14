@@ -47,7 +47,7 @@ The default location for certificates and associated files are listed below, ass
 
 !!! note "CERTIFICATE_NICKNAME Setting"
     There is an additional certificate-based variable used to identity the certificate alias used within the `KEYSTORE_FILE`.
-    That variable is called `CERTFICATE_NICKNAME`, which identifies the certificate to use by the server in the `KEYSTORE_FILE`.
+    That variable is called `CERTIFICATE_NICKNAME`, which identifies the certificate to use by the server in the `KEYSTORE_FILE`.
     If a value isn't provided, the container will look at the list certs found in the `KEYSTORE_FILE`
     and if one and only one certificate is found of type `PrivateKeyEntry`, then that alias will be used.
 
@@ -60,8 +60,10 @@ The default location for certificates and associated files are listed below, ass
     KEYSTORE_TYPE=jks
     CERTIFICATE_NICKNAME=development-cert
     ```
+## PingData image certificate rotation
 
-## Non-PingData image cerfificates
+As mentioned above, for the PingData products, there are variables for truststore and keystore. To change certificates, you'll need to update the contents of the truststore or keystore in your server profile or secret store. Once you update the contents, restart the container. The changes will be picked up automatically when the server restarts. If you have multiple certificates in the keystore, you can use the above-mentioned CERTIFICATE_NICKNAME variable to specify the certificate. The container will pick up that certificate from those stored in the keystore. Perform a rolling update to prevent downtime. This ensures that other servers will be available when one goes down. Verify that other servers in the cluster have enough capacity to handle the increased load during the rolling update.
 
-For non-PingData images, such as PingAccess and PingFederate, the certificates are managed withing the product configs.
+## Non-PingData image certificates
 
+For non-PingData images, such as PingAccess and PingFederate, the certificates are managed within the product configurations.
