@@ -47,7 +47,7 @@ The default location for certificates and associated files are listed below, ass
 
 !!! note "CERTIFICATE_NICKNAME Setting"
     There is an additional certificate-based variable used to identity the certificate alias used within the `KEYSTORE_FILE`.
-    That variable is called `CERTFICATE_NICKNAME`, which identifies the certificate to use by the server in the `KEYSTORE_FILE`.
+    That variable is called `CERTIFICATE_NICKNAME`, which identifies the certificate to use by the server in the `KEYSTORE_FILE`.
     If a value isn't provided, the container will look at the list certs found in the `KEYSTORE_FILE`
     and if one and only one certificate is found of type `PrivateKeyEntry`, then that alias will be used.
 
@@ -62,11 +62,8 @@ The default location for certificates and associated files are listed below, ass
     ```
 ## PingData image certificate rotation
 
-As mentioned above, for PingData products there are variables for truststore and keystore. Inorder to change the certs, you would need to change/update the contents in the profile or secret store. Once you updated the contents, restart the server and the changes will be picked up automatically after the server restarts.
-If you are having multiple certs on the keystore, you can make use of the above mentioned "CERTFICATE_NICKNAME" variable to specify the certificate and the container will pick up that cert from the list of certs in the KEYSTORE_FILE.
-It's best recommended to do a rolling update to prevent any downtime so that other servers will be up when one goes down. Make sure that other server in the cluster have enough capacity to handle the load.
+As mentioned above, for PingData products, there are variables for Truststore and Keystore. To change certificates, you'll need to update the contents in the server profile or secret store. Once you update the contents, restart the server. The changes will be picked up automatically after the server restarts. If you have multiple certificates on the Keystore, you can use the above-mentioned "CERTIFICATE_NICKNAME" variable to specify the certificate. The container will pick up that certificate from the list in the KEYSTORE_FILE.  Perform a rolling update to prevent downtime. This ensures that other servers will be available when one goes down. Verify that other servers in the cluster have enough capacity to handle the increased load.
 
-## Non-PingData image cerfificates
+## Non-PingData image certificates
 
-For non-PingData images, such as PingAccess and PingFederate, the certificates are managed withing the product configs.
-
+For non-PingData images, such as PingAccess and PingFederate, the certificates are managed within the product configurations.
