@@ -60,6 +60,11 @@ The default location for certificates and associated files are listed below, ass
     KEYSTORE_TYPE=jks
     CERTIFICATE_NICKNAME=development-cert
     ```
+## PingData image certificate rotation
+
+As mentioned above, for PingData products there are variables for truststore and keystore. Inorder to change the certs, you would need to change/update the contents in the profile or secret store. Once you updated the contents, restart the server and the changes will be picked up automatically after the server restarts.
+If you are having multiple certs on the keystore, you can make use of the above mentioned "CERTFICATE_NICKNAME" variable to specify the certificate and the container will pick up that cert from the list of certs in the KEYSTORE_FILE.
+It's best recommended to do a rolling update to prevent any downtime so that other servers will be up when one goes down. Make sure that other server in the cluster have enough capacity to handle the load.
 
 ## Non-PingData image cerfificates
 
