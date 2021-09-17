@@ -60,6 +60,7 @@ nav:
       - License: license.md
       - Disclaimer: disclaimer.md
       - Third-Party Software: 3rdPartySoftware.md
+      - Support Policy: supportPolicy.md
       - Contributing: contributing.md
   - Get Started:
       - Introduction: "get-started/getStarted.md"
