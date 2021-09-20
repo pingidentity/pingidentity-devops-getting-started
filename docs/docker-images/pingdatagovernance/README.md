@@ -34,6 +34,7 @@ this image.
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingDataGovernance  | Ping product name  |
+| LICENSE_DIR  | ${STAGING_DIR}/pd.profile/server-root/pre-setup  | License directory  |
 | LICENSE_FILE_NAME  | PingDataGovernance.lic  | Name of license file  |
 | LICENSE_SHORT_NAME  | PG  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
