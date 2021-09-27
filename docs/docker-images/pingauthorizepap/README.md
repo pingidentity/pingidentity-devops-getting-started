@@ -25,6 +25,7 @@ this image.
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingAuthorize-PAP  | Ping product name  |
+| LICENSE_DIR  | ${PD_LICENSE_DIR}  | PD License directory. This value is set from the pingbase dockerfile  |
 | LICENSE_FILE_NAME  | PingAuthorize.lic  | Name of license File  |
 | LICENSE_SHORT_NAME  | PingAuthorize  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
