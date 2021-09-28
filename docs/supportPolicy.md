@@ -53,4 +53,4 @@ Ping Identity does not support the following:
 *Ping Identity reserves the right to deviate from the non-supported list on a case-by-case basis.*
 
 ## Resources
-See the [Ping Identity DevOps Git repository](https://github.com/pingidentity)..
+See the [Ping Identity DevOps Git repository](https://github.com/pingidentity).
