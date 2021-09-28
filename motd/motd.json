@@ -90,5 +90,15 @@
     }],
     "pingdirectory": [],
     "pingdirectoryproxy": [],
-    "pingfederate": []
+    "pingfederate": [{
+        "validFrom": 20210928,
+        "validTo": 20211031,
+        "subject": "*** PingFederate Security Vulnerability ***",
+        "message": [
+            "PingFederate deployments prior to sprint release 2108 (Aug 27th, 2021) may be at risk.",
+            "Please visit: https://support.pingidentity.com/s/article/SECADV028-PingFederate-XML-Processing-Bypass",
+            "for details on impacted and patched versions."
+
+        ]
+    }]
 }
