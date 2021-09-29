@@ -33,9 +33,16 @@ Because of many factors of how an image is deployed, the options available and r
 
 Examples might look like:
 
+### File flowchart example
+
+The following diagram shows how files can enter and flow through the container:
+
+![File Flowchart Example](../images/container-anatomy-flow.svg)
+
 ### Production Example
 
 The following diagram shows an example in a high-level production scenario in an Amazon Web Services (AWS) EKS environment, where:
+
 * HashiCorp Vault is used to provide secrets to the container.
 * Helm is used to create k8s resources and deploy them.
 * AWS EBS volumes is used to persist the state of the container.
@@ -45,11 +52,12 @@ The following diagram shows an example in a high-level production scenario in an
 ### Development Example
 
 The following diagram shows an example in a high-level development scenario in an Azure AKS environment, where:
+
 * No secrets management is used.
 * Simple kubectl is used to deploy k8s resources.
 * AWS EBS volumes is used to persist the state of the container.
 
-![Delopment Tools Example](../images/container-anatomy-1-dev.svg)
+![Development Tools Example](../images/container-anatomy-1-dev.svg)
 
 ## Customizing the Containers
 
@@ -60,6 +68,10 @@ You can customize our product containers by:
     The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles or use them as a baseline for creating your own.
 
     You can find these in [Baseline server profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) in our pingidentity-server-profiles repository.
+
+* [Environment substitution](../how-to/profilesSubstitution.md)
+  
+    You can deploy configurations in multiple environments with minimal changes by removing literal values and replacing them with environment variables.
 
 * [Customizing YAML files](yamlFiles.md)
 
