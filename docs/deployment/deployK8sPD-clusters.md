@@ -82,6 +82,7 @@ To provide flexibility on how PingDirectory finds other instances, a full DNS ho
 |---|---|
 | `K8S_POD_HOSTNAME_PREFIX` | The string used as the prefix for all host names.  Defaults to name of `StatefulSet`. |
 | `K8S_POD_HOSTNAME_SUFFIX` | The string used as the suffix for all pod host names.  Defaults to `K8S_CLUSTER`. |
+| `K8S_SEED_HOSTNAME_PREFIX` | The string used as the prefix for all seed host names.  Defaults to `K8S_POD_HOSTNAME_PREFIX`. |
 | `K8S_SEED_HOSTNAME_SUFFIX` | The string used as the suffix for all seed host names.  Defaults to `K8S_SEED_CLUSTER` (discussed later). |
 
 A full hostname is created using the following command:
@@ -92,10 +93,10 @@ ${K8S_POD_HOSTNAME_PREFIX}<instance-ordinal>${K8S_SEED_HOSTNAME_SUFFIX}
 
 ### Using Previous Hostname Examples
 
-| hostname | K8S_POD_HOSTNAME_PREFIX | K8S_POD_HOSTNAME_SUFFIX | K8S_SEED_HOSTNAME_SUFFIX |
+| hostname | K8S_POD_HOSTNAME_PREFIX | K8S_SEED_HOSTNAME_PREFIX | K8S_POD_HOSTNAME_SUFFIX | K8S_SEED_HOSTNAME_SUFFIX |
 |---|:---:|---|---|
-| pingdirectory-0.primary|`pingdirectory-`| `.primary`|`.primary`|
-| pingdirectory-2-us-west.ping-devops.com| `pingdirectory-`|`-us-west.ping-devops.com`|`-us-west.ping-devops.com`|
+| pingdirectory-0.primary|`pingdirectory-`| `pingdirectory-`| `.primary`|`.primary`|
+| pingdirectory-2-us-west.ping-devops.com| `pingdirectory-`| `pingdirectory-`| `-us-west.ping-devops.com`|`-us-west.ping-devops.com`|
 
 
 ## Environment Variables
@@ -108,6 +109,7 @@ ${K8S_POD_HOSTNAME_PREFIX}<instance-ordinal>${K8S_SEED_HOSTNAME_SUFFIX}
 | `K8S_NUM_REPLICAS` |     | The number of replicas that make up the `StatefulSet`. |
 | `K8S_POD_HOSTNAME_PREFIX` |     | The string used as the prefix for all host names.  Defaults to `StatefulSet`. |
 | `K8S_POD_HOSTNAME_SUFFIX` |     | The string used as the suffix for all pod host names.  Defaults to `K8S_CLUSTER`. |
+| `K8S_SEED_HOSTNAME_PREFIX` |     | The string used as the prefix for all seed host names.  Defaults to `K8S_POD_HOSTNAME_PREFIX`. |
 | `K8S_SEED_HOSTNAME_SUFFIX` |     | The string used as the suffix for all seed host names.  Defaults to `K8S_SEED_CLUSTER`. |
 | `K8S_INCREMENT_PORTS` |     | `true` or `false`.  If `true`, each pod's port will be incremented by 1. |
 
@@ -124,6 +126,7 @@ K8S_NUM_REPLICAS=3
 
 K8S_POD_HOSTNAME_PREFIX=pd-
 K8S_POD_HOSTNAME_SUFFIX=.us-cluster.ping-devops.com
+K8S_SEED_HOSTNAME_PREFIX=pd-
 K8S_SEED_HOSTNAME_SUFFIX=.us-cluster.ping-devops.com
 
 K8S_INCREMENT_PORTS=true
