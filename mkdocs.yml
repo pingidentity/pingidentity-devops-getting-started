@@ -58,6 +58,7 @@ nav:
       - Home: "README.md"
       - Overview: "overview.md"
       - License: license.md
+      - Support Policy: supportPolicy.md
       - Disclaimer: disclaimer.md
       - Third-Party Software: 3rdPartySoftware.md
       - Contributing: contributing.md
