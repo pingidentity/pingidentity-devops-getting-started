@@ -40,8 +40,8 @@ this image.
 | PING_INTELLIGENCE_ASE_HTTP_PORT  | 8000  | The ASE HTTP listener port  |
 | PING_INTELLIGENCE_ASE_HTTPS_PORT  | 8443  | The ASE HTTPS listener port  |
 | PING_INTELLIGENCE_ASE_MGMT_PORT  | 8010  | the ASE management port  |
-| PING_INTELLIGENCE_ASE_TIMEZONE  | local  | The timezone the ASE container is operating in  |
-| PING_INTELLIGENCE_ASE_MODE  | inline  | Defines running mode for API Security Enforcer (Allowed values are inline or sideband).  |
+| PING_INTELLIGENCE_ASE_TIMEZONE  | utc  | The timezone the ASE container is operating in  |
+| PING_INTELLIGENCE_ASE_MODE  | sideband  | Defines running mode for API Security Enforcer (Allowed values are inline or sideband).  |
 | PING_INTELLIGENCE_ASE_ENABLE_SIDEBAND_AUTHENTICATION  | false  | Enable client-side authentication with tokens in sideband mode  |
 | PING_INTELLIGENCE_ASE_HOSTNAME_REWRITE  | false  |  |
 | PING_INTELLIGENCE_ASE_KEYSTORE_PASSWORD  | OBF:AES:sRNp0W7sSi1zrReXeHodKQ:lXcvbBhKZgDTrjQOfOkzR2mpca4bTUcwPAuerMPwvM4  |  |
@@ -50,8 +50,8 @@ this image.
 | PING_INTELLIGENCE_ASE_SYSLOG_SERVER  |   | Syslog server  |
 | PING_INTELLIGENCE_ASE_CA_CERT_PATH  |   | Path the to CA certificate  |
 | PING_INTELLIGENCE_ASE_ENABLE_HEALTH  | false  | enable the ASE health check service  |
-| PING_INTELLIGENCE_ASE_ENABLE_ABS  | false  | Set this value to true, to allow API Security Enforcer to send logs to ABS.  |
-| PING_INTELLIGENCE_ASE_ENABLE_ABS_ATTACK_LIST_RETRIEVAL  | false  | Toggle ABS attack list retrieval  |
+| PING_INTELLIGENCE_ASE_ENABLE_ABS  | true  | Set this value to true, to allow API Security Enforcer to send logs to ABS.  |
+| PING_INTELLIGENCE_ASE_ENABLE_ABS_ATTACK_LIST_RETRIEVAL  | true  | Toggle ABS attack list retrieval  |
 | PING_INTELLIGENCE_ASE_BLOCK_AUTODETECTED_ATTACKS  | false  | Toggle whether ASE blocks auto-detected attacks  |
 | PING_INTELLIGENCE_ASE_ATTACK_LIST_REFRESH_MINUTES  | 10  | ABS attack list retieval frequency in minutes  |
 | PING_INTELLIGENCE_ASE_HOSTNAME_REFRESH_SECONDS  | 60  | Hostname refresh interval in seconds  |
@@ -66,12 +66,6 @@ this image.
 | PING_INTELLIGENCE_ASE_HTTP_PROCESS  | 1  | The number of processes for HTTP requests  |
 | PING_INTELLIGENCE_ASE_HTTPS_PROCESS  | 1  | The number of processes for HTTPS requests  |
 | PING_INTELLIGENCE_ASE_ENABLE_SSL_V3  | false  | Toggle SSLv3 -- this should absolutely stay disabled  |
-| PING_INTELLIGENCE_ASE_GOOGLE_PUBSUB_TOPIC  | /topic/apimetrics  | Google Pub/Sub topic  |
-| PING_INTELLIGENCE_ASE_GOOGLE_PUBSUB_CONCURRENCY  | 1000  | Number of concurrent connections to Google Pub/Sub (Min:1, Max:1024, default: 1000)  |
-| PING_INTELLIGENCE_ASE_GOOGLE_PUBSUB_QPS  | 1000  | Throttle the number of messages published per second. (Min: 1, Max:10000, default:1000)  |
-| PING_INTELLIGENCE_ASE_GOOGLE_PUBSUB_APIKEY  |   | The API key to use to authenticate with Google  |
-| PING_INTELLIGENCE_ASE_CACHE_QUEUE_SIZE  | 300  | Maximum number of messages buffered in memory (Min: 1, Max: 10000, Default: 300)  |
-| PING_INTELLIGENCE_ASE_GOOGLE_PUBSUB_TIMEOUT_SECONDS  | 30  | Timeout in seconds to publish a message to Google Pub/Sub. (Min: 10, Max: 300, Default: 30)  |
 | PING_INTELLIGENCE_TCP_SEND_BUFFER_BYTES  | 212992  | Kernel TCP send buffer size in bytes  |
 | PING_INTELLIGENCE_TCP_RECEIVE_BUFFER_BYTES  | 212992  | enrel TCP receive buffer size in bytes  |
 | PING_INTELLIGENCE_ASE_ATTACK_LIST_MEMORY  | 128MB  |   |
@@ -84,7 +78,37 @@ this image.
 | PING_INTELLIGENCE_ABS_SECRET_KEY  |   | secret key for ase to authenticate with abs node  |
 | PING_INTELLIGENCE_ABS_ENABLE_SSL  | true  | Setting this value to true will enable encrypted communication with ABS.  |
 | PING_INTELLIGENCE_ABS_CA_CERT_PATH  |   | Configure the location of ABS's trusted CA certificates.  |
-| TAIL_LOG_FILES  |   | Files tailed once container has started  |
+| PING_INTELLIGENCE_ABS_DEPLOYMENT_TYPE  | cloud  | Default deployment type -- Supported values (onprem/cloud)  |
+| PING_INTELLIGENCE_ABS_DEPLOYMENT_TYPE_VALIDATION  | true|Must be either cloud or onprem|Use cloud if connecting to PingOne, onprem otherwise  |  |
+| PING_INTELLIGENCE_GATEWAY_CREDENTIALS  |   | Obtain the appropriate JWT token in PinOne under Connections->PingIntelligence  |
+| PING_INTELLIGENCE_GATEWAY_CREDENTIALS_REDACT  | true  |  |
+| PING_STARTUP_TIMEOUT  | 8  | The amount of time to wait for ASE to start before exiting  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/*__access__*.log  | Files tailed once container has started Other potentially useful log file to tail for debug purposes are logs/controller.log and logs/balancer.log  |
+
+## Running a PingIntelligence container
+To run a PingIntelligence container:
+
+```shell
+  docker run \
+           --name pingintellgence \
+           --publish 8443:8443 \
+           --detach \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER=user@pingone.com \
+           --env PING_IDENTITY_DEVOPS_KEY=<edvops key here> \
+           --env PING_INTELLIGENCE_GATEWAY_CREDENTIALS=<PingIntelligence App JWT here> \
+           --ulimit nofile=65536:65536 \
+           pingidentity/pingintelligence:edge
+```
+
+Follow Docker logs with:
+
+```
+docker logs -f pingintelligence
+```
+
+If using the command above, use cli.sh with:
+  * Username: admin
 
 ## Docker Container Hook Scripts
 
