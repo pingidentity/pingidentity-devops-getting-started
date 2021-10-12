@@ -1,6 +1,8 @@
 
 # Ping Identity DevOps `pingintelligence` Hooks
 List of available hooks:
+* [01-start-server.sh.pre](01-start-server.sh.pre.md)
+* [04-check-variables.sh.post](04-check-variables.sh.post.md)
 * [50-before-post-start.sh](50-before-post-start.sh.md)
 * [80-post-start.sh](80-post-start.sh.md)
 * [pingintelligence.lib.sh](pingintelligence.lib.sh.md)

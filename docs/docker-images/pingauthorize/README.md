@@ -2,7 +2,6 @@
 title: Ping Identity DevOps Docker Image - `pingauthorize`
 ---
 
-
 # Ping Identity DevOps Docker Image - `pingauthorize`
 
 This docker image includes the Ping Identity PingAuthorize product binaries
@@ -23,7 +22,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |  |
+| SHIM  | ${SHIM}  |           --shm-size 256m \  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT  | PingAuthorize  | Ping product name  |
