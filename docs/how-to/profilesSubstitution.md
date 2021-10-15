@@ -7,6 +7,8 @@ In a typical environment, a product configuration is moved from server to server
 
 By removing literal values and replacing them with environment variables, configurations can be deployed in multiple environments with minimal change.
 
+> When templating profiles with variables that reference other products, use the conventions defined in [PingBase Image Directory](../docker-images/pingbase/README.md).
+
 All of our configuration files can be parameterized by adding variables using the syntax:
 `${filename.ext}.subst`.
 
