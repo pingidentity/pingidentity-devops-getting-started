@@ -90,12 +90,12 @@ To run a PingIntelligence container:
 
 ```shell
   docker run \
-           --name pingintellgence \
+           --name pingintelligence \
            --publish 8443:8443 \
            --detach \
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER=user@pingone.com \
-           --env PING_IDENTITY_DEVOPS_KEY=<edvops key here> \
+           --env PING_IDENTITY_DEVOPS_KEY=<devops key here> \
            --env PING_INTELLIGENCE_GATEWAY_CREDENTIALS=<PingIntelligence App JWT here> \
            --ulimit nofile=65536:65536 \
            pingidentity/pingintelligence:edge
