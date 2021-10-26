@@ -66,7 +66,7 @@ The YAML configuration files for this use case are in your cloned local copy of 
 
 1. To use the `1-initial.yaml` file in your local `pingidentity-devops-getting-started/20-kubernetes/12-pingdirectory-upgrade` directory to start with a PingDirectory StatefulSet using persistent volumes, enter:
 
-      ```
+      ```sh
       kubectl apply -f 1-initial.yaml
       ```
 
@@ -86,7 +86,7 @@ The YAML configuration files for this use case are in your cloned local copy of 
 
 To use the `2-partition.yaml` file in your local `pingidentity-devops-getting-started/20-kubernetes/12-pingdirectory-upgrade` directory to add a partition to `StatefulSet` for `updateStrategy`, enter:
 
-```
+```sh
 kubectl apply -f 2-partition.yaml
 ```
 
@@ -96,7 +96,7 @@ This partition configuration signifies that any changes to `spec.template` will 
 
 To use the `3-staging.yaml` file in your local `pingidentity-devops-getting-started/20-kubernetes/12-pingdirectory-upgrade` directory to stage the change, enter:
 
-```
+```sh
 kubectl apply -f 3-staging.yaml
 ```
 
@@ -134,7 +134,7 @@ When you're confident your upgrade will occur smoothly:
 
 To use the `4-rollout.yaml` file in your local `pingidentity-devops-getting-started/20-kubernetes/12-pingdirectory-upgrade` directory to deploy the rollout to the remaining nodes, enter:
 
-```
+```sh
 kubectl apply -f 4-rollout.yaml
 ```
 
