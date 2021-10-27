@@ -69,6 +69,7 @@ nav:
       - Using Your DevOps User and Key: "get-started/devopsUserKey.md"
       - DevOps Product Licenses: "get-started/prodLicense.md"
       - Deploy Example Stack: "get-started/getStartedWithGitRepo.md"
+      - Kubernetes and Helm Basics: "get-started/k8sHelmBasics.md"
   - Deployment:
       - Introduction: "deployment/deploy.md"
       - Deploy with Docker-Compose:
