@@ -18,7 +18,7 @@ To perform all of its operations, `ping-devops` has a dependency on the followin
 
 ## Installation and Upgrades
 
-Use Homebrew to install `ping-devops` on Apple or Linux.
+Use Homebrew to install `ping-devops` on MacOS or Linux.
 
 1. To install, enter:
 
