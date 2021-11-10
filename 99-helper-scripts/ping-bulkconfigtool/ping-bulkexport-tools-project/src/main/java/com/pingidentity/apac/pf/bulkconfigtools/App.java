@@ -70,15 +70,15 @@ public class App {
 				: null;
 
 		this.inConfigSortArrays = new ArrayList<String>();
-		
+
 		if(this.inConfigJSON.has("sort-arrays"))
 		{
 			JSONArray sortArrays = (JSONArray) this.inConfigJSON.get("sort-arrays");
-			
+
 			for(Object currentArray : sortArrays)
 				this.inConfigSortArrays.add(String.valueOf(currentArray));
 		}
-				
+
 		this.inBulkJSON = getReplacedJSONObject(inBulkFile, this.inConfigJSON);
 		this.envFileName = inEnvPropertiesFile;
 		this.outJSON = outJSON;
@@ -106,15 +106,15 @@ public class App {
 				: null;
 
 				this.inConfigSortArrays = new ArrayList<String>();
-				
+
 		if(this.inConfigJSON.has("sort-arrays"))
 		{
 			JSONArray sortArrays = (JSONArray) this.inConfigJSON.get("sort-arrays");
-			
+
 			for(Object currentArray : sortArrays)
 				this.inConfigSortArrays.add(String.valueOf(currentArray));
 		}
-		
+
 		this.inBulkJSON = getReplacedJSONObject(DEFAULT_IN_BULKCONFIG, this.inConfigJSON);
 		this.envFileName = DEFAULT_IN_ENVPROPERTIES;
 		this.outJSON = DEFAULT_IN_OUTCONFIG;
@@ -160,9 +160,9 @@ public class App {
 				}
 			} else if (jsonObject.get(key) instanceof JSONArray) {
 				String newPath = path + "_" + key;
-				
+
 				JSONArray newJSONArray = new JSONArray();
-				
+
 				JSONArray jsonArray = (JSONArray) jsonObject.get(key);
 
 				List<SortableList> arrayList = new ArrayList<SortableList>();
@@ -184,7 +184,7 @@ public class App {
 
 				if(this.inConfigSortArrays.contains(key))
 					Collections.sort(arrayList);
-				
+
 				for (SortableList sortableObject : arrayList)
 					newJSONArray.put(sortableObject.getObject());
 
@@ -395,6 +395,8 @@ public class App {
 					String localUID = getUniqueIdentifier(path, configJSON, jsonObject, parentObject, null);
 					if (getUIDFromPeer(arrayPeers, uid, localUID) != null)
 						returnUidValue = getUIDFromPeer(arrayPeers, uid, localUID);
+					else if(!uid.contains("/"))
+						return localUID;
 				}
 
 				if (returnUidValue == null) {
@@ -406,7 +408,6 @@ public class App {
 
 				if (expectedUIDValue != null && (returnUidValue == null || !returnUidValue.equals(expectedUIDValue)))
 					return null;
-
 				if (returnUidValue != null)
 					return getEscapedValue(returnUidValue);
 			}
@@ -421,7 +422,6 @@ public class App {
 	}
 
 	private String getUIDFromPeer(JSONArray arrayPeers, String uid, String localUID) {
-
 		if (arrayPeers == null)
 			return null;
 
@@ -589,3 +589,4 @@ public class App {
 
 	}
 }
+
