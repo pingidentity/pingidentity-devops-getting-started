@@ -44,7 +44,7 @@ this image.
 | RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for dsreplication and remove-defunct-server  |
 | DISABLE_SCHEMA_REPLICATION  | false  | Flag to disable schema replication. In a DevOps environment, schema comes from configuration. So it does not need to be replicated.  |
 | PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
-| FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Councy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off  |
+| FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Bouncy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off  |
 | FIPS_PROVIDER  | BCFIPS  | BCFIPS is the only provider currently supported -- do not edit  |
 | PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE  |
 
