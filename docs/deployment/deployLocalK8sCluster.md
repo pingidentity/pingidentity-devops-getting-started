@@ -1,9 +1,9 @@
 ---
 title: Deploy a Local Kubernetes Cluster
 ---
-# Deploy a Local DEMO Kubernetes Cluster
+# Deploy a Local Demo Kubernetes Cluster
 
-If you **don't** have access to a managed Kubernetes cluster you can deploy one on your local machine or vm.
+If you **don't** have access to a managed Kubernetes cluster you can deploy one on your local machine or VM.
 This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io/). Use the kind site directly to find additional configuration.
 
 !!! warning "Demo Use Only"
@@ -22,10 +22,10 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
 
 1. [Install kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) on your platform.
 
-1. Create a kind cluster with our sample `.yaml` file to enable ingress (application network exposure).
+1. Create a kind cluster with our sample `.yaml` file to enable ingress (application network exposure). Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/99-tools/kind.yaml)
 
     ```sh
-    kind create cluster --config=10-kubernetes/99-tools/kind.yaml
+    kind create cluster --config=kind.yaml
     ```
 
 1. Test cluster health by running the following command:
@@ -36,10 +36,10 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     kubectl get nodes
     ```
 
-1. Next, install the nginx-ingress-controller for `kind`
+1. Next, install the nginx-ingress-controller for `kind`. Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/99-tools/kind-nginx.yaml)
 
     ```sh
-    kubectl apply -f 10-kubernetes/99-tools/kind-nginx.yaml
+    kubectl apply -f kind-nginx.yaml
     ```
 
 1. Once the nginx deployment is in a healthy state, run:
