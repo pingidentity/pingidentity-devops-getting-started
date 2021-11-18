@@ -21,6 +21,8 @@ services:
       - SOCKET_PORT_SYSTEM=20513
       - SOCKET_PORT_AUDIT=20514
       - SOCKET_PROTOCOL=TCP
+      - PF_LDAP_USERNAME="Administrator"
+      - PF_LDAP_PASSWORD="2FederateM0re"
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
@@ -41,8 +43,8 @@ services:
     depends_on:
       - pingdirectory
     volumes:
-      # using the pingfederate-out data container to persist data allows 
-      # evaluating administrators to tinker with configuration 
+      # using the pingfederate-out data container to persist data allows
+      # evaluating administrators to tinker with configuration
       # and preserve their changes across contaner restarts
       - pingfederate-out:/opt/out
 
@@ -62,7 +64,7 @@ services:
       - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_BASELINE_PATH=baseline/pingaccess
       - PA_LOG_LEVEL=DEBUG
-      - SOCKET_HOST=logstash 
+      - SOCKET_HOST=logstash
       - SOCKET_PORT_SYSTEM=20516
       - SOCKET_PORT_AUDIT=20517
       - SOCKET_PROTOCOL=TCP
@@ -87,8 +89,8 @@ services:
       - pingdirectory
       - pingfederate
     volumes:
-      # using the pingfederate-out data container to persist data allows 
-      # evaluating administrators to tinker with configuration 
+      # using the pingfederate-out data container to persist data allows
+      # evaluating administrators to tinker with configuration
       # and preserve their changes across contaner restarts
       - pingaccess-out:/opt/out
 
@@ -123,10 +125,10 @@ services:
       - "1636:1636"
       - "1443:1443"
     networks:
-      - pingnet      
+      - pingnet
     volumes:
-      # using the pingfederate-out data container to persist data allows 
-      # evaluating administrators to tinker with configuration 
+      # using the pingfederate-out data container to persist data allows
+      # evaluating administrators to tinker with configuration
       # and preserve their changes across contaner restarts
       - pingdirectory-out:/opt/out
 
@@ -141,7 +143,7 @@ services:
     networks:
       - pingnet
 
-  
+
 # TEST AUTHENTICATORS (LOAD)
   authrate_ok:
     image: pingidentity/ldap-sdk-tools
@@ -216,7 +218,7 @@ services:
     mem_limit: 4g
     memswap_limit: 4g
     mem_swappiness: 0
-    volumes: 
+    volumes:
       - data01:/usr/share/elasticsearch/data
       - certs:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
@@ -268,7 +270,7 @@ services:
     mem_limit: 4g
     memswap_limit: 4g
     mem_swappiness: 0
-    volumes: 
+    volumes:
       - data02:/usr/share/elasticsearch/data
       - certs:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/bootstrap
@@ -303,7 +305,7 @@ services:
     memswap_limit: 512m
     mem_swappiness: 0
     working_dir: /usr/share/elasticsearch
-    volumes: 
+    volumes:
       - certs:/certs
       - ./elasticsearch-siem/cert_config:/usr/share/elasticsearch/config/certificates
       - ./elasticsearch-siem/kibana_config:/usr/share/elasticsearch/config/kibana_config
@@ -323,7 +325,7 @@ services:
     environment:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - THREAT_INTEL_PULL_INTERVAL=600
-    command: > 
+    command: >
       bash -c '
         sh /usr/share/elasticsearch/config/bootstrap/dep_install.sh
         sh /usr/share/elasticsearch/config/bootstrap/enrichment_wrapper.sh
@@ -333,7 +335,7 @@ services:
     memswap_limit: 128m
     mem_swappiness: 0
     working_dir: /usr/share/elasticsearch
-    volumes: 
+    volumes:
       - ./elasticsearch-siem/ping_siem_config_bootstrap:/usr/share/elasticsearch/config/bootstrap
       - ./elasticsearch-siem/enrichment_cache:/usr/share/elasticsearch/enrichment
     networks:
@@ -402,7 +404,7 @@ services:
     memswap_limit: 2g
     mem_swappiness: 0
     volumes:
-      - certs:/usr/share/elasticsearch/config/certificates    
+      - certs:/usr/share/elasticsearch/config/certificates
     ports:
       - "5601:5601"
     networks:
