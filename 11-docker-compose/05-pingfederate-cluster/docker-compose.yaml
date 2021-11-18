@@ -3,7 +3,7 @@ version: "2.4"
 
 services:
   pingfederate-admin:
-    image: pingidentity/pingfederate:edge
+    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
@@ -34,7 +34,7 @@ services:
       - pingfederate-admin-out:/opt/out
 
   pingfederate:
-    image: pingidentity/pingfederate:edge
+    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
