@@ -3,7 +3,7 @@ version: "2.4"
 
 services:
   pingfederate-admin:
-    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingfederate:edge
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
@@ -11,17 +11,19 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pf-dns-ping-clustering/pingfederate
       - SERVER_PROFILE_PARENT=GETTING_STARTED
-      
+
       # Getting Started Server Profile
       - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
-      
+
       # PingFederate Settings
       - OPERATIONAL_MODE=CLUSTERED_CONSOLE
       - CLUSTER_BIND_ADDRESS=LINK_LOCAL
       - CLUSTER_NAME=COMPOSE_PF_CLUSTER
       - DNS_QUERY_LOCATION=pingfederate-admin
       - DNS_RECORD_TYPE=A
+      - PF_LDAP_USERNAME="Administrator"
+      - PF_LDAP_PASSWORD="2FederateM0re"
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
@@ -32,7 +34,7 @@ services:
       - pingfederate-admin-out:/opt/out
 
   pingfederate:
-    image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingfederate:edge
     command: wait-for pingfederate-admin:9999 -t 600 -- entrypoint.sh start-server
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
@@ -41,17 +43,19 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=pf-dns-ping-clustering/pingfederate
       - SERVER_PROFILE_PARENT=GETTING_STARTED
-      
+
       # Getting Started Server Profile
       - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
-      
+
       # PingFederate Settings
       - OPERATIONAL_MODE=CLUSTERED_ENGINE
       - CLUSTER_BIND_ADDRESS=LINK_LOCAL
       - CLUSTER_NAME=COMPOSE_PF_CLUSTER
       - DNS_QUERY_LOCATION=pingfederate-admin
       - DNS_RECORD_TYPE=A
+      - PF_LDAP_USERNAME="Administrator"
+      - PF_LDAP_PASSWORD="2FederateM0re"
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
