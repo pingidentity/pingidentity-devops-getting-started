@@ -158,6 +158,50 @@ The `data.json.subst` form of our previous example will look like:
 
 The variablized `data.json.subst` is now a good candidate to for committing to source control. The resulting `env_vars` file can be used as a guideline for secrets that should be managed externally and only delivered to the container/image as needed for its specific environment.
 
+### Using Bulk Config Tool
+
+The bulk export tool processes a bulk data.json export according to a configuration file with available functions:
+    - Search and replace (e.g. hostnames)
+    - Clean, add, and remove json members as required.
+    - Tokenize the configuration and maintain environment variables.
+
+#### Prerequisites
+<!-- TODO: This docker image should be next to the rest of our images -->
+
+1. The bulk export utility comes in pre-compiled source code. Build an image with:
+
+    ```
+    docker build -t ping-bulkexport-tools:latest .
+    ```
+
+2. Your [data.json](#steps) copied to `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/shared/data.json`
+
+#### Example
+
+A sample command of the ping-bulkconfig-tool
+
+```
+docker run -rm -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-config.json /shared/data.json /shared/env_vars /shared/data.json.subst > /shared/convert.log
+```
+
+Where: 
+- `-v $PWD/shared:/shared` - bind mounts `ping-bulkconfigtool/shared` folder to /shared in the container
+- `/shared/pf-config.json` - input path to config file which defines how to process the bulk export `data.json` file from PingFederate.
+- `/shared/data.json` - input path to data.json result of /pf-admin-api/v1/bulk/export PingFederate API endpoint.
+- `/shared/env_vars` - output path to store environment variables generated from processing
+- `/shared/data.json.subst` - output path to processed data.json
+
+After running the above command, you will see `env_vars` and `data.json.subst` in the `ping-bulkconfigtool/shared` folder. 
+
+<!-- ####TODO:  Script It
+
+If desired, use of the bulk config tool can be included in a script. `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/pf-profile.sh` is an example of this. 
+
+```
+sh pf-profile.sh --release mypingfed --password 2FederateM0re
+``` -->
+
+
 ### Additional Notes
 
 * The bulk API export is intended to be used as a _bulk_ import. The `/bulk/import` endpoint is destructive and overwrites the entire current admin config.

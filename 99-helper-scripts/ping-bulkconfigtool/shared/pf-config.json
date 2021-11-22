@@ -1,3 +1,4 @@
+
 {
   "config-aliases":[
 	{
@@ -7,8 +8,6 @@
   	  "replace-name": "PING_IDENTITY_PASSWORD",
   	  "is-apply-envfile": false
   	}
-  ],
-  "search-replace":[
   ],
   "expose-parameters":[
     {
@@ -21,8 +20,7 @@
       "parameter-name": "encryptedValue",
       "replace-name": "value",
       "unique-identifiers": [
-          "name",
-          "name~Username/value"
+          "name"
       ]
     },
     {
@@ -52,18 +50,6 @@
       "replace-name": "secret",
       "unique-identifiers": [
           "clientId"
-      ]
-    },
-    {
-      "parameter-name": "value",
-      "unique-identifiers": [
-          "name=PingID Properties"
-      ]
-    },
-    {
-      "parameter-name": "value",
-      "unique-identifiers": [
-          "name=PingID SDK Properties"
       ]
     }
   ]

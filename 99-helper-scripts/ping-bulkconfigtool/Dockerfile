@@ -1,6 +1,6 @@
 # Usage
 # docker build -t ping-bulkexport-tools:latest .
-# docker run -v $PWD/out:/out -v $PWD/in:/in ping-bulkexport-tools:latest /in/pf-config.json /out/pf-export.json /out/pingfederate/pf.env /out/pingfederate/requestBody.json.subst > ./out/pingfederate/export-convert.log 
+# docker run -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-config.json /shared/data.json /shared/env_vars /shared/data.json.subst
 
 FROM maven:3-adoptopenjdk-11 AS build
 COPY ping-bulkexport-tools-project /usr/src/app
