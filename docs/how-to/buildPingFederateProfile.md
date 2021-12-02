@@ -1,6 +1,3 @@
----
-title: Building a PingFederate profile from your current deployment
----
 # Building a PingFederate profile from your current deployment
 
 The term "profile" can vary in many instances. Here we will focus on two types of profiles for PingFederate: configuration archive, and bulk export. We will discuss the similarities and differences between two as well as how to build either from a running PingFederate environment.
