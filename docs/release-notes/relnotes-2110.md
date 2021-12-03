@@ -37,6 +37,7 @@ title: DevOps Docker Builds, Version 2110 (November 01 2021)
 - **Docker Images**
     - Images that include Apache Tomcat have been updated to 9.0.54.
     - Startup time for PingDirectory has been improved.
+    - PF_LDAP_USERNAME and PF_LDAP_PASSWORD variables are now required with PingFederate to promote best security practices.
 
 
 - **Helm Charts**

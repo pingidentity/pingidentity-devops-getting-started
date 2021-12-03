@@ -1,7 +1,7 @@
 ---
 title: DevOps Docker Builds, Version 2111 (December 03 2021)
 ---
-# Release Notes
+# Version 2111 Release Notes
 
 ## DevOps Docker Builds, Version 2111 (December 03 2021)
 
@@ -28,7 +28,7 @@ title: DevOps Docker Builds, Version 2111 (December 03 2021)
     - Azul JVM has been deprecated in Favor of Liberica JVM.
     - PingData images are now killed with a TERM signal.
     - Update Apache Tomcat to Version 9.0.55.
-    - Update Alpine to 3.15 and UBI8 to 8.5.   
+    - Update Alpine to 3.15 and UBI8 to 8.5.
 
 
 - **Helm Charts**
