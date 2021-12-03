@@ -45,8 +45,8 @@ this image.
 | HSM_MODE  | OFF  | Hardware Security Module Mode in run.properties Options include OFF, AWSCLOUDHSM, NCIPHER, LUNA, BCFIPS.  |
 | PF_BC_FIPS_APPROVED_ONLY  | false  | Defines a variable that allows instantiating non-FIPS crypto/random  |
 | PF_HSM_HYBRID  | false  | Hardware Security Module Hybrid Mode   When PF is in Hybrid mode, certs/keys can be created either on the local trust store or on the HSM.   This can used as a migration strategy towards an HSM setup.  |
-| PF_LDAP_USERNAME  |   | **This value is required.** If not using LDAP functionality, set this variable to a psuedo value. This is the username for an account within the LDAP Directory Server that can be used to perform user lookups for authentication and other user level search operations.  Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
-| PF_LDAP_PASSWORD  |   | **This value is required.** If not using LDAP functionality, set this variable to a psuedo value. This is the password for the Username specified above. This property should be obfuscated using the 'obfuscate.sh' utility. Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
+| PF_LDAP_USERNAME  |   | This is the username for an account within the LDAP Directory Server that can be used to perform user lookups for authentication and other user level search operations.  Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
+| PF_LDAP_PASSWORD  |   | This is the password for the Username specified above. This property should be obfuscated using the 'obfuscate.sh' utility. Set if PF_CONSOLE_AUTHENTICATION or PF_ADMIN_API_AUTHENTICATION=LDAP  |
 | CLUSTER_BIND_ADDRESS  | NON_LOOPBACK  | IP address for cluster communication.  Set to NON_LOOPBACK to allow the system to choose an available non-loopback IP address.  |
 | PF_PROVISIONER_MODE  | OFF  | Provisioner Mode in run.properties Options include OFF, STANDALONE, FAILOVER.  |
 | PF_PROVISIONER_NODE_ID  | 1  | Provisioner Node ID in run.properties Initial active provisioning server node ID is 1  |

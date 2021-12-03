@@ -29,6 +29,7 @@ title: DevOps Docker Builds, Version 2111 (December 03 2021)
     - PingData images are now killed with a TERM signal.
     - Update Apache Tomcat to Version 9.0.55.
     - Update Alpine to 3.15 and UBI8 to 8.5.
+    - PingFederate PF_LDAP_USERNAME and PF_LDAP_PASSWORD variables are no longer required by default.
 
 
 - **Helm Charts**
