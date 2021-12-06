@@ -21,8 +21,6 @@ services:
       - SOCKET_PORT_SYSTEM=20513
       - SOCKET_PORT_AUDIT=20514
       - SOCKET_PROTOCOL=TCP
-      - PF_LDAP_USERNAME="Administrator"
-      - PF_LDAP_PASSWORD="2FederateM0re"
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:

@@ -1,5 +1,5 @@
 ---
-title: DevOps Docker Builds, Version 2111 (December 03 2021)
+title: DevOps Docker Builds, Version 2111 (December 06 2021)
 ---
 # Version 2111 Release Notes
 
