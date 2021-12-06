@@ -22,8 +22,6 @@ services:
       - CLUSTER_NAME=COMPOSE_PF_CLUSTER
       - DNS_QUERY_LOCATION=pingfederate-admin
       - DNS_RECORD_TYPE=A
-      - PF_LDAP_USERNAME="Administrator"
-      - PF_LDAP_PASSWORD="2FederateM0re"
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
@@ -54,8 +52,6 @@ services:
       - CLUSTER_NAME=COMPOSE_PF_CLUSTER
       - DNS_QUERY_LOCATION=pingfederate-admin
       - DNS_RECORD_TYPE=A
-      - PF_LDAP_USERNAME="Administrator"
-      - PF_LDAP_PASSWORD="2FederateM0re"
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:
