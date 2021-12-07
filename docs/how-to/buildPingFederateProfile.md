@@ -172,7 +172,7 @@ The bulk export tool processes a bulk data.json export according to a configurat
     ```
 
 2. Your [data.json](#steps) copied to `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/shared/data.json`
-### Example
+#### Example
 
 A sample command of the ping-bulkconfig-tool
 
@@ -189,9 +189,9 @@ Where:
 
 After running the above command, you will see `env_vars` and `data.json.subst` in the `ping-bulkconfigtool/shared` folder.
 
-### Configure Bulk Tool
+#### Configure Bulk Tool
 Instructions to the bulk config tool are sent via pf-config.json file. Where available commands include:
-#### search-replace
+##### search-replace
 - A simple utility to search and replace string values in a bulk config json file.
 - Can expose environmental variables.
 
@@ -324,40 +324,6 @@ Example: Sort the roles and scopes arrays.
         "roles","scopes"
   ]
 ```
-
-## Run the export utility.
-
-1. In terminal, navigate to the ping-bulkconfigtools folder.
-2. Compile the tool if you haven't already done so.
-    - cmd: ./_compile_bulkexporttool.sh
-3. Edit env.properties and configure details for PA and/or PF.
-3. Export PingAccess configuration
-    - cmd: ./_pa_export-config.sh
-    - GETs configuration from: {{PINGACCESS_ADMIN_BASEURL}}/pa-admin-api/v3/config/export
-    - This will then create 2 exports:
-        1) ./out/pingaccess/standalone/data.json.subst
-        2) ./out/pingaccess/clustered/data.json.subst (contains CONFIG QUERY http listener).
-    - Creates/maintains the following environment variable files:
-      - ./out/pingaccess/pa.env
-4. Export PingFederate configuration
-    - cmd: ./_pf_export-config.sh
-    - GETs configuration from: {{PINGFEDERATE_ADMIN_BASEURL}}/pf-admin-api/v1/bulk/export
-    - This will then create the following:
-        1) ./out/pingfederate/import-bulkconfig.json.subst
-    - Creates/maintains the following environment variable files:
-      - ./out/pingfederate/pf.env
-
-## Configure and commit
-
-You'll need to configure the following environment variable files when deploying. The export process will maintain values inside these files that have been previously set however, new parameters may be present so you should look out for them.
-- ./out/pingaccess/pa.env
-- ./out/pingfederate/pf.env
-
-You do not need to commit the environment variables. You should consider excluding these files from being committed as they may contain sensitive information such as certificate keys and passwords.
-
-Commit the following files into the correct locations of your server profile:
-- ./out/pingaccess/data.json.subst
-- ./out/pingfederate/import-bulkconfig.json.subst
 
 <!-- ####TODO:  Script It
 
