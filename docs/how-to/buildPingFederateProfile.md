@@ -205,7 +205,7 @@ Example: replacing an expected base hostname with a substition.
     }
   ]
 ```
-#### change-value
+##### change-value
 - Searches for elements with a matching identifier, and updates a parameter with a new value.
 
 Example: update keyPairId against an element with name=ENGINE.
@@ -223,7 +223,7 @@ Example: update keyPairId against an element with name=ENGINE.
   ]
 ```
 
-#### remove-config
+##### remove-config
 - Allows us to remove configuration from the bulk export.
 
 Example: you may wish to remove the ProvisionerDS data store:
@@ -246,7 +246,7 @@ Example: you may wish to remove all SP Connections:
   ]
 ```
 
-#### add-config
+##### add-config
 - Allows us to add configuration to the bulk export.
 
 Example: you may wish to add the CONFIG QUERY http listener in PingAccess
@@ -281,7 +281,7 @@ Example: you may wish to add an SP connection
   ]
 ```
 
-#### expose-parameters
+##### expose-parameters
 - Navigates through the JSON and exchanges values for substitions.
 - Exposed substition names will be automatically created based on the json path.
     - E.g. ${oauth_clients_items_clientAuth_testclient_secret}
@@ -299,7 +299,7 @@ Example: replace the "encryptedPassword" member with a substitution enabled "pas
     }
 ```
 
-#### config-aliases
+##### config-aliases
 - The bulk config tool generates substitution names, however sometimes you wish to simplify them or reuse existing environment variables.
 
 Example: Renaming the Administrator's substitution name to leverage the common PING_IDENTITY_PASSWORD environmental variable.
@@ -315,7 +315,7 @@ Example: Renaming the Administrator's substitution name to leverage the common P
   ]
 ```
 
-#### sort-arrays
+##### sort-arrays
 - Configure the array members that need to be sorted. This ensures the array is created consistently to improve git diff.
 
 Example: Sort the roles and scopes arrays.
