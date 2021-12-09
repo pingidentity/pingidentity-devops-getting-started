@@ -84,8 +84,6 @@ To run a PingFederate container:
            --env PING_IDENTITY_ACCEPT_EULA=YES \
            --env PING_IDENTITY_DEVOPS_USER \
            --env PING_IDENTITY_DEVOPS_KEY \
-           --env PF_LDAP_USERNAME=Administrator \
-           --env PF_LDAP_PASSWORD=2FederateM0re \
            --tmpfs /run/secrets \
            pingidentity/pingfederate:edge
 ```
