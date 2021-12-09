@@ -1,10 +1,10 @@
 # Ping Identity Bulk Config Tools
 
-The bulk export process provides a simple way to extract holistic configuration from both PingFederate and PingAccess to simplify build and pipeline process.
+## This document has been deprecated. [Please see this document for bulk config tool information](../../docs/how-to/buildPingFederateProfile.md).
 
 The bulk export process performs the following:
 1. Extract configuration from a local sandbox deployment.
-2. Process the JSON export provided a process configuration (see [pa-config.json](./ping-bulkexport-tools-project/in/pa-config.json) and [pf-config.json](./ping-bulkexport-tools-project/in/pf-config.json) examples).
+2. Process the JSON export provided a process configuration. For more information, see [Building a PingFederate profile from your current deployment](../../docs/how-to/buildPingFederateProfile.md).
     - Search and replace (e.g. hostnames)
     - Cleans, add, and remove JSON members as required.
     - Tokenise the configuration and maintain environment variables.
@@ -12,13 +12,6 @@ The bulk export process performs the following:
 
 The bulk export process also allows config injection for secrets and keys.
 
-### Example output:
-- PingAccess
-  - Configuration: [data.json.subst](../../server_profiles/pingaccess/instance/data/start-up-deployer/data.json.subst)
-  - Env Vars: [pa.env](../../docker-compose/pa.env)
-- PingFederate
-  - Configuration: [import-bulkconfig.json.subst](../../server_profiles/pingfederate/instance/server/default/drop-in-config/003-importbulkconfig/requestBody.json.subst)
-  - Env Vars: [pa.env](../../docker-compose/pa.env)
 
 ## Pre-requisites
 
@@ -46,11 +39,6 @@ The bulk configuration consumes a configuration file to help identify informatio
 - add configuration
 - expose parameters as substitutions
 
-### Examples
-- [pa-config.json](in/pa-config.json)
-- [pa-config-addconfigquery.json](in/pa-config-addconfigquery.json)
-- [pf-config.json](in/pf-config.json)
-
 ### Commands
 #### search-replace
 - A simple utility to search and replace string values in a bulk config json file.
@@ -73,7 +61,7 @@ Example: update keyPairId against an element with name=ENGINE.
 ```
   "change-value":[
   	{
-          "matching-identifier": 
+          "matching-identifier":
           {
           	"id-name": "name",
           	"id-value": "ENGINE"
@@ -195,7 +183,7 @@ Example: Sort the roles and scopes arrays.
 3. Export PingAccess configuration
     - cmd: ./_pa_export-config.sh
     - GETs configuration from: {{PINGACCESS_ADMIN_BASEURL}}/pa-admin-api/v3/config/export
-    - This will then create 2 exports: 
+    - This will then create 2 exports:
         1) ./out/pingaccess/standalone/data.json.subst
         2) ./out/pingaccess/clustered/data.json.subst (contains CONFIG QUERY http listener).
     - Creates/maintains the following environment variable files:
@@ -203,7 +191,7 @@ Example: Sort the roles and scopes arrays.
 4. Export PingFederate configuration
     - cmd: ./_pf_export-config.sh
     - GETs configuration from: {{PINGFEDERATE_ADMIN_BASEURL}}/pf-admin-api/v1/bulk/export
-    - This will then create the following: 
+    - This will then create the following:
         1) ./out/pingfederate/import-bulkconfig.json.subst
     - Creates/maintains the following environment variable files:
       - ./out/pingfederate/pf.env
@@ -221,44 +209,7 @@ Commit the following files into the correct locations of your server profile:
 - ./out/pingfederate/import-bulkconfig.json.subst
 
 ## Known Issues
-
-### Old hivemodule.xml
-
-If you see something like this when importing config via bulk API...
-
-```
-2020-10-19 13:55:01,191  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataDeployer] Deploying: /opt/out/instance/server/default/conf/data-default.zip
-2020-10-19 13:55:01,297  ERROR [org.sourceid.saml20.domain.mgmt.impl.SslServerPkCertManagerImpl] Unable to get PkCert with alias '1dnwo2o6nuzd1cme89rhyz9u9'
-java.security.KeyStoreException: No password found for key alias: 1dnwo2o6nuzd1cme89rhyz9u9
-	at org.sourceid.saml20.domain.mgmt.impl.PkCertManagerBase.getPkCert(PkCertManagerBase.java:510) ~[pf-protocolengine.jar:?]
-	at org.sourceid.saml20.domain.mgmt.impl.PkCertManagerBase.buildPkCertsCache(PkCertManagerBase.java:450) ~[pf-protocolengine.jar:?]
-	at org.sourceid.saml20.domain.mgmt.impl.PkCertManagerBase.buildPkCertsCacheIfNecessary(PkCertManagerBase.java:406) ~[pf-protocolengine.jar:?]
-	at org.sourceid.saml20.domain.mgmt.impl.PkCertManagerBase.<init>(PkCertManagerBase.java:79) ~[pf-protocolengine.jar:?]
-	at org.sourceid.saml20.domain.mgmt.impl.SslServerPkCertManagerImpl.<init>(SslServerPkCertManagerImpl.java:55) ~[pf-protocolengine.jar:?]
-	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
-	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:?]
-	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:490) ~[?:?]
-	at org.apache.hivemind.util.ConstructorUtils.invoke(ConstructorUtils.java:139) ~[hivemind.jar:?]
-	at org.apache.hivemind.service.impl.BuilderFactoryLogic.instantiateConstructorAutowiredInstance(BuilderFactoryLogic.java:191) ~[hivemind.jar:?]
-	at org.apache.hivemind.service.impl.BuilderFactoryLogic.instantiateCoreServiceInstance(BuilderFactoryLogic.java:106) ~[hivemind.jar:?]
-	at org.apache.hivemind.service.impl.BuilderFactoryLogic.createService(BuilderFactoryLogic.java:75) ~[hivemind.jar:?]
-	at org.apache.hivemind.service.impl.BuilderFactory.createCoreServiceImplementation(BuilderFactory.java:42) ~[hivemind.jar:?]
-	at org.apache.hivemind.impl.InvokeFactoryServiceConstructor.constructCoreServiceImplementation(InvokeFactoryServiceConstructor.java:62) ~[hivemind.jar:?]
-	at org.apache.hivemind.impl.servicemodel.AbstractServiceModelImpl.constructCoreServiceImplementation(AbstractServiceModelImpl.java:108) ~[hivemind.jar:?]
-	at org.apache.hivemind.impl.servicemodel.AbstractServiceModelImpl.constructNewServiceImplementation(AbstractServiceModelImpl.java:158) ~[hivemind.jar:?]
-	at org.apache.hivemind.impl.servicemodel.AbstractServiceModelImpl.constructServiceImplementation(AbstractServiceModelImpl.java:140) ~[hivemind.jar:?]
-	at com.pingidentity.hivemind.AutoReloadableServiceModel.createServiceImplementation(AutoReloadableServiceModel.java:34) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.hivemind.AutoReloadableServiceProxy.makeServiceInstance(AutoReloadableServiceProxy.java:142) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.hivemind.AutoReloadableServiceProxy.lambda$getTarget$1(AutoReloadableServiceProxy.java:137) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.hivemind.ServiceSet$ServiceReference.get(ServiceSet.java:53) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.hivemind.ServiceSet.getService(ServiceSet.java:17) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.hivemind.AutoReloadableServiceProxy.getTarget(AutoReloadableServiceProxy.java:136) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.hivemind.AutoReloadableServiceProxy.serviceSetReload(AutoReloadableServiceProxy.java:102) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.hivemind.AutoReloadableServiceProxy.lambda$new$0(AutoReloadableServiceProxy.java:33) ~[pf-protocolengine.jar:?]
-	at com.pingidentity.configservice.ReloadRegistry.lambda$reload$0(ReloadRegistry.java:60) ~[pf-protocolengine.jar:?]
-```
-Bulk configuration requires the ability for PingFederate to reload configuration while running. When introduced, certain elements in hivemodule requires model="autoreloadable" to allow reloading of configuration. 
+Bulk configuration requires the ability for PingFederate to reload configuration while running. When introduced, certain elements in hivemodule requires model="autoreloadable" to allow reloading of configuration.
 
 If you have issues, you may have inherited an old hivemodule.xml in your server profile. Check and compare it aligns to the version of PingFederate that you are running.
 
@@ -274,16 +225,12 @@ PingFederate and PingAccess both provide API's to import file content. This may 
 - Importing certificates and PKCS12 keystores.
 - Importing property or binary files to adapter configuration.
 
-The bulk export process will expose fileData configuration options in the environment variable files (i.e. pf.env and pa.env). This provides the administrator the ability to inject certificate/file based configuration. 
+The bulk export process will expose fileData configuration options in the environment variable files (i.e. pf.env and pa.env). This provides the administrator the ability to inject certificate/file based configuration.
 
 You'll need to base64 encode into a JSON friendly value:
-1. Encode the file content in base64, 
-2. Remove line breaks, and 
+1. Encode the file content in base64,
+2. Remove line breaks, and
 3. Escape back slashes.
 
 Here's a command that can do that for you:
 - openssl base64 -in ~/Downloads/admin_signing.p12 | tr -d '\n' | sed 's/\\\//\\\\\\\//g'
-
-
-
-

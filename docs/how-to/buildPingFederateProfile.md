@@ -1,6 +1,3 @@
----
-title: Building a PingFederate profile from your current deployment
----
 # Building a PingFederate profile from your current deployment
 
 The term "profile" can vary in many instances. Here we will focus on two types of profiles for PingFederate: configuration archive, and bulk export. We will discuss the similarities and differences between two as well as how to build either from a running PingFederate environment.
@@ -175,7 +172,6 @@ The bulk export tool processes a bulk data.json export according to a configurat
     ```
 
 2. Your [data.json](#steps) copied to `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/shared/data.json`
-
 #### Example
 
 A sample command of the ping-bulkconfig-tool
@@ -184,18 +180,154 @@ A sample command of the ping-bulkconfig-tool
 docker run -rm -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-config.json /shared/data.json /shared/env_vars /shared/data.json.subst > /shared/convert.log
 ```
 
-Where: 
+Where:
 - `-v $PWD/shared:/shared` - bind mounts `ping-bulkconfigtool/shared` folder to /shared in the container
-- `/shared/pf-config.json` - input path to config file which defines how to process the bulk export `data.json` file from PingFederate.
+- `/shared/pf-config.json` - input path to [config file](#configure-bulk-tool) which defines how to process the bulk export `data.json` file from PingFederate.
 - `/shared/data.json` - input path to data.json result of /pf-admin-api/v1/bulk/export PingFederate API endpoint.
 - `/shared/env_vars` - output path to store environment variables generated from processing
 - `/shared/data.json.subst` - output path to processed data.json
 
-After running the above command, you will see `env_vars` and `data.json.subst` in the `ping-bulkconfigtool/shared` folder. 
+After running the above command, you will see `env_vars` and `data.json.subst` in the `ping-bulkconfigtool/shared` folder.
+
+#### Configure Bulk Tool
+Instructions to the bulk config tool are sent via pf-config.json file. Where available commands include:
+##### search-replace
+- A simple utility to search and replace string values in a bulk config json file.
+- Can expose environmental variables.
+
+Example: replacing an expected base hostname with a substition.
+```
+  "search-replace":[
+    {
+      "search": "data-holder.local",
+      "replace": "${BASE_HOSTNAME}",
+      "apply-env-file": false
+    }
+  ]
+```
+##### change-value
+- Searches for elements with a matching identifier, and updates a parameter with a new value.
+
+Example: update keyPairId against an element with name=ENGINE.
+```
+  "change-value":[
+  	{
+          "matching-identifier":
+          {
+          	"id-name": "name",
+          	"id-value": "ENGINE"
+          },
+  	  "parameter-name": "keyPairId",
+  	  "new-value": 8
+  	}
+  ]
+```
+
+##### remove-config
+- Allows us to remove configuration from the bulk export.
+
+Example: you may wish to remove the ProvisionerDS data store:
+```
+  "remove-config":[
+  	{
+  	  "key": "id",
+	  "value": "ProvisionerDS"
+  	}
+  ]
+```
+
+Example: you may wish to remove all SP Connections:
+```
+  "remove-config":[
+  	{
+  	  "key": "resourceType",
+	  "value": "/idp/spConnections"
+  	}
+  ]
+```
+
+##### add-config
+- Allows us to add configuration to the bulk export.
+
+Example: you may wish to add the CONFIG QUERY http listener in PingAccess
+```
+  "add-config":[
+	  {
+	    "resourceType": "httpsListeners",
+	    "item":
+			{
+			    "id": 4,
+			    "name": "CONFIG QUERY",
+			    "keyPairId": 5,
+			    "useServerCipherSuiteOrder": true,
+			    "restartRequired": false
+			}
+	  }
+  ]
+```
+
+Example: you may wish to add an SP connection
+```
+  "add-config":[
+	  {
+	    "resourceType": "/idp/spConnections",
+	    "item":
+		{
+                    "name": "httpbin3.org",
+                    "active": false,
+		    ...
+		}
+	  }
+  ]
+```
+
+##### expose-parameters
+- Navigates through the JSON and exchanges values for substitions.
+- Exposed substition names will be automatically created based on the json path.
+    - E.g. ${oauth_clients_items_clientAuth_testclient_secret}
+- Can convert encrypted/obfuscated values into clear text inputs (e.g. "encryptedValue" to "value") prior to substituting it. This allows us to inject values in its raw form.
+
+Example: replace the "encryptedPassword" member with a substitution enabled "password" member for any elements with "id" or "username" members. The following will remove "encryptedPassword" and create "password": "${...}".
+```
+    {
+      "parameter-name": "encryptedPassword",
+      "replace-name": "password",
+      "unique-identifiers": [
+          "id",
+          "username"
+      ]
+    }
+```
+
+##### config-aliases
+- The bulk config tool generates substitution names, however sometimes you wish to simplify them or reuse existing environment variables.
+
+Example: Renaming the Administrator's substitution name to leverage the common PING_IDENTITY_PASSWORD environmental variable.
+```
+  "config-aliases":[
+	{
+	  "config-names":[
+	    "administrativeAccounts_items_Administrator_password"
+	  ],
+  	  "replace-name": "PING_IDENTITY_PASSWORD",
+  	  "is-apply-envfile": false
+  	}
+  ]
+```
+
+##### sort-arrays
+- Configure the array members that need to be sorted. This ensures the array is created consistently to improve git diff.
+
+Example: Sort the roles and scopes arrays.
+```
+  "sort-arrays":[
+        "roles","scopes"
+  ]
+```
 
 <!-- ####TODO:  Script It
 
-If desired, use of the bulk config tool can be included in a script. `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/pf-profile.sh` is an example of this. 
+If desired, use of the bulk config tool can be included in a script. `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/pf-profile.sh` is an example of this.
 
 ```
 sh pf-profile.sh --release mypingfed --password 2FederateM0re
@@ -206,14 +338,13 @@ sh pf-profile.sh --release mypingfed --password 2FederateM0re
 
 * The bulk API export is intended to be used as a _bulk_ import. The `/bulk/import` endpoint is destructive and overwrites the entire current admin config.
 * If you are in a clustered environment, the PingFederate image imports the `data.json` and replicates the configuration to engines in the cluster.
-
+* Your data.json.subst `"metadata": {"pfVersion": "10.1.2.0"}` should match the PingFederate profile version.
 ## The Configuration Archive Profiles Method
 
 ### About configuration archive-based profiles
 You should weigh the pros and cons of configuration archive-based profiles compared to bulk API export profiles. Aside from DevOps principle purists, most people find bulk API export profiles to be more advantagous in most scenarios.
 
 Pros:
-
 * The `/data` folder, opposed to a `data.json` file, is better for [profile layering](profilesLayered.md).
 * Configuration is available on engines at startup, which:
     * lowers dependency on the admin at initial cluster startup.
