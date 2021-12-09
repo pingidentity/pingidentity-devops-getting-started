@@ -81,6 +81,8 @@ spec:
             - /opt/liveness.sh
           initialDelaySeconds: 500
           periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
         name: pingdirectory
         ports:
         - containerPort: 1636
@@ -91,7 +93,9 @@ spec:
             command:
             - /bin/sh
             - -c
-            - /opt/liveness.sh
+            - /opt/readiness.sh
+          timeoutSeconds: 5
+          failureThreshold: 3
         volumeMounts:
         - mountPath: /opt/out
           name: out-dir

@@ -189,7 +189,9 @@ spec:
             command:
             - /bin/sh
             - -c
-            - /opt/liveness.sh
+            - /opt/readiness.sh
+          timeoutSeconds: 5
+          failureThreshold: 3
         resources:
           limits:
             cpu: "6"
