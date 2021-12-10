@@ -6,6 +6,7 @@ title: Upgrading PingFederate
 In a DevOps environment, upgrades can be simplified through automation, orchestration, and separation of concerns.
 
 There are up to two pieces that may need to be upgraded:
+
    - [Persistent Volume](#persistent-volume-upgrade) at `/opt/out/instance/server/default/data` on pingfederate-admin
    - [Server Profile](#server-profile-upgrade)
 
@@ -14,16 +15,20 @@ There are up to two pieces that may need to be upgraded:
 ## Caveats
 
 1. **This Document Assumes Kubernetes and Helm**
+
    The terms in this document will focus on deployments in a Kubernetes Environment using the ping-devops Helm chart. However, the concepts should apply to any containerized PingFederate Deployment. 
 
 1. **Upgrades from Traditional Deployment**
+   
    It may be desirable to upgrade PingFederate along with migrating from a traditional environment. This is not recommended. Instead you should upgrade your current environment to the desired version of PingFederate and then [create a profile](./buildPingFederateProfile.md) that can be used in a containerized deployment.
 
 1. **Persistent Volume on `/opt/out`**
+   
    The suggested script should not be used if a persistent volume is attached to `/opt/out`. New software bits will not include special files built into the docker image. It is recommended to mount volumes on PingFederate Admin to `/opt/out/instance/server/default/data`. 
    <!--TODO: If you do have /opt/out mounted, instead of running the the example script,  -->
 
 1. **Irrelevant Ingress**
+   
    The values.yaml files mentioned in this document expects and nginx ingress controller with class `nginx-public`. It is not an issue if your environment doesn't have this, the created ingresses will not be used.
 
 <!--TODO: flip. upgrade happens first. then discuss persistence and server profile.   -->
@@ -50,8 +55,12 @@ Here we will walk through an example upgrade.
 
 Deploy your PingFederate version and server profile as background process with Helm: 
 
+!!! Info "Make sure you have a devops-secret"
+   If you are using this example as is, you will need a [devops-secret](../get-started/devopsUserKey.md#for-kubernetes)
+
 ```
-helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.1 -f 20-kubernetes/15-pingfederate-upgrade/01-background.yaml
+helm upgrade --install pf-upgrade pingidentity/ping-devops \
+   --version 0.8.1 -f 20-kubernetes/15-pingfederate-upgrade/01-background.yaml
 ```
 
 where values.yaml:
@@ -83,7 +92,10 @@ Exec into the container and run the script.
 
 ```
 kubectl exec -it pf-upgrade-pingfederate-admin-0 -- sh
+cd /opt/staging/hooks
+sh upgradePf.sh
 ```
+
 
 ## Server Profile Upgrade
 
