@@ -78,7 +78,7 @@ The steps for upgrading can be automated with a script. Example scripts are incl
 To use the scripts, copy the folder your PingFederate container
 
 ```
-kubectl cp '20-kubernetes/15-pingfederate-upgrade/hooks' pf-upgrade-pingfederate-admin-0:/opt/staging
+kubectl cp 20-kubernetes/15-pingfederate-upgrade/hooks pf-upgrade-pingfederate-admin-0:/opt/staging
 ```
 
 The pf-upgrade.sh script will: 
@@ -93,15 +93,17 @@ Exec into the container and run the script.
 ```
 kubectl exec -it pf-upgrade-pingfederate-admin-0 -- sh
 cd /opt/staging/hooks
-sh upgradePf.sh
+sh pf-upgrade.sh 10.3.4
 ```
 
+At the conclusion of the script you will have an upgraded `/opt/out/instance/server/default/data` folder. 
 
 ## Server Profile Upgrade
 
 If your profile is applied on each start of your container, you should keep your profile up to date with the product version you are deploying. 
 <!-- not ready -->
 
+After the script run previously, you can find the upgraded 
 
 
 ## Before you begin
