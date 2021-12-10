@@ -5,10 +5,11 @@ title: Upgrading PingFederate
 
 In a DevOps environment, upgrades can be simplified through automation, orchestration, and separation of concerns.
 
-There are up to two pieces that may need to be upgraded:
+General Steps:
 
-   - [Persistent Volume](#persistent-volume-upgrade) at `/opt/out/instance/server/default/data` on pingfederate-admin
-   - [Server Profile](#server-profile-upgrade)
+   - [Persistent Volume Upgrade](#persistent-volume-upgrade) of `/opt/out/instance/server/default/data` on pingfederate-admin
+   - [Server Profile Upgrade](#server-profile-upgrade)
+   - [Post Upgrade](#post-upgrade)
 
 [Persistent Volume Upgrade](#persistent-volume-upgrade) will include steps helpful to both pieces. [Server Profile Upgrade](#server-profile-upgrade) will discuss extracting upgraded files.
 
@@ -101,12 +102,25 @@ At the conclusion of the script you will have an upgraded `/opt/out/instance/ser
 ## Server Profile Upgrade
 
 If your profile is applied on each start of your container, you should keep your profile up to date with the product version you are deploying. 
-<!-- not ready -->
 
-After the script run previously, you can find the upgraded 
+After the previously run script, you can find upgraded profile files in `/opt/staging_new`
+These files will be hard-coded and you should follow [Build a PingFederated Profile](./buildPingFederateProfile.md) as needed for templating.
+
+Additionally, If you use the bulk-config data.json import it will not be found here. It should be imported via the standard process on the next container start.
+
+## Post Upgrade
+After upgrading your data folder and/or copying out your server profile files change your image version to the new target PingFederte version and run PingFederte as normal. 
+
+```
+helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.1 -f 20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml
+```
+
+```yaml
+--8<-- "20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml"
+```
 
 
-## Before you begin
+<!-- ## Before you begin
 
 You must:
 
@@ -171,9 +185,9 @@ For example, the upgrade for our baseline profile (https://github.com/pingidenti
 
 This could be the case for you as well. If you want to try this, just use your PingFederate profile with the new version image tag, and watch the logs for errors.
 
-Some details of the upgrade process might be different for you, based on your PingFederate profile.
+Some details of the upgrade process might be different for you, based on your PingFederate profile. -->
 <!--- TODO: link to PF profile --->
-
+<!-- 
 ### Steps
 
 1. Check out a PingFederate feature branch (such as, `pf-10.0.0`) off of the master of _your_ current version of PingFederate (9.3.3 in our example).
@@ -214,4 +228,4 @@ Now that you have a new profile, you can stand up a new deployment that uses it 
 
 2. When the deployment is healthy and ready to accept traffic, update the selector on the Kubernetes service.
 
-   This routes all traffic to the new PingFederate deployment without downtime occurring.
+   This routes all traffic to the new PingFederate deployment without downtime occurring. -->
