@@ -91,9 +91,12 @@ done
 
 set +e
 set -x
-while read -r line; do 
-  cp "/opt/new/pingfederate-${NEW_PF_VERSION}/pingfederate/${line}" "/opt/staging_new/instance/${line}"
-  diff -q "/opt/staging_bak/instance/${line}" "/opt/staging_new/instance/${line}" >> /tmp/stagingDiffs
+while read -r line; do
+  newPfDir=$(dirname "/opt/new/pingfederate-${NEW_PF_VERSION}/pingfederate/${line}")
+  newProfileDir=$(dirname "/opt/new_staging/instance/${line}")
+  mkdir -p "${newPfDir}" "${newProfileDir}"
+  cp "/opt/new/pingfederate-${NEW_PF_VERSION}/pingfederate/${line}" "/opt/new_staging/instance/${line}"
+  diff -q "/opt/staging_bak/instance/${line}" "/opt/new_staging/instance/${line}" >> /tmp/stagingDiffs
 done < /tmp/stagingFileList
 set +x
 
