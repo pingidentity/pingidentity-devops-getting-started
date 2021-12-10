@@ -25,7 +25,7 @@ if test $? -eq 0 ; then
   NEW_PF_VERSION="${1}"
   shift
 else
-  exit_usage "Invalid Pingfederate Version Provided: ${1}"
+  exit_usage "Invalid Desired Pingfederate Version Provided: ${1}"
 fi
 
 while ! test -z ${1} ; do
@@ -88,11 +88,15 @@ stgFiles=$(find /opt/staging_bak/instance/ -type f)
 for f in $stgFiles ; do 
   echo "$f" |  cut -d"/" -f5- >> /tmp/stagingFileList
 done
-while read -r line; do 
-  diff -q "/opt/staging_bak/instance/${line}" "/opt/new/pingfederate-${NEW_PF_VERSION}/pingfederate/${line}" >> /tmp/stagingDiffs || true
-done < /tmp/stagingFileList
 
 set +e
+set -x
+while read -r line; do 
+  cp "/opt/new/pingfederate-${NEW_PF_VERSION}/pingfederate/${line}" "/opt/staging_new/instance/${line}"
+  diff -q "/opt/staging_bak/instance/${line}" "/opt/staging_new/instance/${line}" >> /tmp/stagingDiffs
+done < /tmp/stagingFileList
+set +x
+
 rm -rf /opt/out/instance/server/default/data > /dev/null 2>&1 
 if test $? -eq 0 ; then
   rm -rf /opt/out/*
