@@ -33,7 +33,8 @@ See the example at [getting-started/pingfederate](https://github.com/pingidentit
 | instance/server/default/deploy/OAuthPlayground.war   | Automatically deploy the OAuthPlayground web application.                                                                  |
 | instance/server/default/conf/META-INF/hivemodule.xml | Apply a Hive module config to the container. Used for persisting OAuth clients, grants, and sessions to an external DB.    |
 
-!!! note "PingFederate Integeration Kits" By default, PingFederate is shipped with few integeration kits and adapters. But, if you need any other integeration kits or adapters to be a part of the deployment, they need to be manually downloaded and placed inside `server/default/deploy` of the server profile. You can find these resources in the product download page [here](https://www.pingidentity.com/en/resources/downloads/pingfederate.html).
+!!! note "PingFederate Integeration Kits"
+    By default, PingFederate is shipped with a handful of integration kits and adapters. If you need other integration kits or adapters in the deployment, manually download them and place them inside `server/default/deploy` of the server profile. You can find these resources in the product download page [here](https://www.pingidentity.com/en/resources/downloads/pingfederate.html).
 
 ## PingAccess
 
