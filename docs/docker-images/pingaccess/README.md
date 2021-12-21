@@ -38,6 +38,8 @@ this image.
 | PA_ADMIN_PORT  | 9000  |  |
 | JAVA_RAM_PERCENTAGE  | 60.0  | Percentage of the container memory to allocate to PingAccess JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Bouncy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off  |
+| SHOW_LIBS_VER  | true  | Defines a variable to allow showing library versions in the output at startup default to true  |
+| SHOW_LIBS_VER_PRE_PATCH  | false  | Defines a variable to allow showing library version prior to patches being applied default to false This is helpful to ensure that the patch process updates all libraries affected  |
 | PA_ENGINE_PORT  | 3000  |  |
 | PING_IDENTITY_PASSWORD  | ${PA_ADMIN_PASSWORD}  | Specify a password for administrator user for interaction with admin API  |
 

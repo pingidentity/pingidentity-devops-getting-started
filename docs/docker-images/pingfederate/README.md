@@ -39,6 +39,8 @@ this image.
 | PF_ENGINE_DEBUG  | false  | Flag to turn on PingFederate Engine debugging Used in run.sh  |
 | PF_ADMIN_DEBUG  | false  | Flag to turn on PingFederate Admin debugging Used in run.sh  |
 | PF_DEBUG_PORT  | 9030  | Defines the port on which PingFederate opens up a java debugging port. Used in run.sh  |
+| SHOW_LIBS_VER  | true  | Defines a variable to allow showing library versions in the output at startup default to true  |
+| SHOW_LIBS_VER_PRE_PATCH  | false  | Defines a variable to allow showing library version prior to patches being applied default to false This is helpful to ensure that the patch process updates all libraries affected  |
 | OPERATIONAL_MODE  | STANDALONE  | Operational Mode Indicates the operational mode of the runtime server in run.properties Options include STANDALONE, CLUSTERED_CONSOLE, CLUSTERED_ENGINE.  |
 | PF_CONSOLE_AUTHENTICATION  |   | Defines mechanism for console authentication in run.properties. Options include none, native, LDAP, cert, RADIUS, OIDC. If not set, default is native.  |
 | PF_ADMIN_API_AUTHENTICATION  |   | Defines mechanism for admin api authentication in run.properties. Options include none, native, LDAP, cert, RADIUS, OIDC. If not set, default is native.  |
