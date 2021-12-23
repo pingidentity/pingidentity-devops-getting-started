@@ -4,54 +4,69 @@ title: Kubernetes and Helm Basics
 
 # Kubernetes and Helm Basics
 
-This page cannot cover the depths of Kubernetes or Helm. However, we often deal with groups that are new to Kubernetes and Helm and reading other technical documentation may be too involved for our purposes. In this document will aim to arm newer kubernetes and helm consumers with helpful commands and terminology in simple terms with a focus on relevant commands. These concepts will use Ping Identity in DevOps as a background, but will generally apply to any interactions in Kubernetes. As such, this may feel incomplete or inaccurate to veterans. If you'd like to contribute, feel free to open a pull request!
+Although this document can't cover the depths of these tools, brand-new Kubernetes or Helm users might find other technical documentation too involved for Ping Identity DevOps purposes. This document aims to equip new users with helpful terminology in simple terms, with a focus on relevant commands. 
+
+!!! note 
+    This overview uses Ping Identity DevOps as a guide, but generally applies to any interactions in Kubernetes. Therefore, this document might feel incomplete or inaccurate to veterans. If you'd like to contribute, feel free to open a pull request!
 
 ## Kubernetes
 
 ### Terms
 
-**Cluster** -  The ice cube tray.
+**Cluster** - The ice cube tray.
 
-View a "cluster" as a set of resources that you have access to deploy containers onto. A cluster can be as small as your local computer as big as hundreds of VMs, called Nodes,  in a data center. Interaction with the cluster requires authentication and RBAC is given to the authenticated identity within the cluster.
-In a cloud provider Kubernetes cluster (AWS EKS, Azure AKS, Google GKE) the cluster can span multiple Availability zones, but only _one_ region. In AWS terms, a cluster can be in the region us-west-2, but have nodes in Availability Zones (AZs) us-west-2a, us-west-2b, and us-west-2c. Kubernetes naturally helps with high availability by distributing applications with multiple instances (called replicas) across available AZs.
+Think of a cluster as a set of resources that you can deploy containers onto. A cluster can be as small as your local computer or as large as hundreds of virtual machines (VMs), called nodes, in a data center. Interaction with the cluster requires authentication and role-based access control (RBAC) is given to the authenticated identity within the cluster.
 
-**Nodes** - The individual ice cube spaces.
+In a cloud provider Kubernetes cluster, such as Amazon Web Services (AWS) EKS, Azure AKS, or Google GKE, the cluster can span multiple Availability Zones (AZs), but only _one_ region. In AWS terms, a cluster can be in the region us-west-2 but have nodes in the AZs us-west-2a, us-west-2b, and us-west-2c. Kubernetes naturally helps with high availability by distributing applications with multiple instances, called replicas, across available AZs.
 
-The pieces that provide allocatable resources (namely CPU and Memory) and make up a cluster. Typically these are VMs. In AWS it would be EC2 instances.
+**Nodes** - The individual ice cube spaces in the tray.
 
-**Namespace** - A loosely defined "slice" of the cluster. Meant to be an area scoped for grouped applications to be deployed. It is possible to allocate resource limits available to a namespace, but this isn't needed.
+The pieces that provide allocatable resources, such as CPU and memory, and make up a cluster. Typically, these are VMs. In AWS, they would be EC2 instances.
 
-**Context** - Definition in your ~/.kube/config file that specifies which cluster and namespace your `kubectl` commands will be sent to.
+**Namespace** - A loosely defined slice of the cluster.
 
-**Deployments and Statefulsets** - The drops of water that fill ice cube spots.
+Namespaces are intended to be an area scoped for grouped applications to be deployed.
 
-Applications are deployed as Deployments or Statefulsets depending on if they require persistent storage or not. Think of these as controllers that define and manage the:
+!!! note 
+    You can allocate resource limits available to a namespace, but this isn't required.
 
-  * name of an application
-  * number of instances of an application (replicas)
-  * persistent storage
+**Context** - A definition in your ~/.kube/config file that specifies which cluster and namespace your `kubectl` commands are sent to.
 
-**Pod** - The molecules that make up drops of water.
+**Deployments and Statefulsets** - The water that fills ice cube spots.
 
-A Deployment may define the _amount_ of pods, but each one is defined the exact same. For example, you may have a `pingfederate-engine` deployment that calls for three replicas with 2 CPUs and 2gb of Memory and that is what you will get. You cannot make one engine bigger or smaller than the others. Like a molecule, a pod may be made of just one container, or it can have multiple containers - called sidecars. For Example, your pod may have a PingFederate container as the main process, but a sidecar container like Splunk Universal Forwarder that is used export logs. Sidecar containers will not overlap ports because they interact with each other using localhost. Each pod has it's own IP.
+Applications are deployed as Deployments or Statefulsets depending on whether they require persistent storage or not. Think of these as controllers that define and manage the following:
 
-**PersistentVolume and PersistentVolumeClaim** - Simply put, this is an external storage device/definition that is attached to a container. For Ping Identity applications and in general, when an application requires persistent storage it is managed by a resource called StatefulSet. For example, PingDirectory is a data store with its own database, as such, each instance of PingDirectory needs it's own persistent storage (to avoid database locking conflicts). A StatefulSet is a type of kubernetes resource that has a lot of nice orchestration for stateful applications:
+  * Name of an application
+  * Number of instances of an application (replicas)
+  * Persistent storage
 
-  * predictable naming - myping-pingdirectory-0, myping-pingdirectory-1, myping-pingdirectory-2.
-  * Health priority - deploys the first instance and waits for it to be healthy before adding another one. Also, all rolling updates occur to instances one at a time starting with the last one (e.g. myping-pingdirectory-2) first.
-  * Persistent Storage per instance - If persistent storage
+**Pod** - The molecules that make up the water.
 
-**Service** - A slim LoadBalancer within the cluster. Services provide a single IP put in front of Deployments and Statefulsets to distribute traffic. Backchannel communication, like PingFederate using PingDirectory as a user store, should always point to a service name/port rather than the individual pods. Services are given FQDNs in a cluster. Within the same namespace, services are accessible by their name (e.g `https://myping-pingdirectory:443`), but across namespaces you must be more explicit (`https://myping-pingdirectory.<namespace>:443`). An FQDN would be `https://myping-pingdirectory.<namespace>.svc.cluster.local
+A Deployment can define the _number_ of pods, but each pod is defined the exact same. For example, you can have a `pingfederate-engine` deployment that calls for three replicas with two CPUs and 2 GB of memory, but you cannot make one engine larger or smaller than the others.
 
-**Ingress** - A definition used to expose an application outside of the cluster. In order for this to work, you need an Ingress Controller. A common pattern is a deployment of Nginx pods fronted by a physical LoadBalancer. Where client application traffic hits the Loadbalancer is forwarded to Nginx, is evaluated based on the hostname header and path and forwarded to a corresponding application. For example a PingFederate ingress may have a hostname of myping-pingfederate-engine.ping-local.com. If a client app makes a request to https://myping-pingfederate-engine.ping-local.com/pf/heartbeat.ping the traffic follows like: Client -> LoadBalancer -> Nginx -> pingfederate-engine. More Specifically: Client -> LoadBalancer (Nginx k8s Service) -> Nginx Pod -> Pingfederate-engine k8s Service -> Pingfederate-engine pod.
+Like a molecule, a pod can consist of just one container, or it can have multiple containers, called sidecars. For example, your pod can have a PingFederate container as the main process and a sidecar container, such as Splunk Universal Forwarder, to export logs. Sidecar containers do not overlap ports because they interact with each other using localhost. Each pod has its own IP.
 
+**PersistentVolume and PersistentVolumeClaim** - Simply put, this is an external storage device or definition attached to a container. For Ping Identity applications and in general, when an application requires persistent storage, it's managed by a resource called StatefulSet. For example, PingDirectory is a datastore with its own database, and each instance of PingDirectory needs its own persistent storage to avoid database locking conflicts. A StatefulSet is a type of Kubernetes resource that has a lot of orchestration for stateful applications:
+
+  * Predictable naming - myping-pingdirectory-0, myping-pingdirectory-1, myping-pingdirectory-2
+  * Health priority - deploys the first instance and waits for it to be healthy before adding another. Additionally, all rolling updates occur to instances one-at-a-time starting with the most recent (myping-pingdirectory-2) first.
+  * Persistent Storage per instance - if persistent storage is requested
+
+**Service** - A slim LoadBalancer within the cluster.
+
+Services provide a single IP address put in front of Deployments and Statefulsets to distribute traffic. Backchannel communication, such as PingFederate using PingDirectory as a user store, should always point to a service name and port rather than the individual pods. Services are given fully-qualified domain names (FQDNs) in a cluster. Within the same namespace, services are accessible by their name (`https://myping-pingdirectory:443`), but across namespaces, you must be more explicit (`https://myping-pingdirectory.<namespace>:443`). An FQDN would be `https://myping-pingdirectory.<namespace>.svc.cluster.local`.
+
+**Ingress** - A definition used to expose an application outside of the cluster. For this to work, you need an Ingress Controller.
+
+A common pattern is a deployment of Nginx pods fronted by a physical LoadBalancer. The location where client application traffic hits the LoadBalancer is forwarded to Nginx, then evaluated based on the host name header and path and forwarded to a corresponding application.
+
+For example, say a PingFederate ingress has a host name of myping-pingfederate-engine.ping-local.com. If a client app makes a request to https://myping-pingfederate-engine.ping-local.com/pf/heartbeat.ping, the traffic flow is: Client -> LoadBalancer (Nginx k8s Service) -> Nginx Pod -> Pingfederate-engine k8s Service -> Pingfederate-engine pod.
 
 ### Commands
 
-See which cluster and namespace you are using:
-Easy tool - [kubectx](https://github.com/ahmetb/kubectx#installation)
+To see which cluster and namespace you are using, use the [kubectx](https://github.com/ahmetb/kubectx#installation) tool.
 
-Alternatively
+Alternatively, you can run the following commands:
 
   ```shell
   kubectl config get-contexts
@@ -64,37 +79,43 @@ Alternatively
 
 #### Viewing resources
 
-You may prefer to use [k9s](https://github.com/derailed/k9s) - a great UI built directly into terminal.
+You can use [k9s](https://github.com/derailed/k9s), which is a UI built directly into the terminal.
 
-If you cannot use k9s, here we'll discuss standard commands.
+If you cannot use k9s, we'll review the standard commands here.
 
-You can `kubectl get` any [resource type](https://kubernetes.io/docs/reference/kubectl/overview/#resource-types). (pods, deployments, statefulsets, persistentvolumeclaims). Use short names! po - pods, deploy - deployments, sts - statefulsets, ing - ingresses, pvc - persistentvolumeclaims
+You can `kubectl get` any [resource type](https://kubernetes.io/docs/reference/kubectl/overview/#resource-types), such as pods, Deployments, Statefulsets, and persistentvolumeclaims. Remember to use short names:
 
-The most common - get pods.
+* `po` = pods
+* `deploy` = Deployments
+* `sts` = Statefulsets
+* `ing` = ingresses
+* `pvc` = persistentvolumeclaims
+
+The most common command is `get pods`:
 
   ```sh
   kubectl get pods
   ```
 
-Logs, this shows anything that the container prints to stdout.
+To show anything that the container prints to `stdout`, use `logs`:
 
   ```sh
   kubectl logs -f <pod-name>
   ```
 
-Pod with multiple containers:
+To show the logs of a pod with multiple containers:
 
   ```sh
   kubectl logs -f <pod-name> -c <container-name>
   ```
 
-Logs of a crashed pod (RESTARTS != 0)
+To show the logs of a crashed pod (`RESTARTS != 0`):
 
   ```sh
   kubectl logs -f <pod-name> --previous
   ```
 
-See available hostnames by ingress
+To see available host names by ingress:
 
   ```sh
   kubectl get ing
@@ -102,25 +123,26 @@ See available hostnames by ingress
 
 #### Debugging
 
-When a has crashed surprisingly, we want to first identify why.
+When a pod crashes unexpectedly, identify why.
 
-View logs of the crash:
+To view logs of the crash:
 
   ```sh
   kubectl logs -f <pod-name> --previous
   ```
 
-View the reason for exit:
+To view the reason for exit:
 
   ```sh
   kubectl describe pod <pod-name>
   ```
 
-When looking at describe, there two main areas to look:
+When looking at `describe`, there are two main sections of the output to note:
 
-  - Last State - will should the reason for exit and exit code.
-   Common Exit codes:
-   Exit Codes
+  - lastState - shows the exit code and the reason for exit.
+  - Events -  this list is most helpful when your pod is not being created. It might be stuck in pending state if:
+    * There aren't enough resources available for the pod to be created.
+    * Something about the pod definition is incorrect, such as a missing volume or secret.
 
 Common exit codes associated with containers are:
 
@@ -128,22 +150,18 @@ Common exit codes associated with containers are:
   |---|---|
   | Exit Code 0 | Absence of an attached foreground process|
   | Exit Code 1 | Indicates failure due to application error |
-  | Exit Code 137 | Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY]) |
+  | Exit Code 137 | Indicates failure as container received SIGKILL (manual intervention or ‘oom-killer’ [OUT-OF-MEMORY]) |
   | Exit Code 139 | Indicates failure as container received SIGSEGV |
   | Exit Code 143 | Indicates failure as a container received SIGTERM |
 
-  - Events -  The Events list is most helpful when your pod is not even getting created. Perhaps it is stuck in `pending` state :
-    * There may not be enough resources available for the pod to get created
-    * something about the pod definition is incorrect. There may be a missing volume or secret.
-
 ## Helm
 
-!!! info "PingIdentity Devops and Helm"
-    All of our examples and guidance will focus on the usage of our [PingIdentity DevOps Helm chart](helm.pingidentity.com). If you do not wish to or cannot use the PingIdentity DevOps Helm chart in production, it is still recommended to at least use it for generating your direct Kubernetes manifest files. This will give Ping Identity the best opportunity to support your environment.
+!!! info "Ping Identity DevOps and Helm"
+    All of our instructions and examples are based on the [Ping Identity DevOps Helm chart](helm.pingidentity.com). If you're not using the Ping Identity DevOps Helm chart in production, we still recommend using it for generating your direct Kubernetes manifest files. This gives Ping Identity the best opportunity to support your environment.
 
-Everything in kubernetes is deployed by defining what is desired and allowing kubernetes to achieve the desired state.
+Everything in Kubernetes is deployed by defining what you want and allowing Kubernetes to achieve the desired state.
 
-Helm simplifies consumer (your) interaction by building deployment patterns into templates with variables. A Helm chart includes kubernetes templates _and_ default values (maintained by Ping Identity in this case). So all you have to worry about is providing values to the template variables that matter to you.
+Helm simplifies your interaction by building deployment patterns into templates with variables. The Ping Identity Helm chart includes Kubernetes templates and default values maintained by Ping Identity. All you have to worry about is providing values to your desired template variables.
 
 For example, a service definition looks like:
 
@@ -175,41 +193,41 @@ spec:
   type: ClusterIP
 ```
 
-Here, we ask kubernetes to create a `service` resource with the name `myping-pingdirectory`.
+In the previous example, we ask Kubernetes to create a `service` resource with the name `myping-pingdirectory`.
 
-With Helm this entire resource, along with all other required resources for a basic deployment, would be automatically defined just by setting `pingdirectory.enabled=true`.
+Using Helm, you can automatically define this entire resource and all other required resources for a basic deployment by setting `pingdirectory.enabled=true`.
 
 ### Terminology
 
-**Manifests** - the final kubernetes yaml files that are sent to the cluster for resource creation. Looks like the service defined above.
+**Manifests** - the final Kubernetes .yaml files that are sent to the cluster for resource creation. These look like the service defined above.
 
-**Helm Templates** - Go Template versions of kubernetes yaml files.
+**Helm Templates** - Go Template versions of Kubernetes .yaml files.
 
-**Values and values.yaml** - the setting that you pass to a helm chart so the templates will product manifests that you want. Values can be passed one by one, but more commonly they are put on a file called values.yaml
+**Values and values.yaml** - the setting that you pass to a Helm chart so the templates produce manifests that you want. Values can be passed one by one, but more commonly they are defined on a file called values.yaml.
 
   ```yaml
   pingdirectory:
     enabled: true
   ```
 
-This is a very simple values yaml that would produce a kubernetes manifest file over 200 lines long.
+This is a simple values.yaml that would produce a Kubernetes manifest file over 200 lines long.
 
-**release** - When you deploy _something_ with Helm, you provide a name for identification. This name and the resources deployed along with it make up a `release`. It is a common pattern to prefix all of the resources managed by a release with the release name. In our examples we will use `myping` as the release name, so you will see products running with names like: `myping-pingfederate-admin`, `myping-pindirectory`, `myping-pingauthorize`.
+**release** - When you deploy something with Helm, you provide a name for identification. This name and the resources deployed along with it make up a `release`. It's a common pattern to prefix all of the resources managed by a release with the release name. In our examples, `myping` is the release name, so you will see products running with names like `myping-pingfederate-admin`, `myping-pindirectory`, and `myping-pingauthorize`.
 
 ### Building Helm Values File
 
-This documentation focuses on the [PingIdentity DevOps Helm chart](#helm) and the values passed to the helm chart in order to achieve your configuration. Which means to have your deployment fit your goals, you will build a [values.yaml](https://helm.sh/docs/chart_template_guide/values_files/).
+This documentation focuses on the [Ping Identity DevOps Helm chart](#helm) and the values passed to the Helm chart to achieve your configuration. To have your deployment fit your goals, you must build a [values.yaml](https://helm.sh/docs/chart_template_guide/values_files/) file.
 
-The most simple values.yaml for our helm chart could look like:
+The most simple values.yaml for our Helm chart could look like:
 
 ```yaml
 global:
   enabled: true
 ```
 
-By default, `global.enabled=false`, so these two lines are enough to turn on every available PingIdentity software product with a basic configuration.
+By default, `global.enabled=false`, so these two lines are enough to turn on every available Ping Identity software product with a basic configuration.
 
-In documentation you may find an example for providing your own server profile via Github to PingDirectory and a snippet of values.yaml specific _only_ to that feature:
+In our documentation, you can find an example for providing your own server profile through GitHub to PingDirectory and a snippet of values.yaml specific to that feature:
 
 ```yaml
 pingdirectory:
@@ -217,7 +235,7 @@ pingdirectory:
     SERVER_PROFILE_URL: https://github.com/<your-github-user>/pingidentity-server-profiles
 ```
 
-This yaml alone will not even turn on PingDirectory, because the default value for `pingdirectory.enabled` is set to false. To take advantage of the feature, you want to merge this snippet into your own values.yaml to where you end up with:
+This .yaml alone will not turn on PingDirectory, because the default value for `pingdirectory.enabled` is false. To use this feature, add the snippet into your own values.yaml file:
 
 ```yaml
 global:
@@ -227,38 +245,38 @@ pingdirectory:
     SERVER_PROFILE_URL: https://github.com/<your-github-user>/pingidentity-server-profiles
 ```
 
-This values.yaml turns on _all_ products including PingDirectory, _and_ overwrites the default `pingdirectory.envs.SERVER_PROFILE_URL` to use `https://github.com/<your-github-user>/pingidentity-server-profiles`.
+This values.yaml turns on all products, including PingDirectory, and overwrites the default `pingdirectory.envs.SERVER_PROFILE_URL` to use `https://github.com/<your-github-user>/pingidentity-server-profiles`.
 
-As you see, helm simplifies what you have to include for deployment, but as you want to be more customized you will want to see what options are available. To see all options available:
+As you can see, Helm simplifies ease of deployment. To have full customization of your deployment, you can see all available options:
 
   ```sh
-  helm show values pingidenity/ping-devops
+  helm show values pingidentity/ping-devops
   ```
 
-This will print all the default values that are applied for you, so if you want to overwrite any of it, just copy the snippet out and include it in your own values.yaml. Keep in mind, tabbing and spacing matters. If you copy all the way to the left margin, and paste at the very beginning of a line in your text editor, this should maintain proper indentation.
+This command prints all of the default values applied to your deployment. To overwrite any values, copy the snippet and include it in your own values.yaml file. Remember that tabbing and spacing matters. Copying all the way to the left margin and pasting at the very beginning of a line in your text editor should maintain proper indentation.
 
-Helm also provides a wide variety of plugins. One particularly helpful one is [helm diff](https://github.com/databus23/helm-diff).
+Helm also provides a wide variety of plugins. One helpful one is [Helm diff](https://github.com/databus23/helm-diff).
 
-This plugin shows what changes will happen between helm upgrade commands.
-If anything in a deployment or statefulset shows a change, expect the corresponding pods to be rolled. This is helpful to watch out for a change when you are not prepared for containers to be restarted.
+This plugin shows what changes will happen between Helm upgrade commands.
+If anything in a Deployment or Statefulset shows a change, expect the corresponding pods to be rolled. Watch out for changes when you're not prepared for containers to be restarted.
 
-### Commands
+### Additional commands
 
-As you go though our examples, your goal will be to build a values.yaml file that works for you. The
+As you go through our examples, your goal is to build a values.yaml file that works for you.
 
-Deploy a release.
+Deploy a release:
 
   ```sh
   helm upgrade --install <release_name> pingidentity/ping-devops -f /path/to/values.yaml
   ```
 
-Clean up a release.
+Clean up a release:
 
   ```sh
   helm uninstall <release name>
   ```
 
-Delete PVCs associated to a release
+Delete PVCs associated to a release:
 
   ```sh
   kubectl delete pvc --selector=app.kubernetes.io/instance=<release_name>
