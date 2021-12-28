@@ -26,7 +26,7 @@ this image.
 | PING_IDENTITY_ACCEPT_EULA  | NO  | Must be set to 'YES' for the container to start  |
 | PING_IDENTITY_DEVOPS_FILE  | devops-secret  | File name for devops-creds passed as a Docker secret  |
 | STAGING_MANIFEST  | ${BASE}/staging-manifest.txt  | Path to a manifest of files expected in the staging dir on first image startup  |
-| CLEAN_STAGING_DIR  | true  | Whether to clean the staging dir when the image starts  |
+| CLEAN_STAGING_DIR  | false  | Whether to clean the staging dir when the image starts  |
 | SECRETS_DIR  | /run/secrets  | Default path to the secrets  |
 | TOPOLOGY_FILE  | ${STAGING_DIR}/topology.json  | Path to the topology file  |
 | HOOKS_DIR  | ${STAGING_DIR}/hooks  | Path where all the hooks scripts are stored  |
