@@ -8,15 +8,35 @@ title: DevOps Docker Builds, Version 2112 (January 05 2022)
 ### New Product Releases
 
 - **PingFederate**
-    - PingFederate 11.0 is available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate).
+    - PingFederate 11.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate).
 
 
 - **PingAccess**
     - PingAccess 7.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess).
 
-- **PingDirectory**
-    - PingData 9.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingdata).
 
+- **PingDirectory**
+    - PingDirectory 9.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory).
+
+
+- **PingDelegator**
+    - PingDelegator 4.8 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingdelegator).
+
+
+- **PingDirectoryProxy**
+    - PingDirectoryProxy 9.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy).
+
+
+- **PingDataSync**
+    - PingDataSync 9.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync).
+
+
+- **PingAuthorize**
+    - PingAuthorize 9.0 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize).
+
+
+- **PingIntelligence**
+    - PingIntelligence 5.1 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingintelligence).
 
 
 ### Enhancements
@@ -51,6 +71,12 @@ title: DevOps Docker Builds, Version 2112 (January 05 2022)
 - See the [Product Version, Image Release Matrix](../../reference/productVersionMatrix/)
 for currently supported image and product versions.
 
-- The following versions are not longer active maintained:
-    - PingFederate 10.3.3
-    - PingAccess 6.3.1
+- The following versions are no longer actively maintained:
+    - PingFederate 10.2.7
+    - PingAccess 6.2.2
+    - PingCentral 1.8.1
+    - PingDirectory 8.2.0.6
+    - PingDirectoryProxy 8.2.0.6
+    - PingDataSync 8.2.0.6
+    - PingIntelligence 4.4.1
+    - PingDelegator 4.7, 4.4.1
