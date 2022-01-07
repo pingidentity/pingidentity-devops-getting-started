@@ -71,10 +71,6 @@ this image.
 | PDP_ENGINE_PRIVATE_HOSTNAME  | pingdirectoryproxy  | PDP (PingDirectoryProxy) private hostname  |
 | PDS_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDS (PingDataSync) public hostname that may be used in redirects  |
 | PDS_ENGINE_PRIVATE_HOSTNAME  | pingdatasync  | PDS (PingDataSync) private hostname  |
-| PDG_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDG (PingDataGovernance) public hostname that may be used in redirects  |
-| PDG_ENGINE_PRIVATE_HOSTNAME  | pingdatagovernance  | PDG (PingDataGovernance) private hostname  |
-| PDGP_ENGINE_PUBLIC_HOSTNAME  | localhost  | PDGP (PingDataGovernance-PAP) public hostname that may be used in redirects  |
-| PDGP_ENGINE_PRIVATE_HOSTNAME  | pingdatagovernancepap  | PDGP (PingDataGovernance-PAP) private hostname  |
 | PAZ_ENGINE_PUBLIC_HOSTNAME  | localhost  | PAZ (PingAuthorize) public hostname that may be used in redirects  |
 | PAZ_ENGINE_PRIVATE_HOSTNAME  | pingauthorize  | PAZ (PingAuthorize) private hostname  |
 | PAZP_ENGINE_PUBLIC_HOSTNAME  | localhost  | PAZP (PingAuthorize-PAP) public hostname that may be used in redirects  |
