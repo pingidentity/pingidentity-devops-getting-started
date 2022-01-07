@@ -20,6 +20,10 @@ General Steps:
 
    The terms in this document will focus on deployments in a Kubernetes Environment using the ping-devops Helm chart. However, the concepts should apply to any containerized PingFederate Deployment.
 
+1. **This Document will Become Outdated**
+
+   The examples referenced in this document point to a specifig tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to N -1 from the current PF version.
+
 1. **Upgrades from Traditional Deployment**
 
    It may be desirable to upgrade PingFederate along with migrating from a traditional environment. This is not recommended. Instead you should upgrade your current environment to the desired version of PingFederate and then [create a profile](./buildPingFederateProfile.md) that can be used in a containerized deployment.
@@ -105,23 +109,37 @@ At the conclusion of the script you will have an upgraded `/opt/out/instance/ser
 
 If your profile is applied on each start of your container, you should keep your profile up to date with the product version you are deploying.
 
-After the previously run script, you can find upgraded profile files in `/opt/staging_new`
+After the previously run script, you can find upgraded profile files in `/opt/new_staging`
 These files will be hard-coded and you should follow [Build a PingFederate Profile](./buildPingFederateProfile.md) as needed for templating.
 
 Additionally, If you use the bulk-config data.json import it will not be found here. It should be imported via the standard process on the next container start.
 
 ## Post Upgrade
 
-After upgrading your data folder and/or copying out your server profile files change your image version to the new target PingFederate version and run PingFederate as normal.
+To enable PingFederate admin as a foreground process, scale it down first.
 
 ```
 helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.4 \
-   -f 20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml
+   -f 20-kubernetes/15-pingfederate-upgrade/02-scaledown.yaml
 ```
 
 ```yaml
 --8<-- "20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml"
 ```
+
+Finally, update PingFederate image version to new target PingFederate version and run as normal.
+
+```
+helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.4 \
+   -f 20-kubernetes/15-pingfederate-upgrade/03-upgraded.yaml
+```
+
+```yaml
+--8<-- "20-kubernetes/15-pingfederate-upgrade/03-upgraded.yaml"
+```
+
+````
+kubectl delete po
 
 <!-- ## Before you begin
 
@@ -147,21 +165,21 @@ The DevOps process:
 
 * **All software features migrate through environments**.
 
-   You should have at least two environments (non-production and production). This gives you room to test everything before putting it into production.
+You should have at least two environments (non-production and production). This gives you room to test everything before putting it into production.
 
 * **Environments are nearly identical**.
 
-   All deployments should be stringently validated before rolling into production. To be confident in your manual and automated tests, your environments need to be as close to identical as possible. In an ideal world, environments have dummy data, but function exactly the same.
+All deployments should be stringently validated before rolling into production. To be confident in your manual and automated tests, your environments need to be as close to identical as possible. In an ideal world, environments have dummy data, but function exactly the same.
 
-   Your environments are nearly identical when the only thing that changes (related to configuration) between environments is URLs, endpoints, and variable values.
+Your environments are nearly identical when the only thing that changes (related to configuration) between environments is URLs, endpoints, and variable values.
 
 * **Containers in production are immutable**.
 
-   Nobody is perfect, so do not trust manual changes directly in production. You should disable all admin access to production.
+Nobody is perfect, so do not trust manual changes directly in production. You should disable all admin access to production.
 
 * **All configurations are maintained in source control**.
 
-   If you can roll it out, you need to be able to roll it back, too!
+If you can roll it out, you need to be able to roll it back, too!
 
 Our example environment is set up with Apache JMeter generating load to a Kubernetes service (which routes load to downstream PingFederate containers). This Kubernetes service is essentially a load balancer that follows a round-robin strategy with keep-alive.
 
@@ -176,7 +194,7 @@ The key here is that the service is pointing to this deployment of PingFederate 
 Using DevOps processes can mean that things like comfortable setup processes and admin UIs in production are sacrificed, but for most organizations, the resulting zero downtime for rollouts and rollbacks is easily worth it.
 
 !!! note "zero downtime and loss-of-state"
-    The terms "zero downtime" and "loss-of-state" are significantly different. Zero downtime is what this upgrade process achieves: at no point in time will users experience a `500 bad gateway` error. However, we are sacrificing state to achieve this. Because we are moving from one entire deployment to another, the new deployment does _cannot_ have access to runtime state in the previous deployment. For this reason, it's critical to externalize state as much as possible.
+ The terms "zero downtime" and "loss-of-state" are significantly different. Zero downtime is what this upgrade process achieves: at no point in time will users experience a `500 bad gateway` error. However, we are sacrificing state to achieve this. Because we are moving from one entire deployment to another, the new deployment does _cannot_ have access to runtime state in the previous deployment. For this reason, it's critical to externalize state as much as possible.
 
 ## Upgrading using a local profile
 
@@ -201,21 +219,21 @@ Some details of the upgrade process might be different for you, based on your Pi
 
 1. Go to the `~/tmp/pf93` directory, and run the PingFederate upgrade utility:
 
-    ```shell
-    ./upgrade.sh <pf_install_source> [-l <newPingFederateLicense>] [-c].
-    ```
+ ```shell
+ ./upgrade.sh <pf_install_source> [-l <newPingFederateLicense>] [-c].
+ ```
 
-    > See [Upgrading PingFederate on Linux Systems](https://docs.pingidentity.com/bundle/pingfederate-100/page/ukh1564003034797.html) for more information.
+ > See [Upgrading PingFederate on Linux Systems](https://docs.pingidentity.com/bundle/pingfederate-100/page/ukh1564003034797.html) for more information.
 
 1. CLean up the upgraded PingFederate profile, which has a lot of bloat from the upgrade, so that you can run `git diff` and see _only_ upgraded files.
 
-    A good text editor (such as, Microsoft Visual Studio Code) with Git extensions is invaluable for this process.
+ A good text editor (such as, Microsoft Visual Studio Code) with Git extensions is invaluable for this process.
 
-    1. Copy over files from your new profile `~/tmp/pf93/instance` on top of your current profile. Avoid directly copying over and replacing `.subst` files.
+ 1. Copy over files from your new profile `~/tmp/pf93/instance` on top of your current profile. Avoid directly copying over and replacing `.subst` files.
 
-    2. If you are using Visual Studio Code, you can `right-click` -> Select for compare on the old file and `right-click`>'Compare with selected' on the new file. This compares line-by-line diffs.
+ 2. If you are using Visual Studio Code, you can `right-click` -> Select for compare on the old file and `right-click`>'Compare with selected' on the new file. This compares line-by-line diffs.
 
-       If all you see is your variables, you can ignore the whole file.
+    If all you see is your variables, you can ignore the whole file.
 
 1. After you test the upgrade, push your changes to Git.
 
@@ -225,10 +243,11 @@ Now that you have a new profile, you can stand up a new deployment that uses it 
 
 1. Stand up a new deployment using the following:
 
-    * The correct product image version.
-    * The new profile.
-    * A label on the deployment that distinguishes it from the prior deployment, such as `version: 10.0.0`.
+ * The correct product image version.
+ * The new profile.
+ * A label on the deployment that distinguishes it from the prior deployment, such as `version: 10.0.0`.
 
 2. When the deployment is healthy and ready to accept traffic, update the selector on the Kubernetes service.
 
-   This routes all traffic to the new PingFederate deployment without downtime occurring. -->
+This routes all traffic to the new PingFederate deployment without downtime occurring. -->
+````
