@@ -1,122 +1,141 @@
 ---
 title: Upgrading PingFederate
 ---
+
 # Upgrading PingFederate
 
-In a DevOps environment, upgrades are drastically simplified through automation, orchestration, and separation of concerns. As a result, upgrading to a new version of PingFederate is more like deploying any other configuration. <!-- (link here to doc explaining config deployments) -->
+In a DevOps environment, upgrades can be simplified through automation, orchestration, and separation of concerns.
 
-However, the difference is that configuration updates can be achieved with zero downtime and no loss of state, whereas in version upgrades we consciously sacrifice state to maintain zero downtime overall.
+General Steps:
 
-> You can take a traditional upgrade approach to a containerized environment, but it provides no value above the process described here.
+- [Persistent Volume Upgrade](#persistent-volume-upgrade) of `/opt/out/instance/server/default/data` on pingfederate-admin
+- [Server Profile Upgrade](#server-profile-upgrade)
+- [Post Upgrade](#post-upgrade)
 
-As an example, we'll walk through upgrading a PingFederate deployment from 9.3.3 to 10.0.0 in a Kubernetes environment. However, the concepts should work with any container orchestrator.
+[Persistent Volume Upgrade](#persistent-volume-upgrade) will include steps helpful to both pieces. [Server Profile Upgrade](#server-profile-upgrade) will discuss extracting upgraded files.
 
-## Before you begin
+## Caveats
 
-You must:
+1.  **This Document Assumes Kubernetes and Helm**
 
-* Complete [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* Understand how to use our DevOps server profiles.
-* Understand blue-green deployments in Kubernetes is helpful.
+    The terms in this document will focus on deployments in a Kubernetes Environment using the ping-devops Helm chart. However, the concepts should apply to any containerized PingFederate Deployment.
 
-## About this task
+1.  **This Document will Become Outdated**
 
-You will:
+    The examples referenced in this document point to a specifig tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to N -1 from the current PF version.
 
-* Set up and prepare your environment.
-* Upgrade using a local profile.
-* Stand up a blue-green deployment.
+1.  **Upgrades from Traditional Deployment**
 
-## Setting up and preparing your environment
+    It may be desirable to upgrade PingFederate along with migrating from a traditional environment. This is not recommended. Instead you should upgrade your current environment to the desired version of PingFederate and then [create a profile](./buildPingFederateProfile.md) that can be used in a containerized deployment.
 
-The most important factor to a successful version upgrade is preparing an environment for success. This means using the DevOps process and a blue-green deployment. For a blue-green Kubernetes deployment, we simply update a selector on a service.
+1.  **Persistent Volume on `/opt/out`**
 
-The DevOps process:
+    The suggested script should not be used if a persistent volume is attached to `/opt/out`. New software bits will not include special files built into the docker image. It is recommended to mount volumes on PingFederate Admin to `/opt/out/instance/server/default/data`.
+    <!--TODO: If you do have /opt/out mounted, instead of running the the example script,  -->
 
-* **All software features migrate through environments**.
+1.  **Irrelevant Ingress**
 
-   You should have at least two environments (non-production and production). This gives you room to test everything before putting it into production.
+    The values.yaml files mentioned in this document expects and nginx ingress controller with class `nginx-public`. It is not an issue if your environment doesn't have this, the created ingresses will not be used.
 
-* **Environments are nearly identical**.
+    <!--TODO: flip. upgrade happens first. then discuss persistence and server profile.   -->
 
-   All deployments should be stringently validated before rolling into production. To be confident in your manual and automated tests, your environments need to be as close to identical as possible. In an ideal world, environments have dummy data, but function exactly the same.
+## Persistent Volume Upgrade
 
-   Your environments are nearly identical when the only thing that changes (related to configuration) between environments is URLs, endpoints, and variable values.
+Steps needed in both Server-Profile upgrade and Persistent Volume upgrade include:
 
-* **Containers in production are immutable**.
+1.  Deploy your PingFederate version and server profile **as background process**
+1.  Upgrade profile in container
+    1. Backup the files in your profile.
+    1. Download the PingFederate software bits for the new version.
+    1. Run upgrade utility
+    1. diff to view the changes. (optional)
+1.  Reconfigure any variablized components.
+1.  Export changes to your profile
 
-   Nobody is perfect, so do not trust manual changes directly in production. You should disable all admin access to production.
+Here we will walk through an example upgrade.
 
-* **All configurations are maintained in source control**.
+!!! Info "This Process Requires Container Exec Access"
+Your orchestration user will need access to `kubectl exec -it <pod> -- sh` for multiple steps here.
 
-   If you can roll it out, you need to be able to roll it back, too!
+### Deploy Pingfederate as a Background Process
 
-Our example environment is set up with Apache JMeter generating load to a Kubernetes service (which routes load to downstream PingFederate containers). This Kubernetes service is essentially a load balancer that follows a round-robin strategy with keep-alive.
+Deploy your PingFederate version and server profile as background process with Helm:
 
-![alt text](../images/pf-upgrade_1_version9.3.3.png "Initial deployment")
+!!! Info "Make sure you have a devops-secret"
+If you are using this example as is, you will need a [devops-secret](../get-started/devopsUserKey.md#for-kubernetes)
 
-The key here is that the service is pointing to this deployment of PingFederate because of a selector defined on the service that matches a label on the PingFederate deployment. This is what makes the blue-green approach possible.
+```
+helm upgrade --install pf-upgrade pingidentity/ping-devops \
+   --version 0.8.4 -f 20-kubernetes/15-pingfederate-upgrade/01-background.yaml
+```
 
-> A deployment in Kubernetes manages containers in pods, defining things, such as which containers to run, how many containers, the metadata labels, and the update strategy.
+where values.yaml:
 
-### Other Considerations
+```yaml
+--8<-- "20-kubernetes/15-pingfederate-upgrade/01-background.yaml"
+```
 
-Using DevOps processes can mean that things like comfortable setup processes and admin UIs in production are sacrificed, but for most organizations, the resulting zero downtime for rollouts and rollbacks is easily worth it.
+The `args` section starts pingfederate as a background process and `tail -f /dev/null` as the foreground process.
 
-!!! note "zero downtime and loss-of-state"
-    The terms "zero downtime" and "loss-of-state" are significantly different. Zero downtime is what this upgrade process achieves: at no point in time will users experience a `500 bad gateway` error. However, we are sacrificing state to achieve this. Because we are moving from one entire deployment to another, the new deployment does _cannot_ have access to runtime state in the previous deployment. For this reason, it's critical to externalize state as much as possible.
+### Upgrade Profile in Container
 
-## Upgrading using a local profile
+The steps for upgrading can be automated with a script. Example scripts are included at `20-kubernetes/15-pingfederate-upgrade/hooks`.
 
-With your environment set up properly, you can do the product upgrade offline. Offline here means we'll pull the profile into a Docker container on our local workstation to upgrade it.
+To use the scripts, copy the folder your PingFederate container
 
-Before going into the actual steps for a profile upgrade. It's worth noting that if your profile is well-constructed, using the minimum number of files that are specific to the PingFederate configuration, you might be able to avoid this entire section.
+```
+kubectl cp 20-kubernetes/15-pingfederate-upgrade/hooks pf-upgrade-pingfederate-admin-0:/opt/staging
+```
 
-For example, the upgrade for our baseline profile (https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) worked almost flawlessly from 9.3.3 to 10.0.0. In fact, the only file that required an update was adding a "Pairwise definition" to `./instance/server/default/conf/hivemodule.xml`.
+The pf-upgrade.sh script will:
 
-This could be the case for you as well. If you want to try this, just use your PingFederate profile with the new version image tag, and watch the logs for errors.
+- download the target PingFederate software bits
+- backup the current /opt/out folder to /opt/current_bak
+- run the upgrade utility
+- overwrite /opt/out or /opt/out/instance/server/default/data with upgraded files
+- run diff between /opt/staging (server-profile location) and respective upgraded file. Diffs can be found in `/tmp/stagingDiffs`
 
-Some details of the upgrade process might be different for you, based on your PingFederate profile.
-<!--- TODO: link to PF profile --->
+Exec into the container and run the script.
 
-### Steps
+```
+kubectl exec -it pf-upgrade-pingfederate-admin-0 -- sh
+cd /opt/staging/hooks
+sh pf-upgrade.sh 10.3.4
+```
 
-1. Check out a PingFederate feature branch (such as, `pf-10.0.0`) off of the master of _your_ current version of PingFederate (9.3.3 in our example).
+At the conclusion of the script you will have an upgraded `/opt/out/instance/server/default/data` folder.
 
-1. Spin up a PingFederate deployment based on this branch with the `/opt/out` volume mounted. For clarity, let's do this in Docker Compose and assume the mount looks something like this: `~/tmp/pf93/instance:/opt/out/instance`. When the container is healthy, stop the container.
+## Server Profile Upgrade
 
-1. Download the latest version of the PingFederate Server distribution .zip archive from the Ping Identity website. Extract the distribution .zip archive into `~/tmp/pf93`.
+If your profile is applied on each start of your container, you should keep your profile up to date with the product version you are deploying.
 
-1. Go to the `~/tmp/pf93` directory, and run the PingFederate upgrade utility:
+After the previously run script, you can find upgraded profile files in `/opt/new_staging`
+These files will be hard-coded and you should follow [Build a PingFederate Profile](./buildPingFederateProfile.md) as needed for templating.
 
-    ```shell
-    ./upgrade.sh <pf_install_source> [-l <newPingFederateLicense>] [-c].
-    ```
+Additionally, If you use the bulk-config data.json import it will not be found here. It should be imported via the standard process on the next container start.
 
-    > See [Upgrading PingFederate on Linux Systems](https://docs.pingidentity.com/bundle/pingfederate-100/page/ukh1564003034797.html) for more information.
+## Post Upgrade
 
-1. CLean up the upgraded PingFederate profile, which has a lot of bloat from the upgrade, so that you can run `git diff` and see _only_ upgraded files.
+To enable PingFederate admin as a foreground process, scale it down first.
 
-    A good text editor (such as, Microsoft Visual Studio Code) with Git extensions is invaluable for this process.
+```
+kubectl scale sts pf-upgrade-pingfederate-admin --replicas=0
+```
 
-    1. Copy over files from your new profile `~/tmp/pf93/instance` on top of your current profile. Avoid directly copying over and replacing `.subst` files.
+Finally, update PingFederate image version to new target PingFederate version and run as normal.
 
-    2. If you are using Visual Studio Code, you can `right-click` -> Select for compare on the old file and `right-click`>'Compare with selected' on the new file. This compares line-by-line diffs.
+```
+helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.4 \
+   -f 20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml
+```
 
-       If all you see is your variables, you can ignore the whole file.
+```yaml
+--8<-- "20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml"
+```
 
-1. After you test the upgrade, push your changes to Git.
+This will restart the admin console, and trigger a rolling update of all the engines.
 
-## Standing up a blue-green deployment
+!!! Info "Old Profile"
+The final yaml `20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml` still points to the same profile. The steps that should have been completed in [Server Profile Upgrade](#server-profile-upgrade) were not included.
 
-Now that you have a new profile, you can stand up a new deployment that uses it and flip all of the traffic over to it.
-
-1. Stand up a new deployment using the following:
-
-    * The correct product image version.
-    * The new profile.
-    * A label on the deployment that distinguishes it from the prior deployment, such as `version: 10.0.0`.
-
-2. When the deployment is healthy and ready to accept traffic, update the selector on the Kubernetes service.
-
-   This routes all traffic to the new PingFederate deployment without downtime occurring.
+Connecting to the admin console will now show the upgraded version in cluster management.

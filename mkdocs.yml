@@ -41,6 +41,7 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.superfences
+  - pymdownx.snippets
   - meta
   - toc:
       # insert a blank space before the character
