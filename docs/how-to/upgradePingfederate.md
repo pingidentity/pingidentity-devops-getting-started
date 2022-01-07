@@ -134,3 +134,8 @@ helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.4 \
 ```
 
 This will restart the admin console, and trigger a rolling update of all the engines.
+
+!!! Info "Old Profile"
+The final yaml `20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml` still points to the old profile. The steps that should have been completed in [Server Profile Upgrade](#server-profile-upgrade) were not included.
+
+Connecting to the admin console will now show the upgraded version in cluster management.
