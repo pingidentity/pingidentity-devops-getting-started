@@ -16,28 +16,28 @@ General Steps:
 
 ## Caveats
 
-1. **This Document Assumes Kubernetes and Helm**
+1.  **This Document Assumes Kubernetes and Helm**
 
-   The terms in this document will focus on deployments in a Kubernetes Environment using the ping-devops Helm chart. However, the concepts should apply to any containerized PingFederate Deployment.
+    The terms in this document will focus on deployments in a Kubernetes Environment using the ping-devops Helm chart. However, the concepts should apply to any containerized PingFederate Deployment.
 
-1. **This Document will Become Outdated**
+1.  **This Document will Become Outdated**
 
-   The examples referenced in this document point to a specifig tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to N -1 from the current PF version.
+    The examples referenced in this document point to a specifig tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to N -1 from the current PF version.
 
-1. **Upgrades from Traditional Deployment**
+1.  **Upgrades from Traditional Deployment**
 
-   It may be desirable to upgrade PingFederate along with migrating from a traditional environment. This is not recommended. Instead you should upgrade your current environment to the desired version of PingFederate and then [create a profile](./buildPingFederateProfile.md) that can be used in a containerized deployment.
+    It may be desirable to upgrade PingFederate along with migrating from a traditional environment. This is not recommended. Instead you should upgrade your current environment to the desired version of PingFederate and then [create a profile](./buildPingFederateProfile.md) that can be used in a containerized deployment.
 
-1. **Persistent Volume on `/opt/out`**
+1.  **Persistent Volume on `/opt/out`**
 
-   The suggested script should not be used if a persistent volume is attached to `/opt/out`. New software bits will not include special files built into the docker image. It is recommended to mount volumes on PingFederate Admin to `/opt/out/instance/server/default/data`.
-   <!--TODO: If you do have /opt/out mounted, instead of running the the example script,  -->
+    The suggested script should not be used if a persistent volume is attached to `/opt/out`. New software bits will not include special files built into the docker image. It is recommended to mount volumes on PingFederate Admin to `/opt/out/instance/server/default/data`.
+    <!--TODO: If you do have /opt/out mounted, instead of running the the example script,  -->
 
-1. **Irrelevant Ingress**
+1.  **Irrelevant Ingress**
 
-   The values.yaml files mentioned in this document expects and nginx ingress controller with class `nginx-public`. It is not an issue if your environment doesn't have this, the created ingresses will not be used.
+    The values.yaml files mentioned in this document expects and nginx ingress controller with class `nginx-public`. It is not an issue if your environment doesn't have this, the created ingresses will not be used.
 
-<!--TODO: flip. upgrade happens first. then discuss persistence and server profile.   -->
+    <!--TODO: flip. upgrade happens first. then discuss persistence and server profile.   -->
 
 ## Persistent Volume Upgrade
 
@@ -119,7 +119,7 @@ Additionally, If you use the bulk-config data.json import it will not be found h
 To enable PingFederate admin as a foreground process, scale it down first.
 
 ```
-kubectl scale sts pf-upgrade-pingfederate-admin-0 --replicas=0
+kubectl scale sts pf-upgrade-pingfederate-admin --replicas=0
 ```
 
 Finally, update PingFederate image version to new target PingFederate version and run as normal.
@@ -136,6 +136,6 @@ helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.4 \
 This will restart the admin console, and trigger a rolling update of all the engines.
 
 !!! Info "Old Profile"
-The final yaml `20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml` still points to the old profile. The steps that should have been completed in [Server Profile Upgrade](#server-profile-upgrade) were not included.
+The final yaml `20-kubernetes/15-pingfederate-upgrade/02-upgraded.yaml` still points to the same profile. The steps that should have been completed in [Server Profile Upgrade](#server-profile-upgrade) were not included.
 
 Connecting to the admin console will now show the upgraded version in cluster management.
