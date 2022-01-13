@@ -181,6 +181,7 @@ docker run -rm -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-co
 ```
 
 Where:
+
 - `-v $PWD/shared:/shared` - bind mounts `ping-bulkconfigtool/shared` folder to /shared in the container
 - `/shared/pf-config.json` - input path to [config file](#configure-bulk-tool) which defines how to process the bulk export `data.json` file from PingFederate.
 - `/shared/data.json` - input path to data.json result of /pf-admin-api/v1/bulk/export PingFederate API endpoint.
