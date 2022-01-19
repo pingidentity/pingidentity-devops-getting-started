@@ -109,6 +109,7 @@ nav:
               - Deploy to Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
               - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
           - Deploy Hashicorp Vault: "deployment/deployVault.md"
+          - Deploy a Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
       - Operating Patterns:
           - Introduction: "deployment/deploymentPatterns.md"
           - PingFederate: "deployment/managePingFederate.md"

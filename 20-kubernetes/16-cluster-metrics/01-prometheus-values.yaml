@@ -1,0 +1,245 @@
+#### "TESTED ON: Chart version: 14.5.0  App Version: 0.46.0"
+##    Deployed with:
+## helm upgrade --install metrics prometheus-community/kube-prometheus-stack -f 01-prometheus-values.yaml -n metrics --version 30.0.1
+##
+
+## Override the deployment namespace
+##
+namespaceOverride: "metrics"
+
+## Create default rules for monitoring the cluster
+##
+defaultRules:
+  create: true
+  rules:
+    alertmanager: true
+    etcd: true
+    general: true
+    k8s: true
+    kubeApiserver: true
+    kubeApiserverAvailability: true
+    kubeApiserverError: true
+    kubeApiserverSlos: true
+    kubelet: true
+    kubePrometheusGeneral: true
+    kubePrometheusNodeAlerting: true
+    kubePrometheusNodeRecording: true
+    kubernetesAbsent: true
+    kubernetesApps: true
+    kubernetesResources: true
+    kubernetesStorage: true
+    kubernetesSystem: true
+    kubeScheduler: true
+    kubeStateMetrics: true
+    network: true
+    node: true
+    prometheus: true
+    prometheusOperator: true
+    time: true
+
+##
+global:
+  rbac:
+    create: true
+    pspEnabled: true
+    pspAnnotations: {}
+
+## Deploy alertmanager
+alertmanager:
+  enabled: true
+  apiVersion: v2
+  serviceAccount:
+    create: true
+    name: ""
+    annotations: {}
+  ingress:
+    enabled: false
+    annotations:
+      kubernetes.io/ingress.class: "nginx-public"
+
+    labels: {}
+    ## CHANGEME
+    hosts: 
+      - bx-alertmanager.ping-devops.com
+    paths:
+    - /
+    tls: []
+
+
+## Depoy Grafana
+##
+grafana:
+  enabled: true
+  defaultDashboardsEnabled: true
+  
+  ## CHANGEME
+  adminPassword: prom-operator
+
+  ingress:
+    enabled: true
+    annotations: 
+      kubernetes.io/ingress.class: "nginx-public"
+    labels: {}
+    ##CHANGEME
+    hosts:
+      - bx-grafana.ping-devops.com
+    path: /
+
+    tls: []
+
+## Component scraping the kubelet and kubelet-hosted cAdvisor
+##
+kubelet:
+  enabled: true
+  namespace: kube-system
+
+## Component scraping the kube controller manager
+##
+kubeControllerManager:
+  enabled: true
+
+## Configuration for kube-state-metrics subchart
+##
+kube-state-metrics:
+  namespaceOverride: ""
+  rbac:
+    create: true
+  podSecurityPolicy:
+    enabled: true
+
+## Manages Prometheus and Alertmanager components
+##
+prometheusOperator:
+  enabled: true
+  ## Namespaces to scope the interaction of the Prometheus Operator and the apiserver (allow list).
+  ## This is mutually exclusive with denyNamespaces. Setting this to an empty object will disable the configuration
+  ##
+  namespaces: {}
+    # releaseNamespace: true
+    # additional:
+    # - kube-system
+
+  ## Namespaces not to scope the interaction of the Prometheus Operator (deny list).
+  ##
+  denyNamespaces: []
+  serviceAccount:
+    create: true
+    name: ""
+
+
+prometheus:
+
+  enabled: true
+
+  ingress:
+    enabled: false
+
+    # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+    # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+    # ingressClassName: nginx
+
+    annotations: 
+      # nginx example
+      # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
+    labels: {}
+
+
+    ##CHANGEME
+    hosts:
+      - bx-prometheus.ping-devops.com
+
+    paths: []
+
+    tls: []
+
+
+  ## Settings affecting prometheusSpec
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+  ##
+  prometheusSpec:
+    ## If true, pass --storage.tsdb.max-block-duration=2h to prometheus. This is already done if using Thanos
+    ##
+
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+        #  storageClassName: gluster
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi
+
+    additionalScrapeConfigs:
+    # ## Discover and monitor PD instances
+    # - job_name: 'pd-statsd-exporter'
+    #   kubernetes_sd_configs:
+    #   - role: endpoints
+    #   relabel_configs:
+    #   - source_labels: [__meta_kubernetes_endpoint_port_name, __meta_kubernetes_service_name]
+    #     action: keep
+    #     regex: metrics;pingdirectory
+    #   - source_labels: [__meta_kubernetes_pod_name]
+    #     action: replace
+    #     target_label: instance
+    #   - source_labels: [__meta_kubernetes_namespace]
+    #     action: replace
+    #     target_label: namespace
+    
+    # ## Discover and monitor DG instances
+    # - job_name: 'dg-statsd-exporter'
+    #   kubernetes_sd_configs:
+    #   - role: endpoints
+    #   relabel_configs:
+    #   - source_labels: [__meta_kubernetes_endpoint_port_name, __meta_kubernetes_service_name]
+    #     action: keep
+    #     regex: metrics;pingdatagovernance
+    #   - source_labels: [__meta_kubernetes_pod_name]
+    #     action: replace
+    #     target_label: instance
+    #   - source_labels: [__meta_kubernetes_namespace]
+    #     action: replace
+    #     target_label: namespace
+    
+    # - job_name: 'jmeter'
+    #   scrape_interval: 5s
+    #   kubernetes_sd_configs:
+    #   - role: endpoints
+    #   relabel_configs:
+    #   - source_labels: [__meta_kubernetes_endpoint_port_name, __meta_kubernetes_service_name]
+    #     action: keep
+    #     regex: metrics;jmeter
+    #   - source_labels: [__meta_kubernetes_pod_name]
+    #     action: replace
+    #     target_label: instance
+    #   - source_labels: [__meta_kubernetes_namespace]
+    #     action: replace
+    #     target_label: namespace
+
+    ## Discover and monitor Ping Telegraf instances. 
+    - job_name: 'telegraf'
+      scrape_interval: 5s
+      kubernetes_sd_configs:
+      - role: pod 
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_container_name]
+        action: keep
+        regex: telegraf
+      - source_labels: [__meta_kubernetes_pod_name]
+        action: replace
+        target_label: instance
+      - source_labels: [__meta_kubernetes_namespace]
+        action: replace
+        target_label: namespace
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__

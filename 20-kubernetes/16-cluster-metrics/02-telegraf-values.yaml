@@ -1,0 +1,73 @@
+## Deployed with:
+##  helm upgrade --install telegraf influxdata/telegraf-operator -f /Users/samirgandhi/projects/cluster-metrics-stack/telegraf/values.yaml -n metrics --version 1.3.3
+
+replicaCount: 3
+image:
+  repository: quay.io/influxdb/telegraf-operator
+  pullPolicy: IfNotPresent
+  sidecarImage: "docker.io/library/telegraf:1.18.0-alpine"
+
+classes:
+  secretName: "telegraf-operator-classes"
+  default: "infra"
+  data:
+    infra: |
+      [[outputs.influxdb]]
+        urls = ["http://influxdb.influxdb:8086"]
+      [global_tags]
+        env = "ci"
+        hostname = "$HOSTNAME"
+        nodename = "$NODENAME"
+        type = "infra"
+    prometheus: |
+      [[outputs.prometheus_client]]
+        listen = ":9273"
+        metric_version = 1
+        path = "/metrics"
+        expiration_interval = "30d"  # 60s
+        collectors_exclude = ["gocollector", "process"]
+    # dynatrace: |
+    #   [[outputs.dynatrace]]
+    #     ## For usage with the Dynatrace OneAgent you can omit any configuration,
+    #     ## the only requirement is that the OneAgent is running on the same host.
+    #     ## Only setup environment url and token if you want to monitor a Host without the OneAgent present.
+    #     ##
+    #     ## Your Dynatrace environment URL.
+    #     ## For Dynatrace OneAgent you can leave this empty or set it to "http://127.0.0.1:14499/metrics/ingest" (default)
+    #     ## For Dynatrace SaaS environments the URL scheme is "https://{your-environment-id}.live.dynatrace.com/api/v2/metrics/ingest"
+    #     ## For Dynatrace Managed environments the URL scheme is "https://{your-domain}/e/{your-environment-id}/api/v2/metrics/ingest"
+    #     url = "https://{your-environment-id}.live.dynatrace.com/api/v2/metrics/ingest"
+    #     ## prefix = "ping-telegraf."
+    #     ## Your Dynatrace API token.
+    #     ## Create an API token within your Dynatrace environment, by navigating to Settings > Integration > Dynatrace API
+    #     ## The API token needs data ingest scope permission. When using OneAgent, no API token is required.
+    #     api_token = "{your.api.token}"
+certManager:
+  enable: false
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  # Annotations to add to the service account
+  annotations: {}
+podSecurityContext: {}
+  # fsGroup: 2000
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+requireAnnotationsForSecret: false
