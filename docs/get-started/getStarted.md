@@ -25,7 +25,7 @@ To quickly try Ping products, you will need an environment to deploy to. [Ranche
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ```
 
-* [pingctl](pingDevopsUtil.md#installation)
+* [pingctl](pingctlUtil.md#installation)
 
     ```sh
     brew tap pingidentity/devops

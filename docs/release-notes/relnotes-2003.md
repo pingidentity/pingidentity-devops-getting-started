@@ -45,7 +45,7 @@ title: DevOps Docker Builds, Version 2003
 
 - **The ping-devops Utility**
 
-      We've added Kubernetes license secret generation, and server profile generation for PingDirectory  to the ping-devops utility. See [The ping-devops utility](../get-started/pingDevopsUtil.md).
+      We've added Kubernetes license secret generation, and server profile generation for PingDirectory  to the ping-devops utility. See [The ping-devops utility](../get-started/pingctlUtil.md).
 
 - **A New Hook**
 

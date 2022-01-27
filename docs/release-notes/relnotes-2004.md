@@ -29,7 +29,7 @@ title: DevOps Docker Builds, Version 2004
 
 - **The ping-devops utility**
 
-      We've added major enhancements to our ping-devops utility. See [The ping-devops Utility](../get-started/pingDevopsUtil.md).
+      We've added major enhancements to our ping-devops utility. See [The ping-devops Utility](../get-started/pingctlUtil.md).
 
 - **PingDirectory replication**
 
