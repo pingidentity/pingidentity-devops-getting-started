@@ -20,7 +20,7 @@ You have:
 
 1. Clone the `pingidentity-devops-getting-started` repository to your local `${PING_IDENTITY_DEVOPS_HOME}` directory.
 
-    > The `${PING_IDENTITY_DEVOPS_HOME}` environment variable was set when you ran `ping-devops config`.
+    > The `${PING_IDENTITY_DEVOPS_HOME}` environment variable was set when you ran `pingctl config`.
 
     ```sh
     cd "${PING_IDENTITY_DEVOPS_HOME}"

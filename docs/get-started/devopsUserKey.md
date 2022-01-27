@@ -7,9 +7,41 @@ When starting one of our containers, the container attempts to find the DevOps r
 
 ## Display Your Devops Information
 
-To display your current DevOps environment information, run the `ping-devops info` command.
+To display your current DevOps environment information, run the `pingctl info` command.
 
-## For Standalone Containers
+
+## For Kubernetes and Helm
+
+Our Kubernetes and Helm examples by default will look for a Kubernetes secret named `devops-secret`.
+
+You must create a Kubernetes secret that contains the environment variables `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY`.
+
+1. If you don't already know your DevOps credentials, display these using the following DevOps command.
+
+    ```sh
+    pingctl info
+    ```
+
+2. Generate the Kubernetes secret from your DevOps credentials:
+
+   Choose from:
+
+   * Use the `pingctl` utility.
+
+    ```sh
+    pingctl k8s generate devops-secret | kubectl apply -f -
+    ```
+
+   * Generate the secret manually.
+
+   ```sh
+    kubectl create secret generic devops-secret \
+      --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" \
+      --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
+   ```
+
+
+## For Standalone Docker Containers
 
 When using the `docker run` command to start a container, you can assign the `--env-file` argument to the file containing your DevOps registration information, as in the following example.
 
@@ -64,33 +96,3 @@ Add the `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY` DevOps enviro
       - PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
 ...
 ```
-
-## For Kubernetes
-
-Our Kubernetes examples default to look for a Kubernetes secret named `devops-secret`.
-
-You must create a Kubernetes secret that contains the environment variables `PING_IDENTITY_DEVOPS_USER` and `PING_IDENTITY_DEVOPS_KEY`.
-
-1. If you don't already know your DevOps credentials, display these using the following DevOps command.
-
-    ```sh
-    ping-devops info
-    ```
-
-2. Generate the Kubernetes secret from your DevOps credentials:
-
-   Choose from:
-
-   * Use the `ping-devops` utility.
-
-    ```sh
-    ping-devops generate devops-secret | kubectl apply -f -
-    ```
-
-   * Generate the secret manually.
-
-   ```sh
-    kubectl create secret generic devops-secret \
-      --from-literal=PING_IDENTITY_DEVOPS_USER="${PING_IDENTITY_DEVOPS_USER}" \
-      --from-literal=PING_IDENTITY_DEVOPS_KEY="${PING_IDENTITY_DEVOPS_KEY}"
-   ```
