@@ -28,7 +28,7 @@ The pieces that provide allocatable resources, such as CPU and memory, and make 
 Namespaces are intended to be an area scoped for grouped applications to be deployed.
 
 !!! note
-   You can allocate resource limits available to a namespace, but this isn't required.
+    You can allocate resource limits available to a namespace, but this isn't required.
 
 **Context** - A definition in your ~/.kube/config file that specifies which cluster and namespace your `kubectl` commands are sent to.
 
