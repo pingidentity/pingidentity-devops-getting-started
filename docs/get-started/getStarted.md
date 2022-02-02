@@ -1,13 +1,13 @@
 ---
 title: Kubernetes Get Started
 ---
-# **Get Started**
+# Get Started
 
 This documentation provides a method to quickly deploy containerized images of Ping Identity products via this documentation. Ping Identity images should be compatible across a variety of container platforms including Docker and [Kubernetes](https://www.cncf.io/certification/software-conformance/) (Including via [Helm Charts](https://helm.pingidentity.com/)). Our getting started configurations are designed to provide working instances of our products either as standalone containers or in orchestrated sets.
 
 To quickly try Ping products, you will need an environment to deploy to. [Rancher Desktop](https://rancherdesktop.io) provides a great platform to get started with local Kubernetes development is compatible with Linux, MacOS, and Windows (using WSL). Rancher Desktop also supports the [docker container runtime](https://docs.rancherdesktop.io/preferences#container-runtime), which provides support for running docker commands without installing individual docker components or Docker Desktop.
 
-### **Required Utilities**
+### Required Utilities
 
 * You have access to a Kubernetes cluster. For local Kubernetes work, [Rancher Desktop](https://rancherdesktop.io) can provide a local Kubernetes cluster.
 
@@ -32,7 +32,7 @@ To quickly try Ping products, you will need an environment to deploy to. [Ranche
     brew install pingctl
     ```
 
-### **Recommended Additional Utilities**
+### Recommended Additional Utilities
 * [k9s](https://k9scli.io/)
     ```sh
     brew install derailed/k9s/k9s
@@ -49,7 +49,7 @@ To quickly try Ping products, you will need an environment to deploy to. [Ranche
     !!! info "docker-compose installation note"
           Installing docker-compose is only necessary to deploy [Docker containers](getStartedWithGitRepo.md) when using docker with Rancher Desktop. See [Rancher preferences](https://docs.rancherdesktop.io/preferences#container-runtime) to switch from containerd to dockerd (moby).
 
-### **Product license**
+### Product license
 
 You must have a product license to run our images. You may either:
 
@@ -57,7 +57,7 @@ You must have a product license to run our images. You may either:
 
 * Use a valid product license available with a current Ping Identity customer subscription after [DevOps Registration](devopsRegistration.md) completion.
 
-## **Set Up Your DevOps Environment**
+## Set Up Your DevOps Environment
 
 1. Open a terminal and create a local DevOps directory named `${HOME}/projects/devops`.
 
