@@ -3,7 +3,7 @@ title: The ping-devops Utility (Depreciated)
 ---
 # The `ping-devops` Utility (Depreciated)
 
-`ping-devops` was our general DevOps command-line utility, but has been superseded by the [pingctl tool](pingctlUtil.md). This page is maintained for referential knowledge only, and the tool is no longer actively maintained or supported. Users are recommended to migrate to the ping-devops product for continued support.
+`ping-devops` was our general DevOps command-line utility, but has been superseded by the [pingctl tool](pingctlUtil.md). This page is maintained for referential knowledge only, and the tool is no longer actively maintained or supported. Users are recommended to migrate to the `pingctl` product for continued support.
 
 ## Dependent Utilities
 
