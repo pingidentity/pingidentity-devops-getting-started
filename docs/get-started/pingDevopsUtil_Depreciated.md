@@ -1,9 +1,9 @@
 ---
-title: The ping-devops Utility
+title: The ping-devops Utility (Depreciated)
 ---
-# The `ping-devops` Utility
+# The `ping-devops` Utility (Depreciated)
 
-`ping-devops` is our general DevOps command-line utility.
+`ping-devops` was our general DevOps command-line utility, but has been superseded by the [pingctl tool](pingctlUtil.md). This page is maintained for referential knowledge only, and the tool is no longer actively maintained or supported. Users are recommended to migrate to the ping-devops product for continued support.
 
 ## Dependent Utilities
 
@@ -15,44 +15,6 @@ To perform all of its operations, `ping-devops` has a dependency on the followin
 * kubectl
 * envsubst
 * jq
-
-## Installation and Upgrades
-
-Use Homebrew to install `ping-devops` on MacOS or Linux.
-
-1. To install, enter:
-
-    ```sh
-    brew tap pingidentity/devops
-    brew install ping-devops
-    ```
-
-1. To upgrade, enter:
-
-    ```sh
-    brew upgrade ping-devops
-    ```
-
-1. To check for upgrades, run the following command.
-
-    !!! note "Check regularly"
-        Check for upgrades regularly.
-
-    ```sh
-    ping-devops version
-    ```
-
-    The dependent utilities for `ping-devops` are also installed or upgraded during this process.
-
-1. On Linux systems, install or upgrade the `ping-devops` utility and `bash_profile` aliases to your current directory by entering:
-
-    ```sh
-    curl -sL https://bit.ly/ping-devops-install | bash
-    ```
-
-    Follow instructions to copy to your preferred location.
-
-    Ensure you have the dependent utilities for `ping-devops` installed as well.
 
 ## `ping-devops` Usage
 
