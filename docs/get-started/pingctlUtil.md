@@ -23,14 +23,13 @@ Using Homebrew to install `pingctl` on MacOS, Windows via [Windows Subsystem for
 1. To install, enter:
 
     ```sh
-    brew tap pingidentity/devops
-    brew install pingctl
+    brew install pingidentity/tap/pingctl
     ```
 
 1. To upgrade, enter:
 
     ```sh
-    brew upgrade pingctl
+    brew upgrade pingidentity/tap/pingctl
     ```
 
 1. To check for upgrades, run the following command.
