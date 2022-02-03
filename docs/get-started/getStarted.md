@@ -28,8 +28,7 @@ To quickly try Ping products, you will need an environment to deploy to. [Ranche
 * [pingctl](pingctlUtil.md#installation)
 
     ```sh
-    brew tap pingidentity/devops
-    brew install pingctl
+    brew install pingidentity/tap/pingctl
     ```
 
 ### Recommended Additional Utilities
