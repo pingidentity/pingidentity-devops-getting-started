@@ -85,7 +85,10 @@ grafana:
       - grafana-mymetrics.ping-devops.com
     path: /
 
-    tls: []
+    ##CHANGEME
+    tls:
+    - hosts:
+      - grafana-mymetrics.ping-devops.com
 
 ## Component scraping the kubelet and kubelet-hosted cAdvisor
 ##
