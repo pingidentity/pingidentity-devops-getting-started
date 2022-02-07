@@ -73,7 +73,7 @@ Note `2/2` on pods with sidecars.
 Browse to Grafana via the Ingress URL or port-forward.
 Log in with the `admin` user and password set in `01-prometheus-values.yaml`
 
-Next, upload `04-ping-overview-dashboard.json` via the `+` on the left of Grafana's home screen.
+Next, import `04-ping-overview-dashboard.json` via the `+` on the left of Grafana's home screen.
 
 The `Ping Identity Overview` dashboard will have a dropdown for namespace at the top. Select your namespace to see:
 
