@@ -37,13 +37,13 @@ Once ready, deploy the `kube-prometheus-stack`
 
 ```
 kubectl create namespace metrics
-helm install metrics --repo https://prometheus-community.github.io/helm-charts kube-prometheus-stack -n metrics --version 30.0.1 -f 20-kubernetes/16-cluster-metrics/01-prometheus-values.yaml
+helm upgrade --install metrics --repo https://prometheus-community.github.io/helm-charts kube-prometheus-stack -n metrics --version 30.0.1 -f 20-kubernetes/16-cluster-metrics/01-prometheus-values.yaml
 ```
 
 Deploy `telegraf-operator`:
 
 ```
-helm install telegraf --repo https://helm.influxdata.com/ telegraf-operator -n metrics --version 1.3.3 -f 20-kubernetes/16-cluster-metrics/02-telegraf-values.yaml
+helm upgrade --install telegraf --repo https://helm.influxdata.com/ telegraf-operator -n metrics --version 1.3.3 -f 20-kubernetes/16-cluster-metrics/02-telegraf-values.yaml
 ```
 
 Telegraf operator makes it very easy to add monitoring sidecars to your deployments. All you need to do is add annotaions, which are shown in `20-kubernetes/16-cluster-metrics/03-ping-with-metrics-values.yaml`
