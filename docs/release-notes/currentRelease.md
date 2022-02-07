@@ -35,7 +35,6 @@ title: DevOps Docker Builds, Version 2201 (February 07 2022)
 - **Docker Images**
     - Apache Tomcat to Version 9.0.58
     - Liberica JDK to 11.0.14+9
-    - LDAP SDK to 6.0.3
 
 - **Helm Charts**
     #### [Release 0.8.5](https://helm.pingidentity.com/release-notes/#release-085-feb-7-2022) ####
