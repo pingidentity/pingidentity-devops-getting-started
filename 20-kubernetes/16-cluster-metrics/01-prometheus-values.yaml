@@ -60,7 +60,7 @@ alertmanager:
     labels: {}
     ## CHANGEME
     hosts: 
-      - bx-alertmanager.ping-devops.com
+      - alertmanager-mymetrics.ping-devops.com
     paths:
     - /
     tls: []
@@ -82,7 +82,7 @@ grafana:
     labels: {}
     ##CHANGEME
     hosts:
-      - bx-grafana.ping-devops.com
+      - grafana-mymetrics.ping-devops.com
     path: /
 
     tls: []
@@ -147,7 +147,7 @@ prometheus:
 
     ##CHANGEME
     hosts:
-      - bx-prometheus.ping-devops.com
+      - prometheus-mymetrics.ping-devops.com
 
     paths: []
 
