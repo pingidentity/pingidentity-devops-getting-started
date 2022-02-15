@@ -1,9 +1,0 @@
-#Added to ship logs to logstash
-dsconfig create-log-publisher \
-    --publisher-name syslog  \
-    --type syslog-based-access  \
-    --set enabled:true  \
-    --set include-instance-name:true  \
-    --set include-requester-ip-address:true  \
-    --set server-port:20515  \
-    --set server-host-name:logstash
