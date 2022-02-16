@@ -74,7 +74,7 @@ nav:
       - Kubernetes Basics: "get-started/k8sBasics.md"
       - Helm Basics: "get-started/HelmBasics.md"
       - PingOne  Configuration: "get-started/pingone-config.md"
-      - ping-devops Utility (Depreciated): "get-started/pingDevopsUtil_Deprecated.md"
+      - ping-devops Utility (Deprecated): "get-started/pingDevopsUtil_Deprecated.md"
   - Deployment:
       - Introduction: "deployment/deploy.md"
       - Deploy with Docker-Compose:
