@@ -70,7 +70,7 @@ You must have:
 
         In addition to Nginx's prevalence in Kubernetes, Nginx doesn't trigger creation of an ALB, as happens with the AWS ALB ingress controller, and Nginx Network Load Balancers allow for TCP traffic instead of just Layer 7 (HTTP(s)).
 
-1. A public certificate and private key to use as a TLS secret to be presented by the ingress. You can generate this TLS secret in Kubernetes yaml format with the [ping-devops tool](../get-started/pingDevopsUtil.md).
+1. A public certificate and private key to use as a TLS secret to be presented by the ingress. You can generate this TLS secret in Kubernetes yaml format with the [ping-devops tool](../get-started/pingctlUtil.md).
 
     ```sh
    ping-devops generate devops-secret | kubectl apply -f -

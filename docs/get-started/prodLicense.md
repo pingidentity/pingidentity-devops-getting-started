@@ -10,7 +10,7 @@ To run the Ping Identity DevOps images, you must have a valid product license. Y
 When you register for Ping Identity's DevOps program, you are issued credentials that automate the process of retrieving an evaluation product license.
 
 !!! warning "Evaluation License"
-    Evaluation licenses are short lived (30 days) and **must not** be used in production deployments.
+    Evaluation licenses are short-lived (30 days) and **must not** be used in production deployments.
 
 Evaluation licenses can only be used with images published in the last 90 days.
 If you want to continue to use an image that was published more than 90 days ago, you must obtain a product license.
@@ -24,11 +24,11 @@ After you have a product license for the product and version of the more-than-90
 
 ## Using Your DevOps User and Key
 
-When starting an image, you can provide your DevOps property file `~/.pingidentity/devops` or using the individual environment variables.
+When starting an image, you can provide your DevOps property file `~/.pingidentity/devops` or use the individual environment variables.
 
 >The examples provided for docker-compose are set up to use this property file by default.
 
-For more details, run the `ping-devops info` to view your DevOps environment information.
+For more details, run the `pingctl info` to view your DevOps environment information.
 
 ### Example Docker Run Command
 
@@ -77,4 +77,3 @@ This example shows running a Docker image using any Docker .yaml file where you 
       - PING_IDENTITY_DEVOPS_KEY=e9bd26ac-17e9-4133-a981-d7a7509314b2
 ...
 ```
-
