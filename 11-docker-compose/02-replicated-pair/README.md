@@ -1,1 +1,0 @@
-See [Deploy a replicated pair of PingDirectory containers](../../docs/deployment/deployReplication.md) for more information.
