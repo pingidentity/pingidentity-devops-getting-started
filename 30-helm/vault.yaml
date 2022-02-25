@@ -1,0 +1,11 @@
+# for more information, visit https://helm.pingidentity.com/config/vault/
+  vault:
+    hashicorp:
+      secrets:
+        devops-secret.env:
+          to-json:
+            file: devops-secret.env
+        licenses:
+          <secret name>:
+            file: <license name>.lic
+            path: /opt/in/some/location/licenses

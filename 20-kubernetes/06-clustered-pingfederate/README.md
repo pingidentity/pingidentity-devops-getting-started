@@ -1,1 +1,0 @@
-See [Orchestrate a PingFederate Cluster Deployment](../../docs/deployment/deployK8sPF-cluster.md) for more information.

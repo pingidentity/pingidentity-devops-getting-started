@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
-    <!--Uncomment the below attribute to use an external key for encryption of PF Master Key.
-
-        <con:item name="keyId"> put the key Id here </con:item>-->
-    <con:item name="keyId">ping-cloud-devops-eks-junk-dev-pingfederate</con:item>
-    <con:item name="jwkEncrypted">true</con:item>
-</con:config>
