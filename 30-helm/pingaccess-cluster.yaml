@@ -1,6 +1,15 @@
 global:
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
+    PING_IDENTITY_PASSWORD: "2Federate"
+  ingress:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: "insert domain name here"
+    defaultTlsSecret:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
 
 #############################################################
 # pingaccess-admin values
@@ -15,13 +24,16 @@ pingaccess-admin:
   container:
     env:
       SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-server-profiles.git
-      SERVER_PROFILE_PATH: baseline/pingaccess-admin
+      SERVER_PROFILE_PATH: pa-clustering/pingaccess
+      SERVER_PROFILE_PARENT: ADMIN
+      SERVER_PROFILE_ADMIN_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+      SERVER_PROFILE_ADMIN_PATH: pa-clustering/pingaccess-admin
       OPERATIONAL_MODE: CLUSTERED_CONSOLE
       PA_CONSOLE_HOST: pingaccess-admin
     resources:
       requests:
         cpu: 0
-        memory: 1Gi
+        memory: 1.5Gi
       limits:
         cpu: 2
         memory: 4Gi
@@ -57,7 +69,7 @@ pingaccess-engine:
   container:
     env:
       SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-server-profiles.git
-      SERVER_PROFILE_PATH: baseline/pingaccess
+      SERVER_PROFILE_PATH: pa-clustering/pingaccess
       OPERATIONAL_MODE: CLUSTERED_ENGINE
       PA_CONSOLE_HOST: pingaccess-admin
     resources:
@@ -71,6 +83,12 @@ pingaccess-engine:
       pingaccess-admin:
         service: https
         timeoutSeconds: 300
+  services:
+    https:
+      servicePort: 3000
+      containerPort: 3000
+      ingressPort: 443
+      dataService: true
 
 pingfederate-admin:
   enabled: true
