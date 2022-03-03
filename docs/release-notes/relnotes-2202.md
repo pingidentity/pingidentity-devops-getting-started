@@ -20,7 +20,7 @@ title: DevOps Docker Builds, Version 2202 (March 03 2022)
         - Complex Docker Compose examples deprecated and removed
 
 - **Helm Charts**
-    #### [Release 0.8.6](https://helm.pingidentity.com/release-notes/currentRelease) ####
+    [Release 0.8.6](https://helm.pingidentity.com/release-notes/currentRelease)
     - Issues Resolved
       - Update default global.image.tag to 2202
 
