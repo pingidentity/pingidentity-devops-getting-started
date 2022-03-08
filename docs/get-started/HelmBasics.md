@@ -137,8 +137,17 @@ Delete PVCs associated to a release:
   kubectl delete pvc --selector=app.kubernetes.io/instance=<release_name>
   ```
 
-### Example Configs
+### Exit Codes
 
+| Exit Code | Description |
+|---|---|
+| Exit Code 0 | Absence of an attached foreground process|
+| Exit Code 1 | Indicates failure due to application error |
+| Exit Code 137 | Indicates failure as container received SIGKILL (manual intervention or ‘oom-killer’ [OUT-OF-MEMORY]) |
+| Exit Code 139 | Indicates failure as container received SIGSEGV |
+| Exit Code 143 | Indicates failure as a container received SIGTERM |
+
+### Example Configs
 
 The following contains example configs and examples of how to run and configure Ping products
 using the Ping Devops Helm Chart. Please review the [Getting Started Page](getStarted.md) before trying them.
