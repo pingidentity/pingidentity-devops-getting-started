@@ -1,0 +1,42 @@
+############################################################
+# Ping Identity
+#
+# This sample goes with the pingdirectory-periodic-backup.yaml
+# example values file in this directory.
+#
+# If a restore of a backend is necessary, it will need to be done
+# outside of the Helm charts, as deploying Jobs via Helm
+# can only be done with certain predefined hooks.
+#
+# This Job will run the restore.sh script on the utility sidecar
+# via a kubectl command. The "deployment" values should be
+# replaced with the name of the Helm installation, and the
+# argument to the restore.sh script should be replaced with
+# the admin password.
+#
+# Note that the restore.sh script in the example does not
+# implement the logic for pulling down the desired backup from
+# storage and putting it into the expected location on the
+# sidecar. That implementation will need to be completed
+# for this restore Job to succeed.
+#
+# The restore.sh script can also be run manually from a shell
+# in the sidecar container if necessary.
+############################################################
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: restore-kubectl-test
+spec:
+  template:
+    spec:
+      # Replace "deployment" in the serviceAccount with the name of your helm deployment
+      serviceAccount: deployment-pingdirectory-internal-kubectl
+      restartPolicy: OnFailure
+      containers:
+      - name: kubectl
+        image: bitnami/kubectl:latest
+        command: ["kubectl"]
+        # Replace "deployment" in the pod name with the name of your helm deployment
+        # Replace "2FederateM0re" with the password for the admin user
+        args: ["exec", "-ti", "deployment-pingdirectory-0", "--container", "utility-sidecar", "--", "/opt/in/restore.sh", "2FederateM0re"]
