@@ -1,1 +1,0 @@
-See [Orchestrate a replicated PingDirectory deployment](../../docs/deployment/deployK8sReplicated.md) for more information.

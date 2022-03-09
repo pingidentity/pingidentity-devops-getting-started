@@ -1,0 +1,195 @@
+############################################################
+# Ping Identity
+#
+# This example starts up a utility sidecar along each PD
+# instance in the statefulset. The sidecar should be used
+# for running command-line tools like collect-support-data
+# and backup. Note that password files in the main PD
+# container are not available to the sidecar, so they will
+# need to be supplied directly when running CLI tools.
+#
+# This example also includes a cronJob running every six
+# hours by default to backup PD data by running the backup.sh
+# script.
+#
+# Sample backup.sh and restore.sh scripts are included in
+# the sidecar via a mounted configMap. Note that the storage
+# and retrieval of those backups is not implemented here.
+# That implementation will depend on the desired storage and
+# the cloud environment (S3, etc.).
+#
+# If a restore is necessary, it will need to be done
+# outside of the Helm charts, as deploying Jobs via Helm
+# can only be done with certain predefined hooks. See the
+# restore-job.yaml file in this directory for an example.
+# It will run the restore.sh script on the utility sidecar
+# via a kubectl command.
+############################################################
+
+configMaps:
+  pingdirectory-backup:
+    data:
+      backup.sh: |-
+        #!/bin/sh
+        set -e
+        # Create a directory for the backup
+        mkdir -p /opt/pingdirectory-backup
+        # Run the backup
+        backup --backupDirectory /opt/pingdirectory-backup --backendID userRoot --retainPreviousFullBackupAge '1 day'
+        # TODO implement based on the environment: upload backup files (to S3 or other storage)
+  pingdirectory-restore:
+    data:
+      restore.sh: |-
+        #!/bin/sh
+
+        # Read admin password from script argument
+        if [ "$#" -ne 1 ]; then
+          echo "Expected 1 parameter: admin user password."
+          exit 1
+        fi
+        _adminPassword="${1}"
+    
+        # TODO implement based on the environment: pull down backup files (from S3 or other storage) to SERVER_RESTORE_DIR
+        # The files should be placed in directories under /tmp/restore based on the backend name (like /tmp/restore/userRoot/)
+        SERVER_RESTORE_DIR=/tmp/restore
+        mkdir -p "${SERVER_RESTORE_DIR}"
+    
+        # Check if replication is enabled
+        REPL_ENABLED=false
+        dsreplication status --no-prompt --adminPassword "${_adminPassword}" &> /dev/null
+        test $? -eq 0 && REPL_ENABLED=true && echo "Replication is enabled and will be paused before the restore"
+        test "${REPL_ENABLED}" = "false" && echo "Replication is not enabled"
+        
+        pause_replication () {
+          if test "${REPL_ENABLED}" = "true"; then
+            echo "Executing pre-initialization from within ${SERVER} pod for DN ${USER_BASE_DN}"
+            dsreplication pre-external-initialization \
+              --retryTimeoutSeconds 60 \
+              --baseDN "${USER_BASE_DN}" \
+              --no-prompt --ignoreWarnings \
+              --adminPassword "${_adminPassword}"
+          fi
+        }
+    
+        resume_replication() {
+          if test "${REPL_ENABLED}" = "true"; then
+            echo "Initializing replication from within ${SERVER} pod for DN: ${USER_BASE_DN} "
+            dsreplication initialize-all \
+              --retryTimeoutSeconds 60 \
+              --baseDN "${USER_BASE_DN}" \
+              --no-prompt --ignoreWarnings \
+              --adminPassword "${_adminPassword}"
+    
+            echo "Executing post-initialization from within ${SERVER} pod for DN: ${USER_BASE_DN}"
+            dsreplication post-external-initialization \
+              --retryTimeoutSeconds 60 \
+              --baseDN "${USER_BASE_DN}" \
+              --no-prompt --ignoreWarnings \
+              --adminPassword "${_adminPassword}"
+          fi
+        }
+    
+        # This guarantees that resume_replication is always run, even if the restore job exits due to an error
+        trap "resume_replication" EXIT
+    
+        pause_replication
+        
+        # Print listed files from user data archive
+        if ! ls ${SERVER_RESTORE_DIR}; then
+          echo "Failed to list ${SERVER_RESTORE_DIR}"
+          exit 1
+        fi
+        
+        if test -f "${SERVER_ROOT_DIR}/changelogDb"; then
+          echo "Removing changelogDb before restoring user data"
+        
+          if ! rm -rf "${SERVER_ROOT_DIR}/changelogDb"; then
+            echo "Failed to remove ${SERVER_RESTORE_DIR}/changelogDb"
+            exit 1
+          fi
+        fi
+        
+        echo "Restoring to the latest backups under ${SERVER_RESTORE_DIR}"
+        BACKEND_DIRS=$(find "${SERVER_RESTORE_DIR}" -name backup.info -exec dirname {} \;)
+        
+        # If encryption-settings backend is present in the backups, it must be restored first.
+        # So re-order the backups such that it appears first in the list.
+        ORDERED_BACKEND_DIRS=
+        ENCRYPTION_DB_BACKEND_DIR=
+        
+        for BACKEND_DIR in ${BACKEND_DIRS}; do
+          if test "${BACKEND_DIR%encryption-settings}" != "${BACKEND_DIR}"; then
+            echo "Found encryption-settings database backend"
+            ENCRYPTION_DB_BACKEND_DIR="${BACKEND_DIR}"
+          else
+            test -z "${ORDERED_BACKEND_DIRS}" &&
+                ORDERED_BACKEND_DIRS="${BACKEND_DIR}" ||
+                ORDERED_BACKEND_DIRS="${ORDERED_BACKEND_DIRS} ${BACKEND_DIR}"
+          fi
+        done
+        
+        test ! -z "${ENCRYPTION_DB_BACKEND_DIR}" &&
+            ORDERED_BACKEND_DIRS="${ENCRYPTION_DB_BACKEND_DIR} ${ORDERED_BACKEND_DIRS}"
+        
+        echo "Restore order of backups: ${ORDERED_BACKEND_DIRS}"
+        
+        for BACKEND_DIR in ${ORDERED_BACKEND_DIRS}; do
+          printf "\n----- Doing a restore from ${BACKEND_DIR} -----\n"
+          restore --task \
+            --useSSL --trustAll \
+            --port ${LDAPS_PORT} \
+            --bindDN "${ROOT_USER_DN}" \
+            --bindPassword "${_adminPassword}" \
+            --backupDirectory "${BACKEND_DIR}" \
+            --ignoreCompatibilityWarnings
+        done
+        
+        # Cleanup
+        rm -rf ${SERVER_RESTORE_DIR}
+    
+        echo "Restore complete"
+
+pingdirectory:
+  # Use a cronJob to run backups every six hours
+  cronjob:
+    enabled: true
+    spec:
+      schedule: "0 */6 * * *"
+      successfulJobsHistoryLimit: 0
+      failedJobsHistoryLimit: 1
+    args:
+      - /opt/in/backup.sh
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: getting-started/pingdirectory
+  workload:
+    # Share process namespace for sidecar to get a view inside the main container
+    shareProcessNamespace: true
+  # Share /tmp so sidecar can see Java processes. Don't keep /tmp around between restarts though.
+  volumes:
+  - name: temp
+    emptyDir: {}
+  - name: backup-script
+    configMap:
+      name: pingdirectory-backup
+      defaultMode: 0755
+  - name: restore-script
+    configMap:
+      name: pingdirectory-restore
+      defaultMode: 0755
+  volumeMounts:
+  - name: temp
+    mountPath: /tmp
+
+  # Backups, restores, and other CLI tools should be run from the sidecar to prevent interfering
+  # with the main PingDirectory container process.
+  utilitySidecar:
+    enabled: true
+    volumes:
+    - name: backup-script
+      mountPath: /opt/in/backup.sh
+      subPath: backup.sh
+    - name: restore-script
+      mountPath: /opt/in/restore.sh
+      subPath: restore.sh

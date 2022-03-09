@@ -37,21 +37,23 @@ Once ready, deploy the `kube-prometheus-stack`
 
 ```
 kubectl create namespace metrics
-helm upgrade --install metrics --repo https://prometheus-community.github.io/helm-charts kube-prometheus-stack -n metrics --version 30.0.1 -f 20-kubernetes/16-cluster-metrics/01-prometheus-values.yaml
+
+helm upgrade --install metrics --repo https://prometheus-community.github.io/helm-charts kube-prometheus-stack -n metrics --version 30.0.1 -f 30-helm/cluster-metrics/01-prometheus-values.yaml
+
 ```
 
 Deploy `telegraf-operator`:
 
 ```
-helm upgrade --install telegraf --repo https://helm.influxdata.com/ telegraf-operator -n metrics --version 1.3.3 -f 20-kubernetes/16-cluster-metrics/02-telegraf-values.yaml
+helm upgrade --install telegraf --repo https://helm.influxdata.com/ telegraf-operator -n metrics --version 1.3.3 -f 30-helm/cluster-metrics/02-telegraf-values.yaml
 ```
 
-Telegraf operator makes it very easy to add monitoring sidecars to your deployments. All you need to do is add annotaions, which are shown in `20-kubernetes/16-cluster-metrics/03-ping-with-metrics-values.yaml`
+Telegraf operator makes it very easy to add monitoring sidecars to your deployments. All you need to do is add annotaions, which are shown in `30-helm/cluster-metrics/03-ping-with-metrics-values.yaml`
 
 These values can be copied to your ping-devops values.yaml manually, or the file can be referenced at the end of your helm install command. For example:
 
 ```
-helm upgrade --install ping-metrics pingidentity/ping-devops -f my-values.yaml -f 20-kubernetes/16-cluster-metrics/03-ping-with-metrics-values.yaml
+helm upgrade --install ping-metrics pingidentity/ping-devops -f my-values.yaml -f 30-helm/cluster-metrics/03-ping-with-metrics-values.yaml
 ```
 
 Once the Ping software is healthy and producing metrics, there should be sidecars on Ping pods.
