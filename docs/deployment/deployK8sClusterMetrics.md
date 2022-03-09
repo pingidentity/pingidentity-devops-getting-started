@@ -37,7 +37,9 @@ Once ready, deploy the `kube-prometheus-stack`
 
 ```
 kubectl create namespace metrics
+
 helm upgrade --install metrics --repo https://prometheus-community.github.io/helm-charts kube-prometheus-stack -n metrics --version 30.0.1 -f 30-helm/cluster-metrics/01-prometheus-values.yaml
+
 ```
 
 Deploy `telegraf-operator`:

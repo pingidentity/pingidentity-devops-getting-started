@@ -1,30 +1,62 @@
 ---
-title: Get Started
+title: Kubernetes Get Started
 ---
 # Get Started
 
-You can quickly deploy Docker images of Ping Identity products. We use Docker, Docker Compose, and Kubernetes to deploy our Docker images in stable, network-enabled containers. Our Docker images are preconfigured to provide working instances of our products, either as single containers or in orchestrated sets.
+This documentation provides a method to quickly deploy containerized images of Ping Identity products via this documentation. Ping Identity images should be compatible across a variety of container platforms including Docker and [Kubernetes](https://www.cncf.io/certification/software-conformance/) (Including via [Helm Charts](https://helm.pingidentity.com/)). Our getting started configurations are designed to provide working instances of our products either as standalone containers or in orchestrated sets.
 
-## Prerequisites
+To quickly try Ping products, you will need an environment to deploy to. [Rancher Desktop](https://rancherdesktop.io) provides a great platform to get started with local Kubernetes development is compatible with Linux, MacOS, and Windows (using WSL). Rancher Desktop also supports the [docker container runtime](https://docs.rancherdesktop.io/preferences#container-runtime), which provides support for running docker commands without installing individual docker components or Docker Desktop.
 
-* You have access to [Docker](https://docs.docker.com/install/).
-* You have access to [Docker Compose](https://docs.docker.com/compose/install/) (included with Docker Desktop on Mac and Windows).
-* Your terminal configuration is set to use the Bash shell.
+### Required Utilities
 
-    !!! info "Default Shell"
-        With Apple macOS Catalina, the Z shell (zsh) is the default shell, rather than Bash. To set your default terminal shell to Bash, enter `chsh -s /bin/bash`.
+* You have access to a Kubernetes cluster. For local Kubernetes work, [Rancher Desktop](https://rancherdesktop.io) can provide a local Kubernetes cluster.
 
-* You've installed the [ping-devops](pingDevopsUtil.md#installation) utility.
+    !!! info "Kubernetes alternative"
+          Alternatively, you may install `kubectl` and `helm` using brew or your preferred package manager:
+          ```sh
+          brew install helm
+          brew install kubectl
+          ```
+          Installing helm and kubectl individually assumes you have a Kubernetes cluster available, either on a cloud platform such as AWS, Azure, GCP, or other or locally via Minikube, Kind, CodeReady Containers, etc.
+
+
+* [Homebrew](https://brew.sh) for package installation and management.
+    ```sh
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ```
+
+* [pingctl](pingctlUtil.md#installation)
+
+    ```sh
+    brew install pingidentity/tap/pingctl
+    ```
+
+### Recommended Additional Utilities
+* [k9s](https://k9scli.io/)
+    ```sh
+    brew install derailed/k9s/k9s
+    ```
+* [kubectx](https://github.com/ahmetb/kubectx)
+    ```sh
+    brew install kubectx
+    ```
+* [docker-compose](https://docs.docker.com/compose/install/)
+    ```sh
+    brew install docker-compose
+    ```
+
+    !!! info "docker-compose installation note"
+          Installing docker-compose is only necessary to deploy [Docker containers](getStartedWithGitRepo.md) when using docker with Rancher Desktop. See [Rancher preferences](https://docs.rancherdesktop.io/preferences#container-runtime) to switch from containerd to dockerd (moby).
 
 ### Product license
 
-You must have a product license to run our Docker images. You can use either:
+You must have a product license to run our images. You may either:
 
-* An evaluation license obtained with a valid DevOps user key. For more information, see [DevOps Registration](devopsRegistration.md).
+* Generate an evaluation license obtained with a valid DevOps user key. For more information, see [DevOps Registration](devopsRegistration.md).
 
-* A valid product license available with a current Ping Identity customer subscription after you complete your DevOps Registration.
+* Use a valid product license available with a current Ping Identity customer subscription after [DevOps Registration](devopsRegistration.md) completion.
 
-## Set Up Your Devops Environment
+## Set Up Your DevOps Environment
 
 1. Open a terminal and create a local DevOps directory named `${HOME}/projects/devops`.
 
@@ -34,55 +66,19 @@ You must have a product license to run our Docker images. You can use either:
 1. Configure your DevOps environment as follows.
 
       ```sh
-      ping-devops config
+      pingctl config
       ```
 
-      1. Respond to all Docker configuration questions, accepting the defaults if you're not sure. You can accept the (empty) defaults for Kubernetes. Settings for custom variables aren't needed initially.
+      1. Respond to all configuration questions, accepting the defaults if uncertain. Settings for custom variables aren't needed initially but may be necessary for additional capabilities.
 
-      1. All of your responses are stored as settings in your local `~/.pingidentity/devops` file. Allow the configuration script to source this file in your shell profile (for example, ~/.bash_profile).
+      1. All of your responses are recorded in your local `~/.pingidentity/config` file. Allow the configuration script to source this file in your shell profile (for example, `~/.bash_profile` in a bash shell).
 
 1. To display your DevOps environment settings, enter:
 
       ```sh
-      ping-devops info
+      pingctl info
       ```
 
-1. To run a quick demonstration of any of our products in your Docker environment, use the ping-devops utility.
+1. To run a quick demonstration of any of our products in your environment, check out our [Helm Basics](HelmBasics.md) or [Kubernetes Basics](k8sBasics.md) documentation.
 
-      1. To display information about the containers or stacks available using the ping-devops utility, enter: 
-
-      ```sh
-      ping-devops docker info
-      ```
-
-      2. To display information about one of the listed containers or stacks, enter:
-
-      ```shell
-      ping-devops docker info <name>
-      ```
-
-      Where &lt;name&gt; is one of the listed container or stack names.
-
-1. To start one of the containers or stacks, enter:
-
-      ```sh
-      ping-devops docker start <name>
-      ```
-
-      Where &lt;name&gt; is one of the listed container or stack names.
-
-      > The initial run will ensure dependencies are met (such as, Docker or Docker Compose).
-
-1. When you have completed set-up:
-
-      To stop the container or stack, enter:
-
-      ```sh
-      ping-devops docker stop <name>
-      ```
-
-      To remove the container or stack and all associated data, enter:
-
-      ```sh
-      ping-devops docker rm  <name>
-      ```
+2. For more information on the variables available in ```pingctl``` see [Configuration & Environment Variables](configVars.md).

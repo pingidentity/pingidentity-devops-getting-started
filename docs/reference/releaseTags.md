@@ -78,7 +78,7 @@ Example: `pingfederate:latest`, `pingfederate:10.2.2-latest`
 
 ### sprint
 
-In addition to becoming `latest`, `edge` also is tagged as a stable `sprint` each month.  The `sprint` release tag is a build number indicating a stable build that won't change. The `sprint` number uses the YYMM format. For example, 2103 = April 2021.  The `latest` release is characterized by:
+In addition to becoming `latest`, `edge` also is tagged as a stable `sprint` each month.  The `sprint` release tag is a build number indicating a stable build that won't change. The `sprint` number uses the YYMM format. For example, 2201 = January 2022.  The `latest` release is characterized by:
 
 * Latest product version at the time the sprint ended.
 * All completed and qualified enhacements and fixes from the specified monthly sprint. The Docker images are generated at the end of the specified monthly sprint.

@@ -55,6 +55,6 @@ title: DevOps Docker Builds, Version 2111 (December 06 2021)
 - See the [Product Version, Image Release Matrix](../../reference/productVersionMatrix/)
 for currently supported image and product versions.
 
-- The following versions are not longer active maintained:
+- The following versions are no longer actively maintained:
     - PingFederate 10.3.3
     - PingAccess 6.3.1

@@ -36,7 +36,7 @@ We enable DevOps professionals, administrators, and developers with tools, frame
 
 * **Streamlined Deployments**
 
-    Deploy and run workloads on our solutions without the need for additional hardware or virutal machines (VMs).
+    Deploy and run workloads on our solutions without the need for additional hardware or virtual machines (VMs).
 
 * **Consistent and Flexible**
 

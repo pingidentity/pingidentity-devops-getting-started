@@ -41,6 +41,7 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.superfences
+  - pymdownx.snippets
   - meta
   - toc:
       # insert a blank space before the character
@@ -64,12 +65,16 @@ nav:
       - Contributing: contributing.md
   - Get Started:
       - Introduction: "get-started/getStarted.md"
-      - ping-devops Utility: "get-started/pingDevopsUtil.md"
       - DevOps Registration: "get-started/devopsRegistration.md"
+      - pingctl Utility: "get-started/pingctlUtil.md"
       - Using Your DevOps User and Key: "get-started/devopsUserKey.md"
+      - Configure Your Variables: "get-started/configVars.md"
       - DevOps Product Licenses: "get-started/prodLicense.md"
       - Deploy Example Stack: "get-started/getStartedWithGitRepo.md"
-      - Kubernetes and Helm Basics: "get-started/k8sHelmBasics.md"
+      - Kubernetes Basics: "get-started/k8sBasics.md"
+      - Helm Basics: "get-started/HelmBasics.md"
+      - PingOne  Configuration: "get-started/pingone-config.md"
+      - ping-devops Utility (Deprecated): "get-started/pingDevopsUtil_Deprecated.md"
   - Deployment:
       - Introduction: "deployment/deploy.md"
       - Deploy with Docker-Compose:
@@ -108,6 +113,7 @@ nav:
               - Deploy to Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
               - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
           - Deploy Hashicorp Vault: "deployment/deployVault.md"
+          - Deploy a Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
       - Operating Patterns:
           - Introduction: "deployment/deploymentPatterns.md"
           - PingFederate: "deployment/managePingFederate.md"
@@ -176,6 +182,9 @@ nav:
   - Release Notes:
       - Current Release: "release-notes/currentRelease.md"
       - All Releases:
+        - Version 2202: "release-notes/relnotes-2202.md"
+        - Version 2201: "release-notes/relnotes-2201.md"
+        - Version 2112: "release-notes/relnotes-2112.md"
         - Version 2111.1: "release-notes/relnotes-2111-1.md"
         - Version 2111: "release-notes/relnotes-2111.md"
         - Version 2110: "release-notes/relnotes-2110.md"

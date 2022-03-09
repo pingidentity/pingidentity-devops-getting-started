@@ -1,0 +1,97 @@
+pingfederate-engine:
+  workload:
+    annotations:
+      telegraf.influxdata.com/inputs: |+
+        [[inputs.http]]
+          urls = ["https://localhost:9031/pf/heartbeat.ping"]
+          name_override = "pingfederate_heartbeat"
+          data_format = "json"
+          insecure_skip_verify = true
+      telegraf.influxdata.com/class: prometheus
+          ## IF older PF image
+          # json_query = "items"
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /metrics
+      prometheus.io/port: "9273"
+
+pingdirectory:
+  envs:
+    SERVER_PROFILE_METRICS_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_METRICS_PATH: perf-testing/pingdirectory
+    SERVER_PROFILE_PARENT: METRICS 
+  workload:
+    annotations:
+      # telegraf.influxdata.com/ports: "8080,9090"
+      telegraf.influxdata.com/inputs: |+
+        [[inputs.http]]
+          urls = ["https://localhost:1443/directory/v1/cn=LDAP%20Result%20Codes,cn=monitor"]
+          name_override = "pingdirectory_monitor"
+          data_format = "json"
+          insecure_skip_verify = true
+          # Optional HTTP Basic Auth Credentials
+          username = "cn=administrator"
+          password = "2FederateM0re"
+        [[inputs.statsd]]
+          protocol = "udp"
+          service_address = ":8125"
+          # ## Percentiles to calculate for timing & histogram stats.
+          # percentiles = [50.0, 90.0, 99.0, 99.9, 99.95, 100.0]
+
+          metric_separator = "_"
+
+          ## Statsd data translation templates, more info can be read here:
+          ## https://github.com/influxdata/telegraf/blob/master/docs/TEMPLATE_PATTERN.md
+          templates = [
+              "*.*.throughput *.operation.measurement*",
+              "*.*.response-time *.operation.measurement*",
+              "*.backend-entry-count backendID.measurement*",
+              "*.backend-db-cache-percent-full backendID.measurement*",
+              "*.backend-size-on-disk backendID.measurement*",
+              "*.backend-active-cleaner-threads backendID.measurement*",
+              "*.backend-cleaner-backlog backendID.measurement*",
+              "*.backend-nodes-evicted backendID.measurement*",
+              "*.backend-checkpoints backendID.measurement*",
+              "*.backend-avg-checkpoint-duration backendID.measurement*",
+              "*.backend-time-since-last-checkpoint backendID.measurement*",
+              "*.backend-new-db-logs backendID.measurement*",
+              "*.backend-random-reads backendID.measurement*",
+              "*.backend-random-writes backendID.measurement*",
+              "*.backend-sequential-reads backendID.measurement*",
+              "*.backend-sequential-writes backendID.measurement*",
+              "*.entry-cache-hit-ratio entryCache.measurement*",
+              "*.entry-cache-hit-count entryCache.measurement*",
+              "*.entry-cache-attempts entryCache.measurement*",
+              "*.entry-cache-add-or-update entryCache.measurement*",
+              "*.entry-cache-size entryCache.measurement*",
+              "*.entry-cache-pct-full entryCache.measurement*",
+              "*.*.*.garbage-collections gcType.size.cause.measurement*",
+              "*.*.*.garbage-collection-duration gcType.size.cause.measurement*",
+              "*.garbage-collection-live-mbytes region.measurement*",
+              "changelog.* backendID.measurement*",
+              "*.*.*.*.ldap-conn-handler-bytes-read *.*.*.port.measurement*",
+              "*.*.*.*.ldap-conn-handler-bytes-written *.*.*.port.measurement*",
+              "*.*.*.*.ldap-conn-handler-messages-read *.*.*.port.measurement*",
+              "*.*.*.*.ldap-conn-handler-messages-written *.*.*.port.measurement*",
+              "*.*.*.*.ldap-conn-handler-search-requests *.*.*.port.measurement*",
+              "*.*.*.*.ldap-conn-handler-search-entries-returned *.*.*.port.measurement*"
+          ]
+      telegraf.influxdata.com/class: prometheus
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /metrics
+      prometheus.io/port: "9273"
+
+pingaccess-engine:
+  workload:
+    type: Deployment
+    annotations:
+      telegraf.influxdata.com/inputs: |+
+        [[inputs.http]]
+          urls = ["https://localhost:3000/pa/heartbeat.ping"]
+          name_override = "pingaccess_heartbeat"
+          data_format = "json"
+          insecure_skip_verify = true
+          json_query = "items"
+      telegraf.influxdata.com/class: prometheus
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /metrics
+      prometheus.io/port: "9273"
