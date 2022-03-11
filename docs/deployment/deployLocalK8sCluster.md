@@ -22,7 +22,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
 
 1. [Install kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) on your platform.
 
-1. Create a kind cluster with our sample `.yaml` file to enable ingress (application network exposure). Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/99-tools/kind.yaml)
+1. Create a kind cluster with our sample `.yaml` file to enable ingress (application network exposure). Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kustomize/99-tools/kind.yaml)
 
     ```sh
     kind create cluster --config=kind.yaml
@@ -36,7 +36,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     kubectl get nodes
     ```
 
-1. Next, install the nginx-ingress-controller for `kind`. Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/99-tools/kind-nginx.yaml)
+1. Next, install the nginx-ingress-controller for `kind`. Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kustomize/99-tools/kind-nginx.yaml)
 
     ```sh
     kubectl apply -f kind-nginx.yaml

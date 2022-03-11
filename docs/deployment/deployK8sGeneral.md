@@ -3,11 +3,11 @@ title: Kubernetes Deployments for General Use
 ---
 # Kubernetes Deployments for General Use
 
-In all of these examples, we'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory to supply the base product configurations.
+In all of these examples, we'll use the standalone configurations in your local `pingidentity-devops-getting-started/20-kustomize/01-standalone` directory to supply the base product configurations.
 
 To minimize repetitive and irrelevant information, we'll also use [kustomize](https://kustomize.io/). For effective use of the examples, we recommended that you be familiar with concepts such as "resources" and "patches" in `kustomize`.
 
-You'll find useful comments in the `kustomization.yaml` files in your local `pingidentity-devops-getting-started/20-kubernetes` example directories.
+You'll find useful comments in the `kustomization.yaml` files in your local `pingidentity-devops-getting-started/20-kustomize` example directories.
 
 ## Before you begin
 
@@ -39,9 +39,9 @@ You will:
 
      `kustomize build <path/to/directory>`
 
-    For the fullstack configuration (pingidentity-devops-getting-started/20-kubernetes/02-fullstack), for example, you might use:
+    For the fullstack configuration (pingidentity-devops-getting-started/20-kustomize/02-fullstack), for example, you might use:
 
-    `kustomize build ./20-kubernetes/02-fullstack > ./output.yaml`
+    `kustomize build ./20-kustomize/02-fullstack > ./output.yaml`
 
     This builds and redirects the output to the `output.yaml` file.
 
@@ -78,7 +78,7 @@ You must have:
 
 ## Steps
 
-* Find sample yaml files for ingresses on products that ingresses make sense for in `20-kubernetes/10-ingress`.
+* Find sample yaml files for ingresses on products that ingresses make sense for in `20-kustomize/10-ingress`.
    > These examples should be generally applicable, with the exception of `metadata.annotations`.
 
 * Deploy one of the examples with commands, such as:

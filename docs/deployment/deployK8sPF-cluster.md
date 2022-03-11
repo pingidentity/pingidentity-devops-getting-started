@@ -3,7 +3,7 @@ title: Orchestrate a PingFederate Cluster Deployment
 ---
 # Orchestrating a PingFederate Cluster Deployment
 
-Use kustomize for the PingFederate cluster deployment from your local `pingidentity-devops-getting-started/20-kubernetes/06-clustered-pingfederate` directory (the location of the YAML files) and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations.
+Use kustomize for the PingFederate cluster deployment from your local `pingidentity-devops-getting-started/20-kustomize/06-clustered-pingfederate` directory (the location of the YAML files) and call into your local `pingidentity-devops-getting-started/20-kustomize/01-standalone` directory for the base product configurations.
 
 We use the following layered server profiles:
 
@@ -22,7 +22,7 @@ The `env_vars.pingfederate` and `env_vars.pingfederate-engine` files:
 
 `kustomization.yaml` does the following:
 
-* References your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone/pingfederate` directory for the base product configurations
+* References your local `pingidentity-devops-getting-started/20-kustomize/01-standalone/pingfederate` directory for the base product configurations
 * Uses patches to remove the `pingfederate` engine port (9031)
 * Adds a `pingfederate` cluster port (7600)
 * Replaces the environment variables in the parent `configMap` with those in the specified `env_vars.pingfederate` and `env_vars.pingfederate-engine` files
@@ -42,7 +42,7 @@ You must have:
       * Add `PING_IDENTITY_K8S_NAMESPACE=<your-k8s-namespace>` to your `~/.pingidentity/devops` file.
       * Run `export PING_IDENTITY_K8S_NAMESPACE=<your-k8s-namespace>`.
 
-1. To orchestrate the clustered PingFederate deployment, from your local `pingidentity-devops-getting-started/20-kubernetes` directory, enter:
+1. To orchestrate the clustered PingFederate deployment, from your local `pingidentity-devops-getting-started/20-kustomize` directory, enter:
 
       ```sh
       kustomize build . | \

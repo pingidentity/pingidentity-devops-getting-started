@@ -65,7 +65,7 @@ title: DevOps Docker Builds, Version 2003
 
 - **PingDirectory Replication Timing**
 
-      We've added a profile and reference example to test PingDirectory replication timing. See the pingidentity-devops-getting-started [Repo](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/20-kubernetes/11-pingdirectory-replication-timing).
+      We've added a profile and reference example to test PingDirectory replication timing. See the pingidentity-devops-getting-started [Repo](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/20-kustomize/11-pingdirectory-replication-timing).
 
 - **Docker Base Image Security**
 

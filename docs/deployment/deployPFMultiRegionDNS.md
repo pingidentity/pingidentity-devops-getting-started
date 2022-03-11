@@ -28,7 +28,7 @@ The PingIdentity PingFederate Docker image default `instance/server/default/conf
 - [PingFederate Cluster Across Multiple Kubernetes Clusters](./deployK8sPFclusters.md)
 - externalDNS
 
-Clone the `getting-started` [Repository](https://github.com/pingidentity/pingidentity-devops-getting-started) to get the Kubernetes yaml and configuration files for the exercise (20-kubernetes/14-dns-pingfederate-multiregion), then:
+Clone the `getting-started` [Repository](https://github.com/pingidentity/pingidentity-devops-getting-started) to get the Kubernetes yaml and configuration files for the exercise (20-kustomize/14-dns-pingfederate-multiregion), then:
 
 1. Look through the files, there are embedded comments to explain the purpose of its structure.
 
