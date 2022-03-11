@@ -48,7 +48,7 @@ We also highly recommend you are familiar with the information in these AKS arti
          --name ping-devops-cluster
       ```
 
-1. From your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory, start our fullstack example in AKS by entering:
+1. From your local `pingidentity-devops-getting-started/20-kustomize/02-fullstack` directory, start our fullstack example in AKS by entering:
 
       ```sh
       kustomize build . | kubectl apply -f -

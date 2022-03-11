@@ -41,7 +41,7 @@ Before you deploy Vault using Helm, you must add the TLS key pair (public and pr
       --from-file=vault.ca=<local_path_to_ca_cert>/vault.ca
     ```
 
-2. Ensure that these parameters in the `values.yaml` file located in your local `pingidentity-devops-getting-started/20-kubernetes/08-vault/vault-helm` directory are set as follows:
+2. Ensure that these parameters in the `values.yaml` file located in your local `pingidentity-devops-getting-started/20-kustomize/08-vault/vault-helm` directory are set as follows:
 
     * `global:`
 
@@ -178,7 +178,7 @@ Vault can retrieve the AWS KMS key using an environment variable so that it's no
 
 For complete information, see the Vault documentation for [Kubernetes](https://www.vaultproject.io/docs/platform/k8s).
 
-1. Go to your local `pingidentity-devops-getting-started/20-kubernetes/08-vault/vault-helm` directory and enter:
+1. Go to your local `pingidentity-devops-getting-started/20-kustomize/08-vault/vault-helm` directory and enter:
 
     ```sh
      helm install vault /.

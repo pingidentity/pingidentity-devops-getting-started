@@ -3,7 +3,7 @@ title: Orchestrate a Full Stack Deployment
 ---
 # Orchestrating a Full Stack Deployment
 
-Use kustomize for the full stack deployment from your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations.
+Use kustomize for the full stack deployment from your local `pingidentity-devops-getting-started/20-kustomize/02-fullstack` directory (the location of the YAML files), and call into your local `pingidentity-devops-getting-started/20-kustomize/01-standalone` directory for the base product configurations.
 
 For this deployment, use the server profiles in our [pingidentity-server-profiles/baseline](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) repository instead of the [pingidentity-server-profiles/getting-started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) repository, which we did for the standalone deployments.
 
@@ -19,12 +19,12 @@ PING_IDENTITY_ACCEPT_EULA=YES
 
 The `kustomization.yaml` file:
 
-* References your local `pingidentity-devops-getting-started/20-kubernetes/01-standalone` directory for the base product configurations
+* References your local `pingidentity-devops-getting-started/20-kustomize/01-standalone` directory for the base product configurations
 * Replaces the environment variables in the parent `configMap` with those in the specified `env_vars.*` files
 
 ## Deploying the Stack
 
-To orchestrate the full stack deployment, from your local `pingidentity-devops-getting-started/20-kubernetes` directory, enter:
+To orchestrate the full stack deployment, from your local `pingidentity-devops-getting-started/20-kustomize` directory, enter:
 
 ```sh
 kustomize build . | kubectl apply -f -

@@ -186,7 +186,7 @@ These are examples for demo environments to get a feel for what a multi-region d
 
 #### Single Namespace
 
-`20-kubernetes/09-multi-k8s-pingdirectory/01-single-namespace` is the least constrained example. It's good to just see what logs on a cross-cluster topology look like:
+`20-kustomize/09-multi-k8s-pingdirectory/01-single-namespace` is the least constrained example. It's good to just see what logs on a cross-cluster topology look like:
 
 * Relies only on DNS names that kubernetes provides.
 * All traffic is in one namespace, so it should have no network constraints.
@@ -223,7 +223,7 @@ When the all the instances are up and running, you should see something similar 
 
 #### Single Cluster Multiple Namespaces
 
-`20-kubernetes/09-multi-k8s-pingdirectory/02-single-cluster-two-namespaces`
+`20-kustomize/09-multi-k8s-pingdirectory/02-single-cluster-two-namespaces`
 
 1. Use this example when you only have one cluster available for testing.
 
@@ -251,7 +251,7 @@ Consider the [EKS Peering Config](./deployK8s-AWS.md) example if you want to tes
 
 ![pd-multi-dns-diagrams](../images/pd-multi-dns-diagram.png)
 
-`20-kubernetes/09-multi-k8s-pingdirectory/03-multi-cluster-dns`
+`20-kustomize/09-multi-k8s-pingdirectory/03-multi-cluster-dns`
 
 This example uses [Headless Services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) instead of regular clusterIp services. This is necessary in a VPC-peered environment because typically the route-tables and IP ranges you've peered correspond to container IP addresses, not service addresses.
 
@@ -275,7 +275,7 @@ In a scenario where you don't have VPC peering or must create external DNS names
 
 To use NodePorts:
 
-1. Use the `20-kubernetes/09-multi-k8s-pingdirectory/03-multi-cluster-dns` example as reference
+1. Use the `20-kustomize/09-multi-k8s-pingdirectory/03-multi-cluster-dns` example as reference
 2. Make the pod-selector services NodePort services instead of clusterIp.
 3. Optionally, remove the external name and create a routable dns name.
 
@@ -453,7 +453,7 @@ data:
 
 ## Deployment Example
 
-The examples in `20-kubernetes/05-multi-k8s-cluster-pingdirectory` create an
+The examples in `20-kustomize/05-multi-k8s-cluster-pingdirectory` create an
 example deployment across two clusters in AWS EKS:
 
 * us-east-2 (SEED Cluster)
@@ -502,7 +502,7 @@ Example:
         * `env_vars.pingdirectory` (built from env_vars.pingdirectory.multi-cluster and us-east-2)
     * `base`
         * `kustomization.yaml`
-        * `https://github.com/pingidentity/pingidentity-devops-getting-started/20-kubernetes/03-replicated-pingdirectory`
+        * `https://github.com/pingidentity/pingidentity-devops-getting-started/20-kustomize/03-replicated-pingdirectory`
         * `env_vars.pingdirectory`
         * `limits.yaml`
 

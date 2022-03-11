@@ -60,25 +60,25 @@
                 "name": "pingaccess",
                 "type": "product",
                 "description": "Standalone PingAccess Demo",
-                "path": "20-kubernetes/01-standalone/pingaccess"
+                "path": "20-kustomize/01-standalone/pingaccess"
             },
             {
                 "name": "pingfederate",
                 "type": "product",
                 "description": "Standalone PingFederate Demo",
-                "path": "20-kubernetes/01-standalone/pingfederate"
+                "path": "20-kustomize/01-standalone/pingfederate"
             },
             {
                 "name": "pingdataconsole",
                 "type": "product",
                 "description": "Standalone PingDataConsole Demo",
-                "path": "20-kubernetes/01-standalone/pingdataconsole"
+                "path": "20-kustomize/01-standalone/pingdataconsole"
             },
             {
                 "name": "pingdirectory",
                 "type": "product",
                 "description": "Standalone PingDirectory Demo",
-                "path": "20-kubernetes/01-standalone/pingdirectory"
+                "path": "20-kustomize/01-standalone/pingdirectory"
             }
         ]
     },
