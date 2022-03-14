@@ -2,7 +2,7 @@ global:
   ingress:
     enabled: true
     addReleaseNameToHost: prepend
-    defaultDomain: ping-devops.com
+    defaultDomain: <insert domain name here>
     defaultTlsSecret:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"

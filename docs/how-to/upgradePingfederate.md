@@ -64,27 +64,23 @@ Deploy your PingFederate version and server profile as background process with H
 !!! Info "Make sure you have a devops-secret"
 If you are using this example as is, you will need a [devops-secret](../get-started/devopsUserKey.md#for-kubernetes)
 
+!!! Info "Be sure to change the ingress domain name value to your domain in [01-background.yaml](../../30-helm/pingfederate-upgrade/01-background.yaml)"
+/Users/wesleymccollam/projects/devops/dev/pingidentity-devops-getting-started/30-helm/pingfederate-upgrade/01-background.yaml
 ```
 helm upgrade --install pf-upgrade pingidentity/ping-devops \
-   --version 0.8.4 -f 30-helm/15-pingfederate-upgrade/01-background.yaml
-```
-
-where values.yaml:
-
-```yaml
---8<-- "30-helm/15-pingfederate-upgrade/01-background.yaml"
+   --version 0.8.4 -f 30-helm/pingfederate-upgrade/01-background.yaml
 ```
 
 The `args` section starts pingfederate as a background process and `tail -f /dev/null` as the foreground process.
 
 ### Upgrade Profile in Container
 
-The steps for upgrading can be automated with a script. Example scripts are included at `30-helm/15-pingfederate-upgrade/hooks`.
+The steps for upgrading can be automated with a script. Example scripts are included at `30-helm/pingfederate-upgrade/hooks`.
 
 To use the scripts, copy the folder your PingFederate container
 
 ```
-kubectl cp 30-helm/15-pingfederate-upgrade/hooks pf-upgrade-pingfederate-admin-0:/opt/staging
+kubectl cp 30-helm/pingfederate-upgrade/hooks pf-upgrade-pingfederate-admin-0:/opt/staging
 ```
 
 The pf-upgrade.sh script will:
@@ -126,16 +122,11 @@ Finally, update PingFederate image version to new target PingFederate version an
 
 ```
 helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.4 \
-   -f 30-helm/15-pingfederate-upgrade/02-upgraded.yaml
+   -f 30-helm/pingfederate-upgrade/02-upgraded.yaml
 ```
-
-```yaml
---8<-- "30-helm/15-pingfederate-upgrade/02-upgraded.yaml"
-```
-
 This will restart the admin console, and trigger a rolling update of all the engines.
 
 !!! Info "Old Profile"
-The final yaml `30-helm/15-pingfederate-upgrade/02-upgraded.yaml` still points to the same profile. The steps that should have been completed in [Server Profile Upgrade](#server-profile-upgrade) were not included.
+The final yaml `30-helm/pingfederate-upgrade/02-upgraded.yaml` still points to the same profile. The steps that should have been completed in [Server Profile Upgrade](#server-profile-upgrade) were not included.
 
 Connecting to the admin console will now show the upgraded version in cluster management.
