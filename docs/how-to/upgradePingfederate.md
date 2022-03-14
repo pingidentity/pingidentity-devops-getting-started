@@ -65,7 +65,7 @@ Deploy your PingFederate version and server profile as background process with H
 If you are using this example as is, you will need a [devops-secret](../get-started/devopsUserKey.md#for-kubernetes)
 
 !!! Info "Be sure to change the ingress domain name value to your domain in [01-background.yaml](../../30-helm/pingfederate-upgrade/01-background.yaml)"
-/Users/wesleymccollam/projects/devops/dev/pingidentity-devops-getting-started/30-helm/pingfederate-upgrade/01-background.yaml
+
 ```
 helm upgrade --install pf-upgrade pingidentity/ping-devops \
    --version 0.8.4 -f 30-helm/pingfederate-upgrade/01-background.yaml
