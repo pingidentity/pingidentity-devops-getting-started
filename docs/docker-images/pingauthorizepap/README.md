@@ -36,7 +36,7 @@ this image.
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/pingauthorize-pap.log ${SERVER_ROOT_DIR}/logs/setup.log ${SERVER_ROOT_DIR}/logs/start-server.log ${SERVER_ROOT_DIR}/logs/stop-server.log  | Files tailed once container has started  |
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead)  |
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PAZ and the Policy Editor  |
-| PING_ENABLE_API_HTTP_CACHE | true | When set to `false`, disables default HTTP API caching in the Policy Manager, Trust Framework, and Test Suite. |
+| PING_ENABLE_API_HTTP_CACHE | true | When set to `false`, disables default HTTP API caching in the Policy Manager, Trust Framework, and Test Suite |
 
 ## Ports Exposed
 
