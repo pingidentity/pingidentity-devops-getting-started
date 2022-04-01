@@ -19,8 +19,11 @@ title: DevOps Docker Builds, Version 2203 (April 01 2022)
 
 - (BRASS-313) - Update docs and pingdataconsole server profile(s) for breaking application.yaml change between 8.3 and 9.0
 
-### Helm Charts
+### Helm Chart Releases
 - [Release 0.9.0](https://helm.pingidentity.com/release-notes/currentRelease)
+- [Release 0.8.9](https://helm.pingidentity.com/release-notes/previousReleases/#release-089-mar-17-2022)
+- [Release 0.8.8](https://helm.pingidentity.com/release-notes/previousReleases/#release-088-mar-16-2022)
+- [Release 0.8.7](https://helm.pingidentity.com/release-notes/previousReleases/#release-087-mar-11-2022)
 
 ### Product Build Matrix
 
