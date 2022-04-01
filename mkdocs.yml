@@ -182,6 +182,7 @@ nav:
   - Release Notes:
       - Current Release: "release-notes/currentRelease.md"
       - All Releases:
+        - Version 2203: "release-notes/relnotes-2203.md"
         - Version 2202: "release-notes/relnotes-2202.md"
         - Version 2201: "release-notes/relnotes-2201.md"
         - Version 2112: "release-notes/relnotes-2112.md"
