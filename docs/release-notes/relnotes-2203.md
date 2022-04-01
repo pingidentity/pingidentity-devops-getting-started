@@ -12,7 +12,7 @@ title: DevOps Docker Builds, Version 2203 (April 01 2022)
 
 - **Documentation**
     - [Helm and Kustomize Documents added DevOps Getting Started GitHub Repo](https://github.com/pingidentity/pingidentity-devops-getting-started) has been updated
-        - 20-kubernetes has been renamed to 20-kustomize, as well as kustomize examples reduced
+        - 20-kubernetes directory has been renamed to 20-kustomize, as well as kustomize examples reduced
         - 30-helm directory added with examples included
 
 ### Resolved Defects
