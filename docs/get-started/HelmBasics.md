@@ -12,7 +12,7 @@ Although this document can't cover the depths of these tools, brand-new Helm use
 ## Helm
 
 !!! info "Ping Identity DevOps and Helm"
-    All of our instructions and examples are based on the [Ping Identity DevOps Helm chart](helm.pingidentity.com). If you're not using the Ping Identity DevOps Helm chart in production, we still recommend using it for generating your direct Kubernetes manifest files. This gives Ping Identity the best opportunity to support your environment.
+    All of our instructions and examples are based on the [Ping Identity DevOps Helm chart](https://helm.pingidentity.com). If you're not using the Ping Identity DevOps Helm chart in production, we still recommend using it for generating your direct Kubernetes manifest files. This gives Ping Identity the best opportunity to support your environment.
 
 Everything in Kubernetes is deployed by defining what you want and allowing Kubernetes to achieve the desired state.
 
