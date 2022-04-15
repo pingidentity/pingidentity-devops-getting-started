@@ -25,6 +25,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingToolkit  | Ping product name  |
 | STARTUP_COMMAND  | tail  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | STARTUP_FOREGROUND_OPTS  | -f /dev/null  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |

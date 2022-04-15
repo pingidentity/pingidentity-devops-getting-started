@@ -24,6 +24,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingFederate  | Ping product name  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/server/default/conf  | License directory  |
 | LICENSE_FILE_NAME  | pingfederate.lic  | Name of license file  |

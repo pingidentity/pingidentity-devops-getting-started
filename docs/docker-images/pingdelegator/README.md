@@ -24,6 +24,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  |  |
 | PD_DELEGATOR_HTTP_PORT  | 6080  |  |
 | PD_DELEGATOR_HTTPS_PORT  | 6443  |  |

@@ -20,6 +20,7 @@ this image.
 | SHIM  | ${SHIM}  | Flag to force a run of dsjavaproperties --initialize. When this is false, the java.properties file will only be regenerated on a restart when there is a change in JVM or a change in the product-specific java options, such as changing the MAX_HEAP_SIZE value.  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | HTTP_PORT  | 8080  | PingDataConsole HTTP listen port  |
 | HTTPS_PORT  | 8443  | PingDataConsole HTTPS listen port  |
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |

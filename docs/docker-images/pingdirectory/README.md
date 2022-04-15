@@ -25,6 +25,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingDirectory  | Ping product name  |
 | LICENSE_DIR  | ${PD_LICENSE_DIR}  | PD License directory. This value is set from the pingbase docker file  |
 | LICENSE_FILE_NAME  | PingDirectory.lic  | Name of license File  |

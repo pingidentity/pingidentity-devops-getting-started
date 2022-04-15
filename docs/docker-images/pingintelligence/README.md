@@ -24,6 +24,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingIntelligence_ASE  | Ping product name  |
 | LICENSE_FILE_NAME  | PingIntelligence.lic  | Name of license File  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/config  | License directory  |

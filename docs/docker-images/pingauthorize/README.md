@@ -25,6 +25,7 @@ this image.
 | SHIM  | ${SHIM}  |           --shm-size 256m \  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingAuthorize  | Ping product name  |
 | LICENSE_DIR  | ${PD_LICENSE_DIR}  | PD License directory. This value is set from the pingbase dockerfile  |
 | LICENSE_FILE_NAME  | PingAuthorize.lic  | Name of license file  |
