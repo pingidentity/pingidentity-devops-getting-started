@@ -85,7 +85,9 @@ You must have a product license to run our images. You may either:
       ```
 
       2. Verify configured variables are exported in your environment.
+
             1. Restart your shell or source your shell profile.
+
             2. Run `env | grep 'PING'`
 
 4. To display your DevOps environment settings, enter:
