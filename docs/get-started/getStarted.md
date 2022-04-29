@@ -74,16 +74,19 @@ You must have a product license to run our images. You may either:
       2. All of your responses are recorded in your local `~/.pingidentity/config` file. Allow the configuration script to source this file in your shell profile (for example, `~/.bash_profile` in a bash shell).
    
 3. [Optional] Export configured pingctl variables as environment variables
-   1. Modify your shell profile (for example, `~/.bash_profile` in a bash shell) so that the generated `source ~/.pingidentity/config` command is surrounded by `set -a` and `set +a` statements.
-   ```sh
-    set -a
-    # Ping Identity - Added with 'pingctl config' on Fri Apr 22 13:57:04 MDT 2022
-    test -f '${HOME}/.pingidentity/config' && source '${HOME}/.pingidentity/config'
-    set +a
-   ```
-   2. Verify configured variables are exported in your environment.
-      1. Restart your shell or source your shell profile.
-      2. Run `env | grep 'PING'`
+
+      1. Modify your shell profile (for example, `~/.bash_profile` in a bash shell) so that the generated `source ~/.pingidentity/config` command is surrounded by `set -a` and `set +a` statements.
+
+      ```sh
+      set -a
+      # Ping Identity - Added with 'pingctl config' on Fri Apr 22 13:57:04 MDT 2022
+      test -f '${HOME}/.pingidentity/config' && source '${HOME}/.pingidentity/config'
+      set +a
+      ```
+
+      2. Verify configured variables are exported in your environment.
+            1. Restart your shell or source your shell profile.
+            2. Run `env | grep 'PING'`
 
 4. To display your DevOps environment settings, enter:
 
