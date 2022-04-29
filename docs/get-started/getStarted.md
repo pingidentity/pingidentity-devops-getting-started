@@ -63,22 +63,34 @@ You must have a product license to run our images. You may either:
     !!! info "Parent Directory"
         is the parent directory for all DevOps examples referenced in our documentation.
 
-1. Configure your DevOps environment as follows.
+2. Configure your DevOps environment as follows.
 
       ```sh
       pingctl config
       ```
 
-      1. Respond to all configuration questions, accepting the defaults if uncertain. Settings for custom variables aren't needed initially but may be necessary for additional capabilities.
+      1. Respond to all configuration questions, accepting the defaults if uncertain. Settings for custom variables aren't needed initially but may be necessary for additional capabilities. 
+   
+      2. All of your responses are recorded in your local `~/.pingidentity/config` file. Allow the configuration script to source this file in your shell profile (for example, `~/.bash_profile` in a bash shell).
+   
+3. [Optional] Export configured pingctl variables as environment variables
+   1. Modify your shell profile (for example, `~/.bash_profile` in a bash shell) so that the generated `source ~/.pingidentity/config` command is surrounded by `set -a` and `set +a` statements.
+   ```sh
+    set -a
+    # Ping Identity - Added with 'pingctl config' on Fri Apr 22 13:57:04 MDT 2022
+    test -f '${HOME}/.pingidentity/config' && source '${HOME}/.pingidentity/config'
+    set +a
+   ```
+   2. Verify configured variables are exported in your environment.
+      1. Restart your shell or source your shell profile.
+      2. Run `env | grep 'PING'`
 
-      1. All of your responses are recorded in your local `~/.pingidentity/config` file. Allow the configuration script to source this file in your shell profile (for example, `~/.bash_profile` in a bash shell).
-
-1. To display your DevOps environment settings, enter:
+4. To display your DevOps environment settings, enter:
 
       ```sh
       pingctl info
       ```
 
-1. To run a quick demonstration of any of our products in your environment, check out our [Helm Basics](HelmBasics.md) or [Kubernetes Basics](k8sBasics.md) documentation.
+5. To run a quick demonstration of any of our products in your environment, check out our [Helm Basics](HelmBasics.md) or [Kubernetes Basics](k8sBasics.md) documentation.
 
-2. For more information on the variables available in ```pingctl``` see [Configuration & Environment Variables](configVars.md).
+6. For more information on the variables available in ```pingctl``` see [Configuration & Environment Variables](configVars.md).
