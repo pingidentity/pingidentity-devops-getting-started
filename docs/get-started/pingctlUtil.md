@@ -78,8 +78,8 @@ Provide usage details.
 
 ## Available Commands
 
-* [kubernetes](commands/kubernetes)
-* [license](commands/license)
+* [kubernetes](commands/kubernetes.md)
+* [license](commands/license.md)
 * [pingone](commands/pingone.md)
 * info
 
