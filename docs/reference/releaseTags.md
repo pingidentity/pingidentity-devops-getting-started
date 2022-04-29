@@ -16,7 +16,7 @@ To specify a release tag for stacks, use the follow format:
 image: pingidentity/<ping-product>:${PING_IDENTITY_DEVOPS_TAG}
 ```
 
-Where `<ping-product>` is the name of the product container and `${PING_IDENTITY_DEVOPS_TAG}` is assigned the release tag value. The reference to the file containing the setting for `${PING_IDENTITY_DEVOPS_TAG}` is `~/.pingidentity/devops` by default. You can also specify the release tag explicitly in the YAML file. The release tag must be the same for each container in the stack. For example:
+Where `<ping-product>` is the name of the product container and `${PING_IDENTITY_DEVOPS_TAG}` is assigned the release tag value. The reference to the file containing the setting for `${PING_IDENTITY_DEVOPS_TAG}` is `~/.pingidentity/config` by default. You can also specify the release tag explicitly in the YAML file. The release tag must be the same for each container in the stack. For example:
 
 ```yaml
 image: pingidentity/<ping-product>:edge

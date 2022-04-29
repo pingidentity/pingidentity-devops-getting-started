@@ -117,7 +117,7 @@ In this example PingFederate installation, using the Github Repository uses a se
       --detach \
       --env SERVER_PROFILE_URL=https://github.com/<your_username>/pingidentity-server-profiles.git \
       --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-      --env-file ~/.pingidentity/devops \
+      --env-file ~/.pingidentity/config \
       pingidentity/pingfederate:edge
     ```
 
@@ -181,7 +181,7 @@ The following example deployment uses PingFederate.
         --detach \
         --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
         --env SERVER_PROFILE_PATH=getting-started/pingfederate \
-        --env-file ~/.pingidentity/devops \
+        --env-file ~/.pingidentity/config \
         --volume /tmp/docker/pf:/opt/out \
     pingidentity/pingfederate:edge
     ```

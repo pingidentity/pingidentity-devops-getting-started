@@ -3,7 +3,7 @@ version: "2.4"
 
 services:
   pingauthorize:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingauthorize:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingauthorize:${PING_IDENTITY_DEVOPS_TAG:-edge}
     command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -31,7 +31,7 @@ services:
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingauthorize:/opt/in
 
   pingauthorizepap:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingauthorizepap:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingauthorizepap:${PING_IDENTITY_DEVOPS_TAG:-edge}
     # command: wait-for pingdirectory:1389 -t 300 -- entrypoint.sh start-server
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -55,7 +55,7 @@ services:
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/paz-pap-integration/pingauthorizepap:/opt/in
 
   pingdirectory:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG:-edge}
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
@@ -78,7 +78,7 @@ services:
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
 
   pingdataconsole:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG:-edge}
     ports:
       - "9443:8443"
     networks:

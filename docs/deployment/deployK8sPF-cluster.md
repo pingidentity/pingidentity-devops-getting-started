@@ -39,7 +39,7 @@ You must have:
 
       Choose from:
 
-      * Add `PING_IDENTITY_K8S_NAMESPACE=<your-k8s-namespace>` to your `~/.pingidentity/devops` file.
+      * Add `PING_IDENTITY_K8S_NAMESPACE=<your-k8s-namespace>` to your `~/.pingidentity/config` file via the pingctl tool.
       * Run `export PING_IDENTITY_K8S_NAMESPACE=<your-k8s-namespace>`.
 
 1. To orchestrate the clustered PingFederate deployment, from your local `pingidentity-devops-getting-started/20-kustomize` directory, enter:
