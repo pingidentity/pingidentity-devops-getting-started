@@ -24,7 +24,7 @@ After you have a product license for the product and version of the more-than-90
 
 ## Using Your DevOps User and Key
 
-When starting an image, you can provide your DevOps property file `~/.pingidentity/devops` or use the individual environment variables.
+When starting an image, you can provide your DevOps property file `~/.pingidentity/config` or use the individual environment variables.
 
 >The examples provided for docker-compose are set up to use this property file by default.
 
@@ -42,7 +42,7 @@ docker run \
   --detach \
   --env SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git \
   --env SERVER_PROFILE_PATH=getting-started/pingdirectory \
-  --env-file ~/.pingidentity/devops \
+  --env-file ~/.pingidentity/config \
   pingidentity/pingdirectory
 ```
 

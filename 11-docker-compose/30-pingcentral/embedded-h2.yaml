@@ -1,7 +1,7 @@
 version: '2.4'
 services:
   pingcentral:
-    image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingcentral:${PING_IDENTITY_DEVOPS_TAG:-edge}
     container_name: pingcentral
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets

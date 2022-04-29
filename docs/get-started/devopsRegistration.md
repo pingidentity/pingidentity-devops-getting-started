@@ -34,7 +34,7 @@ The recommended way to save your DevOps User/Key is to use the Ping Identity Dev
 To save your DevOps credentials, run `pingctl config` and supply your credentials when prompted.
 
 When `pingctl` is installed and configured, it places your DEVOPS USER/KEY into a Ping Identity property file found at
-`~/.pingidentity/devops`  with the following variable names set (see the following example).
+`~/.pingidentity/config`  with the following variable names set (see the following example).
 
 ```text
 PING_IDENTITY_DEVOPS_USER=jsmith@example.com

@@ -32,7 +32,7 @@ version: "2.4"
 
 services:
   pingdirectory:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingdirectory:${PING_IDENTITY_DEVOPS_TAG:-edge}
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
@@ -58,7 +58,7 @@ services:
     #  - ${HOME}/projects/devops/pingidentity-server-profiles/simple-sync/pingdirectory:/opt/in
 
   pingdatasync:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdatasync:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingdatasync:${PING_IDENTITY_DEVOPS_TAG:-edge}
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:
@@ -84,7 +84,7 @@ services:
       - pingnet
 
   pingdataconsole:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG:-edge}
     ports:
       - "8443:8443"
     networks:

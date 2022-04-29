@@ -18,7 +18,7 @@ version: "2.4"
 
 services:
   pingcentral:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingcentral:${PING_IDENTITY_DEVOPS_TAG:-edge}
     env_file:
       - ${HOME}/.pingidentity/devops
     ports:

@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: dsreplication-timing
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY}/pingtoolkit:${PING_IDENTITY_DEVOPS_TAG}
+    image: pingidentity/pingtoolkit:edge
     env:
       - name: STARTUP_COMMAND
         value: start-server

@@ -122,7 +122,7 @@ Use the saved hostkey to access the database.
 
       ```yaml
         pingcentral:
-          image: pingidentity/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+          image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingcentral:${PING_IDENTITY_DEVOPS_TAG:-edge}
           command: wait-for pingcentral-db:3306 -t 7200 -- entrypoint.sh start-server
           environment:
             - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
@@ -133,7 +133,7 @@ Use the saved hostkey to access the database.
             - MYSQL_USER=root
             - MYSQL_PASSWORD=2Federate
           env_file:
-            - ~/.pingidentity/devops
+            - ~/.pingidentity/config
           volumes:
             - ./conf/pingcentral.jwk:/opt/server/conf/pingcentral.jwk
           ports:

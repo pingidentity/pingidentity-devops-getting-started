@@ -1,7 +1,7 @@
 version: '2.4'
 services:
   pingcentral:
-    image:  ${PING_IDENTITY_DEVOPS_REGISTRY}/pingcentral:${PING_IDENTITY_DEVOPS_TAG}
+    image:  ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingcentral:${PING_IDENTITY_DEVOPS_TAG:-edge}
     command: wait-for pingcentral-db:3306 -t 7200 -- entrypoint.sh start-server
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
