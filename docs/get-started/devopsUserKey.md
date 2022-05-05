@@ -73,7 +73,7 @@ Add the `env_file` configuration option to the YAML file for the stack. The `env
   pingdirectory:
     image: pingidentity/pingdirectory
     env_file:
-    - ${HOME}/.pingidentity/devops
+    - ${HOME}/.pingidentity/config
     environment:
     - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
     - SERVER_PROFILE_PATH=getting-started/pingdirectory

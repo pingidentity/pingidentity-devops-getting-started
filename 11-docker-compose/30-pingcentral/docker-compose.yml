@@ -16,7 +16,7 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=2Federate
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ports:
       - "9022:9022"
     depends_on:

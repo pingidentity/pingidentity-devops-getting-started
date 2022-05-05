@@ -55,7 +55,7 @@ The following example shows running a Docker image using any Docker .yaml file.
   pingdirectory:
     image: pingidentity/pingdirectory
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     environment:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=getting-started/pingdirectory

@@ -12,7 +12,7 @@ services:
       - SERVER_PROFILE_PAZ_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PAZ_PATH=baseline/pingauthorize
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384
@@ -38,7 +38,7 @@ services:
       - SERVER_PROFILE_PATH=paz-pap-integration/pingauthorizepap
       - HTTPS_PORT=8443
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384
@@ -60,7 +60,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384

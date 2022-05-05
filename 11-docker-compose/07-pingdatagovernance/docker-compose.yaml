@@ -14,7 +14,7 @@ services:
       - SERVER_PROFILE_PDG_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PDG_PATH=baseline/pingdatagovernance
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384
@@ -42,7 +42,7 @@ services:
       - SERVER_PROFILE_PATH=pdg-pap-integration/pingdatagovernancepap
       - HTTPS_PORT=8443
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384
@@ -66,7 +66,7 @@ services:
       - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_PATH=baseline/pingdirectory
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384
