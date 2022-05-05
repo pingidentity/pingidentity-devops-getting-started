@@ -43,7 +43,7 @@ services:
       - SERVER_PROFILE_PATH=pingdataconsole-sso/pingdirectory
       - PD_CONSOLE_SSO_ISSUER_URI=https://example.com
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     networks:
       - pingnet
     ulimits:

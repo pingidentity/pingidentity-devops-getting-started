@@ -36,7 +36,7 @@ services:
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
       - USER_BASE_DN=o=sync
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384
@@ -62,7 +62,7 @@ services:
       - SERVER_PROFILE_PATH=simple-sync/pingdatasync
       - USER_BASE_DN=o=sync
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384

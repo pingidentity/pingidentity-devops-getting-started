@@ -40,7 +40,7 @@ services:
       - SERVER_PROFILE_PATH=simple-sync/pingdirectory
       - USER_BASE_DN=o=sync
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384
@@ -69,7 +69,7 @@ services:
       - COMPOSE_SERVICE_NAME=12-sync-failover-pair_pingdatasync
       - PING_IDENTITY_PASSWORD=2FederateM0re
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ulimits:
       nproc:
         soft: 16384

@@ -7,7 +7,7 @@ test your ~/.pingidentity/config file has been setup correctly.
 
 The output should look something like this:
 
-    > docker run --env-file ${HOME}/.pingidentity/devops alpine env | sort
+    > docker run --env-file ${HOME}/.pingidentity/config alpine env | sort
     HOME=/root
     HOSTNAME=cc4008ce6105
     PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -20,7 +20,7 @@ The output should look something like this:
 
 If the PING_IDENTITY_... variables are missing, then either:
 
- 1. Your ${HOME}/.pingidentity/devops folder hasn't been configured correctly.  
+ 1. Your ${HOME}/.pingidentity/config folder hasn't been configured correctly.
     You can fix this with:
 
       ping-devops config
@@ -29,7 +29,7 @@ If the PING_IDENTITY_... variables are missing, then either:
     sourced correctly.  Ensure that your .bash_profile (bash) or .zshrc (zsh)
     are sourcing:
 
-      ${HOME}/.pingidentity/devops
+      ${HOME}/.pingidentity/config
 
     In some linux distros (i.e. Ubuntu), you may also need to set allexports 
     by adding

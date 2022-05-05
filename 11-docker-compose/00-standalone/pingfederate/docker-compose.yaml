@@ -27,7 +27,7 @@ services:
       - PF_LDAP_USERNAME="Administrator"
       - PF_LDAP_PASSWORD="2FederateM0re"
     env_file:
-      - ${HOME}/.pingidentity/devops
+      - ${HOME}/.pingidentity/config
     ports:
       - "9031:9031"
       - "9999:9999"
