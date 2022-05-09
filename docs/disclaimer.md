@@ -1,15 +1,15 @@
 # Disclaimer
-Every effort is made by the Ping Identity’s DevOps team to provide supporting documents and examples for our products. 
-However, Ping cannot support custom scripts or template technology. If there are any questions, please reach out to your 
-Ping’s representative for further support.
+Every effort is made by Ping Identity’s DevOps team to provide supporting documents and examples for our products. 
+However, Ping Identity cannot support custom scripts or template technology. For further support, please contact your Ping Identity representative.
 
 Copyright \(C\) 2021 Ping Identity Corporation
+
 All rights reserved.
 
-Ping Identity Corporation
-1099 18th St Suite 2950
-Denver, CO 80202
-303.468.2900
+Ping Identity Corporation  
+1099 18th St Suite 2950  
+Denver, CO 80202  
+303.468.2900  
 [http://www.pingidentity.com](http://www.pingidentity.com)
 
 ## Disclaimer Of Warranties
