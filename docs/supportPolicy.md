@@ -9,8 +9,8 @@ This Ping Identity Corporation ("Ping Identity") DevOps Support Policy (this "Po
 
 ## Included in Support:
 
-* Provide base images for Ping Identity's products to the Customers
-* Provide documentation and basic examples for  [Helm deployments](https://helm.pingidentity.com/) using Ping Identity's [Helm charts](https://github.com/pingidentity/helm-charts)
+* Providing base images for Ping Identity products to Customers
+* Providing documentation and basic examples for [Helm deployments](https://helm.pingidentity.com/) using Ping Identity's [Helm charts](https://github.com/pingidentity/helm-charts)
 * Providing the Customer with DevOps tooling, such as `config_export` and `pingctl`
 * Providing the Customer direction in using [Server Profile](https://devops.pingidentity.com/how-to/containerAnatomy/) to achieve the following:
     * Deployment
