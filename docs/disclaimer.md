@@ -1,4 +1,7 @@
 # Disclaimer
+Every effort is made by the Ping Identity’s DevOps team to provide supporting documents and examples for our products. 
+However, Ping cannot support custom scripts or template technology. If there are any questions, please reach out to your 
+Ping’s representative for further support.
 
 Copyright \(C\) 2021 Ping Identity Corporation
 All rights reserved.
