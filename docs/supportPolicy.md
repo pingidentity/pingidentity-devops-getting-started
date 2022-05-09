@@ -9,24 +9,16 @@ This Ping Identity Corporation ("Ping Identity") DevOps Support Policy (this "Po
 
 ## Included in Support:
 
-* Actively building and maintaining images provided to the Customer
-* Supporting [Helm deployments](https://helm.pingidentity.com/) using Ping Identity's [Helm charts](https://github.com/pingidentity/helm-charts)
+* Providing base images for Ping Identity products to Customers
+* Providing documentation and basic examples for [Helm deployments](https://helm.pingidentity.com/) using Ping Identity's [Helm charts](https://github.com/pingidentity/helm-charts)
 * Providing the Customer with DevOps tooling, such as `config_export` and `pingctl`
-* Providing the Customer with Ping Identity documentation
-* Providing the Customer direction in using server profiles to achieve the following:
-    * Server profiles server configuration:
-        * Pre-start configuration
-        * Managing secrets, including Ping Identity product licenses, encryption keys, deployment passwords, and certificates
-        * Deployment of customizations to server configuration
-        * Deployment of customizations to product files on the file system, including templates, properties files, localizations, and integration kits
-        * Schema customizations
-        * DIT customizations
-        * User loads
-        * `dsconfig` configuration, such as indexes and password policies
-    * Server profiles environmental configuration:
-        * Ingress endpoints
-        * Ingress ports
-        * Naming and virtual hosts
+* Providing the Customer direction in using [Server Profile](https://devops.pingidentity.com/how-to/containerAnatomy/) to achieve the following:
+    * Deployment
+    * Customization
+    * Saving Configuration
+    * Layering
+    * Environment Substitution
+    * Private Github repos
 
 ## Supported orchestration tools
 
