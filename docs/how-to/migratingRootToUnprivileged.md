@@ -3,11 +3,15 @@ title: Migrating from privileged images to unprivileged-by-default images
 ---
 # Migrating from privileged images to unprivileged-by-default images
 
-In the [2103 release](https://devops.pingidentity.com/release-notes/relnotes-2103/), our product images were updated to run with an unprivileged user by default. Before this release, images ran as root by default.
+In the [2103 release](https://devops.pingidentity.com/release-notes/relnotes-2103/), our product images were updated to run with an unprivileged user by default. Before this release, images ran as root by default. This document describes some important tips when moving from the privileged to the unprivileged images.
 
-The following are some the potential issues you could encounter when migrating to these newer images.
+## Checklist before migration
+- Build and commit a server profile from your current workload into a git repository, so that any configuration on the pods is maintained.
+  - See the [Server Profile Structures](https://devops.pingidentity.com/reference/profileStructures/) page, and/or the product-specific guides for [PingFederate](https://devops.pingidentity.com/how-to/buildPingFederateProfile/) and [PingDirectory](https://devops.pingidentity.com/how-to/buildPingDirectoryProfile/)
+- For PingDirectory, export your user data to be imported into the new server(s). The basic DIT structure can be included in the server profile (in the `pd.profile/ldif/userRoot/` directory), but actual user data should be left out; the server profile should store configuration, not data. The actual user data can be saved elsewhere and manually imported after the new pods are started.
 
-## Persistent volumes
+## Potential issues
+### Persistent volumes
 
 In Kubernetes, persistent volumes created with our older containers have files owned by the root user. When the default non-privileged user attempts to use these existing volumes, there might be file permission errors.
 
@@ -28,7 +32,7 @@ spec:
         fsGroup:9999
 ```
 
-## Default ports
+### Default ports
 
 In our older images, certain default ports (`LDAP_PORT`, `LDAPS_PORT`, `HTTPS_PORT`, and `JMX_PORT`) were set to privileged values (`389`, `636`, `443`, and `689`, respectively). The newer images don't use these values because they run as a non-privileged user. The updated default ports are `1389`, `1636`, `1443`, and `1689`.
 
