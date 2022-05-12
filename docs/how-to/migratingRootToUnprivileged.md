@@ -9,6 +9,8 @@ In the [2103 release](https://devops.pingidentity.com/release-notes/relnotes-210
 - Build and commit a server profile from your current workload into a git repository, so that any configuration on the pods is maintained.
   - See the [Server Profile Structures](https://devops.pingidentity.com/reference/profileStructures/) page, and/or the product-specific guides for [PingFederate](https://devops.pingidentity.com/how-to/buildPingFederateProfile/) and [PingDirectory](https://devops.pingidentity.com/how-to/buildPingDirectoryProfile/)
 - For PingDirectory, export your user data to be imported into the new server(s). The basic DIT structure can be included in the server profile (in the `pd.profile/ldif/userRoot/` directory), but actual user data should be left out; the server profile should store configuration, not data. The actual user data can be saved elsewhere and manually imported after the new pods are started.
+  - The `export-ldif` command can be used to export user data, or a task can be scheduled via LDAP. The exported ldif file will be written to the pod filesystem.
+  - The `import-ldif` command can be used to import user data, or a task can be scheduled via LDAP. The file to be imported must exist on the pod filesystem for the import to run.
 
 ## Potential issues
 ### Persistent volumes
