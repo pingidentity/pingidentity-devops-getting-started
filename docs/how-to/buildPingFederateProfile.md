@@ -133,11 +133,11 @@ This is a process that can be used for all encrypted items and environment speci
 * Integration Kit Properties
 * Hostnames
 
-Leaving these confidential items as unencrypted text is unacceptable for source control. The next logical step is to abstract the unencrypted values and replace with variables. Then, the values can be stored in a secrets management tool (e.g. Hashicorp Vault) and the variablized file can be in source control.
+Leaving these confidential items as unencrypted text is unacceptable for source control. The next logical step is to abstract the unencrypted values and replace them with variables. Then, the values can be stored in a secrets management tool (such as Hashicorp Vault) and the variablized file can be in source control.
 
-Converting each of the encrypted keys for their unencrypted counterparts and hostnames with variables is cumbersome and can be automated. And As we know in devops... if it _can_  be automated, it _must_ be automated. See [Using Bulk Config Tool](#using-bulk-config-tool)
+Converting each of the encrypted keys for their unencrypted counterparts and hostnames with variables is cumbersome and can be automated. As we know in DevOps, if it _can_ be automated, it _must_ be automated. For more information, see [Using Bulk Config Tool](#using-bulk-config-tool).
 
-A variablized `data.json.subst` is a good candidate for committing to source control once any unencrypted text is removed. 
+A variablized `data.json.subst` is a good candidate for committing to source control after removing any unencrypted text. 
 
 ### Using Bulk Config Tool
 
@@ -163,7 +163,7 @@ The `data.json.subst` form of our previous example will look like:
 ```
 
 !!! Note "Bulk Config Tool Limitations"
-    The bulk config tool can manipulate data.json but it cannot populate the resulting password or fileData variables because there is no API available on PingFederate to extract these. These variables _can_ be filled using with externally generated certs and keys using tools like `openssl`, but that is out of scope for this document.
+    The bulk config tool can manipulate data.json but it cannot populate the resulting password or fileData variables because there is no API available on PingFederate to extract these. These variables can be filled using with externally generated certs and keys using tools like `openssl`, but that is out of scope for this document.
 
 The resulting `env_vars` file can be used as a guideline for secrets that should be managed externally and only delivered to the container/image as needed for its specific environment.
 
