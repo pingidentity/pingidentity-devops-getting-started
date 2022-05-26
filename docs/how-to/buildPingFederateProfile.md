@@ -133,12 +133,21 @@ This is a process that can be used for all encrypted items and environment speci
 * Integration Kit Properties
 * Hostnames
 
-If you follow this through the entire `data.json`, not only would it take a long time, but you would be left with a file that is unacceptable for source control (since it's completely unencrypted).
+Leaving these confidential items as unencrypted text is unacceptable for source control. The next logical step is to abstract the unencrypted values and replace them with variables. Then, the values can be stored in a secrets management tool (such as Hashicorp Vault) and the variablized file can be in source control.
 
-The next logical step is to abstract the unencrypted values and replace with variables. Then, the values can be stored in a secrets management and the variablized file can be in source control.
+Converting each of the encrypted keys for their unencrypted counterparts and hostnames with variables is cumbersome and can be automated. As we know in DevOps, if it _can_ be automated, it _must_ be automated. For more information, see [Using Bulk Config Tool](#using-bulk-config-tool).
 
-Doing all this would manually would take a long time, but we have the [ping-bulkconfig-tool](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/99-helper-scripts/ping-bulkconfigtool).
-For detailed instructions on using the tool, see the documentation next to where the tool is stored. The general concept is to point the tool at the `data.json` and a config file. After running the tool, you have a `data.json.subst` and a list of environment variables waiting to be filled.
+A variablized `data.json.subst` is a good candidate for committing to source control after removing any unencrypted text. 
+
+### Using Bulk Config Tool
+
+The [ping-bulkconfig-tool](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/99-helper-scripts/ping-bulkconfigtool) reads your data.json and can optionally:
+    
+  - Search and replace (e.g. hostnames)
+  - Clean, add, and remove json members as required.
+  - Tokenize the configuration and maintain environment variables.
+
+The bulk export tool can process a bulk `data.json` export according to a configuration file with functions above. After running the tool, you are left with a `data.json.subst` and a list of environment variables waiting to be filled.
 
 The `data.json.subst` form of our previous example will look like:
 ```json
@@ -153,14 +162,10 @@ The `data.json.subst` form of our previous example will look like:
 }
 ```
 
-The variablized `data.json.subst` is now a good candidate to for committing to source control. The resulting `env_vars` file can be used as a guideline for secrets that should be managed externally and only delivered to the container/image as needed for its specific environment.
+!!! Note "Bulk Config Tool Limitations"
+    The bulk config tool can manipulate data.json but it cannot populate the resulting password or fileData variables because there is no API available on PingFederate to extract these. These variables can be filled using with externally generated certs and keys using tools like `openssl`, but that is out of scope for this document.
 
-### Using Bulk Config Tool
-
-The bulk export tool processes a bulk data.json export according to a configuration file with available functions:
-    - Search and replace (e.g. hostnames)
-    - Clean, add, and remove json members as required.
-    - Tokenize the configuration and maintain environment variables.
+The resulting `env_vars` file can be used as a guideline for secrets that should be managed externally and only delivered to the container/image as needed for its specific environment.
 
 #### Prerequisites
 <!-- TODO: This docker image should be next to the rest of our images -->
@@ -177,7 +182,7 @@ The bulk export tool processes a bulk data.json export according to a configurat
 A sample command of the ping-bulkconfig-tool
 
 ```
-docker run -rm -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-config.json /shared/data.json /shared/env_vars /shared/data.json.subst > /shared/convert.log
+docker run --rm -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-config.json /shared/data.json /shared/env_vars /shared/data.json.subst > /shared/convert.log
 ```
 
 Where:
