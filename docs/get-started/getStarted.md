@@ -3,22 +3,23 @@ title: Kubernetes Get Started
 ---
 # Get Started
 
-This documentation provides a method to quickly deploy containerized images of Ping Identity products via this documentation. Ping Identity images should be compatible across a variety of container platforms including Docker and [Kubernetes](https://www.cncf.io/certification/software-conformance/) (Including via [Helm Charts](https://helm.pingidentity.com/)). Our getting started configurations are designed to provide working instances of our products either as standalone containers or in orchestrated sets.
+This documentation provides a method to quickly deploy containerized images of Ping Identity products. 
 
-To quickly try Ping products, you will need an environment to deploy to. [Rancher Desktop](https://rancherdesktop.io) provides a great platform to get started with local Kubernetes development is compatible with Linux, MacOS, and Windows (using WSL). Rancher Desktop also supports the [docker container runtime](https://docs.rancherdesktop.io/preferences#container-runtime), which provides support for running docker commands without installing individual docker components or Docker Desktop.
+Ping Identity images should be compatible across a variety of container platforms including Docker and [Kubernetes](https://www.cncf.io/certification/software-conformance/) (via [Helm Charts](https://helm.pingidentity.com/)). The configurations provided here are designed to launch working instances of our products either as standalone containers or in orchestrated sets.
 
-### Required Utilities
+To try Ping products, you will need an environment in which to deploy. [Rancher Desktop](https://rancherdesktop.io) provides a great platform to get started with local Kubernetes development. Rancher Desktop is compatible with Linux, MacOS, and Windows (using WSL). It also supports the [docker container runtime](https://docs.rancherdesktop.io/preferences#container-runtime), which provides support for running docker commands without installing individual docker components or Docker Desktop.
 
-* You have access to a Kubernetes cluster. For local Kubernetes work, [Rancher Desktop](https://rancherdesktop.io) can provide a local Kubernetes cluster.
+### Prerequisites
 
-    !!! info "Kubernetes alternative"
-          Alternatively, you may install `kubectl` and `helm` using brew or your preferred package manager:
+* Access to a Kubernetes cluster, such as the Rancher Desktop environment mentioned above. K8s access implies you have [kubectl](https://kubernetes.io/docs/tasks/tools/) installed.
+* [Helm](https://helm.sh/docs/intro/install/) cli
+
+    !!! info "Installation alternative"
+          You can install `kubectl` and `helm` using brew or your preferred package manager:
           ```sh
           brew install helm
           brew install kubectl
           ```
-          Installing helm and kubectl individually assumes you have a Kubernetes cluster available, either on a cloud platform such as AWS, Azure, GCP, or other or locally via Minikube, Kind, CodeReady Containers, etc.
-
 
 * [Homebrew](https://brew.sh) for package installation and management.
     ```sh
@@ -45,8 +46,11 @@ To quickly try Ping products, you will need an environment to deploy to. [Ranche
     brew install docker-compose
     ```
 
-    !!! info "docker-compose installation note"
-          Installing docker-compose is only necessary to deploy [Docker containers](getStartedWithGitRepo.md) when using docker with Rancher Desktop. See [Rancher preferences](https://docs.rancherdesktop.io/preferences#container-runtime) to switch from containerd to dockerd (moby).
+    !!! info docker-compose installation note
+          Installing docker-compose is only necessary to deploy [Docker containers](getStartedWithGitRepo.md)
+          when using docker with Rancher Desktop. 
+          
+          See [Rancher preferences](https://docs.rancherdesktop.io/preferences#container-runtime) to switch from containerd to dockerd (moby).
 
 ### Product license
 
