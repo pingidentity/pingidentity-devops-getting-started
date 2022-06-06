@@ -9,7 +9,7 @@ You can create a message of the day (MOTD) JSON file to be used to provide an MO
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## Using a MOTD file
 

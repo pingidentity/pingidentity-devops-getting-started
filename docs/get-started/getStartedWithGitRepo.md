@@ -13,7 +13,7 @@ Use Git to clone the `pingidentity-devops-getting-started` repository, and Docke
 
 You have:
 
-* Set up your DevOps environment. See [Get Started](../get-started/getStarted.md).
+* Set up your DevOps environment. See [Get Started](../get-started/introduction.md).
 * Installed [Git](https://git-scm.com/downloads).
 
 ## Clone the `getting-started` Repo

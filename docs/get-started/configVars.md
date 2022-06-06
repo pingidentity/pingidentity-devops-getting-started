@@ -64,7 +64,7 @@ There are two classes of variables under the `PINGCTL_OUTPUT` name that provides
 
 * `PINGCTL_OUTPUT_COLUMNS_{resource}` - Specifies the columns to display whenever a `pingctl pingone get {resource}` command is used.
 
-    Same as the `-c` option on the command-line (see [pingctl pingone get](commands/pingone.md) command).
+    Same as the `-c` option on the command-line (see [pingctl pingone get](../tools/commands/pingone.md) command).
 
     Format of value should be constructed with `HeadingName:jsonName,HeadingName:jsonName`.  The best way to understand is
     looking at the example of the default `USERS` resource:
@@ -102,7 +102,7 @@ There are two classes of variables under the `PINGCTL_OUTPUT` name that provides
 
 * `PINGCTL_OUTPUT_SORT_{resource}` - Specifies the column to sort on.
 
-    Same as the `-s` option on the command-line (see [pingctl pingone get](commands/pingone.md) command).
+    Same as the `-s` option on the command-line (see [pingctl pingone get](../tools/commands/pingone.md) command).
 
     Format of value should be constructed with `jsonName`.  The name must be of the names in `PINGCTL_OUTPUT_COLUMNS_{resource}`.
 

@@ -14,12 +14,12 @@ Each hosting platform supports and manages Kubernetes differently.
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Create a Kubernetes cluster on one of these platforms:
     * Amazon EKS
     * Microsoft AKS
     * Google GKS
-* Create a Kubernetes secret using your DevOps credentials. For more information, see *For Kubernetes*  in [Using your DevOps user and key](../get-started/devopsUserKey.md).
+* Create a Kubernetes secret using your DevOps credentials. For more information, see *For Kubernetes*  in [Using your DevOps user and key](../how-to/devopsUserKey.md).
 
 ## AWS EKS
 

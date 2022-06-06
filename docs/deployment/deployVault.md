@@ -9,7 +9,7 @@ This is an example of deploying Hashicorp Vault (Vault) with PingFederate and Pi
 
 You must:
 
-* Complete [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Have access to [Vault](https://www.vaultproject.io/).
 * Have access to [Helm](https://helm.sh/docs/intro/install/). Vault uses Helm 3.
 * Have Kubernetes 1.7.

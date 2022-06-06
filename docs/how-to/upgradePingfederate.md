@@ -62,7 +62,7 @@ Your orchestration user will need access to `kubectl exec -it <pod> -- sh` for m
 Deploy your PingFederate version and server profile as background process with Helm:
 
 !!! Info "Make sure you have a devops-secret"
-If you are using this example as is, you will need a [devops-secret](../get-started/devopsUserKey.md#for-kubernetes)
+If you are using this example as is, you will need a [devops-secret](../how-to/devopsUserKey.md#for-kubernetes)
 
 !!! Info "Be sure to change the ingress domain name value to your domain in [01-background.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/01-background.yaml)"
 

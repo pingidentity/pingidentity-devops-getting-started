@@ -1,11 +1,11 @@
 ---
-title: Image/Container Anatomy
+title: Image/Container Components and Configuration
 ---
-# Introduction to Image/Container anatomy
+# Image/Container Components and Configuration
 
 ## Container data flows and running state
 
-The diagram below shows the anatomy of a container with flows of data into the container and how it transitions to the eventual running state.
+The diagram below shows the topology of a container with flows of data into the container and how it transitions to the eventual running state.
 
 ![DevOps Image/Container Anatomy](../images/container-anatomy-1.svg)
 
@@ -22,7 +22,7 @@ The diagram below shows the anatomy of a container with flows of data into the c
 | OUT               | /opt/out          | rw  | Combo of product bits/configuration resulting in running container configuration.                                 |
 | PERSISTENT VOLUME |                   | rw  | Persistent location of product bits/configuration in external storage (i.e. AWS EBS)                              |
 
-Because of many factors of how an image is deployed, the options available and recommended for use of the elements in the previous table can vary greatly:
+Because of these many factors affecting how an image is deployed, the configuration options for use of the elements in the previous table can vary greatly, depending on factors such as:
 
 * Deployment Environment - Kubernetes, Cloud Vendor, Local Docker
 * CI/CD Tools - Kubectl, Helm, Kustomize, Terraform
@@ -31,8 +31,7 @@ Because of many factors of how an image is deployed, the options available and r
 * Security - Test/QA/Production Data, Secrets, Certificates, Secret Management Tools
 
 
-Examples might look like:
-
+## Examples
 ### File flowchart example
 
 The following diagram shows how files can enter and flow through the container:
@@ -65,9 +64,9 @@ You can customize our product containers by:
 
 * [Customizing server profiles](../how-to/profiles.md)
 
-    The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles or use them as a baseline for creating your own.
+    The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles as-is or use them as a baseline for creating your own.
 
-    You can find these in [Baseline server profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) in our pingidentity-server-profiles repository.
+    You can find these profiles in [Baseline server profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) in our pingidentity-server-profiles repository.
 
 * [Environment substitution](../how-to/profilesSubstitution.md)
   
@@ -75,7 +74,7 @@ You can customize our product containers by:
 
 * [Customizing YAML files](yamlFiles.md)
 
-    In the stack-related directories for the deployment examples, you can find the YAML files used to configure the Docker stack deployment. The YAML files can contain startup configuration settings or references to startup configuration settings, such as environment variables, for the stack.
+    In the stack-related directories in the deployment examples, you can find the YAML files used to configure the Docker stack deployment. The YAML files contain startup configuration settings and to other configuration settings, such as environment variables, for the stack.
 
     You can try different configuration settings using these YAML files or use them as a baseline for creating your own.
 
@@ -85,12 +84,12 @@ You can customize our product containers by:
 
     You can find the hooks for our builds in the [Docker builds product directories](../docker-builds/README.md).
 
-* [Using release tags](releaseTags.md)
+* [Using release tags](../docker-images/releaseTags.md)
 
-    We use sets of tags for each released build image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You can find the release tag information in [Docker images](releaseTags.md).
+    We use sets of tags for each released build image. These tags identify whether the image is a specific stable release, the latest stable release, or current (potentially unstable) builds. You can find the release tag information in [Docker images](../docker-images/releaseTags.md).
 
     You can try different tags in either the standalone startup scripts for the deployment examples or the YAML files for the orchestrated deployment examples.
 
 * [Adding a message of the day (MOTD)](addMOTD.md)
 
-    You can use a `motd.json` file to add message of the day information that will be used by the DevOps images.
+    You can use a `motd.json` file to add message of the day information for inclusion in the DevOps images.

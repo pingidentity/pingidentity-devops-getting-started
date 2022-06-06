@@ -45,7 +45,7 @@ title: DevOps Docker Builds, Version 2003
 
 - **The ping-devops Utility**
 
-      We've added Kubernetes license secret generation, and server profile generation for PingDirectory  to the ping-devops utility. See [The ping-devops utility](../get-started/pingctlUtil.md).
+      We've added Kubernetes license secret generation, and server profile generation for PingDirectory  to the ping-devops utility. See [The ping-devops utility](../tools/pingctlUtil.md).
 
 - **A New Hook**
 
@@ -69,7 +69,7 @@ title: DevOps Docker Builds, Version 2003
 
 - **Docker Base Image Security**
 
-      We've documented an evaluation of Docker base image security. See [Evaluation of Docker Base Image Security](../reference/dockerImageSecurity.md).
+      We've documented an evaluation of Docker base image security. See [Evaluation of Docker Base Image Security](../docker-images/dockerImageSecurity.md).
 
 ### Resolved Defects
 

@@ -21,7 +21,7 @@ The following table lists the actions you might want to take and the available t
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Pull our pingidentity-getting-started Git [repo](https://github.com/pingidentity/pingidentity-devops-getting-started) to ensure you have the latest sources.
 
 ## About this task

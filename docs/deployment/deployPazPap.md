@@ -7,7 +7,7 @@ This example describes how to build PingAuthorize policies and employs server pr
 
 ## Before you begin
 
-You must complete [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+You must complete [Get started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## About this task
 

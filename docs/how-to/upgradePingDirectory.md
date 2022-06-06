@@ -20,7 +20,7 @@ To ensure a successful upgrade process:
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Clone or download the `pingidentity-devops-getting-started/20-kustomize/12-pingdirectory-upgrade` repository to your local `${HOME}/projects/devops` directory.
 * Understand how to use our DevOps server profiles.
 * Have access to a Kubernetes cluster and a default StorageClass.

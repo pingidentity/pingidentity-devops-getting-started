@@ -7,7 +7,7 @@ Use Docker compose to deploy a PingFederate and PingDirectory stack.
 
 ## Before you begin
 
-You must complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+You must complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 
 ## About this task
 
