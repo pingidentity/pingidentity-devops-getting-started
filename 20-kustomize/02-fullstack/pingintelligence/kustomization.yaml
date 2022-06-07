@@ -9,9 +9,3 @@ resources:
 
 generatorOptions:
   disableNameSuffixHash: true
-
-configMapGenerator:
-- name: pingintelligence-environment-variables
-  behavior: replace
-  envs:
-    - env_vars.pingintelligence
