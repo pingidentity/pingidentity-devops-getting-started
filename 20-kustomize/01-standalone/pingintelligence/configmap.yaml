@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  PING_IDENTITY_ACCEPT_EULA: "YES"
+  PING_INTELLIGENCE_GATEWAY_CREDENTIALS: ""
+kind: ConfigMap
+metadata:
+  labels:
+    role: pingintelligence
+  name: pingintelligence-environment-variables
