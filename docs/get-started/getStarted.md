@@ -37,5 +37,5 @@ You must have a product license to run our images. You may either:
 
 * Generate an evaluation license obtained with a valid DevOps user key. For more information, see [DevOps Registration](../how-to/devopsRegistration.md).
 
-* Use a valid product license available with a current Ping Identity customer subscription after DevOps Registration completion.
+* [Use a valid product license](../how-to/existingLicense.md) available with a current Ping Identity customer subscription after DevOps Registration completion.
 
