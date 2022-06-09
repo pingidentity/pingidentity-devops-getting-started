@@ -2,14 +2,14 @@
 title: Ping Identity DevOps Docker Image - `pingdataconsole`
 ---
 
+
 # Ping Identity Docker Image - `pingdataconsole`
 
 This docker image provides a tomcat image with the PingDataConsole
 deployed to be used in configuration of the PingData products.
 
 ## Related Docker Images
-- `pingidentity/pingdownloader` - Image used to download ping product
-- `tomcat:8-jre8-alpine` - Tomcat engine to serve PingDataConsole .war file
+- `tomcat:9-jre8` - Tomcat engine to serve PingDataConsole .war file
 
 ## Environment Variables
 The following environment `ENV` variables can be used with
@@ -17,7 +17,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  | Flag to force a run of dsjavaproperties --initialize. When this is false, the java.properties file will only be regenerated on a restart when there is a change in JVM or a change in the product-specific java options, such as changing the MAX_HEAP_SIZE value.  |
+| SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |

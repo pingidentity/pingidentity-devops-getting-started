@@ -11,7 +11,6 @@ and associated hook scripts to create and run PingIntelligence ASE instances.
 - `pingidentity/pingbase` - Parent Image
 > This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingcommon` - Common Ping files (i.e. hook scripts)
-- `pingidentity/pingdownloader` - Used to download product bits
 
 
 ## Environment Variables
@@ -112,6 +111,7 @@ docker logs -f pingintelligence
 
 If using the command above, use cli.sh with:
   * Username: admin
+  * Password: 2FederateM0re
 
 ## Docker Container Hook Scripts
 
