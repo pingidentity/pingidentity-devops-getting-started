@@ -1,0 +1,66 @@
+#######################################################################
+# Ping Identity
+#
+# This example demonstrates generating ServiceAccounts, Roles, and 
+# RoleBindings with the ping-devops Helm chart. The global section
+# indicates that a global ServiceAccount and Role/RoleBinding should
+# be generated for the release. The generated account will be
+# applied to all enabled workloads by default.
+#
+# The pingfederate-admin workload does not override any rbac values,
+# so it will take the global generated values. The
+# pingfederate-engine workload generates its own ServiceAccount,
+# Role, and RoleBinding, and will use that account instead of the
+# global one. This account will also be used for Vault. The
+# pingdirectory workload sets applyServiceAccountToWorkload to
+# false, and will not have any serviceAccountName set. The
+# pingdataconsole workload generates its own resources and sets a
+# defined name for the ServiceAccount, rather than using a
+# generated name.
+#######################################################################
+
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  rbac:
+    applyServiceAccountToWorkload: true
+    generateGlobalServiceAccount: true
+    generateGlobalRoleAndRoleBinding: true
+    role:
+      rules:
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["get", "watch", "list"]
+
+pingfederate-admin:
+  enabled: true
+
+pingfederate-engine:
+  enabled: true
+  rbac:
+    generateServiceAccount: true
+    generateRoleAndRoleBinding: true
+    role:
+      rules:
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["get", "list"]
+  vault:
+    enabled: true
+
+pingdirectory:
+  enabled: true
+  rbac:
+    applyServiceAccountToWorkload: false
+
+pingdataconsole:
+  enabled: true
+  rbac:
+    generateServiceAccount: true
+    generateRoleAndRoleBinding: true
+    serviceAccountName: "pingdataconsole-sa"
+    role:
+      rules:
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["get"]

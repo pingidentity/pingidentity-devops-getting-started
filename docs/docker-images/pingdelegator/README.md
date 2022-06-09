@@ -11,7 +11,6 @@ that can be used in administering PingDirectory Users/Groups.
 - `pingidentity/pingbase` - Parent Image
 > This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingcommon` - Common Ping files (i.e. hook scripts)
-- `pingidentity/pingdownloader` - Used to download product bits
 
 
 ## Environment Variables

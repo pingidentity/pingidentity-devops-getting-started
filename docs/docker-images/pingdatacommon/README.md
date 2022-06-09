@@ -11,6 +11,13 @@ the Ping Identity DevOps PingData product images.
 ## Related Docker Images
 - `pingidentity/pingcommon` - Parent Image
 
+## Environment Variables
+The following environment `ENV` variables can be used with
+this image.
+
+| ENV Variable  | Default     | Description
+| ------------: | ----------- | ---------------------------------
+| REGENERATE_JAVA_PROPERTIES  | false  | Flag to force a run of dsjavaproperties --initialize. When this is false, the java.properties file will only be regenerated on a restart when there is a change in JVM or a change in the product-specific java options, such as changing the MAX_HEAP_SIZE value.  |
 
 ## Docker Container Hook Scripts
 

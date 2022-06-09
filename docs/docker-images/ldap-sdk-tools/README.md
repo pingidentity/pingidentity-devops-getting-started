@@ -8,7 +8,6 @@ This docker image provides an alpine image with the LDAP Client
 SDK tools to be used against other PingDirectory instances.
 
 ## Related Docker Images
-- `pingidentity/pingdownloader` - Image used to download ping product
 - `openjdk:8-jre8-alpine` - Alpine server to run LDAP SDK Tools from
 
 ## Environment Variables
