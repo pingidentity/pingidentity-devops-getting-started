@@ -3,6 +3,11 @@ title: Deploy an Example Stack
 ---
 # Deploy an Example Stack
 
+
+!!! info "Orchestration note"
+    While this example uses Docker Compose, our recommended platform for running Ping products in containers is Kubernetes. This example will be updated in the near future to use our Helm charts and a default server profile collection.
+
+
 The `pingidentity-devops-getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) contains all of our working Docker and Kubernetes examples.
 
 ## What You'll Do
@@ -87,3 +92,14 @@ You have:
         ```sh
         docker-compose down
         ```
+## Next Steps
+
+Now that you have deployed a set of our product images using the provided profiles, you can move on to deployments using server profiles that more closely reflect use cases to be explored.
+
+Options for this exploration include:
+
+* Continue working with the full-stack server profile in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
+* Try other server profiles in your local `pingidentity-devops-getting-started` directory to quickly deploy typical use cases.
+* Clone the [`pingidentity-server-profiles`](https://github.com/pingidentity/pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory and learn about the setup of specific product configurations.
+
+For further examples and more details on deploying using `docker compose` or `Kubernetes` see the [Deployment Section](../deployment/introduction.md) of this site.

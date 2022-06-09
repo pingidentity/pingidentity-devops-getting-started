@@ -2,7 +2,7 @@ site_name: Ping Identity DevOps
 repo_name: pingidentity/pingidentity-devops-getting-started
 repo_url: https://github.com/pingidentity/pingidentity-devops-getting-started
 site_url: https://devops.pingidentity.com/
-copyright: © Copyright 2021 Ping Identity
+copyright: © Copyright 2022 Ping Identity
 google_analytics: ['UA-156953351-1', 'devops.pingidentity.com']
 extra_css:
   - mkdocs/overrides/stylesheets/extra.css
@@ -15,6 +15,7 @@ theme:
   features:
     - navigation.tabs
     - instant
+    - navigation.top
 
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -55,15 +56,13 @@ plugins:
        deployment/deployPdgPap.md: "deployment/deployPazPap.md"
 
 nav:
-  - DevOps @ Ping:
+  - Welcome:
       - Home: "home/README.md"
       - Get Started:
           - Introduction: "get-started/introduction.md"
-          - DevOps Licensing: "get-started/prodLicense.md"
           - Prerequisites: "get-started/prereqs.md"
           - Configure the Environment: "get-started/configVars.md"
           - Deploy Example Stack: "get-started/getStartedWithGitRepo.md"
-          - Next Steps: "get-started/nextSteps.md"
       - Deployment Examples:
           - Introduction: "deployment/introduction.md"
           - Docker Compose:
@@ -109,6 +108,7 @@ nav:
               - Introduction: "deployment/deploymentPatterns.md"
               - PingFederate: "deployment/managePingFederate.md"
               # - PingDirectory: "deployment/managePingDirectory.md"
+      - Support Policy: "home/supportPolicy.md"
       - License: "home/license.md"
       - Disclaimer: "home/disclaimer.md"
       - Third-Party Software:  "home/3rdPartySoftware.md"
@@ -180,7 +180,7 @@ nav:
       - Kubernetes Basics: "reference/k8sBasics.md"
       - Helm Basics: "reference/HelmBasics.md"
   - Videos:
-      - Site Navigation: ""
+      - Placeholder: "videos/placeholder.md"
   - Release Notes:
       - Current Release: "release-notes/currentRelease.md"
       - All Releases:
@@ -212,6 +212,5 @@ nav:
         - Version 2004: "release-notes/relnotes-2004.md"
         - Version 2003: "release-notes/relnotes-2003.md"
   - Contact Us:
-    - Support Policy: "contact-us/01_supportPolicy.md"
-    - Contributing: "contact-us/02_contributing.md"
-    - Community: "contact-us/03_community.md"
+    - Contributing: "contact-us/contributing.md"
+    - Community: "contact-us/community.md"

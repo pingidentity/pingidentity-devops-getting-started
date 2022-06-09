@@ -7,11 +7,27 @@ In order to leverage our resources, you will need the following components, soft
 
 ## Product license
 
-You must have a product license to run our images. You may either:
+You must have a product license to run our images. You may either use an evaluation license or existing license.
+### Evaluation License
 
-* Generate an evaluation license obtained with a valid DevOps user key. For more information, see [DevOps Registration](../how-to/devopsRegistration.md).
+Generate an evaluation license obtained with a [valid DevOps user key](../how-to/devopsRegistration.md).  
 
-* Use a [valid product license](../how-to/existingLicense.md) available with a current Ping Identity customer subscription after completing the DevOps Registration process.
+!!! note "DevOps User and Key"
+    For more information about using your DevOps program user and key in various ways (including Kubernetes and with stand-alone containers) see this how-to guide: [Using Your Devops User and Key](../how-to/devopsUserKey.md)
+
+When you register for Ping Identity's DevOps program, you are issued credentials that automate the process of retrieving an evaluation product license.
+
+!!! warning "Evaluation License"
+    Evaluation licenses are short-lived (30 days) and **must not** be used in production deployments.
+
+Evaluation licenses can only be used with images published in the last 90 days.  If you want to continue to use an image that was published more than 90 days ago, you must obtain a product license.
+
+### Existing License
+
+If you possess a product license for the product, you can use it with supported versions of the image (including those over 90 days old mentioned above) by following these instructions to [mount the product license](../how-to/existingLicense.md).
+
+!!! note "Mount paths"
+    The mount points and name of the license file vary by product.  The link above provides the proper location and name for these files.
 
 ## Runtime environment
 
@@ -52,24 +68,22 @@ For running Docker Compose deployments, any Docker Desktop installation or Linux
           Installing docker-compose is only necessary to deploy Docker containers when using Docker with Rancher Desktop. It is included with the Docker Desktop installation.
  See [Rancher preferences](https://docs.rancherdesktop.io/preferences#container-runtime) to switch from containerd to dockerd (moby).
 
-
-
-## Set Up Your DevOps Environment
+## Configure the Environment
 
 1. Open a terminal and create a local DevOps directory named `${HOME}/projects/devops`.
 
     !!! info Parent Directory
-        ${HOME}/projects/devops is the parent directory for all DevOps examples referenced in our documentation.
+        ${HOME}/projects/devops is the parent directory for all examples referenced in our documentation.
 
-2. Configure your DevOps environment as follows.
+2. Configure the environment as follows.
 
       ```sh
       pingctl config
       ```
 
-      1. Respond to all configuration questions, accepting the defaults if uncertain. Settings for custom variables aren't needed initially but may be necessary for additional capabilities. 
+      1. Respond to all configuration questions, accepting the defaults if uncertain. Settings for custom variables aren't needed initially but may be necessary for additional capabilities.
    
-      2. All of your responses are recorded in your local `~/.pingidentity/config` file. Allow the configuration script to source this file in your shell profile (for example, `~/.bash_profile` in a bash shell).
+      2. All responses are captured in your local `~/.pingidentity/config` file. Allow the configuration script to source this file in your shell profile (for example, `~/.bash_profile` in a bash shell).
    
 3. [Optional] Export configured pingctl variables as environment variables
 
@@ -88,7 +102,7 @@ For running Docker Compose deployments, any Docker Desktop installation or Linux
 
             2. Run `env | grep 'PING'`
 
-4. To display your DevOps environment settings, enter:
+4. To display your environment settings, run:
 
       ```sh
       pingctl info

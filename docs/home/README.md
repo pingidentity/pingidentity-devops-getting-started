@@ -1,9 +1,9 @@
 ---
-title: Home
+title: Welcome
 ---
-# Ping Identity DevOps
+# Welcome
 
-Welcome! DevOps@Ping is here to enable DevOps professionals, administrators, and developers to deploy Ping Identity software using container technologies. Our goal is to provide tools, frameworks, blueprints, and reference architectures in support of running our products.
+The team that is responsible for this documentation exists to enable DevOps professionals, administrators, and developers to deploy Ping Identity software using container technologies. Our goal is to provide tools, frameworks, blueprints, and reference architectures in support of running our products in containerized environments.
 
 New to Kubernetes? See [Kubernetes Basics](../reference/k8sBasics.md)
 
@@ -27,7 +27,7 @@ First time here?  We recommend the [Get Started](../get-started/introduction.md)
 
 ## Resources
 
-Ping DevOps resources include Docker images of Ping Identity products, deployment examples, and configuration management tools.
+Resources provided include Docker images of Ping Identity products, deployment examples, and configuration management tools.
 
 ###  Docker Images
 
@@ -44,12 +44,12 @@ Ping DevOps resources include Docker images of Ping Identity products, deploymen
     </span>
 </div>
 
-DevOps@Ping provides preconfigured Docker images of our products for running as containers. Each of our containers is a complete working product instance that is immediately usable when deployed. Our Docker stacks are integrated collections of Ping products preconfigured to coordinate across all containers in the stack.
+Ping provides preconfigured Docker images of our products for running as containers. Each of our containers is a complete working product instance that is immediately usable when deployed. Our Docker stacks are integrated collections of Ping products preconfigured to coordinate across all containers in the stack.
 
 !!! info "By default, our Docker images run as an unprivileged user in the container."
 
 
-You can find information about our available Docker images in the [pingidentity-docker-builds](https://github.com/pingidentity/pingidentity-docker-builds) repository on Github or on the [Docker Hub](https://hub.docker.com/u/pingidentity/) site.  Also included on this portal are detailed [image specifications](../docker-images/dockerImagesRef.md) on variables, related images and so on.
+You can find information about our available Docker images in the [pingidentity-docker-builds](https://github.com/pingidentity/pingidentity-docker-builds) repository on Github or on the [Docker Hub](https://hub.docker.com/u/pingidentity/) site.  Included in this portal are detailed [image specifications](../docker-images/dockerImagesRef.md) on variables, related images and so on.
 
 The Docker images are automatically pulled from our repository the first time you deploy a product container or orchestrated set of containers. Alternatively, you can pull the images manually from our [Docker Hub](https://hub.docker.com/u/pingidentity/) site.
 
@@ -62,21 +62,21 @@ The Docker images are automatically pulled from our repository the first time yo
     </span>
 </div>
 
-We provide examples for deploying our products as standalone containers, in a Docker Compose stack, or as an orchestrated deployment in Kubernetes (using Helm).
+The Github repository linked here provides examples for deploying our products as standalone containers, in a Docker Compose stack, or as an orchestrated deployment in Kubernetes (using Helm).
 
-Docker Compose is best suited for development, demonstrations, and lightweight orchestration. Kubernetes is typically used for enterprise-level orchestration.
+Docker Compose is often used for development, demonstrations, and lightweight orchestration. Kubernetes is typically used for enterprise-level orchestration.
 
 ### Configuration Management
 
 For configuration management, we use:
 
 - Server profiles, for runtime configuration of containers.
-- YAML files for runtime configuration of stacks. YAML file configuration settings complement that used for server profiles.
+- YAML files for runtime configuration of stacks. YAML file configuration settings complement those provided through server profiles.
 - Environment variables. These can be included in YAML files or called from external files.
 - Shell scripts (hooks) to automate certain operations for a product.
 - Release tags to give you a choice between stable builds or the current (potentially unstable) builds.
 
-More information about how server profiles, variables and these other options coordinate can be found on the [Configuration Reference](../reference/config.md) page.
+More information about how server profiles, variables and these other options coordinate to configure the products can be found on the [Configuration Reference](../reference/config.md) page.
 
 ## Other Resources
 

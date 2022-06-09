@@ -189,6 +189,10 @@
     background-color: var(--md-mkdocs-footer-bg-color)
 }
 
+.md-footer__inner:not([hidden]) {
+    display: none
+}
+
 .md-clipboard.md-icon:hover {
     /* Copy to clipboard hover color */
     color: var(--md-link-highlight-color)
