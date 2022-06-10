@@ -4,7 +4,7 @@ version: "2.4"
 #-
 #- The PingDataConsole can be configured to use SSO with PingOne. You will need to
 #- configure an application with a redirect URL of https://localhost:8443/console/oidc/cb.
-#- Once you've configured the application in PingOne for the console, you can replace the
+#- After you have configured the application in PingOne for the console, you can replace the
 #- PD_CONSOLE_SSO_ISSUER_URI, PD_CONSOLE_SSO_CLIENT_ID, and PD_CONSOLE_SSO_CLIENT_SECRET
 #- variables in this file with the corresponding values from PingOne. You will also need to
 #- create a user in PingOne that corresponds to a root user DN configured in PingDirectory,

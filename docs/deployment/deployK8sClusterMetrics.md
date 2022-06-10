@@ -29,11 +29,11 @@ Beyond prerequisites covered in base Helm examples:
 
 ## Deploy the Stack
 
-Edit the Prometheus `01-prometheus-values.yaml` as needed. This file contains configurations provided beyond the defaults of kube-prometheus-stack. In this sample deployment, the monitoring stack is given very powerful read access to the entire cluster and is deployed into the `metrics` namespace. Changing these settings or making a "production-ready" install is beyond scope of this doc. The full set of optional values can be found on the chart github.
+Edit the Prometheus `01-prometheus-values.yaml` as needed. This file contains configurations provided beyond the defaults of kube-prometheus-stack. In this sample deployment, the monitoring stack is given very powerful read access to the entire cluster and is deployed into the `metrics` namespace. Changing these settings or making a "production-ready" install is beyond scope of this document. The full set of optional values can be found on the Gihub repository for the chart.
 
-There are numerous lines that have `##CHANGEME`. The following lines should be heavily considered for configuration.
+There are numerous lines that have `##CHANGEME`. These lines should be heavily considered for configuration.
 
-Once ready, deploy the `kube-prometheus-stack`
+When the file is updated, deploy the `kube-prometheus-stack`
 
 ```
 kubectl create namespace metrics
