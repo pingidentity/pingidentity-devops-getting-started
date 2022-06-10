@@ -28,7 +28,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     kind create cluster --config=kind.yaml
     ```
 
-1. Test cluster health by running the following command:
+1. Test cluster health by running the following commands:
 
     ```sh
     kubectl cluster-info
@@ -36,13 +36,13 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     kubectl get nodes
     ```
 
-1. Next, install the nginx-ingress-controller for `kind`. Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kustomize/99-tools/kind-nginx.yaml)
+1. Next, install the nginx-ingress-controller for `kind`. The source yaml is available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kustomize/99-tools/kind-nginx.yaml).
 
     ```sh
     kubectl apply -f kind-nginx.yaml
     ```
 
-1. Once the nginx deployment is in a healthy state, run:
+1. After the nginx deployment is in a healthy state, run:
 
     ```sh
     kubectl wait --namespace ingress-nginx \
