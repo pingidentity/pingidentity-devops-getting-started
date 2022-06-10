@@ -3,7 +3,7 @@ title: Prerequisites
 ---
 # Prerequisites
 
-In order to leverage our resources, you will need the following components, software, or other information.
+In order to use our resources, you will need the following components, software, or other information.
 
 ## Product license
 
@@ -12,10 +12,9 @@ You must have a product license to run our images. You may either use an evaluat
 
 Generate an evaluation license obtained with a [valid DevOps user key](../how-to/devopsRegistration.md).  
 
+When you register for Ping Identity's DevOps program, you are issued credentials that automate the process of retrieving an evaluation product license.
 !!! note "DevOps User and Key"
     For more information about using your DevOps program user and key in various ways (including Kubernetes and with stand-alone containers) see this how-to guide: [Using Your Devops User and Key](../how-to/devopsUserKey.md)
-
-When you register for Ping Identity's DevOps program, you are issued credentials that automate the process of retrieving an evaluation product license.
 
 !!! warning "Evaluation License"
     Evaluation licenses are short-lived (30 days) and **must not** be used in production deployments.
@@ -35,20 +34,19 @@ To try Ping products, you will need an environment in which to deploy. [Rancher 
 
 Other local Kubernetes environments include [kind](https://kind.sigs.k8s.io/), [Docker Desktop](https://www.docker.com/products/docker-desktop/) with Kubernetes enabled, and [minikube](https://minikube.sigs.k8s.io/docs/).
 
-For running Docker Compose deployments, any Docker Desktop installation or Linux system with Docker installed can be used.
+For running Docker Compose deployments, any Docker Desktop installation or Linux system with Docker and `docker compose` installed can be used.
 
 ## Applications / Utilities
 * [Helm](https://helm.sh/docs/intro/install/) cli
 * [kubectl](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 * [Homebrew](https://brew.sh) for package installation and management.  Homebrew can be used to install k9s, kubectl, helm, and other programs.
-    ```sh
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```sh
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
 * [pingctl](../tools/pingctlUtil.md#installation)
-
-    ```sh
-    brew install pingidentity/tap/pingctl
-    ```
-
+   ```sh
+   brew install pingidentity/tap/pingctl
+   ```
 ## Recommended Additional Utilities
 
 * [k9s](https://k9scli.io/)
@@ -108,6 +106,4 @@ For running Docker Compose deployments, any Docker Desktop installation or Linux
       pingctl info
       ```
 
-5. To run a quick demonstration of any of our products in your environment, check out our [Helm Basics](../reference/HelmBasics.md) or [Kubernetes Basics](../reference/k8sBasics.md) documentation.
-
-6. For more information on the variables available in ```pingctl``` see [Configuration & Environment Variables](configVars.md).
+5. For more information on the options available for ```pingctl``` see [Configuration & Environment Variables](configVars.md).

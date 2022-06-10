@@ -2,7 +2,7 @@
 title: Introduction
 ---
 # Introduction
-This section outlines ways to easily deploy Ping products with pre-defined configurations.  After you have successfully deployed using these examples, you can move on to customizing the products to fit your needs and environment.
+This section outlines ways to easily deploy Ping products with pre-defined configurations.  After you have successfully deployed using this example, you can try other provided examples or move on to customizing the products to fit your needs and environment.
 
 You will need to [register for the Ping DevOps program](../how-to/devopsRegistration.md) in order to obtain trial licenses for evaluating or testing with our products.
 

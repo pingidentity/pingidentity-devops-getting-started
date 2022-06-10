@@ -10,4 +10,4 @@ title: Deploy Ping DevOps Charts using Helm
     </span>
 </div>
 
-To get started with deploying Ping Identity Helm charts, go to the [Getting Started](https://helm.pingidentity.com/getting-started/) page.
+To use Ping Identity Helm charts for deployment to Kubernetes, go to the [Getting Started](https://helm.pingidentity.com/getting-started/) page for the Helm chart repository.

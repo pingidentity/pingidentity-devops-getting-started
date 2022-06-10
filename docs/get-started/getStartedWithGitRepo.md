@@ -5,10 +5,10 @@ title: Deploy an Example Stack
 
 
 !!! info "Orchestration note"
-    While this example uses Docker Compose, our recommended platform for running Ping products in containers is Kubernetes. This example will be updated in the near future to use our Helm charts and a default server profile collection.
+    While this example uses Docker Compose, our recommended platform for running Ping products in containers is Kubernetes. This example will be updated in the near future to use Helm charts and a default server profile collection.
 
 
-The `pingidentity-devops-getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) contains all of our working Docker and Kubernetes examples.
+The `pingidentity-devops-getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) contains working Docker and Kubernetes examples.
 
 ## What You'll Do
 
@@ -18,7 +18,7 @@ Use Git to clone the `pingidentity-devops-getting-started` repository, and Docke
 
 You have:
 
-* Set up your DevOps environment. See [Get Started](../get-started/introduction.md).
+* Set up your DevOps environment.
 * Installed [Git](https://git-scm.com/downloads).
 
 ## Clone the `getting-started` Repo
@@ -38,7 +38,7 @@ You have:
 1. Deploy the full stack of our product containers.
 
     !!! note "Initial Deployment"
-        For your initial deployment of the stack, you should avoid making changes to the `docker-compose.yaml` file to ensure you have a successful first-time deployment. For subsequent deployments, see [Saving Your Configuration Changes](../how-to/saveConfigs.md).
+        For the initial deployment of the stack, avoid making changes to the `docker-compose.yaml` file to ensure a successful first-time deployment. For subsequent deployments, see [Saving Your Configuration Changes](../how-to/saveConfigs.md).
 
     1. To start the stack, go to your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory and enter:
 
@@ -46,26 +46,24 @@ You have:
         docker-compose up -d
         ```
 
-        The full set of our DevOps images is automatically pulled from our repository if you haven't already pulled the images from [Docker Hub](https://hub.docker.com/u/pingidentity/).
+        The full set of our product images is automatically pulled from our repository if they have not previously been pulled from [Docker Hub](https://hub.docker.com/u/pingidentity/).
 
-    1. To display the logs as the stack starts, enter:
+    1. To display the logs as the stack starts, run:
 
         ```sh
         docker-compose logs -f
         ```
 
-        Enter `Ctrl+C` to exit the display.
+        Enter `Ctrl+C` to exit displaying the logs.
 
     1. To display the status of the Docker containers in the stack:
 
-       Choose from:
+           * Run `docker ps` (manually run this at intervals)  OR
+           * Run `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`.
 
-       * Enter `docker ps` (enter this at intervals).
-       * Enter `watch "docker container ls --format 'table {{.Names}}\t{{.Status}}'"`.
+           For more information, see the [Docker Compose Documentation](https://docs.docker.com/compose/).
 
-       For more information, see the [Docker Compose Documentation](https://docs.docker.com/compose/).
-
-1. Sign on to the management consoles for the products.
+1. These are the URLs and credentials to sign on to the management consoles for the products:
 
     | Product | Connection Details |
     | --- | --- |
@@ -77,24 +75,22 @@ You have:
     | [PingCentral](https://localhost:9022) | <ul><li>URL: [https://localhost:9022](https://localhost:9022)</li><li>Username: administrator</li><li>Password: 2Federate</li></ul> |
     | Apache Directory Studio for PingDirectory |<ul> <li>LDAP Port: 1636</li><li>LDAP BaseDN: dc=example,dc=com</li><li>Root Username: cn=administrator</li><li>Root Password: 2FederateM0re</li></ul> |
 
-1. When you no longer want to run the stack, you can either stop or remove it.
+1. When you no longer want to run the stack, you can either stop or remove it:
 
-    Choose from:
-
-    * To stop the running stack without removing any of the containers, associated Docker networks, or volumes, enter:
+    * To stop the running stack without removing any of the containers, associated Docker networks, or volumes, run:
 
         ```sh
         docker-compose stop
         ```
 
-    * To stop the stack and remove all of the containers and associated Docker networks (volumes are still preserved), enter:
+    * To stop the stack and remove the containers and associated Docker networks (volumes are still preserved), run:
 
         ```sh
         docker-compose down
         ```
 ## Next Steps
 
-Now that you have deployed a set of our product images using the provided profiles, you can move on to deployments using server profiles that more closely reflect use cases to be explored.
+Now that you have deployed a set of our product images using the provided profiles, you can move on to deployments using configurations that more closely reflect use cases to be explored.
 
 Options for this exploration include:
 
