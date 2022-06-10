@@ -1,13 +1,13 @@
 ---
-title: Deploy a Local Kubernetes Cluster
+title: Deploy a local Kubernetes Cluster
 ---
-# Deploy a Local Demo Kubernetes Cluster
+# Deploy a local Demo Kubernetes Cluster
 
-If you **don't** have access to a managed Kubernetes cluster you can deploy one on your local machine or VM.
-This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io/). Use the kind site directly to find additional configuration.
+If you do not have access to a managed Kubernetes cluster you can deploy one on your local machine or VM.
+This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io/). Refer to the documentation for additional information.
 
 !!! warning "Demo Use Only"
-    The instructions in this document are for testing and learning, and _not_ intended for use in production.
+    The instructions in this document are for testing and learning, and not intended for use in production.
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
 * ports 80 and 443 available on machine
 
 !!! info "Docker System Resources"
-    Docker on linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker for Mac and Windows has a UI to set the resources allocated to docker. Our test Docker for Mac is running with 3 CPUs and 6 GB Memory. Adjust as necessary to meet your needs.
+    Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to docker. For this documentation, a Macbook Pro was configured to use 3 CPUs and 6 GB Memory. You can adjust these values as necessary for your needs.
 
 ## Steps
 

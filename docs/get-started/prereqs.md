@@ -28,11 +28,16 @@ If you possess a product license for the product, you can use it with supported 
 !!! note "Mount paths"
     The mount points and name of the license file vary by product.  The link above provides the proper location and name for these files.
 
-## Runtime environment
+## Local runtime environment
 
-To try Ping products, you will need an environment in which to deploy. [Rancher Desktop](https://rancherdesktop.io) provides a platform to get started with local Kubernetes development. Rancher Desktop is compatible with Linux, MacOS, and Windows (using WSL). It also supports the [docker container runtime](https://docs.rancherdesktop.io/preferences#container-runtime), which provides support for running docker commands without installing individual docker components or Docker Desktop.  
+The initial example provided uses Docker Compose because it does not require a lot of configuration to use.
 
-Other local Kubernetes environments include [kind](https://kind.sigs.k8s.io/), [Docker Desktop](https://www.docker.com/products/docker-desktop/) with Kubernetes enabled, and [minikube](https://minikube.sigs.k8s.io/docs/).
+In order to try Ping products in a manner most similar to typical production installations, you should consider using a Kubernetes environment. [Kind](https://kind.sigs.k8s.io/) (**K**ubernetes **in** **D**ocker) provides a platform to get started with local Kubernetes development.
+
+Other local Kubernetes environments include [Rancher Desktop](https://rancherdesktop.io), [Docker Desktop](https://www.docker.com/products/docker-desktop/) with Kubernetes enabled, and [minikube](https://minikube.sigs.k8s.io/docs/).
+
+!!! note "Rancher Desktop"
+    Rancher Desktop is compatible with Linux, MacOS, and Windows (using WSL). It also supports the [docker container runtime](https://docs.rancherdesktop.io/preferences#container-runtime), which provides support for running docker commands without installing individual docker components or Docker Desktop.  
 
 For running Docker Compose deployments, any Docker Desktop installation or Linux system with Docker and `docker compose` installed can be used.
 

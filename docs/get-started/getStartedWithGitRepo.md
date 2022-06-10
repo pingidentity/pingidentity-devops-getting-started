@@ -5,7 +5,7 @@ title: Deploy an Example Stack
 
 
 !!! info "Orchestration note"
-    While this example uses Docker Compose, our recommended platform for running Ping products in containers is Kubernetes. This example will be updated in the near future to use Helm charts and a default server profile collection.
+    Docker Compose is used in this example, as it does not require any additional setup for an environment.  For production use of containerized Ping products, the recommended platform is Kubernetes.
 
 
 The `pingidentity-devops-getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) contains working Docker and Kubernetes examples.
@@ -88,6 +88,7 @@ You have:
         ```sh
         docker-compose down
         ```
+
 ## Next Steps
 
 Now that you have deployed a set of our product images using the provided profiles, you can move on to deployments using configurations that more closely reflect use cases to be explored.
