@@ -3,7 +3,7 @@ title: Welcome
 ---
 # Welcome
 
-The team that is responsible for this documentation exists to enable DevOps professionals, administrators, and developers to deploy Ping Identity software using container technologies. Our goal is to provide tools, frameworks, blueprints, and reference architectures in support of running our products in containerized environments.
+This documentation exists to enable DevOps professionals, administrators, and developers to deploy Ping Identity software using container technologies. Our goal is to provide tools, frameworks, blueprints, and reference architectures in support of running our products in containerized environments.
 
 New to Kubernetes? See [Kubernetes Basics](./reference/k8sBasics.md)
 

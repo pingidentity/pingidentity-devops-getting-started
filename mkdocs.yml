@@ -179,8 +179,8 @@ nav:
           - Build Local Images: "reference/buildLocal.md"
       - Kubernetes Basics: "reference/k8sBasics.md"
       - Helm Basics: "reference/HelmBasics.md"
-  - Videos:
-      - Placeholder: "videos/placeholder.md"
+  #- Videos:
+  #    - Placeholder: "videos/placeholder.md"
   - Release Notes:
       - Current Release: "release-notes/currentRelease.md"
       - All Releases:
