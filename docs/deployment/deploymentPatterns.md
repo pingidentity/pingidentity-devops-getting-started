@@ -3,6 +3,8 @@ title: Operating Patterns Overview
 ---
 # Operating Patterns
 
-This section discusses how to have a successful day zero and beyond.
+This section discusses how to have a successful first day and beyond.
 
-After growing comfort with deployment examples in the getting-started repository, focus on how to best manage ongoing operations of the products that are relevant to you. Since it is not feasible to cover every operating scenario, this section will focus on guidance to identify an operating pattern fit for your organization.  
+After you are comfortable with the deployment examples in the getting-started repository, you can shift your focus to managing ongoing operations of the products that are relevant to you. Since it is not feasible to cover every operating scenario, this section will focus on guidance to identify an operating pattern suitable for your organization.
+
+The PingFederate application is used as an example of performing this assessment.

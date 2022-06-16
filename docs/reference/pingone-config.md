@@ -6,7 +6,7 @@ title: PingOne Worker App and User Config
 
 ## PingOne Worker App Configuration
 
-To manage PingOne resources other than yourself, you are required to have a PingOne Worker App.
+To manage PingOne resources using credentials other than your own, you are required to have a PingOne Worker App.
 
 You have 3 options to authenticate to PingOne from pingctl:
 

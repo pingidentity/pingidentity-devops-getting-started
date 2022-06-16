@@ -1,13 +1,13 @@
 ---
-title: Deploy a Local Kubernetes Cluster
+title: Deploy a local Kubernetes Cluster
 ---
-# Deploy a Local Demo Kubernetes Cluster
+# Deploy a local Demo Kubernetes Cluster
 
-If you **don't** have access to a managed Kubernetes cluster you can deploy one on your local machine or VM.
-This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io/). Use the kind site directly to find additional configuration.
+If you do not have access to a managed Kubernetes cluster you can deploy one on your local machine or VM.
+This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io/). Refer to the documentation for additional information.
 
 !!! warning "Demo Use Only"
-    The instructions in this document are for testing and learning, and _not_ intended for use in production.
+    The instructions in this document are for testing and learning, and not intended for use in production.
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
 * ports 80 and 443 available on machine
 
 !!! info "Docker System Resources"
-    Docker on linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker for Mac and Windows has a UI to set the resources allocated to docker. Our test Docker for Mac is running with 3 CPUs and 6 GB Memory. Adjust as necessary to meet your needs.
+    Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to docker. For this documentation, a Macbook Pro was configured to use 3 CPUs and 6 GB Memory. You can adjust these values as necessary for your needs.
 
 ## Steps
 
@@ -28,7 +28,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     kind create cluster --config=kind.yaml
     ```
 
-1. Test cluster health by running the following command:
+1. Test cluster health by running the following commands:
 
     ```sh
     kubectl cluster-info
@@ -36,13 +36,13 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     kubectl get nodes
     ```
 
-1. Next, install the nginx-ingress-controller for `kind`. Source yaml available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kustomize/99-tools/kind-nginx.yaml)
+1. Next, install the nginx-ingress-controller for `kind`. The source yaml is available [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kustomize/99-tools/kind-nginx.yaml).
 
     ```sh
     kubectl apply -f kind-nginx.yaml
     ```
 
-1. Once the nginx deployment is in a healthy state, run:
+1. After the nginx deployment is in a healthy state, run:
 
     ```sh
     kubectl wait --namespace ingress-nginx \

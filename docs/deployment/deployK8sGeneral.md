@@ -13,8 +13,8 @@ You'll find useful comments in the `kustomization.yaml` files in your local `pin
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
-* Create a Kubernetes secret using your DevOps credentials. For more information, see *For Kubernetes* in [Using your DevOps user and key](../get-started/devopsUserKey.md).
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
+* Create a Kubernetes secret using your DevOps credentials. For more information, see *For Kubernetes* in [Using your DevOps user and key](../how-to/devopsUserKey.md).
 * For the PingFederate cluster:
   * `envsubst`. Substitutes shell format strings with environment variables. See [envsubst](https://command-not-found.com/envsubst) if your OS doesn't have this utility.
   * PingFederate build image for version 10 or greater. (The DNS Discovery feature first available in version 10 is needed.)
@@ -70,7 +70,7 @@ You must have:
 
         In addition to Nginx's prevalence in Kubernetes, Nginx doesn't trigger creation of an ALB, as happens with the AWS ALB ingress controller, and Nginx Network Load Balancers allow for TCP traffic instead of just Layer 7 (HTTP(s)).
 
-1. A public certificate and private key to use as a TLS secret to be presented by the ingress. You can generate this TLS secret in Kubernetes yaml format with the [ping-devops tool](../get-started/pingctlUtil.md).
+1. A public certificate and private key to use as a TLS secret to be presented by the ingress. You can generate this TLS secret in Kubernetes yaml format with the [ping-devops tool](../tools/pingctlUtil.md).
 
     ```sh
    ping-devops generate devops-secret | kubectl apply -f -

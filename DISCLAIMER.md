@@ -2,7 +2,7 @@
 
 /_**\***_
 
-* Copyright \(C\) 2021 Ping Identity Corporation
+* Copyright \(C\) 2022 Ping Identity Corporation
 * All rights reserved.
 
   \*

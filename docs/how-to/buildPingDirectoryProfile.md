@@ -13,7 +13,7 @@ Use this guide to build a PingDirectory profile from a running instance.
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md)
+* Complete [Get Started](../get-started/introduction.md)
 * Have a running PingDirectory instance of 8.0.0.0 or later with shell access on the machine or in the container
 * Understand [Product Container Anatomy](containerAnatomy.md)
 

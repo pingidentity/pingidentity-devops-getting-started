@@ -29,7 +29,7 @@ Example:
 The recommended way to save your DevOps User/Key is to use the Ping Identity DevOps utility `pingctl`.
 
 !!! info "pingctl setup"
-    You can find installation instructions for `pingctl` in the [pingctl Tool](pingctlUtil.md) document.
+    You can find installation instructions for `pingctl` in the [pingctl Tool](../tools/pingctlUtil.md) document.
 
 To save your DevOps credentials, run `pingctl config` and supply your credentials when prompted.
 

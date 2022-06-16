@@ -17,7 +17,7 @@ title: DevOps Docker Builds, Version 2008 (August 2020)
 
 - **DevOps Program Registration**
 
-      Signing up for the Ping DevOps program is now self-service! Simply follow the instructions found [Here](../get-started/devopsRegistration.md).
+      Signing up for the Ping DevOps program is now self-service! Simply follow the instructions found [Here](../how-to/devopsRegistration.md).
 
 ### Improvements
 

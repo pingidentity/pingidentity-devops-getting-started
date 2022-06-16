@@ -3,7 +3,7 @@ title: Contributing
 ---
 # Contributing
 
-Thanks for taking the time to contribute!
+Thanks for taking the time to help improve our tools!
 
 ## How Can I Contribute?
 
@@ -19,13 +19,13 @@ Bugs are tracked as [GitHub Issues](https://guides.github.com/features/issues/).
 
 Please understand that bug reports are reviewed and prioritized internally, and we might not be able to address all bug reports or provide an estimated time for resolution.
 
-#### Suggesting Enhancements
+### Suggesting Enhancements
 
 As with bugs, requests are tracked as [GitHub Issues](https://guides.github.com/features/issues/). You can suggest an enhancement by submitting an issue in the Ping Identity DevOps [Issue Tracker](https://github.com/pingidentity/pingidentity-devops-getting-started/issues).
 
 Please understand that enhancement requests are reviewed and prioritized internally, and we might not be able to address all requests or provide an estimated time for resolution.
 
-#### Alternate Routes for Submitting Bugs and Suggesting Enhancements
+### Alternate Route for Submitting Bugs and Suggesting Enhancements
 
 If you would rather not have your issue discussed on the public repository, you can open an issue from Ping Identity's [Support Portal](https://support.pingidentity.com/s/).
 

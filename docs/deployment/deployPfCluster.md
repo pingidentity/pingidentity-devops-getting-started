@@ -35,7 +35,7 @@ For more information about using server profiles, see [Layering Server Profiles]
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Have PingFederate build image for version 10 or later. (The DNS Discovery feature first available in version 10 is needed.)
 
 ## About this task

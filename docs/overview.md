@@ -5,7 +5,7 @@ title: Overview
 
 The DevOps resources include Docker images of Ping Identity products, deployment examples, and configuration management tools.
 
-When you're ready, begin with our [Get Started](get-started/getStarted.md) guide. Our documentation will help set you up and familiarize you with the use of the resources.
+When you're ready, begin with our [Get Started](get-started/introduction.md) guide. Our documentation will help set you up and familiarize you with the use of the resources.
 
 ## DevOps Docker Images
 

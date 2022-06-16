@@ -9,7 +9,7 @@ This documentation provides details for using Hashicorp Vault and secrets with P
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Have a running Hashicorp Vault instance.  For imformation on deploying a vault, see [Deploy Hashicorp Vault](../deployment/deployVault.md).
 
 ## About this task

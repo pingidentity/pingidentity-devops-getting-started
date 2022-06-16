@@ -43,7 +43,7 @@ Examples:
 
 The DevOps program uses [Alpine](https://hub.docker.com/_/alpine) as its base OS shim. For the rationale, see [Evaluation of Docker Base Image Security](./dockerImageSecurity.md).
 
-In rare scenarios where the consumer absolutely cannot run an Alpine based image, you can customize the base image. For more information, see [Build a Docker Product Image Locally](./buildLocal.md).
+In rare scenarios where the consumer absolutely cannot run an Alpine based image, you can customize the base image. For more information, see [Build a Docker Product Image Locally](../reference/buildLocal.md).
 
 !!! warning "Custom Built Images"
     Using other Linux distributions should not cause an issue, but it cannot be guaranteed that the products will function as expected because these are not verified for compatibility. Ping Identity Support on custom images _might_ be challenging and experience longer delays.

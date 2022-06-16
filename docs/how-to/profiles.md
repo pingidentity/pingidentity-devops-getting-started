@@ -3,7 +3,7 @@ title: Customizing Server Profiles
 ---
 # Customizing Server Profiles
 
-When you deployed the full stack of product containers in [Getting Started](../get-started/getStarted.md), you used the server profiles associated with each of our products. In the YAML files, you'll see entries like the following for each product instance:
+When you deployed the full stack of product containers in [Getting Started](../get-started/introduction.md), you used the server profiles associated with each of our products. In the YAML files, you'll see entries like the following for each product instance:
 
 ```yaml
 environment:
@@ -13,13 +13,13 @@ environment:
 
 Our [pingidentity-server-profiles](https://github.com/pingidentity/pingidentity-server-profiles) repository, indicated by the `SERVER_PROFILE_URL` environment variable, contains the server profiles we use for our DevOps deployment examples. The `SERVER_PROFILE_PATH` environment variable indicates the location of the product profile data to use. In the previous example, the PingAccess profile data is located in the `baseline/pingaccess` directory.
 
-We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. You can find environment variables that are common to all product images in the [PingBase Image Directory](../docker-images/pingbase/README.md). There are also product-specific environment variables. You can find these in the [Docker Image Reference](../reference/dockerImagesRef.md) for each available product.
+We use environment variables for certain startup and runtime configuration settings of both standalone and orchestrated deployments. You can find environment variables that are common to all product images in the [PingBase Image Directory](../docker-images/pingbase/README.md). There are also product-specific environment variables. You can find these in the [Docker Image Information](../docker-images/dockerImagesRef.md) for each available product.
 
 ## Before you begin
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Understand the [Anatomy of the Product Containers](containerAnatomy.md).
 
 ## About this task
@@ -43,7 +43,7 @@ You will:
 
 1. Select any environment variables to add from either:
 
-    * The product-specific environment variables in the [Docker Images Reference](../reference/dockerImagesRef.md)
+    * The product-specific environment variables in the [Docker Images Information](../docker-images/dockerImagesRef.md)
     * The environment variables common to all of our products in the [PingBase Image Directory](../docker-images/pingbase/README.md)
 
 1. From the `baseline`, `getting-started`, or `simple-sync`

@@ -9,7 +9,7 @@ This use case employs the `pingidentity-server-profiles/baseline/pingcentral` se
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Clone the repository:
 
     Choose from:

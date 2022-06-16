@@ -8,9 +8,9 @@ This directory contains scripts and deployment files to help with the deployment
 ## Prerequisites
 Before you begin, you must:
 
-* Set up your DevOps environment and run a test deployment of the products. For more information, see [Get Started](../get-started/getStarted.md).
+* Set up your DevOps environment and run a test deployment of the products. For more information, see [Get Started](../get-started/introduction.md).
 * Create a Kubernetes cluster on AKS.
-* Create a Kubernetes secret using your DevOps credentials. See the *For Kubernetes* topic in [Using your DevOps user and key](../get-started/devopsUserKey.md).
+* Create a Kubernetes secret using your DevOps credentials. See the *For Kubernetes* topic in [Using your DevOps user and key](../how-to/devopsUserKey.md).
 * Download and install the [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli).
 
 We also highly recommend you are familiar with the information in these AKS articles:

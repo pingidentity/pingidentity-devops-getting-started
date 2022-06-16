@@ -17,7 +17,7 @@ This example deploys a PingFederate, PingAccess, and PingDirectory stack with El
 
 You must:
 
-* Complete [Get Started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 
 * For most Linux distributions (local or on a platform), increase the `vm.max_map_count` setting to support the necessary heap size . Enter:
 

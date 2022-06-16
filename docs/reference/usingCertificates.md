@@ -15,7 +15,7 @@ Currently, certificates can be provided to the PingData products when the contai
 
 You must:
 
-* Complete [Get started](../get-started/getStarted.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete [Get started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
 * Preferably, have a secrets management system, such as Hashicorp Vault, that holds your certificate and places them into your SECRETS_DIR (/run/secrets).
 
   For information on using a vault, if you have one, see [Using Hashicorp Vault](../how-to/usingVault.md).
