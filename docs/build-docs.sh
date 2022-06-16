@@ -233,7 +233,7 @@ parse_dockerfile()
 #
 dockerImages="pingaccess pingfederate pingdirectory pingdatasync
 pingbase pingcommon pingdatacommon
-pingdataconsole pingdownloader ldap-sdk-tools
+pingdataconsole ldap-sdk-tools
 pingdirectoryproxy pingdelegator apache-jmeter"
 #
 # Parse the provided arguments, if any

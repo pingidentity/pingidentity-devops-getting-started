@@ -18,7 +18,6 @@ There are several image builds provided, including `Dockerfile`, `README.md` and
 | pingauthorize | Product details for PingAuthorize |
 | pingauthorizepap | Product details for PingAuthorize Policy Editor |
 | pingdatasync | Product details for PingDataSync |
-| pingdownloader | Product bits download service |
 | ldap-sdk-tools | LDAP SDK tools available of use with Ping Directory |
 
 ## Hook Scripts Used by Docker Builds

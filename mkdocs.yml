@@ -129,7 +129,6 @@ nav:
           - PingDelegator: "docker-images/pingdelegator/README.md"
           - PingDirectory: "docker-images/pingdirectory/README.md"
           - PingDirectoryProxy: "docker-images/pingdirectoryproxy/README.md"
-          - PingDownloader: "docker-images/pingdownloader/README.md"
           - PingFederate: "docker-images/pingfederate/README.md"
           - PingIntelligence: "docker-images/pingintelligence/README.md"
       - Other Images:
@@ -145,6 +144,7 @@ nav:
       - pingctl: "tools/pingctlUtil.md"
       - ldap-sdk-tools: "tools/ldapsdkUtil.md"
       - ping-devops utility (deprecated): "tools/pingDevopsUtil_Deprecated.md"
+      - PingDownloader Image (deprecated): "tools/pingDownloader_Deprecated.md"
   - How To:
       - DevOps Registration: "how-to/devopsRegistration.md"
       - Use Existing Licenses: "how-to/existingLicense.md"
