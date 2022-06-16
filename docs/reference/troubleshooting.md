@@ -17,33 +17,15 @@ To avoid issues with stale images and have Docker pull the latest images by remo
 
 > Having images tagged as "latest" locally does not mean they are the latest in the Docker hub registry.
 
-### Misconfigured `~/.bash_profile` file
+### Misconfigured `pingctl`
 
-If your containers can't pull a license based on your DevOps user name and key, or running `dhelp` returns an error, there might be some misconfiguration in your `~/.bash_profile` file.
+If your containers can't pull a license based on your DevOps user name and key, there might be some misconfiguration in your `pingctl config` file.
 
 Possible solutions:
 
-1. If you have *just* run `./setup` for the first time, make sure you are have done so in a fresh terminal or have run `source ~/.bash_profile`.
+1. If you have *just* run `pingctl config` for the first time. See the [Environment Configuration Documentation](https://devops.pingidentity.com/get-started/prereqs/#configure-the-environment) on how to export configured variables to your environment.
 
-1. If running `echo PING_IDENTITY_DEVOPS_USER` returns nothing in a fresh terminal, it's likely your `~/.bash_profile` file is misconfigured. There are two entries that need to be there:
-
-      ```text
-      source <path>/pingidentity-devops-getting-started/bash_profile_devops
-      ```
-
-      Where &lt;path&gt; is the full path to the `pingidentity-devops-getting-started` directory. This entry sources our DevOps aliases.
-
-      There also needs to be another entry for:
-
-      ```text
-      sourcePingIdentityFiles
-      ```
-
-      This entry sources the Ping Identity file aliases.
-
-      Make sure there are not old versions or duplicates of these entries.
-
-1. If you are running in Kubernetes, keep in mind that your `PING_IDENTITY_DEVOPS_USER` and key are local variables and need to be [Passed as a Secret](../how-to/existingLicense.md) in your cluster.
+1. Run `pingctl info` and make sure the configured variables in the utility are correct. See the utility's [Documentation](https://devops.pingidentity.com/tools/pingctlUtil/) for more information.
 
 ### Unable To Retrieve Evaluation License
 
@@ -77,10 +59,10 @@ This can be caused by:
 
 1. An invalid DevOps user name or key (as noted in the error). This is usually caused by some issue with the variables being passed in.
 
-     To verify the variables are available to the shell running (when running Docker commands), enter:
+     To verify the variables in pingctl's configuration are correct for running Docker commands, enter the following command and verify your configuration:
 
       ```shell
-      echo $PING_IDENTITY_DEVOPS_USER $PING_IDENTITY_DEVOPS_KEY
+      pingctl info
       ```
 
 1. A bad Docker image. Pull the Docker image again to verify.

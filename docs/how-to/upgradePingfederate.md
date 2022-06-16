@@ -1,8 +1,8 @@
 ---
-title: Upgrading PingFederate
+title: Upgrading PingFederate (Deprecated)
 ---
 
-# Upgrading PingFederate
+# Upgrading PingFederate (Deprecated)
 
 In a DevOps environment, upgrades can be simplified through automation, orchestration, and separation of concerns.
 

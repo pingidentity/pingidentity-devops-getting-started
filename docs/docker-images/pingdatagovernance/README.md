@@ -12,7 +12,6 @@ instances.
 - `pingidentity/pingbase` - Parent Image
 > This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)
-- `pingidentity/pingdownloader` - Used to download product bits
 
 ## Introducing PingAuthorize™
 Starting with the 8.3 release, PingDataGovernance has been renamed to PingAuthorize. Customers are increasingly applying
