@@ -82,6 +82,7 @@ nav:
                       - AWS Multi-Region Prereq: "deployment/pfMultiRegionAWSPrereq.md"
                       - PingFederate Across Kubernetes with DNS: "deployment/deployPFMultiRegionDNS.md"
                       - PingFederate Across Kubernetes with S3: "deployment/deployPFMultiRegionAWS.md"
+                  - PingIntelligence Deployment: "deployment/deployK8sPi.md"
               - Kubernetes Deployments For Cloud Platforms:
                   - Introduction: "deployment/deployK8sCloud.md"
                   - Peered EKS Clusters: "deployment/deployK8s-AWS.md"

@@ -1,7 +1,7 @@
 ---
 title: Orchestrate Standalone Deployments
 ---
-# ≈
+# Orchestrating a Stand-alone Deployment
 
 Use the standalone configurations in your local `pingidentity-devops-getting-started/20-kustomize/01-standalone` directory as the base product configurations with the server profiles in our [pingidentity-server-profiles/getting-started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) repository.
 
