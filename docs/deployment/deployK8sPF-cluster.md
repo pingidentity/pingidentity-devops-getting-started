@@ -3,6 +3,8 @@ title: Orchestrate a PingFederate Cluster Deployment
 ---
 # Orchestrating a PingFederate Cluster Deployment
 
+> WARNING: `pingidentity-devops-getting-started/20-kustomize/06-clustered-pingfederate` is no longer supported in pingidentity-devops-getting-started
+
 Use kustomize for the PingFederate cluster deployment from your local `pingidentity-devops-getting-started/20-kustomize/06-clustered-pingfederate` directory (the location of the YAML files) and call into your local `pingidentity-devops-getting-started/20-kustomize/01-standalone` directory for the base product configurations.
 
 We use the following layered server profiles:

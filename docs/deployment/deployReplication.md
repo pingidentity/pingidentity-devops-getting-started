@@ -3,6 +3,8 @@ title: Deploying a Replicated PingDirectory Pair
 ---
 # Deploying a Replicated PingDirectory Pair
 
+> WARNING: `pingidentity-devops-getting-started/11-docker-compose/02-replicated-pair` is no longer supported in pingidentity-devops-getting-started
+
 Use Docker compose to deploy a replicated pair of PingDirectory containers.
 
 ## Before you begin

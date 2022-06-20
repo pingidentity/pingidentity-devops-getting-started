@@ -34,6 +34,8 @@ You have:
     ```
 
 ## Deploy the Full Stack
+> WARNING: `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` is no longer supported in pingidentity-devops-getting-started.
+> For deploying a Full Stack example please visit our [kubernetes deployment example](https://devops.pingidentity.com/deployment/deployK8sFullstack/)
 
 1. Deploy the full stack of our product containers.
 
@@ -95,7 +97,7 @@ Now that you have deployed a set of our product images using the provided profil
 
 Options for this exploration include:
 
-* Continue working with the full-stack server profile in your local `pingidentity-devops-getting-started/11-docker-compose/03-full-stack` directory.
+* Continue working with the full-stack server profile in your local `pingidentity-devops-getting-started/20-kubernetes/02-fullstack` directory.
 * Try other server profiles in your local `pingidentity-devops-getting-started` directory to quickly deploy typical use cases.
 * Clone the [`pingidentity-server-profiles`](https://github.com/pingidentity/pingidentity-server-profiles) repository to your local `${HOME}/projects/devops` directory and learn about the setup of specific product configurations.
 

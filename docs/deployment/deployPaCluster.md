@@ -3,6 +3,8 @@ title: Deploy PingAccess Cluster
 ---
 # Deploying PingAccess Cluster
 
+> WARNING: `pingidentity-devops-getting-started/11-docker-compose/06-pingaccess-cluster` is no longer supported in pingidentity-devops-getting-started
+
 This use case employs the `pingidentity-server-profiles/pa-clustering` server profile. This server profile contains an H2 database engine located in `pingidentity-server-profiles/pa-clustering/pingaccess/instance/data/PingAccess.mv.db`. H2 is configured to reference the PingAccess Admin engine at `pingaccess:9090`.
 
 > Remember to include this if you create your own server profile. This setting is not contained in an exported PingAccess configuration archive.

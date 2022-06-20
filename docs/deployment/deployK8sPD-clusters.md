@@ -185,6 +185,7 @@ There are multiple types of deployments that have been tested because of various
 These are examples for demo environments to get a feel for what a multi-region deployment looks like.
 
 #### Single Namespace
+> WARNING: `20-kustomize/09-multi-k8s-pingdirectory` is no longer supported in pingidentity-devops-getting-started
 
 `20-kustomize/09-multi-k8s-pingdirectory/01-single-namespace` is the least constrained example. It's good to just see what logs on a cross-cluster topology look like:
 
@@ -222,6 +223,7 @@ When the all the instances are up and running, you should see something similar 
 ![single-ns-cluster-logs](../images/pd-multi-single-ns.png)
 
 #### Single Cluster Multiple Namespaces
+> WARNING: `20-kustomize/09-multi-k8s-pingdirectory` is no longer supported in pingidentity-devops-getting-started
 
 `20-kustomize/09-multi-k8s-pingdirectory/02-single-cluster-two-namespaces`
 
@@ -250,7 +252,7 @@ Consider the [EKS Peering Config](./deployK8s-AWS.md) example if you want to tes
 #### Using External DNS Names
 
 ![pd-multi-dns-diagrams](../images/pd-multi-dns-diagram.png)
-
+> WARNING: `20-kustomize/09-multi-k8s-pingdirectory` is no longer supported in pingidentity-devops-getting-started
 `20-kustomize/09-multi-k8s-pingdirectory/03-multi-cluster-dns`
 
 This example uses [Headless Services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) instead of regular clusterIp services. This is necessary in a VPC-peered environment because typically the route-tables and IP ranges you've peered correspond to container IP addresses, not service addresses.
@@ -272,6 +274,7 @@ Some organizations don't allow VPC peering or similar networking functions, or t
 #### Using NodePorts
 
 In a scenario where you don't have VPC peering or must create external DNS names manually, it might be beneficial to use NodePorts.
+> WARNING: `20-kustomize/09-multi-k8s-pingdirectory` is no longer supported in pingidentity-devops-getting-started
 
 To use NodePorts:
 
@@ -452,6 +455,7 @@ data:
 ```
 
 ## Deployment Example
+> WARNING: `20-kustomize/05-multi-k8s-cluster-pingdirectory` is no longer supported in pingidentity-devops-getting-started
 
 The examples in `20-kustomize/05-multi-k8s-cluster-pingdirectory` create an
 example deployment across two clusters in AWS EKS:

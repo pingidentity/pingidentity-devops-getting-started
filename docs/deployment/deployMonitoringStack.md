@@ -39,6 +39,7 @@ PingDirectory produces a wide array of metrics. These metrics can be delivered i
 > See the PingDirectory documentation [StatsD Monitoring Endpoint](https://docs.ping.directory/PingDirectory/8.0.0.0/config-guide/statsd-monitoring-endpoint.html#Properties) for more information.
 
 ## Deploy Stack
+> WARNING: `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack` is no longer supported in pingidentity-devops-getting-started
 
 1. From `pingidentity-devops-getting-started/11-docker-compose/10-monitoring-stack`, run:
 

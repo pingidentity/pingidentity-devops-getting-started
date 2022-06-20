@@ -2,6 +2,7 @@
 title: Deploying an Elasticsearch SIEM Stack
 ---
 # Deploying an Elasticsearch SIEM Stack
+> WARNING: `pingidentity-devops-getting-started/11-docker-compose/11-siem-stack/` is no longer supported in pingidentity-devops-getting-started
 
 This example deploys a PingFederate, PingAccess, and PingDirectory stack with Elasticsearch infrastructure built in for visualizing traffic and other security or log data. The architecture looks like this:
 

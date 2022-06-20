@@ -27,7 +27,6 @@ The following image illustrates the specific configuration items we are using fo
 ![PingIdentity Vault in K8s](../images/ping-vault-k8s.png)
 
 ## Enabling TLS
-
 Before you deploy Vault using Helm, you must add the TLS key pair (public and private keys) and certficate authority (CA) chain files as a Kubernetes secret. The public certificate and private key need to be separate files. You can either use OpenSSL to quickly create a self-signed certificate, or use one signed by your CA.
 
 > If you're using a self-signed certificate, the public certificate is also the CA certificate.
@@ -40,6 +39,7 @@ Before you deploy Vault using Helm, you must add the TLS key pair (public and pr
       --from-file=vault.crt=<local_path_to_tls_cert>/tls.crt \
       --from-file=vault.ca=<local_path_to_ca_cert>/vault.ca
     ```
+> WARNING: `pingidentity-devops-getting-started/20-kustomize/08-vault` is no longer supported in pingidentity-devops-getting-started
 
 2. Ensure that these parameters in the `values.yaml` file located in your local `pingidentity-devops-getting-started/20-kustomize/08-vault/vault-helm` directory are set as follows:
 
@@ -175,6 +175,7 @@ Vault can retrieve the AWS KMS key using an environment variable so that it's no
     ```
 
 ## Deploying Vault using Helm
+> WARNING: `pingidentity-devops-getting-started/20-kustomize/08-vault` is no longer supported in pingidentity-devops-getting-started
 
 For complete information, see the Vault documentation for [Kubernetes](https://www.vaultproject.io/docs/platform/k8s).
 

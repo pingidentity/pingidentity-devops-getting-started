@@ -3,6 +3,8 @@ title: Deploy PingFederate Cluster
 ---
 # Deploying PingFederate Cluster
 
+> WARNING: `pingidentity-devops-getting-started/11-docker-compose/05-pingfederate-cluster` is no longer supported in pingidentity-devops-getting-started
+
 This use case employs server profile layering, using the PingFederate server profile in `pingidentity-server-profiles/pf-dns-ping-clustering/pingfederate` directory as the base layer profile. This server profile contains two files critical to PingFederate clustering:
 
 * `tcp.xml.subst`
