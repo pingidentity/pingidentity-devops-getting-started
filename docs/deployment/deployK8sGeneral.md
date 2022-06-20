@@ -77,6 +77,7 @@ You must have:
    ```
 
 ## Steps
+> WARNING: `20-kustomize/10-ingress` is no longer supported in pingidentity-devops-getting-started
 
 * Find sample yaml files for ingresses on products that ingresses make sense for in `20-kustomize/10-ingress`.
    > These examples should be generally applicable, with the exception of `metadata.annotations`.
