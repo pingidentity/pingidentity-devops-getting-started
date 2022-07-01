@@ -220,13 +220,13 @@ public class App {
 				JSONObject configJSON = (JSONObject) configObject;
 
 				String key = String.valueOf(configJSON.get("key"));
-				String value = String.valueOf(configJSON.get("value"));
-				String parent = String.valueOf(configJSON.get("parent"));
+				String value = (configJSON.has("value"))?String.valueOf(configJSON.get("value")):null;
+				String parent = (configJSON.has("parent"))?String.valueOf(configJSON.get("parent")):null;
 
-				if (jsonObject.has(key) && (parent != null && !parent.equals("") && path.endsWith("_" + parent))) {
+				if (jsonObject.has(key) && (parent == null || (parent != null && !parent.equals("") && path.endsWith("_" + parent)))) {
 					String jsonValue = String.valueOf(jsonObject.get(key));
 
-					if (jsonValue.equals(value) || jsonValue.matches(value)) {
+					if (value == null || value.equals("") || jsonValue.equals(value) || jsonValue.matches(value)) {
 						System.out.println("Ignoring " + key + ":" + value);
 						throw new RemoveNodeException();
 					}
