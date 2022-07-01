@@ -10,6 +10,8 @@ title: DevOps Docker Builds, Version 2206 (July 01 2022)
 - PingData 9.1.0.0 released. PingData 8.3.x no longer built
 - PingFederate 11.1.0 released. PF 10.3.x no longer built
 - PingAccess 7.1.0 released. PA 6.3.x no longer built
+- PingCentral 1.10.0 released.
+- PingDelegatorAdmin 4.10.0 released. PDA 4.9.x no longer built
 
 ### Documentation
 - [How-to documentation for PingIntelligence](https://devops.pingidentity.com/deployment/deployK8sPi/)
