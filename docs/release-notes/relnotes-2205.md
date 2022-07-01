@@ -35,7 +35,7 @@ title: DevOps Docker Builds, Version 2205 (June 02 2022)
     - Apache Tomcat to Version 9.0.63
     - Alpine to version 3.16.0
 
-###Features
+### Features
 - (BRASS-434) Support Null SecurityContext in Helm Charts for Openshift
     - Enables the helm charts to generate with workload.securityContext as null, permitting the Openshift environment to generate the security context properly.
         
