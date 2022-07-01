@@ -62,6 +62,7 @@ public class App {
 				: null;
 		this.inConfigAddConfig = this.inConfigJSON.has("add-config") ? (JSONArray) this.inConfigJSON.get("add-config")
 				: null;
+					System.out.println("Add Config: " + this.inConfigAddConfig);
 		this.inConfigChangeValue = this.inConfigJSON.has("change-value")
 				? (JSONArray) this.inConfigJSON.get("change-value")
 				: null;
@@ -98,6 +99,7 @@ public class App {
 				: null;
 		this.inConfigAddConfig = this.inConfigJSON.has("add-config") ? (JSONArray) this.inConfigJSON.get("add-config")
 				: null;
+
 		this.inConfigChangeValue = this.inConfigJSON.has("change-value")
 				? (JSONArray) this.inConfigJSON.get("change-value")
 				: null;
@@ -133,7 +135,7 @@ public class App {
 	private void processBulkJSONNode(String path, JSONObject jsonObject, JSONObject parentObject, JSONArray arrayPeers)
 			throws RemoveNodeException {
 
-		processRemoveConfig(jsonObject);
+		processRemoveConfig(jsonObject, path);
 		processChangeValue(jsonObject);
 		fixLocation(jsonObject);
 
@@ -212,15 +214,16 @@ public class App {
 		}
 	}
 
-	private void processRemoveConfig(JSONObject jsonObject) throws RemoveNodeException {
+	private void processRemoveConfig(JSONObject jsonObject, String path) throws RemoveNodeException {
 		if (this.inConfigRemoveConfig != null) {
 			for (Object configObject : this.inConfigRemoveConfig) {
 				JSONObject configJSON = (JSONObject) configObject;
 
 				String key = String.valueOf(configJSON.get("key"));
 				String value = String.valueOf(configJSON.get("value"));
+				String parent = String.valueOf(configJSON.get("parent"));
 
-				if (jsonObject.has(key)) {
+				if (jsonObject.has(key) && (parent != null && !parent.equals("") && path.endsWith("_" + parent))) {
 					String jsonValue = String.valueOf(jsonObject.get(key));
 
 					if (jsonValue.equals(value) || jsonValue.matches(value)) {
@@ -245,7 +248,7 @@ public class App {
 
 				String resourceType = String.valueOf(configJSON.get("resourceType"));
 
-				if (!path.endsWith("_" + resourceType))
+				if (!path.endsWith("_" + resourceType) && !("/" + path).equals(resourceType + "_items"))
 					continue;
 
 				JSONObject newObject = (JSONObject) configJSON.get("item");
@@ -589,4 +592,3 @@ public class App {
 
 	}
 }
-
