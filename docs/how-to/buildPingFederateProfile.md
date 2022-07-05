@@ -1,4 +1,4 @@
-# Building a PingFederate profile from your current deployment
+# Build a PingFederate profile from your current deployment
 
 The term "profile" can vary in many instances. Here we will focus on two types of profiles for PingFederate: configuration archive, and bulk export. We will discuss the similarities and differences between two as well as how to build either from a running PingFederate environment.
 
@@ -29,7 +29,7 @@ There are two file-based profile methods that we cover:
 
 A file-based profile means a "complete profile" looks like a **subset** of files that you would typically find in a running PingFederate filesystem.
 
-This subset of files represents the minimal number of files needed to achieve your PingFederate configuration. All additional files that aren't specific to your configuration should be left out because the PingFederate Docker image filles them in. For more information, see [Container Anatomy](containerAnatomy.md).
+This subset of files represents the minimal number of files needed to achieve your PingFederate configuration. All additional files that are not specific to your configuration should be left out because the PingFederate Docker image fills them in. For more information, see [Container Anatomy](containerAnatomy.md).
 
 Familiarity with the PingFederate filesystem will help you achieve the optimal profile. For more information, see [profile structures](../reference/profileStructures.md).
 
@@ -50,15 +50,15 @@ You will:
 1. base64 encode exported key pairs
 1. Add `data.json.subst` to your profile at `instance/bulk-config/data.json.subst`
 
-> Rather than just following the above steps, we will look at this comprehensively to understand purpose. Use the steps for reference as needed.
+> In this guide, we will look at the above steps in detail to understand the purpose and flow. Use the steps for reference as needed.
 
 A PingFederate Admin Console imports a `data.json` on startup if it finds it in `instance/bulk-config/data.json`.
 
-The PF admin API `/bulk/export` endpoint outputs a large .json blob that is representative of the entire `pingfederate/server/default/data` folder, PingFederate 'core config', or a representation of anything you would configure from the PingFederate UI. You could consider it "the configuration archive in .json format".
+The PF admin API `/bulk/export` endpoint outputs a large .json blob that is representative of the entire `pingfederate/server/default/data` folder, PingFederate 'core config', or a representation of anything you would configure from the PingFedera0te UI. This file can be considered as "the configuration archive in .json format".
 
 #### Steps
 
-1. Go to a running PingFederate, and run:
+1. On a running PingFederate instance or pod, run:
 
     ```sh
     curl \
@@ -73,7 +73,7 @@ The PF admin API `/bulk/export` endpoint outputs a large .json blob that is repr
 
 #### Result
 
-You have a bulk API export "profile". This is handy because the entire config is in a single file and if you store it in source control, then you only have to compare differences in one file. However, there is more value than being in one file.
+You have a bulk API export "profile". This file is useful because the entire config is in a single file and if you store it in source control, then you only have to compare differences in one file. However, there is more value than being in one file.
 
 ### Making the bulk API export "profile-worthy"
 
@@ -120,11 +120,11 @@ You can convert this master key dependent form to:
 
 The process:
 
-1. You exported the private key+cert of the server cert with alias `sslservercert`. Upon export, a password is requested and `2FederateM0re` was used. This results in download of a password protected `.p12` file.
-1. The data.json key name `encryptedPassword` converted to just `password`.
+1. You exported the private key+cert of the server cert with alias `sslservercert`. When exported, a password is requested and `2FederateM0re` was used. This action results in the download of a password protected `.p12` file.
+1. The data.json key name `encryptedPassword` converted to simply `password`.
 1. The value for `fileData` is replaced with a base64 encoded version of the exported `.p12` file.
 
-This is a process that can be used for all encrypted items and environment specific items:
+This process can be used for all encrypted items and environment specific items:
 
 * Key Pairs (.p12)
 * Trusted Certs (x509)
@@ -133,11 +133,11 @@ This is a process that can be used for all encrypted items and environment speci
 * Integration Kit Properties
 * Hostnames
 
-Leaving these confidential items as unencrypted text is unacceptable for source control. The next logical step is to abstract the unencrypted values and replace them with variables. Then, the values can be stored in a secrets management tool (such as Hashicorp Vault) and the variablized file can be in source control.
+Leaving these confidential items as unencrypted text in source control is unacceptable. The next logical step is to abstract the unencrypted values and replace them with variables. By doing this, the values can be stored in a secrets management tool (such as Hashicorp Vault) and the variablized file can be in source control.
 
 Converting each of the encrypted keys for their unencrypted counterparts and hostnames with variables is cumbersome and can be automated. As we know in DevOps, if it _can_ be automated, it _must_ be automated. For more information, see [Using Bulk Config Tool](#using-bulk-config-tool).
 
-A variablized `data.json.subst` is a good candidate for committing to source control after removing any unencrypted text. 
+A variablized `data.json.subst` is a good candidate for committing to source control after removing any unencrypted text.
 
 ### Using Bulk Config Tool
 
@@ -170,19 +170,19 @@ The resulting `env_vars` file can be used as a guideline for secrets that should
 #### Prerequisites
 <!-- TODO: This docker image should be next to the rest of our images -->
 
-1. The bulk export utility comes in pre-compiled source code. Build an image with:
+1. The bulk export utility comes in pre-compiled source code. Build a Docker image by running:
 
     ```
     docker build -t ping-bulkexport-tools:latest .
     ```
 
-2. Your [data.json](#steps) copied to `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/shared/data.json`
+2. Copy the [data.json](#steps) to: `pingidentity-devops-getting-started/99-helper-scripts/ping-bulkconfigtool/shared/data.json`
 #### Example
 
 A sample command of the ping-bulkconfig-tool
 
 ```
-docker run --rm -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-config.json /shared/data.json /shared/env_vars /shared/data.json.subst > /shared/convert.log
+docker run --rm -v $PWD/shared:/shared ping-bulkexport-tools:latest /shared/pf-config.json /shared/data.json /shared/env_vars /shared/data.json.subst > ./shared/convert.log
 ```
 
 Where:
@@ -196,12 +196,12 @@ Where:
 After running the above command, you will see `env_vars` and `data.json.subst` in the `ping-bulkconfigtool/shared` folder.
 
 #### Configure Bulk Tool
-Instructions to the bulk config tool are sent via pf-config.json file. Where available commands include:
+Instructions to the bulk config tool are sent by the `pf-config.json` file. In this file, available commands include:
 ##### search-replace
-- A simple utility to search and replace string values in a bulk config json file.
-- Can expose environmental variables.
+- A utility to search and replace string values in a bulk config json file.
+- Can expose environment variables.
 
-Example: replacing an expected base hostname with a substition.
+Example: replacing an expected base hostname with a substitution:
 ```
   "search-replace":[
     {
@@ -214,7 +214,7 @@ Example: replacing an expected base hostname with a substition.
 ##### change-value
 - Searches for elements with a matching identifier, and updates a parameter with a new value.
 
-Example: update keyPairId against an element with name=ENGINE.
+Example: update keyPairId against an element with name=ENGINE:
 ```
   "change-value":[
   	{
@@ -230,9 +230,9 @@ Example: update keyPairId against an element with name=ENGINE.
 ```
 
 ##### remove-config
-- Allows us to remove configuration from the bulk export.
+- Remove configuration objects from the bulk export
 
-Example: you may wish to remove the ProvisionerDS data store:
+Example: To remove the ProvisionerDS data store:
 ```
   "remove-config":[
   	{
@@ -242,7 +242,7 @@ Example: you may wish to remove the ProvisionerDS data store:
   ]
 ```
 
-Example: you may wish to remove all SP Connections:
+Example: To remove all SP Connections:
 ```
   "remove-config":[
   	{
@@ -251,11 +251,10 @@ Example: you may wish to remove all SP Connections:
   	}
   ]
 ```
-
 ##### add-config
-- Allows us to add configuration to the bulk export.
+- Add configurations to the bulk export.
 
-Example: you may wish to add the CONFIG QUERY http listener in PingAccess
+This tool works with both PingFederate and PingAccess.  This example adds the CONFIG QUERY http listener in PingAccess:
 ```
   "add-config":[
 	  {
@@ -272,7 +271,7 @@ Example: you may wish to add the CONFIG QUERY http listener in PingAccess
   ]
 ```
 
-Example: you may wish to add an SP connection
+Example: Add an SP connection:
 ```
   "add-config":[
 	  {
@@ -291,9 +290,9 @@ Example: you may wish to add an SP connection
 - Navigates through the JSON and exchanges values for substitions.
 - Exposed substition names will be automatically created based on the json path.
     - E.g. ${oauth_clients_items_clientAuth_testclient_secret}
-- Can convert encrypted/obfuscated values into clear text inputs (e.g. "encryptedValue" to "value") prior to substituting it. This allows us to inject values in its raw form.
+- Can convert encrypted/obfuscated values into clear text inputs (e.g. "encryptedValue" to "value") prior to substituting it. Doing so enables the injection of values in their raw form.
 
-Example: replace the "encryptedPassword" member with a substitution enabled "password" member for any elements with "id" or "username" members. The following will remove "encryptedPassword" and create "password": "${...}".
+Example: replace the "encryptedPassword" member with a substitution-enabled "password" member for any elements with "id" or "username" members. The following will remove "encryptedPassword" and create "password": "${...}":
 ```
     {
       "parameter-name": "encryptedPassword",
@@ -306,9 +305,9 @@ Example: replace the "encryptedPassword" member with a substitution enabled "pas
 ```
 
 ##### config-aliases
-- The bulk config tool generates substitution names, however sometimes you wish to simplify them or reuse existing environment variables.
+- The bulk config tool generates substitution names. However, there might be times you wish to simplify them or reuse existing environment variables.
 
-Example: Renaming the Administrator's substitution name to leverage the common PING_IDENTITY_PASSWORD environmental variable.
+Example: Rename the Administrator's substitution name using the PING_IDENTITY_PASSWORD environment variable:
 ```
   "config-aliases":[
 	{
@@ -322,9 +321,9 @@ Example: Renaming the Administrator's substitution name to leverage the common P
 ```
 
 ##### sort-arrays
-- Configure the array members that need to be sorted. This ensures the array is created consistently to improve git diff.
+- Configure the array members that need to be sorted. This function ensures the array is created consistently, simplifying git diff analysis.
 
-Example: Sort the roles and scopes arrays.
+Example: Sort the roles and scopes arrays:
 ```
   "sort-arrays":[
         "roles","scopes"
@@ -348,26 +347,26 @@ sh pf-profile.sh --release mypingfed --password 2FederateM0re
 ## The Configuration Archive Profiles Method
 
 ### About configuration archive-based profiles
-You should weigh the pros and cons of configuration archive-based profiles compared to bulk API export profiles. Aside from DevOps principle purists, most people find bulk API export profiles to be more advantagous in most scenarios.
+You should weigh the pros and cons of configuration archive-based profiles compared to bulk API export profiles. While not fully aligning with pur DevOps principles, many users prefer using bulk API export profiles in most scenarios.
 
 Pros:
-* The `/data` folder, opposed to a `data.json` file, is better for [profile layering](profilesLayered.md).
+* The `/data` folder, as opposed to a `data.json` file, is better for [profile layering](profilesLayered.md).
 * Configuration is available on engines at startup, which:
-    * lowers dependency on the admin at initial cluster startup.
-    * enables mixed configurations in a single cluster. Canary-like "roll-out" instead of config pushed to all engines at once.
+    * lowers dependency on the admin at initial cluster startup
+    * enables mixed configurations in a single cluster. You can perform a canary-like "roll-out" instead of having the same configuration pushed to all engines at once.
 
 Cons:
 
-* The `/data` folder contains key pairs in a `.jks`, which makes externally managing keys very difficult.
-* Encrypted data is scattered throughout the folder, creating dependency on the master encryption key.
+* The `/data` folder contains key pairs in a `.jks` file , which makes externally managing keys very difficult.
+* Encrypted data is scattered throughout the folder, creating a dependency on the master encryption key.
 
 ### About this method
 
 You will:
 
-1. Export a `data.zip` archive.
-1. Optionally, variablize.
-1. Replace the data folder.
+1. Export a `data.zip` archive
+1. Optionally, variablize
+1. Replace the data folder
 
 <!-- 1. Export a configuration archive.
 This can be done through the UI `System > Server > Configuration Archive`
@@ -382,4 +381,4 @@ Or via Admin API:
   
 ## Installing PingFederate Integration Kits
 
-By default, PingFederate is shipped with a handful of integration kits and adapters. If you need other integration kits or adapters in the deployment, manually download them and place them inside `server/default/deploy` of the server profile. You can find these resources in the product download page [here](https://www.pingidentity.com/en/resources/downloads/pingfederate.html).
+By default, PingFederate is shipped with a handful of integration kits and adapters. If you need other integration kits or adapters in the deployment, manually download them and place them inside the `server/default/deploy` directory of the server profile. You can find these resources in the product download page [here](https://www.pingidentity.com/en/resources/downloads/pingfederate.html).
