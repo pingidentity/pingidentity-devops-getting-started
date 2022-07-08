@@ -23,41 +23,38 @@ To understand which sizing option to select, consider the associated pros and co
 
 ### Pros
 
-* If you have applications that are CPU or RAM intensive, having a larger number of nodes ensures your application has sufficient resources.
+* If you have applications that are CPU or RAM intensive, having larger nodes can ensure your application has sufficient resources.
 
 ### Cons
 
-* High availability is difficult to achieve with a minimal set of nodes. If your application has 50 instances with 25 pods per node and a node goes down, you lose 50% of your service.
-* Scaling: When autoscaling your cluster, the increment size becomes larger, which could result in provisioning more hardware than what's required.
+* High availability is difficult to achieve with a minimal set of nodes. If your application has 50 pods across two nodes (25 pods per node) and a node goes down, you lose 50% of your service.
+* Scaling: When autoscaling the cluster, the increment size becomes larger which could result in provisioning more hardware than needed.
 
 ## Option 2: more, smaller nodes
 
 ### Pros
 
-* High availability is easier to maintain. If you have 50 instances with two pods per node and one node goes down, you only reduce your service by 4%.
+* High availability is easier to maintain. If you have 50 instances with two pods per node (25 nodes) and one node goes down, you only reduce your service capacity by 4%.
 
 ### Cons
 
 * More system overhead to manage all of the nodes.
-* Possible under-utilization, as the nodes might be too small to add additional services.
+* Possible under-utilization as the nodes might be too small to add additional services.
 
 ## Guidance
 
-For production deployments where high availability is paramount, creating a cluster with more nodes and having less pods per node is preferable to ensure the health of your deployed service.
+For production deployments where high availability is paramount, creating a cluster with more nodes running fewer pods per node is preferable to ensure the health of your deployed service.
 
 > For some applications, you can decide to size one pod per node.
 
-To determine the physical instance type, multiply the desired resources for each service by the number of pods per node, plus additional for system overhead. Follow product guidelines to determine system requirements.
+To determine the physical instance type needed, multiply the desired resources for each service by the number of pods per node, plus additional capacity for system overhead. Follow product guidelines to determine system requirements.
 
 ### Example service using 3 pods per node
 
-* Typically deployed with 2 CPU and 4GB RAM.
-* Multiply by 3.
-* Node requirement: 6 CPU 12 GB RAM.
-* Add 10% for system overhead.
+* Each pod is typically deployed with 2 CPU and 4GB RAM which when multiplied by 3 yields:
+    * Minimum node requirement: 6 CPU 12 GB RAM
+* Add 10% for system overhead
 
-For these requirements in Amazon Web Services (AWS), a `c5.2xlarge` type (8 CPU / 16 GB RAM) can be the instance type selected.
+For these requirements in Amazon Web Services (AWS), a `c5.2xlarge` type (8 CPU / 16 GB RAM) might be the instance type selected.
 
-To determine the base number of nodes required, divide the number of pods by 3 to determine your minimum cluster size.
-
-Ensure that you add definitions for cluster horizontal auto-scaling to ensure your cluster scales in or out as needed.
+To determine the base number of nodes required, divide the number of pods by 3 to determine your minimum cluster size.  Further, you must ensure that you add definitions for cluster horizontal auto-scaling so the cluster scales in or out as needed.

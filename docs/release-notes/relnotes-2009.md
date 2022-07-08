@@ -7,10 +7,6 @@ title: Devops Docker Builds, Version 2009 (September 2020)
 
 ### New Features
 
-- **PingFederate Multi-region Clustering**
-
-      We've published our [Reference Architecture](../deployment/deployK8sPFclusters.md) for deploying PingFederate across multiple AWS regions using Kubernetes.
-
 - **PingDataSync Clustering**
 
       Within PingDataSync 8.2.0.0-EA we've introduced clustering, ensuring your deployment is highly available.

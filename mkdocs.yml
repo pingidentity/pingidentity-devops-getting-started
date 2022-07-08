@@ -51,9 +51,6 @@ markdown_extensions:
 plugins:
   - search:
         separator: '[\s\-\.]+'
-  - redirects:
-     redirect_maps:
-       deployment/deployPdgPap.md: "deployment/deployPazPap.md"
 
 nav:
   - Welcome:
@@ -66,53 +63,24 @@ nav:
       - Deployment Examples:
           - Introduction: "deployment/introduction.md"
           - Kubernetes:
-              - Introduction: "deployment/deployK8s.md"
-              - Environment considerations: "deployment/environmentConsiderations.md"
               - Create a local Kubernetes Cluster: "deployment/deployLocalK8sCluster.md"
               - Ping Identity Helm Charts: "deployment/deployHelm.md"
-              - Kubernetes Deployments For General Use:
-                  - Introduction: "deployment/deployK8sGeneral.md"
-                  - Standalone Deployments: "deployment/deployK8sStandalone.md"
-                  - Full Stack Deployment: "deployment/deployK8sFullstack.md"
-                  - Replicated PingDirectory Deployment: "deployment/deployK8sReplicated.md"
-                  - PingAccess Cluster Deployment: "deployment/deployK8sPA-cluster.md"
-                  - PingFederate Cluster Deployment: "deployment/deployK8sPF-cluster.md"
-                  - Deploy PingFederate Across Multiple Kubernetes Clusters:
-                      - Introduction: "deployment/deployK8sPFclusters.md"
-                      - AWS Multi-Region Prereq: "deployment/pfMultiRegionAWSPrereq.md"
-                      - PingFederate Across Kubernetes with DNS: "deployment/deployPFMultiRegionDNS.md"
-                      - PingFederate Across Kubernetes with S3: "deployment/deployPFMultiRegionAWS.md"
-                  - PingIntelligence Deployment: "deployment/deployK8sPi.md"
-              - Kubernetes Deployments For Cloud Platforms:
-                  - Introduction: "deployment/deployK8sCloud.md"
+              - Other Kubernetes Information:
+                  - Sample Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
+                  - Utility Sidecars: "deployment/deployK8sUtilitySidecar.md"
+                  - PingData Product Considerations: "deployment/pingDataEnvironmentConsiderations.md"
+                  - Operating Patterns: "deployment/deploymentPatterns.md"
+                  - Cloud Kubernetes Platform Prerequisites: "deployment/deployK8sCloud.md"
                   - Peered EKS Clusters: "deployment/deployK8s-AWS.md"
-                  - Deploy to Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
+                  - Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
                   - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
-              - PingDirectory Deployments Across Kubernetes Clusters: "deployment/deployK8sPD-clusters.md"                  
-              - Hashicorp Vault: "deployment/deployVault.md"
-              - Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
-              - Utility Sidecars: "deployment/deployK8sUtilitySidecar.md"
           - Docker Compose:
-              - Introduction: "deployment/deployCompose.md"
-              - PingFederate and PingDirectory: "deployment/deploySimpleStack.md"
-              - Replicated PingDirectory Pair: "deployment/deployReplication.md"
-              - PingDirectory and PingDataSync: "deployment/deploySync.md"
-              - PingDataSync Failover Server: "deployment/deploySyncFailover.md"
-              - PingDataConsole with PingOne SSO: "deployment/deployPingDataConsoleSSO.md"
-              - PingCentral: "deployment/deployPingCentral.md"
-              - PingFederate Cluster: "deployment/deployPfCluster.md"
-              - PingAccess Cluster: "deployment/deployPaCluster.md"
-              - PingAuthorize with the Policy Editor: "deployment/deployPazPap.md"
-              - Monitoring Stack: "deployment/deployMonitoringStack.md"
-              - Elasticsearch SIEM Stack: "deployment/deploySiemStack.md"
-          - Operating Patterns:
-              - Introduction: "deployment/deploymentPatterns.md"
-              - PingFederate: "deployment/managePingFederate.md"
-              # - PingDirectory: "deployment/managePingDirectory.md"
+              - Single Product Deployments: "deployment/deployCompose.md"
       - Support Policy: "home/supportPolicy.md"
       - License: "home/license.md"
       - Disclaimer: "home/disclaimer.md"
       - Third-Party Software:  "home/3rdPartySoftware.md"
+      - Recent portal updates: "home/portalUpdates.md"
   - Ping Docker Images:
       - Introduction: "docker-images/dockerImagesRef.md"
       - Product Images:

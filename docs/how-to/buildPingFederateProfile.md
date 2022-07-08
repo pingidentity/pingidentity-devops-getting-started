@@ -196,7 +196,28 @@ Where:
 After running the above command, you will see `env_vars` and `data.json.subst` in the `ping-bulkconfigtool/shared` folder.
 
 #### Configure Bulk Tool
-Instructions to the bulk config tool are sent by the `pf-config.json` file. In this file, available commands include:
+Instructions to the bulk config tool are sent by the `pf-config.json` file.  
+
+When using the `pf-config.json` file, any unused functions will require an empty array in the file.  For example, notice the **add-config** block at the top of this sample:
+
+```sh
+{
+  "add-config":[],
+  "config-aliases":[
+  ],
+  "expose-parameters":[
+  ]
+  ,
+  "remove-config":[
+    {
+    "key": "id",
+    "value": "ProvisionerDS"
+    }
+  ]
+}
+```
+
+In this file, available commands include:
 ##### search-replace
 - A utility to search and replace string values in a bulk config json file.
 - Can expose environment variables.

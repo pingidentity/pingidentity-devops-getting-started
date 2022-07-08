@@ -1,1 +1,0 @@
-See [Orchestrate a PingAccess cluster deployment](../../docs/deployment/deployK8sPA-cluster.md) for more information.

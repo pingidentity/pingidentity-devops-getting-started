@@ -1,1 +1,1 @@
-See [Get started](../docs/get-started/introduction.md) for more information.
+See [Get started](../docs/deployment/deployCompose.md) for more information.

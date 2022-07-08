@@ -5,11 +5,13 @@ title: Welcome
 
 This documentation exists to enable DevOps professionals, administrators, and developers to deploy Ping Identity software using container technologies. Our goal is to provide tools, frameworks, blueprints, and reference architectures in support of running our products in containerized environments.
 
-New to Kubernetes? See [Kubernetes Basics](./reference/k8sBasics.md)
+* First time here?  We recommend the [Get Started](./get-started/introduction.md) page.
 
-New to Helm?  See [Helm Basics](./reference/HelmBasics.md)
+* New to Kubernetes? See [Kubernetes Basics](./reference/k8sBasics.md)
 
-First time here?  We recommend the [Get Started](./get-started/introduction.md) page.
+* New to Helm?  See [Helm Basics](./reference/HelmBasics.md)
+
+* Visit [this page](./home/portalUpdates.md) to see what has changed on this portal recently.
 
 ## Benefits from this program
 

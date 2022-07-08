@@ -6,7 +6,7 @@ title: Deploy a Kubernetes Cluster Metrics Stack
 
 ![](../images/cluster-metrics-stack.png)
 
-This document covers deploying and using a sample open-source monitoring stack in a Kubernetes cluster. The resulting stack is not a "Production-ready" install, rather it is meant to show how quickly Ping DevOps software can produce metrics for consumption by a popular open-source monitoring system. This metrics stack is not maintained or directly supported by Ping.
+This document covers deploying and using a sample open-source monitoring stack in a Kubernetes cluster. The resulting environment should not be considered production-ready.  It is meant to show how quickly Ping DevOps software can produce metrics for consumption by a popular open-source monitoring system. This example metrics stack is not maintained or directly supported by Ping.
 
 ## Stack Components
 
@@ -23,17 +23,18 @@ This document covers deploying and using a sample open-source monitoring stack i
 
 ## Prerequisites
 
-Beyond prerequisites covered in base Helm examples:
-
-- Knowledge of Prometheus, Grafana, and Telegraf is helpful
+It is assumed you are familiar with the prerequisites for the base Helm examples.  Beyond that, any knowledge of Prometheus, Grafana, and Telegraf is helpful.
 
 ## Deploy the Stack
 
-Edit the Prometheus `01-prometheus-values.yaml` as needed. This file contains configurations provided beyond the defaults of kube-prometheus-stack. In this sample deployment, the monitoring stack is given very powerful read access to the entire cluster and is deployed into the `metrics` namespace. Changing these settings or making a "production-ready" install is beyond scope of this document. The full set of optional values can be found on the Gihub repository for the chart.
+In the `pingidentity-devops-getting-started/30-helm/cluster-metrics directory` of this repository, edit the `01-prometheus-values.yaml` as needed. This file provides configurations beyond the default kube-prometheus-stack. In this sample deployment, the monitoring stack is granted read access to the entire cluster and is deployed into the `metrics` namespace. 
 
-There are numerous lines that have `##CHANGEME`. These lines should be heavily considered for configuration.
+!!! error "Not for production use"
+    Changing these settings or making the deployment production-ready is beyond scope of this document. The full set of optional values can be found on the Github repository for the Prometheus chart.
 
-When the file is updated, deploy the `kube-prometheus-stack`
+There are numerous lines that have `##CHANGEME`. These lines should be considered for configuration options to meet your needs.
+
+After updating the file, deploy the `kube-prometheus-stack`.  The path to the configuration file assumes you are in the root folder of the local repository copy:
 
 ```
 kubectl create namespace metrics
@@ -48,37 +49,37 @@ Deploy `telegraf-operator`:
 helm upgrade --install telegraf --repo https://helm.influxdata.com/ telegraf-operator -n metrics --version 1.3.3 -f 30-helm/cluster-metrics/02-telegraf-values.yaml
 ```
 
-Telegraf operator makes it very easy to add monitoring sidecars to your deployments. All you need to do is add annotaions, which are shown in `30-helm/cluster-metrics/03-ping-with-metrics-values.yaml`
+Telegraf operator makes it very easy to add monitoring sidecars to your deployments. All you need to do is add annotations, which are shown in `30-helm/cluster-metrics/03-ping-with-metrics-values.yaml`
 
-These values can be copied to your ping-devops values.yaml manually, or the file can be referenced at the end of your helm install command. For example:
+These values can be copied to your ping-devops `values.yaml` manually, or the file can be referenced at the end of your helm install command. For example:
 
 ```
 helm upgrade --install ping-metrics pingidentity/ping-devops -f my-values.yaml -f 30-helm/cluster-metrics/03-ping-with-metrics-values.yaml
 ```
 
-Once the Ping software is healthy and producing metrics, there should be sidecars on Ping pods.
+After the Ping software is healthy and producing metrics, there should be sidecars on Ping pods.
 
 ```
 NAME                                                 READY   STATUS
-ping-metrics-pingaccess-admin-0                     1/1     Running
-ping-metrics-pingaccess-engine-68464d8cc8-mhlsv     2/2     Running
-ping-metrics-pingdataconsole-559786c98f-8wsrm       1/1     Running
-ping-metrics-pingdirectory-0                        2/2     Running
-ping-metrics-pingfederate-admin-64fdb4b975-2xdjl    1/1     Running
-ping-metrics-pingfederate-engine-64c5f896c7-fn99v   2/2     Running
+ping-metrics-pingaccess-admin-0                      1/1     Running
+ping-metrics-pingaccess-engine-68464d8cc8-mhlsv      2/2     Running
+ping-metrics-pingdataconsole-559786c98f-8wsrm        1/1     Running
+ping-metrics-pingdirectory-0                         2/2     Running
+ping-metrics-pingfederate-admin-64fdb4b975-2xdjl     1/1     Running
+ping-metrics-pingfederate-engine-64c5f896c7-fn99v    2/2     Running
 ```
 
-Note `2/2` on pods with sidecars.
+Note the `2/2` indicator for pods with sidecars.
 
 ## View Metrics
 
-Browse to Grafana via the Ingress URL or port-forward.
+Browse to Grafana using the Ingress URL or by running a `kubectl port-forward` command.
 Log in with the `admin` user and password set in `01-prometheus-values.yaml`
 
-Next, import `04-ping-overview-dashboard.json` via the `+` on the left of Grafana's home screen.
+Finally, import the `04-ping-overview-dashboard.json` using the `+` button on the left of Grafana's home screen.
 
-The `Ping Identity Overview` dashboard will have a dropdown for namespace at the top. Select your namespace to see:
+The `Ping Identity Overview` dashboard will have a dropdown for namespace at the top. Select the namespace running Ping products to see something similar to this example:
 
 ![](../images/cluster-metrics-dashboard.png)
 
-Any of the panels can be edited, or new ones made to fit needs.
+Any of the panels can be edited, or new ones created to fit your needs.
