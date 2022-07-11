@@ -10,7 +10,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     The instructions in this document are for testing and learning, and not intended for use in production.
 
 !!! note "Why not Docker Desktop?"
-    The process outlined on this page will create a Kubernetes in Docker ([kind](https://kind.sigs.k8s.io/)) cluster.  Kind is very similar in functionality to the Docker Desktop implementation of Kubernetes, but the advantage here is that it is more portable (not requiring Docker Desktop) and in addition, you will have an ingress controller in place for communicating with the services in the cluster. In the [Getting Started](../get-started/getStartedExample.md) example, port-forwarding was needed for such activities.
+    The process outlined on this page will create a Kubernetes in Docker ([kind](https://kind.sigs.k8s.io/)) cluster.  Kind is very similar in functionality to the Docker Desktop implementation of Kubernetes, but the advantage here is that it is more portable (not requiring Docker Desktop). In addition, the files provided will enable and deploy an ingress controller for communicating with the services in the cluster. In the [Getting Started](../get-started/getStartedExample.md) example, port-forwarding was needed for such activities with Docker Desktop.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
 
 1. [Install kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) on your platform.
 
-1. Use the provided [sample kind.yaml](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind.yaml) file to create a kind cluster named `ping` with ingress enabled.  From the root of the Github repository code, run:
+1. Use the provided [sample kind.yaml](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind.yaml) file to create a kind cluster named `ping` with ingress enabled.  From the root of the repository code, run:
 
     ```sh
     kind create cluster --config=./20-kubernetes/kind.yaml
@@ -63,7 +63,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/1.23/deploy.yaml
     ```
 
-1. To wait for the Nginx ingress to reach a healthy state, run the following command.  You can also observe the pod status using k9s or by running `kubectl get pods --namespace ingress-nginx`. You should see one controller pod running.
+1. To wait for the Nginx ingress to reach a healthy state, run the following command.  You can also observe the pod status using k9s or by running `kubectl get pods --namespace ingress-nginx`. You should see one controller pod running when the ingress controller is ready.
 
     ```sh
     kubectl wait --namespace ingress-nginx \
@@ -89,7 +89,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     </html>
     ```
 
-Our examples will use the domain `*ping-local.com` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
+Our examples will use the Helm release name `myping` and DNS domain `*ping-local.com` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
 
 ```sh
 echo '127.0.0.1 myping-pingaccess-admin.ping-local.com myping-pingaccess-engine.ping-local.com myping-pingauthorize.ping-local.com myping-pingauthorizepap.ping-local.com myping-pingdataconsole.ping-local.com myping-pingdelegator.ping-local.com myping-pingdirectory.ping-local.com myping-pingdatagovernance.ping-local.com myping-pingdatagovernancepap.ping-local.com myping-pingfederate-admin.ping-local.com myping-pingfederate-engine.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
@@ -99,7 +99,7 @@ Setup is complete.  This local Kubernetes environment should be ready to deploy 
 
 ## Stop the cluster
 
-When you are finished, stop the cluster by running the following command:
+When you are finished, you can stop the cluster by running the following command:
 
 ```sh
 kind delete cluster --name ping

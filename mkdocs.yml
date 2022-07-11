@@ -135,7 +135,7 @@ nav:
           - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
           - Migrating to Unprivileged Images: "how-to/migratingRootToUnprivileged.md"
   - Reference:
-      - Introduction: "reference/config.md"
+      - Components and Configuration: "reference/config.md"
       - Server Profile: "reference/profileStructures.md"
       - Docker Compose YAML: "reference/yamlFiles.md"
       - Variables and Scope: "reference/variableScoping.md"

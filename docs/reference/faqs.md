@@ -6,9 +6,9 @@ title: Using DevOps Hooks
 
 ## No egress
 
-**"My container environment isn't allowed to make any external calls to services such as Github or Docker Hub. Can I still use Ping Identity containers?"**
+**"My container environment is not allowed to make any external calls to services such as Github or Docker Hub. Can I still use Ping Identity containers?"**
 
-Yes. This is common in production scenarios. To use Ping Identity containers in this situation:
+Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:
 
 1. [Use an Existing License](../how-to/existingLicense.md)
 2. Use an empty remote profile `SERVER_PROFILE_URL=""`

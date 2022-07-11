@@ -4,10 +4,10 @@ title: Helm Basics
 
 # Helm Basics
 
-Although this document cannot cover the depths of this tool, brand-new Helm users might find other technical documentation too involved for Ping Identity DevOps purposes. This document aims to equip new users with helpful terminology in simple terms, with a focus on relevant commands. For more in-depth documentation around Helm, check out [helm.sh](https://helm.sh).
+Although this document cannot cover the depths of this tool, new Helm users might find other technical documentation too involved for the purpose of beginning use of Ping Identity container images. This document aims to equip new users with helpful terminology in simple terms, with a focus on relevant commands. For more in-depth documentation around Helm, check out [helm.sh](https://helm.sh).
 
 !!! note
-    This overview uses Ping Identity DevOps as a guide, but the principles will apply to any typical interaction with Kubernetes. As a result, this document might feel incomplete or inaccurate to Helm veterans. If you would like to contribute, feel free to open a pull request!
+    This overview uses Ping Identity images and practices as a guide, but generally applies to any interactions using Helm with Kubernetes. With these assumptions, this document might feel incomplete or inaccurate to veterans. If you would like to contribute to this document, feel free to open a pull request!
 
 ## Helm
 
@@ -52,11 +52,11 @@ Using our Helm chart, you can automatically define this entire resource and all 
 
 ### Terminology
 
-**Manifests** - the final Kubernetes YAML files that are sent to the cluster for resource creation. These files are standard Kubernetes files and will be similar to the service defined above.
+**Manifests** - the final Kubernetes YAML files that are sent to the cluster for resource creation. These files are standard Kubernetes files and will be similar to the service example shown above.
 
-**Helm Templates** - Go Template versions of Kubernetes YAML files. These templates enable the manifest creation to be paramaterized.
+**Helm Templates** - Go Template versions of Kubernetes YAML files. These templates enable the manifest creation to be parameterized.
 
-**Values and values.yaml** - A value is the setting you pass to a Helm chart from which the templates produce the manifests you want. Values can be passed individually on the command line, but more commonly they are collected and defined in a file named **values.yaml**.  For example, if this file only had this entry, the resulting Kubernetes manifest file would be over 200 lines long.
+**Values and values.yaml** - A value is the setting you pass to a Helm chart from which the templates produce the manifests you want. Values can be passed individually on the command line, but more commonly they are collected and defined in a file named **values.yaml**.  For example, if this file conained only this entry, the resulting Kubernetes manifest file would be over 200 lines long.
 
 
   ```yaml
@@ -64,7 +64,7 @@ Using our Helm chart, you can automatically define this entire resource and all 
     enabled: true
   ```
 
-**release** - When you deploy resources with Helm, you provide a name for identification. The combination of this name and the resources deployed along with it make up a `release`. When using Helm, it is a common pattern to prefix all resources managed by a release with the release name. In our examples, `myping` is the release name, so you will see products in Kubernetes running with names similar to `myping-pingfederate-admin`, `myping-pingdirectory`, and `myping-pingauthorize`.
+**release** - When you deploy resources with Helm, you provide a name for identification. The combination of this name and the resources that are deployed using it make up a `release`. When using Helm, it is a common pattern to prefix all resources managed by a release with the release name. In our examples, `myping` is the release name, so you will see products in Kubernetes running with names similar to `myping-pingfederate-admin`, `myping-pingdirectory`, and `myping-pingauthorize`.
 
 ### Building the Helm Values File
 
@@ -77,11 +77,11 @@ global:
   enabled: true
 ```
 
-By default, this flag is set as `global.enabled=false`. These two lines are sufficient to turn on every available Ping Identity software product with a basic configuration.
+By default, this flag is set as `global.enabled=false`. These two lines are sufficient to turn on (deploy) every available Ping Identity software product with a basic configuration.
 
 ### Providing your own server profile
 
-In the documentation, therre is an example for providing your own server profile stored in GitHub to PingDirectory along with this snippet in the values.yaml specific to that feature:
+In the documentation, there is an example for providing your own server profile stored in GitHub to PingDirectory.  The documenation provides this snippet in the values.yaml specific to that feature:
 
 ```yaml
 pingdirectory:
@@ -89,7 +89,7 @@ pingdirectory:
     SERVER_PROFILE_URL: https://github.com/<your-github-user>/pingidentity-server-profiles
 ```
 
-This piece alone will not turn on PingDirectory, because the default value for `pingdirectory.enabled` is false. To complete the deployment, add the snippet into your own values.yaml file:
+This entry alone will not turn on PingDirectory, because the default value for `pingdirectory.enabled` is false. To complete the deployment, add the snippet to turn deploy and configure PingDirectory in the values.yaml file:
 
 ```yaml
 global:
@@ -99,7 +99,7 @@ pingdirectory:
     SERVER_PROFILE_URL: https://github.com/<your-github-user>/pingidentity-server-profiles
 ```
 
-This example file turns on all products, including PingDirectory, and overwrites the default `pingdirectory.envs.SERVER_PROFILE_URL` to use `https://github.com/<your-github-user>/pingidentity-server-profiles`.
+This example snippet turns on all products, including PingDirectory, and overwrites the default `pingdirectory.envs.SERVER_PROFILE_URL` with `https://github.com/<your-github-user>/pingidentity-server-profiles`.
 
 This use of substitution and parameters is where the power of Helm to simplify ease of deployment begins to shine. To fully customize your deployment, review all available options by running:
 
@@ -107,7 +107,7 @@ This use of substitution and parameters is where the power of Helm to simplify e
   helm show values pingidentity/ping-devops
   ```
 
-This command prints all of the default values applied to your deployment. To overwrite any default values from the chart, copy the corresponding snippet, include and modify it in your own values.yaml file. Remember with YAML that tabbing and spacing matters. For most editors, copying all the way to the left margin and pasting at the very beginning of a line in your file should maintain proper indentation.
+This command prints all of the default values applied to your deployment. To overwrite any default values from the chart, copy the corresponding snippe and include it in your own values.yaml file with any modifications needed. Remember with YAML that tabbing and spacing matters. For most editors, copying all the way to the left margin and pasting at the very beginning of a line in your file should maintain proper indentation.
 
 Helm also provides a wide variety of plugins. A useful one is [Helm diff](https://github.com/databus23/helm-diff).  This plugin shows what changes would be applied between Helm upgrade commands. For example, if this plugin indicates anything in a Deployment or Statefulset would change, you can expect the corresponding pods to be cycled. In this example, **Helm diff** is useful to note changes that would occur, particularly when you are not prepared for containers to be restarted.
 
@@ -121,7 +121,9 @@ As you go through the Helm examples, the goal is to build a values.yaml file tha
   helm upgrade --install <release_name> pingidentity/ping-devops -f /path/to/values.yaml
   ```
 
-##### Clean up a release:
+##### Delete a release:
+
+This command will remove all resources except PVC and PV objects associated with the release from the cluster:
 
   ```sh
   helm uninstall <release name>
