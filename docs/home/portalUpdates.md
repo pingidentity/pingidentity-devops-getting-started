@@ -1,7 +1,7 @@
 # Recent portal updates
 This page provides details on recent significant changes to this portal.
 
-# June 2022
+# July 2022
 
 ## Removal of Docker Compose examples
 
