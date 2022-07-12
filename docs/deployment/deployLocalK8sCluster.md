@@ -15,6 +15,9 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 * ports 80 and 443 available on machine
 
+!!! warning
+    The following example was tested with Kubernetes version 1.21 and may not work with later versions.
+
 !!! info "Docker System Resources"
     Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to docker. For this documentation, a Macbook Pro was configured to use 3 CPUs and 6 GB Memory. You can adjust these values as necessary for your needs.
 
