@@ -6,10 +6,10 @@ title: pingctl pingone - Managing PingOne environments
 
 ## Description
 
-Provides ability to manage PingOne environments.  Includes features:
+Provides ability to manage PingOne environments.  Capabilities of this command include:
 
 * Listing, searching and retrieving PingOne resources (i.e. user, populations, groups)
-* Add PingOne resources
+* Adding PingOne resources
 * Deleting PingOne resources
 
 ## Usage
@@ -48,21 +48,21 @@ Provides ability to manage PingOne environments.  Includes features:
                 '.email sw "john"'
 
     -c {columns}
-        Columns to ouptut based on "heading:jsonAttr"
+        Columns to output based on "heading:jsonAttr"
         An example of available jsonAttrs can be found by using a json output first.
             ex: 'LastName:name.family,FirstName:name.given'
 
     -s {sort column}
-        Columns to sort ouptut on based on "jsonAttr"
+        Columns to sort output on based on "jsonAttr"
         The jsonAttr MUST be listed in the list of columns (-c option).
             ex: 'name.family'
 
     -p {population name}
-        Population to add user/group into.
-        If not provided 'Default' population used
+        Population from which to retrieve a user/group
+        If not provided, the 'Default' population is used
 
 ### add
 
     -p {population name}
-        Population to add user/group into.
-        If not provided, 'Default' population used
+        Population into which to add a user/group
+        If not provided, the 'Default' population is used

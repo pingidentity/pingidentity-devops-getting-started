@@ -74,6 +74,7 @@ nav:
                   - Peered EKS Clusters: "deployment/deployK8s-AWS.md"
                   - Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
                   - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
+                  - Ingress on local Kind Cluster: "deployment/deployHelmLocalIngress.md"
           - Docker Compose:
               - Single Product Deployments: "deployment/deployCompose.md"
       - Support Policy: "home/supportPolicy.md"

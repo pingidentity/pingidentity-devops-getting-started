@@ -6,7 +6,7 @@ title: pingctl kubernetes - Generate kubernetes resources
 
 ## Description
 
-Provides ability to manage Ping DevOps related kubernetes resources.
+Manage Ping related Kubernetes resources.
 
 * Generate `devops-secret` secret containing Ping DevOps variables `PING_IDENTITY_DEVOPS_KEY` and `PING_IDENTITY_DEVOPS_SECRET`
 * Generate `tls-secret` secret containing a self-signed certificate and key for a specified domain.

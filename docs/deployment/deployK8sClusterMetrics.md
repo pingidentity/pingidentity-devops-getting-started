@@ -73,8 +73,8 @@ Note the `2/2` indicator for pods with sidecars.
 
 ## View Metrics
 
-Browse to Grafana using the Ingress URL or by running a `kubectl port-forward` command.
-Log in with the `admin` user and password set in `01-prometheus-values.yaml`
+Browse to Grafana using the Ingress URL or by running a `kubectl port-forward` command.  For example: `kubectl port-forward svc/metrics-grafana --namespace metrics 9000:80`
+In your browser, navigate to `http://localhost:9000` and log in with the user `admin` and the password set in `01-prometheus-values.yaml`
 
 Finally, import the `04-ping-overview-dashboard.json` using the `+` button on the left of Grafana's home screen.
 

@@ -16,14 +16,11 @@ Provides access to Ping Identity evaluation license keys.
 
 ## Options
 
-* product
+* product: name of the product
 
-    Name of the product.  This is generally a one word name based on the product name.
+    This name is generally a collapsed one-word representation of the product name.
     For example: Ping Federate is `pingfederate`
 
-* ver
+* ver: version of the product
 
-    Version of the product.  This is a 2 level nuber of the version.  An actual version of
-    `10.2.3` should always be `10.2`
-
-    For example: Ping Federate version 10.2 should be `10.2`
+    This value is the `major.minor` representation of the version of the product in question.  For example, if a product had a point release of `10.2.3` you would provide `10.2`
