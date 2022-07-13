@@ -44,9 +44,32 @@ git clone https://github.com/pingidentity/pingidentity-docker-builds.git
 
 ## Build the Docker image
 
-Before building the image, display the `versions.json` file in the product directory. You must specify a valid version for the build script. Since the product .zip archive is being provided, it does not matter which version you select as long as it is valid. For example, you can see that `10.1.0` is a valid product version for PingFederate.
+Before building the image, display the `versions.json` file in the product directory. You must specify a valid version for the build script. Since the product .zip archive is being provided, it does not matter which version you select as long as it is valid. For example, you can see that `11.0.3` is a valid product version for PingFederate.
 
-![product build versions](../images/build-versions.png)
+```json
+{
+    "latest": "11.0.3",
+    "versions": [
+        {
+            "version": "11.0.3",
+            "preferredShim": "alpine:3.15.4",
+            "shims": [
+                {
+                    "shim": "alpine:3.15.4",
+                    "preferredJVM": "al11",
+                    "jvms": [
+                        {
+                            "jvm": "al11",
+                            "build": true,
+                            "deploy": true,
+                            "registries": [
+                                "DockerHub",
+                                "Artifactory"
+                            ]
+                        }
+                    ]
+                },        
+```
 
 1. Go to the base of the `pingidentity-docker-builds` repo. For example:
 

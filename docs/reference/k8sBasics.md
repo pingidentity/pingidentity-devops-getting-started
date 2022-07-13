@@ -57,7 +57,7 @@ StatefulSets are more structured in the manner in which the pods are handled.
 * Pod names are _sticky_ in that each pod in the StatefulSet has a known name, with each pod receving an ordinal indicator (unlike the random pod name found in Deployments).  For example, a StatefulSet will have pod names similar to:  myping-pingdirectory-0, myping-pingdirectory-1, myping-pingdirectory-2
 * Controlled startup with health priority: unlike a Deployment, a StatefulSet deploys the first instance (pod name appended with -0) and waits for it to be healthy before adding another.
 * Updates occur to instances in a rolling fashion, one-at-a-time, starting with the most recent pod(myping-pingdirectory-2) first.
-* With a known Pod name, persistent storage is maintained for each pod.  After persistent storage is created and assigned, the same storage object is provided to the same-named pod every time.
+* With a known Pod name, persistent storage can be maintained for each pod.  After persistent storage is created and assigned, the same storage object is provided to the same-named pod every time.
 
 **Pod** - The molecules that make up the water.
 

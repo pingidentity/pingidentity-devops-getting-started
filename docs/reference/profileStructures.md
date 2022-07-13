@@ -108,7 +108,7 @@ Example at [getting-started/pingdirectory](https://github.com/pingidentity/pingi
 | env-vars   | You can set environment variables used during deployment.  See [Variables and Scope](variableScoping.md) for more info.   In general, this should be **non existing or empty**. |
 
 !!! note "Ping Data Server Profile Best Practices"
-    * In most circumstances, the `pd.profile` should be in the only directory in the server profile.
+    * In most circumstances, the `pd.profile` directory should be the only directory in the server profile.
     * All environment variables should be provided through Kubernetes configmaps/secrets and a secret management tool.
       Be careful providing an `env-vars` and if you do, please review [Variables and Scope](variableScoping.md)
 

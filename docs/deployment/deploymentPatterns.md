@@ -23,7 +23,7 @@ To simplify the moving parts we will categorize PingFederate Configuration into 
 **Server Config**
 
 * Examples: `*.properties` files, Integration Kits, HTML Templates, logs formatting (log4j2.xml). This can be oversimplified to _everything besides_ the `/instance/server/default/data` folder or `/instance/bulk-config/data.json`.
-* Orchestration - These items are stored in the [Server Profile](../how-to/containerAnatomy.md) and any change _should_ trigger an update. It is up to the implementor to ensure that happens. This can be done by adding a non-functional variable in values.yaml to track the current profile "version". Example: `SERVER_PROFILE_VERSION: v1.1"
+* Orchestration - These items are stored in the [Server Profile](../how-to/containerAnatomy.md) and any change _should_ trigger an update. It is up to the implementor to ensure that happens. This can be done by adding a non-functional variable in values.yaml to track the current profile "version". Example: `SERVER_PROFILE_VERSION: v1.1`
 
 **App Config**
 

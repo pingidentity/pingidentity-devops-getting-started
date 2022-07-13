@@ -107,7 +107,7 @@ This use of substitution and parameters is where the power of Helm to simplify e
   helm show values pingidentity/ping-devops
   ```
 
-This command prints all of the default values applied to your deployment. To overwrite any default values from the chart, copy the corresponding snippe and include it in your own values.yaml file with any modifications needed. Remember with YAML that tabbing and spacing matters. For most editors, copying all the way to the left margin and pasting at the very beginning of a line in your file should maintain proper indentation.
+This command prints all of the default values applied to your deployment. To overwrite any default values from the chart, copy the corresponding snippet and include it in your own values.yaml file with any modifications needed. Remember with YAML that tabbing and spacing matters. For most editors, copying all the way to the left margin and pasting at the very beginning of a line in your file should maintain proper indentation.
 
 Helm also provides a wide variety of plugins. A useful one is [Helm diff](https://github.com/databus23/helm-diff).  This plugin shows what changes would be applied between Helm upgrade commands. For example, if this plugin indicates anything in a Deployment or Statefulset would change, you can expect the corresponding pods to be cycled. In this example, **Helm diff** is useful to note changes that would occur, particularly when you are not prepared for containers to be restarted.
 
