@@ -56,7 +56,7 @@ Using our Helm chart, you can automatically define this entire resource and all 
 
 **Helm Templates** - Go Template versions of Kubernetes YAML files. These templates enable the manifest creation to be parameterized.
 
-**Values and values.yaml** - A value is the setting you pass to a Helm chart from which the templates produce the manifests you want. Values can be passed individually on the command line, but more commonly they are collected and defined in a file named **values.yaml**.  For example, if this file conained only this entry, the resulting Kubernetes manifest file would be over 200 lines long.
+**Values and values.yaml** - A value is the setting you pass to a Helm chart from which the templates produce the manifests you want. Values can be passed individually on the command line, but more commonly they are collected and defined in a file named **values.yaml**.  For example, if this file contained only this entry, the resulting Kubernetes manifest file would be over 200 lines long.
 
 
   ```yaml
