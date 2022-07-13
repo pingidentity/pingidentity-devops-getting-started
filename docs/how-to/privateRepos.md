@@ -3,7 +3,7 @@ title: Using Private Git Repositories
 ---
 # Using Private Git Repositories
 
-In general, you don't want your server profiles to be public. Instead, you should persist your server profiles in private git repositories.
+In general, you do not want your server profiles to be public. Instead, you should persist your server profiles in private git repositories.
 
 To use server profiles with private repositories, you must either:
 
@@ -47,7 +47,7 @@ SERVER_PROFILE_URL=https://github_user:zqb4famrbadjv39jdi6shvl1xvozut7tamd5v6eva
 
 ### Using Git Credentials in Profile URL
 
-Typically, variables in a `SERVER_PROFILE_URL` string aren't replaced. However, certain Git user and password variables can be replaced.
+Typically, variables in a `SERVER_PROFILE_URL` string are not replaced. However, certain Git user and password variables can be replaced.
 
 * To substitute for the user and password variables using values defined in your YAML files, include either or both `${SERVER_PROFILE_GIT_USER}` and `${SERVER_PROFILE_GIT_PASSWORD}` in your server profile URL. For example:
 

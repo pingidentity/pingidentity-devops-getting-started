@@ -1,7 +1,7 @@
 ---
 title: Docker Compose
 ---
-# Docker Compose
+# Single product examples only
 
 !!! error "Deprecation"
     Docker Compose has been used by Ping in the past for basic orchestration and examples.  We are no longer maintaining multi-product or clustering docker compose examples. All of those files have been removed from this repository. The only examples remaining are for deploying individual products.  For orchestration of multiple products, clustering and other use cases, use [helm to deploy to Kubernetes](deployHelm.md).

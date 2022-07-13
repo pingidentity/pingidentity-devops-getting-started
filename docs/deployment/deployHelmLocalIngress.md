@@ -7,7 +7,7 @@ If you have deployed the local kind cluster as outlined on the [create a local c
 
 ## Prerequisites
 
-* A kind cluster deployed.  For this guide, the cluster name `ping`  is assumed
+* A kind cluster deployed with ingress enabled.  For this guide, the cluster name `ping`  is assumed
 * The hostname aliases have been appended to the `/etc/hosts` file
 * You have created the secret for your DevOps user and key for retrieving licenses
 

@@ -65,7 +65,7 @@ The Docker images are automatically pulled from our repository the first time yo
     </span>
 </div>
 
-The Github repository linked here provides examples for deploying our products as standalone containers, in a Docker Compose stack, or as an orchestrated deployment in Kubernetes (using Helm).
+The Github repository linked here provides examples for deploying our products as standalone containers or as an orchestrated deployment in Kubernetes (using Helm).
 
 Docker Compose is often used for development, demonstrations, and lightweight orchestration. Kubernetes is typically used for enterprise-level orchestration.
 

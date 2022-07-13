@@ -39,7 +39,7 @@ title: DevOps Docker Builds, Version 2201 (February 07 2022)
 - **Helm Charts**
     #### [Release 0.8.5](https://helm.pingidentity.com/release-notes/#release-085-feb-7-2022) ####
     - Features
-      - PingCentral now supported. Example values application found [here](https://helm.pingidentity.com/examples/pingcentral/pingcentral.yaml)
+      - PingCentral now supported. Example values application found [here](../deployment/deployHelm.md)
     - Issues Resolved
       - [Issue #119](https://github.com/pingidentity/helm-charts/issues/119) Workload template not honoring false values from values.yaml. Previously, false did not overwrite true in the Ping Identity Helm Chart template. This fix in _merge-util.tpl will resolve multiple cases within the Ping Identity Helm Chart.
         ```
