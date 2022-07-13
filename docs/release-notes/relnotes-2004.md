@@ -7,10 +7,6 @@ title: DevOps Docker Builds, Version 2004
 
 ### New Features
 
-- **Hashicorp Vault**
-
-  We've built an integration for Hashicorp Vault. See the [Deploy Hashicorp Vault](../deployment/deployVault.md).
-
 - **PingCentral**
 
       The PingCentral Docker image is now available. See the [Ping Identity Docker hub](https://hub.docker.com/r/pingidentity/pingcentral).
@@ -38,10 +34,6 @@ title: DevOps Docker Builds, Version 2004
 - **Variables and scope**
 
       We've added documentation to help with understanding the effective scope of variables. See [Variables and Scope](../reference/variableScoping.md).
-
-- **Elasticsearch SIEM stack**
-
-      We've added documentation for our Elasticsearch SIEM stack. See [Deploy an Elasticsearch SIEM Stack](../deployment/deploySiemStack.md).
 
 ### Resolved Defects
 

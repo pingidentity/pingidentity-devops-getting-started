@@ -87,15 +87,13 @@ Provide usage details.
 
 * config
 
-    Provides an interactive interview allowing user to provide all the `pingctl` standard
+    Provides an interactive process in which the user can provide all the `pingctl` standard
     variables (i.e. PingOne and Ping DevOps) as well as custom variables
 
 * version
 
-    Gets the current version of the tool, and checks to see if an update is available.
+    Displays the current version of the tool, and checks to see if an update is available.
 
 * clean
 
-    Cleans the cached pingctl work directory containing:
-
-    * Latest PingOne Access Token
+    Cleans the cached pingctl work directory containing the latest PingOne Access Token

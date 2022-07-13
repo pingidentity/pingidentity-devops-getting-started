@@ -3,15 +3,15 @@ title: Using a Utility Sidecar
 ---
 # Using a Utility Sidecar
 ## Why Use a Sidecar
-When running containerized software, each individual container should represent one process. This allows containers to be minimal and be allocated resources accurately.
+When running containerized software, each individual container should represent one process. This model allows containers to be minimal, more easily secured, and to be configured with the proper resource allocations accurately.
 
-There are common situations where running commands and tools on the pod running Ping Identity software is useful. For example, collecting a support archive, exporting data, or running a backup. However, because these processes introduce unexpected contention for CPU and memory resources, running these commands within the container running the actual server process can be risky. The container within the pod is sized for the server process, not for auxiliary processes that can be run at the same time.
+There are common situations where running commands and tools on a pod running Ping Identity software is useful. These situations include collecting a support archive, exporting data, or running a backup. However, because many of these processes might introduce unexpected contention for CPU and memory resources, executing such commands inside the container running the actual server process can be risky. The container for the product is sized for the server process without consideration for auxiliary processes that might be executed at the same time.
 
-To avoid these issues, use a utility sidecar for tools that might need to run alongside the server process. This sidecar runs as a separate container on the pod, but can be configured to share both a persistent volume and a process namespace with the main container. This allows any required processes to run without competing with the main server process for the same resources.
+To avoid these issues, one practice is to use a utility sidecar for tools that need to run alongside the main server process. This sidecar runs as a separate container on the pod.  However, in the Kubernetes model, all containers in the same pod can share a process namespace (if enabled), and can also be configured to share a persistent volume. This co-location allows any required processes to run in the sidecar without competing with the main server process for the same resources.  
 
-The major downside of running a utility sidecar is that it must always be running because new containers can't be attached to existing pods. The sidecar can be configured with minimal memory requests, but will continue to run when it is not actively in use. 
+The major downside of running a utility sidecar is that it must always be running because new containers cannot be attached to existing pods. The sidecar can be configured with minimal memory and CPU resources, but will continue to run even when it is not actively in use.
 
-!!! note
+!!! error "StatefulSets"
     You cannot remove a sidecar from a running StatefulSet without rolling all the pods.
 
 ## How to Deploy a Sidecar
@@ -36,7 +36,7 @@ pingdirectory:
     enabled: true
 ```
 
-These values will add a sidecar container using the same image as the main server container, configured with minimal resources and waiting in an endless loop. The generated yaml will look like the following, which can be used outside of Helm:
+These values will add a sidecar container using the same image as the main server container, configured with minimal resources and waiting in an endless loop. The generated yaml will look like the following example and could be applied directly outside of Helm:
 
 ```yaml
 apiVersion: apps/v1

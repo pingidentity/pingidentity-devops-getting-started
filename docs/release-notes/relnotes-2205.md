@@ -11,6 +11,11 @@ title: DevOps Docker Builds, Version 2205 (June 02 2022)
     - PingAccess 7.0.4 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess).
 - **PingData products**
     - Updated all PingData products to build 8.3.0.6
+        - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
+        - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
+        - PingDataSync ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
+        - PingAuthorize ([Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize))
+        - PingDataConsole ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdataconsole))
 - **PingFederate**
     - PingFederate 11.0.3 and 10.3.7 are now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate).
 - **PingIdentity LDAPSDK**

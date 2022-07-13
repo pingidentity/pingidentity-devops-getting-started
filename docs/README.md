@@ -3,13 +3,16 @@ title: Welcome
 ---
 # Welcome
 
+!!! error "Significant Portal Changes July 2022"
+    Based on feedback and deprecated examples, this portal received a significant number of changes in July 2022.  See [this page](./home/portalUpdates.md) for details.
+
 This documentation exists to enable DevOps professionals, administrators, and developers to deploy Ping Identity software using container technologies. Our goal is to provide tools, frameworks, blueprints, and reference architectures in support of running our products in containerized environments.
 
-New to Kubernetes? See [Kubernetes Basics](./reference/k8sBasics.md)
+* First time here?  We recommend the [Get Started](./get-started/introduction.md) page.
 
-New to Helm?  See [Helm Basics](./reference/HelmBasics.md)
+* New to Kubernetes? See [Kubernetes Basics](./reference/k8sBasics.md)
 
-First time here?  We recommend the [Get Started](./get-started/introduction.md) page.
+* New to Helm?  See [Helm Basics](./reference/HelmBasics.md)
 
 ## Benefits from this program
 

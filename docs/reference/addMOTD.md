@@ -3,30 +3,29 @@ title: Adding a Message of the Day (MOTD)
 ---
 # Adding a MOTD
 
-You can create a message of the day (MOTD) JSON file to be used to provide an MOTD file to our product containers when they start.
+You can create a message of the day (MOTD) JSON file to be provide an MOTD file to our product containers when they start.
 
 ## Before you begin
 
 You must:
 
-* Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products.
+* Complete the [Get Started](../get-started/introduction.md) example to set up your DevOps environment and run a test deployment of the products.
 
 ## Using a MOTD file
 
-You can employ a MOTD file in by either:
+To employ a MOTD file:
 
-* Editing our existing `motd.json` file used by our example use cases
-* Creating a `motd.json` file in the location of your server profile:
+1. Edit the existing `motd.json` file:
+    1. Edit the motd/motd.json file located in your local `pingidentity-devops-getting-started/motd` folder.
 
-    1. To use the MOTD with our example uses cases, edit the
-`motd/motd.json` file located in your local `pingidentity-devops-getting-started/motd`.
-    1. To use a MOTD file for your server profile, create a `motd.json` file in the directory where the `docker-compose.yaml` file you're using for the server profile is located.
+1. Create a `motd.json` file in the location of your server profile:
+    1. Create a `motd.json` file in the root of the server profile directory being referenced.
 
-        This `motd.json` file will be appended to the `/etc/motd` file used by the DevOps image.
+    This `motd.json` file will be appended to the `/etc/motd` file used by the provided image.
 
 ## Testing the MOTD file
 
-Test the new messages in the `motd.json` file using the `test-motd.sh` script. The script supplies the `JQ_EXPR` value used to pass the message data to the Devops image.
+Test the new messages in the `motd.json` file using the `test-motd.sh` script. The script supplies the `JQ_EXPR` value used to pass the message data to the container.
 
 1. To test the `motd.json` file locally for our example use cases, from the `pingidentity-devops-getting-started/motd` directory, enter:
 
@@ -64,24 +63,24 @@ For this example, the messages are only shown from the `validFrom` to `validTo` 
 {
     "devops" : [
         {
-            "validFrom": 20190701,
-            "validTo": 20190730,
+            "validFrom": 20220701,
+            "validTo": 20220730,
             "subject": "General Message 1",
             "message": ["This is line # 1",
                         "",
                         "This is line # 3",]
         },
         {
-            "validFrom": 20190801,
-            "validTo": 20190830,
+            "validFrom": 20220801,
+            "validTo": 20220830,
             "subject": "General Message 2",
             "message": ["Message goes here"]
         }
     ],
     "pingfederate" : [
         {
-            "validFrom": 20190701,
-            "validTo": 20190830,
+            "validFrom": 20220701,
+            "validTo": 20220830,
             "subject": "PingFederate Message 1",
             "message": ["Message goes here"]
         }

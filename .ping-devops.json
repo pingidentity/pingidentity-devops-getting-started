@@ -5,24 +5,6 @@
     "docker": {
         "usecases": [
             {
-                "name": "fullstack",
-                "type": "usecase",
-                "description": "Fullstack integrated demo",
-                "path": "11-docker-compose/03-full-stack"
-            },
-            {
-                "name": "simplestack",
-                "type": "usecase",
-                "description": "Simplestack integrated demo",
-                "path": "11-docker-compose/01-simple-stack"
-            },
-            {
-                "name": "simplesync",
-                "type": "usecase",
-                "description": "Simple sync integrated demo",
-                "path": "11-docker-compose/04-simple-sync"
-            },
-            {
                 "name": "pingaccess",
                 "type": "product",
                 "description": "Standalone PingAccess Demo",
@@ -45,80 +27,7 @@
                 "type": "product",
                 "description": "Standalone PingDirectory Demo",
                 "path": "11-docker-compose/00-standalone/pingdirectory"
-            },
-            {
-                "name": "portainer",
-                "type": "usecase",
-                "description": "Local Docker Dashboard (via Portainer)",
-                "path": "11-docker-compose/90-portainer"
             }
         ]
-    },
-    "kubernetes": {
-        "usecases": [
-            {
-                "name": "pingaccess",
-                "type": "product",
-                "description": "Standalone PingAccess Demo",
-                "path": "20-kustomize/01-standalone/pingaccess"
-            },
-            {
-                "name": "pingfederate",
-                "type": "product",
-                "description": "Standalone PingFederate Demo",
-                "path": "20-kustomize/01-standalone/pingfederate"
-            },
-            {
-                "name": "pingdataconsole",
-                "type": "product",
-                "description": "Standalone PingDataConsole Demo",
-                "path": "20-kustomize/01-standalone/pingdataconsole"
-            },
-            {
-                "name": "pingdirectory",
-                "type": "product",
-                "description": "Standalone PingDirectory Demo",
-                "path": "20-kustomize/01-standalone/pingdirectory"
-            }
-        ]
-    },
-    "comment": "the following is for backwards support to < 0.5.3 versions.  It can be removed in near future.",
-    "usecases": [
-        {
-            "name": "fullstack",
-            "type": "usecase",
-            "description": "Fullstack integrated demo",
-            "path": "11-docker-compose/03-full-stack"
-        },
-        {
-            "name": "simplestack",
-            "type": "usecase",
-            "description": "Simplestack integrated demo",
-            "path": "11-docker-compose/01-simple-stack"
-        },
-        {
-            "name": "simplesync",
-            "type": "usecase",
-            "description": "Simple sync integrated demo",
-            "path": "11-docker-compose/04-simple-sync"
-        },
-        {
-            "name": "pingaccess",
-            "type": "product",
-            "description": "Standalone PingAccess Demo",
-            "path": "11-docker-compose/00-standalone/pingaccess"
-        },
-        {
-            "name": "pingfederate",
-            "type": "product",
-            "description": "Standalone PingFederate Demo",
-            "path": "11-docker-compose/00-standalone/pingfederate"
-        },
-        {
-            "name": "pingdirectory",
-            "type": "product",
-            "description": "Standalone PingDirectory Demo",
-            "path": "11-docker-compose/00-standalone/pingdirectory"
-        }
-    ]
+    }
 }

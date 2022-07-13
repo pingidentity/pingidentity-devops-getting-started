@@ -8,14 +8,11 @@ The structure (directory paths and data) of the server profile differs between p
 Depending on how you [Deploy Your Server Profile](../how-to/containerAnatomy.md), it will be pulled or mounted
 into `/opt/in` on the container and used to stage your deployment.
 
-The following are the server profile structures for each of our products with some example usages.
-To help with an example of the basics, see the
+The following locations are the server profile structures for each of our products with example usage. For help with an example of the basics, see the
 [pingidentity-server-profiles/getting-started](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started) examples.
 
 !!! note "Ignore `.sec` directories in examples"
-    For the getting-started profile examples, you should not use the practice of the `.sec` directory
-    when providing passwords to your containers.  These are intended for demonstration purposes.
-    Instead, set an environment variable with your secrets or orchestration later:
+    In the getting-started profile examples, you should not use the `.sec` directory when providing passwords to your containers.  These examples are only intended for demonstration purposes. Instead, set an environment variable with your secrets or orchestration later:
 
     ```shell
       PING_IDENTITY_PASSWORD="secret"
@@ -48,7 +45,7 @@ Example at [getting-started/pingaccess](https://github.com/pingidentity/pingiden
 | instance/data/PingAccess.mv.db | Database binary that would be ingested at container startup if found.                                                      |
 
 !!! note "PingAccess Best Practices"
-    PingAccess profiles are typically minimalist. This is because the majority of PingAccess configurations can be found within a `data.json` or `PingAccess.mv.db` file. You should only use `data.json` for configurations and only use `PingAccess.mv.db` if necessary. You can easily view and manipulate configurations directly in a JSON file as opposed to the binary `PingAccess.mv.db` file. This makes tracking changes in version control easier as well.
+    PingAccess profiles are typically minimalist because the majority of PingAccess configurations can be found within a `data.json` or `PingAccess.mv.db` file. You should use `data.json` for configurations and only use `PingAccess.mv.db` if necessary. You can easily view and manipulate configurations directly in a JSON file as opposed to the binary `PingAccess.mv.db` file. This fact makes tracking changes in version control easier as well.
 
     PingAccess 6.1.x+ supports using only `data.json`, even when clustering. _However_ on  6.1.0.3 make sure `data.json` is only supplied to the admin node.
 
@@ -62,7 +59,7 @@ Example at [getting-started/pingaccess](https://github.com/pingidentity/pingiden
 
     > The JSON configuration file for PingAccess _must_ be named `data.json`.
 
-    A `data.json` file that corresponds to earlier PingAccess versions _might_ be accepted. However, after you're on version 6.1.x, the `data.json` file will be forward compatible. This means you're able to avoid upgrades for your deployments!
+    A `data.json` file that corresponds to earlier PingAccess versions _might_ be accepted. However, after you are on version 6.1.x, the `data.json` file will be forward compatible. This support means you are able to avoid upgrades for your deployments!
 
 !!! note "PingAccess 6.0.x and earlier"
 
@@ -90,18 +87,17 @@ Example at [getting-started/pingaccess](https://github.com/pingidentity/pingiden
         * You're using only a `data.json` file for configurations.
         * Your `PingAccess.mv.db` file has a password other than the default "2Access".
 
-        The `PING_IDENTITY_PASSWORD` value will be used for all interactions with the PingAccess Admin API (such as, importing configurations, and creating clustering).
+        The `PING_IDENTITY_PASSWORD` value will be used for all interactions with the PingAccess Admin API (such as importing configurations and creating clustering).
 
     * `PA_ADMIN_PASSWORD_INITIAL`
 
-        Use this in addition to `PING_IDENTITY_PASSWORD` to change the runtime admin password and override the password in `PingAccess.mv.db`.
+        Use this variable in addition to `PING_IDENTITY_PASSWORD` to change the runtime admin password and override the password in `PingAccess.mv.db`.
 
-        > If you use only `data.json` and don't pass `PING_IDENTITY_PASSWORD`, the password will default to "2FederateM0re". So, *always* use `PING_IDENTITY_PASSWORD`.
+        > If you use only `data.json` and do notpass `PING_IDENTITY_PASSWORD`, the password will default to "2FederateM0re". *Always* use `PING_IDENTITY_PASSWORD`.
 
 ## Ping Data Products
 
-The Ping Data Products (PingDirectory, PingDataSync, PingAuthorize, PingDirectoryProxy)
-follow the same structure for server-profiles.
+The Ping Data Products (PingDirectory, PingDataSync, PingAuthorize, PingDirectoryProxy) follow the same structure for server-profiles.
 
 Example at [getting-started/pingdirectory](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/getting-started/pingdirectory).
 
@@ -112,17 +108,16 @@ Example at [getting-started/pingdirectory](https://github.com/pingidentity/pingi
 | env-vars   | You can set environment variables used during deployment.  See [Variables and Scope](variableScoping.md) for more info.   In general, this should be **non existing or empty**. |
 
 !!! note "Ping Data Server Profile Best Practices"
-    * In most circumstances, the `pd.profile` should be on the only directory in the server profile.
-    * All environment variables should be provided through Kubernetes configmaps/secrets and secret management tool.
+    * In most circumstances, the `pd.profile` directory should be the only directory in the server profile.
+    * All environment variables should be provided through Kubernetes configmaps/secrets and a secret management tool.
       Be careful providing an `env-vars` and if you do, please review [Variables and Scope](variableScoping.md)
 
 !!! note "Creating a `pd.profile` from scratch"
-    Use the `manage-profile` tool (found in product `bin` directory) to generate a `pd.profile` from an existing Ping Data 8.0+ deployment.  An example on creating
-    this `pd.profile` looks like:
+    Use the `manage-profile` tool (found in product `bin` directory) to generate a `pd.profile` from an existing Ping Data 8.0+ deployment.  An example on creating this `pd.profile` looks like:
 
        ```bash
        manage-profile generate-profile --profileRoot /tmp/pd.profile
        rm /tmp/pd.profile/setup-arguments.txt
        ```
 
-   Follow instructions provided when you run the `generate-profile` to ensure that you include any additional components, such as `encryption-settings`.
+   Follow the instructions provided when you run the `generate-profile` to ensure that you include any additional components, such as `encryption-settings`.

@@ -13,14 +13,14 @@ To customize our YAML files, you can:
 * Change the port mappings for a container.
 * Change the release tag used for the Docker images (all product containers in the stack must use the same release tag). See [Using Release Tags](../docker-images/releaseTags.md) for more information.
 
-You'll find the YAML files for the DevOps example stacks located in your `${HOME}/projects/devops/pingidentity-devops-getting-started/11-docker-compose` subdirectories.
+You will find the YAML files for deploying individual Ping product containers in the `${HOME}/projects/devops/pingidentity-devops-getting-started/11-docker-compose` directory.
 
 ## YAML file format
 
-We use the following format for our YAML files:
+This format is used for the YAML files:
 
 ```yaml
-version: "2.4"
+version: "3.9"
 
 services:
     <ping-product>:
@@ -48,7 +48,7 @@ networks:
 
 | Entry | Description                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | :--- |:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `version` | The Docker Compose version used.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `version` | The Docker Compose file specification version used.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `<ping-product>` | The name of the Ping Identity product container.                                                                                                                                                                                                                                                                                                                                                                                              |
 | `image` | The build image of the product used for the container and the build tag to use (defaults to value assigned to `PING_IDENTITY_DEVOPS_TAG` in the `~/.pingidentity/config` file.                                                                                                                                                                                                                                                                |
 | `command` | We use the `wait-for` script to control the startup order, where `<startup-port>` is the port to check for whether `<another-ping-product>` container has started. The `<time-to-wait>` argument is the number of seconds to wait before executing the `entrypoint.sh` script with the `start-server` command. If you find a container is timing out while waiting for another container to start, try increasing the `<time-to-wait>` value. |

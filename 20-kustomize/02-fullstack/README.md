@@ -1,1 +1,0 @@
-See [Orchestrate a full stack deployment](../../docs/deployment/deployK8sFullstack.md) for more information.

@@ -1,7 +1,7 @@
 ---
-title: Deploy to Azure Kubernetes Service
+title: Azure Kubernetes Service
 ---
-# Deploying to Azure Kubernetes Service
+# Preparing Azure Kubernetes Service
 
 This directory contains scripts and deployment files to help with the deployment, management, and scaling of Ping Identity DevOps Docker images to Microsoft Azure Kubernetes Service (AKS).
 
@@ -48,23 +48,7 @@ We also highly recommend you are familiar with the information in these AKS arti
          --name ping-devops-cluster
       ```
 
-1. From your local `pingidentity-devops-getting-started/20-kustomize/02-fullstack` directory, start our fullstack example in AKS by entering:
-
-      ```sh
-      kustomize build . | kubectl apply -f -
-      ```
-
-1. To display the status of the environment, enter:
-
-      ```sh
-      kubectl get all
-      ```
-
-1. To clean up the environment, enter:
-
-      ```sh
-      kustomize build . | kubectl delete -f -
-      ```
+1. At this point, the cluster should be ready for helm deployments.
 
 1. To clean up the Azure Resource Group and all associated resources, including the AKS cluster created, enter the following command.
 

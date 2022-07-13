@@ -7,29 +7,30 @@ title:  Troubleshooting
 
 ### Examples Not Working
 
-One of the most common errors is from having stale images. Our development is highly dynamic and Docker images can rapidly change.
+Many common errors using Ping containers arise from using stale images. Our development is highly dynamic and Docker images can rapidly change.
 
-To avoid issues with stale images and have Docker pull the latest images by removing all the local, enter:
+To avoid issues with stale images, remove all local images from your local cache.  Doing so will force Docker to pull the latest images:
 
   ```shell
   docker rmi $(docker images "pingidentity/*" -q)
   ```
 
-> Having images tagged as "latest" locally does not mean they are the latest in the Docker hub registry.
+!!! note "Moving tag"
+    Even though you might have a local image tagged "latest", this tag does not guarantee it is the newest image in the Docker hub registry.  This tag is reapplied for each release image.
 
 ### Misconfigured `pingctl`
 
-If your containers can't pull a license based on your DevOps user name and key, there might be some misconfiguration in your `pingctl config` file.
+If your containers cannot pull a license based on your DevOps user name and key, there might be some misconfiguration in your `pingctl config` file.
 
 Possible solutions:
 
-1. If you have *just* run `pingctl config` for the first time. See the [Environment Configuration Documentation](https://devops.pingidentity.com/get-started/prereqs/#configure-the-environment) on how to export configured variables to your environment.
+1. If you have ran `pingctl config` for the first time, see the [Environment Configuration Documentation](https://devops.pingidentity.com/get-started/prereqs/#configure-the-environment) on how to export configured variables to your environment.
 
-1. Run `pingctl info` and make sure the configured variables in the utility are correct. See the utility's [Documentation](https://devops.pingidentity.com/tools/pingctlUtil/) for more information.
+1. Run `pingctl info` and make sure the configured variables in the utility are correct. See the utility's [documentation](https://devops.pingidentity.com/tools/pingctlUtil/) for more information.
 
 ### Unable To Retrieve Evaluation License
 
-If a product instance or instances can't get the evaluation license, you might receive an error similar to this:
+If a product instance or instances cannot retrieve the evaluation license, you might receive an error similar to this:
 
   ```text
   ----- Starting hook: /opt/staging/hooks/17-check-license.sh
@@ -55,11 +56,9 @@ If a product instance or instances can't get the evaluation license, you might r
   CONTAINER FAILURE: Error running 10-start-sequence.sh
   ```
 
-This can be caused by:
+This error can be caused by:
 
-1. An invalid DevOps user name or key (as noted in the error). This is usually caused by some issue with the variables being passed in.
-
-     To verify the variables in pingctl's configuration are correct for running Docker commands, enter the following command and verify your configuration:
+1. An invalid DevOps user name or key (as noted in the error). This failure is usually caused by some issue with the variables being passed in. To verify the variables in the `pingctl` configuration are correct for running Docker commands, run the following command:
 
       ```shell
       pingctl info
@@ -67,13 +66,13 @@ This can be caused by:
 
 1. A bad Docker image. Pull the Docker image again to verify.
 
-1. Network connectivity to the license server is blocked. To test this, from the machine that's running the container, enter:
+1. Network connectivity to the license server is blocked. To test this, on the machine that is running the container, run:
 
       ```shell
       curl -k https://license.pingidentity.com/devops/license
       ```
 
-      If the license server is accessible, you receive an error similar to this:
+      If the license server is reachable, you will receive an error similar to this example:
 
       ```shell
       { "error":"missing devops-user header" }

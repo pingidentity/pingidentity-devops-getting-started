@@ -64,7 +64,7 @@ You can customize our product containers by:
 
 * [Customizing server profiles](../how-to/profiles.md)
 
-    The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles as-is or use them as a baseline for creating your own.
+    The server profiles supply configuration, data, and environment information to the product containers at startup. You can use our server profiles as-is or as a baseline for creating your own.
 
     You can find these profiles in [Baseline server profiles](https://github.com/pingidentity/pingidentity-server-profiles/tree/master/baseline) in our pingidentity-server-profiles repository.
 
@@ -72,15 +72,9 @@ You can customize our product containers by:
   
     You can deploy configurations in multiple environments with minimal changes by removing literal values and replacing them with environment variables.
 
-* [Customizing YAML files](yamlFiles.md)
-
-    In the stack-related directories in the deployment examples, you can find the YAML files used to configure the Docker stack deployment. The YAML files contain startup configuration settings and to other configuration settings, such as environment variables, for the stack.
-
-    You can try different configuration settings using these YAML files or use them as a baseline for creating your own.
-
 * [Using DevOps hooks](hooks.md)
 
-    Hooks are DevOps shell scripts, generally specific to a product, that you can use to automate certain operations.
+    Hooks are shell scripts, generally specific to a product, that you can use to automate certain operations.
 
     You can find the hooks for our builds in the [Docker builds product directories](../docker-builds/README.md).
 
@@ -92,4 +86,4 @@ You can customize our product containers by:
 
 * [Adding a message of the day (MOTD)](addMOTD.md)
 
-    You can use a `motd.json` file to add message of the day information for inclusion in the DevOps images.
+    You can use a `motd.json` file to add message of the day information for inclusion in the images.

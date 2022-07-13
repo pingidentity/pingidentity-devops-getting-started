@@ -1,4 +1,0 @@
-SERVER_PROFILE_URL=https://www.github.com/pingidentity/pingidentity-server-profiles.git
-SERVER_PROFILE_PATH=baseline/pingaccess
-SERVER_PROFILE_BRANCH=2101
-PING_IDENTITY_ACCEPT_EULA=YES

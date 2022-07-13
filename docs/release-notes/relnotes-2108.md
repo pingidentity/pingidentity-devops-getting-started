@@ -16,7 +16,6 @@ title: DevOps Docker Builds, Version 2108 (August 27 2021)
 ### Enhancements
 
 - **Documentation**
-    - Overview of a DevOps [operating pattern](../deployment/managePingFederate.md) that walks through persisting admin console changes while delivering server files from a GitHub profile.
     - Our DevOps documentation now supports both light and dark modes. Toggle between the two by clicking the icon in the top navigation bar.
 
 - **Docker Images**
