@@ -30,7 +30,7 @@ If you possess a product license for the product, you can use it with supported 
 
 ## Local runtime environment
 
-The initial example uses Kubernetes under Docker Desktop because it does not require a lot of configuration to use.
+The initial example uses Kubernetes under Docker Desktop because it does not require a lot of configuration.
 
 In order to try Ping products in a manner most similar to typical production installations, you should consider using a Kubernetes environment. [Kind](https://kind.sigs.k8s.io/) (**K**ubernetes **in** **D**ocker) provides a platform to get started with local Kubernetes development.  Instructions for setting up a Kind cluster are [here](../deployment/deployLocalK8sCluster.md).
 
