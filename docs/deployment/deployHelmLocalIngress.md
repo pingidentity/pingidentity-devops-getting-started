@@ -77,7 +77,7 @@ myping-pingfederate-admin    <none>   myping-pingfederate-admin.ping-local.com  
 myping-pingfederate-engine   <none>   myping-pingfederate-engine.ping-local.com   localhost   80, 443   47m
 ```
 
-The HOSTS column reflects the entries added to the `/etc/hosts' file.
+The HOSTS column reflects the entries added to the `/etc/hosts` file.
 
 To access a given service, enter the HOSTS entry in your browser (you will have to accept the self-signed certificate).  For example, to view the Ping Federate console, you would access **https://myping-pingfederate-admin.ping-local.com/**.  For the Ping Data console, **https://myping-pingdataconsole.ping-local.com** and so on.
 
