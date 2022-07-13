@@ -101,7 +101,7 @@ Our examples will use the Helm release name `myping` and DNS domain suffix `*pin
 echo '127.0.0.1 myping-pingaccess-admin.ping-local.com myping-pingaccess-engine.ping-local.com myping-pingauthorize.ping-local.com myping-pingauthorizepap.ping-local.com myping-pingdataconsole.ping-local.com myping-pingdelegator.ping-local.com myping-pingdirectory.ping-local.com myping-pingdatagovernance.ping-local.com myping-pingdatagovernancepap.ping-local.com myping-pingfederate-admin.ping-local.com myping-pingfederate-engine.ping-local.com myping-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
 ```
 
-Setup is complete.  This local Kubernetes environment should be ready to deploy our [Helm examples](https://helm.pingidentity.com/examples)
+Setup is complete.  This local Kubernetes environment should be ready to deploy our [Helm examples](./deployHelm.md)
 
 ## Stop the cluster
 

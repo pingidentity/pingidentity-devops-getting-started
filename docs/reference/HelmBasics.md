@@ -147,10 +147,4 @@ This command will remove all resources except PVC and PV objects associated with
 
 ### Example Configurations
 
-The following links contain example configurations and examples of how to run and configure Ping products using the Ping Devops Helm Chart. Please review the [Getting Started Page](../get-started/introduction.md) before trying them.
-
-| Config       | Description                                    | .yaml                                  |
-| ------------ | ---------------------------------------------- | -------------------------------------- |
-| Everything   | Example with most products integrated together | [everything.yaml](https://helm.pingidentity.com/examples/everything.yaml)     |
-| PingFederate | PingFederate Admin Console & Engine            | [pingfederate.yaml](https://helm.pingidentity.com/examples/pingfederate.yaml) |
-| Simple Sync  | PingDataSync and PingDirectory                 | [simple-sync.yaml](https://helm.pingidentity.com/examples/simple-sync.yaml)   |
+The [Helm examples](../deployment/deployHelm.md) page contains example configurations for running and configuring Ping products using the Ping Devops Helm Chart. Please review the [Getting Started Page](../get-started/introduction.md) before trying them.

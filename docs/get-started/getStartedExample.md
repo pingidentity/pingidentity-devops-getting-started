@@ -11,7 +11,7 @@ title: Deploy an Example Stack
 
 The Ping Identity Helm [Getting Started](https://helm.pingidentity.com/getting-started/) page has instructions on getting your environment configured for using the Ping Helm charts.
 
-For more examples, see [Helm Chart Example Configs](https://helm.pingidentity.com/examples/).
+For more examples, see [Helm Chart Example Configurations](../deployment/deployHelm.md).
 
 For more information on Helm with Ping products, see [Ping Identity DevOps Helm Charts](https://helm.pingidentity.com).
 
@@ -24,7 +24,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 * Register for the Ping DevOps program and install/configure `pingctl` with your User and Key
 * Install [Git](https://git-scm.com/downloads)
 * Follow the instructions on the helm [Getting Started](https://helm.pingidentity.com/getting-started/) page up through updating to the latest charts to ensure you have the latest version of our charts
-* Access to a Kubernetes cluster
+* Access to a Kubernetes cluster. You can enable Kubernetes in Docker Desktop for a simple cluster, which was the cluster used for this guide (on the Mac platform).
 
 ## Clone the `getting-started` repository
 
@@ -244,4 +244,4 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
 ## Next Steps
 
-Now that you have deployed a set of our product images using the provided chart, you can move on to deployments using configurations that more closely reflect use cases to be explored.  Refer to the [helm examples](https://helm.pingidentity.com/examples/) page for other typical deployments.
+Now that you have deployed a set of our product images using the provided chart, you can move on to deployments using configurations that more closely reflect use cases to be explored.  Refer to the [helm examples](../deployment/deployHelm.md)) page for other typical deployments.

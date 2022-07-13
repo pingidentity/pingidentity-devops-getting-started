@@ -30,16 +30,16 @@ If you possess a product license for the product, you can use it with supported 
 
 ## Local runtime environment
 
-The initial example provided uses Docker Compose because it does not require a lot of configuration to use.
+The initial example uses Kubernetes under Docker Desktop because it does not require a lot of configuration.
 
-In order to try Ping products in a manner most similar to typical production installations, you should consider using a Kubernetes environment. [Kind](https://kind.sigs.k8s.io/) (**K**ubernetes **in** **D**ocker) provides a platform to get started with local Kubernetes development.
+In order to try Ping products in a manner most similar to typical production installations, you should consider using a Kubernetes environment. [Kind](https://kind.sigs.k8s.io/) (**K**ubernetes **in** **D**ocker) provides a platform to get started with local Kubernetes development.  Instructions for setting up a Kind cluster are [here](../deployment/deployLocalK8sCluster.md).
 
 Other local Kubernetes environments include [Rancher Desktop](https://rancherdesktop.io), [Docker Desktop](https://www.docker.com/products/docker-desktop/) with Kubernetes enabled, and [minikube](https://minikube.sigs.k8s.io/docs/).
 
 !!! note "Rancher Desktop"
     Rancher Desktop is compatible with Linux, MacOS, and Windows (using WSL). It also supports the [docker container runtime](https://docs.rancherdesktop.io/preferences#container-runtime), which provides support for running docker commands without installing individual docker components or Docker Desktop.  
 
-For running Docker Compose deployments, any Docker Desktop installation or Linux system with Docker and `docker compose` installed can be used.
+For running Docker Compose deployments of single products, any Docker Desktop installation or Linux system with Docker and `docker compose` installed can be used.
 
 ## Applications / Utilities
 * [Helm](https://helm.sh/docs/intro/install/) cli
