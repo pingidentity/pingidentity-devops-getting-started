@@ -20,7 +20,7 @@ title: DevOps Docker Builds, Version 2204 (May 05 2022)
 - [Getting Started Examples](https://devops.pingidentity.com/get-started/getStartedExample/) updated
     - Getting-started docker-compose examples now use default registry and image tag values
     - docker-compose examples now use pingctl's config file over deprecated ping-devops's config file
-- [Pingctl configuration](https://devops.pingidentity.com/get-started/pingctlUtil/) updated
+- [Pingctl configuration](https://devops.pingidentity.com/tools/pingctlUtil/) updated
     - Instructions to export environment variables if wanted
 
 ### Resolved Defects
