@@ -30,7 +30,7 @@ Namespaces are intended to be an segment scoped for deploying grouped applicatio
 !!! note
     You can allocate resource limits available to a namespace, but this is not required.
 
-**Context** - A definition in your ~/.kube/config file that specifies the cluster and namespace where your `kubectl` commands where executed.
+**Context** - A definition in your ~/.kube/config file that specifies the cluster and namespace where your `kubectl` commands will be executed.
 
 **Deployments and Statefulsets** - The water that fills ice cube spots.
 
