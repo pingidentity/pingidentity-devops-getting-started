@@ -127,7 +127,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
      4. To display the status of the deployed components, you can use [k9s](https://k9scli.io/) or issue the corresponding commands shown here:
 
-           * Display the services (endpoints for connecting) by running `kubectl get service --selector=app.kubernetes.io/instance=pf`
+           * Display the services (endpoints for connecting) by running `kubectl get service --selector=app.kubernetes.io/instance=demo`
 
            ```text
            NAME                            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                   AGE
@@ -144,7 +144,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
            demo-pingfederate-engine        ClusterIP   10.99.223.48     <none>        9031/TCP                  15m
            ```
 
-           * To view the pods, run `kubectl get pods --selector=app.kubernetes.io/instance=pf` - you will need to run this at intervals until all pods have started (** Running ** status):
+           * To view the pods, run `kubectl get pods --selector=app.kubernetes.io/instance=demo` - you will need to run this at intervals until all pods have started (** Running ** status):
 
            ```text
            NAME                                        READY   STATUS    RESTARTS   AGE
@@ -157,7 +157,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
            demo-pingfederate-engine-5ff6546f4f-7jfnt   1/1     Running   0          7m31s
            ```
 
-           * To see everything tied to the helm release run `kubectl get all --selector=app.kubernetes.io/instance=pf`:
+           * To see everything tied to the helm release run `kubectl get all --selector=app.kubernetes.io/instance=demo`:
 
            ```text
            NAME                                            READY   STATUS    RESTARTS   AGE
