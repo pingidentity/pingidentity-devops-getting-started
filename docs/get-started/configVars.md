@@ -36,8 +36,8 @@ The legacy variables still supported and managed by `pingctl` are as follows:
 | Variable                          | Description                                                                                                             |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | **PING_IDENTITY_ACCEPT_EULA**     | Specify `YES` or `NO` to accept [Ping Identity EULA](https://www.pingidentity.com/en/legal/subscription-agreement.html) |
-| **PING_IDENTITY_DEVOPS_USER**     | [Ping DevOps User](https://devops.pingidentity.com/get-started/devopsRegistration/)                                     |
-| **PING_IDENTITY_DEVOPS_KEY**      | [Ping DevOps Key](https://devops.pingidentity.com/get-started/devopsRegistration/)                                      |
+| **PING_IDENTITY_DEVOPS_USER**     | [Ping DevOps User](https://devops.pingidentity.com/how-to/devopsRegistration/)                                     |
+| **PING_IDENTITY_DEVOPS_KEY**      | [Ping DevOps Key](https://devops.pingidentity.com/how-to/devopsRegistration/)                                      |
 | **PING_IDENTITY_DEVOPS_HOME**     | Home directory/path of your DevOps projects                                                                             |
 | **PING_IDENTITY_DEVOPS_REGISTRY** | Default Docker registry from which to pull images                                                                              |
 | **PING_IDENTITY_DEVOPS_TAG**      | Default DevOps tag to use for deployments (i.e. 2205)                                                                   |
