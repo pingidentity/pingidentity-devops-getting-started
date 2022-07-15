@@ -58,13 +58,7 @@ PingDelegator so conflicts are reduced with other container HTTPS ports):
            pingidentity/pingdelegator:edge
 ```
 
-PingDelegator does require running instances of PingFederate/PingDirectory.  To
-run the an example deployment of PingDelegator in docker-compose, the ping-devops
-tool can be used:
-
-```shell
-  ping-devops docker start simplestack
-```
+PingDelegator requires running instances of PingFederate/PingDirectory.
 
 ## Docker Container Hook Scripts
 
