@@ -14,6 +14,8 @@ This documentation exists to enable DevOps professionals, administrators, and de
 
 * New to Helm?  See [Helm Basics](./reference/HelmBasics.md)
 
+* Important information about [container logging](../docs/reference/containerLogging.md)
+
 ## Benefits from this program
 
 * **Streamlined Deployments**

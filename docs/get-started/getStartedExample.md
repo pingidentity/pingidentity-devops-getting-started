@@ -245,3 +245,6 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 ## Next Steps
 
 Now that you have deployed a set of our product images using the provided chart, you can move on to deployments using configurations that more closely reflect use cases to be explored.  Refer to the [helm examples](../deployment/deployHelm.md)) page for other typical deployments.
+
+!!! warning "Container logging"
+    Logging in containers is different from typical server-deployed application implementation.  See [this page](../reference/containerLogging.md) for additional details.
