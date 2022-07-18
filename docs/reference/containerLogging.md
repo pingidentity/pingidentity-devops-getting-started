@@ -35,6 +35,12 @@ Disadvantage:
 
 - Additional resources are required for running the extra container(s), though they tend to be lightweight
 
+## The TAIL_LOG_FILES environment variable
+
+Many Ping products were designed and built for a server-deployed implementation.  As a result, they write log information to files (the old model for logging), rather than to `stdout`.  To ease containerization, an environment variable (**`TAIL_LOG_FILES`**) is included in the Docker images and this variable is fed to a function that streams these files to `stdout` as they are written.
+
+While Ping includes key log files as defaults, this variable can be modified.  You can add additional log files to this variable to include them in the `stdout` stream.  See [each product Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds) for the default value of this variable for the product in question.
+
 ## References
 
 The list below is not intended to be comprehensive but should provide a good starting point for understanding how logging works and what you can do to retain logs from your deployments.  
