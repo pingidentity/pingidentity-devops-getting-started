@@ -38,7 +38,7 @@ Examples:
 
 ## Docker Hub image removal
 
-Security vulnerabilities that arise over time and the continued evolution of our products creates a situation in which older product images should be replaced with newer ones.  Images that have fallen out of Ping's active maintenance window **are removed from Docker Hub 1 year after they were last built**. If you have a need to keep images longer than this period, you will need to store them in a private repository.  The [Docker documentation](https://docs.docker.com/engine/reference/commandline/tag/) has instructions on this process.
+Security vulnerabilities that arise over time and the continued evolution of our products creates a situation in which older product images should be replaced with newer ones.  Images that have fallen out of Ping's active maintenance window **are removed from Docker Hub 1 year after they were last built**. If you need to keep images longer than this period, you will need to store them in a private repository.  The [Docker documentation](https://docs.docker.com/engine/reference/commandline/tag/) has instructions on this process.
 
 ## Supported OS shim
 
