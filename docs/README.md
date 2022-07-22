@@ -58,6 +58,9 @@ You can find information about our available Docker images in the [pingidentity-
 
 The Docker images are automatically pulled from our repository the first time you deploy a product container or orchestrated set of containers. Alternatively, you can pull the images manually from our [Docker Hub](https://hub.docker.com/u/pingidentity/) site.
 
+!!! error "Removal of older images from Docker Hub"
+    Older images based on product versions that are no longer supported under our policy are removed from Docker Hub.  See the [support policy page](./docker-images/imageSupport.md) for details.
+
 ### Deployment Examples
 
 <div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-devops-getting-started','');">

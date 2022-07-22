@@ -12,3 +12,5 @@ These documents for Ping Identity Docker images include information on:
 * Tagging methodology and support policy
 
 The image-specific documentation is generated from each new build ensuring these documents align with any changes over time.
+
+Older images based on product versions that are no longer supported under our policy are removed from Docker Hub.  See the [support policy page](./imageSupport.md) for details.

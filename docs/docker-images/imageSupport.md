@@ -33,11 +33,12 @@ Examples:
 * If we currently maintain images for PingFederate 10.0 and 10.1, when PingFederate 10.2 is released, Docker images with PingFederate 10.0 will no longer be actively maintained.
 * If a patch is released for 10.1, it supersedes the previous patch. In other words, if we currently maintain an image for PingFederate 10.1.2, when PingFederate 10.1.3 is released, it replaces 10.1.2.
 
-!!! warning "Docker Hub Images"
-    Images that have fallen out of Ping's active maintenance window will be removed from DockerHub 1 year after they were last built.
-
 !!! Info "Active Build Product Versions"
     To view products and versions actively being built, see the most recent **Release Notes**.
+
+## Docker Hub image removal
+
+Images that have fallen out of Ping's active maintenance window **are removed from Docker Hub 1 year after they were last built**. If you have a need to keep images longer than this period, you will need to store them in a private repository.  The [Docker documentation](https://docs.docker.com/engine/reference/commandline/tag/) has instructions on this process.
 
 ## Supported OS shim
 

@@ -108,8 +108,8 @@ nav:
       - Image Details:
           - Release Tags: "docker-images/releaseTags.md"
           - Product & Image Release Matrix: "docker-images/productVersionMatrix.md"
-          - Docker Image Support Policy: "docker-images/imageSupport.md"
-          - DevOps Image Security: "docker-images/dockerImageSecurity.md"    
+          - DevOps Image Security: "docker-images/dockerImageSecurity.md"
+      - Docker Image Support Policy: "docker-images/imageSupport.md"
   - Tools:
       - pingctl: "tools/pingctlUtil.md"
       - ldap-sdk-tools: "tools/ldapsdkUtil.md"
