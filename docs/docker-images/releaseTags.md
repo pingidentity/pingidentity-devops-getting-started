@@ -11,9 +11,9 @@ Ping Identity uses multiple tags for each released image. On our [Docker Hub](ht
 
 ## Store images privately
 
-Before discussing tags, it is important to know more about Ping Identity's use of Docker Hub for images.  While Docker Hub is very reliable and you can always find the latest images of Ping Identity products hosted there, **do not** rely on Ping to maintain Docker images in Docker Hub over time. See the [image support policy](./imageSupport.md) for details. 
+Before discussing tags, it is important to know more about Ping Identity's use of Docker Hub for images.  While Docker Hub is very reliable and you can always find the latest images of Ping Identity products hosted there, **do not** rely on Ping to maintain Docker images in Docker Hub over time. See the [image support policy](./imageSupport.md) for details.
 
-To ensure continued access to any image you need, pull the image in question and maintain it in your own image registry. Common Docker registry providers include: JFrog, AWS ECR, Google GCR and Azure ACR.
+To ensure continued access to any image, pull the image in question and maintain it in your own image registry. Common Docker registry providers include: JFrog, AWS ECR, Google GCR and Azure ACR.
 
 ## Tagging Format
 
@@ -46,7 +46,7 @@ For customers in production environments, stability is often the highest priorit
 
 ### Latest Image Features
 
-For demonstrations and testing latest features, use an `edge` based image. In these situations, it is a good practice to use a **_full tag_** variation similar to `pingfederate:11.1.0-edge`, rather than simply `pingfederate:edge`. Doing so avoids dependency conflicts that might occur in server profiles between product versions.
+For demonstrations and testing latest features, use an `edge` based image. In these situations, it is a good practice to use a **_full tag_** variation similar to `pingfederate:11.1.0-edge`, rather than simply `pingfederate:edge`. Doing so avoids dependency conflicts that might occur in server profiles between product versions (for example, 10.x versus 11.x).
 
 ### Evergreen Bleeding Edge
 
