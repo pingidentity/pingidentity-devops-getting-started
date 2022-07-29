@@ -1,7 +1,6 @@
 global:
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
-    PING_IDENTITY_PASSWORD: "2Federate"
 
 #############################################################
 # pingaccess-admin values
