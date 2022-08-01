@@ -35,6 +35,7 @@ using the Ping Devops Helm Chart.
 | Vault                            | Example vault values section                   | [vault.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/vault.yaml)                                                                      |
 | Cluster Metrics                  | Example values using various open source tools | See .yaml files in [cluster-metrics](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/30-helm/cluster-metrics)                                                   |
 | RBAC                             | Enable RBAC for workloads                      | [rbac.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/rbac.yaml)                                                                        |
+| PingDataConsole SSO with PingOne | Sign into PingDataConsole with PingOne         | [pingdataconsole-pingone-sso.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingdataconsole-pingone-sso.yaml)                                                                        |
 
 ## To Deploy
 

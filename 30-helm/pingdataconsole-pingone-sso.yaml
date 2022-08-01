@@ -1,0 +1,16 @@
+pingdirectory:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pingdataconsole-sso/pingdirectory
+    PD_CONSOLE_SSO_ISSUER_URI: https://example.com
+
+pingdataconsole:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pingdataconsole-sso/pingdataconsole
+    PD_CONSOLE_SSO_ENABLED: "true"
+    PD_CONSOLE_SSO_ISSUER_URI: https://example.com
+    PD_CONSOLE_SSO_CLIENT_ID: client_id
+    PD_CONSOLE_SSO_CLIENT_SECRET: client_secret
