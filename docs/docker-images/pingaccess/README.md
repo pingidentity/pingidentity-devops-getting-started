@@ -41,6 +41,7 @@ this image.
 | SHOW_LIBS_VER  | true  | Defines a variable to allow showing library versions in the output at startup default to true  |
 | SHOW_LIBS_VER_PRE_PATCH  | false  | Defines a variable to allow showing library version prior to patches being applied default to false This is helpful to ensure that the patch process updates all libraries affected  |
 | PA_ENGINE_PORT  | 3000  |  |
+| ADMIN_WAITFOR_TIMEOUT  | 300  | wait-for timeout for 80-post-start.sh hook script How long to wait for the PA Admin console to be available  |
 | PING_IDENTITY_PASSWORD  | ${PA_ADMIN_PASSWORD}  | Specify a password for administrator user for interaction with admin API  |
 
 ## Ports Exposed

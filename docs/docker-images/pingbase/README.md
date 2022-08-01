@@ -55,8 +55,8 @@ this image.
 | JAVA_RAM_PERCENTAGE  | 75.0  | Percentage of the container memory to allocate to PingFederate JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | VERBOSE  | false  | Triggers verbose messages in scripts using the set -x option.  |
 | PING_DEBUG  | false  | Set the server in debug mode, with increased output  |
-| PING_PRODUCT  |   | The name of Ping product.  Should be overridden by child images.  |
-| PING_PRODUCT_VALIDATION  | true|i.e. PingFederate,PingDirectory|Must be a valid Ping prouduct type  |  |
+| PING_PRODUCT  |   | The name of Ping product, i.e. PingFederate, PingDirectory - must be a valid Ping product type. This variable should be overridden by child images.  |
+| PING_PRODUCT_VALIDATION  | true|i.e. PingFederate,PingDirectory|Must be a valid Ping product type  |  |
 | ADDITIONAL_SETUP_ARGS  |   | List of setup arguments passed to Ping Data setup-arguments.txt file  |
 | LDAP_PORT  | 1389  | Port over which to communicate for LDAP  |
 | LDAPS_PORT  | 1636  | Port over which to communicate for LDAPS  |

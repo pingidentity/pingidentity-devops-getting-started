@@ -21,7 +21,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |  |
+| SHIM  | ${SHIM}  | wait-for timeout for 80-post-start.sh hook script How long to wait for the PF Admin console to be available  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
