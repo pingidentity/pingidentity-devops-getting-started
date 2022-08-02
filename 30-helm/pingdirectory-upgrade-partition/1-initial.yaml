@@ -1,0 +1,7 @@
+pingdirectory:
+  enabled: true
+  # Start on 9.0.0.1, with 2 replicas
+  image:
+    tag: 9.0.0.1-latest
+  container:
+    replicaCount: 2

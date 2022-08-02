@@ -1,0 +1,8 @@
+pingdirectory:
+  enabled: true
+  # All pods will update to 9.1.0.0
+  image:
+    tag: 9.1.0.0-latest
+  container:
+    replicaCount: 2
+  # Remove the partition - the tag update will be applied to the remaining pods
