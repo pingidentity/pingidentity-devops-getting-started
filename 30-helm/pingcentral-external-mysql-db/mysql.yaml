@@ -1,5 +1,6 @@
 # This file provides a simple example external MySQL StatefulSet for PingCentral to use.
 # It is not intended for production use.
+# PingCentral will be deployed with Helm via the pingcentral-external-mysql-db.yaml file in this directory.
 ---
 apiVersion: v1
 kind: Service

@@ -1,3 +1,4 @@
+# Update all replicas
 pingdirectory:
   enabled: true
   # All pods will update to 9.1.0.0

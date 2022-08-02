@@ -1,3 +1,4 @@
+# Update one replica
 pingdirectory:
   enabled: true
   # Update the image tag to the new version

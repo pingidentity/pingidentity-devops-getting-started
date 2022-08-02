@@ -1,6 +1,8 @@
+# Base deployment with two replicas.
+# See the README in this directory for instructions on deploying the example upgrade.
 pingdirectory:
   enabled: true
-  # Start on 9.0.0.1, with 2 replicas
+  # Start on 9.0.0.1
   image:
     tag: 9.0.0.1-latest
   container:
