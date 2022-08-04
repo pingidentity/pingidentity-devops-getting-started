@@ -11,7 +11,7 @@ Then update the Helm release with the `2-partition-upgrade.yaml` file. This will
 helm upgrade --install pd-upgrade-example pingidentity/ping-devops -f 2-partition-upgrade.yaml
 ```
 
-Finally, update the Helm release with the `3-rollout-full-upgrade.yaml` file once the upgraded pod becomes ready. This will update the remaining pod.
+Finally, update the Helm release with the `3-rollout-full-upgrade.yaml` file after the upgraded pod becomes ready. This will update the remaining pod.
 ```
 helm upgrade --install pd-upgrade-example pingidentity/ping-devops -f 3-rollout-full-upgrade.yaml
 ```
