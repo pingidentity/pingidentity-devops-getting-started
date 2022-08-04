@@ -63,7 +63,8 @@ this image.
 | PF_CONSOLE_ENV  |   | This property defines the name of the PingFederate environment that will be displayed in the administrative console, used to make separate environments easily identifiable.  |
 | JAVA_RAM_PERCENTAGE  | 75.0  | Percentage of the container memory to allocate to PingFederate JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | BULK_CONFIG_DIR  | ${OUT_DIR}/instance/bulk-config  |  |
-| BULK_CONFIG_FILE  | data.json\  |  |
+| BULK_CONFIG_FILE  | data.json  |  |
+| ADMIN_WAITFOR_TIMEOUT  | 300  | wait-for timeout for 80-post-start.sh hook script How long to wait for the PF Admin console to be available  |
 
 ## Ports Exposed
 
