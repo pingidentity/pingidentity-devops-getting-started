@@ -127,6 +127,7 @@ nav:
               - PingDirectory Profile: "how-to/buildPingDirectoryProfile.md"
           - Layering: "how-to/profilesLayered.md"
           - ENV Substitution: "how-to/profilesSubstitution.md"
+          - Installing Extensions with PingData Profiles: "how-to/profilesPingDataExtensions.md"
           - Private Github Repos: "how-to/privateRepos.md"
       - Vault/Secrets: "how-to/usingVault.md"
       - Securing the Containers: "how-to/secureContainers.md"
