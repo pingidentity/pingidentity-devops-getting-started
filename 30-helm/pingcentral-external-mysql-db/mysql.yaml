@@ -1,0 +1,63 @@
+# This file provides a simple example external MySQL StatefulSet for PingCentral to use.
+# It is not intended for production use.
+# PingCentral will be deployed with Helm via the pingcentral-external-mysql-db.yaml file in this directory.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+  name: mysql-external
+spec:
+  ports:
+  - name: https
+    port: 3306
+  selector:
+    app: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  clusterIP: None
+  selector:
+    app: mysql
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+  name: mysql
+spec:
+  serviceName: mysql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      app.kubernetes.io/name: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+        app.kubernetes.io/name: mysql
+    spec:
+      containers:
+      - image: mysql:latest
+        name: mysql
+        args: ["--default-authentication-plugin=mysql_native_password"]
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 2Federate
+        ports:
+        - containerPort: 3306
+          name: https

@@ -1,0 +1,16 @@
+# This example sets up PingCentral using an external MySQL database.
+# The MySQL database is expected to use a Service named "mysql" accessible to PingCentral.
+# The mysql.yaml file in this directory contains an example MySQL deployment, not intended for production.
+# The mysql.yaml example should be deployed directly with kubectl, not with Helm.
+pingcentral:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: baseline/pingcentral/external-mysql-db
+    PING_CENTRAL_BLIND_TRUST: "true"
+    PING_CENTRAL_VERIFY_HOSTNAME: "false"
+    MYSQL_SERVICE_HOST: mysql
+    MYSQL_SERVICE_PORT: "3306"
+    MYSQL_DATABASE: pingcentral
+    MYSQL_USER: root
+    MYSQL_PASSWORD: 2Federate

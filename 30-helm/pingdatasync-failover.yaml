@@ -1,0 +1,26 @@
+#- PingDataSync will synchronize data from a source tree on a PingDirectory instance
+#- to a destination tree on the same PingDirectory instance.
+#- The entries from ou=source,o=sync to ou=destination,o=sync will be
+#- synchronized every second.
+#-
+#- The PingDataSync service includes 2 PingDataSync servers for failover.
+#- If one of the servers is stopped, another server will
+#- pick up the sync process where the original server left off.
+pingdatasync:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: simple-sync/pingdatasync
+    USER_BASE_DN: o=sync
+  container:
+    replicaCount: 2
+
+pingdirectory:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: simple-sync/pingdirectory
+    USER_BASE_DN: o=sync
+
+pingdataconsole:
+  enabled: true

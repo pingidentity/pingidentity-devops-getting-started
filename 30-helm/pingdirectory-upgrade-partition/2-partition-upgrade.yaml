@@ -1,0 +1,12 @@
+# Update one replica
+pingdirectory:
+  enabled: true
+  # Update the image tag to the new version
+  image:
+    tag: 9.1.0.0-latest
+  container:
+    replicaCount: 2
+  # Only apply the image tag update to pods with ordinal >= 1. In a two-replica topology, this will only apply to the second replica.
+  workload:
+    statefulSet:
+      partition: 1
