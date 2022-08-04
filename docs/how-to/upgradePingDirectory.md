@@ -23,8 +23,7 @@ You must:
 * Complete [Get Started](../get-started/introduction.md) to set up your DevOps environment and run a test deployment of the products using Helm.
 * Clone or download the `pingidentity-devops-getting-started/30-helm/pingdirectory-upgrade-partition` repository to your local `${HOME}/projects/devops` directory.
 * Understand how to use our DevOps server profiles.
-* Have access to a Kubernetes cluster and a default StorageClass.
-* Understand how StatefulSets work in Kubernetes is helpful.
+* Have access to a Kubernetes cluster.
 * If you're upgrading in your own environment and using mounted licenses, have the license for the existing version in the `/opt/out` persisted volume and a license for the new version needs to be in `/opt/in`.
 
    The license locations aren't an needed if you're using our DevOps credentials in an evaluation context.
