@@ -106,6 +106,7 @@ Example at [getting-started/pingdirectory](https://github.com/pingidentity/pingi
 | pd.profile | Server profile matching the structure as defined by [PingDirectory Server Profiles](https://docs.pingidentity.com/bundle/pingdirectory-80/page/eae1564011467693.html)           |
 | instance   | Directories and files that you want to be used at product runtime, in accordance with the layout of the product. In general, this should be **non existing or empty**.          |
 | env-vars   | You can set environment variables used during deployment.  See [Variables and Scope](variableScoping.md) for more info.   In general, this should be **non existing or empty**. |
+| extensions   | You can provide URLs to download Server SDK extensions in a remote.list file.  See [Including Extensions in PingData Server Profiles](../how-to/profilesPingDataExtensions.md) for more info. |
 
 !!! note "Ping Data Server Profile Best Practices"
     * In most circumstances, the `pd.profile` directory should be the only directory in the server profile.
