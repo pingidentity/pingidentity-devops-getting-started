@@ -6,6 +6,11 @@ pingauthorize:
     SERVER_PROFILE_PARENT: PAZ
     SERVER_PROFILE_PAZ_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PAZ_PATH: baseline/pingauthorize
+  container:
+    waitFor:
+      pingdirectory:
+        service: ldaps
+        timeoutSeconds: 300
 
 pingauthorizepap:
   enabled: true
