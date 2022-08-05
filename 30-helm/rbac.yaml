@@ -16,7 +16,11 @@
 # false, and will not have any serviceAccountName set. The
 # pingdataconsole workload generates its own resources and sets a
 # defined name for the ServiceAccount, rather than using a
-# generated name.
+# generated name. The pingauthorize workload specifies a custom
+# service account name, but does not enable generating a service
+# account, so it will use that service account name but Helm will
+# not generate the account. It will be assumed that the service
+# account will be managed outside of this Helm release.
 #######################################################################
 
 global:
@@ -64,3 +68,8 @@ pingdataconsole:
       - apiGroups: [""]
         resources: ["secrets"]
         verbs: ["get"]
+
+pingauthorize:
+  enabled: true
+  rbac:
+    serviceAccountName: custom-serviceAccount
