@@ -11,6 +11,12 @@ title: DevOps Docker Builds, Version 2207 (August 05 2022)
 
 ### New Product Releases
 - PingFederate 11.1.1 released ([Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate))
+- PingData products 9.0.0.2 released
+    - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
+    - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
+    - PingDataSync ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
+    - PingAuthorize ([Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize))
+    - PingDataConsole ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdataconsole))
 
 ### Documentation
 - Added [documentation for using extensions with PingData server profiles](https://devops.pingidentity.com/how-to/profilesPingDataExtensions/)
