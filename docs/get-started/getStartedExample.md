@@ -3,17 +3,23 @@ title: Deploy an Example Stack
 ---
 # Deploy an Example Stack
 
-!!! info "Orchestration note"
+!!! warning "Orchestration note"
     In the past, Docker Compose was used for many of our product container examples.  We are no longer maintaining or supporting Docker Compose, and recommend the use of the Ping Helm charts for working with Ping products in a containerized model.
 
 !!! note "Networking"
     This example was written using Docker Desktop with Kubernetes enabled.  As such, there is no ingress controller deployed, so for accessing the consoles, a kubectl port-forward is used.  See the [Kubernetes documentation](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) for more details on the port-forward command.
 
+!!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
+
+    If you are new to Kubernetes-based deployments, there is a distinct difference when running under Kubernetes compared to running applications on servers.  In a server model, many applications typically run on the same server, and you can access any of them using the same host. For example, many on-premise deployments of PingFederate also include the PingDataConsole, hosted on the same server.
+
+    Under Kubernetes, however, each application that requires external access is associated with a `service`.  A service is a fixed endpoint in the cluster that routes traffic to a given application.  So, in this example, there are distinct service endpoints for PingFederate and PingDataConsole.  Accessing one will require a separate forwarding as compared to accessing the other.   
+
 The Ping Identity Helm [Getting Started](https://helm.pingidentity.com/getting-started/) page has instructions on getting your environment configured for using the Ping Helm charts.
 
 For more examples, see [Helm Chart Example Configurations](../deployment/deployHelm.md).
 
-For more information on Helm with Ping products, see [Ping Identity DevOps Helm Charts](https://helm.pingidentity.com).
+For more information on Helm with Ping products, see [Ping Identity DevOps Helm Charts](https://helm.pingidentity.com)
 
 ## What You Will Do
 
@@ -222,10 +228,16 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
     kubectl port-forward svc/demo-pingfederate-admin 9999:9999
     ```
 
+    Similarly, to access the data console:
+
+    ```sh
+    kubectl port-forward svc/demo-pingdataconsole 8443:8443
+    ```
+
     !!! note "Certificates"
         This example uses self-signed certificates that will have to be accepted in your browser or added to your keystore.
 
-    While the local port does not have to match the service port, it is recommended for simplicity. If you use a different local port, adjust the URLS below accordingly. 
+    While the local port does not have to match the service port, it is recommended for simplicity. If you use a different local port, adjust the URLs below accordingly.
 
     With the appropriate port-forward in place, you can access the products at these defaults.
 
