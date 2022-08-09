@@ -72,4 +72,4 @@ pingdataconsole:
 pingauthorize:
   enabled: true
   rbac:
-    serviceAccountName: custom-serviceAccount
+    serviceAccountName: custom-service-account
