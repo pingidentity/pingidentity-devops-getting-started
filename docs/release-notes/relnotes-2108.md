@@ -22,7 +22,7 @@ title: DevOps Docker Builds, Version 2108 (August 27 2021)
     - Upgraded the Image OS from Alpine 3.13 to 3.14
 
 - **Helm Charts**
-    - View the detailed release notes for Ping's Helm Charts [here](https://helm.pingidentity.com/release-notes)
+    - View the detailed release notes for Ping's Helm Charts [here](https://helm.pingidentity.com/release-notes/currentRelease/)
         - Release 0.7.0 - ServiceAccount/Role/RoleBinding for testFramework
         - Release 0.7.1 - Public hostname/ports
         - Release 0.7.2 - PingFederate PF_ADMIN_PUBLIC_BASEURL variable
