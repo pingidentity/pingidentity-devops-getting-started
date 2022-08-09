@@ -19,7 +19,7 @@ The Ping Identity Helm [Getting Started](https://helm.pingidentity.com/getting-s
 
 For more examples, see [Helm Chart Example Configurations](../deployment/deployHelm.md).
 
-For more information on Helm with Ping products, see [Ping Identity DevOps Helm Charts](https://helm.pingidentity.com)
+For more information on Helm with Ping products, see [Ping Identity DevOps Helm Charts](https://helm.pingidentity.com).
 
 ## What You Will Do
 
