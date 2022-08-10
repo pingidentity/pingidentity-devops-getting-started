@@ -136,6 +136,7 @@ nav:
           - Upgrading PingFederate: "how-to/upgradePingfederate.md"
           - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
           - Migrating to Unprivileged Images: "how-to/migratingRootToUnprivileged.md"
+      - Set PingFederate Provisioner Node ID: "how-to/assignPFNodeId.md"
   - Reference:
       - Components and Configuration: "reference/config.md"
       - Server Profile: "reference/profileStructures.md"
