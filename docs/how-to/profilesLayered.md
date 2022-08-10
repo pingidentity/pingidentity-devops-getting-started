@@ -34,7 +34,6 @@ You will create separate layers for:
 
 * Product license
 * Extensions (such as, Integration Kits and Connectors)
-* OAuth Playground
 
 For this example, these layers will be applied on top of the PingFederate server profile. However, you can span configurations across multiple repositories if you want.
 
@@ -47,13 +46,12 @@ Because PingFederate's configuration is file-based, the layering works by copyin
 
 ### Creating the base directories
 
-Create a working directory named `layered_profiles` and within that directory create `license`, `extensions`, and `oauth` directories. When completed, your directory structure should be:
+Create a working directory named `layered_profiles` and within that directory create `license` and `extensions` directories. When completed, your directory structure should be:
 
 ```text
 └── layered_profiles
    ├── extensions
-   ├── license
-   └── oauth
+   └── license
 ```
 
 ### Constructing the license layer
@@ -129,30 +127,6 @@ Create a working directory named `layered_profiles` and within that directory cr
                               └── pf-slack-quickconnection-3.0.jar
       ```
 
-### Building the OAuth layer
-
-1. Go to the `layered-profiles/oauth` directory and create a `pingfederate` subdirectory.
-
-      ```sh
-      mkdir -p instance/server/default/pingfederate
-      ```
-
-1. Copy the `OAuthPlayground.war` file to the `layered-profiles/oauth/pingfederate/instance/server/default/deploy` directory.
-
-    Like other extensions, you can find the OAuth Playground for PingFederate in the `/instance/server/default/deploy` directory. For this example, you are building the OAuth Playground into its own layer to illustrate that it is optional for PingFederate deployments.
-
-    Your OAuth profile layer should look like this:
-
-      ```text
-      └── oauth
-         └── pingfederate
-            └── instance
-                  └── server
-                     └── default
-                        └── deploy
-                              └── OAuthPlayground.war
-      ```
-
 ## Assigning environment variables
 
 Although this deployment assigns the environment variables for use in a Docker Compose YAML file, you can use the following technique with any Docker or Kubernetes deployment.
@@ -198,23 +172,10 @@ SERVER_PROFILE_URL=https://github.com/<your-username>/pingidentity-server-profil
       - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
       ```
 
-4. Set the `EXTENSIONS` parent to `OAUTH`:
+4. Set `GETTING_STARTED` as the `EXTENSIONS` parent and declare the `URL` and `PATH`:
 
       ```yaml
-      - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
-      ```
-
-      Then set the `URL` and `PATH` for the `OAUTH` profile:
-
-      ```yaml
-      - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
-      ```
-
-5. Set `GETTING_STARTED` as the `OAUTH` parent and declare the `URL` and `PATH`:
-
-      ```yaml
-      - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
+      - SERVER_PROFILE_EXTENSIONS_PARENT=GETTING_STARTED
       - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_GETTING_STARTED_PATH=getting-started/pingfederate
       ```
@@ -234,12 +195,7 @@ SERVER_PROFILE_URL=https://github.com/<your-username>/pingidentity-server-profil
       # Server Profile - Extensions
       - SERVER_PROFILE_EXTENSIONS_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_EXTENSIONS_PATH=layered-profiles/extensions/pingfederate
-      - SERVER_PROFILE_EXTENSIONS_PARENT=OAUTH
-
-      # Server Profile - OAUTH
-      - SERVER_PROFILE_OAUTH_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_OAUTH_PATH=layered-profiles/oauth/pingfederate
-      - SERVER_PROFILE_OAUTH_PARENT=GETTING_STARTED
+      - SERVER_PROFILE_EXTENSIONS_PARENT=GETTING_STARTED
 
       # Base Server Profile
       - SERVER_PROFILE_GETTING_STARTED_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
