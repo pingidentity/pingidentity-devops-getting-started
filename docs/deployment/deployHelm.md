@@ -40,6 +40,7 @@ using the Ping Devops Helm Chart.
 | PingDataSync Failover            | PingDataSync and PingDirectory with failover   | [pingdatasync-failover.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingdatasync-failover.yaml)                                                                        |
 | Cluster Metrics                  | Example values using various open source tools | See .yaml files in [cluster-metrics](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/30-helm/cluster-metrics)                                                   |
 | PingDataConsole SSO with PingOne | Sign into PingDataConsole with PingOne         | [pingdataconsole-pingone-sso.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingdataconsole-pingone-sso.yaml)                                                                        |
+| Using CSI Volumes                | Mount secrets with CSI volumes                 | [csi-secrets-volume.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/csi-secrets-volume.yaml)                                                                        |
 
 
 ## To Deploy
