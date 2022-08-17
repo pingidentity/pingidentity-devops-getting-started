@@ -55,4 +55,4 @@ The example below is an example of messages that will be shown for all types of 
 
 ## Copyright
 
-Copyright © 2019 Ping Identity. All rights reserved.
+Copyright © 2022 Ping Identity. All rights reserved.
