@@ -9,4 +9,4 @@ title: Ping Identity DevOps `pingcommon` Hook - `50-before-post-start.sh`
 ---
 This document is auto-generated from _[pingcommon/opt/staging/hooks/50-before-post-start.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/50-before-post-start.sh)_
 
-Copyright © 2021 Ping Identity Corporation. All rights reserved.
+Copyright © 2022 Ping Identity Corporation. All rights reserved.

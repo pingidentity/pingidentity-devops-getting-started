@@ -7,4 +7,4 @@ title: Ping Identity DevOps `pingintelligence` Hook - `04-check-variables.sh.pos
 ---
 This document is auto-generated from _[pingintelligence/opt/staging/hooks/04-check-variables.sh.post](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingintelligence/opt/staging/hooks/04-check-variables.sh.post)_
 
-Copyright © 2021 Ping Identity Corporation. All rights reserved.
+Copyright © 2022 Ping Identity Corporation. All rights reserved.
