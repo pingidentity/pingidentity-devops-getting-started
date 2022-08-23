@@ -66,6 +66,8 @@ If you are using this example as is, you will need a [devops-secret](../how-to/d
 
 !!! Info "Be sure to change the ingress domain name value to your domain in [01-background.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/01-background.yaml)"
 
+!!! Info "Be sure to change the image tag value in [01-background.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/01-background.yaml)"
+
 ```
 helm upgrade --install pf-upgrade pingidentity/ping-devops \
    --version 0.9.4 -f 30-helm/pingfederate-upgrade/01-background.yaml
@@ -149,6 +151,10 @@ kubectl scale sts pf-upgrade-pingfederate-admin --replicas=0
 ```
 
 Finally, update PingFederate image version to new target PingFederate version and run as normal.
+
+!!! Info "Be sure to change the ingress domain name value to your domain in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/02-upgraded.yaml)"
+
+!!! Info "Be sure to change the image tag value in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/02-upgraded.yaml)"
 
 ```
 helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.9.4 \

@@ -10,7 +10,7 @@ global:
 
 pingfederate-admin:
   image:
-    tag: 11.0.4-edge
+    tag: <insert old image tag here>
   enabled: true
   container:
     replicaCount: 1
@@ -37,7 +37,7 @@ pingfederate-admin:
 
 pingfederate-engine:
   image:
-    tag: 11.0.4-edge
+    tag: <insert old image tag here>
   enabled: true
   container:
     replicaCount: 1
