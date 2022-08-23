@@ -1,0 +1,69 @@
+global:
+  ingress:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: ping-devops.com
+    defaultTlsSecret:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
+
+pingfederate-admin:
+  enabled: true
+  container:
+    replicaCount: 1
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_PARENT: BASELINE
+    ## Using this profile layer for PF_NODE_GROUP_ID var
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pf-k8s-multi-clustering-layer/pingfederate
+  workload:
+    type: StatefulSet
+    statefulSet:
+      persistentvolume:
+        enabled: true
+        volumes:
+          out-dir:
+            mountPath: /opt/out/instance/server/default/data
+            persistentVolumeClaim:
+              accessModes:
+              - ReadWriteOnce
+              storageClassName:
+              resources:
+                requests:
+                  storage: 8Gi
+  services:
+    https:
+      servicePort: 9999
+      containerPort: 9999
+      ingressPort: 443
+      dataService: true
+    clusterbind:
+      servicePort: 7600
+      containerPort: 7600
+      clusterService: true
+    clusterfail:
+      servicePort: 7700
+      containerPort: 7700
+      clusterService: true
+    engine: 
+      servicePort: 9031
+      containerPort: 9031
+      ingressPort: 443
+      dataService: true
+
+pingfederate-engine:
+  enabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_PARENT: BASELINE
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pf-k8s-multi-clustering-layer/pingfederate
+  clustering:
+    autoscaling:
+      enabled: false
+  container:
+    replicaCount: 3

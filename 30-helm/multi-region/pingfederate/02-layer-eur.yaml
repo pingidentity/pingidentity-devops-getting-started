@@ -1,0 +1,33 @@
+pingfederate-admin:
+  enabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_PARENT: BASELINE
+    ## Using this profile layer for PF_NODE_GROUP_ID var
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pf-k8s-multi-clustering-layer/pingfederate
+    ## CHANGEME
+    DNS_QUERY_LOCATION: "example-pingfederate-cluster.my-namespace.svc.cluster.local,example-pingfederate.demo.usa.ping-multi-cluster.com"
+    OPERATIONAL_MODE: CLUSTERED_CONSOLE
+    PF_NODE_GROUP_ID: EUR
+  services:
+    clusterExternalDNSHostname: example-pingfederate.demo.eur.ping-multi-cluster.com
+
+pingfederate-engine:
+  enabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_PARENT: BASELINE
+    ## Using this profile layer for PF_NODE_GROUP_ID var
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pf-k8s-multi-clustering-layer/pingfederate
+    ## CHANGEME
+    DNS_QUERY_LOCATION: "example-pingfederate-cluster.my-namespace.svc.cluster.local,example-pingfederate.demo.usa.ping-multi-cluster.com"
+    PF_NODE_GROUP_ID: EUR
+  container:
+    waitFor:
+      pingfederate-admin:
+        service: https
+        timeoutSeconds: 300
