@@ -69,7 +69,7 @@ echo "INFO: Extracting new PingFederate from zip"
 unzip -qd /opt/new "${new_pf_zip_path}"
 test "${?}" -ne 0 && echo "ERROR: Failed to unzip file ${new_pf_zip_path}" && exit 1
 
-# Make sure "pingfederate.lic" has been provided at "/tmp/pingfederate.lic
+# Make sure "pingfederate.lic" has been provided at "/tmp/pingfederate.lic"
 echo "INFO: Checking for PingFederate license"
 new_pf_lic_path="/tmp/pingfederate.lic"
 if ! test -f "${new_pf_lic_path}"; then
@@ -78,7 +78,7 @@ if ! test -f "${new_pf_lic_path}"; then
 fi
 
 # Get the running pingfederate port
-echo "INFO: Attempting to retrieve the running PingFederate's port. If Pingfederate is not running, this will fail"
+echo "INFO: Attempting to retrieve the running PingFederate port. If PingFederate is not running, ignore curl error output"
 pf_port=$(netstat -tuln | grep "0.0.0.0:[0-9]" | awk '{print $4}' | cut -b9-)
 
 pf_https_response="$(curl -kSs "https://127.0.0.1:${pf_port}" --write-out '%{http_code}' 2>&1)"
@@ -156,5 +156,7 @@ fi
 # Overlay upgraded instance into /opt/out
 cp -Ru "/opt/new/pingfederate-${NEW_PF_VERSION}/pingfederate/." "/opt/out/instance"
 test "${?}" -ne 0 && echo "ERROR: Failed to copy upgraded instance from /opt/new/pingfederate-${NEW_PF_VERSION}/pingfederate/. into /opt/out/instance" && exit 1
+
+echo "INFO: ${0} complete."
 
 exit 0
