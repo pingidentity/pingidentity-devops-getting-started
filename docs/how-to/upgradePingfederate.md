@@ -107,11 +107,11 @@ kubectl cp pingfederate-11.1.1.zip pf-upgrade-pingfederate-admin-0:/tmp
 
 2. Select a Product download page, for example: [PingFederate Download Page](https://www.pingidentity.com/en/resources/downloads/pingfederate.html).
 
-3. Click on the download button for the desired installation method and product version.
+3. Click on the download button for the desired installation method and product version. 
 
-        1. If prompted to sign in, please sign in and the download will begin. Alternatively, [Sign In Here](https://www.pingidentity.com/en/account/sign-on.html).
+   1. If prompted to sign in, please sign in and the download will begin. Alternatively, [Sign In Here](https://www.pingidentity.com/en/account/sign-on.html).
 
-        2. If you do not have a Ping Identity account, you can create one on the [Account Creation Page](https://www.pingidentity.com/en/try-ping.html).
+   2. If you do not have a Ping Identity account, you can create one on the [Account Creation Page](https://www.pingidentity.com/en/try-ping.html).
 
 ### Run the Upgrade Utility
 
