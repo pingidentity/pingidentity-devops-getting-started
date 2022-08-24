@@ -164,32 +164,34 @@ Clone the `getting-started` [Repository](https://github.com/pingidentity/pingide
 
     ```sh
     kubectx west
-    helm upgrade --install west pingidentity/ping-devops -f 01-west.yaml
+    helm upgrade --install example pingidentity/ping-devops -f 01-west.yaml
     ```
 
-3. Wait for the west-pingdirectory pods to be running and ready.
+3. Wait for the example-pingdirectory pods to be running and ready.
 
 4. Deploy the second set of pods
 
     ```sh
     kubectx east
-    helm upgrade --install east pingidentity/ping-devops -f 02-east.yaml
+    helm upgrade --install example pingidentity/ping-devops -f 02-east.yaml
     ```
 
-5. Wait for all east-pingdirectory pods to be running and ready.
+5. Wait for all example-pingdirectory pods to be running and ready.
 
 6. Verify that pods are replicating
   
     ```sh
     kubectx west
-    kubectl exec west-pingdirectory-0 dsreplication status --showAll
+    kubectl exec example-pingdirectory-0 -- dsreplication status --showAll
     ```
 
 ## Clean up Helm Releases
 
 ```sh
 kubectx west
-helm uninstall west
+helm uninstall example
+kubectl delete pvc --selector=app.kubernetes.io/instance=example
 kubectx east
-helm uninstall east
+helm uninstall example
+kubectl delete pvc --selector=app.kubernetes.io/instance=example
 ```

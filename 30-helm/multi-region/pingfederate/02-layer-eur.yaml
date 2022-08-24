@@ -1,12 +1,8 @@
 pingfederate-admin:
   enabled: true
   envs:
-    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
-    SERVER_PROFILE_PARENT: BASELINE
-    ## Using this profile layer for PF_NODE_GROUP_ID var
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    SERVER_PROFILE_PATH: pf-k8s-multi-clustering-layer/pingfederate
+    SERVER_PROFILE_PATH: baseline/pingfederate
     ## CHANGEME
     DNS_QUERY_LOCATION: "example-pingfederate-cluster.my-namespace.svc.cluster.local,example-pingfederate.demo.usa.ping-multi-cluster.com"
     OPERATIONAL_MODE: CLUSTERED_CONSOLE
@@ -17,12 +13,8 @@ pingfederate-admin:
 pingfederate-engine:
   enabled: true
   envs:
-    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
-    SERVER_PROFILE_PARENT: BASELINE
-    ## Using this profile layer for PF_NODE_GROUP_ID var
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    SERVER_PROFILE_PATH: pf-k8s-multi-clustering-layer/pingfederate
+    SERVER_PROFILE_PATH: baseline/pingfederate
     ## CHANGEME
     DNS_QUERY_LOCATION: "example-pingfederate-cluster.my-namespace.svc.cluster.local,example-pingfederate.demo.usa.ping-multi-cluster.com"
     PF_NODE_GROUP_ID: EUR
