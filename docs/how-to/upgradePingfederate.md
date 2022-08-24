@@ -1,8 +1,8 @@
 ---
-title: Upgrading PingFederate (Deprecated)
+title: Upgrading PingFederate
 ---
 
-# Upgrading PingFederate (Deprecated)
+# Upgrading PingFederate
 
 In a DevOps environment, upgrades can be simplified through automation, orchestration, and separation of concerns.
 
@@ -66,9 +66,11 @@ If you are using this example as is, you will need a [devops-secret](../how-to/d
 
 !!! Info "Be sure to change the ingress domain name value to your domain in [01-background.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/01-background.yaml)"
 
+!!! Info "Be sure to change the image tag value in [01-background.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/01-background.yaml)"
+
 ```
 helm upgrade --install pf-upgrade pingidentity/ping-devops \
-   --version 0.8.4 -f 30-helm/pingfederate-upgrade/01-background.yaml
+   --version 0.9.4 -f 30-helm/pingfederate-upgrade/01-background.yaml
 ```
 
 The `args` section starts pingfederate as a background process and `tail -f /dev/null` as the foreground process.
@@ -77,19 +79,49 @@ The `args` section starts pingfederate as a background process and `tail -f /dev
 
 The steps for upgrading can be automated with a script. Example scripts are included at `30-helm/pingfederate-upgrade/hooks`.
 
-To use the scripts, copy the folder your PingFederate container
+To use the scripts:
+
+Copy the hooks folder to your PingFederate container
 
 ```
 kubectl cp 30-helm/pingfederate-upgrade/hooks pf-upgrade-pingfederate-admin-0:/opt/staging
 ```
 
+Copy the target PingFederate license to your PingFederate container
+See [pingctl license](https://devops.pingidentity.com/tools/commands/license/) documentation to retrieve an evaluation license,
+or provide an existing product license here.
+
+```
+kubectl cp pingfederate.lic pf-upgrade-pingfederate-admin-0:/tmp
+```
+
+Copy the target PingFederate software to your PingFederate container. See [How to download Product Installation Files](#how-to-download-product-installation-files).
+
+```
+kubectl cp pingfederate-11.1.1.zip pf-upgrade-pingfederate-admin-0:/tmp
+```
+
+#### How to download Product Installation Files
+
+1. Navigate to [Ping Identity's Download webpage](https://www.pingidentity.com/en/resources/downloads.html).
+
+2. Select a Product download page, for example: [PingFederate Download Page](https://www.pingidentity.com/en/resources/downloads/pingfederate.html).
+
+3. Click on the download button for the desired installation method and product version.
+
+        1. If prompted to sign in, please sign in and the download will begin. Alternatively, [Sign In Here](https://www.pingidentity.com/en/account/sign-on.html).
+
+        2. If you do not have a Ping Identity account, you can create one on the [Account Creation Page](https://www.pingidentity.com/en/try-ping.html).
+
+### Run the Upgrade Utility
+
 The pf-upgrade.sh script will:
 
-- download the target PingFederate software bits
-- backup the current /opt/out folder to /opt/current_bak
-- run the upgrade utility
-- overwrite /opt/out or /opt/out/instance/server/default/data with upgraded files
-- run diff between /opt/staging (server-profile location) and respective upgraded file. Diffs can be found in `/tmp/stagingDiffs`
+- Verify both the PingFederate software bits and new license file is on the container
+- Backup the current /opt/out folder to /opt/current_bak
+- Run the upgrade utility
+- Overwrite /opt/out or /opt/out/instance/server/default/data with upgraded files
+- Run diff between /opt/staging (server-profile location) and respective upgraded file. Diffs can be found in `/tmp/stagingDiffs`
 
 Exec into the container and run the script.
 
@@ -120,8 +152,12 @@ kubectl scale sts pf-upgrade-pingfederate-admin --replicas=0
 
 Finally, update PingFederate image version to new target PingFederate version and run as normal.
 
+!!! Info "Be sure to change the ingress domain name value to your domain in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/02-upgraded.yaml)"
+
+!!! Info "Be sure to change the image tag value in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingfederate-upgrade/02-upgraded.yaml)"
+
 ```
-helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.8.4 \
+helm upgrade --install pf-upgrade pingidentity/ping-devops --version 0.9.4 \
    -f 30-helm/pingfederate-upgrade/02-upgraded.yaml
 ```
 This will restart the admin console, and trigger a rolling update of all the engines.
