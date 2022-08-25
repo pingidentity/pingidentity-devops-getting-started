@@ -172,10 +172,7 @@ Continuing, it is helpful to know what happens when a cluster starts in order to
 
 2. After the first pod is healthy, it begins querying DNS for combinations of hostnames at their LDAPS port to find another PingDirectory instance.
 
-In our first cluster, this would be the hostname of pingdirectory-1, but it could also be pingdirectory-0 of another cluster. After the query returns successful, creation of the replication topology automatically begins.  
-
-!!! note "Things get simpler"
-    From this point onward, the order in which instances start is less important.
+In our first cluster, this would be the hostname of pingdirectory-1, but it could also be pingdirectory-0 of another cluster. After the query returns successful, creation of the replication topology automatically begins. From this point onward, the order in which instances start is less important.
 
 ## Deploy the Helm Example
 
