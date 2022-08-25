@@ -1,0 +1,2 @@
+# PingFederate multi-region example
+See [Deploy PingFederate Across Multiple Kubernetes Clusters](https://devops.pingidentity.com/deployment/deployPFMultiRegion/) for details on how to deploy this example.

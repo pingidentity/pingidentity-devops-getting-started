@@ -1,0 +1,2 @@
+# PingDirectory multi-region example
+See [Deploy PingDirectory Across Multiple Kubernetes Clusters](https://devops.pingidentity.com/deployment/deployPDMultiRegion/) for details on how to deploy this example.

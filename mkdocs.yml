@@ -68,6 +68,8 @@ nav:
               - Other Kubernetes Information:
                   - Sample Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
                   - Utility Sidecars: "deployment/deployK8sUtilitySidecar.md"
+                  - Deploy PingFederate Across Multiple Kubernetes Clusters: "deployment/deployPFMultiRegion.md"
+                  - Deploy PingDirectory Across Multiple Kubernetes Clusters: "deployment/deployPDMultiRegion.md"
                   - PingData Product Considerations: "deployment/pingDataEnvironmentConsiderations.md"
                   - Operating Patterns: "deployment/deploymentPatterns.md"
                   - Cloud Kubernetes Platform Prerequisites: "deployment/deployK8sCloud.md"
