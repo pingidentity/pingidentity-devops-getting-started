@@ -22,7 +22,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to Docker. For this documentation, a Macbook Pro was configured to use 3 CPUs and 6 GB Memory. You can adjust these values as necessary for your needs.
 
 !!! note "Kubernetes Version"
-    For this guide, the kind implementation of Kubernetes 1.23 is used.
+    For this guide, the kind implementation of Kubernetes 1.24 is used.
 
 ## Steps
 
@@ -43,25 +43,32 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     ```sh
     kubectl cluster-info
 
-    Kubernetes control plane is running at https://127.0.0.1:58527
-    CoreDNS is running at https://127.0.0.1:58527/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-    
+    # Output - port will vary
+    Kubernetes control plane is running at https://127.0.0.1:63564
+    CoreDNS is running at https://127.0.0.1:63564/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+    ------------------
+
     kubectl version --short
-    
+
     < output removed >
-    Server Version: v1.23.6
+    Server Version: v1.24.0
+
+    ------------------
 
     kubectl get nodes
 
-    NAME                 STATUS   ROLES                  AGE   VERSION
-    ping-control-plane   Ready    control-plane,master   14m   v1.23.6
+    NAME                 STATUS   ROLES           AGE     VERSION
+    ping-control-plane   Ready    control-plane   4m26s   v1.24.0
     ```
 
 1. Next, install the nginx-ingress-controller for `kind`. In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
 
 To use the Github file:
     ```sh
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/1.23/deploy.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/kind/1.24/deploy.yaml
     ```
 
 To use the local copy:
