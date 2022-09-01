@@ -25,7 +25,7 @@ The following examples explain how to deploy a certificate/PIN combination to an
 
 ## PingData Image Certificates
 
-The PingData products, such as PingDirectory, PingDataSync, PingAuthorize, and PingDirectoryProxy, use a file location to determine certificates/PIN files:
+The PingData products (PingDirectory, PingDataSync, PingAuthorize, and PingDirectoryProxy) use a file location to determine certificates/PIN files:
 
 * It is best practice to use a non-persistent location, such as /run/secrets, to store these files.
 * If no certificate is provided, the container/product will generate a self-signed certificate.
@@ -59,8 +59,44 @@ The default location for certificates and associated files are listed below, ass
     CERTIFICATE_NICKNAME=development-cert
     ```
 ## PingData image certificate rotation
+The certificate rotation process for PingData products varies depending on which product is being configured and whether that product is in a topology. For products that are not in a topology, certificates can be rotated by simply updating the environment variables. For products in a topology, certificate rotation must be done via a command-line call with the servers in the topology online.
 
-As mentioned above, for the PingData products there are variables for truststore and keystore. To change certificates, you will need to update the contents of the truststore or keystore in your server profile or secret store. After you update the contents, restart the container. The changes will be picked up automatically when the server restarts. If you have multiple certificates in the keystore, you can use the above-mentioned CERTIFICATE_NICKNAME variable to specify the certificate. The container will pick up that certificate from those stored in the keystore. For updating the product to use the new certificates, perform a rolling update. This action ensures that other servers will remain available as each pod is cycled. In addition, verify that remaining pods in the cluster have sufficient capacity to handle the increased load during the rolling update.
+### Rotating the listener certificate by adjusting environment variables
+The process described in this section can be used for PingAuthorize, PingDirectoryProxy, and *standalone* (single-server) instances of PingDirectory or PingDataSync.
+
+!!! warning
+    If PingDirectory or PingDataSync is deployed with multiple servers, use the process described in the next section.
+
+As mentioned above, for the PingData products there are variables defining the server truststore and keystore. To change certificates, you will need to update the contents of the truststore or keystore in your server profile or secret store. After you update the contents, restart the container. The changes will be picked up automatically when the server restarts. If you have multiple certificates in the keystore, you can use the above-mentioned CERTIFICATE_NICKNAME variable to specify the certificate. The container will pick up that certificate from those stored in the keystore. For updating the product to use the new certificates, perform a rolling update. This action ensures that other servers will remain available as each pod is cycled.
+
+!!! note "Rolling Update"
+    Verify that remaining pods in the cluster have sufficient capacity to handle the increased load during the rolling update.
+
+### Rotating the listener certificate with the replace-certificate command-line tool
+If multiple PingDataSync or PingDirectory servers are running in a topology, then the servers must be online when updating the listener certificate. Updates to certificates with one or more servers offline (such as rolling updates) can lead to connection issues with the other members of the topology when those servers come back online. Use the PingData `replace-certificate` command-line tool to update certificates with the server online.
+
+Shell into the running instance that needs to be updated, and ensure the keystore containing the needed certificate is mounted on the container. Then, run `replace-certificate`. Replace the `--key-manager-provider` and `--trust-manager-provider` values if necessary when using a non-JKS keystore, as well as the `--source-certificate-alias` value if necessary.
+
+```
+replace-certificate replace-listener-certificate \
+    --key-manager-provider JKS \
+    --trust-manager-provider JKS \
+    --source-key-store-file /run/secrets/newkeystore \
+    --source-key-store-password-file /run/secrets/newkeystore.pin \
+    --source-certificate-alias server-cert \
+    --reload-http-connection-handler-certificates
+```
+
+For more information on this command, run
+```
+replace-certificate replace-listener-certificate --help
+```
+
+Running the first command will replace the listener certificate and notify other servers in the topology that this server's certificate has changed.
+
+To update certificates for the other servers in the topology, follow this same process, shelling into each individual instance.
+
+Once this is done, the running pods have been updated. To ensure a restart does not undo these changes, verify that your server profile and orchestration environment variables are updated to point to the new certificates. For example, if you have modified your server configuration to point to `/run/secrets/newkeystore`, then you must update your KEYSTORE_FILE environment variable to point to that new keystore *after* you have completed the `replace-certificate` process on each server.
 
 ## Non-PingData image certificates
 
