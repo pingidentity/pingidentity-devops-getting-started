@@ -7,13 +7,15 @@ title: Deploy an Example Stack
     In the past, Docker Compose was used for many of our product container examples.  We are no longer maintaining or supporting Docker Compose, and recommend the use of the Ping Helm charts for working with Ping products in a containerized model.
 
 !!! note "Networking"
-    This example was written using Docker Desktop with Kubernetes enabled.  As such, there is no ingress controller deployed, so for accessing the consoles, a kubectl port-forward is used.  See the [Kubernetes documentation](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) for more details on the port-forward command.
+    This example was written using Docker Desktop with Kubernetes enabled.  The version used for this guide was `4.11.1(84025)`, which includes Docker Engine `v20.10.17` and Kubernetes `v1.24.2`.  The ingress-nginx controller version was `1.3.0`.
 
 !!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
 
     If you are new to Kubernetes-based deployments, there is a distinct difference when running under Kubernetes compared to running applications on servers.  In a server model, many applications typically run on the same server, and you can access any of them using the same host. For example, many on-premise deployments of PingFederate also include the PingDataConsole, hosted on the same server.
 
-    Under Kubernetes, however, each application that requires external access is associated with a `service`.  A service is a fixed endpoint in the cluster that routes traffic to a given application.  So, in this example, there are distinct service endpoints for PingFederate and PingDataConsole.  Accessing one will require a separate forwarding as compared to accessing the other.   
+    Under Kubernetes, however, each application that requires external access is associated with a `service`.  A service is a fixed endpoint in the cluster that routes traffic to a given application.  So, in this example, there are distinct service endpoints for PingFederate and PingDataConsole.  
+
+    These service endpoints are load balanced using the Nginx ingress controller, allowing you to access them using typical URL entries.
 
 The Ping Identity Helm [Getting Started](https://helm.pingidentity.com/getting-started/) page has instructions on getting your environment configured for using the Ping Helm charts.
 
@@ -64,17 +66,37 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          kubectl config view --minify | grep namespace:
          ```
 
-    2. Create a secret in the namespace you will be using to run the example using the `pingctl` utility. This secret will obtain an evaluation license based on your Ping DevOps username and key:
+    1. Deploy the ingress controller to Docker Desktop:
+
+         ```sh
+         helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+         ```
+
+    1. To wait for the Nginx ingress to reach a healthy state, run the following command.  You can also observe the pod status using k9s or by running `kubectl get pods --namespace ingress-nginx`. You should see one controller pod running when the ingress controller is ready.  This command should exit after no more than 90 seconds or so, depending on the speed of your computer:
+
+        ```sh
+        kubectl wait --namespace ingress-nginx \
+          --for=condition=ready pod \
+          --selector=app.kubernetes.io/component=controller \
+          --timeout=90s
+        ```
+
+    1. Create a secret in the namespace you will be using to run the example (pinghelm) using the `pingctl` utility. This secret will obtain an evaluation license based on your Ping DevOps username and key:
 
          ```sh
          pingctl k8s generate devops-secret | kubectl apply -f -
          ```
 
-    3. To install the chart, go to your local `"${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/30-helm` directory and run the command shown here.  In this example, the release (deployment into Kubernetes by Helm) is called `demo`, forming the prefix for all objects created:
+    1.  This example will use the Helm release name `demo` and DNS domain suffix `*ping-local.com` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
 
         ```sh
-        helm install demo pingidentity/ping-devops -f everything.yaml
+        echo '127.0.0.1 demo-pingaccess-admin.ping-local.com demo-pingaccess-engine.ping-local.com demo-pingauthorize.ping-local.com demo-pingauthorizepap.ping-local.com demo-pingdataconsole.ping-local.com demo-pingdelegator.ping-local.com demo-pingdirectory.ping-local.com demo-pingdatagovernance.ping-local.com demo-pingdatagovernancepap.ping-local.com demo-pingfederate-admin.ping-local.com demo-pingfederate-engine.ping-local.com demo-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
+        ```
 
+    1. To install the chart, go to your local `"${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/30-helm` directory and run the command shown here.  In this example, the release (deployment into Kubernetes by Helm) is called `demo`, forming the prefix for all objects created. The `ingress-demo.yaml` file configures the ingresses for the products to use the **_ping-local_** domain:
+
+        ```sh
+        helm install demo pingidentity/ping-devops -f everything.yaml -f ingress-demo.yaml
         ```
 
         The product Docker images are automatically pulled if they have not previously been pulled from [Docker Hub](https://hub.docker.com/u/pingidentity/).
@@ -83,8 +105,8 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
          ```text
          NAME: demo
-         LAST DEPLOYED: Wed Jun 29 14:10:53 2022
-         NAMESPACE: helm
+         LAST DEPLOYED: Fri Sep  2 10:36:51 2022
+         NAMESPACE: pinghelm
          STATUS: deployed
          REVISION: 1
          TEST SUITE: None
@@ -92,46 +114,47 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          #-------------------------------------------------------------------------------------
          # Ping DevOps
          #
-         # Description: Ping Identity helm charts - 06/02/22
+         # Description: Ping Identity helm charts - 08/05/22
          #-------------------------------------------------------------------------------------
          #
          #           Product          tag   typ  #  cpu R/L   mem R/L  Ing
          #    --------------------- ------- --- -- --------- --------- ---
-         #    global                2205              0/0       0/0
+         #    global                2207              0/0       0/0     √
          #
-         #  √ pingaccess-admin      2205               /         /
-         #  √ pingaccess-engine     2205               /         /
-         #  √ pingauthorize         2205               /         /
+         #  √ pingaccess-admin      2207               /         /
+         #  √ pingaccess-engine     2207               /         /
+         #  √ pingauthorize         2207               /         /
          #    pingauthorizepap
          #    pingcentral
-         #  √ pingdataconsole       2205               /         /
+         #  √ pingdataconsole       2207               /         /
          #    pingdatagovernance
          #    pingdatagovernancepap
          #    pingdatasync
          #    pingdelegator
-         #  √ pingdirectory         2205               /         /
+         #  √ pingdirectory         2207               /         /
          #    pingdirectoryproxy
-         #  √ pingfederate-admin    2205               /         /
-         #  √ pingfederate-engine   2205               /         /
+         #  √ pingfederate-admin    2207               /         /
+         #  √ pingfederate-engine   2207               /         /
+         #    pingintelligence
          #
          #    ldap-sdk-tools
          #    pd-replication-timing
          #    pingtoolkit
+         #    apache-jmeter
          #
          #-------------------------------------------------------------------------------------
          # To see values info, simply set one of the following on your helm install/upgrade
          #
          #    --set help.values=all         # Provides all (i.e. .Values, .Release, .Chart, ...) yaml
          #    --set help.values=global      # Provides global values
-         #    --set help.values={ image }   # Provides image values merged with global
-         #-------------------------------------------------------------------------------------
+         #    --set help.values={ image }   # Provides image values merged with global         
          ```
 
         As you can see, PingAccess Admin and Engine, PingData Console, PingDirectory, and the PingFederate Admin and Engine are deployed from the provided `everything.yaml` values file.
 
         It will take several minutes for all components to become operational.
 
-     4. To display the status of the deployed components, you can use [k9s](https://k9scli.io/) or issue the corresponding commands shown here:
+     1. To display the status of the deployed components, you can use [k9s](https://k9scli.io/) or issue the corresponding commands shown here:
 
            * Display the services (endpoints for connecting) by running `kubectl get service --selector=app.kubernetes.io/instance=demo`
 
@@ -161,6 +184,19 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
            demo-pingdirectory-0                        1/1     Running   0          7m38s
            demo-pingfederate-admin-5786787dfd-5b5s5    1/1     Running   0          7m36s
            demo-pingfederate-engine-5ff6546f4f-7jfnt   1/1     Running   0          7m31s
+           ```
+
+           * To see the ingresses you will use to access the product, run `kubectl get ingress`:
+
+           ```text
+           NAME                       CLASS    HOSTS                                     ADDRESS   PORTS     AGE
+           demo-pingaccess-admin      <none>   demo-pingaccess-admin.ping-local.com                80, 443   17s
+           demo-pingaccess-engine     <none>   demo-pingaccess-engine.ping-local.com               80, 443   17s
+           demo-pingauthorize         <none>   demo-pingauthorize.ping-local.com                   80, 443   17s
+           demo-pingdataconsole       <none>   demo-pingdataconsole.ping-local.com                 80, 443   17s
+           demo-pingdirectory         <none>   demo-pingdirectory.ping-local.com                   80, 443   17s
+           demo-pingfederate-admin    <none>   demo-pingfederate-admin.ping-local.com              80, 443   17s
+           demo-pingfederate-engine   <none>   demo-pingfederate-engine.ping-local.com             80, 443   17s
            ```
 
            * To see everything tied to the helm release run `kubectl get all --selector=app.kubernetes.io/instance=demo`:
@@ -214,25 +250,6 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
            ```
 
 2. These are the URLs and credentials to sign on to the management consoles for the products.
-
-    !!! note "Access to Kubernetes services"
-        The default networking type for services in the chart is `ClusterIP`. This type is internal-only to the Kubernetes cluster. For production environments, or if your cluster has an ingress controller configured, refer to the ** ingress.yaml ** file in the 30-helm directory of this repository to enable outside access to services in the cluster.
-
-    For this guide, there is no ingress in place on Docker Desktop, so a `kubectl port-forward` command is required.  This command provides a tunnel into the cluster from your local machine to the given service.
-
-    The syntax is `kubectl port-forward <service name> <localport>:<service port>`
-
-    For example, the services output in the previous step indicates that the PingFederate Admin console service (demo-pingfederate-admin) is listening on port 9999.  To access it from your local system, run the following command and then navigate to [https://localhost:9999](https://localhost:9999) in your browser:
-
-    ```sh
-    kubectl port-forward svc/demo-pingfederate-admin 9999:9999
-    ```
-
-    Similarly, to access the data console:
-
-    ```sh
-    kubectl port-forward svc/demo-pingdataconsole 8443:8443
-    ```
 
     !!! note "Certificates"
         This example uses self-signed certificates that will have to be accepted in your browser or added to your keystore.
