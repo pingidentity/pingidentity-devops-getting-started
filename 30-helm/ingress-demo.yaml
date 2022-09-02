@@ -2,8 +2,6 @@ global:
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
   ingress:
-    spec:
-      ingressClassName: nginx 
     enabled: true
     addReleaseNameToHost: prepend
     defaultDomain: "ping-local.com"
