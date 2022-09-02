@@ -53,7 +53,12 @@ title: DevOps Docker Builds, Version 2201 (February 07 2022)
 
 - (BRASS-315) - PingFederate server profiles in getting-started and baseline no longer contain an invalid runtime certificate
 
-### Product Build Matrix
+### Supported Product Releases
 
-- See the [Product Version, Image Release Matrix](../../reference/productVersionMatrix/)
-for currently supported image and product versions.
+This file shows the matrix of Ping Identity product software versions and the Ping Docker release tag in which they are available.  In accordance with our [image support policy](../docker-images/imageSupport.md), only images from the past 12 months are supported:
+
+<object data="../../images/productVersionsAndImageTags.pdf" type="application/pdf" width="100%" height="1000px">
+    <embed src="../../images/productVersionsAndImageTags.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../../images/productVersionsAndImageTags.pdf">Download PDF</a>.</p>
+    </embed>
+</object>

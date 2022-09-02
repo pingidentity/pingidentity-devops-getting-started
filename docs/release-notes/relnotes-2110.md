@@ -53,12 +53,12 @@ title: DevOps Docker Builds, Version 2110 (November 01 2021)
 - (BRASS-71) - Resolved issue in which PingDirectory seed name is not rendered
 correctly.
 
-### Product Build Matrix
+### Supported Product Releases
 
-- See the [Product Version, Image Release Matrix](../../reference/productVersionMatrix/)
-for currently supported image and product versions.
+This file shows the matrix of Ping Identity product software versions and the Ping Docker release tag in which they are available.  In accordance with our [image support policy](../docker-images/imageSupport.md), only images from the past 12 months are supported:
 
-- The following versions are no longer actively maintained:
-    - PingFederate 10.3.2, 10.2.6
-    - PingDirectory and and PingAuthorize 8.3.0.2
-    - PingCentral 1.7
+<object data="../../images/productVersionsAndImageTags.pdf" type="application/pdf" width="100%" height="1000px">
+    <embed src="../../images/productVersionsAndImageTags.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../../images/productVersionsAndImageTags.pdf">Download PDF</a>.</p>
+    </embed>
+</object>

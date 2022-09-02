@@ -56,13 +56,12 @@ title: DevOps Docker Builds, Version 2109 (October 06 2021)
 - (GDO-896) - Resolved issue where PingDirectory failed to pick up the product license during deployment
 - (GDO-989) - Resolved issue in which PingDirectory seed failure in multi-region topology causes a replication island
 
-### Product Build Matrix
+### Supported Product Releases
 
-- See the [Product Version, Image Release Matrix](../../reference/productVersionMatrix/)
-for currently supported image and product versions.
+This file shows the matrix of Ping Identity product software versions and the Ping Docker release tag in which they are available.  In accordance with our [image support policy](../docker-images/imageSupport.md), only images from the past 12 months are supported:
 
-- The following versions are no longer actively maintained:
-    - PingFederate 10.3.1, 10.2.4
-    - PingAccess 6.3.0
-    - PingDirectory and and PingAuthorize 8.3.0.1, 8.2.0.5
-    - PingIntelligence 5.0.0
+<object data="../../images/productVersionsAndImageTags.pdf" type="application/pdf" width="100%" height="1000px">
+    <embed src="../../images/productVersionsAndImageTags.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../../images/productVersionsAndImageTags.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
