@@ -37,6 +37,12 @@ title: DevOps Docker Builds, Version 2207 (August 05 2022)
 - Alpine -> 3.16.1
 - Apache Tomcat in PingDataConsole -> 9.0.65
 
-### Product Build Matrix
-- See the [Product Version, Image Release Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vSvySYHZxK-NOMeOMKSVjZWRr64T4raSNfrkcxdTRUxsftSwKgAN5z_gQarxywjIPJaVG8WJMt7ehXI/pub?output=pdf)
-  for currently supported image and product versions.
+### Supported Product Releases
+
+This file shows the matrix of Ping Identity product software versions and the Ping Docker release tag in which they are available.  In accordance with our [image support policy](../docker-images/imageSupport.md), only images from the past 12 months are supported:
+
+<object data="../../images/productVersionsAndImageTags.pdf" type="application/pdf" width="100%" height="1000px">
+    <embed src="../../images/productVersionsAndImageTags.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../../images/productVersionsAndImageTags.pdf">Download PDF</a>.</p>
+    </embed>
+</object>

@@ -66,17 +66,12 @@ title: DevOps Docker Builds, Version 2112 (January 05 2022)
 - (BRASS-181) - Update to PingDirectory liveness and readiness probes to use
     timeoutSeconds 5 and failureThreshold 3. Update to PingDirectory readiness probes to use readiness.sh.
 
-### Product Build Matrix
+### Supported Product Releases
 
-- See the [Product Version, Image Release Matrix](../../reference/productVersionMatrix/)
-for currently supported image and product versions.
+This file shows the matrix of Ping Identity product software versions and the Ping Docker release tag in which they are available.  In accordance with our [image support policy](../docker-images/imageSupport.md), only images from the past 12 months are supported:
 
-- The following versions are no longer actively maintained:
-    - PingFederate 10.2.7
-    - PingAccess 6.2.2
-    - PingCentral 1.8.1
-    - PingDirectory 8.2.0.6
-    - PingDirectoryProxy 8.2.0.6
-    - PingDataSync 8.2.0.6
-    - PingIntelligence 4.4.1
-    - PingDelegator 4.7, 4.4.1
+<object data="../../images/productVersionsAndImageTags.pdf" type="application/pdf" width="100%" height="1000px">
+    <embed src="../../images/productVersionsAndImageTags.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../../images/productVersionsAndImageTags.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
