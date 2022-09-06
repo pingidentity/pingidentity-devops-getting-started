@@ -7,15 +7,15 @@ title: Deploy an Example Stack
     In the past, Docker Compose was used for many of our product container examples.  We are no longer maintaining or supporting Docker Compose, and recommend the use of the Ping Helm charts for working with Ping products in a containerized model.
 
 !!! note "Networking"
-    This example was written using Docker Desktop with Kubernetes enabled.  The version used for this guide was `4.11.1(84025)`, which includes Docker Engine `v20.10.17` and Kubernetes `v1.24.2`.  The ingress-nginx controller version was `1.3.0`.
+    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.11.1(84025)`, which includes Docker Engine `v20.10.17` and Kubernetes `v1.24.2`.  The ingress-nginx controller version was `1.3.0`.
 
 !!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
 
     If you are new to Kubernetes-based deployments, there is a distinct difference when running under Kubernetes compared to running applications on servers.  In a server model, many applications typically run on the same server, and you can access any of them using the same host. For example, many on-premise deployments of PingFederate also include the PingDataConsole, hosted on the same server.
 
-    Under Kubernetes, however, each application that requires external access is associated with a `service`.  A service is a fixed endpoint in the cluster that routes traffic to a given application.  So, in this example, there are distinct service endpoints for PingFederate and PingDataConsole.  
+    Under Kubernetes, however, each application that requires external access is associated with a `service`.  A service is a fixed endpoint in the cluster that routes traffic to a given application.  So, in this example, there are distinct service endpoints for PingFederate, PingDataConsole, and the other products.  
 
-    These service endpoints are load balanced using the Nginx ingress controller, allowing you to access them using typical URL entries.
+    In this demo, these service endpoints are load balanced using the Nginx ingress controller. By adding entries to the `/etc/hosts` file, you can access them using typical URL entries.
 
 The Ping Identity Helm [Getting Started](https://helm.pingidentity.com/getting-started/) page has instructions on getting your environment configured for using the Ping Helm charts.
 
@@ -256,7 +256,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
     While the local port does not have to match the service port, it is recommended for simplicity. If you use a different local port, adjust the URLs below accordingly.
 
-    With the appropriate port-forward in place, you can access the products at these defaults.
+    With the ingresses in place, you can access the products at these URLs:
 
     | Product | Connection Details |
     | --- | --- |
