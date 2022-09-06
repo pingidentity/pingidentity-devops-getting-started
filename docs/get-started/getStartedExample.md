@@ -87,7 +87,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          pingctl k8s generate devops-secret | kubectl apply -f -
          ```
 
-    1.  This example will use the Helm release name `demo` and DNS domain suffix `*ping-local.com` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
+    1.  This example will use the Helm release name `demo` and DNS domain suffix `*ping-local.com` for accessing applications.  Add all expected hosts to `/etc/hosts`:
 
         ```sh
         echo '127.0.0.1 demo-pingaccess-admin.ping-local.com demo-pingaccess-engine.ping-local.com demo-pingauthorize.ping-local.com demo-pingauthorizepap.ping-local.com demo-pingdataconsole.ping-local.com demo-pingdelegator.ping-local.com demo-pingdirectory.ping-local.com demo-pingdatagovernance.ping-local.com demo-pingdatagovernancepap.ping-local.com demo-pingfederate-admin.ping-local.com demo-pingfederate-engine.ping-local.com demo-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
@@ -186,17 +186,17 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
            demo-pingfederate-engine-5ff6546f4f-7jfnt   1/1     Running   0          7m31s
            ```
 
-           * To see the ingresses you will use to access the product, run `kubectl get ingress`:
+           * To see the ingresses you will use to access the product, run `kubectl get ingress`. If the ingress controller is configured properly, you should see `localhost` as the address as shown here:
 
            ```text
-           NAME                       CLASS    HOSTS                                     ADDRESS   PORTS     AGE
-           demo-pingaccess-admin      <none>   demo-pingaccess-admin.ping-local.com                80, 443   17s
-           demo-pingaccess-engine     <none>   demo-pingaccess-engine.ping-local.com               80, 443   17s
-           demo-pingauthorize         <none>   demo-pingauthorize.ping-local.com                   80, 443   17s
-           demo-pingdataconsole       <none>   demo-pingdataconsole.ping-local.com                 80, 443   17s
-           demo-pingdirectory         <none>   demo-pingdirectory.ping-local.com                   80, 443   17s
-           demo-pingfederate-admin    <none>   demo-pingfederate-admin.ping-local.com              80, 443   17s
-           demo-pingfederate-engine   <none>   demo-pingfederate-engine.ping-local.com             80, 443   17s
+           NAME                       CLASS    HOSTS                                     ADDRESS     PORTS     AGE
+           demo-pingaccess-admin      <none>   demo-pingaccess-admin.ping-local.com      localhost   80, 443   5m23s
+           demo-pingaccess-engine     <none>   demo-pingaccess-engine.ping-local.com     localhost   80, 443   5m23s
+           demo-pingauthorize         <none>   demo-pingauthorize.ping-local.com         localhost   80, 443   5m23s
+           demo-pingdataconsole       <none>   demo-pingdataconsole.ping-local.com       localhost   80, 443   5m23s
+           demo-pingdirectory         <none>   demo-pingdirectory.ping-local.com         localhost   80, 443   5m23s
+           demo-pingfederate-admin    <none>   demo-pingfederate-admin.ping-local.com    localhost   80, 443   5m23s
+           demo-pingfederate-engine   <none>   demo-pingfederate-engine.ping-local.com   localhost   80, 443   5m23s
            ```
 
            * To see everything tied to the helm release run `kubectl get all --selector=app.kubernetes.io/instance=demo`:
@@ -260,10 +260,10 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
     | Product | Connection Details |
     | --- | --- |
-    | [PingFederate](https://localhost:9999/pingfederate/app) | <ul> <li>URL: [https://localhost:9999/pingfederate/app](https://localhost:9999/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDirectory](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: ldaps://demo-pingdirectory-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingAccess](https://localhost:9000) | <ul><li>URL: [https://localhost:9000](https://localhost:9000)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingAuthorize](https://localhost:8443/console) | <ul><li>URL: [https://localhost:8443/console](https://localhost:8443/console)</li><li>Server: ldaps://demo-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingFederate](https://demo-pingfederate-admin.ping-local.com/pingfederate/app) | <ul> <li>URL: [https://demo-pingfederate-admin.ping-local.com/pingfederate/app](https://demo-pingfederate-admin.ping-local.com/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingDirectory](https://demo-pingdataconsole.ping-local.com/console) | <ul><li>URL: [https://demo-pingdataconsole.ping-local.com/console](https://demo-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://demo-pingdirectory-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingAccess](https://demo-pingaccess-admin.ping-local.com/) | <ul><li>URL: [https://demo-pingaccess-admin.ping-local.com/](https://demo-pingaccess-admin.ping-local.com/)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingAuthorize](https://demo-pingdataconsole.ping-local.com/console) | <ul><li>URL: [https://demo-pingdataconsole.ping-local.com/console](https://demo-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://demo-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
 
 3. When you are finished, you can remove the demonstration components by running the uninstall command for helm:
 
@@ -276,4 +276,4 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 Now that you have deployed a set of our product images using the provided chart, you can move on to deployments using configurations that more closely reflect use cases to be explored.  Refer to the [helm examples](../deployment/deployHelm.md)) page for other typical deployments.
 
 !!! warning "Container logging"
-    Logging in containers is different from typical server-deployed application implementation.  See [this page](../reference/containerLogging.md) for additional details.
+    Maintaining logs in a containerized model is different from the typical server-deployed application.  See [this page](../reference/containerLogging.md) for additional details.
