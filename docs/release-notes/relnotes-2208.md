@@ -26,6 +26,6 @@ title: DevOps Docker Builds, Version 2208 (September 01 2022)
 - Liberica JDK 17.0.4+8 -> 17.0.4.1+1
 - Alpine 3.16.1 -> 3.16.2
 
-### Product Build Matrix
-- See the [Product Version, Image Release Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vSvySYHZxK-NOMeOMKSVjZWRr64T4raSNfrkcxdTRUxsftSwKgAN5z_gQarxywjIPJaVG8WJMt7ehXI/pub?output=pdf)
+### Supported Product Releases
+- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
   for currently supported image and product versions.

@@ -42,7 +42,6 @@ title: DevOps Docker Builds, Version 2204 (May 05 2022)
     - Updated the PingDataSync restart logic to include use of the manage-profile replace-profile command to support running PingDataSync with a persistent volume. This allows for updating the PingDataSync configuration on container restart, without requiring deploying a fresh container or volume.
 
 
-### Product Build Matrix
-
-- See the [Product Version, Image Release Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vSvySYHZxK-NOMeOMKSVjZWRr64T4raSNfrkcxdTRUxsftSwKgAN5z_gQarxywjIPJaVG8WJMt7ehXI/pub?output=pdf)
-for currently supported image and product versions.
+### Supported Product Releases
+- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
+  for currently supported image and product versions.

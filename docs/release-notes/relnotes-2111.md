@@ -50,11 +50,6 @@ title: DevOps Docker Builds, Version 2111 (December 06 2021)
 - (BRASS-80) - 07-apply-server-profile hook now handles PingDirectory restart correctly.
 - (BRASS-172) - Default values have been added for PF_LDAP_USERNAME and PF_LDAP_PASSWORD to work around startup errors for PingFederate images.
 
-### Product Build Matrix
-
-- See the [Product Version, Image Release Matrix](../../reference/productVersionMatrix/)
-for currently supported image and product versions.
-
-- The following versions are no longer actively maintained:
-    - PingFederate 10.3.3
-    - PingAccess 6.3.1
+### Supported Product Releases
+- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
+  for currently supported image and product versions.

@@ -24,7 +24,7 @@ title: DevOps Docker Builds, Version 2202 (March 03 2022)
     - Issues Resolved
       - Update default global.image.tag to 2202
 
-### Product Build Matrix
+### Supported Product Releases
+- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
+  for currently supported image and product versions.
 
-- See the [Product Version, Image Release Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vSvySYHZxK-NOMeOMKSVjZWRr64T4raSNfrkcxdTRUxsftSwKgAN5z_gQarxywjIPJaVG8WJMt7ehXI/pub?output=pdf)
-for currently supported image and product versions.

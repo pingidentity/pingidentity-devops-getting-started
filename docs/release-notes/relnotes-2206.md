@@ -36,7 +36,6 @@ title: DevOps Docker Builds, Version 2206 (July 01 2022)
 ### Features
 - (BRASS-440) Kubernetes deployment script of Ping Intelligence
 
-### Product Build Matrix
-
-- See the [Product Version, Image Release Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vSvySYHZxK-NOMeOMKSVjZWRr64T4raSNfrkcxdTRUxsftSwKgAN5z_gQarxywjIPJaVG8WJMt7ehXI/pub?output=pdf)
+### Supported Product Releases
+- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
   for currently supported image and product versions.

@@ -25,7 +25,7 @@ title: DevOps Docker Builds, Version 2203 (April 01 2022)
 - [Release 0.8.8](https://helm.pingidentity.com/release-notes/previousReleases/#release-088-mar-16-2022)
 - [Release 0.8.7](https://helm.pingidentity.com/release-notes/previousReleases/#release-087-mar-11-2022)
 
-### Product Build Matrix
+### Supported Product Releases
+- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
+  for currently supported image and product versions.
 
-- See the [Product Version, Image Release Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vSvySYHZxK-NOMeOMKSVjZWRr64T4raSNfrkcxdTRUxsftSwKgAN5z_gQarxywjIPJaVG8WJMt7ehXI/pub?output=pdf)
-for currently supported image and product versions.

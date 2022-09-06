@@ -43,9 +43,8 @@ title: DevOps Docker Builds, Version 2205 (June 02 2022)
 ### Features
 - (BRASS-434) Support Null SecurityContext in Helm Charts for Openshift
     - Enables the helm charts to generate with workload.securityContext as null, permitting the Openshift environment to generate the security context properly.
-        
 
-### Product Build Matrix
 
-- See the [Product Version, Image Release Matrix](https://docs.google.com/spreadsheets/d/e/2PACX-1vSvySYHZxK-NOMeOMKSVjZWRr64T4raSNfrkcxdTRUxsftSwKgAN5z_gQarxywjIPJaVG8WJMt7ehXI/pub?output=pdf)
-for currently supported image and product versions.
+### Supported Product Releases
+- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
+  for currently supported image and product versions.
