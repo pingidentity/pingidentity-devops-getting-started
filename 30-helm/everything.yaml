@@ -10,7 +10,6 @@ pingaccess-admin:
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingaccess
-    SERVER_PROFILE_BRANCH: "2207"
   container:
     waitFor:
       pingfederate-engine:
@@ -22,39 +21,33 @@ pingaccess-engine:
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingaccess
-    SERVER_PROFILE_BRANCH: "2207"
 
 pingdataconsole:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingdataconsole
-    SERVER_PROFILE_BRANCH: "2207"
 
 pingauthorize:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingauthorize
-    SERVER_PROFILE_BRANCH: "2207"
 
 pingdirectory:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingdirectory
-    SERVER_PROFILE_BRANCH: "2207"
 
 pingfederate-admin:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingfederate
-    SERVER_PROFILE_BRANCH: "2207"
 
 pingfederate-engine:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingfederate
-    SERVER_PROFILE_BRANCH: "2207"

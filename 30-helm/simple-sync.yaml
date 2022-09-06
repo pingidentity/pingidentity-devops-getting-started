@@ -8,14 +8,12 @@ pingdataconsole:
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingdataconsole
-    SERVER_PROFILE_BRANCH: "2207"
 
 pingdatasync:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: simple-sync/pingdatasync
-    SERVER_PROFILE_BRANCH: "2207"
     USER_BASE_DN: o=sync
 
 pingdirectory:
@@ -23,5 +21,4 @@ pingdirectory:
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: simple-sync/pingdirectory
-    SERVER_PROFILE_BRANCH: "2207"
     USER_BASE_DN: o=sync
