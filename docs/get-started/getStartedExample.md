@@ -150,7 +150,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          #    --set help.values={ image }   # Provides image values merged with global         
          ```
 
-        As you can see, PingAccess Admin and Engine, PingData Console, PingDirectory, and the PingFederate Admin and Engine are deployed from the provided `everything.yaml` values file.
+        As you can see, PingAccess Admin and Engine, PingData Console, PingDirectory, PingAuthorize, and the PingFederate Admin and Engine are deployed from the provided `everything.yaml` values file.
 
         It will take several minutes for all components to become operational.
 
@@ -160,17 +160,17 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
            ```text
            NAME                            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                   AGE
-           demo-pingaccess-admin           ClusterIP   10.96.234.72     <none>        9090/TCP,9000/TCP         15m
+           demo-pingaccess-admin           ClusterIP   10.106.227.103   <none>        9090/TCP,9000/TCP         15m
            demo-pingaccess-admin-cluster   ClusterIP   None             <none>        <none>                    15m
-           demo-pingaccess-engine          ClusterIP   10.106.190.217   <none>        3000/TCP                  15m
-           demo-pingauthorize              ClusterIP   10.104.246.123   <none>        443/TCP                   15m
+           demo-pingaccess-engine          ClusterIP   10.108.102.245   <none>        3000/TCP                  15m
+           demo-pingauthorize              ClusterIP   10.110.95.132    <none>        443/TCP                   15m
            demo-pingauthorize-cluster      ClusterIP   None             <none>        1636/TCP                  15m
-           demo-pingdataconsole            ClusterIP   10.96.166.28     <none>        8443/TCP                  15m
-           demo-pingdirectory              ClusterIP   10.107.42.8      <none>        443/TCP,389/TCP,636/TCP   15m
+           demo-pingdataconsole            ClusterIP   10.97.81.22      <none>        8443/TCP                  15m
+           demo-pingdirectory              ClusterIP   10.102.91.214    <none>        443/TCP,389/TCP,636/TCP   15m
            demo-pingdirectory-cluster      ClusterIP   None             <none>        1636/TCP                  15m
-           demo-pingfederate-admin         ClusterIP   10.105.26.94     <none>        9999/TCP                  15m
+           demo-pingfederate-admin         ClusterIP   10.99.145.24     <none>        9999/TCP                  15m
            demo-pingfederate-cluster       ClusterIP   None             <none>        7600/TCP,7700/TCP         15m
-           demo-pingfederate-engine        ClusterIP   10.99.223.48     <none>        9031/TCP                  15m
+           demo-pingfederate-engine        ClusterIP   10.108.240.203   <none>        9031/TCP                  15m
            ```
 
            * To view the pods, run `kubectl get pods --selector=app.kubernetes.io/instance=demo` - you will need to run this at intervals until all pods have started (** Running ** status):
