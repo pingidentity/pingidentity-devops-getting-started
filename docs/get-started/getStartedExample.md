@@ -96,7 +96,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
     1. To install the chart, go to your local `"${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/30-helm` directory and run the command shown here.  In this example, the release (deployment into Kubernetes by Helm) is called `demo`, forming the prefix for all objects created. The `ingress-demo.yaml` file configures the ingresses for the products to use the **_ping-local_** domain:
 
         ```sh
-        helm install demo pingidentity/ping-devops -f everything.yaml -f ingress-demo.yaml
+        helm upgrade --install demo pingidentity/ping-devops -f everything.yaml -f ingress-demo.yaml
         ```
 
         The product Docker images are automatically pulled if they have not previously been pulled from [Docker Hub](https://hub.docker.com/u/pingidentity/).
