@@ -199,6 +199,10 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
            demo-pingfederate-engine   <none>   demo-pingfederate-engine.ping-local.com   localhost   80, 443   5m23s
            ```
 
+        !!! error "Address must be localhost"
+            If the ingress controller is working properly, the ingress definitions will all report the ADDRESS column as `localhost` as shown above.  If you do not see this entry, then you will not be able to access the services later.  This problem is due to a known error with Docker Desktop and the embedded virtual machine (VM) used on the Mac and Windows platform in combination with the ingress controller. To correct the problem, uninstall the chart as instructed at the bottom of this page and restart Docker Desktop.  Afterward, you can re-run the helm command to install the Ping products as instructed above.  The [issue appears to be related to a stale networking configuration](https://github.com/kubernetes/ingress-nginx/issues/7686) under the covers of Docker Desktop.
+
+
            * To see everything tied to the helm release run `kubectl get all --selector=app.kubernetes.io/instance=demo`:
 
            ```text
@@ -253,8 +257,6 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
     !!! note "Certificates"
         This example uses self-signed certificates that will have to be accepted in your browser or added to your keystore.
-
-    While the local port does not have to match the service port, it is recommended for simplicity. If you use a different local port, adjust the URLs below accordingly.
 
     With the ingresses in place, you can access the products at these URLs:
 
