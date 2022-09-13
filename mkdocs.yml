@@ -83,7 +83,7 @@ nav:
       - License: "home/license.md"
       - Disclaimer: "home/disclaimer.md"
       - Third-Party Software:  "home/3rdPartySoftware.md"
-      - Recent portal updates: "home/portalUpdates.md"
+      - Portal updates: "home/portalUpdates.md"
   - Ping Docker Images:
       - Introduction: "docker-images/dockerImagesRef.md"
       - Product Images:

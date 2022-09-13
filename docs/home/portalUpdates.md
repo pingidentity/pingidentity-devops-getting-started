@@ -1,5 +1,5 @@
 # Recent portal updates
-This page provides details on recent significant changes to this portal.
+This page provides details on significant changes to this portal.
 
 # July 2022
 
