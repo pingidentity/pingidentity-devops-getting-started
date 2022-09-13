@@ -374,7 +374,6 @@ Pros:
 * The `/data` folder, as opposed to a `data.json` file, is better for [profile layering](profilesLayered.md).
 * Configuration is available on engines at startup, which:
     * lowers dependency on the admin at initial cluster startup
-    * enables mixed configurations in a single cluster. You can perform a canary-like "roll-out" instead of having the same configuration pushed to all engines at once.
 
 Cons:
 
