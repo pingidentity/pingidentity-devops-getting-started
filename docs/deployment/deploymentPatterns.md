@@ -7,45 +7,67 @@ This page discusses how to have a successful first day and beyond.
 
 After you are comfortable with the deployment examples in the getting-started repository, you can shift your focus to managing ongoing operations of the products that are relevant to you. Since it is not feasible to cover every operating scenario, this section will focus on guidance to identify an operating pattern suitable for your organization.
 
-The PingFederate application is used as an example of performing this assessment.
+The PingFederate application is used as an example of performing this assessment with some example patterns.
 
 ## PingFederate Configuration Management
 
 PingFederate has a variety of operating patterns. These patterns typically involve a trade-off between ease of implementation and mitigation of deployment risks.
 
-To simplify the moving parts we will categorize PingFederate Configuration into three categories:
+To simplify the moving parts, PingFederate configuration can be categorized into three patterns:
 
-**Infrastructure Config**
+### 1) Infrastructure Configuration
 
-* Examples: Resource allocation (CPU/Memory/Storage), Client Ingress (Access and Hostnames), Image Version, Exposed Ports, Environment Variable Definition, Secrets Definition
-* Orchestration - These items are defined in the [release's values.yaml](https://helm.sh/docs/chart_template_guide/values_files/) and any change triggers an update.
+#### Examples of managed components:
+  -  Resource allocation (CPU/Memory/Storage)
+  -  Client Ingress (Access and Hostnames)
+  -  Image Version
+  -  Exposed Ports
+  -  Environment Variable Definitions
+  -  Secrets Definitions
 
-**Server Config**
+#### Orchestration
+ - These items are defined in the [release values.yaml file](https://helm.sh/docs/chart_template_guide/values_files/) and any changes here triggers an update.
 
-* Examples: `*.properties` files, Integration Kits, HTML Templates, logs formatting (log4j2.xml). This can be oversimplified to _everything besides_ the `/instance/server/default/data` folder or `/instance/bulk-config/data.json`.
-* Orchestration - These items are stored in the [Server Profile](../how-to/containerAnatomy.md) and any change _should_ trigger an update. It is up to the implementor to ensure that happens. This can be done by adding a non-functional variable in values.yaml to track the current profile "version". Example: `SERVER_PROFILE_VERSION: v1.1`
+### 2) Server Configuration
 
-**App Config**
+This pattern can be oversimplified to _everything outside of_ the `/instance/server/default/data` folder or `/instance/bulk-config/data.json`.
+#### Examples of managed components:
 
-* Examples - Core PingFederate configuration. Changes that are typicaly made through the UI or Admin APIs. This can be oversimplified to the `/instance/server/default/data` folder or `/instance/bulk-config/data.json`.
-* Orchestration - Dependent of your operating pattern this changes may be delivered via a rolling update, or by configuration replication.
+  - `*.properties` files
+  - Integration Kits
+  - HTML templates
+  - log formatting (log4j2.xml)
+
+#### Orchestration
+These items are stored in the [Server Profile](../how-to/containerAnatomy.md) and any change _should_ trigger an update. It is up to the implementer to ensure that happens. Triggering an update can be done by adding a non-functional variable in `values.yaml` to track the current profile "version". Example: `SERVER_PROFILE_VERSION: v1.1`
+
+### 3) Application Configuration (App Config)
+
+This pattern can be oversimplified to the `/instance/server/default/data` folder or `/instance/bulk-config/data.json`.
+
+#### Managed components
+
+This category is the core PingFederate configuration. This pattern incorporates changes that are typically made through the UI or Admin APIs.
+
+#### Orchestration
+Depending on your operating pattern, changes here may be delivered through a rolling update or by configuration replication.
 
 ## PingFederate Data Mount
 
-In the most common pattern, we attach a persistent volume to `/opt/out/instance/server/default/data` on the PingFederate Admin Console _only_.
+In the most common pattern, a user would attach a persistent volume (PV) to `/opt/out/instance/server/default/data` _only_ on the PingFederate Admin Console.
 
-This pattern is intended to be used when PingFederate Administrators need to deliver configuration through the UI in _each environment, including production_. Another reason for this may be if SP connections are allowed to be created by app developers via Admin API. In both of these scenarios, the defining factor is that there are mutations in the production Admin console that are not being tracked in any other way, like source control, and therefore must be persisted.
+This model is intended to be used when PingFederate Administrators need to deliver configuration through the UI in _each environment, including production_. Another reason for this use case may be if SP connections are allowed to be created by app developers using the Admin API. In both of these scenarios, the defining factor is that there are mutations in the production Admin console that are not being tracked in any other way, such as through source control, and therefore must be persisted.
 
 **Attributes of this pattern**:
 
-* App Config is persisted in each SDLC environment (e.g. Dev, QA, Prod).
-* App Config promotion is done manually or via Admin API.
-* App Config is replicated from Admin Console to Engines.
-* Server Config is maintained and delivered via server profile.
-* Server profile _does not_ include App Config.
-* Backups are taken regularly in case of Persistent Volume loss or corruption.
+- App Config is persisted in each SDLC environment (e.g. Dev, QA, Prod)
+- App Config promotion is done manually or via the Admin API
+- App Config is replicated from Admin Console to Engines
+- Server Config is maintained and delivered via the server profile
+- Server profile _does not_ include App Config
+- Backups are taken regularly to provide recovery in case of PV loss or corruption
 
-### Data Mount Example
+### Data Mount Helm Example
 
 Helm values relevant to this configuration may look like:
 
@@ -55,9 +77,9 @@ Helm values relevant to this configuration may look like:
     container:
       replicaCount: 1
     envs:
-      SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-      SERVER_PROFILE_PATH: pf-data-mount/pingfederate
-      SERVER_PROFILE_VERSION: v1.1
+      SERVER_PROFILE_URL: <insert your server profile URL here>
+      SERVER_PROFILE_PATH: <insert your server profile path here>
+      SERVER_PROFILE_VERSION: <server profile version>
     workload:
       type: StatefulSet
       statefulSet:
@@ -78,9 +100,9 @@ Helm values relevant to this configuration may look like:
   pingfederate-engine:
     enabled: true
     envs:
-      SERVER_PROFILE_URL: https://github.com/samir-gandhi/server-profiles.git
-      SERVER_PROFILE_PATH: pf-data-mount/pingfederate
-      SERVER_PROFILE_VERSION: v1.1
+      SERVER_PROFILE_URL: <insert your server profile URL here>
+      SERVER_PROFILE_PATH: <insert your server profile path here>
+      SERVER_PROFILE_VERSION: <server profile version>
     container:
       replicaCount: 3
     workload:
@@ -93,29 +115,29 @@ Helm values relevant to this configuration may look like:
             maxUnavailable: 0
   ```
 
-The key aspect here is `pingfederate-admin.workload.statefulset.persistentvoume.volumes.out-dir.mountPath=/opt/out/instance/server/default/data`. This is where all UI configuration (App Config) is stored as files. Because this is the `mountPath`, PingFederate admins have the freedom to deliver any files _not_ used in `/opt/out/instance/server/default/data` via Server Profile.
+The key aspect here is `pingfederate-admin.workload.statefulset.persistentvolume.volumes.out-dir.mountPath=/opt/out/instance/server/default/data`. This location is where all UI configuration (App Config) is stored as files. As this location is the `mountPath`, PingFederate administrators have the freedom to deliver any files _not_ used in `/opt/out/instance/server/default/data` via a Server Profile.
 
 For example, adding a new IDP adapter requires a restart of the service in order for the adapter to be identified and available to App Config. The steps in this case would be:
 
-1. Add the adapter at `https://github.com/samir-gandhi/server-profiles/pf-data-mount/pingfederate/instance/server/defaule/deploy/idp-adapter-name-1.jar`
-1. update `SERVER_PROFILE_VERSION: v1.1` -> `SERVER_PROFILE_VERSION: v1.2` on both the admin and engine
-1. run `helm upgrade --install myping pingidentity/ping-devops -f /path/to/values.yaml`
+1. Add the adapter at `<server profile URL>/<server profile path>/pingfederate/instance/server/default/deploy/idp-adapter-name-1.jar`
+1. Update `SERVER_PROFILE_VERSION: v1.1` -> `SERVER_PROFILE_VERSION: v1.2` on both the admin and engine deployments
+1. Run `helm upgrade --install myping pingidentity/ping-devops -f /path/to/values.yaml`
 
-If the release already existed, the variable change signifies that the definition has mutated, and thus must be re-deployed. The admin pod will be deleted and recreated, while the engines will surge and roll one by one.
+If the release already exists, the variable change signifies that the definition has mutated, and therefore must be redeployed. The admin pod will be deleted and recreated while the engines will surge and roll one by one.
 
 Reference links:
 
-* [K8s - Performing a Rolling Update](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/)
-* [K8s - Update a deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
+- [K8s - Performing a Rolling Update](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/)
+- [K8s - Update a deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
 
 ### Data Mount Pros and Cons
 
-**Values with this approach**
+#### Values with this approach
 
-* Managing App Config is more familiar to PingFederate admins with traditional experience.
-* Less to account for when building a CI/CD pipeline because there is no config export + templating.
-* Ability to have configurations different in each environment
+- Managing App Config is more familiar to PingFederate administrators with traditional experience
+- Fewer parts to consider when building a CI/CD pipeline because there is no configuration export and templating needed
+- Ability to have configurations different in each environment
 
-**Cautions with this approach**
+#### Cautions with this approach
 
-* More room for user configuration error and outage because configurations are not promoted with automated testing.
+- There is more room for user configuration error and possible outages because configurations are not promoted with automated testing
