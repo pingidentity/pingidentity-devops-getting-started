@@ -65,6 +65,7 @@ This model is intended to be used when PingFederate Administrators need to deliv
 - App Config is replicated from Admin Console to Engines
 - Server Config is maintained and delivered via the server profile
 - Server profile _does not_ include App Config
+- Server profile **_must not_** have `instance/bulk-config/data.json` or `/instance/server/default/data`
 - Backups are taken regularly to provide recovery in case of PV loss or corruption
 
 ### Data Mount Helm Example
@@ -120,7 +121,7 @@ The key aspect here is `pingfederate-admin.workload.statefulset.persistentvolume
 For example, adding a new IDP adapter requires a restart of the service in order for the adapter to be identified and available to App Config. The steps in this case would be:
 
 1. Add the adapter at `<server profile URL>/<server profile path>/pingfederate/instance/server/default/deploy/idp-adapter-name-1.jar`
-1. Update `SERVER_PROFILE_VERSION: v1.1` -> `SERVER_PROFILE_VERSION: v1.2` on both the admin and engine deployments
+1. Update `SERVER_PROFILE_VERSION: <current version>` -> `SERVER_PROFILE_VERSION: <new version>` on both the admin and engine deployments (for example, v1.1 -> v1.2)
 1. Run `helm upgrade --install myping pingidentity/ping-devops -f /path/to/values.yaml`
 
 If the release already exists, the variable change signifies that the definition has mutated, and therefore must be redeployed. The admin pod will be deleted and recreated while the engines will surge and roll one by one.
