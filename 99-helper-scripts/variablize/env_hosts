@@ -1,6 +1,0 @@
-federate.dev.pingidentity.com PF_HOSTNAME
-federate.prod.pingidentity.com PF_HOSTNAME
-access.dev.pingidentity.com PA_HOSTNAME
-access.prod.pingidentity.com PA_HOSTNAME
-directory.dev.pingidentity.com PD_HOSTNAME
-directory.prod.pingidentity.com PD_HOSTNAME
