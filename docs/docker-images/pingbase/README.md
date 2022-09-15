@@ -48,7 +48,7 @@ this image.
 | PING_IDENTITY_DEVOPS_KEY_REDACT  | true  |  |
 | TAIL_LOG_FILES  |   | A whitespace separated list of log files to tail to the container standard output - DO NOT USE WILDCARDS like /path/to/logs/*.log  |
 | COLORIZE_LOGS  | true  | If 'true', the output logs will be colorized with GREENs and REDs, otherwise, no colorization will be done.  This is good for tools that monitor logs and colorization gets in the way.  |
-| LOCATION  | Docker  | Location default value  |
+| LOCATION  | Docker  | Location default value If PingDirectory is deployed in multi cluster mode, that is, K8S_CLUSTER, K8S_CLUSTERS and K8S_SEED_CLUSTER are defined, LOCATION is ignored and K8S_CLUSTER is used as the location  |
 | LOCATION_VALIDATION  | true|Any string denoting a logical/physical location|Must be a string  |  |
 | MAX_HEAP_SIZE  | 384m  | Heap size (for java products)  |
 | JVM_TUNING  | AGGRESSIVE  |  |
