@@ -3,12 +3,9 @@ title:  Using Certificates with Images
 ---
 # Using Certificates with Images
 
-This page provides details for using certificates with the Ping Identity images. Specifically it outlines the preferred locations to place the certificate and PIN/key files to provide best security practices and enable use by the underlying Ping Identity product.
+This page provides details for using certificates with the Ping Identity images. Specifically, it outlines the preferred locations to place the certificate and PIN/key files to provide best security practices and enable use by the underlying Ping Identity product.
 
 Currently, certificates can be provided to the PingData products when the containers are started.
-
-!!! warning "Prior to the 2008 sprint release"
-    Before the 2008 release, you were encouraged to place these files in the server profile (.../.sec/keystore). To align with security best practices, this approach is no longer longer recommended Instead, use a secret to pass the files to the containers.
 
 ## Before you begin
 
