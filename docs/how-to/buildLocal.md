@@ -3,7 +3,7 @@ title: Build a Docker Product Image Locally
 ---
 # Building a Docker product image locally
 
-Build a Docker image of our products using the build tools found in our [Docker Builds](https://github.com/pingidentity/pingidentity-docker-builds) repo and a local copy of a product .zip archive.
+This page describes the process to build a Docker image of our products with the build tools found in our [Docker Builds](https://github.com/pingidentity/pingidentity-docker-builds) repository and a local copy of a product .zip archive.
 
 <div class="iconbox" onclick="window.open('https://github.com/pingidentity/pingidentity-docker-builds','');">
     <img class="assets" src="../../images/logos/github.png"/>

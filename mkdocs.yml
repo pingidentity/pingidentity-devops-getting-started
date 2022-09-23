@@ -139,21 +139,21 @@ nav:
           - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
           - Migrating to Unprivileged Images: "how-to/migratingRootToUnprivileged.md"
       - Set PingFederate Provisioner Node ID: "how-to/assignPFNodeId.md"
+      - Adding a MOTD: "how-to/addMOTD.md"
+      - Build Local Product Image: "how-to/buildLocal.md"
   - Reference:
       - Components and Configuration: "reference/config.md"
       - Server Profile: "reference/profileStructures.md"
-      - Docker Compose YAML: "reference/yamlFiles.md"
       - Variables and Scope: "reference/variableScoping.md"
       - Certificates: "reference/usingCertificates.md"
       - Troubleshooting: "reference/troubleshooting.md"
       - FAQs: "reference/faqs.md"
-      - Advanced Topics:
-          - DevOps Hooks: "reference/hooks.md"
-          - Adding a MOTD: "reference/addMOTD.md"
-          - Build Local Images: "reference/buildLocal.md"
+      - DevOps Hook Scripts: "reference/hooks.md"
       - Kubernetes Basics: "reference/k8sBasics.md"
       - Helm Basics: "reference/HelmBasics.md"
       - Container Logging: "reference/containerLogging.md"
+      - Deprecated:
+        - Docker Compose YAML: "reference/yamlFiles.md"
   #- Videos:
   #    - Placeholder: "videos/placeholder.md"
   - Release Notes:
