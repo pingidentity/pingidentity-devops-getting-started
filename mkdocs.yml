@@ -147,7 +147,6 @@ nav:
       - Variables and Scope: "reference/variableScoping.md"
       - Certificates: "reference/usingCertificates.md"
       - Troubleshooting: "reference/troubleshooting.md"
-      - FAQs: "reference/faqs.md"
       - DevOps Hook Scripts: "reference/hooks.md"
       - Kubernetes Basics: "reference/k8sBasics.md"
       - Helm Basics: "reference/HelmBasics.md"
@@ -190,6 +189,7 @@ nav:
         - Version 2005: "release-notes/relnotes-2005.md"
         - Version 2004: "release-notes/relnotes-2004.md"
         - Version 2003: "release-notes/relnotes-2003.md"
+  - Customer FAQs: "reference/faqs.md"
   - Contact Us:
     - Contributing: "contact-us/contributing.md"
     - Community: "contact-us/community.md"

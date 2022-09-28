@@ -83,12 +83,12 @@ To access a given service, enter the HOSTS entry in your browser (you will have 
 
 Here are the credentials and URLs.  This table is similar to the getting started example but reflects the release name used on this page:
 
-| Product | Connection Details |
-| --- | --- |
-| [PingFederate](https://myping-pingfederate-admin.ping-local.com/pingfederate/app) | <ul> <li>URL: [https://myping-pingfederate-admin.ping-local.com/pingfederate/app](https://myping-pingfederate-admin.ping-local.com/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+| Product | Connection Details                                                                                                                                                                                                                                              |
+| --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [PingFederate](https://myping-pingfederate-admin.ping-local.com/pingfederate/app) | <ul> <li>URL: [https://myping-pingfederate-admin.ping-local.com/pingfederate/app](https://myping-pingfederate-admin.ping-local.com/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul>                                  |
 | [PingDirectory](https:///myping-pingdataconsole.ping-local.com) | <ul><li>URL: [https://myping-pingdataconsole.ping-local.com/console](https://myping-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://myping-pingdirectory-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-| [PingAccess](https://myping-pingaccess-admin.ping-local.com) | <ul><li>URL: [https://myping-pingaccess-admin.ping-local.com](https://myping-pingaccess-admin.ping-local.com)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-| [PingAuthorize](https:///myping-pingdataconsole.ping-local.com) | <ul><li>URL: [https://myping-pingdataconsole/console](https://myping-pingdataconsole/console)</li><li>Server: ldaps://myping-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+| [PingAccess](https://myping-pingaccess-admin.ping-local.com) | <ul><li>URL: [https://myping-pingaccess-admin.ping-local.com](https://myping-pingaccess-admin.ping-local.com)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul>                                                                         |
+| [PingAuthorize](https:///myping-pingdataconsole.ping-local.com) | <ul><li>URL: [https://myping-pingdataconsole.ping-local.com/console](https://myping-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://myping-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
 
 ## Cleaning up
 

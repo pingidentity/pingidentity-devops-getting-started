@@ -35,7 +35,7 @@ This can be called on a running container in Kubernetes like so:
 ##  --profileRoot /tmp/pd.profile
 
 kubectl exec -it pingdirectory-0 \
-  -- manage-profile generate-profile \
+  --manage-profile generate-profile \
   --profileRoot /tmp/pd.profile
 ```
 
