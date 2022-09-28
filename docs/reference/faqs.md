@@ -51,24 +51,24 @@ In order to save configurations we would create a server profile and pass the co
 To create a custom server profile please visit <a href="https://devops.pingidentity.com/how-to/profiles/">Server Profile</a>.
 <p></p>
 
-<p><b>Examples on how to get profile data</b></p>
+<p><b>Examples on how to get the profile data from the different products</b></p>
 
 
-&emsp; <a href="https://devops.pingidentity.com/how-to/buildPingFederateProfile/">PingFederate</a>
+&emsp; <a href="https://devops.pingidentity.com/how-to/buildPingFederateProfile/">PingFederate</a> Profile
     ```
     curl -k https://localhost:9999/pf-admin-api/v1/bulk/export?includeExternalResources=false \
     -u administrator:2FederateM0re \
     -H 'X-XSRF-Header: PingFederate' \
     -o data.json
     ```
-&emsp; PingAccess
+&emsp; PingAccess Profile
     ```
     curl -k https://localhost:9000/pa-admin-api/v3/config/export \ 
     -u administrator:2FederateM0re \
     -H "X-XSRF-Header: PingAccess" \
     -o data.json
     ```
-&emsp; <a href="https://devops.pingidentity.com/how-to/buildPingDirectoryProfile/">PingDirectory</a>
+&emsp; <a href="https://devops.pingidentity.com/how-to/buildPingDirectoryProfile/">PingDirectory</a> Profile
     ```
     kubectl exec -it pingdirectory-0 \
     --manage-profile generate-profile \
@@ -77,13 +77,13 @@ To create a custom server profile please visit <a href="https://devops.pingident
 </details>
 
 <details>
-  <summary>How do I turn off license verification?</summary>
+  <summary>How do I turn off the license verification?</summary>
 
 <mark><b>MUTE_LICENSE_VERIFICATION="true"</b></mark>
 </details>
 
 <details>
-  <summary>How do I turn off calls to the Message of the Day (MOTD)?</summary>
+  <summary>How do I turn off the calls to the Message of the Day (MOTD)?</summary>
 
 <mark><b>MOTD_URL=""</b></mark>
 </details>
