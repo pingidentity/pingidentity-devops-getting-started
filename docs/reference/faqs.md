@@ -87,3 +87,14 @@ To create a custom server profile please visit <a href="https://devops.pingident
 
 <mark><b>MOTD_URL=""</b></mark>
 </details>
+
+<details>
+  <summary>My container environment is not allowed to make any external calls to services such <br> as Github or Docker Hub. Can I still use Ping Identity containers? </br> </summary>
+
+<p>Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:</p>
+
+&emsp; <br>1. Use an Existing License</br>
+&emsp; <br>2. Use an empty remote profile SERVER_PROFILE_URL="" Optionally, you can build your profile into the image</br>
+&emsp; <br>3. Turn off license verification with MUTE_LICENSE_VERIFICATION="true"</br>
+&emsp; <br>4. Turn off calls to the Message of the Day (MOTD) with MOTD_URL=""</br>
+</details>
