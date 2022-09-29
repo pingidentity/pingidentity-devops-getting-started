@@ -109,11 +109,13 @@ To create a custom server profile please visit <a href="https://devops.pingident
 <details>
   <summary>How do I turn off the calls to the Message of the Day (MOTD)?</summary>
 
-<mark><b>MOTD_URL=""</b></mark>
+Set the environment variables in PingBase to: <mark><b>MOTD_URL=""</b></mark>
+<p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a></p>
 </details>
 
 <details>
   <summary>How do I get more verbosity?</summary>
 
-<mark><b>VERBOSE=“true”</b></mark>
+Set the environment variables in PingBase to: <mark><b>VERBOSE=“true”</b></mark>
+<p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a></p>
 </details>
