@@ -84,6 +84,6 @@ You can customize our product containers by:
 
     You can try different tags in either the standalone startup scripts for the deployment examples or the YAML files for the orchestrated deployment examples.
 
-* [Adding a message of the day (MOTD)](addMOTD.md)
+* [Adding a message of the day (MOTD)](../how-to/addMOTD.md)
 
     You can use a `motd.json` file to add message of the day information for inclusion in the images.
