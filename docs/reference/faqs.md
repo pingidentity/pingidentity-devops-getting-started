@@ -37,7 +37,31 @@ There are a few ways you can access the consoles.
 2. With Helm, add the ingress control in the yaml file to access the container with a url. <a href="https://devops.pingidentity.com/deployment/deployHelmLocalIngress/#create-ingresses">Ingress</a>
 </details>
 
+<details>
+  <summary>How do files move around when the container starts up?</summary>
+
+To find out how our files are moved at start up, please visit <a href="https://devops.pingidentity.com/reference/config/#file-flowchart-example">File Flowchart</a>
+</details>
+
+<details>
+  <summary>How do I customize a container?</summary>
+
+There are many ways to customize the container for a Ping product. For example, you can create a customized server profile to save configuration.
+<p>To find more ways on how to customize a container, please visit <a href="https://devops.pingidentity.com/reference/config/#customizing-the-containers">Customizing Containers</a></p>
+</details>
+
 ### Products
+<details>
+  <summary>My container environment is not allowed to make any external calls to services such <br> as Github or Docker Hub. Can I still use Ping Identity containers? </br> </summary>
+
+<p>Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:</p>
+
+<br>&emsp;1. Use an Existing License</br>
+<br>&emsp;2. Use an empty remote profile SERVER_PROFILE_URL="" Optionally, you can build your profile into the image</br>
+<br>&emsp;3. Turn off license verification with MUTE_LICENSE_VERIFICATION="true"</br>
+<br>&emsp;4. Turn off calls to the Message of the Day (MOTD) with MOTD_URL=""</br>
+</details>
+
 <details>
   <summary>How do I use an existing license?</summary>
 
@@ -89,12 +113,7 @@ To create a custom server profile please visit <a href="https://devops.pingident
 </details>
 
 <details>
-  <summary>My container environment is not allowed to make any external calls to services such <br> as Github or Docker Hub. Can I still use Ping Identity containers? </br> </summary>
+  <summary>How do I get more verbosity?</summary>
 
-<p>Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:</p>
-
-&emsp; <br>1. Use an Existing License</br>
-&emsp; <br>2. Use an empty remote profile SERVER_PROFILE_URL="" Optionally, you can build your profile into the image</br>
-&emsp; <br>3. Turn off license verification with MUTE_LICENSE_VERIFICATION="true"</br>
-&emsp; <br>4. Turn off calls to the Message of the Day (MOTD) with MOTD_URL=""</br>
+<mark><b>VERBOSE=“true”</b></mark>
 </details>
