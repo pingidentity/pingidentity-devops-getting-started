@@ -59,7 +59,7 @@ There are many ways to customize the container for a Ping product. For example, 
 <p>Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:</p>
 
 <br>&emsp;1. Use an <a href="https://devops.pingidentity.com/how-to/existingLicense">Existing License</a>.</br>
-<br>&emsp;2. Use an empty remote profile <mark><b>SERVER_PROFILE_URL=""</b></mark>.  Optionally, you can build your profile into the image.</br>
+<br>&emsp;2. Use an empty remote profile <mark><b>SERVER_PROFILE_URL=""</b></mark>.  Optionally, you can build your profile into the image, visit <a href="https://devops.pingidentity.com/how-to/profiles/">Server Profiles</a> for more information.</br>
 <br>&emsp;3. Turn off license verification with <mark><b>MUTE_LICENSE_VERIFICATION="true"</b></mark>.</br>
 <br>&emsp;4. Turn off calls to the Message of the Day (MOTD) with <mark><b>MOTD_URL=""</b></mark>.</br>
 </details>
@@ -96,7 +96,7 @@ In order to save configurations, create a server profile and store in a server p
 &emsp; <a href="https://devops.pingidentity.com/how-to/buildPingDirectoryProfile/">PingDirectory</a> Profile
     ```
     kubectl exec -it pingdirectory-0 \
-    --manage-profile generate-profile \
+    -- manage-profile generate-profile \
     --profileRoot /tmp/pd.profile
     ```
 </details>
