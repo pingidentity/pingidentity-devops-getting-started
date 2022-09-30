@@ -85,16 +85,16 @@ kubectl exec -it pingdirectory-0 \
 </details>
 
 <details>
-  <summary>What should my server profile consist of?</summary>
+  <summary>What should be in my server profile?</summary>
 
-For more information about what the server profile consist of, please visit <a href="https://devops.pingidentity.com/how-to/containerAnatomy/">Container Anatomy</a>.</p> and <a href="https://devops.pingidentity.com/reference/profileStructures/">Profile Structures</a>
+For more information about what information should be in the server profile consist, please visit <a href="https://devops.pingidentity.com/how-to/containerAnatomy/">Container Anatomy</a> and <a href="https://devops.pingidentity.com/reference/profileStructures/">Profile Structures</a>.
 </details>
 
 <details>
-  <summary>Does my server profile repo have to be Github?</summary>
+  <summary>Does my server profile have to be placed in Github?</summary>
 
-No, it can be any <a href="https://devops.pingidentity.com/how-to/profiles/#using-your-github-repository">Public</a> or <a href="https://devops.pingidentity.com/how-to/privateRepos/">Private</a> git repo.
-<p>You are also able to use a <a href="https://devops.pingidentity.com/how-to/profiles/#using-local-directories">Local Directory</a></p>
+No, it can be any <a href="https://devops.pingidentity.com/how-to/profiles/#using-your-github-repository">Public</a> or <a href="https://devops.pingidentity.com/how-to/privateRepos/">Private</a> git repository.
+<p>You are also able to use a <a href="https://devops.pingidentity.com/how-to/profiles/#using-local-directories">Local Directory</a> as your repository, which is convenient for testing and development.</p>
 </details>
 
 ### Products
