@@ -8,6 +8,10 @@ title: Deploy a Kubernetes Cluster Metrics Stack
 
 This document covers deploying and using a sample open-source monitoring stack in a Kubernetes cluster. The resulting environment should not be considered production-ready.  It is meant to show how quickly Ping DevOps software can produce metrics for consumption by a popular open-source monitoring system. This example metrics stack is not maintained or directly supported by Ping.
 
+!!! error "Kubernetes version notice"
+    The *Prometheus operator* used for this example is incompatible with Kubernetes v1.25 or later due to the removal of the deprecated [PodSecurityPolicy](https://kubernetes.io/docs/concepts/security/pod-security-policy/) object with that release.  As of September 2022, the operator only supports up through Kubernetes v1.24.  Until this is updated, your Kubernetes cluster must be V1.24 or lower to follow the example on this page.
+
+    See the compatibility chart at the [Prometheus operator](https://github.com/prometheus-operator/kube-prometheus) repository for more information.
 ## Stack Components
 
 **Open Source Tools**
