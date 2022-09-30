@@ -91,7 +91,7 @@ For more information about what information should be in the server profile cons
 </details>
 
 <details>
-  <summary>Does my server profile have to be placed in Github?</summary>
+  <summary>Does my server profile have to be hosted on Github?</summary>
 
 No, it can be any <a href="https://devops.pingidentity.com/how-to/profiles/#using-your-github-repository">Public</a> or <a href="https://devops.pingidentity.com/how-to/privateRepos/">Private</a> git repository.
 <p>You are also able to use a <a href="https://devops.pingidentity.com/how-to/profiles/#using-local-directories">Local Directory</a> as your repository, which is convenient for testing and development.</p>
