@@ -19,7 +19,6 @@ For information about product changes, refer to the release notes that can be fo
 
 ### Enhancements
 - Apache-Tomcat 9.0.65 -> 9.0.67
-- RedHat openssl 1.1.1k -> 1:1.1.1k
 
 ### Supported Product Releases
 - See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
