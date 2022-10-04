@@ -4,7 +4,7 @@ title: FAQs
 
 # Frequently asked questions
 
-### Containers
+### Docker Images
 
 <details>
   <summary>What are the latest Ping product versions available as Docker images?</summary>
@@ -27,17 +27,7 @@ We do not provide custom images, but you are welcome to build the image locally 
 It is important to note using a custom image might affect support options and timing.
 </details>
 
-### Helm / K8s
-<details>
-  <summary>How do I access various product consoles?</summary>
-
-For a Helm-deployed stack, there are two basic ways you can access the consoles.
-<p></p>
-
-<p>1. PortForward to the pod to access with localhost.</p>
-<p>&emsp; <mark><b>kubectl port-forward &#60;podName&#62; &#60;containerPort&#62;:&#60;localPort&#62;</b></mark></p>
-2. Using Helm, add the ingress definition in the yaml file in order to access the container with a URL. See <a href="https://devops.pingidentity.com/deployment/deployHelmLocalIngress/#create-ingresses">Creating Ingresses</a>. You must have an ingress controller in your cluster for the ingress to work.
-</details>
+### Container Operations
 
 <details>
   <summary>How do files move around when the container starts up?</summary>
@@ -45,7 +35,35 @@ For a Helm-deployed stack, there are two basic ways you can access the consoles.
 To find out how our files are moved at start up, please visit <a href="https://devops.pingidentity.com/reference/config/#file-flowchart-example">File Flowchart</a>.
 </details>
 
+<details>
+  <summary>How do I turn off the calls to the Message of the Day (MOTD)?</summary>
+
+Set the environment variable in PingBase to: <mark><b>MOTD_URL=""</b></mark>
+<p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a>.</p>
+</details>
+
+<details>
+  <summary>How do I get more verbosity in log outputs?</summary>
+
+Set the environment variables in PingBase to: <mark><b>VERBOSE=“true”</b></mark>
+<p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a></p>
+</details>
+
+### Orchestration / Helm / Kubernetes
+
+<details>
+  <summary>My container environment is not allowed to make any external calls to services such as Github or Docker <br> Hub. Can I still use Ping Identity containers? </br> </summary>
+
+<p>Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:</p>
+
+<br>&emsp;1. Use an <a href="https://devops.pingidentity.com/how-to/existingLicense">Existing License</a>.</br>
+<br>&emsp;2. Use an empty remote profile <mark><b>SERVER_PROFILE_URL=""</b></mark>.  Optionally, you can build your profile into the image, visit <a href="https://devops.pingidentity.com/how-to/profiles/">Server Profiles</a> for more information.</br>
+<br>&emsp;3. Turn off license verification with <mark><b>MUTE_LICENSE_VERIFICATION="true"</b></mark>.</br>
+<br>&emsp;4. Turn off calls to the Message of the Day (MOTD) with <mark><b>MOTD_URL=""</b></mark>.</br>
+</details>
+
 ### Configuration and Server Profile
+
 <details>
   <summary>How do I customize a container?</summary>
 
@@ -97,16 +115,17 @@ No, it can be any <a href="https://devops.pingidentity.com/how-to/profiles/#usin
 <p>You are also able to use a <a href="https://devops.pingidentity.com/how-to/profiles/#using-local-directories">Local Directory</a> as your repository, which is convenient for testing and development.</p>
 </details>
 
-### Products
+### Product related
+
 <details>
-  <summary>My container environment is not allowed to make any external calls to services such as Github or Docker <br> Hub. Can I still use Ping Identity containers? </br> </summary>
+  <summary>How do I access various product consoles?</summary>
 
-<p>Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:</p>
+For a Helm-deployed stack, there are two basic ways you can access the consoles.
+<p></p>
 
-<br>&emsp;1. Use an <a href="https://devops.pingidentity.com/how-to/existingLicense">Existing License</a>.</br>
-<br>&emsp;2. Use an empty remote profile <mark><b>SERVER_PROFILE_URL=""</b></mark>.  Optionally, you can build your profile into the image, visit <a href="https://devops.pingidentity.com/how-to/profiles/">Server Profiles</a> for more information.</br>
-<br>&emsp;3. Turn off license verification with <mark><b>MUTE_LICENSE_VERIFICATION="true"</b></mark>.</br>
-<br>&emsp;4. Turn off calls to the Message of the Day (MOTD) with <mark><b>MOTD_URL=""</b></mark>.</br>
+<p>1. PortForward to the pod to access with localhost.</p>
+<p>&emsp; <mark><b>kubectl port-forward &#60;podName&#62; &#60;containerPort&#62;:&#60;localPort&#62;</b></mark></p>
+2. Using Helm, add the ingress definition in the yaml file in order to access the container with a URL. See <a href="https://devops.pingidentity.com/deployment/deployHelmLocalIngress/#create-ingresses">Creating Ingresses</a>. You must have an ingress controller in your cluster for the ingress to work.
 </details>
 
 <details>
@@ -120,19 +139,5 @@ You can mount the license in the container's <mark><b>opt/in</b></mark> director
 
 Set the environment variable in PingBase to: <mark><b>MUTE_LICENSE_VERIFICATION="true"</b></mark>
 <p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a>.</p>
-
 </details>
 
-<details>
-  <summary>How do I turn off the calls to the Message of the Day (MOTD)?</summary>
-
-Set the environment variable in PingBase to: <mark><b>MOTD_URL=""</b></mark>
-<p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a>.</p>
-</details>
-
-<details>
-  <summary>How do I get more verbosity in log outputs?</summary>
-
-Set the environment variables in PingBase to: <mark><b>VERBOSE=“true”</b></mark>
-<p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a></p>
-</details>
