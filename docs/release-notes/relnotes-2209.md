@@ -5,7 +5,7 @@ title: DevOps Docker Builds, Version 2209 (October 04 2022)
 # Version 2209 Release Notes
 
 !!! note "Product release notes"
-    For information about product changes, refer to the release notes that can be found on each product's [download page](https://www.pingidentity.com/en/resources/downloads.html).
+For information about product changes, refer to the release notes that can be found on each product's [download page](https://www.pingidentity.com/en/resources/downloads.html).
 
 ## DevOps Docker Builds, Version 2209 (October 04 2022)
 
@@ -17,9 +17,8 @@ title: DevOps Docker Builds, Version 2209 (October 04 2022)
 - (BRASS-545) - Refined the Operating Patterns document for clarity and grammar: ([Deployment Patterns](https://devops.pingidentity.com/deployment/deploymentPatterns/))
 - (BRASS-556) - Corrected link to the product support matrix in recent release notes
 
-### Enhancements 
+### Enhancements
 - Apache-Tomcat 9.0.65 -> 9.0.67
-- RedHat openssl 1.1.1k -> 1:1.1.1k
 
 ### Supported Product Releases
 - See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
