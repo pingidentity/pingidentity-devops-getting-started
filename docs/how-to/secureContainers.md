@@ -1,14 +1,10 @@
 ---
 title: Securing the Containers
 ---
-# Securing the Containers
-
-!!! warning "Non-Privileged User by Default"
-    As of the 2103 (March 2021) release, Ping Identity Docker images run as a non-privileged user by default.
 
 ## Docker Best Practices
 
-Please visit the [Docker](https://docs.docker.com/engine/security/) website for more information on best practices to security a container.
+Please visit the [Docker](https://docs.docker.com/engine/security/) website for more information on best practices to secure a container.
 
 ## Kubernetes Best Practices
 
