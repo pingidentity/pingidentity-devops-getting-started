@@ -12,7 +12,7 @@ Please visit the [Docker](https://docs.docker.com/engine/security/) website for 
 
 ## Kubernetes Best Practices
 
-Please visit the [Kubernetes](https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/) website for more information on best practices to security a deployment.
+Please visit the [Kubernetes](https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/) website for more information on best practices to secure a deployment.
 
 ## Ping Identity's Docker Image Hardening Guide
 
