@@ -3,8 +3,12 @@ title: Deploy an Example Stack
 ---
 # Deploy an Example Stack
 
-!!! note "Networking"
-    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.12.0(85629)`, which includes Docker Engine `v20.10.17` and Kubernetes `v1.25.0`.  The ingress-nginx controller version was `1.3.0`.
+!!! note "Version"
+    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.11.1(84025)`, which includes Docker Engine `v20.10.17` and Kubernetes `v1.24.2`.  The ingress-nginx controller version was `1.3.0`.
+
+!!! error "Latest Docker Desktop Warning"
+
+    Docker Desktop 4.12 introduced Kubernetes `v1.25`.  This release dropped some deprecated functionality that impacts the ingress controller used in this example.  Until the Helm charts for the controller are updated to accomodate the removed APIs, this example will not work on version 4.12 or later.
 
 !!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
 
