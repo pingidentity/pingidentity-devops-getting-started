@@ -8,7 +8,7 @@ title: Deploy an Example Stack
 
 !!! error "Latest Docker Desktop Warning"
 
-    Docker Desktop 4.12 introduced Kubernetes `v1.25`.  This release dropped some deprecated functionality that impacts the ingress controller used in this example.  Until the Helm charts for the controller are updated to accomodate the removed APIs, this example will not work on version 4.12 or later.
+    Docker Desktop 4.12 introduced Kubernetes `v1.25`.  This release dropped some deprecated functionality that impacts the ingress controller used in this example.  Until the Helm charts for the controller are updated to accommodate the removed APIs, this example will not work on version 4.12 or later.
 
 !!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
 
