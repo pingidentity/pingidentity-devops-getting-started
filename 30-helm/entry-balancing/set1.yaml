@@ -1,0 +1,43 @@
+# Helm installation for replication set 1
+pingdirectory:
+  container:
+    replicaCount: 3
+  enabled: true
+  envs:
+    # Profile and profile variables
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: entry-balancing/pingdirectory
+    # Entry balancing base DN(s). Multiple can be added, delimited by a `;` character
+    REPLICATION_BASE_DNS: ou=people,dc=example,dc=com
+    RESTRICTED_BASE_DNS: ou=people,dc=example,dc=com
+    # Name of the replication set that these servers will belong to
+    REPLICATION_SET_NAME: set1
+    # Multi-region variables
+    K8S_CLUSTERS: set1 set2
+    K8S_CLUSTER: set1
+    K8S_SEED_CLUSTER: set1
+    K8S_NUM_REPLICAS: "3"
+    K8S_POD_HOSTNAME_PREFIX: "set1-pingdirectory-"
+    K8S_SEED_HOSTNAME_PREFIX: "set1-pingdirectory-"
+    K8S_POD_HOSTNAME_SUFFIX:  ".example.com"
+    K8S_SEED_HOSTNAME_SUFFIX:  ".example.com"
+  services:
+    ldap:
+      servicePort: 1389
+      containerPort: 1389
+      dataService: true
+      clusterService: true
+    ldaps:
+      servicePort: 1636
+      containerPort: 1636
+      dataService: true
+      clusterService: true
+    https:
+      servicePort: 1443
+      containerPort: 1443
+      ingressPort: 443
+      dataService: true
+    # These hostnames and the HOSTNAME_SUFFIX variables above will need to change
+    # in a real deployment, based on the external DNS used.
+    clusterExternalDNSHostname: example.com
+    dataExternalDNSHostname: example.com
