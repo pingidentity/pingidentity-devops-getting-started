@@ -54,6 +54,7 @@ this image.
 | PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE  |
 | UNBOUNDID_SKIP_START_PRECHECK_NODETACH  | true  | Setting this variable to true speeds up server startup time by skipping an unnecessary JVM check.  |
 | REPLICATION_BASE_DNS  |   | Base DNs to include when enabling replication, in addition to the always-included USER_BASE_DN. Multiple base DNs can be specified here, separated by a `;` character  |
+| RESTRICTED_BASE_DNS  |   | Base DNs to set as --restricted when enabling replication. Multiple base DNs can be specified here, separated by a `;` character. See the product documentation for more information on how to configure entry balancing.  |
 | PARALLEL_POD_MANAGEMENT_POLICY  | false  | Whether this container is running as a Pod in a Kubernetes StatefulSet, and that StatefulSet is using the Parallel podManagementPolicy. This property allows for starting up Pods in parallel to speed up the initial startup of PingDirectory topologies. This variable must be set to true when using the Parallel podManagementPolicy. Note: when using parallel startup, ensure the RETRY_TIMEOUT_SECONDS variable is large enough. The pods will be enabling replication simultaneously, so some pods will have to retry while waiting for others to complete. If the timeout is too low, a Pod may end up restarting unnecessarily.  |
 
 ## Ports Exposed
