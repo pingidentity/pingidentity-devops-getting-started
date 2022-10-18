@@ -1,7 +1,7 @@
 # Entry balancing example
 The yaml files in this directory provide an example entry balancing deployment. The hostnames used in these examples will need to be modified based on the external DNS being used. The yaml files can be used to deploy two PingDirectory replication sets and a PingDirectoryProxy instance that manages traffic to those PingDirectory instances.
 
-Entry balancing is only supported with PingDirectory and PingDirectoryProxy docker images version `2210` or later.
+Entry balancing is only supported with version `2210` or later of the PingDirectory and PingDirectoryProxy Docker images.
 
 The PingDirectory installations can run [across multiple clusters](https://devops.pingidentity.com/deployment/deployPDMultiRegion/). They can also be installed in the same cluster for testing.
 
