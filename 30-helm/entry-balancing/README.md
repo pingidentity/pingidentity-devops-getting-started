@@ -16,7 +16,7 @@ Then, deploy the proxy
 
 `helm upgrade --install proxy pingidentity/ping-devops -f proxy.yaml`
 
-Once all the servers are up, if the hostnames are set correctly and servers can reach each other, then you should see the load balancing algorithms defined and available when looking at the output of `status` on the proxy server:
+After all the servers are up, if the hostnames are set correctly and servers can reach each other, then you should see the load balancing algorithms defined and available when looking at the output of `status` on the proxy server:
 
 ```
           --- Load-Balancing Algorithms ---
