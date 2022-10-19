@@ -94,7 +94,7 @@ pingfederate-admin:
 ### Note on updating the product license when mounting it as a file
 If you are updating the license file for a product, simply replacing the file on the filesystem may not update the license of the running server.
 
-For PingData products (PingDirectory, PingDataSync, PingAuthorize, and PingDirectoryProxy) the license can be updated by copying the new license to the expected location in the server profile - `pd.profile/server-root/pre-setup`. Then dsconfig can be used to update the license on the running server. Ensure that the updated license file is still present in the server profile on subsequent restarts of the container.
+For PingData products (PingDirectory, PingDataSync, PingAuthorize, and PingDirectoryProxy) the license can be updated by copying the new license to the expected location in the server profile - `pd.profile/server-root/pre-setup`. After doing so, dsconfig can be used to update the license on the running server. Ensure that the updated license file is still present in the server profile on subsequent restarts of the container.
 
 For example, for PingDirectory:
 ```
@@ -104,4 +104,4 @@ dsconfig set-license-prop \
 
 The exact name of the license property in the above example will depend on which PingData product is being used.
 
-For non-PingData products, the license can be updated on the product with the typical method. This will depend on the product, but can generally be done either via the administrative console or via an API call. See the product documentation for details.
+For non-PingData products, the license can be updated on the product with the typical method. This process will depend on the product, but will generally be done either through the administrative console or using an API call. See the product documentation for details.
