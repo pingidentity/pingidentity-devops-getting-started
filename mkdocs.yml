@@ -152,8 +152,8 @@ nav:
       - Container Logging: "reference/containerLogging.md"
       - Deprecated:
         - Docker Compose YAML: "reference/yamlFiles.md"
-  #- Videos:
-  #    - Placeholder: "videos/placeholder.md"
+  - Videos:
+      - Introduction: "videos/videos.md"
   - Release Notes:
       - Current Release: "release-notes/currentRelease.md"
       - All Releases:
