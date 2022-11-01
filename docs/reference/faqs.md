@@ -62,6 +62,19 @@ Set the environment variables in PingBase to: <mark><b>VERBOSE=“true”</b></m
 <br>&emsp;4. Turn off calls to the Message of the Day (MOTD) with <mark><b>MOTD_URL=""</b></mark>.</br>
 </details>
 
+<details>
+  <summary>How do we run the console and engines in a container environment?</summary>
+
+The helm chart supports instantiating both consoles and engines.  Ingress to the consoles would have to be laid out for UI access.
+<p>For more information about the Ping's Helm Charts, please visit <a href="https://helm.pingidentity.com/">Ping Helm</a></p>
+</details>
+
+<details>
+  <summary>Can I use Podman instead of Docker?</summary>
+
+Yes, just like Docker, you will be able to use Podman for container orchestration.
+</details>
+
 ### Configuration and Server Profile
 
 <details>
