@@ -38,6 +38,8 @@ The following diagram shows how files can enter and flow through the container:
 
 ![File Flowchart Example](../images/container-anatomy-flow.svg)
 
+!!! note "There is a video that goes through the above image in more detail [here](https://videos.pingidentity.com/detail/videos/devops/video/6314748082112/ping-product-docker-image-exploration)."
+
 ### Production Example
 
 The following diagram shows an example in a high-level production scenario in an Amazon Web Services (AWS) EKS environment, where:
