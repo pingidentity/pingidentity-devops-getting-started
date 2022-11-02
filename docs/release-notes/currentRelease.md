@@ -1,25 +1,25 @@
 ---
-title: DevOps Docker Builds, Version 2209 (October 04 2022)
+title: DevOps Docker Builds, Version 2210 (November 02 2022)
 ---
 
-# Version 2209 Release Notes
+# Version 2210 Release Notes
 
 !!! note "Product release notes"
-    For information about product changes, refer to the release notes that can be found on each product's [download page](https://www.pingidentity.com/en/resources/downloads.html).
+For information about product changes, refer to the release notes that can be found on each product's [download page](https://www.pingidentity.com/en/resources/downloads.html).
 
-## DevOps Docker Builds, Version 2209 (October 04 2022)
+## DevOps Docker Builds, Version 2210 (November 02 2022)
 
 ### New Product Releases
-- PingAccess 7.1.2 and 7.0.6. EOL 7.1.1 and 7.0.5 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess))
-- LdapSDK to 6.0.6 ([Dockerhub](https://hub.docker.com/r/pingidentity/ldap-sdk-tools))
+- PingFederate 11.1.2 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate))
+- PingAccess 7.1.3, EOL 7.1.2 and 7.2.0-Beta ([Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess))
 
 ### Resolved Defects
-- (BRASS-545) - Refined the Operating Patterns document for clarity and grammar: ([Deployment Patterns](https://devops.pingidentity.com/deployment/deploymentPatterns/))
-- (BRASS-556) - Corrected link to the product support matrix in recent release notes
+- (BRASS-392) - Configure baseline server profile pf-connected-identities for DA configuration
 
-### Enhancements 
-- Apache-Tomcat 9.0.65 -> 9.0.67
-- RedHat openssl 1.1.1k -> 1:1.1.1k
+### Enhancements
+- Added support for the necessary dsreplication commands and arguments to deploy an entry-balanced PingDirectory topology.
+- Use the RESTRICTED_BASE_DNS environment variable to define the restricted base DNs for the topology. The multi-region environment variables (such as K8S_CLUSTER and K8S_SEED_CLUSTER) must also be defined when using entry balancing
+- com.unboundid.directory.server.MaintainConfigArchive=false has been set in the PingData images
 
 ### Supported Product Releases
 - See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)

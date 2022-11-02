@@ -157,6 +157,7 @@ nav:
   - Release Notes:
       - Current Release: "release-notes/currentRelease.md"
       - All Releases:
+        - Version 2210: "release-notes/relnotes-2210.md"
         - Version 2209: "release-notes/relnotes-2209.md"
         - Version 2208: "release-notes/relnotes-2208.md"
         - Version 2207: "release-notes/relnotes-2207.md"
