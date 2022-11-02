@@ -3,6 +3,9 @@ title: Deploy an Example Stack
 ---
 # Deploy an Example Stack
 
+!!! note "Video Demonstration"
+    A video demonstration of this example is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6313575361112/getting-started-walkthrough).
+
 !!! note "Version"
     This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.11.1(84025)`, which includes Docker Engine `v20.10.17` and Kubernetes `v1.24.2`.  The ingress-nginx controller version was `1.3.0`.
 

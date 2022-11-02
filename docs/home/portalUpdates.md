@@ -1,6 +1,12 @@
 # Recent portal updates
 This page provides details on significant changes to this portal.
 
+# November 2022
+
+## Video content is arriving
+
+In recent weeks, videos on topics relevant to the DevOps program at Ping have started to be released.  Look for links on some pages where the videos are relevant, or you can browse all videos [here](../videos/videos.md).
+
 # July 2022
 
 ## Removal of Docker Compose examples
