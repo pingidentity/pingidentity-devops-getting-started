@@ -10,7 +10,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     The instructions in this document are for testing and learning, and not intended for use in production.
 
 !!! note "Why not Docker Desktop?"
-    The process outlined on this page will create a Kubernetes in Docker ([kind](https://kind.sigs.k8s.io/)) cluster.  Kind is very similar in functionality to the Docker Desktop implementation of Kubernetes, but the advantage here is that it is more portable (not requiring Docker Desktop). In addition, the files provided will enable and deploy an ingress controller for communicating with the services in the cluster. In the [Getting Started](../get-started/getStartedExample.md) example, port-forwarding was needed with Docker Desktop.  With the ingress in place, a port-forward is not required.
+    The process outlined on this page will create a Kubernetes in Docker ([kind](https://kind.sigs.k8s.io/)) cluster.  Kind is very similar in functionality to the Docker Desktop implementation of Kubernetes, but the advantage here is that it is more portable (not requiring Docker Desktop). As with the [Getting Started](../get-started/getStartedExample.md) example, the files provided will enable and deploy an ingress controller for communicating with the services in the cluster from your localhost environment.
 
 ## Prerequisites
 
