@@ -27,7 +27,7 @@ This document covers deploying and using a sample open-source monitoring stack i
 
 ## Prerequisites
 
-It is assumed you are familiar with the prerequisites for the base Helm examples.  Beyond that, any knowledge of Prometheus, Grafana, and Telegraf is helpful.
+It is assumed you are familiar with the prerequisites for the base [Helm examples](https://devops.pingidentity.com/deployment/deployHelm/).  Beyond that, any knowledge of Prometheus, Grafana, and Telegraf is helpful.
 
 ## Deploy the Stack
 
@@ -87,3 +87,57 @@ The `Ping Identity Overview` dashboard will have a dropdown for namespace at the
 ![](../images/cluster-metrics-dashboard.png)
 
 Any of the panels can be edited, or new ones created to fit your needs.
+
+## HorizontalPodAutoscaler
+
+Provided that you use the `autoscaling/v2` API version, you can configure a HorizontalPodAutoscaler to scale based on a custom metric (that is not built in to Kubernetes or any Kubernetes component).
+If you are using our [Helm Charts](https://github.com/pingidentity/helm-charts), you can pass the custom metrics under `global.cluster.autoscalingMetricsTemplate`. The example code here will scale on a requests-per-second threshold of 10,000:
+```
+  - type: Pods
+    pods:
+     metric:
+       name: custom-metric
+     target:
+       type: AverageValue
+       averageValue: 10000m
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  - type: Object
+    object:
+      metric:
+        name: requests-per-second
+      describedObject:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        name: main-route
+      current:
+        value: 10k
+```
+
+As well as the behaviors for scaling up and down under `global.cluster.autoscaling.behavior`.
+```
+  scaleDown:
+    stabilizationWindowSeconds: 300
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type: Pods
+      value: 4
+      periodSeconds: 15
+    selectPolicy: Max
+```
+
+For more information on custom HPA metrics please visit [Kubernetes](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#scaling-on-custom-metrics)
+
+
