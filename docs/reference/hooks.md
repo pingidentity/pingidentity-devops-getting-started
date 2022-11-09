@@ -4,7 +4,7 @@ title: Using DevOps Hooks
 # Using DevOps hooks
 
 !!! note "Video exploration"
-    For more information on hook scripts, scroll to approximately the 10:15 mark (about halfway through) in the [Ping product Docker image exploration](https://videos.pingidentity.com/detail/videos/devops/video/6314748082112/ping-product-docker-image-exploration) video, where a discussion of the hook scripts takes place.
+    For more information on hook scripts, see the [Ping product image hook script exploration](https://videos.pingidentity.com/detail/video/6315184605112/hook-script-exploration) video.
 
 Our DevOps hooks are build-specific scripts that are called, or can be called, by the `entrypoint.sh` script used to start our product containers.
 
