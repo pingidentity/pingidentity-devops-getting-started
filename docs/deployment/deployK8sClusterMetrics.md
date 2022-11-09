@@ -100,6 +100,10 @@ If you are using our [Helm Charts](https://github.com/pingidentity/helm-charts),
      target:
        type: AverageValue
        averageValue: 10000m
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 80
 ```
 
 as well as the behaviors for scaling up and down under `global.cluster.autoscaling.behavior`
