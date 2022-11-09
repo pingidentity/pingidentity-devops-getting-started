@@ -103,7 +103,19 @@ If you are using our [Helm Charts](https://github.com/pingidentity/helm-charts),
   - type: Resource
     resource:
       name: cpu
-      targetAverageUtilization: 80
+      target:
+        type: Utilization
+        averageUtilization: 50
+  - type: Object
+    object:
+      metric:
+        name: requests-per-second
+      describedObject:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        name: main-route
+      current:
+        value: 10k
 ```
 
 as well as the behaviors for scaling up and down under `global.cluster.autoscaling.behavior`
