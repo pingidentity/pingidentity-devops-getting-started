@@ -91,7 +91,7 @@ Any of the panels can be edited, or new ones created to fit your needs.
 ## HorizontalPodAutoscaler
 
 Provided that you use the `autoscaling/v2` API version, you can configure a HorizontalPodAutoscaler to scale based on a custom metric (that is not built in to Kubernetes or any Kubernetes component).
-If you are using our [Helm Charts](https://github.com/pingidentity/helm-charts), you can pass the custom metrics under `global.cluster.autoscalingMetricsTemplate`
+If you are using our [Helm Charts](https://github.com/pingidentity/helm-charts), you can pass the custom metrics under `global.cluster.autoscalingMetricsTemplate`. The example code here will scale on a requests-per-second threshold of 10,000:
 ```
   - type: Pods
     pods:
@@ -118,7 +118,7 @@ If you are using our [Helm Charts](https://github.com/pingidentity/helm-charts),
         value: 10k
 ```
 
-as well as the behaviors for scaling up and down under `global.cluster.autoscaling.behavior`
+As well as the behaviors for scaling up and down under `global.cluster.autoscaling.behavior`.
 ```
   scaleDown:
     stabilizationWindowSeconds: 300
@@ -138,6 +138,6 @@ as well as the behaviors for scaling up and down under `global.cluster.autoscali
     selectPolicy: Max
 ```
 
-For more information on custom HPA metrics please visit [Kubernetes](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)
+For more information on custom HPA metrics please visit [Kubernetes](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#scaling-on-custom-metrics)
 
 
