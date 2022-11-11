@@ -6,12 +6,7 @@ test "${VERBOSE}" = "true" && set -x
 usage() {
     test -n "${*}" && echo "${*}"
     cat << END_USAGE
-Usage: ${0} [Pingfederate Version] {options}
-    where {options} include:
-    -u,--devops-user
-        value of PING_IDENTITY_DEVOPS_USER
-    -k,--devops-key
-        value of PING_IDENTITY_DEVOPS_KEY
+Usage: ${0} <Pingfederate Version>
 END_USAGE
     exit 99
 }
@@ -31,16 +26,6 @@ fi
 # Read in passed options
 while ! test -z "${1}"; do
     case "${1}" in
-        -u | --devops-user)
-            test -z "${2}" && usage "You must specify a Devops User with the ${1} option"
-            shift
-            export PING_IDENTITY_DEVOPS_USER="${1}"
-            ;;
-        -k | --devops-key)
-            test -z "${2}" && usage "You must specify a Devops Key with the ${1} option"
-            shift
-            export PING_IDENTITY_DEVOPS_KEY="${1}"
-            ;;
         -h | --help)
             usage
             ;;
@@ -50,11 +35,6 @@ while ! test -z "${1}"; do
     esac
     shift
 done
-
-# Make sure all required variables are now present in the environment
-if test -z "${NEW_PF_VERSION}" || test -z "${PING_IDENTITY_DEVOPS_USER}" || test -z "${PING_IDENTITY_DEVOPS_KEY}"; then
-    usage "ERROR: One or more variables are not specified: PingFederate Version, Devops User, and Devops Key"
-fi
 
 # Make sure "pingfederate-${NEW_PF_VERSION}.zip" has been provided at "/tmp/pingfederate-${NEW_PF_VERSION}.zip"
 echo "INFO: Checking for new PingFederate zip"
