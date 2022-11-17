@@ -4,16 +4,16 @@ title: Deploy a PingAccess Cluster Locally Without a Server Profile
 # Deploy a PingAccess Cluster Locally Without a Server Profile
 
 !!! warning "Demo Use Only"
-    The instructions in this document are for testing and learning, and not intended for use in production.
+    The instructions in this document are for testing and learning and are not intended for use in production.
 
 ## Purpose
-To create and deploy a default PingAccess Cluster, without having to create a custom server profile. This will allow you to quickly bring up the PingAccess UI and conduct and tests you need.
+Create and deploy a default PingAccess Cluster, without having to create a custom server profile. This process will allow you to quickly bring up the PingAccess UI and conduct any tests you need.
 
 ## Prerequisites
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 * Access to a Kubernetes cluster
-* Access to eks AWS image repository and the image tags
+* Access to EKS AWS image repository and the image tags
 
 ## Steps
 1. Confirm that your kuberenetes context and namespace are set correctly
@@ -26,7 +26,7 @@ To create and deploy a default PingAccess Cluster, without having to create a cu
     kubens -c
     ```
 
-    1. If they are not set, or are incorrect you can set them with the following commands. If you do not yet have a namespace, or do not have access to a kubernetes cluster, refer to [Deploy Example Stack](https://devops.pingidentity.com/get-started/getStartedExample/).
+    1. If these values are not set or are incorrect, you can set them with the following commands. If you do not yet have a namespace, or do not have access to a kubernetes cluster, refer to [Deploy Example Stack](https://devops.pingidentity.com/get-started/getStartedExample/).
 
         ```sh
         # Display kuberenetes context
@@ -42,10 +42,10 @@ To create and deploy a default PingAccess Cluster, without having to create a cu
     kubectl get pvc
 
     #Delete name_of_pvc persistent volume
-    kubectl delete pvc name_of_pvc
+    kubectl delete pvc <name_of_pvc>
     ```
 
-1. Create a YAML file like below. Make sure to replace "docker-builds-eks-repo" and "tag_name" with the repository and tag which you wish to pull and build.
+1. Create a YAML file similar to the one shown here. Make sure to replace "docker-builds-eks-repo" and "tag_name" with the repository and tag from which you wish to pull and build.
 
     ```sh
     global:
@@ -86,7 +86,7 @@ To create and deploy a default PingAccess Cluster, without having to create a cu
         PING_IDENTITY_PASSWORD: "2FederateM0re!"
     ```
 
-1. Create default PingAccess cluster. Make sure that you fill in the "PATH" to your new values.yaml file. This may take a few minutes to become healthy.
+1. Create the default PingAccess cluster. Make sure that you fill in the "PATH" to your new values.yaml file. This deployment may take a few minutes to become healthy.
 
     ```sh
     helm upgrade --install demo pingidentity/ping-devops -f ${PATH}/values.yaml
@@ -111,7 +111,7 @@ To create and deploy a default PingAccess Cluster, without having to create a cu
         demo-pingaccess-engine-6b977b9498-298jw   1/1     Running   0          28m
         ```
 
-    * To see the ingresses you will use to access the product, run `kubectl get ingress`. If the ingress controller is configured properly, the URL you will see under demo-pingaccess-admin HOST (`demo-pingaccess-admin.ping-devops.com`), will be the URL you use to access the PingAccess management console.
+    * To see the ingresses you will use to access the product, run `kubectl get ingress`. If the ingress controller is configured properly, the URL you will see under demo-pingaccess-admin HOST (`demo-pingaccess-admin.ping-devops.com`) will be the URL you use to access the PingAccess management console.
 
         ```text
         NAME                     CLASS    HOSTS                                    ADDRESS                                                                         PORTS     AGE
@@ -151,7 +151,7 @@ To create and deploy a default PingAccess Cluster, without having to create a cu
         kubectl logs demo-pingaccess-engine-6b977b9498
         ```
 
-1. Below are the credentials and URL to sign on to the PingAccess management console, once the cluster is up and healthy.
+1. Below are the credentials and URL to sign on to the PingAccess management console after the cluster is up and healthy.
 
     !!! note "Certificates"
         This example uses self-signed certificates that will have to be accepted in your browser or added to your keystore.
