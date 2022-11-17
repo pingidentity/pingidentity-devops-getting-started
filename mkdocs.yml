@@ -65,6 +65,7 @@ nav:
           - Kubernetes:
               - Create a local Kubernetes Cluster: "deployment/deployLocalK8sCluster.md"
               - Ping Identity Helm Charts: "deployment/deployHelm.md"
+              - Deploy a PingAccess Cluster Without a Server Profile: "deployPACluster.md"
               - Other Kubernetes Information:
                   - Sample Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
                   - Utility Sidecars: "deployment/deployK8sUtilitySidecar.md"

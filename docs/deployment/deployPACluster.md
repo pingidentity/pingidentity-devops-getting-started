@@ -12,9 +12,6 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
 ## Prerequisites
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-* Access to a Kubernetes cluster
-* Access to EKS AWS image repository and the image tags
-
 ## Steps
 1. Confirm that your kuberenetes context and namespace are set correctly
 
@@ -45,7 +42,7 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
     kubectl delete pvc <name_of_pvc>
     ```
 
-1. Create a YAML file similar to the one shown here. Make sure to replace "docker-builds-eks-repo" and "tag_name" with the repository and tag from which you wish to pull and build.
+1. Create a YAML file like below. Make sure to replace "image-repository" and "tag_name" with the repository and tag which you wish to pull and build.
 
     ```sh
     global:
@@ -67,7 +64,7 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
     privateCert:
         generate: true
     image:
-        repositoryFqn: ${docker-builds-eks-repo}/pingaccess
+        repositoryFqn: ${image-repository}/pingaccess
         tag: ${tag_name}
     envs: 
         PING_IDENTITY_PASSWORD: "2FederateM0re!"
@@ -80,7 +77,7 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
     container:
         replicaCount: 1
     image:
-        repositoryFqn: ${docker-builds-eks-repo}/pingaccess
+        repositoryFqn: ${image-repository}/pingaccess
         tag: ${tag_name}
     envs: 
         PING_IDENTITY_PASSWORD: "2FederateM0re!"
