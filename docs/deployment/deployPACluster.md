@@ -1,17 +1,19 @@
 ---
-title: Deploy a PingAccess Cluster Locally Without a Server Profile
+title: Deploy a PingAccess Cluster with PingIdentity Helm Charts Without a Server Profile
 ---
-# Deploy a PingAccess Cluster Locally Without a Server Profile
+# Deploy a PingAccess Cluster with PingIdentity Helm Charts Without a Server Profile
 
 !!! warning "Demo Use Only"
     The instructions in this document are for testing and learning and are not intended for use in production.
 
 ## Purpose
-Create and deploy a default PingAccess Cluster, without having to create a custom server profile. This process will allow you to quickly bring up the PingAccess UI and conduct any tests you need.
+Create and deploy a PingAccess Cluster using PingIdentity Helm Charts, without having to create a custom server profile. This process will allow you to quickly bring up the PingAccess UI and conduct any tests you need.
 
 ## Prerequisites
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+* Access to a Kubernetes cluster
+
 ## Steps
 1. Confirm that your kuberenetes context and namespace are set correctly
 
@@ -23,14 +25,14 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
     kubens -c
     ```
 
-    1. If these values are not set or are incorrect, you can set them with the following commands. If you do not yet have a namespace, or do not have access to a kubernetes cluster, refer to [Deploy Example Stack](https://devops.pingidentity.com/get-started/getStartedExample/).
+    If these values are not set or are incorrect, you can set them with the following commands. If you do not yet have a namespace, or do not have access to a kubernetes cluster, refer to [Deploy Example Stack](https://devops.pingidentity.com/get-started/getStartedExample/).
 
         ```sh
         # Display kuberenetes context
-        kubectx ${context}
+        kubectx <context>
 
         # Display namespace
-        kubens ${namespace}
+        kubens <namespace>
         ```
 1. Confirm that there are no persistent volumes
 
@@ -39,10 +41,12 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
     kubectl get pvc
 
     #Delete name_of_pvc persistent volume
-    kubectl delete pvc <name_of_pvc>
+    kubectl delete pvc <name-of-pvc>
     ```
+!!! warning "Implemetned for Sprint 2211 and onwards"
+    This functionality has only been implemented for Sprint tags of 2211 or later. Therefore, it will not work for all earlier tags.
 
-1. Create a YAML file like below. Make sure to replace "image-repository" and "tag_name" with the repository and tag which you wish to pull and build.
+1. Create a YAML file similar to the one shown here:
 
     ```sh
     global:
@@ -63,9 +67,6 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
     enabled: true
     privateCert:
         generate: true
-    image:
-        repositoryFqn: ${image-repository}/pingaccess
-        tag: ${tag_name}
     envs: 
         PING_IDENTITY_PASSWORD: "2FederateM0re!"
 
@@ -76,9 +77,6 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
     enabled: true
     container:
         replicaCount: 1
-    image:
-        repositoryFqn: ${image-repository}/pingaccess
-        tag: ${tag_name}
     envs: 
         PING_IDENTITY_PASSWORD: "2FederateM0re!"
     ```
@@ -86,7 +84,7 @@ Create and deploy a default PingAccess Cluster, without having to create a custo
 1. Create the default PingAccess cluster. Make sure that you fill in the "PATH" to your new values.yaml file. This deployment may take a few minutes to become healthy.
 
     ```sh
-    helm upgrade --install demo pingidentity/ping-devops -f ${PATH}/values.yaml
+    helm upgrade --install demo pingidentity/ping-devops -f <path-to-yaml>/values.yaml
     ```
 
 1. To display the status of the deployed components, you can use [k9s](https://k9scli.io/) or issue the corresponding commands shown here:
