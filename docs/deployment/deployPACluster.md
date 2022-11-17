@@ -34,7 +34,8 @@ Create and deploy a PingAccess Cluster using PingIdentity Helm Charts, without h
     # Display namespace
     kubens <namespace>
     ```
-1. Confirm that there are no conflicting persistent volumes. 
+
+2. Confirm that there are no conflicting persistent volumes. 
 
     ```sh
     #List any persistent volumes
@@ -45,10 +46,11 @@ Create and deploy a PingAccess Cluster using PingIdentity Helm Charts, without h
     #Delete name_of_pvc persistent volume
     kubectl delete pvc out-dir-demo-pingaccess-admin-0
     ```
+
 !!! warning "Implemetned for Sprint 2211 and onwards"
     This functionality has only been implemented for Sprint tags of 2211 or later. Therefore, it will not work for all earlier tags.
 
-1. Create a YAML file similar to the one shown here. Make sure to replace `insert domain name here` with your domain name.
+3. Create a YAML file similar to the one shown here. Make sure to replace `insert domain name here` with your domain name.
 
     ```sh
     global:
@@ -84,13 +86,13 @@ Create and deploy a PingAccess Cluster using PingIdentity Helm Charts, without h
         PING_IDENTITY_PASSWORD: "2FederateM0re!"
     ```
 
-1. Create the default PingAccess cluster. Make sure that you fill in the "PATH" to your new values.yaml file. This deployment may take a few minutes to become healthy.
+4. Create the default PingAccess cluster. Make sure that you fill in the "PATH" to your new values.yaml file. This deployment may take a few minutes to become healthy.
 
     ```sh
     helm upgrade --install demo pingidentity/ping-devops -f <path-to-yaml>/values.yaml
     ```
 
-1. To display the status of the deployed components, you can use [k9s](https://k9scli.io/) or issue the corresponding commands shown here:
+5. To display the status of the deployed components, you can use [k9s](https://k9scli.io/) or issue the corresponding commands shown here:
 
     * Display the services (endpoints for connecting) by running `kubectl get service --selector=app.kubernetes.io/instance=demo`
 
@@ -149,24 +151,24 @@ Create and deploy a PingAccess Cluster using PingIdentity Helm Charts, without h
         kubectl logs demo-pingaccess-engine-6b977b9498
         ```
 
-1. Below are the credentials and URL to sign on to the PingAccess management console after the cluster is up and healthy.
+6. Below are the credentials and URL to sign on to the PingAccess management console after the cluster is up and healthy.
 
     !!! note "Certificates"
         This example uses self-signed certificates that will have to be accepted in your browser or added to your keystore.
 
-    With the ingress in place, you can access the product at this URL:
+    With the ingress in place, you can access the product at the URL seen below, using the domain-name you set in you values.yaml file.
 
     | Product | Connection Details |
     | --- | --- |
-    | PingAccess | <ul><li>URL: https://demo-pingaccess-admin.\<domain-name></li><li>Username: Administrator</li><li>Password: 2FederateM0re!</li></ul> |
+    | PingAccess | <ul><li>URL: https://demo-pingaccess-admin.(domain-name)</li><li>Username: Administrator</li><li>Password: 2FederateM0re!</li></ul> |
 
-1. When you are finished, you can remove the demonstration components by running the uninstall command for helm:
+7. When you are finished, you can remove the demonstration components by running the uninstall command for helm:
 
     ```sh
     helm uninstall demo
     ```
 
-1. Finally make sure to prune the persistent volume created in the deployment of your PingAccess cluster, by running the delete pvc command for kubectl:
+8. Finally make sure to prune the persistent volume created in the deployment of your PingAccess cluster, by running the delete pvc command for kubectl:
 
     ```sh
     #Delete name_of_pvc persistent volume
