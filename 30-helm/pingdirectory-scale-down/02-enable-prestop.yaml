@@ -1,0 +1,14 @@
+pingdirectory:
+  #TODO remove the image section from the final example
+  image:
+    repositoryFqn: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds/pingdirectory
+    tag: 9.1.0.0-alpine_3.17.0-al11-BRASS-570-dont-remove-seed-server-c9725009-x86_64
+  enabled: true
+  container:
+    replicaCount: 3
+    # Add the preStop hook to run the remove-defunct-server tool
+    lifecycle:
+      preStop:
+        exec:
+          command:
+          - /opt/staging/hooks/90-shutdown-sequence.sh
