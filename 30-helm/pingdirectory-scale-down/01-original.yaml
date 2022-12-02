@@ -1,0 +1,5 @@
+pingdirectory:
+  enabled: true
+  container:
+    # An initial deployment with 3 replicas
+    replicaCount: 3
