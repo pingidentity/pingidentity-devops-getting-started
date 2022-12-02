@@ -36,7 +36,7 @@ this image.
 | KEYSTORE_FILE  |   | Location of the keystore file containing the server certificate. If left undefined, the SECRETS_DIR will be checked for a keystore. If that keystore does not exist, the server will generate a self-signed certificate.  |
 | KEYSTORE_PIN_FILE  |   | Location of the pin file for the keystore defined in KEYSTORE_FILE. If left undefined, the SECRETS_DIR will be checked for a pin file. This value does not need to be defined when allowing the server to generate a self-signed certificate.  |
 | KEYSTORE_TYPE  |   | Format of the keystore defined in KEYSTORE_FILE. One of "jks" or "pkcs12". If not defined, the keystore format will be inferred based on the file extension of the KEYSTORE_FILE, defaulting to "jks".  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/pingauthorize-pap.log ${SERVER_ROOT_DIR}/logs/setup.log ${SERVER_ROOT_DIR}/logs/start-server.log ${SERVER_ROOT_DIR}/logs/stop-server.log  | Files tailed once container has started  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/authorize-pe.log ${SERVER_ROOT_DIR}/logs/management-audit.log ${SERVER_ROOT_DIR}/logs/policy-db.log ${SERVER_ROOT_DIR}/logs/setup.log ${SERVER_ROOT_DIR}/logs/start-server.log ${SERVER_ROOT_DIR}/logs/stop-server.log  | Files tailed once container has started  |
 | REST_API_HOSTNAME  | localhost  | Hostname used for the REST API (deprecated, use `PING_EXTERNAL_BASE_URL` instead)  |
 | DECISION_POINT_SHARED_SECRET  | 2FederateM0re  | Define shared secret between PAZ and the Policy Editor  |
 | PING_ENABLE_API_HTTP_CACHE  | true  | When set to `false`, disables default HTTP API caching in the Policy Manager, Trust Framework and Test Suite  |
@@ -163,6 +163,10 @@ For example, to perform backups daily at UTC noon and place backups in
            --env PING_H2_BACKUP_DIR=/opt/out/backup \
            --publish 8443:1443 \
            --detach \
+           --env PING_IDENTITY_ACCEPT_EULA=YES \
+           --env PING_IDENTITY_DEVOPS_USER \
+           --env PING_IDENTITY_DEVOPS_KEY \
+           --tmpfs /run/secrets \
            pingidentity/pingauthorizepap:edge
 ```
 

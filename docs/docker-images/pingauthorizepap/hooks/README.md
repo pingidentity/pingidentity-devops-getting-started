@@ -3,6 +3,7 @@
 List of available hooks:
 * [18-setup-sequence.sh](18-setup-sequence.sh.md)
 * [183-run-setup.sh](183-run-setup.sh.md)
+* [184-run-policy-db.sh](184-run-policy-db.sh.md)
 * [80-post-start.sh](80-post-start.sh.md)
 * [81-install-policies.sh](81-install-policies.sh.md)
 * [pingauthorizepap.lib.sh](pingauthorizepap.lib.sh.md)
