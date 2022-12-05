@@ -1,0 +1,11 @@
+pingdirectory:
+  enabled: true
+  container:
+    # Don't change the replicaCount yet
+    replicaCount: 3
+    # Add the preStop hook to run the remove-defunct-server tool
+    lifecycle:
+      preStop:
+        exec:
+          command:
+          - /opt/staging/hooks/90-shutdown-sequence.sh

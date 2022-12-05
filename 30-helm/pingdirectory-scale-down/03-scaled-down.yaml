@@ -1,0 +1,16 @@
+pingdirectory:
+  enabled: true
+  container:
+    # Scale down to 2 replicas and remove the preStop hook
+    replicaCount: 2
+    # Disable the hook
+    #lifecycle:
+    #  preStop:
+    #    exec:
+    #      command:
+    #      - /opt/staging/hooks/90-shutdown-sequence.sh
+    
+    # Alternatively, you can keep the preStop hook uncommented and enabled,
+    # but use this environment variable to disable the logic of the script
+    #envs:
+    #  SKIP_SHUTDOWN_SEQUENCE: "true"
