@@ -83,7 +83,7 @@ JQ_EXPR=".[] | select(.validFrom <= ${CURR_DATE} and .validTo >= ${CURR_DATE}) |
                          (.message | join(\"\n\")) +
                \"\n\""
 
-for category in "devops" "pingaccess" "pingdatagovernance" "pingdatasync" "pingdirectory" "pingdirectoryproxy" "pingfederate" ;
+for category in "devops" "pingaccess" "pingdatasync" "pingdirectory" "pingdirectoryproxy" "pingfederate" ;
 do
     echo "
 ################################################################################
