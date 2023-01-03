@@ -94,7 +94,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
     1.  This example will use the Helm release name `demo` and DNS domain suffix `*ping-local.com` for accessing applications.  Add all expected hosts to `/etc/hosts`:
 
         ```sh
-        echo '127.0.0.1 demo-pingaccess-admin.ping-local.com demo-pingaccess-engine.ping-local.com demo-pingauthorize.ping-local.com demo-pingauthorizepap.ping-local.com demo-pingdataconsole.ping-local.com demo-pingdelegator.ping-local.com demo-pingdirectory.ping-local.com demo-pingdatagovernance.ping-local.com demo-pingdatagovernancepap.ping-local.com demo-pingfederate-admin.ping-local.com demo-pingfederate-engine.ping-local.com demo-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
+        echo '127.0.0.1 demo-pingaccess-admin.ping-local.com demo-pingaccess-engine.ping-local.com demo-pingauthorize.ping-local.com demo-pingauthorizepap.ping-local.com demo-pingdataconsole.ping-local.com demo-pingdelegator.ping-local.com demo-pingdirectory.ping-local.com demo-pingfederate-admin.ping-local.com demo-pingfederate-engine.ping-local.com demo-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
         ```
 
     1. To install the chart, go to your local `"${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/30-helm` directory and run the command shown here.  In this example, the release (deployment into Kubernetes by Helm) is called `demo`, forming the prefix for all objects created. The `ingress-demo.yaml` file configures the ingresses for the products to use the **_ping-local_** domain:
@@ -131,8 +131,6 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          #    pingauthorizepap
          #    pingcentral
          #  √ pingdataconsole       2207               /         /
-         #    pingdatagovernance
-         #    pingdatagovernancepap
          #    pingdatasync
          #    pingdelegator
          #  √ pingdirectory         2207               /         /

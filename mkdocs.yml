@@ -96,8 +96,6 @@ nav:
           - PingCommon: "docker-images/pingcommon/README.md"
           - PingDataCommon: "docker-images/pingdatacommon/README.md"
           - PingDataConsole: "docker-images/pingdataconsole/README.md"
-          - PingDataGovernance: "docker-images/pingdatagovernance/README.md"
-          - PingDataGovernance PAP: "docker-images/pingdatagovernancepap/README.md"
           - PingDataSync: "docker-images/pingdatasync/README.md"
           - PingDelegator: "docker-images/pingdelegator/README.md"
           - PingDirectory: "docker-images/pingdirectory/README.md"
