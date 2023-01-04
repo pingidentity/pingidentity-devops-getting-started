@@ -10,25 +10,22 @@ For information about product changes, refer to the release notes that can be fo
 ## DevOps Docker Builds, Version 2212 (January 03 2023)
 
 ### New Product Releases
-- PingAccess 7.2.0 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess))
-- PingDirectory 9.2.0.0 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
-- PingAuthorize 9.2.0.0 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize))
-- PingDataSync 9.2.0.0 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
-- PingDirectoryProxy 9.2.0.0 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
+- PingAccess 7.2.0 releases and PingAccess products 7.0.x are no longer built ([Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess))
+- PingData products 9.2.0.0 released and PingData products 9.0.0.x are no longer built
+    - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
+    - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
+    - PingDataSync ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
+    - PingAuthorize ([Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize))
+    - PingDataConsole ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdataconsole))
 
 ### Resolved Defects
 - (BRASS-522) Remove PingDataGovernance/PingDataGovernancePAP images and documentation
-- (BRASS-653) Resolved shellcheck errors causing pipeline to fail
-- (BRASS-655) Delete EA and Beta Images from DockerHub
-- (BRASS-655) Disable Old Archive Process to ECR
+- (BRASS-657) Disable Old Archive Process to ECR
 - (BRASS-655) Cleanup Old edge images from Artifactory
 - (BRASS-604) Update our server profiles for PF to not use tcp.xml.subst
 
 ### Documentation
 - Added [Reference CICD Pipeline Demonstration](https://videos.pingidentity.com/detail/videos/devops/video/6318020361112/reference-cicd-pipeline-demonstration)
-
-### Enhancements
-- All images tags are now archived in artifactory for internal access (without needing GTE-role)
 
 ### Supported Product Releases
 - See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
