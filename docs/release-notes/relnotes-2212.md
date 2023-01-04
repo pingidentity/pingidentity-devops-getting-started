@@ -20,8 +20,6 @@ For information about product changes, refer to the release notes that can be fo
 
 ### Resolved Defects
 - (BRASS-522) Remove PingDataGovernance/PingDataGovernancePAP images and documentation
-- (BRASS-657) Disable Old Archive Process to ECR
-- (BRASS-655) Cleanup Old edge images from Artifactory
 - (BRASS-604) Update our server profiles for PF to not use tcp.xml.subst
 
 ### Documentation
