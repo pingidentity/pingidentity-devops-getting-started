@@ -2,12 +2,12 @@
 title: DevOps Docker Builds, Version 2211 (December 09 2022)
 ---
 
-# Version 2210 Release Notes
+# Version 2211 Release Notes
 
 !!! note "Product release notes"
 For information about product changes, refer to the release notes that can be found on each product's [download page](https://www.pingidentity.com/en/resources/downloads.html).
 
-## DevOps Docker Builds, Version 2210 (November 02 2022)
+## DevOps Docker Builds, Version 2211 (December 09 2022)
 
 ### New Product Releases
 - PingDirectory 9.1.0.1 and EOL 9.1.0.0 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
