@@ -3,7 +3,7 @@ Every effort is made by Ping Identity’s DevOps team to provide supporting docu
 
 However, Ping Identity cannot support custom scripts or template technology. For further support, please contact your Ping Identity representative.
 
-Copyright \(C\) 2022 Ping Identity Corporation
+Copyright \(C\) 2023 Ping Identity Corporation
 
 All rights reserved.
 

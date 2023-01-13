@@ -30,9 +30,9 @@ this image.
 | LICENSE_FILE_NAME  | pingaccess.lic  | Name of license file  |
 | LICENSE_SHORT_NAME  | PA  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
-| PA_ADMIN_PASSWORD  | ${INITIAL_ADMIN_PASSWORD}  |  |
 | OPERATIONAL_MODE  | STANDALONE  |  |
-| PA_ADMIN_PASSWORD_INITIAL  | 2Access  | Change **non-default** password at startup by including this and PING_IDENTITY_PASSWORD  |
+| PA_ADMIN_PASSWORD_INITIAL  | 2Access  |  |
+| PING_IDENTITY_PASSWORD  | 2FederateM0re  | Specify a password for administrator user for interaction with admin API  |
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | Files tailed once container has started  |
 | PA_ADMIN_PORT  | 9000  |  |
@@ -42,7 +42,6 @@ this image.
 | SHOW_LIBS_VER_PRE_PATCH  | false  | Defines a variable to allow showing library version prior to patches being applied default to false This is helpful to ensure that the patch process updates all libraries affected  |
 | PA_ENGINE_PORT  | 3000  |  |
 | ADMIN_WAITFOR_TIMEOUT  | 300  | wait-for timeout for 80-post-start.sh hook script How long to wait for the PA Admin console to be available  |
-| PING_IDENTITY_PASSWORD  | ${PA_ADMIN_PASSWORD}  | Specify a password for administrator user for interaction with admin API  |
 
 ## Ports Exposed
 
@@ -91,4 +90,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document is auto-generated from _[pingaccess/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/Dockerfile)_
 
-Copyright © 2022 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

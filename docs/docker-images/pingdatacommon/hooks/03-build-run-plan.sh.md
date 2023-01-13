@@ -9,4 +9,4 @@ title: Ping Identity DevOps `pingdatacommon` Hook - `03-build-run-plan.sh`
 ---
 This document is auto-generated from _[pingdatacommon/opt/staging/hooks/03-build-run-plan.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/opt/staging/hooks/03-build-run-plan.sh)_
 
-Copyright © 2022 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

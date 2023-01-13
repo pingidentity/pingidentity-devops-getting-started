@@ -9,4 +9,4 @@ title: Ping Identity DevOps `pingdatasync` Hook - `80-post-start.sh`
 ---
 This document is auto-generated from _[pingdatasync/opt/staging/hooks/80-post-start.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatasync/opt/staging/hooks/80-post-start.sh)_
 
-Copyright © 2022 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.
