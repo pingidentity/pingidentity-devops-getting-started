@@ -12,4 +12,4 @@ title: Ping Identity DevOps `pingdirectory` Hook - `07-apply-server-profile.sh`
 ---
 This document is auto-generated from _[pingdirectory/opt/staging/hooks/07-apply-server-profile.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/opt/staging/hooks/07-apply-server-profile.sh)_
 
-Copyright © 2022 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.
