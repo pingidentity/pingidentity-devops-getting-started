@@ -26,6 +26,7 @@ this image.
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingDirectoryProxy  | Ping product name  |
 | LICENSE_FILE_NAME  | PingDirectory.lic  | Name of license File  |
+| LICENSE_DIR  | ${PD_LICENSE_DIR}  | PD License directory. This value is set from the pingbase docker file  |
 | LICENSE_SHORT_NAME  | PD  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
 | ADMIN_USER_NAME  | admin  | Replication administrative user  |
