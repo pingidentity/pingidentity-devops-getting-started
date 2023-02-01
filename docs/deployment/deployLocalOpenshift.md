@@ -10,7 +10,7 @@ title: Deploy a Local Openshift Cluster
     Openshift is a licensed product following the open source model where "upstream" versions are available under community licensing, but the official release supported by [Red Hat](https://www.redhat.com/en) requires a subscription in order to access the software for installation.  This guide assumes the user has access to such a license.  Red Hat provides a [free Developer account](https://developers.redhat.com/blog/2016/03/31/no-cost-rhel-developer-subscription-now-available) that allows a participant to obtain a 60-day license of the supported Openshift product at no charge.
 
 !!! note "Video Demonstration"
-    A video demonstration of the process outlined on this page is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6313575361112/getting-started-walkthrough).
+    A video demonstration of the process outlined on this page is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6319613511112/openshift-local-demonstration).
 
 Some customers are using Openshift as their platform for running Ping containerized applications.  If this is the case, access to an Openshift cluster is assumed.  Even in those cases, there are times where a local implementation of Openshift for development and testing is convenient.  
 
