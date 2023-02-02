@@ -78,11 +78,11 @@ Yes, just like Docker, you will be able to use Podman for container orchestratio
 <details>
   <summary>Why does Ping recommand K8s vs docker?</summary>
 
-<br>&emsp;1. Docker or a pure container solution like ECS by itself is generally not as robust or resilient as a K8s environment.  That being said, managed Docker services like ECS can provide some of the kubernetes trappings, but that locks you into AWS only and you would have a slightly different experience at Google, Azure, etc.  Kubernetes, even managed like EKS, provide more flexibility and portability</br>
-<br>&emsp;2. It is the model we use for our SaaS offerings, so support, sales, etc. are more familiar with that model</br>
-<br>&emsp;3. Orchestration among multiple applications and services is native to Kubernetes, a bit of an add-on with Container-only services</br>
-<br>&emsp;4. Workload management using K8s primitives (HPA, etc.)</br>
-<br>&emsp;5. Management through IaaC principles using Helm Charts and values files</br>
+<br>&emsp;1. Docker or a pure container solution like ECS by itself is generally not as robust or resilient as a K8s environment. While managed Docker services like ECS provide some of the functionality of Kubernetes, you are locked into that provider and you would have a different experience at Google, Azure, or another cloud provider. Kubernetes, even managed services like EKS, provides more flexibility and portability.</br>
+<br>&emsp;2. It is the model we use for our SaaS offerings, so internal teams at Ping are more familiar with this model.</br>
+<br>&emsp;3. Orchestration among multiple applications and services is native to Kubernetes, a bit of an add-on with Container-only services.</br>
+<br>&emsp;4. Workload management using Kubernetes native objects, such as Horizontal Pod Autoscaling, Node scaling and so on.</br>
+<br>&emsp;5. Management through Infrastructure-as-Code principles using Helm Charts and Values files.</br>
 </details>
 
 ### Configuration and Server Profile
