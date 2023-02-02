@@ -7,11 +7,7 @@ title: Deploy an Example Stack
     A video demonstration of this example is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6313575361112/getting-started-walkthrough).
 
 !!! note "Version"
-    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.11.1(84025)`, which includes Docker Engine `v20.10.17` and Kubernetes `v1.24.2`.  The ingress-nginx controller version was `1.3.0`.
-
-!!! error "Latest Docker Desktop Warning"
-
-    Docker Desktop 4.12 introduced Kubernetes `v1.25`.  This release dropped some deprecated functionality that impacts the ingress controller used in this example.  Until the Helm charts for the controller are updated to accommodate the removed APIs, this example will not work on version 4.12 or later.
+    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.16.1 (95567)`, which includes Docker Engine `v20.10.22` and Kubernetes `v1.25.4`.  The ingress-nginx controller version was `1.5.1`.
 
 !!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
 
@@ -73,7 +69,9 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
     1. Deploy the ingress controller to Docker Desktop:
 
          ```sh
-         helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+         helm upgrade --install ingress-nginx ingress-nginx \
+         --repo https://kubernetes.github.io/ingress-nginx \
+         --namespace ingress-nginx --create-namespace
          ```
 
     1. To wait for the Nginx ingress to reach a healthy state, run the following command.  You can also observe the pod status using k9s or by running `kubectl get pods --namespace ingress-nginx`. You should see one controller pod running when the ingress controller is ready.  This command should exit after no more than 90 seconds or so, depending on the speed of your computer:
@@ -94,7 +92,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
     1.  This example will use the Helm release name `demo` and DNS domain suffix `*ping-local.com` for accessing applications.  Add all expected hosts to `/etc/hosts`:
 
         ```sh
-        echo '127.0.0.1 demo-pingaccess-admin.ping-local.com demo-pingaccess-engine.ping-local.com demo-pingauthorize.ping-local.com demo-pingauthorizepap.ping-local.com demo-pingdataconsole.ping-local.com demo-pingdelegator.ping-local.com demo-pingdirectory.ping-local.com demo-pingdatagovernance.ping-local.com demo-pingdatagovernancepap.ping-local.com demo-pingfederate-admin.ping-local.com demo-pingfederate-engine.ping-local.com demo-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
+        echo '127.0.0.1 demo-pingaccess-admin.ping-local.com demo-pingaccess-engine.ping-local.com demo-pingauthorize.ping-local.com demo-pingauthorizepap.ping-local.com demo-pingdataconsole.ping-local.com demo-pingdelegator.ping-local.com demo-pingdirectory.ping-local.com demo-pingfederate-admin.ping-local.com demo-pingfederate-engine.ping-local.com demo-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
         ```
 
     1. To install the chart, go to your local `"${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/30-helm` directory and run the command shown here.  In this example, the release (deployment into Kubernetes by Helm) is called `demo`, forming the prefix for all objects created. The `ingress-demo.yaml` file configures the ingresses for the products to use the **_ping-local_** domain:
@@ -109,7 +107,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
          ```text
          NAME: demo
-         LAST DEPLOYED: Fri Sep  2 10:36:51 2022
+         LAST DEPLOYED: Tue Jan 17 09:18:49 2023
          NAMESPACE: pinghelm
          STATUS: deployed
          REVISION: 1
@@ -118,40 +116,38 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          #-------------------------------------------------------------------------------------
          # Ping DevOps
          #
-         # Description: Ping Identity helm charts - 08/05/22
+         # Description: Ping Identity helm charts - 1/03/2023
          #-------------------------------------------------------------------------------------
          #
          #           Product          tag   typ  #  cpu R/L   mem R/L  Ing
          #    --------------------- ------- --- -- --------- --------- ---
-         #    global                2207              0/0       0/0     √
+         #    global                2212              0/0       0/0     √ 
          #
-         #  √ pingaccess-admin      2207               /         /
-         #  √ pingaccess-engine     2207               /         /
-         #  √ pingauthorize         2207               /         /
-         #    pingauthorizepap
-         #    pingcentral
-         #  √ pingdataconsole       2207               /         /
-         #    pingdatagovernance
-         #    pingdatagovernancepap
-         #    pingdatasync
-         #    pingdelegator
-         #  √ pingdirectory         2207               /         /
-         #    pingdirectoryproxy
-         #  √ pingfederate-admin    2207               /         /
-         #  √ pingfederate-engine   2207               /         /
-         #    pingintelligence
+         #  √ pingaccess-admin      2212               /         /        
+         #  √ pingaccess-engine     2212               /         /        
+         #  √ pingauthorize         2212               /         /        
+         #    pingauthorizepap                                            
+         #    pingcentral                                                 
+         #  √ pingdataconsole       2212               /         /        
+         #    pingdatasync                                                
+         #    pingdelegator                                               
+         #  √ pingdirectory         2212               /         /        
+         #    pingdirectoryproxy                                          
+         #  √ pingfederate-admin    2212               /         /        
+         #  √ pingfederate-engine   2212               /         /        
+         #    pingintelligence                                            
          #
-         #    ldap-sdk-tools
-         #    pd-replication-timing
-         #    pingtoolkit
-         #    apache-jmeter
+         #    ldap-sdk-tools                                              
+         #    pd-replication-timing                                       
+         #    pingtoolkit                                                 
          #
          #-------------------------------------------------------------------------------------
          # To see values info, simply set one of the following on your helm install/upgrade
          #
          #    --set help.values=all         # Provides all (i.e. .Values, .Release, .Chart, ...) yaml
          #    --set help.values=global      # Provides global values
-         #    --set help.values={ image }   # Provides image values merged with global         
+         #    --set help.values={ image }   # Provides image values merged with global
+         #-------------------------------------------------------------------------------------        
          ```
 
         As you can see, PingAccess Admin and Engine, PingData Console, PingDirectory, PingAuthorize, and the PingFederate Admin and Engine are deployed from the provided `everything.yaml` values file.

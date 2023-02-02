@@ -13,4 +13,4 @@ These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdat
 ---
 This document is auto-generated from _[pingauthorizepap/opt/staging/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingauthorizepap/opt/staging/hooks)_
 
-Copyright © 2022 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

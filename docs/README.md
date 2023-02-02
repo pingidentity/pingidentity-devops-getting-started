@@ -3,9 +3,6 @@ title: Welcome
 ---
 # Welcome
 
-!!! warning "Video content"
-    Video content related to this site is being developed and released.  More details [here](./home/portalUpdates.md).
-
 This documentation exists to enable DevOps professionals, administrators, and developers to deploy Ping Identity software using container technologies. Our goal is to provide tools, frameworks, blueprints, and reference architectures in support of running our products in containerized environments.
 
 * First time here?  We recommend the [Get Started](./get-started/introduction.md) page.

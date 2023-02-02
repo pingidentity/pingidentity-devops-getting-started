@@ -11,4 +11,4 @@ title: Ping Identity DevOps `pingcommon` Hook - `09-build-motd.sh`
 ---
 This document is auto-generated from _[pingcommon/opt/staging/hooks/09-build-motd.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/09-build-motd.sh)_
 
-Copyright © 2022 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

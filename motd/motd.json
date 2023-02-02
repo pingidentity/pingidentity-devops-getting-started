@@ -56,15 +56,6 @@
             "https://devops.pingidentity.com/reference/profileStructures/#pingaccess"
         ]
     }],
-    "pingdatagovernance": [{
-        "validFrom": 20200406,
-        "validTo": 20200530,
-        "subject": "**** pingdatagovernance v8 images now use pd.profile *****",
-        "message": ["With the version 8 pingdatagovernance images, they now use ",
-            "manage-profile setup to build images.  This will expect to ",
-            "find items like dsconfig to reside under pd.profile/dsconfig "
-        ]
-    }],
     "pingdatasync": [{
         "validFrom": 20200406,
         "validTo": 20200530,

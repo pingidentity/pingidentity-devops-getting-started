@@ -8,8 +8,12 @@ You can also find all of these devops videos on the [Ping Website](https://video
 ## Foundational Information
 * [Getting Started Walkthrough](https://videos.pingidentity.com/detail/videos/devops/video/6313575361112/getting-started-walkthrough)
     * Introduction on how to prepare a local Kubernetes environment to deploy Ping products. The video will also show how to use our Helm Charts to deploy our products and how to access product consoles through the ingress controller.
+* [Deploy a Local Openshift Cluster](https://videos.pingidentity.com/detail/videos/devops/video/6319613511112/openshift-local-demonstration)
+    * This 12-minute video demonstrates the process of deploying an Openshift Local cluster to your environment, followed by installing a full stack of Ping products using our Helm charts.
 * [CICD Demonstration](https://videos.pingidentity.com/detail/videos/devops/video/6315967757112/cicd-demonstration)
     * This 30-minute video provides a high-level overview of Continuous Integration/Continous Deployment (CICD) principles. Included is a demonstration of a fully operational CICD pipeline using Gitea, Jenkins and Kubernetes.  The viewer can obtain the code used from Github to run the demonstration themselves on a local Docker Desktop installation with Kubernetes enabled.
+* [CICD Reference Pipeline](https://videos.pingidentity.com/detail/videos/devops/video/6315967757112/cicd-demonstration)
+    * This 30-minute video builds on the CICD Demonstration. Watch as a branch of a Github server profile repository uses pipelines to update a stack of Ping products at each code push.  Merging the branch to **prod** then updates the production environment accordingly.  The video and repository can serve as a launching point for using your own processes and tools for a similar experience.
 
 ## Product Docker Images
 * [Build a Ping product image locally](https://videos.pingidentity.com/detail/videos/devops/video/6313573601112/build-a-product-image)

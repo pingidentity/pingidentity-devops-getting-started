@@ -189,21 +189,6 @@ prometheus:
     #     action: replace
     #     target_label: namespace
     
-    # ## Discover and monitor DG instances
-    # - job_name: 'dg-statsd-exporter'
-    #   kubernetes_sd_configs:
-    #   - role: endpoints
-    #   relabel_configs:
-    #   - source_labels: [__meta_kubernetes_endpoint_port_name, __meta_kubernetes_service_name]
-    #     action: keep
-    #     regex: metrics;pingdatagovernance
-    #   - source_labels: [__meta_kubernetes_pod_name]
-    #     action: replace
-    #     target_label: instance
-    #   - source_labels: [__meta_kubernetes_namespace]
-    #     action: replace
-    #     target_label: namespace
-    
     # - job_name: 'jmeter'
     #   scrape_interval: 5s
     #   kubernetes_sd_configs:
