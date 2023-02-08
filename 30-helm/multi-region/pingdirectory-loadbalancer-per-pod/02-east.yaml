@@ -1,0 +1,28 @@
+pingdataconsole:
+  enabled: true
+
+pingdirectory:
+  container:
+    replicaCount: 3
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: baseline/pingdirectory
+    MAKELDIF_USERS: "2000"
+    ## VARIABLES TO ENABLE MULTI-REGION
+    K8S_CLUSTERS: west east
+    K8S_CLUSTER: east
+    K8S_SEED_CLUSTER: west
+    K8S_NUM_REPLICAS: "3"
+    K8S_POD_HOSTNAME_PREFIX: "example-pingdirectory-"
+    # SKIP WAIT FOR DNS WHEN USING LOADBALANCER PER POD
+    SKIP_WAIT_FOR_DNS: "true"
+    ## CHANGEME
+    K8S_POD_HOSTNAME_SUFFIX:  ".example.east.ping-multi-cluster.com"
+    ## CHANGEME
+    K8S_SEED_HOSTNAME_SUFFIX:  ".example.west.ping-multi-cluster.com"
+    K8S_INCREMENT_PORTS: "false"
+  services:
+    loadBalancerServicePerPod: true
+    ## CHANGEME
+    loadBalancerExternalDNSHostnameSuffix: .example.east.ping-multi-cluster.com
