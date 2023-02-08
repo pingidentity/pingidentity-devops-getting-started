@@ -11,7 +11,6 @@ For information about product changes, refer to the release notes that can be fo
 
 ### New Product Releases
 - PingFederate 11.2.0 -> 11.2.2 and 11.1.3 -> 11.1.5 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate))
-    - 11.0.0 no longer available
 
 ### Enhancements
 - Alpine 3.17.0 -> 3.17.1
