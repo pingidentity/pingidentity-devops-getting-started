@@ -174,9 +174,29 @@ Continuing, it is helpful to know what happens when a cluster starts in order to
 
 In our first cluster, this would be the hostname of pingdirectory-1, but it could also be pingdirectory-0 of another cluster. After the query returns successful, creation of the replication topology automatically begins. From this point onward, the order in which instances start is less important.
 
+## Deploying Across Multiple Regions with Multiple Load Balancers
+
+If infrastructure constraints prevent you from using [Peered Clusters](https://devops.pingidentity.com/deployment/deployK8s-AWS/), an alternate option is to deploy with a separate LoadBalancer service for each PingDirectory pod.
+
+The following diagram shows how you can use muliple load balancers.
+
+![Multiple Load Balancers](../images/multi-k8s-cluster-pingdirectory-multi-lb.png)
+
+Advantages:
+
+* Use the same well-known port, such as 1636/8989
+* Separate IP addresses per instance
+
+ Disadvantages:
+
+* DNS management
+    * Separate hostname required per pod
+
+This method is supported in our Helm charts with the `pingdirectory.services.loadBalancerServicePerPod` field.
+
 ## Deploy the Helm Example
 
-Clone this `getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) to get the Helm values .yaml files for the exercise. The files are under the folder `30-helm/multi-region/pingdirectory`.  After cloning:
+Clone this `getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) to get the Helm values .yaml files for the exercise. There are two multi-region examples. For peered clusters, the example files are under the folder `30-helm/multi-region/pingdirectory`. For deploying with multiple load balancers, the example files are under the folder `30-helm/multi-region/pingdirectory-loadbalancer-per-pod`. After cloning:
 
 1. Modify any external hostnames in the sample files as necessary - see the lines under `## CHANGEME` comments.
 
