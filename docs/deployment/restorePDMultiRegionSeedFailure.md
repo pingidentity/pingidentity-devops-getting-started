@@ -28,7 +28,7 @@ You will also see administrative alerts in the output indicating that the mirror
 The key steps to restore the topology in this case are:
 
 1. Force a server in the surviving region to act as master of the topology
-2. Remove the dead servers from the topology
+2. Remove the unreachable servers from the topology
 3. Undo forcing a server to act as master of the topology
 4. Ensure any seed region pods are in single-server topologies
 5. Use dsreplication enable to add the servers from the refreshed seed region to the topology of the surviving region
@@ -48,7 +48,7 @@ Run the following command to force this pod as master:
 dsconfig set-global-configuration-prop --set force-as-master-for-mirrored-data:true --no-prompt
 ```
 
-## Remove the dead servers from the topology
+## Remove the unreachable servers from the topology
 
 Now we must tell the surviving pods that the original seed region pods no longer exist, and that they must be removed from the topology. These commands may take a long time to run, as the `remove-defunct-server` tool will keep trying to connect for up to ten minutes depending on the state of the seed region.
 
