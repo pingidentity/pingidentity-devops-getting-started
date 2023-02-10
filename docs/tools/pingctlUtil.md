@@ -5,6 +5,9 @@ title: The pingctl Utility
 
 `pingctl` is our general DevOps command-line utility.
 
+!!! note "Deprecated file name"
+    The deprecated ping-devops utility used a configuration file located at ~/.pingidentity/devops.  pingctl, however, uses ~/.pingidentity/config.  While the files generated are compatible, be aware that some older utilities or documentation might refer to the older configuration name.
+
 ## Dependent Utilities
 
 To perform all of its operations, `pingctl` has a dependency on the following utilities:
