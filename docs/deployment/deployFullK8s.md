@@ -18,6 +18,10 @@ This document describes deploying a multi-node cluster using the [kubeadm](https
 !!! warning "Demo Use Only"
     While a full Kubernetes installation, the instructions in this document only create an environment sufficient for testing and learning.  The cluster is not intended for use in production environments.
 
+!!! info "Manual process"
+    At this time, work is underway to automate many, if not all of these steps. In the meantime, you will know more about how the cluster is configured and set up by following this guide.
+
+
 ## Prerequisites
 
 In order to complete this guide, you will need:
@@ -33,7 +37,7 @@ In order to complete this guide, you will need:
 
 ## Virtual machines
 
-Create 3 VMs were created as described here.  The worker nodes are created by cloning a snapshot of the master after preliminary configuration is performed.  To begin with you will only create the master node.
+Create 3 VMs were created as described here.  The worker nodes are created by cloning a snapshot of the master after preliminary configuration is performed.  To begin with you will only create the master node. If cloning is not an option, you will need to perform all steps up to the `kubeadm init` command on all three VMs, configuring them identical to each other except for hostname and IP.
 
   - 4 vCPU
   - 12GB RAM
@@ -97,7 +101,7 @@ At this point, you will choose either the **containerd** runtime or **cri-o**.
 
 Skip to the **cri-o** section if you want to use that runtime.
 
-### containerd > 1.59
+###containerd > 1.59
 Kubernetes 1.26+ requires `containerd` runtime >= 1.6. The default installation from the Ubuntu repositories installs version 1.59.  The solution in this guide is to use the Docker repository for the installation of these packages.  At the time of this writing, 1.16.12-1 is installed in this manner.
 ```sh
 # Install and configure containerd
@@ -140,7 +144,7 @@ Restart containerd: `sudo systemctl restart containerd`
 
 Skip to the section **Installing the Kubernetes components**.
 
-## CRI-O (no network piece)
+### CRI-O (no network piece)
 
 Install cri-o and cri-o-runc
 
@@ -175,7 +179,7 @@ sudo systemctl start crio
 sudo systemctl status crio
 ```
 
-## Install Kubernetes installation pieces
+## Install Kubernetes components
 
 ```sh
 # Install prerequisites
@@ -207,13 +211,13 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-## Create snapshot 'pre-kube-init'
+##Create snapshot 'pre-kube-init'
 
 Halt the VM by running `sudo shutdown -h now`.
 
 Create a snapshot of the VM, naming it **pre-kube-init**. This snapshot provides a rollback point in case the installation of Kubernetes fails.  You will use snapshots at several other key points for the same purpose. After installation is compete, these intermediate snapshots can be removed.
 
-## Clone and update new VMs
+**Clone and update new VMs**
 
 From the **pre-kube-init** snapshot on the master, create a full clone to serve as a worker node, naming it accordingly.
 
@@ -234,7 +238,7 @@ When the clone is complete, perform the following actions:
 Repeat for the second worker node.
 
 
-# Install Kubernetes
+## Install Kubernetes
 
 Boot all three VMs.
 
@@ -257,7 +261,10 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 ```
 
-Sample output of the installation
+
+<details>
+  <summary>Sample output of the installation</summary>
+
 ```text
 # Sample output from init
 [init] Using Kubernetes version: v1.26.1
@@ -344,11 +351,13 @@ Then you can join any number of worker nodes by running the following on each as
 kubeadm join 192.168.163.30:6443 --token 7xzbum.hv4em4pzy6jivlqo \
 	--discovery-token-ca-cert-hash sha256:ac9e95221e9ea5920e85dfce70dce89a7449ce3920123b8de6b855df746632ca
 ```
+</details>
 
 ### Remove taint from master
 
 Removing the **_NoSchedule_** taint will allow workloads to run on the master node:
-	`kubectl taint nodes --all node-role.kubernetes.io/control-plane:NoSchedule-`
+
+`kubectl taint nodes --all node-role.kubernetes.io/control-plane:NoSchedule-`
 
 ### Add other nodes
 
@@ -379,8 +388,8 @@ spec:
         ports:
         - containerPort: 80
 ```
-Apply the file to create the objects.  You should see the nginx deployment, and be able to access the landing page by port-forwarding to the service.
-	`kubectl apply -f nginx-deploy.yaml`
+Apply the file to create the objects.  You should see the nginx deployment, and be able to access the landing page by port-forwarding to the pod.
+`kubectl apply -f nginx-deploy.yaml`
 
 After confirming, remove it: `kubectl delete -f nginx-deploy.yaml`
 
@@ -405,6 +414,8 @@ Shutdown the VMs, and snapshot each one.  See the helper script at the end for a
 ## MetalLB
 
 A bare metal installation of Kubernetes does not provide a load balancer, which makes simulating some actions difficult.  In this section, you will install and configure the MetalLB load balancer.
+
+### Installation
 
 ```sh
 # Get latest tag
@@ -519,334 +530,356 @@ Remove the application by running `kubectl delete -f testLB.yaml`
 
 Shutdown the VMs, and snapshot each one.  See the helper script at the end for automating things under VMware.
 
-## ROOK & CEPH
+## Rook and Ceph
 
-	- # Confirm prereqs
-		- ```sh
-		  # Confirm no filesystem on second disk
-		  # lsbkl -f should show no FSTYPE
-		  # run on each node
-		  lsblk -f |grep sdb
-		  ```
-		- Configure for admission controller
-			- `kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.7.1/cert-manager.yaml`
-		- LVM package installation, needed for raw device support
-			- `sudo apt-get install -y lvm2`
-		-
-	- ## Install
-		- Get the code
-			- ```sh
-			  git clone --single-branch --branch v1.10.8 https://github.com/rook/rook.git
-			  cd rook/deploy/examples
-			  ```
-		- Deploy Rook Operator
-			- ```sh
-			  # Apply the necessary files
-			  kubectl apply -f crds.yaml -f common.yaml -f operator.yaml
-			  
-			  # Verify the rook-ceph-operator is in the `Running` state before proceeding
-			  kubectl -n rook-ceph get pod
-			  
-			  # Use production config
-			  kubectl apply -f cluster.yaml
-			  ```
-		- Confirm
-			- Deploy will take several minutes.  Confirm all pods are running before continuing.  This example is for three nodes:
-			- ```sh
-			  kubectl get pod -n rook-ceph
-			  
-			  NAME                                                     READY   STATUS      RESTARTS   AGE
-			  csi-cephfsplugin-56mq6                                   2/2     Running     0          3m29s
-			  csi-cephfsplugin-fxhtv                                   2/2     Running     0          3m29s
-			  csi-cephfsplugin-jzrnz                                   2/2     Running     0          3m29s
-			  csi-cephfsplugin-provisioner-7d7d99b967-hw68h            5/5     Running     0          3m29s
-			  csi-cephfsplugin-provisioner-7d7d99b967-hzr8m            5/5     Running     0          3m29s
-			  csi-rbdplugin-fstww                                      2/2     Running     0          3m29s
-			  csi-rbdplugin-provisioner-97c94dd94-5pgcq                5/5     Running     0          3m29s
-			  csi-rbdplugin-provisioner-97c94dd94-ch6r2                5/5     Running     0          3m29s
-			  csi-rbdplugin-q6428                                      2/2     Running     0          3m29s
-			  csi-rbdplugin-xmw9j                                      2/2     Running     0          3m29s
-			  rook-ceph-crashcollector-k8s126master-7dbf54bf85-m727n   1/1     Running     0          111s
-			  rook-ceph-crashcollector-k8s126node01-756f8c79fb-dv769   1/1     Running     0          110s
-			  rook-ceph-crashcollector-k8s126node02-6d5df99ddf-j27m4   1/1     Running     0          2m7s
-			  rook-ceph-mgr-a-79c6cc8b98-g76f7                         3/3     Running     0          2m25s
-			  rook-ceph-mgr-b-bdbc85cdf-4x787                          3/3     Running     0          2m24s
-			  rook-ceph-mon-a-58dd8f758b-fkstm                         2/2     Running     0          3m21s
-			  rook-ceph-mon-b-7fdbbfcfc4-dkhlz                         2/2     Running     0          2m48s
-			  rook-ceph-mon-c-b779d6577-v7mn5                          2/2     Running     0          2m37s
-			  rook-ceph-operator-56b85d8f69-mqrvj                      1/1     Running     0          5m25s
-			  rook-ceph-osd-0-768848cf7c-fhwzr                         2/2     Running     0          110s
-			  rook-ceph-osd-1-6584b848fd-qfjk7                         2/2     Running     0          111s
-			  rook-ceph-osd-2-ff8f5d785-bjw4w                          2/2     Running     0          110s
-			  rook-ceph-osd-prepare-k8s126master-4dbzp                 0/1     Completed   0          79s
-			  rook-ceph-osd-prepare-k8s126node01-d78rf                 0/1     Completed   0          75s
-			  rook-ceph-osd-prepare-k8s126node02-txctz                 0/1     Completed   0          72s
-			  ```
-		- Deploy toolbox pd for storage commands commands
-			- ```sh
-			  kubectl create -f toolbox.yaml
-			  
-			  kubectl -n rook-ceph exec -it deploy/rook-ceph-tools -- bash
-			  ```
-	- ## Confirm
-	  collapsed:: true
-		- To verify that the cluster is in a healthy state, connect to the Rook toolbox and run the `ceph status` command.
-			- All mons should be in quorum
-			- A mgr should be active
-			- At least one OSD should be active
-			- ```sh
-			  # Overall status of the ceph cluster
-			  ceph status
-			  
-			    cluster:
-			      id:     184f1c82-4a0b-499a-80c6-44c6bf70cbc5
-			      health: HEALTH_WARN
-			              1 pool(s) do not have an application enabled
-			  
-			    services:
-			      mon: 3 daemons, quorum a,b,c (age 3m)
-			      mgr: a(active, since 2m), standbys: b
-			      osd: 3 osds: 3 up (since 3m), 3 in (since 3m)
-			  
-			    data:
-			      pools:   1 pools, 1 pgs
-			      objects: 2 objects, 449 KiB
-			      usage:   61 MiB used, 180 GiB / 180 GiB avail
-			      pgs:     1 active+clean
-			  
-			  # Ceph object storage daemon (osd) status
-			  ceph osd status
-			  
-			  ID  HOST           USED  AVAIL  WR OPS  WR DATA  RD OPS  RD DATA  STATE
-			   0  k8s126node01  20.4M  59.9G      0        0       0        0   exists,up
-			   1  k8s126master  20.4M  59.9G      0        0       0        0   exists,up
-			   2  k8s126node02  20.4M  59.9G      0        0       0        0   exists,up
-			  
-			  # Free disk available
-			  ceph df
-			  
-			  --- RAW STORAGE ---
-			  CLASS     SIZE    AVAIL    USED  RAW USED  %RAW USED
-			  hdd    180 GiB  180 GiB  61 MiB    61 MiB       0.03
-			  TOTAL  180 GiB  180 GiB  61 MiB    61 MiB       0.03
-			  
-			  --- POOLS ---
-			  POOL  ID  PGS   STORED  OBJECTS     USED  %USED  MAX AVAIL
-			  .mgr   1    1  449 KiB        2  1.3 MiB      0     57 GiB
-			  
-			  # Reliable autonomic distributed object store (RADOS) view
-			  rados df
-			  
-			  POOL_NAME     USED  OBJECTS  CLONES  COPIES  MISSING_ON_PRIMARY  UNFOUND  DEGRADED  RD_OPS      RD  WR_OPS       WR  USED COMPR  UNDER COMPR
-			  .mgr       1.3 MiB        2       0       6                   0        0         0      96  82 KiB     113  1.3 MiB         0 B          0 B
-			  
-			  total_objects    2
-			  total_used       61 MiB
-			  total_avail      180 GiB
-			  total_space      180 GiB
-			  ```
-	- ## Create storage class
-	  collapsed:: true
-		- Apply the storage class YAML file to create the storage class
-			- ```yaml
-			  #sc-ceph-block.yaml
-			  apiVersion: ceph.rook.io/v1
-			  kind: CephBlockPool
-			  metadata:
-			    name: replicapool
-			    namespace: rook-ceph
-			  spec:
-			    failureDomain: host
-			    replicated:
-			      size: 3
-			  ---
-			  apiVersion: storage.k8s.io/v1
-			  kind: StorageClass
-			  metadata:
-			     name: rook-ceph-block
-			  # Change "rook-ceph" provisioner prefix to match the operator namespace if needed
-			  provisioner: rook-ceph.rbd.csi.ceph.com
-			  parameters:
-			      # clusterID is the namespace where the rook cluster is running
-			      clusterID: rook-ceph
-			      # Ceph pool into which the RBD image shall be created
-			      pool: replicapool
-			  
-			      # (optional) mapOptions is a comma-separated list of map options.
-			      # For krbd options refer
-			      # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
-			      # For nbd options refer
-			      # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
-			      # mapOptions: lock_on_read,queue_depth=1024
-			  
-			      # (optional) unmapOptions is a comma-separated list of unmap options.
-			      # For krbd options refer
-			      # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
-			      # For nbd options refer
-			      # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
-			      # unmapOptions: force
-			  
-			      # RBD image format. Defaults to "2".
-			      imageFormat: "2"
-			  
-			      # RBD image features
-			      # Available for imageFormat: "2". Older releases of CSI RBD
-			      # support only the `layering` feature. The Linux kernel (KRBD) supports the
-			      # full complement of features as of 5.4
-			      # `layering` alone corresponds to Ceph's bitfield value of "2" ;
-			      # `layering` + `fast-diff` + `object-map` + `deep-flatten` + `exclusive-lock` together
-			      # correspond to Ceph's OR'd bitfield value of "63". Here we use
-			      # a symbolic, comma-separated format:
-			      # For 5.4 or later kernels:
-			      #imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
-			      # For 5.3 or earlier kernels:
-			      imageFeatures: layering
-			  
-			      # The secrets contain Ceph admin credentials.
-			      csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-			      csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-			      csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-			      csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
-			      csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-			      csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-			  
-			      # Specify the filesystem type of the volume. If not specified, csi-provisioner
-			      # will set default as `ext4`. Note that `xfs` is not recommended due to potential deadlock
-			      # in hyperconverged settings where the volume is mounted on the same node as the osds.
-			      csi.storage.k8s.io/fstype: ext4
-			  
-			  # Delete the rbd volume when a PVC is deleted
-			  reclaimPolicy: Delete
-			    
-			  # Optional, if you want to add dynamic resize for PVC.
-			  # For now only ext3, ext4, xfs resize support provided, like in Kubernetes itself.
-			  allowVolumeExpansion: true
-			  ```
-			- Run: `kubectl create -f sc-ceph-block.yaml`
-		- Test with mysql and wordpress examples from Rook
-			- ```sh
-			  cd 
-			  cd rook/deploy/examples
-			  
-			  kubectl create -f mysql.yaml
-			  kubectl create -f wordpress.yaml
-			  
-			  kubectl get pvc
-			  
-			  kubectl get svc wordpress
-			  
-			  # Access WP int he browser
-			  
-			  
-			  ```
-		- Set default storage class (`storageclass.kubernetes.io/is-default-class=true`)
-		- ```
-		  
-		  
-		  # Before
-		  kd sc rook-ceph-block
-		  Name:                  rook-ceph-block
-		  IsDefaultClass:        No
-		  Annotations:           <none>
-		  ...
-		  kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-		  
-		  # After
-		  kd sc rook-ceph-block
-		  Name:                  rook-ceph-block
-		  IsDefaultClass:        Yes
-		  Annotations:           <none>
-		  ...
-		  ```
-		- Cleanup
-			- ```sh
-			  kubectl delete -f wordpress.yaml
-			  kubectl delete -f mysql.yaml
-			  kubectl delete pvc/mysql-pv-claim pvc/wp-pv-claim
-			  ```
-- # Snapshot 'k8sMetalRook'
-  collapsed:: true
-	- Shutdown the VMs, and snapshot each one.  See the helper script at the end for automating things under VMware.
-- # Ingress controller and Istio
-  collapsed:: true
-	- ## Ingress
-		- TODO: Research how to replace ingress completely with Istio ingressgateway via helm or whatever
-		- Installation
-			- ```sh
-			  helm upgrade --install ingress-nginx ingress-nginx \
-			    --repo https://kubernetes.github.io/ingress-nginx \
-			    --namespace ingress-nginx --create-namespace
-			  ```
-			- After installation completes, you should have the nginx controller running in the ingress-nginx namespace, and a service attached to the load balancer for the ingress
-				- ```sh
-				  # List the pod
-				  kubectl get po -n ingress-nginx
-				  NAME                                        READY   STATUS    RESTARTS   AGE
-				  ingress-nginx-controller-65dc77f88f-nqnc6   1/1     Running   0          7m1s
-				  
-				  # Examine the service
-				  # Note the external IP from the MetalLB pool
-				  kubectl get svc -n ingress-nginx
-				  NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)                      AGE
-				  ingress-nginx-controller             LoadBalancer   10.98.47.72     192.168.163.151   80:30056/TCP,443:31316/TCP   7m36s
-				  ingress-nginx-controller-admission   ClusterIP      10.96.230.188   <none>            443/TCP                      7m36s
-				  ```
-				-
-	- ## Istio
-		- Installation will use the demo profile; this will add the ingress and egress gateways and size the Envoy sidecar smaller.
-		- ## Prerequisites
-			- In order to install Istio, you will need the `istioctl` utility.  On the Mac, you can use brew to install this application, or you can download the archive for your platform from the []release page](https://github.com/istio/istio/releases/tag/1.16.2).  You will need this archive to get the profile and add-on software. Download the latest version (1.16.2 at the time of this writing). On the test system in question, the istioctl binary was installed using brew but the one contained in the archive can be used instead. The instructions for a manual installation are [here](https://istio.io/latest/docs/setup/getting-started/).
-		- ## Installation
-			- Extract the archive to a known location on your filesystem.
-				- ```sh
-				  # Downloads directory is assumed.
-				  cd ~/Downloads
-				  
-				  # Extract the archive
-				  tar xvzf istio-1.16.2-osx.tar.gz
-				  
-				  # Navigate to the profile directory and install
-				  cd istio-1.16.2/manifests/profiles/
-				  istioctl install -f demo.yaml
-				  
-				  This will install the Istio 1.16.2 default profile with ["Istio core" "Istiod" "Ingress gateways" "Egress gateways"] components into the cluster. Proceed? (y/N) y
-				  ✔ Istio core installed
-				  ✔ Istiod installed
-				  ✔ Ingress gateways installed 
-				  ✔ Egress gateways installed 
-				  ✔ Installation complete
-				  Making this installation the default for injection and validation.
-				  
-				  Thank you for installing Istio 1.16. Please take a few minutes to tell us about your install/upgrade experience! https://forms.gle/99uiMML96AmsXY5d6
-				  ```
-		- ## Add ons (optional)
-			- The add-ons are the Kiali UI, Jaeger, Grafana and Prometheus. The Kubernetes yaml files are included with each release of Istio and are specific to that release:
-				- ```sh
-				  # Navigate to the root of the extracted archive
-				  cd ../..
-				  
-				  # Apply the files to install the products
-				  kubectl apply -f samples/addons
-				  ```
-- # Snapshot 'k8sComplete'
-  collapsed:: true
-	- Shutdown the VMs, and snapshot each one.  See the helper script at the end for automating things under VMware.
--
-- ## Resources & References
-	- https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-kubernetes-on-ubuntu-22-04.html
-	- https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-cri-o-on-ubuntu-22-04.html
-	- [https://computingforgeeks.com/deploy-metallb-load-balancer-on-kubernetes/](https://computingforgeeks.com/deploy-metallb-load-balancer-on-kubernetes/)
-	- [https://github.com/openebs/cstor-operators/blob/develop/docs/quick.md](https://github.com/openebs/cstor-operators/blob/develop/docs/quick.md)
-	- [https://github.com/openebs/zfs-localpv](https://github.com/openebs/zfs-localpv)
-	- https://mayastor.gitbook.io/introduction
-	- [How To: Ubuntu / Debian Linux Regenerate OpenSSH Host Keys - nixCraft](https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys)
-	- [Block Storage Overview - Rook Ceph Documentation](https://www.rook.io/docs/rook/v1.10/Storage-Configuration/Block-Storage-RBD/block-storage/#advanced-example-erasure-coded-block-storage)
-	- [Toolbox - Rook Ceph Documentation](https://www.rook.io/docs/rook/v1.10/Troubleshooting/ceph-toolbox/#interactive-toolbox)
-	- [Quickstart - Rook Ceph Documentation](https://www.rook.io/docs/rook/v1.10/Getting-Started/quickstart)
-	- [How to Install Kubernetes on Ubuntu 22.04 / Ubuntu 20.04 | ITzGeek](https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-kubernetes-on-ubuntu-22-04.html)
-	- [How to install CRI-O on Ubuntu 22](https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-cri-o-on-ubuntu-22-04.html)
-	- **Best guide** https://blog.kubesimplify.com/kubernetes-126
-	- https://github.com/containerd/containerd/blob/main/docs/getting-started.md
-	- HUGE FIX for containerd implementation https://github.com/etcd-io/etcd/issues/13670
-	-
-	-
+Some Ping products require persistent storage through volumes, using a PVC/PV model.  In this section, you will install and configure Rook and Ceph to operate as a block storage option to support this need.
+
+### Confirm requirements
+```sh
+# Confirm no filesystem on second disk
+# lsbkl -f should show no FSTYPE (empty)
+# Run this command on each node
+lsblk -f |grep sdb
+```
+Configure for admission controller by installing cert-manager:
+`kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.7.1/cert-manager.yaml`
+
+On each node, confirm the LVM package is installed.  This program is needed for for raw device support for the uninitialized disks.
+
+`sudo apt-get install -y lvm2`
+
+### Install
+```sh
+# Get the code
+git clone --single-branch --branch v1.10.8 https://github.com/rook/rook.git
+
+# Navigate to the directory with the files we need
+cd rook/deploy/examples
+
+# Install the Rook operator
+# Apply the necessary files
+ kubectl apply -f crds.yaml -f common.yaml -f operator.yaml
+
+# Verify the rook-ceph-operator is in the `Running` state before proceeding
+# Alternatively, use k9s to monitor
+kubectl -n rook-ceph get pod
+
+# Use the production config (supports redundancy/replication of data)
+kubectl apply -f cluster.yaml
+
+# Confirm
+# Deploy will take several minutes.  Confirm all pods are running before continuing.  This example is for three nodes:
+
+kubectl get pod -n rook-ceph
+
+NAME                                                     READY   STATUS      RESTARTS   AGE
+csi-cephfsplugin-56mq6                                   2/2     Running     0          3m29s
+csi-cephfsplugin-fxhtv                                   2/2     Running     0          3m29s
+csi-cephfsplugin-jzrnz                                   2/2     Running     0          3m29s
+csi-cephfsplugin-provisioner-7d7d99b967-hw68h            5/5     Running     0          3m29s
+csi-cephfsplugin-provisioner-7d7d99b967-hzr8m            5/5     Running     0          3m29s
+csi-rbdplugin-fstww                                      2/2     Running     0          3m29s
+csi-rbdplugin-provisioner-97c94dd94-5pgcq                5/5     Running     0          3m29s
+csi-rbdplugin-provisioner-97c94dd94-ch6r2                5/5     Running     0          3m29s
+csi-rbdplugin-q6428                                      2/2     Running     0          3m29s
+csi-rbdplugin-xmw9j                                      2/2     Running     0          3m29s
+rook-ceph-crashcollector-k8s126master-7dbf54bf85-m727n   1/1     Running     0          111s
+rook-ceph-crashcollector-k8s126node01-756f8c79fb-dv769   1/1     Running     0          110s
+rook-ceph-crashcollector-k8s126node02-6d5df99ddf-j27m4   1/1     Running     0          2m7s
+rook-ceph-mgr-a-79c6cc8b98-g76f7                         3/3     Running     0          2m25s
+rook-ceph-mgr-b-bdbc85cdf-4x787                          3/3     Running     0          2m24s
+rook-ceph-mon-a-58dd8f758b-fkstm                         2/2     Running     0          3m21s
+rook-ceph-mon-b-7fdbbfcfc4-dkhlz                         2/2     Running     0          2m48s
+rook-ceph-mon-c-b779d6577-v7mn5                          2/2     Running     0          2m37s
+rook-ceph-operator-56b85d8f69-mqrvj                      1/1     Running     0          5m25s
+rook-ceph-osd-0-768848cf7c-fhwzr                         2/2     Running     0          110s
+rook-ceph-osd-1-6584b848fd-qfjk7                         2/2     Running     0          111s
+rook-ceph-osd-2-ff8f5d785-bjw4w                          2/2     Running     0          110s
+rook-ceph-osd-prepare-k8s126master-4dbzp                 0/1     Completed   0          79s
+rook-ceph-osd-prepare-k8s126node01-d78rf                 0/1     Completed   0          75s
+rook-ceph-osd-prepare-k8s126node02-txctz                 0/1     Completed   0          72s
+```
+
+### Confirm status of the storage system
+
+Deploy a toolbox pod for storage commands commands
+
+```sh
+D Deploy the pod
+kubectl create -f toolbox.yaml
+
+# Access the pod to run commands.
+# You may have to press Enter to get a prompt
+kubectl -n rook-ceph exec -it deploy/rook-ceph-tools -- bash
+```
+
+To verify that the cluster is in a healthy state, connect to the Rook toolbox and run the `ceph status` command.
+- All mons should be in quorum
+- A mgr should be active
+- At least one OSD should be active
+```sh
+# Overall status of the ceph cluster
+ceph status
+
+  cluster:
+    id:     184f1c82-4a0b-499a-80c6-44c6bf70cbc5
+    health: HEALTH_WARN
+            1 pool(s) do not have an application enabled
+
+  services:
+    mon: 3 daemons, quorum a,b,c (age 3m)
+    mgr: a(active, since 2m), standbys: b
+    osd: 3 osds: 3 up (since 3m), 3 in (since 3m)
+
+  data:
+    pools:   1 pools, 1 pgs
+    objects: 2 objects, 449 KiB
+    usage:   61 MiB used, 180 GiB / 180 GiB avail
+    pgs:     1 active+clean
+
+# Ceph object storage daemon (osd) status
+ceph osd status
+
+ID  HOST           USED  AVAIL  WR OPS  WR DATA  RD OPS  RD DATA  STATE
+ 0  k8s126node01  20.4M  59.9G      0        0       0        0   exists,up
+ 1  k8s126master  20.4M  59.9G      0        0       0        0   exists,up
+ 2  k8s126node02  20.4M  59.9G      0        0       0        0   exists,up
+
+# Free disk available
+ceph df
+
+--- RAW STORAGE ---
+CLASS     SIZE    AVAIL    USED  RAW USED  %RAW USED
+hdd    180 GiB  180 GiB  61 MiB    61 MiB       0.03
+TOTAL  180 GiB  180 GiB  61 MiB    61 MiB       0.03
+
+--- POOLS ---
+POOL  ID  PGS   STORED  OBJECTS     USED  %USED  MAX AVAIL
+.mgr   1    1  449 KiB        2  1.3 MiB      0     57 GiB
+
+# Reliable autonomic distributed object store (RADOS) view
+rados df
+
+POOL_NAME     USED  OBJECTS  CLONES  COPIES  MISSING_ON_PRIMARY  UNFOUND  DEGRADED  RD_OPS      RD  WR_OPS       WR  USED COMPR  UNDER COMPR
+.mgr       1.3 MiB        2       0       6                   0        0         0      96  82 KiB     113  1.3 MiB         0 B          0 B
+
+total_objects    2
+total_used       61 MiB
+total_avail      180 GiB
+total_space      180 GiB
+```
+
+### Create storage class
+
+Apply the storage class YAML file to create the storage class
+```yaml
+#sc-ceph-block.yaml
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: replicapool
+  namespace: rook-ceph
+spec:
+  failureDomain: host
+  replicated:
+    size: 3
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: rook-ceph-block
+# Change "rook-ceph" provisioner prefix to match the operator namespace if needed
+provisioner: rook-ceph.rbd.csi.ceph.com
+parameters:
+    # clusterID is the namespace where the rook cluster is running
+    clusterID: rook-ceph
+    # Ceph pool into which the RBD image shall be created
+    pool: replicapool
+
+    # (optional) mapOptions is a comma-separated list of map options.
+    # For krbd options refer
+    # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
+    # For nbd options refer
+    # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
+    # mapOptions: lock_on_read,queue_depth=1024
+
+    # (optional) unmapOptions is a comma-separated list of unmap options.
+    # For krbd options refer
+    # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
+    # For nbd options refer
+    # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
+    # unmapOptions: force
+
+    # RBD image format. Defaults to "2".
+    imageFormat: "2"
+
+    # RBD image features
+    # Available for imageFormat: "2". Older releases of CSI RBD
+    # support only the `layering` feature. The Linux kernel (KRBD) supports the
+    # full complement of features as of 5.4
+    # `layering` alone corresponds to Ceph's bitfield value of "2" ;
+    # `layering` + `fast-diff` + `object-map` + `deep-flatten` + `exclusive-lock` together
+    # correspond to Ceph's OR'd bitfield value of "63". Here we use
+    # a symbolic, comma-separated format:
+    # For 5.4 or later kernels:
+    #imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
+    # For 5.3 or earlier kernels:
+    imageFeatures: layering
+
+    # The secrets contain Ceph admin credentials.
+    csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+    csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+    csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+    csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+    csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+    csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+
+    # Specify the filesystem type of the volume. If not specified, csi-provisioner
+    # will set default as `ext4`. Note that `xfs` is not recommended due to potential deadlock
+    # in hyperconverged settings where the volume is mounted on the same node as the osds.
+    csi.storage.k8s.io/fstype: ext4
+
+# Delete the rbd volume when a PVC is deleted
+reclaimPolicy: Delete
+  
+# Optional, if you want to add dynamic resize for PVC.
+# For now only ext3, ext4, xfs resize support provided, like in Kubernetes itself.
+allowVolumeExpansion: true
+```
+
+Run `kubectl create -f sc-ceph-block.yaml`
+
+Test with mysql and wordpress examples from Rook
+
+```sh
+# Return to home directory, and navigate to the examples folder
+cd 
+cd rook/deploy/examples
+
+# Create a MySQL/Wordpress deployment
+kubectl create -f mysql.yaml
+kubectl create -f wordpress.yaml
+
+# Confirm you can see the PVC created
+kubectl get pvc
+kubectl get svc wordpress
+
+# Access WP in the browser. It should have an IP address from MetalLB
+```
+
+Set the storage class you created as the default (`storageclass.kubernetes.io/is-default-class=true`)
+
+```sh
+# Before
+kd sc rook-ceph-block
+Name:                  rook-ceph-block
+IsDefaultClass:        No
+Annotations:           <none>
+...
+
+# Alter annotation
+kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+# After
+kd sc rook-ceph-block
+Name:                  rook-ceph-block
+IsDefaultClass:        Yes
+Annotations:           <none>
+...
+```
+
+Cleanup the deployment
+```sh
+kubectl delete -f wordpress.yaml
+kubectl delete -f mysql.yaml
+kubectl delete pvc/mysql-pv-claim pvc/wp-pv-claim
+```
+
+## Snapshot 'k8sMetalRook'
+Shutdown the VMs, and snapshot each one.  See the helper script at the end for automating things under VMware.
+
+## Ingress controller and Istio
+
+This section is optional.  If you are on a system with fewer resources than recommended, you can skip this part.
+
+### Ingress Nginx
+
+Installation
+```sh
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
+```
+
+After installation completes, you should have the Nginx controller running in the ingress-nginx namespace, and a load-balancer attached service for the ingress
+```sh
+# List the pod
+kubectl get po -n ingress-nginx
+NAME                                        READY   STATUS    RESTARTS   AGE
+ingress-nginx-controller-65dc77f88f-nqnc6   1/1     Running   0          7m1s
+
+# Examine the service
+# Note the external IP from the MetalLB pool
+kubectl get svc -n ingress-nginx
+NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.98.47.72     192.168.163.151   80:30056/TCP,443:31316/TCP   7m36s
+ingress-nginx-controller-admission   ClusterIP      10.96.230.188   <none>            443/TCP                      7m36s
+```
+
+### Istio
+
+Installation will use the demo profile; this will add the ingress and egress gateways and size the Envoy sidecar smaller.
+#### Prerequisites
+In order to install Istio, you will need the `istioctl` utility.  On the Mac, you can use **brew** to install this application, or you can download the archive for your platform from the [release page](https://github.com/istio/istio/releases/tag/1.16.2).  You will need this archive to get the profile and add-on software in either case. Download the latest version (1.16.2 at the time of this writing). On the system used to develop this guide, the **_istioctl_** binary was installed using brew but the one contained in the archive can be used as an alternative. The instructions on installation are [here](https://istio.io/latest/docs/setup/getting-started/).
+
+#### Installation
+Extract the archive to a known location on your filesystem.
+```sh
+# Downloads directory is assumed.
+cd ~/Downloads
+
+# Extract the archive
+tar xvzf istio-1.16.2-osx.tar.gz
+
+# Navigate to the profile directory and install
+cd istio-1.16.2/manifests/profiles/
+istioctl install -f demo.yaml
+
+This will install the Istio 1.16.2 default profile with ["Istio core" "Istiod" "Ingress gateways" "Egress gateways"] components into the cluster. Proceed? (y/N) y
+✔ Istio core installed
+✔ Istiod installed
+✔ Ingress gateways installed 
+✔ Egress gateways installed 
+✔ Installation complete
+Making this installation the default for injection and validation.
+
+Thank you for installing Istio 1.16. Please take a few minutes to tell us about your install/upgrade experience! https://forms.gle/99uiMML96AmsXY5d6
+```
+#### Add ons (optional)
+The add-ons are the Kiali UI (for Istio), Jaeger, Grafana and Prometheus. The Kubernetes yaml files are included with each release of Istio and are specific to that release:
+```sh
+# Navigate to the root of the extracted archive
+cd ../..
+
+# Apply the files to install the products
+kubectl apply -f samples/addons
+```
+
+## Snapshot 'k8sComplete'
+
+Shutdown the VMs, and snapshot each one.  See the helper script at the end for automating things under VMware.
+
+## Resources & References
+
+This guide was built on the work of others. As with many how-tos, I have contributed my skills and knowledge to pull everything together and fill in the gaps that I experienced.  However, I want to acknowledge at least some of the many sources where I found inspiration, guidance, fixes for errors, and sanity when I was missing a step. Not shown here are dozens of places I went in exploring different options for some of the pieces I ended up not using or installing here. - David
+
+- [How to Deploy MetalLB on Kubernetes - ComputingForGeeks](https://computingforgeeks.com/deploy-metallb-load-balancer-on-kubernetes/)
+- [How To: Ubuntu / Debian Linux Regenerate OpenSSH Host Keys - nixCraft](https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys)
+- [Block Storage Overview - Rook Ceph Documentation](https://www.rook.io/docs/rook/v1.10/Storage-Configuration/Block-Storage-RBD/block-storage/#advanced-example-erasure-coded-block-storage)
+- [Toolbox - Rook Ceph Documentation](https://www.rook.io/docs/rook/v1.10/Troubleshooting/ceph-toolbox/#interactive-toolbox)
+- [Quickstart - Rook Ceph Documentation](https://www.rook.io/docs/rook/v1.10/Getting-Started/quickstart)
+- [How to Install Kubernetes on Ubuntu 22.04 / Ubuntu 20.04 | ITzGeek](https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-kubernetes-on-ubuntu-22-04.html)
+- [How to install CRI-O on Ubuntu 22 | ITzGeek](https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-cri-o-on-ubuntu-22-04.html)
+- [Kubernetes 1.26 - The electrifying release setup - KubeSimplify](https://blog.kubesimplify.com/kubernetes-126)
+- [Containerd Github](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
+- [etcd-io Github issue #13670](https://github.com/etcd-io/etcd/issues/13670)
