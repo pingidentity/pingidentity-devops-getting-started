@@ -52,6 +52,16 @@ Set the environment variables in PingBase to: <mark><b>VERBOSE=“true”</b></m
 ### Orchestration / Helm / Kubernetes
 
 <details>
+  <summary>Kubernetes has dropped direct integration support for Docker. Does this change impact Ping product containers? </summary>
+
+<p>No. The underlying container runtime has not caused problems with our images.  Please let us know if you encounter errors.  The <mark><b>CRI-O</b></mark> and <mark><b>containerd</b></mark> runtimes have been tested without any known issues.</p>
+
+For more background:<br>
+
+<br>&emsp;The Kubernetes blog post on Docker removal is <a href="https://kubernetes.io/blog/2022/02/17/dockershim-faq/">here</a>.</br>
+<br>&emsp;An excellent write up of how it looks is on this  <a href="https://kodekloud.com/blog/kubernetes-removed-docker-what-happens-now/">page</a>.</br>
+</details>
+<details>
   <summary>My container environment is not allowed to make any external calls to services such as Github or Docker <br> Hub. Can I still use Ping Identity containers? </br> </summary>
 
 <p>Yes. This practice is common in production scenarios. To use Ping Identity containers in this situation:</p>
