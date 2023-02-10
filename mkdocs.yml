@@ -79,6 +79,7 @@ nav:
                   - Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
                   - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
                   - Ingress on local Kind Cluster: "deployment/deployHelmLocalIngress.md"
+                  - Restoring a Multi Region PingDirectory Deployment on Seed Region Failure: "deployment/restorePDMultiRegionSeedFailure.md"
           - Docker Compose:
               - Single Product Deployments: "deployment/deployCompose.md"
       - Support Policy: "home/supportPolicy.md"
