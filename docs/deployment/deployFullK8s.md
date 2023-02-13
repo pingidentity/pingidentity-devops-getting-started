@@ -388,8 +388,7 @@ spec:
         ports:
         - containerPort: 80
 ```
-Apply the file to create the objects.  You should see the nginx deployment, and be able to access the landing page by port-forwarding to the pod.
-`kubectl apply -f nginx-deploy.yaml`
+Apply the file to create the objects.  You should see the nginx deployment, and be able to access the landing page by port-forwarding to the pod: `kubectl apply -f nginx-deploy.yaml`
 
 After confirming, remove it: `kubectl delete -f nginx-deploy.yaml`
 
