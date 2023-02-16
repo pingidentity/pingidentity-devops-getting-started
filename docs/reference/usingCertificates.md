@@ -31,13 +31,13 @@ The default location for certificates and associated files are listed below, ass
 
 |                      | Variable Used        | Default Location/Value<br>/run/secrets... | Notes                                                |
 | -------------------- | -------------------- | ----------------------------------------- | ---------------------------------------------------- |
-| Keystore (JKS)       | KEYSTORE_FILE        | keystore                                  | Java KeyStore (JKS) Format. Set as default in absence of .p12 suffix |
+| Keystore (JKS)       | KEYSTORE_FILE        | keystore                                  | Java KeyStore (JKS) Format. Set as default in absence of .p12 suffix. |
 | Keystore (PKCS12)    | KEYSTORE_FILE        | keystore.p12                              | PKCS12 Format                                        |
-| Keystore Type        | KEYSTORE_TYPE        | jks or pkcs12                             | Based on suffix of KEYSTORE_FILE                     |
+| Keystore Type        | KEYSTORE_TYPE        | jks, pkcs12, pem, or bcfks                | Based on suffix of KEYSTORE_FILE.<br>Only use BCFKS in FIPS mode. |
 | Keystore PIN         | KEYSTORE_PIN_FILE    | keystore.pin                              |                                                      |
-| Truststore (JKS)     | TRUSTSTORE_FILE      | truststore                                | Set as default in absence of .p12 suffix             |
+| Truststore (JKS)     | TRUSTSTORE_FILE      | truststore                                | Set as default in absence of .p12 suffix.            |
 | Truststore (PKCS12)  | TRUSTSTORE_FILE      | truststore.p12                            | PKCS12 Format                                        |
-| Truststore Type      | TRUSTSTORE_TYPE      | jks or pkcs12                             | Based on suffix of TRUSTSTORE_FILE                   |
+| Truststore Type      | TRUSTSTORE_TYPE      | jks, pkcs12, pem, or bcfks                | Based on suffix of TRUSTSTORE_FILE.<br>Only use BCFKS in FIPS mode. |
 | Truststore PIN       | TRUSTSTORE_PIN_FILE  | truststore.pin                            |                                                      |
 | Certificate Nickname | CERTIFICATE_NICKNAME | see below                                 |                                                      |
 
