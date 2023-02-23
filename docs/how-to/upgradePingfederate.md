@@ -10,6 +10,7 @@ General Steps:
 
 - [Persistent Volume Upgrade](#persistent-volume-upgrade) of `/opt/out/instance/server/default/data` on pingfederate-admin
 - [Server Profile Upgrade](#server-profile-upgrade)
+- [Migrate Cluster Discovery Settings](#migrate-cluster-discovery-settings)
 - [Post Upgrade](#post-upgrade)
 
 [Persistent Volume Upgrade](#persistent-volume-upgrade) will include steps helpful to both pieces. [Server Profile Upgrade](#server-profile-upgrade) will discuss extracting upgraded files.
@@ -22,7 +23,7 @@ General Steps:
 
 1.  **This Document will Become Outdated**
 
-    The examples referenced in this document point to a specifig tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to N -1 from the current PF version.
+    The examples referenced in this document point to a specific tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to N -1 from the current PF version.
 
 1.  **Upgrades from Traditional Deployment**
 
@@ -57,7 +58,7 @@ Here we will walk through an example upgrade.
 !!! Info "This Process Requires Container Exec Access"
 Your orchestration user will need access to `kubectl exec -it <pod> -- sh` for multiple steps here.
 
-### Deploy Pingfederate as a Background Process
+### Deploy PingFederate as a Background Process
 
 Deploy your PingFederate version and server profile as background process with Helm:
 
@@ -73,7 +74,7 @@ helm upgrade --install pf-upgrade pingidentity/ping-devops \
    --version 0.9.4 -f 30-helm/pingfederate-upgrade/01-background.yaml
 ```
 
-The `args` section starts pingfederate as a background process and `tail -f /dev/null` as the foreground process.
+The `args` section starts PingFederate as a background process and `tail -f /dev/null` as the foreground process.
 
 ### Upgrade Profile in Container
 
@@ -141,6 +142,14 @@ After the previously run script, you can find upgraded profile files in `/opt/ne
 These files will be hard-coded and you should follow [Build a PingFederate Profile](./buildPingFederateProfile.md) as needed for templating.
 
 Additionally, If you use the bulk-config data.json import it will not be found here. It should be imported via the standard process on the next container start.
+
+## Migrate Cluster Discovery Settings
+
+To simplify future upgrades, migrate the cluster discovery settings in the `tcp.xml` file to the `jgroups.properties` file.
+
+You can find the default `jgroups.properties` file [here](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingfederate/opt/staging/instance/bin/jgroups.properties.subst.default).
+
+For more information, see [Migrate Cluster Discovery Settings](https://docs.pingidentity.com/access/sources/dita/topic?category=pingfederate&Releasestatus_ce=Current&resourceid=pf_migrate_cluster_discovery_settings) in the PingFederate admin guide.
 
 ## Post Upgrade
 
