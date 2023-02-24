@@ -32,6 +32,25 @@ configMaps:
       backup.sh: |-
         #!/bin/sh
         set -e
+
+        # Determine if this is the master of the topology
+        _instanceName=$(dsconfig get-global-configuration-prop \
+          --property instance-name \
+          --script-friendly |
+          awk '{ print $2 }')
+        _masterInstanceName=$(ldapsearch \
+          --terse \
+          --outputFormat json\
+          --baseDN "cn=Mirrored subtree manager for base DN cn_Topology_cn_config,cn=monitor" \
+          --searchScope base \
+          objectclass=* \
+          master-instance-name | jq -r .attributes[].values[])
+
+        if test "${_instanceName}" != "${_masterInstanceName}"; then
+          echo "This instance is not the master instance. Not running backup on this instance."
+          exit 0
+        fi
+
         # Create a directory for the backup
         mkdir -p /opt/pingdirectory-backup
         # Run the backup
