@@ -76,9 +76,7 @@ You can customize our product containers by:
 
 * [Using DevOps hooks](hooks.md)
 
-    Hooks are shell scripts, generally specific to a product, that you can use to automate certain operations.
-
-    You can find the hooks for our builds in the [Docker builds product directories](../docker-builds/README.md).
+    Hooks are shell scripts used to automate operations during the lifecycle of a product container.  These hook scripts are built into our images: some are common across all products, while others are product-specific. For more information about the repository that houses these scripts, visit the [docker-builds repository overview](../docker-builds/README.md).
 
 * [Using release tags](../docker-images/releaseTags.md)
 
