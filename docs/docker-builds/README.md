@@ -32,7 +32,7 @@ The repository includes the following directories. This list is not comprehensiv
 | ldap-sdk-tools | Files and scripts for an image with LDAP SDK tools available for use with Ping Directory |
 | pingbase | Base OS, default environment variables, volumes, healthcheck and entrypoint command definitions.  This image provides a base to all Ping Identity container images |
 | pingcommon | Files and scripts used with all Ping Identity container images |
-| pingdatacommon | Files and scripts used with all PingData container images \(i.e. PingDirectory, PingDataSync\) |
+| pingdatacommon | Files and scripts used with all PingData container images \(i.e. PingDirectory, PingDataSync, etc.\) |
 | pingjvm | Files and scripts for creating the JVM image that is the foundation for most Ping product container images |
 | pingaccess | Product-specific files and scripts for PingAccess container image|
 | pingauthorize | Product-specific files and scripts for PingAuthorize container image |
