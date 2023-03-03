@@ -20,15 +20,16 @@ The repository includes the following directories. This list is not comprehensiv
     The template used for this portal renders a highlight when you hover on a row in a table.  This action is expected, but the rows are not linked in any fashion.
 
 
-### Non-image directories
+### Non-image related
 | Repository Directory | Description |
 | :--- | :--- |
 | ci_scripts | Files and scripts used for building container images, both in an automated build pipeline and local use |
-| ldap-sdk-tools | LDAP SDK tools available for use with Ping Directory |
+
 
 ### Image directories
 | Repository Directory | Description |
 | :--- | :--- |
+| ldap-sdk-tools | Files and scripts for an image with LDAP SDK tools available for use with Ping Directory |
 | pingbase | Base OS, default environment variables, volumes, healthcheck and entrypoint command definitions.  This image provides a base to all Ping Identity container images |
 | pingcommon | Files and scripts used with all Ping Identity container images |
 | pingdatacommon | Files and scripts used with all Ping Identity Data container images \(i.e. PingDirectory, PingDataSync\) |
