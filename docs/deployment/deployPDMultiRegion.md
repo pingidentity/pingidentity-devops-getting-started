@@ -148,7 +148,7 @@ K8S_NUM_REPLICAS=3
 
 K8S_POD_HOSTNAME_PREFIX=pd-
 K8S_POD_HOSTNAME_SUFFIX=.eu-cluster.ping-devops.com
-K8S_SEED_HOSTNAME_SUFFIX=.eu-cluster.ping-devops.com
+K8S_SEED_HOSTNAME_SUFFIX=.us-cluster.ping-devops.com
 
 K8S_INCREMENT_PORTS=true
 LDAPS_PORT=8600

@@ -35,7 +35,8 @@ this image.
 | PING_IDENTITY_PASSWORD  | 2FederateM0re  | Specify a password for administrator user for interaction with admin API  |
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/pingaccess.log  | Files tailed once container has started  |
-| PA_ADMIN_PORT  | 9000  |  |
+| PA_ADMIN_PORT  | 9000  | Default port for PA Admin API and console Ignored when using PingIdentity Helm charts  |
+| PA_ADMIN_CLUSTER_PORT  | 9090  | Default port when clustering PA primary administrative node Ignored when using PingIdentity Helm charts  |
 | JAVA_RAM_PERCENTAGE  | 60.0  | Percentage of the container memory to allocate to PingAccess JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
 | FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Bouncy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off  |
 | SHOW_LIBS_VER  | true  | Defines a variable to allow showing library versions in the output at startup default to true  |

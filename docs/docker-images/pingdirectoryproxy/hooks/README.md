@@ -1,10 +1,12 @@
 
 # Ping Identity DevOps `pingdirectoryproxy` Hooks
-There are no default hooks defined for the `pingdirectoryproxy` image.
+List of available hooks:
+* [80-post-start.sh](80-post-start.sh.md)
+* [90-shutdown-sequence.sh](90-shutdown-sequence.sh.md)
 
-Hooks defined by parent images (i.e. pingcommon/pingdatacommon)
-will be inherited by this image.
+These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
 
 ---
+This document is auto-generated from _[pingdirectoryproxy/opt/staging/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectoryproxy/opt/staging/hooks)_
 
 Copyright © 2023 Ping Identity Corporation. All rights reserved.

@@ -44,6 +44,10 @@ this image.
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/access ${SERVER_ROOT_DIR}/logs/errors ${SERVER_ROOT_DIR}/logs/failed-ops ${SERVER_ROOT_DIR}/logs/config-audit.log ${SERVER_ROOT_DIR}/logs/tools/*.log* ${SERVER_BITS_DIR}/logs/tools/*.log*  | Files tailed once container has started  |
 | PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
 | UNBOUNDID_SKIP_START_PRECHECK_NODETACH  | true  | Setting this variable to true speeds up server startup time by skipping an unnecessary JVM check.  |
+| RETRY_TIMEOUT_SECONDS  | 180  | The default retry timeout in seconds for manage-topology and remove-defunct-server  |
+| PINGDIRECTORY_HOSTNAME  |   | Set this variable to configure Proxy for automatic backend discovery with PingDirectory hostname JOIN_PD_TOPOLOGY must be enabled for PINGDIRECTORY_HOSTNAME to take effect  |
+| PINGDIRECTORY_LDAPS_PORT  |   | Set this variable to configure Proxy for automatic backend discovery with PingDirectory LDAPS port JOIN_PD_TOPOLOGY must be enabled for PINGDIRECTORY_LDAPS_PORT to take effect  |
+| JOIN_PD_TOPOLOGY  | false  | Setting this variable to true will configure proxy to join the topology of PingDirectory  |
 
 ## Ports Exposed
 
