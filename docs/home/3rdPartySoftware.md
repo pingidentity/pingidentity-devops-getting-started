@@ -26,6 +26,8 @@ Ping Identity Docker images bundle various third-party tools to enable product f
 
 ## Questions about 3rd Party Software or Services
 
+Thanks again for using this portal.  Our goal is to keep it current, relevant, and as error-free as possible.
+
 Please refer to the [disclaimer](https://devops.pingidentity.com/home/disclaimer/) as background for this section.
 
 As a reminder, use the methods on the [Contact Us](https://devops.pingidentity.com/contact-us/contributing/) page if you encounter issues directly related to this portal, files or product container images provided by Ping, or with any suggestions you may have.
@@ -33,7 +35,7 @@ As a reminder, use the methods on the [Contact Us](https://devops.pingidentity.c
 When seeking help with content on this portal, consider the following:
 
 1. **Product-related questions**:  Engage product support through your normal channels
-2. **Questions specific to Ping product container images**: Engage your normal support channels and be specific that the problem is with the images from the DevOps program
+2. **Questions specific to Ping product container images**: Engage your normal support channels and be specific that the problem is with an image provided by the DevOps program
 3. **Examples on this portal**:  If you are following an example step-by-step as given on this portal, and it does not work, contact us at the link above.
 4. **General questions about Ping DevOps**: Consult our [FAQ](https://devops.pingidentity.com/reference/faqs/) page, or use an internet search for the information.
 5. **Any code in these Github repositories**: Contact us using information from the link above or use the bug tracking link on the repository:
@@ -42,8 +44,6 @@ When seeking help with content on this portal, consider the following:
     1. [Docker Builds](https://github.com/pingidentity/pingidentity-docker-builds)
     1. [Helm Charts](https://github.com/pingidentity/helm-charts)
     1. [Server Profiles](https://github.com/pingidentity/pingidentity-server-profiles)
-
-Thanks again for using this portal.  Our goal is to keep it current, relevant, and as error-free as possible.
 
 ### Other software mentioned or used on this portal (not comprehensive)
 
