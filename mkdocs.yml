@@ -63,7 +63,8 @@ nav:
       - Deployment Examples:
           - Introduction: "deployment/introduction.md"
           - Kubernetes:
-              - Create a local Kubernetes Cluster: "deployment/deployLocalK8sCluster.md"
+              - Create a simple local Kubernetes Cluster: "deployment/deployLocalK8sCluster.md"
+              - Create a robust local Kubernetes Cluster: "deployment/deployFullK8s.md"
               - Create a local Openshift Cluster: "deployment/deployLocalOpenshift.md"
               - Ping Identity Helm Charts: "deployment/deployHelm.md"
               - Other Kubernetes Information:
