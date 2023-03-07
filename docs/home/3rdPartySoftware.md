@@ -34,8 +34,8 @@ As a reminder, use the methods on the [Contact Us](https://devops.pingidentity.c
 
 When seeking help with content on this portal, consider the following:
 
-1. **Product-related questions**:  Engage product support through your normal channels
-2. **Questions specific to Ping product container images**: Engage your normal support channels and be specific that the problem is with an image provided by the DevOps program
+1. **Product-related questions**:  For questions about the Ping products that run inside these images, customers with valid support contracts should engage through our [Support Portal](https://support.pingidentity.com/s/).
+2. **Questions specific to Ping product container images**: Customers with valid support contracts should engage through our Support Portal. Please specify that the problem is with an image provided by the DevOps program
 3. **Examples on this portal**:  If you are following an example step-by-step as given on this portal, and it does not work, contact us at the link above.
 4. **General questions about Ping DevOps**: Consult our [FAQ](https://devops.pingidentity.com/reference/faqs/) page, or use an internet search for the information.
 5. **Any code in these Github repositories**: Contact us using information from the link above or use the bug tracking link on the repository:
