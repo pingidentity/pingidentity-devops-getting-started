@@ -895,7 +895,7 @@ Shutdown the VMs, and snapshot each one.  See the helper script in this reposito
 
 ## Resources & References
 
-This guide was built on the work of others. As with many how-to documents, I have contributed my skills and knowledge to pull everything together and fill in the gaps that I experienced.  However, I want to acknowledge at least some of the many sources where I found inspiration, guidance, fixes for errors, and sanity when I was missing a step. Not shown here are dozens of places where I went in exploring different options for pieces I did not use or install in the end. - David
+This guide was built on the work of others. As with many how-to documents, we have contributed our skills and knowledge to pull everything together and fill in the gaps that were experienced.  However, we want to acknowledge at least some of the many sources where we found inspiration, guidance, fixes for errors, and sanity when a step was missed. Not shown here are dozens of places where we went in exploring different options for pieces we did not use or install in the end. *the Ping BRASS team*
 
 - [How to Deploy MetalLB on Kubernetes - ComputingForGeeks](https://computingforgeeks.com/deploy-metallb-load-balancer-on-kubernetes/)
 - [How To: Ubuntu / Debian Linux Regenerate OpenSSH Host Keys - nixCraft](https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys)
