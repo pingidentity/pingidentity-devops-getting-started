@@ -174,3 +174,18 @@ Set the environment variable in PingBase to: <mark><b>MUTE_LICENSE_VERIFICATION=
 <p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a>.</p>
 </details>
 
+### Troubleshoot
+
+<details>
+  <summary>How do I run Collect-Support-Data in the devops environment?</summary>
+
+You will need to modify the liveness probe to always exit 0 and the readiness probe to always exit 1. This will give you enough time to capture the CSD without it crashing or trying to serve live traffic.
+<p>For more information about the Collect-Support-Data, please visit <a href="https://support.pingidentity.com/s/article/collect-support-data-tool">CSD</a>.</p>
+</details>
+
+<details>
+  <summary>How much overhead memeory and cpu is needed to run the Collect-Support-Data tool?</summary>
+
+The memory for CPU is determined by it's setting in the java.properties file. Out of the box this is set to 1GB. So it would need one or two additional GBs in addition to the heap for the server. In terms of CPU, the CSD just uses whatever is available.
+<p>For more information about the Collect-Support-Data, please visit <a href="https://support.pingidentity.com/s/article/collect-support-data-tool">CSD</a>.</p>
+</details>
