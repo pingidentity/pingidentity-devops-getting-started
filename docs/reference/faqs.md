@@ -174,3 +174,18 @@ Set the environment variable in PingBase to: <mark><b>MUTE_LICENSE_VERIFICATION=
 <p>For more information about the PingBase environment variables, please visit <a href="https://devops.pingidentity.com/docker-images/pingbase/">PingBase</a>.</p>
 </details>
 
+### Troubleshoot
+
+<details>
+  <summary>How do I run Collect-Support-Data in the devops environment?</summary>
+
+You will need to modify the liveness probe to always exit 0 and the readiness probe to always exit 1. These changes will give you enough time to capture the CSD without it crashing or trying to serve live traffic.
+<p>For more information about the Collect-Support-Data, please visit <a href="https://support.pingidentity.com/s/article/collect-support-data-tool">CSD</a>.</p>
+</details>
+
+<details>
+  <summary>How much overhead memory and CPU is needed to run the Collect-Support-Data tool?</summary>
+
+By default, this value is set to 1GB. You would need to add additional memory (1GB to 2GB) to the heap for the server. In terms of CPU, the CSD uses whatever is available.
+<p>For more information about the Collect-Support-Data, please visit <a href="https://support.pingidentity.com/s/article/collect-support-data-tool">CSD</a>.</p>
+</details>
