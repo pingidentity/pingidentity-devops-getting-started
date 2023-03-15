@@ -7,7 +7,7 @@ title: Deploy an Example Stack
     A video demonstration of this example is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6313575361112/getting-started-walkthrough).
 
 !!! note "Version"
-    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.16.1 (95567)`, which includes Docker Engine `v20.10.22` and Kubernetes `v1.25.4`.  The ingress-nginx controller version was `1.5.1`.
+    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used for this guide was `4.17.0 (99724)`, which includes Docker Engine `v20.10.23` and Kubernetes `v1.25.4`.  The ingress-nginx controller version was `1.6.4`.
 
 !!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
 
@@ -106,8 +106,9 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
         Sample output:
 
          ```text
+         Release "demo" does not exist. Installing it now.
          NAME: demo
-         LAST DEPLOYED: Tue Jan 17 09:18:49 2023
+         LAST DEPLOYED: Tue Mar 14 13:42:13 2023
          NAMESPACE: pinghelm
          STATUS: deployed
          REVISION: 1
@@ -116,30 +117,30 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          #-------------------------------------------------------------------------------------
          # Ping DevOps
          #
-         # Description: Ping Identity helm charts - 1/03/2023
+         # Description: Ping Identity helm charts - 3/03/2023
          #-------------------------------------------------------------------------------------
          #
          #           Product          tag   typ  #  cpu R/L   mem R/L  Ing
          #    --------------------- ------- --- -- --------- --------- ---
-         #    global                2212              0/0       0/0     √ 
+         #    global                2302              0/0       0/0     √
          #
-         #  √ pingaccess-admin      2212               /         /        
-         #  √ pingaccess-engine     2212               /         /        
-         #  √ pingauthorize         2212               /         /        
-         #    pingauthorizepap                                            
-         #    pingcentral                                                 
-         #  √ pingdataconsole       2212               /         /        
-         #    pingdatasync                                                
-         #    pingdelegator                                               
-         #  √ pingdirectory         2212               /         /        
-         #    pingdirectoryproxy                                          
-         #  √ pingfederate-admin    2212               /         /        
-         #  √ pingfederate-engine   2212               /         /        
-         #    pingintelligence                                            
+         #  √ pingaccess-admin      2302    sts  1    0/2     1Gi/4Gi   √
+         #  √ pingaccess-engine     2302    dep  1    0/2     1Gi/4Gi   √
+         #  √ pingauthorize         2302    dep  1    0/2    1.5G/4Gi   √
+         #    pingauthorizepap
+         #    pingcentral
+         #  √ pingdataconsole       2302    dep  1    0/2    .5Gi/2Gi   √
+         #    pingdatasync
+         #    pingdelegator
+         #  √ pingdirectory         2302    sts  1  50m/2     2Gi/8Gi   √
+         #    pingdirectoryproxy
+         #  √ pingfederate-admin    2302    dep  1    0/2     1Gi/4Gi   √
+         #  √ pingfederate-engine   2302    dep  1    0/2     1Gi/4Gi   √
+         #    pingintelligence
          #
-         #    ldap-sdk-tools                                              
-         #    pd-replication-timing                                       
-         #    pingtoolkit                                                 
+         #    ldap-sdk-tools
+         #    pd-replication-timing
+         #    pingtoolkit
          #
          #-------------------------------------------------------------------------------------
          # To see values info, simply set one of the following on your helm install/upgrade
@@ -147,7 +148,7 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          #    --set help.values=all         # Provides all (i.e. .Values, .Release, .Chart, ...) yaml
          #    --set help.values=global      # Provides global values
          #    --set help.values={ image }   # Provides image values merged with global
-         #-------------------------------------------------------------------------------------        
+         #-------------------------------------------------------------------------------------
          ```
 
         As you can see, PingAccess Admin and Engine, PingData Console, PingDirectory, PingAuthorize, and the PingFederate Admin and Engine are deployed from the provided `everything.yaml` values file.

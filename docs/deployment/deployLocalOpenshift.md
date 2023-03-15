@@ -15,15 +15,15 @@ title: Deploy a Local Openshift Cluster
 Some customers are using Openshift as their platform for running Ping containerized applications.  If this is the case, access to an Openshift cluster is assumed.  Even in those cases, there are times where a local implementation of Openshift for development and testing is convenient.  
 
 !!! note "Platform"
-    For this guide, the Apple MacBook Pro platform is used, and the release of the _Red Hat Openshift Local_ offering is version 2.13.1
+    For this guide, the Apple MacBook Pro platform is used, and the release of the _Red Hat Openshift Local_ offering is version 2.15.0
 
-The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.13) offering is used in this guide. This page was derived from the [documentation](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.13/html/getting_started_guide/index) provided by Red Hat along with a workaround to a bug that has not yet been addressed regarding the Openshift client on the Apple Mac platform.
+The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.15) offering is used in this guide. This page was derived from the [documentation](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.15/html/getting_started_guide/index) provided by Red Hat along with a workaround to a bug that has not yet been addressed regarding the Openshift client on the Apple Mac platform.
 
 ## Prerequisites
 
 * Entitlement for Openshift code.  If you have registered for the Red Hat developer program, you can obtain your entitlement for the free trial [from the portal](https://developers.redhat.com/products/openshift/download) after logging in.
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-* [Openshift client (oc)](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.11/html-single/cli_tools/index#cli-getting-started)
+* [Openshift client (oc)](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.12/html-single/cli_tools/index#cli-getting-started)
 * ports 80, 443 and 6443 available on machine. If you have Docker Desktop installed, you must either disable Kubernetes or stop Docker in order for the installation to work.
 * **sudo** privileges on your hosting environment
 
@@ -34,6 +34,15 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
 1. With the `crc` utility installed, configure settings.  Provide as much RAM and CPU as you can, depending on your system.  In this example, 16 GB of RAM, 7 vCPUs, and a disk size of 80GB are set.  The consent-telemetry is optional, depending on whether you consent to usage data metrics being sent to Red Hat.
 
     ```txt
+    # Version information
+    crc version
+
+    # Output
+    CRC version: 2.15.0+72256c3c
+    OpenShift version: 4.12.5
+    Podman version: 4.3.1
+
+    # Set configuration
     crc config set memory 16384
     crc config set cpus 7
     crc config set consent-telemetry no
@@ -54,25 +63,24 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc setup
 
     # Output
-    INFO Using bundle path /Users/davidross/.crc/cache/crc_vfkit_4.11.18_amd64.crcbundle
+    INFO Using bundle path https://storage.googleapis.com/crc-bundle-github-ci/4.12.5/crc_vfkit_4.12.5_amd64.crcbundle
     INFO Checking if running as non-root
     INFO Checking if crc-admin-helper executable is cached
-    INFO Checking for obsolete admin-helper executable
     INFO Checking if running on a supported CPU architecture
     INFO Checking minimum RAM requirements
     INFO Checking if crc executable symlink exists
-    INFO Creating symlink for crc executable
     INFO Checking if running emulated on a M1 CPU
     INFO Checking if vfkit is installed
     INFO Checking if CRC bundle is extracted in '$HOME/.crc'
-    INFO Checking if /Users/davidross/.crc/cache/crc_vfkit_4.11.18_amd64.crcbundle exists
+    INFO Checking if https://storage.googleapis.com/crc-bundle-github-ci/4.12.5/crc_vfkit_4.12.5_amd64.crcbundle exists
     INFO Getting bundle for the CRC executable
-    INFO Downloading bundle: /Users/davidross/.crc/cache/crc_vfkit_4.11.18_amd64.crcbundle...
-    3.15 GiB / 3.15 GiB [------------------------------------------] 100.00% 46.12 MiB p/s
-    INFO Uncompressing /Users/davidross/.crc/cache/crc_vfkit_4.11.18_amd64.crcbundle
-    crc.img: 31.00 GiB / 31.00 GiB [-------------------------------] 100.00%
+    INFO Downloading bundle: https://storage.googleapis.com/crc-bundle-github-ci/4.12.5/crc_vfkit_4.12.5_amd64.crcbundle...
+    3.07 GiB / 3.07 GiB [--------------------------------------------------------------->] 99.88% 11.39 MiB p/s
+    INFO Uncompressing /Users/davidross/.crc/cache/crc_vfkit_4.12.5_amd64.crcbundle
+    crc.img:  31.00 GiB / 31.00 GiB [-----------------------------------------------------------------] 100.00%
     INFO Checking if old launchd config for tray and/or daemon exists
     INFO Checking if crc daemon plist file is present and loaded
+    INFO Adding crc daemon plist file and loading it
     Your system is correctly setup for using CRC. Use 'crc start' to start the instance
     ```
 
@@ -85,7 +93,6 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
  
     INFO Checking if running as non-root
     INFO Checking if crc-admin-helper executable is cached
-    INFO Checking for obsolete admin-helper executable
     INFO Checking if running on a supported CPU architecture
     INFO Checking minimum RAM requirements
     INFO Checking if crc executable symlink exists
@@ -93,11 +100,11 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     INFO Checking if vfkit is installed
     INFO Checking if old launchd config for tray and/or daemon exists
     INFO Checking if crc daemon plist file is present and loaded
-    INFO Loading bundle: crc_vfkit_4.11.18_amd64...
-    INFO Creating CRC VM for openshift 4.11.18...
+    INFO Loading bundle: crc_vfkit_4.12.5_amd64...
+    INFO Creating CRC VM for openshift 4.12.5...
     INFO Generating new SSH key pair...
     INFO Generating new password for the kubeadmin user
-    INFO Starting CRC VM for openshift 4.11.18...
+    INFO Starting CRC VM for openshift 4.12.5...
     INFO CRC instance is running with IP 127.0.0.1
     INFO CRC VM is running
     INFO Updating authorized keys...
@@ -135,24 +142,24 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     ERRO Cluster is not ready: cluster operators are still not stable after 10m0.746213711s
     INFO Adding crc-admin and crc-developer contexts to kubeconfig...
     Started the OpenShift cluster.
-    
+
     The server is accessible via web console at:
       https://console-openshift-console.apps-crc.testing
-    
+
     Log in as administrator:
       Username: kubeadmin
       Password: 3hT2A-JJv5U-VAJia-RNpSs
-    
+
     Log in as user:
       Username: developer
       Password: developer
-    
+
     Use the 'oc' command line interface:
       $ eval $(crc oc-env)
       $ oc login -u developer https://api.crc.testing:6443
     ```
 
-    Depending on the speed of your system, this will take 8 to 15 minutes.  There is a 10 minute timeout on checking the stability of operators deployed by Openshift.  It might be the case that the tool reports these have not reached full stability in that window.  In the writing of this guide, no issues were found using Openshift deployed in this manner, even if the error occurs.  Each time these steps were tested, everything eventually reached a healthy status, but just not in the window expected.  You can see this error at the end of the output displayed above (Cluster is not ready).
+    Depending on the speed of your system, this will take 8 to 15 minutes.  There is a 10 minute timeout on checking the stability of operators deployed by Openshift.  It might be the case that the tool reports these have not reached full stability in that window.  In the writing of this guide, no issues were found using Openshift deployed in this manner, even if the error occurs.  Each time these steps were tested, everything eventually reached a healthy status, but just not in the window expected on some occasions.  You can see this error at the end of the output displayed above (`Cluster is not ready`).
 
 ### Mac bug workaround
 
@@ -167,7 +174,7 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
 
     The workaround to this error is to trust two certificates in the Apple Keychain Access utility.
 
-2.  Login to the web console as **kubeadmin**, using the credentials displayed when starting the instance.  If necessary, you can run `crc console --credentials` to display them again.  The console url is [https://console-openshift-console.apps-crc.testing](https://console-openshift-console.apps-crc.testing).
+2. Login to the web console as **kubeadmin**, using the credentials displayed when starting the instance.  If necessary, you can run `crc console --credentials` to display them again.  The console url is [https://console-openshift-console.apps-crc.testing](https://console-openshift-console.apps-crc.testing).
 
     * In the web console, select the **Administrator** role from the top of the left navigation bar.
     * Navigate to **Workloads** > **Secrets** and filter for **external-loadbalancer-serving-certkey**.  It will be in the **openshift-kube-api** server project (namespace).
