@@ -151,14 +151,14 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 * Container or virtual machine manager, such as: [Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/), [QEMU](https://minikube.sigs.k8s.io/docs/drivers/qemu/), [Hyperkit](https://minikube.sigs.k8s.io/docs/drivers/hyperkit/), [Hyper-V](https://minikube.sigs.k8s.io/docs/drivers/hyperv/), [KVM](https://minikube.sigs.k8s.io/docs/drivers/kvm2/), [Parallels](https://minikube.sigs.k8s.io/docs/drivers/parallels/), [Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/), [VirtualBox](https://minikube.sigs.k8s.io/docs/drivers/virtualbox/), or [VMware Fusion/Workstation](https://minikube.sigs.k8s.io/docs/drivers/vmware/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-!!! note "Kubernetes Version"
-    At the time of the writing of this guide, minikube installs Kubernetes version 1.25.3.
+!!! note "Minikube and Kubernetes Version"
+    At the time of the writing of this guide, minikube was version 1.29.0, which installs Kubernetes version 1.26.1.
 
 ### Install and configure minikube
 
 1. Install minikube for your platform.  See the [Get Started!](https://minikube.sigs.k8s.io/docs/start/) page for details.
 
-1. Configure the minikube resources and virtualization driver.  For example, the following was used on an Apple Macbook Pro with VMware Fusion installed as the backing platform:
+1. Configure the minikube resources and virtualization driver.  For example, the following options were used on an Apple Macbook Pro with VMware Fusion installed as the backing platform:
 
     ```sh
     minikube config set cpus 6
@@ -194,14 +194,14 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl version --short
 
     < output clipped >
-    Server Version: v1.25.3
+    Server Version: v1.26.1
 
     ------------------
 
     kubectl get nodes
 
     NAME       STATUS   ROLES           AGE     VERSION
-    minikube   Ready    control-plane   6m55s   v1.25.3
+    minikube   Ready    control-plane   4m7s   v1.26.1
     ```
 
 ### Enable ingress
@@ -371,7 +371,7 @@ You can also pause and unpause the cluster:
 minikube pause
 minikube unpause
 ```
-Alternatively, you can delete the minikube environment, which will require reconfiguration the next time you start.
+Alternatively, you can delete the minikube environment, which will recreate the VM the next time.
 
 ```sh
 minikube delete 
