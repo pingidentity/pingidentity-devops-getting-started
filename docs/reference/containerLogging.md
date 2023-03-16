@@ -6,6 +6,9 @@ title: Container Logging
 
 This document provides an outline of how logging is handled in containerized environments.  Please refer to the provided links at the end of this page for details on implementing a logging solution for your deployments.
 
+!!! info "Splunk Example"
+    While providing examples for all logging solutions is impractical, there is an example for using Splunk on this portal [here](../how-to/splunkLogging.md).
+
 ## Problem statement
 
 In a containerized deployment model, it is expected that containers (or pods under Kubernetes) will be ephemeral.  Further, the standard practice for application logging in a container is to use `stdout` and, in some cases, `stderr` as the means of streaming logs. Ping product containers follow this practice. As a result, no logs will persist outside the lifecycle of the container or pod.  In particular, if a pod is failing or in crashloop due to a misconfiguration or error, it is impossible to troubleshoot the cause as the logs that might provide information on the crash are lost each time the pod attempts to restart. **It is important, then, to insure that logs are stored external to the container.**
