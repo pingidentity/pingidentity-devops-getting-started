@@ -50,6 +50,8 @@ If you are using this example as is, you will need a [devops-secret](../how-to/d
 
 !!! Info "In order to use the baseline server profile for this you have to deploy PingFederate along with PingAccess"
 
+Navigate to the getting started repository and deploy your old version of PingAccess.
+
 ```
 $ helm upgrade --install pa-upgrade pingidentity/ping-devops -f 30-helm/pingaccess-upgrade/01-original.yaml
 ```
@@ -94,6 +96,8 @@ Finally, update PingAccess image version to new target PingAccess version and ru
 !!! Info "Be sure to change the ingress domain name value to your domain in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingaccess-upgrade/02-upgraded.yaml)"
 
 !!! Info "Be sure to change the image tag value in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingaccess-upgrade/02-upgraded.yaml)"
+
+!!! Info "Be sure to change the server profile url and path in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingaccess-upgrade/02-upgraded.yaml)"
 
 ```
 helm upgrade --install pa-upgrade pingidentity/ping-devops -f 30-helm/pingaccess-upgrade/02-upgraded.yaml
