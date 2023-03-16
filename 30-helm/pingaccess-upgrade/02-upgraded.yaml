@@ -1,0 +1,85 @@
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  ingress:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: <insert domain name here>
+    defaultTlsSecret:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
+
+pingfederate-admin:
+  image:
+    tag: <insert new image tag here>
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: baseline/pingaccess
+
+pingfederate-engine:
+  image:
+    tag: <insert new image tag here>
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles
+    SERVER_PROFILE_PATH: baseline/pingaccess
+
+#############################################################
+# pingaccess-admin values
+#############################################################
+
+pingaccess-admin:
+  enabled: true
+  privateCert:
+    generate: true
+  image:
+    # tag: 2302-7.2.0
+    tag: 2301-7.1.3
+    # tag: 2211-7.0.6
+    # tag: 2205-6.3.4
+    # repositoryFqn: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds/pingaccess
+    # tag: 6.3.6-alpine_3.17.2-al11-BRASS-365-5a677eef-x86_64
+  envs:
+    SERVER_PROFILE_URL: https://github_user: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@github.com/PingJamesB/test-server-profile.git
+    SERVER_PROFILE_PATH: pingaccess
+    # SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    # SERVER_PROFILE_PATH: baseline/pingaccess
+  # container:
+  #   waitFor:
+  #     pingfederate-engine:
+  #       service: https
+  #       timeoutSeconds: 300
+
+#############################################################
+# pingaccess-engine values
+#############################################################
+
+pingaccess-engine:
+  enabled: true
+  image:
+    # tag: 2302-7.2.0
+    tag: 2301-7.1.3
+    # tag: 2211-7.0.6
+    # tag: 2205-6.3.4
+    # repositoryFqn: 574076504146.dkr.ecr.us-west-2.amazonaws.com/docker-builds/pingaccess
+    # tag: 6.3.6-alpine_3.17.2-al11-BRASS-365-5a677eef-x86_64
+  envs:
+    SERVER_PROFILE_URL: https://github_user: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@github.com/PingJamesB/test-server-profile.git
+    SERVER_PROFILE_PATH: pingaccess
+    # SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    # SERVER_PROFILE_PATH: baseline/pingaccess
+
+# pingfederate-admin:
+#   enabled: true
+#   envs:
+#     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+#     SERVER_PROFILE_PATH: baseline/pingfederate
+
+# pingfederate-engine:
+#   enabled: true
+#   envs:
+#     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+#     SERVER_PROFILE_PATH: baseline/pingfederate
+
