@@ -137,6 +137,7 @@ nav:
       - Securing the Containers: "how-to/secureContainers.md"
       - Upgrading Deployments:
           - Introduction: "how-to/manage.md"
+          - Upgrading PingAccess: "how-to/upgradePingAccess.md"
           - Upgrading PingFederate: "how-to/upgradePingfederate.md"
           - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
           - Migrating to Unprivileged Images: "how-to/migratingRootToUnprivileged.md"

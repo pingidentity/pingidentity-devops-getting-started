@@ -17,15 +17,11 @@ In a DevOps environment, upgrades can be simplified through automation, orchestr
 
 1.  **This Document will Become Outdated**
 
-    The examples referenced in this document point to a specific tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to N -1 from the current PF version. 
-
-1.  **Upgrades from Traditional Deployment**
-
-    It may be desirable to upgrade PingAccess along with migrating from a traditional environment. This is not recommended. Instead you should upgrade your current environment to the desired version of PingAccess and then [create a profile](./buildPingAccessProfile.md) that can be used in a containerized deployment.
+    The examples referenced in this document point to a specific tag. This tag may not exist anymore at the time of reading. To correct the issue, update the tag on your file to `N-1` from the current PF version. 
 
 1.  **Irrelevant Ingress**
 
-    The values.yaml files mentioned in this document expects and nginx ingress controller with class `nginx-public`. It is not an issue if your environment doesn't have this, the created ingresses will not be used.
+    The values.yaml files mentioned in this document expects and nginx ingress controller with class `nginx-public`. It is not an issue if your environment does not have this class. In such cases, the created ingresses will not be used.
 
 ## Configuration Forward
 
@@ -33,7 +29,7 @@ Steps:
 
 1.  Deploy your old version of PingAccess with server profile
 1.  Export the configuration as a data.json file
-1.  Copy the <PA_Home>/conf/pa.jwk file
+1.  Copy the pa.jwk file to your server profile
 1.  Deploy new PingAccess version with server profile
 
 Here we will walk through an example upgrade.
@@ -42,13 +38,13 @@ Here we will walk through an example upgrade.
 ### Deploy your old version of PingAccess with server profile
 
 !!! Info "Make sure you have a devops-secret"
-If you are using this example as is, you will need a [devops-secret](../how-to/devopsUserKey.md#for-kubernetes)
+If you are using this example as-is, you will need a [devops-secret](../how-to/devopsUserKey.md#for-kubernetes)
 
 !!! Info "Be sure to change the ingress domain name value to your domain in [01-original.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingaccess-upgrade/01-original.yaml)"
 
 !!! Info "Be sure to change the image tag value in [01-original.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingaccess-upgrade/01-original.yaml)"
 
-!!! Info "In order to use the baseline server profile for this you have to deploy PingFederate along with PingAccess"
+!!! Info "In order to use the baseline server profile as outlined in this guide, you have to deploy PingFederate along with PingAccess"
 
 Navigate to the getting started repository and deploy your old version of PingAccess.
 
@@ -58,7 +54,7 @@ $ helm upgrade --install pa-upgrade pingidentity/ping-devops -f 30-helm/pingacce
 
 ### Export the configuration as a data.json file
 
-Once your cluster is healthy export the configuration as a json file and add it to your server profile so the start-up-deployer can use it to configure your upgraded PingAccess.
+After your cluster is healthy, export the configuration as a json file and add it to your server profile so the start-up-deployer can use it to configure your upgraded PingAccess.
 
 ```
 $ curl -k -u Administrator:2FederateM0re -H "X-Xsrf-Header: PingAccess" https://pa-upgrade-pingaccess-admin.ping-devops.com/pa-admin-api/v3/config/export >~/<insert path to server profile here>/pingaccess/instance/data/data.json
@@ -67,7 +63,9 @@ $ curl -k -u Administrator:2FederateM0re -H "X-Xsrf-Header: PingAccess" https://
 100 22002  100 22002    0     0  42664      0 --:--:-- --:--:-- --:--:-- 43056
 ```
 
-Copy the pa.jwk file to your server profile.
+### Copy the pa.jwk file to your server profile.
+
+Copy the <PA_Home>/conf/pa.jwk file.
 
 ```
 $ kubectl cp pa-upgrade-pingaccess-admin-0:/opt/out/instance/conf/pa.jwk ~/<insert path to server profile here>/pingaccess/instance/conf/pa.jwk
@@ -91,7 +89,7 @@ $ kubectl delete pvc out-dir-pa-upgrade-pingaccess-admin-0
 persistentvolumeclaim "out-dir-pa-upgrade-pingaccess-admin-0" deleted
 ```
 
-Finally, update PingAccess image version to new target PingAccess version and run as normal.
+Finally, update the PingAccess image version to the new target version and run.
 
 !!! Info "Be sure to change the ingress domain name value to your domain in [02-upgraded.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingaccess-upgrade/02-upgraded.yaml)"
 
@@ -103,4 +101,4 @@ Finally, update PingAccess image version to new target PingAccess version and ru
 helm upgrade --install pa-upgrade pingidentity/ping-devops -f 30-helm/pingaccess-upgrade/02-upgraded.yaml
 ```
 
-Now you should have a an upgraded PingAccess instance
+At this time, you should have an upgraded PingAccess instance
