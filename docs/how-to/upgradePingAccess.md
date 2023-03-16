@@ -21,7 +21,7 @@ In a DevOps environment, upgrades can be simplified through automation, orchestr
 
 1.  **Irrelevant Ingress**
 
-    The values.yaml files mentioned in this document expects and nginx ingress controller with class `nginx-public`. It is not an issue if your environment does not have this class. In such cases, the created ingresses will not be used.
+    The values.yaml files mentioned in this document expects an nginx ingress controller with class `nginx-public`. It is not an issue if your environment does not have this class. In such cases, the created ingresses will not be used.
 
 ## Configuration Forward
 
