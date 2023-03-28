@@ -1,0 +1,141 @@
+## PA, PF, PD - tested with helm chart 0.9.11
+
+global:
+  image:
+    tag: "edge"
+    pullPolicy: Always
+  ingress:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: ping-devops.com
+    defaultTlsSecret:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      kubernetes.io/ingress.class: "nginx-public"
+
+pingaccess-admin:
+  enabled: true
+  privateCert:
+    generate: true
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingaccess
+    SERVER_PROFILE_PARENT: BASELINE
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: splunk-sample/pingaccess
+    TAIL_LOG_FILES: "/opt/logs/pingaccess.log /opt/logs/pingaccess_engine_audit_splunk.log /opt/logs/pingaccess_api_audit_splunk.log /opt/logs/pingaccess_agent_audit_splunk.log"
+  container:
+    waitFor:
+      pingfederate-engine:
+        service: https
+
+pingaccess-engine:
+  enabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingaccess
+    SERVER_PROFILE_PARENT: BASELINE
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: splunk-sample/pingaccess
+    TAIL_LOG_FILES: "/opt/logs/pingaccess.log /opt/logs/pingaccess_engine_audit_splunk.log /opt/logs/pingaccess_api_audit_splunk.log /opt/logs/pingaccess_agent_audit_splunk.log"
+  includeSidecars:
+    - splunk-log-forwarder
+  includeInitContainers:
+    - splunk-conf
+  includeVolumes:
+    - product-logs
+    - splunk-config
+    - splunk-config-init
+  volumeMounts:
+    - mountPath: /opt/logs
+      name: product-logs
+
+pingdataconsole:
+  enabled: true
+
+pingdirectory:
+  container:
+    replicaCount: 1
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: baseline/pingdirectory
+
+pingfederate-admin:
+  enabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_PARENT: BASELINE
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: splunk-sample/pingfederate
+    TAIL_LOG_FILES: "/opt/logs/server.log /opt/logs/splunk-audit.log"
+
+
+pingfederate-engine:
+  enabled: true
+  envs:
+    SERVER_PROFILE_BASELINE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_BASELINE_PATH: baseline/pingfederate
+    SERVER_PROFILE_PARENT: BASELINE
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: splunk-sample/pingfederate
+    TAIL_LOG_FILES: "/opt/logs/server.log /opt/logs/splunk-audit.log"
+  includeSidecars:
+    - splunk-log-forwarder
+  includeInitContainers:
+    - splunk-conf
+  includeVolumes:
+    - product-logs
+    - splunk-config
+    - splunk-config-init
+  volumeMounts:
+    - mountPath: /opt/logs
+      name: product-logs
+
+
+sidecars:
+  splunk-log-forwarder:
+    name: splunk-uf
+    image: splunk/universalforwarder:8.2.10
+    imagePullPolicy: Always
+    volumeMounts:
+    - name: splunk-config
+      mountPath: /opt/splunkforwarder/etc/system/local
+    - name: product-logs
+      mountPath: /var/log/instance
+    env:
+    - name: SPLUNK_START_ARGS
+      value: --accept-license --answer-yes --no-prompt
+    - name: SPLUNK_PASSWORD
+      value: 2FederateM0re!
+    - name: SPLUNK_USER
+      value: splunk
+    - name: SPLUNK_CMD
+      value: add monitor /var/log/
+    securityContext:
+      runAsUser: 999
+      runAsGroup: 1000
+
+
+initContainers:
+  splunk-conf:
+    name: volume-permissions
+    image: busybox
+    command: ['sh', '-c', 'cp /configs/* /opt/splunkforwarder/etc/system/local/']
+    volumeMounts:
+    - name: splunk-config-init
+      mountPath: /configs
+    - name: splunk-config
+      mountPath: /opt/splunkforwarder/etc/system/local
+
+
+volumes:
+  product-logs:
+    emptyDir: {}
+  splunk-config:
+    emptyDir: {}
+  splunk-config-init:
+    configMap: 
+      name: splunk-config-init
+      defaultMode: 0777

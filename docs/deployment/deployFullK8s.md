@@ -643,6 +643,9 @@ total_used       61 MiB
 total_avail      180 GiB
 total_space      180 GiB
 
+# Exit the container shell
+exit
+
 # (optional) Remove the toolbox pod
 kubectl delete -f toolbox.yaml
 ```
@@ -758,7 +761,7 @@ Set the storage class you created as the default (`storageclass.kubernetes.io/is
 
 ```sh
 # Before
-kd sc rook-ceph-block
+kubectl describe sc rook-ceph-block
 Name:                  rook-ceph-block
 IsDefaultClass:        No
 Annotations:           <none>
@@ -768,7 +771,7 @@ Annotations:           <none>
 kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
 # After
-kd sc rook-ceph-block
+kubectl describe sc rook-ceph-block
 Name:                  rook-ceph-block
 IsDefaultClass:        Yes
 Annotations:           <none>
