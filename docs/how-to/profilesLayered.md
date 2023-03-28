@@ -93,10 +93,10 @@ Create a working directory named `layered_profiles` and within that directory cr
          ${HOME}/projects/devops/layered_profiles/license/pingfederate/instance/server/default/conf
       ```
 
-      Using the `ping-devops` tool:
+      Using the `pingctl` tool (update product and version accordingly):
 
       ```sh
-      ping-devops generate license pingfederate > \
+      pingctl license pingfederate 11.1 > \
          ${HOME}/projects/devops/layered_profiles/license/pingfederate/instance/server/default/conf
       ```
 

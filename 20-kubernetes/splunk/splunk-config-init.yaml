@@ -1,0 +1,37 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: splunk-config-init
+data:
+  outputs.conf: |-
+    [indexAndForward]
+    index = false
+
+    # [tcpout]
+    # defaultGroup = splunk-uat
+    # forwardedindex.filter.disable = true
+    # indexAndForward = false
+
+    # [tcpout:splunk-uat]
+    # server = splunk:9997
+    # # Splunk indexer IP and Port
+    # useACK = true
+    # autoLB = true
+    
+    [httpout]
+    #CHANGEME
+    httpEventCollectorToken = 3957dcdb-3e2a-4016-869d-734978a3e06c
+    uri = https://splunk:8088
+
+  inputs.conf: |-
+    [monitor:///var/log/*.log]
+    # Where data is read from
+    disabled = false
+    sourcetype = log
+    index = pinglogs  # This index should already be created on the splunk environment
+    # watch all files in <path>
+    # [monitor:///var/log/containers/*.log]
+    # # extract `host` from the first group in the filename
+    # host_regex = /var/log/containers/(.*)_.*_.*\.log
+    # # set source type to Kubernetes
+    # sourcetype = kubernetes
