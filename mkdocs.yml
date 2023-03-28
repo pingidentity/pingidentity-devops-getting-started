@@ -144,6 +144,7 @@ nav:
       - Set PingFederate Provisioner Node ID: "how-to/assignPFNodeId.md"
       - Adding a MOTD: "how-to/addMOTD.md"
       - Build Local Product Image: "how-to/buildLocal.md"
+      - Forward Logs to Splunk: "how-to/splunkLogging.md"
   - Reference:
       - Components and Configuration: "reference/config.md"
       - Server Profile: "reference/profileStructures.md"
