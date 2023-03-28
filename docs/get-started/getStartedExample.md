@@ -89,10 +89,10 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          pingctl k8s generate devops-secret | kubectl apply -f -
          ```
 
-    1.  This example will use the Helm release name `demo` and DNS domain suffix `*ping-local.com` for accessing applications.  Add all expected hosts to `/etc/hosts`:
+    1.  This example will use the Helm release name `demo` and DNS domain suffix `*pingdemo.example` for accessing applications.  Add all expected hosts to `/etc/hosts`:
 
         ```sh
-        echo '127.0.0.1 demo-pingaccess-admin.ping-local.com demo-pingaccess-engine.ping-local.com demo-pingauthorize.ping-local.com demo-pingauthorizepap.ping-local.com demo-pingdataconsole.ping-local.com demo-pingdelegator.ping-local.com demo-pingdirectory.ping-local.com demo-pingfederate-admin.ping-local.com demo-pingfederate-engine.ping-local.com demo-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
+        echo '127.0.0.1 demo-pingaccess-admin.pingdemo.example demo-pingaccess-engine.pingdemo.example demo-pingauthorize.pingdemo.example demo-pingauthorizepap.pingdemo.example demo-pingdataconsole.pingdemo.example demo-pingdelegator.pingdemo.example demo-pingdirectory.pingdemo.example demo-pingfederate-admin.pingdemo.example demo-pingfederate-engine.pingdemo.example demo-pingcentral.pingdemo.example' | sudo tee -a /etc/hosts > /dev/null
         ```
 
     1. To install the chart, go to your local `"${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/30-helm` directory and run the command shown here.  In this example, the release (deployment into Kubernetes by Helm) is called `demo`, forming the prefix for all objects created. The `ingress-demo.yaml` file configures the ingresses for the products to use the **_ping-local_** domain:
@@ -191,13 +191,13 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
            ```text
            NAME                       CLASS    HOSTS                                     ADDRESS     PORTS     AGE
-           demo-pingaccess-admin      <none>   demo-pingaccess-admin.ping-local.com      localhost   80, 443   5m23s
-           demo-pingaccess-engine     <none>   demo-pingaccess-engine.ping-local.com     localhost   80, 443   5m23s
-           demo-pingauthorize         <none>   demo-pingauthorize.ping-local.com         localhost   80, 443   5m23s
-           demo-pingdataconsole       <none>   demo-pingdataconsole.ping-local.com       localhost   80, 443   5m23s
-           demo-pingdirectory         <none>   demo-pingdirectory.ping-local.com         localhost   80, 443   5m23s
-           demo-pingfederate-admin    <none>   demo-pingfederate-admin.ping-local.com    localhost   80, 443   5m23s
-           demo-pingfederate-engine   <none>   demo-pingfederate-engine.ping-local.com   localhost   80, 443   5m23s
+           demo-pingaccess-admin      <none>   demo-pingaccess-admin.pingdemo.example      localhost   80, 443   5m23s
+           demo-pingaccess-engine     <none>   demo-pingaccess-engine.pingdemo.example     localhost   80, 443   5m23s
+           demo-pingauthorize         <none>   demo-pingauthorize.pingdemo.example         localhost   80, 443   5m23s
+           demo-pingdataconsole       <none>   demo-pingdataconsole.pingdemo.example       localhost   80, 443   5m23s
+           demo-pingdirectory         <none>   demo-pingdirectory.pingdemo.example         localhost   80, 443   5m23s
+           demo-pingfederate-admin    <none>   demo-pingfederate-admin.pingdemo.example    localhost   80, 443   5m23s
+           demo-pingfederate-engine   <none>   demo-pingfederate-engine.pingdemo.example   localhost   80, 443   5m23s
            ```
 
         !!! error "Address must be localhost"
@@ -263,10 +263,10 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
     | Product | Connection Details |
     | --- | --- |
-    | [PingFederate](https://demo-pingfederate-admin.ping-local.com/pingfederate/app) | <ul> <li>URL: [https://demo-pingfederate-admin.ping-local.com/pingfederate/app](https://demo-pingfederate-admin.ping-local.com/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingDirectory](https://demo-pingdataconsole.ping-local.com/console) | <ul><li>URL: [https://demo-pingdataconsole.ping-local.com/console](https://demo-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://demo-pingdirectory-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingAccess](https://demo-pingaccess-admin.ping-local.com/) | <ul><li>URL: [https://demo-pingaccess-admin.ping-local.com/](https://demo-pingaccess-admin.ping-local.com/)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-    | [PingAuthorize](https://demo-pingdataconsole.ping-local.com/console) | <ul><li>URL: [https://demo-pingdataconsole.ping-local.com/console](https://demo-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://demo-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingFederate](https://demo-pingfederate-admin.pingdemo.example/pingfederate/app) | <ul> <li>URL: [https://demo-pingfederate-admin.pingdemo.example/pingfederate/app](https://demo-pingfederate-admin.pingdemo.example/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingDirectory](https://demo-pingdataconsole.pingdemo.example/console) | <ul><li>URL: [https://demo-pingdataconsole.pingdemo.example/console](https://demo-pingdataconsole.pingdemo.example/console)</li><li>Server: ldaps://demo-pingdirectory-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingAccess](https://demo-pingaccess-admin.pingdemo.example/) | <ul><li>URL: [https://demo-pingaccess-admin.pingdemo.example/](https://demo-pingaccess-admin.pingdemo.example/)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+    | [PingAuthorize](https://demo-pingdataconsole.pingdemo.example/console) | <ul><li>URL: [https://demo-pingdataconsole.pingdemo.example/console](https://demo-pingdataconsole.pingdemo.example/console)</li><li>Server: ldaps://demo-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
 
 3. When you are finished, you can remove the demonstration components by running the uninstall command for helm:
 

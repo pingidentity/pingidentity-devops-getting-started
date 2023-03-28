@@ -16,22 +16,22 @@ If you have deployed the local kind cluster as outlined on the [create a local c
 With the `/etc/hosts` file entries created from the page linked above, the release in helm **must** be `myping` for the hostnames to work with the configuration here.  Consider the first entry as an example:
 
 ```sh
-127.0.0.1 myping-pingaccess-admin.ping-local.com ...
+127.0.0.1 myping-pingaccess-admin.pingdemo.example ...
 ```
 
-When using our charts, the release name provided to helm is prepended - that is what provides the `myping-` portion of the hostname in the file.  The `ping-local.com` domain suffix is provided through the ingress definitions as shown later on this page.  So, the structure is:
+When using our charts, the release name provided to helm is prepended - that is what provides the `myping-` portion of the hostname in the file.  The `pingdemo.example` domain suffix is provided through the ingress definitions as shown later on this page.  So, the structure is:
 
 ```sh
 <helm-release-name>-<ping-product-service>.<domain-name-from-ingress>
 ```
 
-If you use a release name other than `myping` or a domain other than `ping-local.com` you will need to update the aliases in `/etc/hosts`/ accordingly.
+If you use a release name other than `myping` or a domain other than `pingdemo.example` you will need to update the aliases in `/etc/hosts`/ accordingly.
 
 ## Instructions
 
 There is a file under the `30-helm` directory of this repository named `ingress.yaml`.  Modify this file for use with a local cluster:
 
-* Replace `insert domain name here` with your domain name (ping-local.com in this guide)
+* Replace `insert domain name here` with your domain name (pingdemo.example in this guide)
 * Edit line 11, removing the `-public` suffix for the class
 
 The file should look as shown here:
@@ -43,7 +43,7 @@ global:
   ingress:
     enabled: true
     addReleaseNameToHost: prepend
-    defaultDomain: "ping-local.com"
+    defaultDomain: "pingdemo.example"
     defaultTlsSecret:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
@@ -68,27 +68,27 @@ kubectl get ingress
 
 # Output
 NAME                         CLASS    HOSTS                                       ADDRESS     PORTS     AGE
-myping-pingaccess-admin      <none>   myping-pingaccess-admin.ping-local.com      localhost   80, 443   47m
-myping-pingaccess-engine     <none>   myping-pingaccess-engine.ping-local.com     localhost   80, 443   47m
-myping-pingauthorize         <none>   myping-pingauthorize.ping-local.com         localhost   80, 443   47m
-myping-pingdataconsole       <none>   myping-pingdataconsole.ping-local.com       localhost   80, 443   47m
-myping-pingdirectory         <none>   myping-pingdirectory.ping-local.com         localhost   80, 443   47m
-myping-pingfederate-admin    <none>   myping-pingfederate-admin.ping-local.com    localhost   80, 443   47m
-myping-pingfederate-engine   <none>   myping-pingfederate-engine.ping-local.com   localhost   80, 443   47m
+myping-pingaccess-admin      <none>   myping-pingaccess-admin.pingdemo.example      localhost   80, 443   47m
+myping-pingaccess-engine     <none>   myping-pingaccess-engine.pingdemo.example     localhost   80, 443   47m
+myping-pingauthorize         <none>   myping-pingauthorize.pingdemo.example         localhost   80, 443   47m
+myping-pingdataconsole       <none>   myping-pingdataconsole.pingdemo.example       localhost   80, 443   47m
+myping-pingdirectory         <none>   myping-pingdirectory.pingdemo.example         localhost   80, 443   47m
+myping-pingfederate-admin    <none>   myping-pingfederate-admin.pingdemo.example    localhost   80, 443   47m
+myping-pingfederate-engine   <none>   myping-pingfederate-engine.pingdemo.example   localhost   80, 443   47m
 ```
 
 The HOSTS column reflects the entries added to the `/etc/hosts` file.
 
-To access a given service, enter the HOSTS entry in your browser (you will have to accept the self-signed certificate).  For example, to view the Ping Federate console, you would access **https://myping-pingfederate-admin.ping-local.com/**.  For the Ping Data console, **https://myping-pingdataconsole.ping-local.com** and so on.
+To access a given service, enter the HOSTS entry in your browser (you will have to accept the self-signed certificate).  For example, to view the Ping Federate console, you would access **https://myping-pingfederate-admin.pingdemo.example/**.  For the Ping Data console, **https://myping-pingdataconsole.pingdemo.example** and so on.
 
 Here are the credentials and URLs.  This table is similar to the getting started example but reflects the release name used on this page:
 
 | Product | Connection Details                                                                                                                                                                                                                                              |
 | --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [PingFederate](https://myping-pingfederate-admin.ping-local.com/pingfederate/app) | <ul> <li>URL: [https://myping-pingfederate-admin.ping-local.com/pingfederate/app](https://myping-pingfederate-admin.ping-local.com/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul>                                  |
-| [PingDirectory](https:///myping-pingdataconsole.ping-local.com) | <ul><li>URL: [https://myping-pingdataconsole.ping-local.com/console](https://myping-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://myping-pingdirectory-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
-| [PingAccess](https://myping-pingaccess-admin.ping-local.com) | <ul><li>URL: [https://myping-pingaccess-admin.ping-local.com](https://myping-pingaccess-admin.ping-local.com)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul>                                                                         |
-| [PingAuthorize](https:///myping-pingdataconsole.ping-local.com) | <ul><li>URL: [https://myping-pingdataconsole.ping-local.com/console](https://myping-pingdataconsole.ping-local.com/console)</li><li>Server: ldaps://myping-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+| [PingFederate](https://myping-pingfederate-admin.pingdemo.example/pingfederate/app) | <ul> <li>URL: [https://myping-pingfederate-admin.pingdemo.example/pingfederate/app](https://myping-pingfederate-admin.pingdemo.example/pingfederate/app)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul>                                  |
+| [PingDirectory](https:///myping-pingdataconsole.pingdemo.example) | <ul><li>URL: [https://myping-pingdataconsole.pingdemo.example/console](https://myping-pingdataconsole.pingdemo.example/console)</li><li>Server: ldaps://myping-pingdirectory-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
+| [PingAccess](https://myping-pingaccess-admin.pingdemo.example) | <ul><li>URL: [https://myping-pingaccess-admin.pingdemo.example](https://myping-pingaccess-admin.pingdemo.example)</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul>                                                                         |
+| [PingAuthorize](https:///myping-pingdataconsole.pingdemo.example) | <ul><li>URL: [https://myping-pingdataconsole.pingdemo.example/console](https://myping-pingdataconsole.pingdemo.example/console)</li><li>Server: ldaps://myping-pingauthorize-cluster:1636</li><li>Username: administrator</li><li>Password: 2FederateM0re</li></ul> |
 
 ## Cleaning up
 

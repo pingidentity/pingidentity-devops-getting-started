@@ -81,7 +81,7 @@ Services provide a single IP address and cluster-internal DNS resolution that is
 
 A common pattern is a deployment of Nginx pods fronted by a physical loadbalancer. The location the client application traffic hits the loadbalancer is forwarded to Nginx. The header information (hostname and path) of the request is evaluated and forwarded to a corresponding application.
 
-For example, suppose a PingFederate ingress has a host name of **myping-pingfederate-engine.ping-local.com**. If a client application makes a request to `https://myping-pingfederate-engine.ping-local.com/pf/heartbeat.ping`, the traffic flow of the request would be:
+For example, suppose a PingFederate ingress has a host name of **myping-pingfederate-engine.pingdemo.example**. If a client application makes a request to `https://myping-pingfederate-engine.pingdemo.example/pf/heartbeat.ping`, the traffic flow of the request would be:
 
 * Client -> LoadBalancer (Nginx k8s Service) -> Nginx Pod -> Pingfederate-engine k8s Service -> Pingfederate-engine pod
 

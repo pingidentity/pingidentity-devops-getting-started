@@ -128,10 +128,10 @@ Output:
     </html>
     ```
 
-Our examples will use the Helm release name `myping` and DNS domain suffix `*ping-local.com` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
+Our examples will use the Helm release name `myping` and DNS domain suffix `*pingdemo.example` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
 
 ```sh
-echo '127.0.0.1 myping-pingaccess-admin.ping-local.com myping-pingaccess-engine.ping-local.com myping-pingauthorize.ping-local.com myping-pingauthorizepap.ping-local.com myping-pingdataconsole.ping-local.com myping-pingdelegator.ping-local.com myping-pingdirectory.ping-local.com myping-pingfederate-admin.ping-local.com myping-pingfederate-engine.ping-local.com myping-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
+echo '127.0.0.1 myping-pingaccess-admin.pingdemo.example myping-pingaccess-engine.pingdemo.example myping-pingauthorize.pingdemo.example myping-pingauthorizepap.pingdemo.example myping-pingdataconsole.pingdemo.example myping-pingdelegator.pingdemo.example myping-pingdirectory.pingdemo.example myping-pingfederate-admin.pingdemo.example myping-pingfederate-engine.pingdemo.example myping-pingcentral.pingdemo.example' | sudo tee -a /etc/hosts > /dev/null
 ```
 
 Setup is complete.  This local Kubernetes environment should be ready to deploy our [Helm examples](./deployHelm.md)
@@ -330,10 +330,10 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl delete -f ingress.yaml
     ```
 
-Our examples will use the Helm release name `myping` and DNS domain suffix `*ping-local.com` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
+Our examples will use the Helm release name `myping` and DNS domain suffix `*pingdemo.example` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
 
 ```sh
-echo '<minikube IP> myping-pingaccess-admin.ping-local.com myping-pingaccess-engine.ping-local.com myping-pingauthorize.ping-local.com myping-pingauthorizepap.ping-local.com myping-pingdataconsole.ping-local.com myping-pingdelegator.ping-local.com myping-pingdirectory.ping-local.com myping-pingfederate-admin.ping-local.com myping-pingfederate-engine.ping-local.com myping-pingcentral.ping-local.com' | sudo tee -a /etc/hosts > /dev/null
+echo '<minikube IP> myping-pingaccess-admin.pingdemo.example myping-pingaccess-engine.pingdemo.example myping-pingauthorize.pingdemo.example myping-pingauthorizepap.pingdemo.example myping-pingdataconsole.pingdemo.example myping-pingdelegator.pingdemo.example myping-pingdirectory.pingdemo.example myping-pingfederate-admin.pingdemo.example myping-pingfederate-engine.pingdemo.example myping-pingcentral.pingdemo.example' | sudo tee -a /etc/hosts > /dev/null
 ```
 
 Setup is complete.  This local Kubernetes environment should be ready to deploy our [Helm examples](./deployHelm.md)
