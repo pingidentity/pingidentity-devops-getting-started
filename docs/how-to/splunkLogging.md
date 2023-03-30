@@ -1,9 +1,12 @@
 ---
 title: Forwarding Logs
 ---
-# Forwarding PingFederate logs to Splunk
+# Forwarding PingFederate and PingAccess logs to Splunk
 
 This page provides an example of how PingFederate and PingAccess logs can be shipped to Splunk.  The principle of using a container for a single purpose is followed, and a sidecar for log collection and forwarding is placed in the appropriate Ping product pods.
+
+!!! note "Video demonstration"
+    For a video demonstration of this process, visit [this link](https://videos.pingidentity.com/detail/videos/devops/video/6323662641112/splunk-logging-demonstration).
 
 !!! note "Splunk Demonstration Only"
     This guide is for demonstration purposes only, but the principles will apply to a production implementation.  In addition, the process for other logging solutions will be similar.
