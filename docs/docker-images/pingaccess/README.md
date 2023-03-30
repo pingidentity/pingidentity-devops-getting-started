@@ -24,6 +24,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingAccess  | Ping product name  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  | License directory  |

@@ -24,6 +24,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_CENTRAL_SERVER_PORT  | 9022  |  |
 | PING_PRODUCT  | PingCentral  | Ping product name  |

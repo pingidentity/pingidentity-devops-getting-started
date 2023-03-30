@@ -25,6 +25,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingToolkit  | Ping product name  |
 | STARTUP_COMMAND  | tail  | The command that the entrypoint will execute in the foreground to instantiate the container  |

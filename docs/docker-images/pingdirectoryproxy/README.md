@@ -23,6 +23,7 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PING_PRODUCT  | PingDirectoryProxy  | Ping product name  |
 | LICENSE_FILE_NAME  | PingDirectory.lic  | Name of license File  |

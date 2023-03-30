@@ -23,10 +23,12 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PD_DELEGATOR_PUBLIC_HOSTNAME  | localhost  |  |
 | PD_DELEGATOR_HTTP_PORT  | 6080  |  |
 | PD_DELEGATOR_HTTPS_PORT  | 6443  |  |
+| PING_PRODUCT  | PingDelegator  | Ping product name  |
 | PF_ENGINE_PUBLIC_HOSTNAME  | localhost  | The hostname for the public Ping Federate instance used for SSO.  |
 | PF_ENGINE_PUBLIC_PORT  | 9031  | The port for the public Ping Federate instance used for SSO. NOTE: If using port 443 along with a base URL with no specified port, set to an empty string.  |
 | PF_DELEGATOR_CLIENTID  | dadmin  | The client id that was set up with Ping Federate for Ping Delegator.  |

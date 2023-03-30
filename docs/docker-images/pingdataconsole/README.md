@@ -20,7 +20,9 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
+| PING_PRODUCT  | PingDataConsole  | Ping product name  |
 | HTTP_PORT  | 8080  | PingDataConsole HTTP listen port  |
 | HTTPS_PORT  | 8443  | PingDataConsole HTTPS listen port  |
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |

@@ -19,8 +19,10 @@ this image.
 | SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
 | PING_PRODUCT_VERSION  | ${VERSION}  |  |
 | PATH  | /opt/tools:${PATH}  |  |
+| PING_PRODUCT  | ldap-sdk-tools  | Ping product name  |
 
 ## List all available tools
 `docker run -it --rm pingidentity/ldap-sdk-tools:edge ls`
