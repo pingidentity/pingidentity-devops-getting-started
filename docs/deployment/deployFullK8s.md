@@ -209,7 +209,7 @@ Boot all three VMs.
 **On the master only**, run `kubeadm init`.  
 
 !!! error "IP address"
-    Adjust the IP address accordingly for the `apiserver-advertise-address` and `control-plane-endpoint`f.
+    Adjust the IP address accordingly for the `apiserver-advertise-address` and `control-plane-endpoint`.
 
 ```sh
 # On the master node only
