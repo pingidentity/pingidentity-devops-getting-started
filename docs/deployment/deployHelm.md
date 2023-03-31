@@ -12,8 +12,11 @@ title: Deploy Ping DevOps Charts using Helm
 
 To use Ping Identity Helm charts for deployment to Kubernetes, go to the [Getting Started](https://helm.pingidentity.com/getting-started/) page for the Helm chart repository to configure your system to run Helm.  Afterward, continue on this page for examples illustrating how to deploy various scenarios from the charts.
 
+!!! note "Notification of new releases"
+    If you want to be notified when a new version of the chart is released, see the **Orchestration/Helm/Kubernetes** section of the [FAQ page](../reference/faqs.md) for instructions on following the GitHub repository for our chart.
+
 !!! note "Ingress with the local K8s cluster"
-    If you want to run these examples on the local kind cluster created as outlined on the [Deploy a local Kubernetes cluster](./deployLocalK8sCluster.md) page with ingresses, see [this page](./deployHelmLocalIngress.md) for ingress configuration instructions.  Otherwise, you can port-forward to product services as in the getting started guide.
+    If you want to run these examples on the local kind cluster created as outlined on the [Deploy a local Kubernetes cluster](./deployLocalK8sCluster.md) page with ingresses, see [this page](./deployHelmLocalIngress.md) for ingress configuration instructions.  Otherwise, you can port-forward to product services.
 
 ## Helm Chart Example Configurations
 
@@ -44,6 +47,7 @@ using the Ping Devops Helm Chart.
 | Cluster Metrics                  | Example values using various open source tools | See .yaml files in [cluster-metrics](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/30-helm/cluster-metrics)                                                   |
 | PingDataConsole SSO with PingOne | Sign into PingDataConsole with PingOne         | [pingdataconsole-pingone-sso.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingdataconsole-pingone-sso.yaml)                                                                        |
 | Using CSI Volumes                | Mount secrets with CSI volumes                 | [csi-secrets-volume.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/csi-secrets-volume.yaml)                                                                        |
+| Splunk logging sidecar           | Forward product logs to splunk                 | See files in the [splunk folder](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/20-kubernetes/splunk)                                                                        |
 
 
 ## To Deploy
