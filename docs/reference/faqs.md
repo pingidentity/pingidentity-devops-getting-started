@@ -7,6 +7,18 @@ title: FAQs
 ### Docker Images
 
 <details>
+  <summary>When are new Ping product Docker images released?</summary>
+
+Typically, Docker images are released on a monthly basis during the first full week of the month.  The images are tagged YYMM, with the month indicating the complete month prior.  So, tag "2303", representing the work from March 2023, would be released in early April.  As we mature our processes, the frequency and timing of these images will more closely align with product releases.
+</details>
+
+<details>
+  <summary>How can I be informed when new images are available?</summary>
+
+You can watch the <a href="https://github.com/pingidentity/pingidentity-docker-builds/">docker-builds GitHub repository</a> for the Ping Identity product line. Select the "custom" option to receive notification when a release occurs.  Releases in the docker-builds repository correspond to the publishing of images in Docker Hub.
+</details>
+
+<details>
   <summary>What are the latest Ping product versions available as Docker images?</summary>
 
 The latest Ping product images are tagged with <mark><b>{RELEASE}-{PRODUCT VERSION}</b></mark>. You can find more information about our latest product images by consulting the <a href="https://devops.pingidentity.com/docker-images/productVersionMatrix/">Product Version matrix</a>.
@@ -52,7 +64,13 @@ Set the environment variables in PingBase to: <mark><b>VERBOSE=“true”</b></m
 ### Orchestration / Helm / Kubernetes
 
 <details>
-  <summary>Kubernetes has dropped direct integration support for Docker. Does this change impact Ping product containers? </summary>
+  <summary>How can I be informed when a new release of the Helm charts are available?</summary>
+
+You can watch the <a href="https://github.com/pingidentity/helm-charts/">Ping helm-charts GitHub repository</a>. Select the "custom" option to receive notification when a release occurs.  As with the product Docker images, the Helm charts are usually updated once a month.
+</details>
+
+<details>
+  <summary>Kubernetes has dropped direct integration support for Docker. Does this change impact Ping product containers?</summary>
 
 <p>No. The underlying container runtime has not caused problems with our images.  Please let us know if you encounter errors.  The <mark><b>CRI-O</b></mark> and <mark><b>containerd</b></mark> runtimes have been tested without any known issues.</p>
 
@@ -61,6 +79,7 @@ For more background:<br>
 <br>&emsp;The Kubernetes blog post on Docker removal is <a href="https://kubernetes.io/blog/2022/02/17/dockershim-faq/">here</a>.</br>
 <br>&emsp;An excellent write up of how it looks is on this  <a href="https://kodekloud.com/blog/kubernetes-removed-docker-what-happens-now/">page</a>.</br>
 </details>
+
 <details>
   <summary>My container environment is not allowed to make any external calls to services such as Github or Docker <br> Hub. Can I still use Ping Identity containers? </br> </summary>
 
