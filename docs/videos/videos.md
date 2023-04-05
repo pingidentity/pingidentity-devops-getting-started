@@ -29,3 +29,5 @@ You can also find all of these devops videos on the [Ping Website](https://video
     * This 12-minute video demonstrates the process of deploying an Openshift Local cluster to your environment, followed by installing a full stack of Ping products using our Helm charts.
 * [Splunk Logging Example](https://videos.pingidentity.com/detail/videos/devops/video/6323662641112/splunk-logging-demonstration)
     * This 20-minute video demonstrates the use of a Splunk Universal Forwarder (UF) sidecar to forward logs from PingAccess and PingFederate to a local Splunk instance.
+* [Robust Local Kubernetes Cluster](https://videos.pingidentity.com/detail/videos/devops/video/6324019967112/robust-test-kubernetes-cluster)
+    * This 25-minute video demonstrates creating a 3-node local Kubernetes cluster on VMs, including a load balancer, block storage, ingress and service mesh for testing and development.

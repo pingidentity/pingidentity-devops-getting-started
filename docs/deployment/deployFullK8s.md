@@ -3,6 +3,9 @@ title: Deploy a robust local Kubernetes Cluster
 ---
 # Deploy a robust local Kubernetes Cluster
 
+!!! note "Video Demonstration"
+    A video demonstrating the process outlined on this page is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6324019967112/robust-test-kubernetes-cluster).
+
 In some cases, a single-node cluster is insufficient for more complex testing scenarios.  If you do not have access to a managed Kubernetes cluster and want something more similar to what you would find in a production environment, this guide can help.
 
 This document describes deploying a multi-node cluster using the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
