@@ -11,8 +11,8 @@ For information about product changes, refer to the release notes that can be fo
 
 ### New Product Releases
 - PingAccess 7.2.0 -> 7.2.1 and build 7.3.0-Beta ([Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess))
-- PingFederate 11.2.3 -> 11.2.4 and build 11.3.0-beta ([Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate))
-- PingData products 9.1.0.1 -> 9.1.0.2
+- PingFederate 11.2.3 -> 11.2.4 and build 11.3.0-beta EOL 11.0.1 and 10.3.5 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate))
+- PingData products 9.1.0.1 -> 9.1.0.2 EOL 9.0.0.0
     - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
     - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
     - PingDataSync ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
