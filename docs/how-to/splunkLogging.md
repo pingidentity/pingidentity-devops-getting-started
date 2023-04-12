@@ -104,6 +104,9 @@ In this section, you will prepare Splunk for the logs from the products.
 !!! warning "Splunk Account"
     You will need valid credentials from Splunk to install the applications.  You can use a free trial if necessary.
 
+!!! note "PingDirectory App"
+    While not shown in this example, Ping also provides a Splunk App for PingDirectory.  You would need to attach the Splunk UF sidecar to your PingDirectory pods as done here for PingFederate and PingAccess.
+
 ### Create a configmap
 Use the HEC token generated earlier to update the file `20-kubernetes/splunk/splunk-config-init.yaml` (search for **#CHANGEME**).
 
