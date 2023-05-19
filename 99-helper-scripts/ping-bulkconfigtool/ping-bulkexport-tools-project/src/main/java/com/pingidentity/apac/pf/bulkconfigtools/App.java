@@ -228,7 +228,6 @@ public class App {
 
 					if (value == null || value.equals("") || jsonValue.equals(value) || jsonValue.matches(value)) {
 						System.out.println("Ignoring " + key + ":" + value);
-						throw new RemoveNodeException();
 					}
 				}
 
