@@ -1,4 +1,4 @@
----
+/---
 title: Deploy a local Kubernetes Cluster
 ---
 # Deploy a local Kubernetes Cluster
@@ -12,8 +12,11 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
 !!! note "Why not Docker Desktop?"
     The processes outlined on this page will create either a Kubernetes in Docker ([kind](https://kind.sigs.k8s.io/)) or a [minikube](https://minikube.sigs.k8s.io/docs/) cluster.  In both cases, the cluster you get is very similar in functionality to the Docker Desktop implementation of Kubernetes.  However, a distinct advantage of both offerings is portability (not requiring Docker Desktop). As with the [Getting Started](../get-started/getStartedExample.md) example, the files provided will enable and deploy an ingress controller for communicating with the services in the cluster from your local environment.
 
+!!! warning "Kubernetes in Docker Desktop"
+    To use the both examples below, you will need to ensure the Kubernetes feature of Docker Desktop is turned off, as it will conflict.
+
 !!! info "Docker System Resources"
-    This note applies only if using Docker as a backing for either solution. kind uses Docker by default, and it is also an option for minikube.  Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to Docker. For this documentation, a Macbook Pro was configured to use 3 CPUs and 6 GB Memory. You can adjust these values as necessary for your needs.
+    This note applies only if using Docker as a backing for either solution. kind uses Docker by default, and it is also an option for minikube.  Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to Docker. For this documentation, a Macbook Pro was configured to use 6 CPUs and 12 GB Memory. You can adjust these values as necessary for your needs.
 ## Kind cluster
 This section will cover the **kind** installation process. See the [section further down](#minikube-cluster) for minikube instructions.
 ### Prerequisites
@@ -45,8 +48,8 @@ This section will cover the **kind** installation process. See the [section furt
     kubectl cluster-info
 
     # Output - port will vary
-    Kubernetes control plane is running at https://127.0.0.1:63564
-    CoreDNS is running at https://127.0.0.1:63564/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+    Kubernetes control plane is running at https://127.0.0.1:63657
+    CoreDNS is running at https://127.0.0.1:63657/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
     To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
@@ -55,23 +58,23 @@ This section will cover the **kind** installation process. See the [section furt
     kubectl version --short
 
     < output clipped >
-    Server Version: v1.25.3
+    Server Version: v1.27.1
 
     ------------------
 
     kubectl get nodes
 
     NAME                 STATUS   ROLES           AGE     VERSION
-    ping-control-plane   Ready    control-plane   4m26s   v1.24.0
+    ping-control-plane   Ready    control-plane   2m40s   v1.27.1
     ```
 
 ### Enable ingress
 
-1. Next, install the nginx-ingress-controller for `kind`. In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
+1. Next, install the nginx-ingress-controller for `kind` (version 1.8.0 at the time of this writing). In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
 
 To use the Github file:
     ```sh
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/kind/deploy.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/kind/deploy.yaml
     ```
 
 To use the local copy:
@@ -128,7 +131,7 @@ Output:
     </html>
     ```
 
-Our examples will use the Helm release name `myping` and DNS domain suffix `*pingdemo.example` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
+Our examples will use the Helm release name `myping` and DNS domain suffix `pingdemo.example` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
 
 ```sh
 echo '127.0.0.1 myping-pingaccess-admin.pingdemo.example myping-pingaccess-engine.pingdemo.example myping-pingauthorize.pingdemo.example myping-pingauthorizepap.pingdemo.example myping-pingdataconsole.pingdemo.example myping-pingdelegator.pingdemo.example myping-pingdirectory.pingdemo.example myping-pingfederate-admin.pingdemo.example myping-pingfederate-engine.pingdemo.example myping-pingcentral.pingdemo.example' | sudo tee -a /etc/hosts > /dev/null
@@ -138,13 +141,13 @@ Setup is complete.  This local Kubernetes environment should be ready to deploy 
 
 ### Stop the cluster
 
-When you are finished, you can remove the cluster by running the following command.  Doing so will require you to create the cluster and install the ingress controller when you want another cluster.
+When you are finished, you can remove the cluster by running the following command, which removes the cluster completely.  You will be required to recreate the cluster and reinstall the ingress controller to use `kind` again.
 
 ```sh
 kind delete cluster --name ping
 ```
 ## Minikube cluster
-In this section, a minikube installation with ingress is created.  Minikube is simpler than kind overall to configure, but does end up with an IP other than localhost that must be discovered.
+In this section, a minikube installation with ingress is created.  Minikube is simpler than kind overall to configure, but ends up needing one step to configured a tunnel to the cluster that must be managed.  For this guide, the Docker driver will be used.  As with `kind` above, Kubernetes in Docker Desktop must be disabled.
 
 ### Prerequisites
 
@@ -152,17 +155,17 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
 !!! note "Minikube and Kubernetes Version"
-    At the time of the writing of this guide, minikube was version 1.29.0, which installs Kubernetes version 1.26.1.
+    At the time of the writing of this guide, minikube was version `1.30.1`, which installs Kubernetes version `1.26.3`.
 
 ### Install and configure minikube
 
-1. Install minikube for your platform.  See the [Get Started!](https://minikube.sigs.k8s.io/docs/start/) page for details.
+1. Install minikube for your platform.  See the product [Get Started!](https://minikube.sigs.k8s.io/docs/start/) page for details.
 
-1. Configure the minikube resources and virtualization driver.  For example, the following options were used on an Apple Macbook Pro with VMware Fusion installed as the backing platform:
+1. Configure the minikube resources and virtualization driver.  For example, the following options were used on an Apple Macbook Pro with Docker as the backing platform:
 
     ```sh
     minikube config set cpus 6
-    minikube config set driver vmware
+    minikube config set driver docker
     minikube config set memory 12g
     ```
 
@@ -171,7 +174,7 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 
 1. Start the cluster.  Optionally you can include a profile flag (`--profile <name>`). Naming the cluster enables you to run multiple minikube clusters simultaneously, if so desired.  If you use a profile name, you will need to include it on other minikube commands.
     ```sh
-    minikube start
+    minikube start --addons=ingress
     ```
     
     Output:
@@ -184,8 +187,8 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl cluster-info
 
     # Output - IP will vary
-    Kubernetes control plane is running at https://172.16.106.134:8443
-    CoreDNS is running at https://172.16.106.134:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+    Kubernetes control plane is running at https://127.0.0.1:62531
+    CoreDNS is running at https://127.0.0.1:62531/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
     To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
@@ -194,146 +197,121 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl version --short
 
     < output clipped >
-    Server Version: v1.26.1
+    Server Version: v1.26.3
 
     ------------------
 
     kubectl get nodes
 
-    NAME       STATUS   ROLES           AGE     VERSION
-    minikube   Ready    control-plane   4m7s   v1.26.1
+    NAME       STATUS   ROLES           AGE    VERSION
+    minikube   Ready    control-plane   173m   v1.26.3
     ```
 
-### Enable ingress
+### Confirm ingress
 
-1.  Run the command to enable the ingress add-on:
-   
-    ```sh
-    minikube addons enable ingress
-    ```
-
-1.  Confirm:
+1.  Confirm ingress is operational:
 
     ```sh
     kubectl get po -n ingress-nginx
     
     NAME                                        READY   STATUS      RESTARTS   AGE
-    ingress-nginx-admission-create-gcv6p        0/1     Completed   0          77s
-    ingress-nginx-admission-patch-zvvtd         0/1     Completed   0          77s
-    ingress-nginx-controller-5959f988fd-mmps9   1/1     Running     0          77s
+    ingress-nginx-admission-create-lr2x2        0/1     Completed   0          174m
+    ingress-nginx-admission-patch-bjgnn         0/1     Completed   1          174m
+    ingress-nginx-controller-6cc5ccb977-9n66n   1/1     Running     0          174m
     ```
 
 1.  Deploy a test application
 
-    Use the following YAML file to create a deployment:
+    Use the following YAML file to create a Pod, Service and Ingress:
 
     ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
+    apiVersion: v1
+    kind: Pod
     metadata:
-      name: nginx-deployment
+      name: example-web-pod
       labels:
-        app: nginx
+        role: webserver
     spec:
-      replicas: 1
+      containers:
+        - name: web
+          image: nginx
+          ports:
+            - name: web
+              containerPort: 80
+              protocol: TCP
+    ---
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: example-svc
+    spec:
       selector:
-        matchLabels:
-          app: nginx
-      template:
-        metadata:
-          labels:
-            app: nginx
-        spec:
-          containers:
-          - name: nginx
-            image: nginx:latest
-            ports:
-            - containerPort: 80
+        role: webserver
+      ports:
+        - protocol: TCP
+          port: 80
+    ---
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: example-ingress
+      namespace: default
+      annotations:
+        spec.ingressClassName: nginx
+    spec:
+      rules:
+        - host: example.k8s.local
+          http:
+            paths:
+              - backend:
+                  service:
+                    name: example-svc
+                    port:
+                      number: 80
+                path: /
+                pathType: Prefix
     ```
 
     ```sh
     kubectl apply -f test.yaml
 
-    deployment.apps/nginx-deployment created
+    pod/example-web-pod created
+    service/example-svc created
+    ingress.networking.k8s.io/example-ingress created
     ```
 
-1.  Expose the deployment
+1.  Add an alias to the application to `/etc/hosts`
 
     ```sh
-    kubectl expose deployment nginx-deployment --type=NodePort --port=80
+    echo '127.0.0.1 example.k8s.local' | sudo tee -a /etc/hosts > /dev/null
     ```
 
-1.  Use a browser to connect to the service
+1.  Start a tunnel.  This command will tie up the terminal:
 
     ```sh
-    minikube ip
+    minikube tunnel
 
-    #Output will vary
-    172.16.106.134
+    ✅  Tunnel successfully started
 
-    kubectl get service
-
-    # Port (31140 in this example) will vary
-    NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-    kubernetes         ClusterIP   10.96.0.1       <none>        443/TCP        38m
-    nginx-deployment   NodePort    10.109.70.162   <none>        80:31140/TCP   11m
-    ```
-
-    Open a browser to http://_minikubeIP_:_port_.  In this example, `http://172.16.106.134:31140`.  You should see the Nginx landing page.
-
-1.  Create an ingress
-
-    ```yaml
-    apiVersion: networking.k8s.io/v1
-    kind: Ingress
-    metadata:
-      name: ingress
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
-    spec:
-      rules:
-        - host: example.kube.com
-          http:
-            paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                  service:
-                    name: nginx-deployment
-                    port:
-                      number: 80
-    ```
-
-    ```sh
-    kubectl apply -f ingress.yaml
-
-    ingress.networking.k8s.io/ingress created
-    ```
-    Confirm (use your minikube IP)
-    ```sh
-    curl -I http://172.16.106.134 -H 'Host: example.kube.com'
+    📌  NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
     
-    HTTP/1.1 200 OK
-    Date: Wed, 04 Jan 2023 17:14:11 GMT
-    Content-Type: text/html
-    Content-Length: 615
-    Connection: keep-alive
-    Last-Modified: Tue, 13 Dec 2022 15:53:53 GMT
-    ETag: "6398a011-267"
-    Accept-Ranges: bytes
+    ❗  The service/ingress example-ingress requires privileged ports to be exposed: [80 443]
+    🔑  sudo permission will be asked for it.
+    🏃  Starting tunnel for service example-ingress.
     ```
+
+    Open a browser to `http://example.k8s.local`.  You should see the Nginx landing page.
 
 1. Clean up tests
 
     ```sh
     kubectl delete -f test.yaml
-    kubectl delete -f ingress.yaml
     ```
 
-Our examples will use the Helm release name `myping` and DNS domain suffix `*pingdemo.example` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
+Our examples will use the Helm release name `myping` and DNS domain suffix `pingdemo.example` for accessing applications.  You can add all expected hosts to `/etc/hosts`:
 
 ```sh
-echo '<minikube IP> myping-pingaccess-admin.pingdemo.example myping-pingaccess-engine.pingdemo.example myping-pingauthorize.pingdemo.example myping-pingauthorizepap.pingdemo.example myping-pingdataconsole.pingdemo.example myping-pingdelegator.pingdemo.example myping-pingdirectory.pingdemo.example myping-pingfederate-admin.pingdemo.example myping-pingfederate-engine.pingdemo.example myping-pingcentral.pingdemo.example' | sudo tee -a /etc/hosts > /dev/null
+echo '127.0.0.1 myping-pingaccess-admin.pingdemo.example myping-pingaccess-engine.pingdemo.example myping-pingauthorize.pingdemo.example myping-pingauthorizepap.pingdemo.example myping-pingdataconsole.pingdemo.example myping-pingdelegator.pingdemo.example myping-pingdirectory.pingdemo.example myping-pingfederate-admin.pingdemo.example myping-pingfederate-engine.pingdemo.example myping-pingcentral.pingdemo.example' | sudo tee -a /etc/hosts > /dev/null
 ```
 
 Setup is complete.  This local Kubernetes environment should be ready to deploy our [Helm examples](./deployHelm.md)
@@ -347,7 +325,7 @@ minikube addons enable metrics-server
 minikube dashboard
 ```
 #### Multiple nodes
-If you have system resources, you can create a multi-node cluster.
+If you have enough system resources, you can create a multi-node cluster.
 
 For example, to start a 3-node cluster:
 ```sh
@@ -359,7 +337,7 @@ minikube start --nodes 3
 
 ### Stop the cluster
 
-When you are finished, you can stop the cluster by running the following command.  Stopping will retain the configuration and state of the cluster (namespaces, deployments, and so on) that will be recovered when starting the cluster again.  
+When you are finished, you can stop the cluster by running the following command.  Stopping retains the configuration and state of the cluster (namespaces, deployments, and so on) that will be restored when starting the cluster again.  
 
 ```sh
 minikube stop
@@ -371,7 +349,8 @@ You can also pause and unpause the cluster:
 minikube pause
 minikube unpause
 ```
-Alternatively, you can delete the minikube environment, which will recreate the VM the next time.
+
+Alternatively, you can delete the minikube environment, which will recreate everything the next time.
 
 ```sh
 minikube delete 
