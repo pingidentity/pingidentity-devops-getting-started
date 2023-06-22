@@ -8,7 +8,7 @@ title: Deploy a robust local Kubernetes Cluster
 
 In some cases, a single-node cluster is insufficient for more complex testing scenarios.  If you do not have access to a managed Kubernetes cluster and want something more similar to what you would find in a production environment, this guide can help.
 
-This document describes deploying a multi-node cluster using the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
+This document describes deploying a multi-node cluster using scripts and [ansible](NEED URL TO ANSIBLE) along with the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
 
 - 3 nodes, a master with two worker nodes (to conserve resources, the master will also be configured to run workloads)
 - Kubernetes 1.26.2 using the **containerd** runtime (no Docker installed)
@@ -16,13 +16,10 @@ This document describes deploying a multi-node cluster using the [kubeadm](https
 - Block storage support for PVC/PV needed by some Ping products
 - (Optional) Ingress controller
 - (Optional) Istio service mesh
-- (Optional) supplementary tools for tracing and monitoring
+- (Optional) supplementary tools for tracing and monitoring with Istio
 
 !!! warning "Demo Use Only"
     While the result is a full Kubernetes installation, the instructions in this document only create an environment sufficient for testing and learning.  The cluster is not intended for use in production environments.
-
-!!! info "Manual process"
-    At this time, work is underway to automate many, if not all of these steps. In the meantime, you will know more about how the cluster is configured and set up by following this guide.
 
 ## Prerequisites
 
@@ -31,6 +28,7 @@ In order to complete this guide, you will need:
 - 64 GB of RAM (32 GB might be enough if you have an SSD to handle some memory swapping and reduce the RAM on the VMs to 12 GB)
 - At least 150 GB of free disk
 - Modern processor with multiple cores
+- Ansible-playbook CLI tool. See <GIVE THE URL HERE FOR THIS PART> for instructions on how to install and configure this application.
 - Virtualization solution.  For this guide, VMware Fusion is used, but other means of creating and running a VM (Virtualbox, KVM) can be adapted.
 - Access to [Ubuntu LTS 22.04.2 server](https://ubuntu.com/download/server) installation media
 - **A working knowledge of Kubernetes**, such as knowing how to port-forward, install objects using YAML files, and so on. Details on performing some actions will be omitted, and it is assumed the reader will know what to do.
@@ -38,7 +36,7 @@ In order to complete this guide, you will need:
 
 ## Virtual machines
 
-Create 3 VMs were created as described here.  The worker nodes are created by cloning a snapshot of the master after preliminary configuration is performed.  To begin, you will only create the master node. If cloning is not an option, you will need to perform all steps up to the `kubeadm init` command on all three VMs, configuring them in an identical fashion to each other except for hostname and IP.
+First, create 3 VMs as described here, using a default installation.  For this guide, the user created is `ubuntu` with a password of your choice.
 
 - 4 vCPU
 - 16 GB RAM
@@ -49,81 +47,167 @@ Create 3 VMs were created as described here.  The worker nodes are created by cl
     192.168.163.0/24 was the IP space used in this guide; adjust to your environment accordingly.
 
   | VM | Hostname | IP address |
-    | --- | --- | --- |
-    | Master node | k8s126master | 192.168.163.40 |
-  | Worker | k8s126node01 | 192.168.163.41 |
-  | Worker | k8s126node02 | 192.168.163.42 |
+  | --- | --- | --- |
+  | Master node | k8smaster | 192.168.163.60 |
+  | Worker | k8snode01 | 192.168.163.61 |
+  | Worker | k8snode02 | 192.168.163.62 |
 
-## Preliminary setup
+## Preliminary Operating System setup
 
-Perform these actions on the master node VM.
+Perform these actions on all three VMs.
 
 ### Install the Operating System
 
 Install the operating system as default, using the first disk (80 GB) as the installation target.  For this guide, the installation disk was formatted to use the entire disk as the root partition, without LVM support.
 
-After installation and reboot, upgrade all packages to the latest and perform the basic configuration needed:
+## Create snapshot 'base-os'
+
+Halt each VM by running `sudo shutdown -h now`.
+
+Create a snapshot of each VM, naming it **base-os**. This snapshot provides a rollback point in case issues arise later. You will use snapshots at several other key points for the same purpose. After installation is complete, these intermediate snapshots can be removed.
+
+Power up each VM set after taking the snapshots.
+
+### Prepare for using Ansible
+
+!!! note "Run on the host machine"
+    This block of commands is executed on the host.
+
+```sh
+
+# Add the IP addresses to the local hosts file for convenience
+sudo tee -a /etc/hosts >/dev/null <<-EOF
+192.168.163.60 k8smaster
+192.168.163.61 k8snode01
+192.168.163.62 k8snode02
+EOF
+
+# Copy the SSH key you will use to access the VMs from your host machine to each VM
+# See https://www.ssh.com/academy/ssh/keygen for instructions on generating an SSH key
+# For this guide, the ed25519 algorithm was used
+# Adjust the key name accordingly
+
+export TARGET_MACHINES=("k8smaster" "k8snode01" "k8snode02")
+
+for machine in "${TARGET_MACHINES[@]}"; do
+    echo "Copying key to $machine:"
+    ssh-copy-id -i ~/.ssh/localvms ubuntu@"$machine"
+    echo "======================"
+    echo "Confirming access.  You should not be prompted for a password and will be shown the hostname:"
+    ssh -i ~/.ssh/localvms ubuntu@"$machine" 'hostname'
+    echo
+done
+```
+
+Sample output:
+```txt
+Copying key to k8smaster:
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/Users/davidross/.ssh/localvms.pub"
+The authenticity of host 'k8smaster (192.168.163.60)' can't be established.
+ED25519 key fingerprint is SHA256:qud9m1FRgwzJuwKcEsVVUbZ4bltYmiyKNj5e330ZQCA.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+ubuntu@k8smaster's password:
+
+Number of key(s) added:        1
+
+Now try logging into the machine, with:   "ssh 'ubuntu@k8smaster'"
+and check to make sure that only the key(s) you wanted were added.
+
+======================
+Confirming access.  You should not be prompted for a password and will be shown the hostname:
+k8smaster
+
+<The output above is repeated for each node.>
+```
+
+After installation and reboot, upgrade all packages and perform the basic configuration needed for ansible support on the VMs.
+
+!!! note "Per-VM"
+    Run this block of commands on each VM.
 
 ```sh
 # Upgrade all packages
-sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt-get update && sudo apt-get upgrade -y
 
-# Modify the /etc/hosts file, adding these entries
-# Adjust the IP addresses accordingly
-192.168.163.40 k8smaster
-192.168.163.41 k8snode01
-192.168.163.42 k8snode02
+# Modify /etc/sudoers to allow the ubuntu user to sudo without a password
+# This configuration effectively grants the user full root access
+# DO NOT DO THIS IN PRODUCTION!
 
-# Load the overlay and br_netfilter kernel modules
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# Configure the system to load the kernel modules at each boot
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-br_netfilter
-overlay
-EOF
-
-# Enable IP forwarding for iptables
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-# Apply sysctl params without reboot
-sudo sysctl --system
-
-# Disable swap
-sudo sed -i '/swap/s/^\(.*\)$/#\1/g' /etc/fstab
+echo "ubuntu  ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 ```
+
+At this point, you are ready to run the ansible playbooks for creating your cluster.
+
+1. If you have not already done so, clone the `pingidentity-devops-getting-started` repository to your local `${PING_IDENTITY_DEVOPS_HOME}` directory.
+
+    !!! note "The `${PING_IDENTITY_DEVOPS_HOME}` environment variable was set by running `pingctl config`."
+
+    ```sh
+    cd "${PING_IDENTITY_DEVOPS_HOME}"
+    git clone \
+      https://github.com/pingidentity/pingidentity-devops-getting-started.git
+    ```
+
+1. Navigate to the directory with the ansible scripts:
+   
+   ```sh
+   cd "${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/99-helper-scripts/ansible
+   ```
+
+1. Modify the `inventory.ini`, `ansible.cfg`, `install_kubernetes.yaml` and `install_list.yaml` files accordingly to suit your environment:
+
+   The inventory.ini will need modification for your IP addresses, private key file, and user if `ubuntu` was not used:
+   ```text
+   [kubernetes_master]
+   k8smaster ansible_host=192.168.163.60
+   
+   [kubernetes_nodes]
+   k8snode01 ansible_host=192.168.163.61
+   k8snode02 ansible_host=192.168.163.62
+   
+   [all:vars]
+   ansible_user=ubuntu
+   ansible_ssh_private_key_file=/Users/davidross/.ssh/localvms
+   ansible_python_interpreter=/usr/bin/python3
+   ```
+
+   The ansible.cfg file might not need any modifications
+   ```text
+   [defaults]
+   inventory = inventory.ini
+   host_key_checking = False
+   ```
+
+   The install_kubernetes.yaml file will need the following changes to lines 11-13 if your IP address differs from this example:
+
+   ```text
+    k8smaster_ip: "192.168.163.60"
+    k8snode01_ip: "192.168.163.61"
+    k8snode02_ip: "192.168.163.61"
+   ```
+
+   Finally, the install_list.yaml file will need modification.  By default, no optional components are installed other than the block storage, which is needed for some Ping products.  To install other optional components, set the value to True.  Helm is required to install the Ingress controller:
+
+   ```yaml
+   ---
+   helm: False
+   k9s: False
+   metallb: False
+   storage: True
+   ingress: False
+   istio: False
+   istioaddons: False
+   ...
+   ```
+
+<details>
 
 ## Install container platform (containerd)
 
 At this point, you will install the **containerd** runtime.
-
-### containerd > 1.5.9
-
-Kubernetes 1.26+ requires `containerd` runtime >= 1.6. The default installation from the Ubuntu repositories installs version 1.5.9.  The solution in this guide is to use the Docker repository for the installation of these packages.  At the time of this writing, 1.6.18-1 is installed in this manner.
-
-```sh
-# Install and configure containerd
-# Add the Docker repository for Ubuntu
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt update -y
-
-# Install containerd
-sudo apt install -y containerd.io
-sudo mkdir -p /etc/containerd
-
-# Generate a default configuration
-containerd config default | sudo tee /etc/containerd/config.toml
-
-# Start containerd
-sudo systemctl restart containerd
-sudo systemctl enable containerd
-```
 
 #### Fix / confirm settings
 
@@ -218,8 +302,8 @@ Boot all three VMs.
 # On the master node only
 # Pod CIDR is default for flannel
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --upload-certs \
-        --apiserver-advertise-address=192.168.163.40 \
-        --control-plane-endpoint=192.168.163.40  \
+        --apiserver-advertise-address=192.168.163.60 \
+        --control-plane-endpoint=192.168.163.60  \
         --cri-socket unix:///run/containerd/containerd.sock
 
 # When finished, copy off the join command from the output for use on the other nodes
@@ -245,15 +329,15 @@ kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Doc
 [certs] Using certificateDir folder "/etc/kubernetes/pki"
 [certs] Generating "ca" certificate and key
 [certs] Generating "apiserver" certificate and key
-[certs] apiserver serving cert is signed for DNS names [k8s126master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.163.40]
+[certs] apiserver serving cert is signed for DNS names [k8s126master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.163.60]
 [certs] Generating "apiserver-kubelet-client" certificate and key
 [certs] Generating "front-proxy-ca" certificate and key
 [certs] Generating "front-proxy-client" certificate and key
 [certs] Generating "etcd/ca" certificate and key
 [certs] Generating "etcd/server" certificate and key
-[certs] etcd/server serving cert is signed for DNS names [k8s126master localhost] and IPs [192.168.163.40 127.0.0.1 ::1]
+[certs] etcd/server serving cert is signed for DNS names [k8s126master localhost] and IPs [192.168.163.60 127.0.0.1 ::1]
 [certs] Generating "etcd/peer" certificate and key
-[certs] etcd/peer serving cert is signed for DNS names [k8s126master localhost] and IPs [192.168.163.40 127.0.0.1 ::1]
+[certs] etcd/peer serving cert is signed for DNS names [k8s126master localhost] and IPs [192.168.163.60 127.0.0.1 ::1]
 [certs] Generating "etcd/healthcheck-client" certificate and key
 [certs] Generating "apiserver-etcd-client" certificate and key
 [certs] Generating "sa" key and public key
@@ -308,7 +392,7 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 You can now join any number of the control-plane node running the following command on each as root:
 
-  kubeadm join 192.168.163.40:6443 --token 7wc3xe.yt76msej78s4mtb9 \
+  kubeadm join 192.168.163.60:6443 --token 7wc3xe.yt76msej78s4mtb9 \
  --discovery-token-ca-cert-hash sha256:d22f7753d0c5b28fe386e13fa57cc47a0e261e23cc98aa13b9316645dddefe56 \
  --control-plane --certificate-key f5050f09f6fc60d3f8701b21bee71855f4c55e76b82aacd264afcf90191dc304
 
@@ -318,7 +402,7 @@ As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you c
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 192.168.163.40:6443 --token 7wc3xe.yt76msej78s4mtb9 \
+kubeadm join 192.168.163.60:6443 --token 7wc3xe.yt76msej78s4mtb9 \
  --discovery-token-ca-cert-hash sha256:d22f7753d0c5b28fe386e13fa57cc47a0e261e23cc98aa13b9316645dddefe56
 ```
 
@@ -521,14 +605,14 @@ lsblk -f |grep sdb
 Configure the cluster to support the admission controller by installing cert-manager:
 
 ```sh
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.11.4/cert-manager.yaml
 ```
 
 ### Install
 
 ```sh
 # Get the code
-git clone --single-branch --branch v1.10.12 https://github.com/rook/rook.git
+git clone --single-branch --branch v1.11 https://github.com/rook/rook.git
 
 # Navigate to the directory with the files we need
 cd rook/deploy/examples
@@ -681,20 +765,6 @@ parameters:
     # Ceph pool into which the RBD image shall be created
     pool: replicapool
 
-    # (optional) mapOptions is a comma-separated list of map options.
-    # For krbd options refer
-    # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
-    # For nbd options refer
-    # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
-    # mapOptions: lock_on_read,queue_depth=1024
-
-    # (optional) unmapOptions is a comma-separated list of unmap options.
-    # For krbd options refer
-    # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
-    # For nbd options refer
-    # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
-    # unmapOptions: force
-
     # RBD image format. Defaults to "2".
     imageFormat: "2"
 
@@ -703,12 +773,6 @@ parameters:
     # support only the `layering` feature. The Linux kernel (KRBD) supports the
     # full complement of features as of 5.4
     # `layering` alone corresponds to Ceph's bitfield value of "2" ;
-    # `layering` + `fast-diff` + `object-map` + `deep-flatten` + `exclusive-lock` together
-    # correspond to Ceph's OR'd bitfield value of "63". Here we use
-    # a symbolic, comma-separated format:
-    # For 5.4 or later kernels:
-    #imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
-    # For 5.3 or earlier kernels:
     imageFeatures: layering
 
     # The secrets contain Ceph admin credentials.
@@ -720,8 +784,6 @@ parameters:
     csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
 
     # Specify the filesystem type of the volume. If not specified, csi-provisioner
-    # will set default as `ext4`. Note that `xfs` is not recommended due to potential deadlock
-    # in hyperconverged settings where the volume is mounted on the same node as the osds.
     csi.storage.k8s.io/fstype: ext4
 
 # Delete the rbd volume when a PVC is deleted
@@ -756,8 +818,6 @@ kubectl get service wordpress
 NAME              TYPE           CLUSTER-IP     EXTERNAL-IP       PORT(S)        AGE
 wordpress         LoadBalancer   10.97.225.93   192.168.163.151   80:32302/TCP   36s
 
-# Access Wordpress in the browser. It should have an IP address from MetalLB (http://192.168.163.151)
-# You may have to force a refresh of your browser.
 ```
 
 Set the storage class you created as the default (`storageclass.kubernetes.io/is-default-class=true`)
@@ -844,7 +904,7 @@ tar xvzf istio-1.17.1-osx.tar.gz
 
 # Navigate to the profile directory and install the demo profile
 cd istio-1.17.1/manifests/profiles/
-istioctl install -f demo.yaml
+istioctl install -f demo.yaml --skip-confirmation
 
 This will install the Istio 1.17.1 default profile with ["Istio core" "Istiod" "Ingress gateways" "Egress gateways"] components into the cluster. Proceed? (y/N) y
 ✔ Istio core installed
@@ -894,6 +954,8 @@ In the example above, the following URLs would be used to access the user interf
 - Grafana: <http://192.168.163.155:3000/>
 - Prometheus: <http://192.168.163.154:9090/>
 - Jaeger: <http://192.168.163.156>
+
+</details>
 
 ## Snapshot 'k8sComplete'
 

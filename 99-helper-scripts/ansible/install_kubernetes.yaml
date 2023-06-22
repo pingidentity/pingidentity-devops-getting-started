@@ -1,0 +1,299 @@
+---
+- name: Install Kubernetes on all VMs
+  hosts: all
+  any_errors_fatal: true
+  become: true
+  vars:
+    containerd_file_path: /etc/containerd/config.toml
+    containerd_search_line: "          runtime_type = \"io.containerd.runc.v2\""
+    systemdcgroup_search_line: "            SystemdCgroup = false"
+    systemdcgroup_replacement_line: "            SystemdCgroup = true"
+    k8smaster_ip: "192.168.163.60"
+    k8snode01_ip: "192.168.163.61"
+    k8snode02_ip: "192.168.163.61"
+   
+  tasks:
+
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      changed_when: false
+
+    - name: Upgrade packages
+      block:
+        - name: Upgrade all packages
+          apt:
+            upgrade: dist
+            autoremove: yes
+            autoclean: yes
+          register: upgrade_result
+          changed_when: upgrade_result.stdout != ""
+
+      rescue:
+        - name: Handle upgrade failure
+          debug:
+            msg: "Package upgrade failed."
+
+    - name: Add host file entries
+      blockinfile: 
+        state: present
+        insertafter: EOF
+        dest: /etc/hosts
+        content: |
+          {{ k8smaster_ip }} k8smaster
+          {{ k8snode01_ip }} k8snode01
+          {{ k8snode02_ip }} k8snode02
+
+    - name: Add the br_netfilter kernel module and configure for load at boot
+      community.general.modprobe:
+        name: br_netfilter
+        state: present
+        persistent: present
+
+    - name: Add the overlay kernel module and configure for load at boot
+      community.general.modprobe:
+        name: overlay
+        state: present
+        persistent: present
+
+    - name: Creating kernel modules file to load at boot
+      copy:
+        dest: "/etc/modules-load.d/containerd.conf"
+        content: |
+          br_netfilter
+          overlay
+
+    - name: Disable swap in fstab by commenting it out
+      lineinfile:
+        path: /etc/fstab
+        regexp: '(?i)^(/swap.*)'
+        line: '# \1'
+        backrefs: true
+        state: present
+
+    - name: Disable swap
+      command: swapoff -a
+
+    - name: Enable IP forwarding for iptables
+      copy:
+        dest: "/etc/sysctl.d/99-zz-kubernetes-cri.conf"
+        content: |
+          net.bridge.bridge-nf-call-iptables  = 1
+          net.ipv4.ip_forward                 = 1
+          net.bridge.bridge-nf-call-ip6tables = 1
+
+    - name: Update sysctl parameters without reboot - bridge (ipv4)
+      sysctl:
+        name: net.bridge.bridge-nf-call-iptables
+        value: '1'
+        sysctl_set: true
+        state: present
+        reload: true
+  
+    - name: Update sysctl parameters without reboot - bridge (ipv6)
+      sysctl:
+         name: net.bridge.bridge-nf-call-ip6tables
+         value: '1'
+         sysctl_set: true
+         state: present
+         reload: true
+   
+    - name: Update sysctl parameters without reboot - IPforward
+      sysctl:
+         name: net.ipv4.ip_forward
+         value: '1'
+         sysctl_set: true
+         state: present
+         reload: true 
+
+    - name: Install prerequisites
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: no
+      with_items:
+        - containerd
+
+    - name: Add Kubernetes APT key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Create directory for containerd configuration file
+      file:
+        path: /etc/containerd
+        state: directory
+
+    # For idempotency, only run if the file is not there already
+
+    - name: Check if containerd toml configuration file exists
+      stat:
+        path: /etc/containerd/config.toml
+      register: configuration_file_status
+
+    - name: Create containerd configuration file if it does not exist
+      shell: 
+        cmd: containerd config default | sudo tee /etc/containerd/config.toml
+      args:
+        executable: /usr/bin/bash
+      when: not configuration_file_status.stat.exists
+
+    # Confirm contents of config.toml file
+    - name: Read config.toml file
+      slurp:
+        path: "{{ containerd_file_path }}"
+      register: containerd_file_content
+
+    - name: Check if correct containerd.runtimes.runc line exists
+      set_fact:
+        containerd_line_exists: "{{ containerd_search_line in (containerd_file_content.content | b64decode).split('\n') }}"
+
+    - name: Error out if the incorrect or missing containerd.runtimes.runc line does not exist
+      fail:
+        msg: "The line '{{ containerd_search_line }}' does not exist in /etc/containerd/config.toml"
+      when: not containerd_line_exists
+
+    - name: Set SystemdCgroup line in file to true if it is currently false
+      lineinfile:
+        path: "{{ containerd_file_path }}"
+        regex: "^{{ systemdcgroup_search_line | regex_escape }}$"
+        line: "{{ systemdcgroup_replacement_line }}"
+      when: systemdcgroup_search_line in (containerd_file_content.content | b64decode).split('\n')
+
+    - name: Restart containerd service
+      service:
+        name: containerd
+        state: restarted
+
+    - name: Install prerequisites for Kubernetes
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: no
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg2
+        - software-properties-common
+        - bzip2
+        - tar
+        - vim
+        - git
+        - wget
+        - net-tools
+        - lvm2
+
+    - name: Add Kubernetes APT repository
+      apt_repository:
+        repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+        state: present
+
+    - name: Install Kubernetes components
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      with_items:
+        - kubelet
+        - kubeadm
+        - kubectl
+
+    - name: Hold Kubernetes packages at current version
+      command: apt-mark hold kubelet kubeadm kubectl
+
+    - name: Run kubeadm reset to ensure fresh start each time.
+      command: kubeadm reset --force
+
+    - name: Remove any files from a previous installation attempt
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /home/ubuntu/.kube
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Initialize Kubernetes master
+      command: kubeadm init --pod-network-cidr=10.244.0.0/16 --upload-certs --apiserver-advertise-address={{ k8smaster_ip }} --control-plane-endpoint={{ k8smaster_ip }} --cri-socket unix:///run/containerd/containerd.sock 
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Check if k8s installation file exists
+      stat:
+        path: "/etc/kubernetes/kubelet.conf"
+      register: k8sinstalled_file_status
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Fail if K8s installed file does not exist
+      fail:
+        msg: "Something went wrong with the command installing Kubernetes on the master!"
+      when: inventory_hostname == 'k8smaster' and k8sinstalled_file_status.stat.exists == false
+
+    - name: Create .kube directory
+      file:
+        path: /home/ubuntu/.kube
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+      when: inventory_hostname == 'k8smaster' and k8sinstalled_file_status.stat.exists
+
+    - name: Copy kubeconfig to user's home directory
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/ubuntu/.kube/config
+        remote_src: true
+        owner: ubuntu
+        group: ubuntu
+      when: inventory_hostname == 'k8smaster' and k8sinstalled_file_status.stat.exists
+
+    - name: Install Pod network
+      become_user: ubuntu
+      command: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Remove taint from master node
+      become_user: ubuntu
+      command: kubectl taint nodes --all node-role.kubernetes.io/control-plane:NoSchedule-
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Retrieve join command from master and run it on the nodes
+      command: kubeadm token create --print-join-command
+      register: join_command
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Join worker nodes to the cluster
+      command: "{{ join_command.stdout }}"
+      delegate_to: "{{ item }}"
+      loop: "{{ groups['kubernetes_nodes']}}"
+      when: inventory_hostname == 'k8smaster' and nodesjoined_file_status.stat.exists == false
+      register: nodejoin_command_result
+
+    - name: Pause for 5 seconds
+      pause:
+        seconds: 5
+
+    - name: Confirm flannel pods are ready
+      become_user: ubuntu
+      shell: kubectl wait --namespace kube-flannel --for=condition=ready pod --selector=app=flannel --timeout=120s
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Run confirmation command by listing nodes
+      become_user: ubuntu
+      command: kubectl get nodes
+      register: nodes_command_output
+      delegate_to: k8smaster
+ 
+    - name: Nodes in the cluster
+      debug:
+        var: nodes_command_output.stdout_lines
+
+    - name: Provide cluster connection information
+      become_user: ubuntu
+      command: cat /home/ubuntu/.kube/config
+      register: clusterinfo_command_output
+      when: inventory_hostname == 'k8smaster'
+
+    - name: Cluster information for your .kube/config file
+      debug:
+        msg: "{{clusterinfo_command_output.stdout_lines}}"
+      when: inventory_hostname == 'k8smaster'
+...

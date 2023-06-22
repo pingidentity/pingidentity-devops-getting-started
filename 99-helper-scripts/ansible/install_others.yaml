@@ -1,0 +1,376 @@
+---
+- name: Install Other Components in the Cluster
+  hosts: kubernetes_master
+  any_errors_fatal: true
+  become_user: ubuntu
+  vars_files:
+    - install_list.yaml
+  
+  tasks:
+
+#######################  Helm ##############
+    - name: Get helm installation file
+      get_url:
+        url: "https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/helm-v3.12.1-linux-amd64.tar.gz"
+        checksum: sha256:1a7074f58ef7190f74ce6db5db0b70e355a655e2013c4d5db2317e63fa9e3dea
+      when: helm == True
+
+    - name: Extract helm
+      shell: tar xzvf /home/ubuntu/helm-v3.12.1-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
+      args:
+        executable: /bin/bash
+        creates: /usr/local/bin/helm
+      when: helm == True
+
+    - name: Remove helm tarball and extracted folder
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /home/ubuntu/linux-amd64
+        - /home/ubuntu/helm-v3.12.1-linux-amd64.tar.gz
+      when: helm == True
+
+########################  K9S ##############
+    - name: Get K9s installation file
+      get_url:
+        url: "https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz"
+        dest: "/home/ubuntu/k9s_Linux_amd64.tar.gz"
+        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.27.4/checksums.txt
+      when: k9s == True
+
+    - name: Extract k9s
+      command: sudo tar Cxzvf /usr/local/bin /home/ubuntu/k9s_Linux_amd64.tar.gz
+      args:
+        creates: /usr/local/bin/k9s
+      when: k9s == True
+
+    - name: Remove k9s tarball
+      file:
+        path: /home/ubuntu/k9s_Linux_amd64.tar.gz
+        state: absent
+      when: k9s == True
+#########################  MetalLB  ##############
+
+    - name: Get latest MetalLB version
+      shell: curl -s https://api.github.com/repos/metallb/metallb/releases/latest | grep tag_name | cut -d '"' -f 4|sed 's/v//'
+      args:
+        executable: /bin/bash
+      register: metalLB_version
+      when: metallb == True
+
+    - name: Get MetalLB installer
+      get_url:
+        url: "https://raw.githubusercontent.com/metallb/metallb/v{{ metalLB_version.stdout }}/config/manifests/metallb-native.yaml"
+        dest: "/home/ubuntu/metallb-native.yaml"
+      when: metallb == True
+
+    - name: Apply MetalLB file
+      shell: kubectl apply -f metallb-native.yaml && sudo touch /etc/.metalLBInstalled
+      args:
+        creates: "/etc/.metalLBInstalled"
+      when: metallb == True
+
+    - name: Pause for 10 seconds
+      pause:
+        seconds: 10
+      when: metallb == True
+
+    - name: Wait for MetalLB controller and speaker pods to be ready
+      shell: kubectl wait --namespace metallb-system --for=condition=ready pod --selector="{{ item }}" --timeout=300s
+      loop:
+        - app=metallb
+        - component=speaker
+      when: metallb == True
+
+    - name: Creating MetalLB configuration file
+      copy:
+        dest: "/home/ubuntu/ipaddress_pool_metal.yaml"
+        content: |
+          apiVersion: metallb.io/v1beta1
+          kind: IPAddressPool
+          metadata:
+            name: production
+            namespace: metallb-system
+          spec:
+            addresses:
+            - 192.168.163.151-192.168.163.250
+          ---
+          apiVersion: metallb.io/v1beta1
+          kind: L2Advertisement
+          metadata:
+            name: l2-advert
+            namespace: metallb-system
+      when: metallb == True
+
+    - name: Configure MetalLB
+      shell: kubectl apply -f ipaddress_pool_metal.yaml && sudo touch /etc/.metalLBConfigured
+      args:
+        creates: /etc/.metalLBConfigured
+        executable: /bin/bash
+      when: metallb == True
+
+    - name: Remove MetalLB installation yaml files
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /home/ubuntu/ipaddress_pool_metal.yaml
+        - /home/ubuntu/metallb-native.yaml
+      when: metallb == True
+
+###################  ROOK / CEPH  #################
+
+    - name: Install CertManager prerequisite
+      shell: kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.11.4/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
+      args:
+        creates: /etc/.certManagerInstalled
+        executable: /bin/bash
+      when: storage == True
+
+    - name: Check if rook directory exists
+      stat:
+        path: "/home/ubuntu/rook"
+      register: rook_dir_stat
+      when: storage == True
+
+    # Remove if already there to be sure we get the latest version
+    - name: Remove directory
+      file:
+        path: "/home/ubuntu/rook"
+        state: absent
+      when: rook_dir_stat.stat.exists and storage == True
+ 
+    - name: Clone Rook repository
+      ansible.builtin.git:
+        repo: https://github.com/rook/rook.git
+        dest: /home/ubuntu/rook
+        single_branch: yes
+        version: release-1.11
+      when: storage == True
+
+    - name: Install Rook controller
+      shell: cd /home/ubuntu/rook/deploy/examples && kubectl apply -f crds.yaml -f common.yaml -f operator.yaml && sudo touch /etc/.rookOperatorInstalled
+      args:
+        creates: /etc/.rookOperatorInstalled
+        executable: /bin/bash
+      when: storage == True
+
+    - name: Wait for Rook controller pod to be ready
+      command: kubectl wait --namespace rook-ceph --for=condition=ready pod --selector=app=rook-ceph-operator --timeout=120s
+      when: storage == True
+
+    - name: Install Rook components
+      shell: cd /home/ubuntu/rook/deploy/examples && kubectl apply -f cluster.yaml && sudo touch /etc/.rookClusterInstalled
+      args:
+        creates: /etc/.rookClusterInstalled
+        executable: /bin/bash
+      when: storage == True
+
+    # Ugly hack
+    - name: Pause for 3 1/2 minutes - wait for Rook components to get started
+      pause:
+        seconds: 210
+      when: storage == True
+
+    - name: Confirm Rook cluster pods are ready
+      shell: kubectl wait --namespace rook-ceph --for=condition=ready pod --selector="{{ item }}" --timeout=300s
+      loop:
+        - app=csi-cephfsplugin
+        - app=csi-cephfsplugin-provisioner
+        - app=csi-rbdplugin
+        - app=rook-ceph-mgr
+        - app=rook-ceph-mon
+        - app=rook-ceph-crashcollector
+        - app=csi-rbdplugin-provisioner
+        - app=rook-ceph-osd
+      when: storage == True
+
+    - name: Creating Block Storage class
+      copy:
+        dest: "/home/ubuntu/sc-ceph-block.yaml"
+        content: |
+          apiVersion: ceph.rook.io/v1
+          kind: CephBlockPool
+          metadata:
+            name: replicapool
+            namespace: rook-ceph
+          spec:
+            failureDomain: host
+            replicated:
+              size: 3
+          ---
+          apiVersion: storage.k8s.io/v1
+          kind: StorageClass
+          metadata:
+             name: rook-ceph-block
+          provisioner: rook-ceph.rbd.csi.ceph.com
+          parameters:
+              # clusterID is the namespace where the rook cluster is running
+              clusterID: rook-ceph
+              # Ceph pool into which the RBD image shall be created
+              pool: replicapool
+
+              # RBD image format. Defaults to "2".
+              imageFormat: "2"
+
+              imageFeatures: layering
+
+              # The secrets contain Ceph admin credentials.
+              csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+              csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+              csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+              csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+              csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+              csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+
+              # Specify the filesystem type of the volume. If not specified, csi-provisioner
+              csi.storage.k8s.io/fstype: ext4
+
+          # Delete the rbd volume when a PVC is deleted
+          reclaimPolicy: Delete
+
+          # For now only ext3, ext4, xfs resize support provided, like in Kubernetes itself.
+          # Optional, if you want to add dynamic resize for PVC.
+          allowVolumeExpansion: true
+      when: storage == True
+
+    - name: Create block ceph storage class
+      shell: kubectl apply -f /home/ubuntu/sc-ceph-block.yaml && sudo touch /etc/.storageClassCreated
+      args:
+        creates: /etc/.storageClassCreated
+        executable: /bin/bash
+      when: storage == True
+
+
+    - name: Creating script to patch storage class (globbing and substitution hack)
+      copy:
+        dest: "/home/ubuntu/patchsc.yaml"
+        content: |
+          #!/usr/bin/env bash
+
+          kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+    - name: Set storage class as default
+      command: bash /home/ubuntu/patchsc.yaml
+      when: storage == True
+
+    - name: Remove Rook installation files
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+          - /home/ubuntu/rook
+          - /home/ubuntu/sc-ceph-block.yaml
+          - /home/ubuntu/patchsc.yaml
+      when: storage == True
+
+#######################  Ingress  ##############
+
+    - name: Install Ingress Nginx 
+      shell: helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace && sudo touch /etc/.ingressInstalled
+      args:
+        creates: /etc/.ingressInstalled
+        executable: /bin/bash
+      when: ingress == True
+
+    - name: Pause for 5 seconds
+      pause:
+        seconds: 5
+      when: ingress == True
+
+    - name: Confirm ingress controller pod is ready
+      command: kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/name=ingress-nginx --timeout=90s
+      when: istio == True
+
+    - name: Get Ingress service components for confirmation
+      command: kubectl get svc -n ingress-nginx
+      register: ingress_status_output
+      when: ingress == True
+
+    - name: Ingress controller information
+      debug:
+        msg: "{{ingress_status_output.stdout_lines}}"
+      when: ingress == True
+
+#######################  Istio  ##############
+
+    - name: Get 'istioctl' installation file
+      get_url:
+        url: "https://github.com/istio/istio/releases/download/1.18.0/istio-1.18.0-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/istio-1.18.0-linux-amd64.tar.gz"
+        checksum: sha256:https://github.com/istio/istio/releases/download/1.18.0/istio-1.18.0-linux-amd64.tar.gz.sha256
+      when: istio == True
+
+    - name: Extract istioctl
+      shell: tar xzvf /home/ubuntu/istio-1.18.0-linux-amd64.tar.gz && sudo mv istio-1.18.0/bin/istioctl /usr/local/bin/istioctl
+      args:
+        executable: /bin/bash
+        creates: /usr/local/bin/istioctl
+      when: istio == True
+
+    - name: Install istio
+      shell: istioctl install -f /home/ubuntu/istio-1.18.0/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
+      args:
+        executable: /bin/bash
+        creates: /etc/.istioInstalled
+      when: istio == True
+
+    - name: Pause for 5 seconds
+      pause:
+        seconds: 5
+      when: istio == True
+
+    - name: Confirm Istio pods are ready
+      shell: kubectl wait --namespace istio-system --for=condition=ready pod --selector="{{ item }}" --timeout=90s
+      loop:
+        - app=istiod
+        - app=istio-ingressgateway
+        - app=istio-egressgateway
+      when: istio == True
+
+    - name: Install Istio add-ons
+      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.18.0/samples/addons && sudo touch /etc/.istioAddonsInstalled
+      args:
+        executable: /bin/bash
+        creates: /etc/.istioAddonsInstalled
+      when: istioaddons == True
+
+    - name: Confirm Istio additional pods are ready
+      shell: kubectl wait --namespace istio-system --for=condition=ready pod --selector="{{ item }}" --timeout=90s
+      loop:
+        - app=grafana
+        - app=jaeger
+        - app=kiali
+        - app=prometheus
+        - app.kubernetes.io/name=loki
+      when: istioaddons == True
+
+    - name: Creating patch file for services
+      copy:
+        dest: "/home/ubuntu/patch-service.yaml"
+        content: |
+          spec:
+            type: LoadBalancer
+      when: istioaddons == True and metallb == True
+
+    - name: Patch istio add-on services to use load balancer
+      shell: kubectl --namespace istio-system patch service "{{ item }}" --patch-file /home/ubuntu/patch-service.yaml
+      loop:
+        - grafana
+        - kiali
+        - tracing
+        - prometheus
+      when: istioaddons == True and metallb == True
+
+    - name: Remove istio tarball and extracted folder
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /home/ubuntu/istio-1.18.0
+        - /home/ubuntu/istio-1.18.0-linux-amd64.tar.gz
+        - /home/ubuntu/patch-service.yaml
+      when: istio == True
+...
