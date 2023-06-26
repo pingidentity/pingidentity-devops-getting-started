@@ -4,17 +4,17 @@ title: Deploy a robust local Kubernetes Cluster
 # Deploy a robust local Kubernetes Cluster
 
 !!! note "Video Demonstration"
-    A video demonstrating the process outlined on this page is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6324019967112/robust-test-kubernetes-cluster).
+    A video demonstrating the manual process outlined on this page is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6324019967112/robust-test-kubernetes-cluster).  An updated video using the ansible playbooks will be added soon.
 
 In some cases, a single-node cluster is insufficient for more complex testing scenarios.  If you do not have access to a managed Kubernetes cluster and want something more similar to what you would find in a production environment, this guide can help.
 
-This document describes deploying a multi-node cluster using scripts and [ansible](NEED URL TO ANSIBLE) along with the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
+This document describes deploying a multi-node cluster using [ansible](https://docs.ansible.com/) along with the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
 
 - 3 nodes, a master with two worker nodes (to conserve resources, the master will also be configured to run workloads)
-- Kubernetes 1.26.2 using the **containerd** runtime (no Docker installed)
-- Load balancer
+- Kubernetes 1.27.3 (at the time of this writing) using the **containerd** runtime (no Docker installed)
+- (Optional but recommended) Load balancer
 - Block storage support for PVC/PV needed by some Ping products
-- (Optional) Ingress controller
+- (Optional) Ingress controller (ingress-nginx)
 - (Optional) Istio service mesh
 - (Optional) supplementary tools for tracing and monitoring with Istio
 
@@ -28,7 +28,7 @@ In order to complete this guide, you will need:
 - 64 GB of RAM (32 GB might be enough if you have an SSD to handle some memory swapping and reduce the RAM on the VMs to 12 GB)
 - At least 150 GB of free disk
 - Modern processor with multiple cores
-- Ansible-playbook CLI tool. See <GIVE THE URL HERE FOR THIS PART> for instructions on how to install and configure this application.
+- Ansible-playbook CLI tool. You can use brew by running `brew install ansible` or see [the ansible site](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for instructions on how to install and configure this application.
 - Virtualization solution.  For this guide, VMware Fusion is used, but other means of creating and running a VM (Virtualbox, KVM) can be adapted.
 - Access to [Ubuntu LTS 22.04.2 server](https://ubuntu.com/download/server) installation media
 - **A working knowledge of Kubernetes**, such as knowing how to port-forward, install objects using YAML files, and so on. Details on performing some actions will be omitted, and it is assumed the reader will know what to do.
@@ -36,7 +36,7 @@ In order to complete this guide, you will need:
 
 ## Virtual machines
 
-First, create 3 VMs as described here, using a default installation.  For this guide, the user created is `ubuntu` with a password of your choice.
+First, create 3 VMs as described here, using a default installation of Ubuntu 22.04.  For this guide, the user created is `ubuntu` with a password of your choice.
 
 - 4 vCPU
 - 16 GB RAM
@@ -85,7 +85,7 @@ EOF
 # Copy the SSH key you will use to access the VMs from your host machine to each VM
 # See https://www.ssh.com/academy/ssh/keygen for instructions on generating an SSH key
 # For this guide, the ed25519 algorithm was used
-# Adjust the key name accordingly
+# Adjust the key name accordingly in the ssh-copy-id command
 
 export TARGET_MACHINES=("k8smaster" "k8snode01" "k8snode02")
 
@@ -123,23 +123,20 @@ k8smaster
 <The output above is repeated for each node.>
 ```
 
-After installation and reboot, upgrade all packages and perform the basic configuration needed for ansible support on the VMs.
+After installation and reboot, perform the basic configuration needed for ansible support on the VMs.  Primarily, the change required is to allow `sudo` commands without requiring a password:
 
 !!! note "Per-VM"
-    Run this block of commands on each VM.
+    Run these commands on each VM.
 
 ```sh
-# Upgrade all packages
-sudo apt-get update && sudo apt-get upgrade -y
-
 # Modify /etc/sudoers to allow the ubuntu user to sudo without a password
-# This configuration effectively grants the user full root access
+# This configuration grants the user full root access with no password
 # DO NOT DO THIS IN PRODUCTION!
 
 echo "ubuntu  ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 ```
-
-At this point, you are ready to run the ansible playbooks for creating your cluster.
+### Configure Ansible Playbooks for your environment
+At this point, you are ready to modify the ansible playbooks for creating your cluster.
 
 1. If you have not already done so, clone the `pingidentity-devops-getting-started` repository to your local `${PING_IDENTITY_DEVOPS_HOME}` directory.
 
@@ -159,7 +156,7 @@ At this point, you are ready to run the ansible playbooks for creating your clus
 
 1. Modify the `inventory.ini`, `ansible.cfg`, `install_kubernetes.yaml` and `install_list.yaml` files accordingly to suit your environment:
 
-   The inventory.ini will need modification for your IP addresses, private key file, and user if `ubuntu` was not used:
+   The **inventory.ini** will need modification for your IP addresses, private key file, and user if one other than `ubuntu` was used:
    ```text
    [kubernetes_master]
    k8smaster ansible_host=192.168.163.60
@@ -174,22 +171,22 @@ At this point, you are ready to run the ansible playbooks for creating your clus
    ansible_python_interpreter=/usr/bin/python3
    ```
 
-   The ansible.cfg file might not need any modifications
+   The **ansible.cfg** file should not need any modification:
    ```text
    [defaults]
    inventory = inventory.ini
    host_key_checking = False
    ```
 
-   The install_kubernetes.yaml file will need the following changes to lines 11-13 if your IP address differs from this example:
+   The **install_kubernetes.yaml** file will need the following changes to lines 11-13 if your IP address differs from this example:
 
    ```text
     k8smaster_ip: "192.168.163.60"
     k8snode01_ip: "192.168.163.61"
-    k8snode02_ip: "192.168.163.61"
+    k8snode02_ip: "192.168.163.62"
    ```
 
-   Finally, the install_list.yaml file will need modification.  By default, no optional components are installed other than the block storage, which is needed for some Ping products.  To install other optional components, set the value to True.  Helm is required to install the Ingress controller:
+   Finally, update the **install_list.yaml** file.  By default, no additional components are installed other than block storage, which is needed for some Ping products.  To install other optional components, set the value to **_True_**.  Note that helm is required to install the Ingress controller, and adding K9s, metallb and ingress will provide the most production-like implementation:
 
    ```yaml
    ---
@@ -203,17 +200,663 @@ At this point, you are ready to run the ansible playbooks for creating your clus
    ...
    ```
 
+## Run the first playbook
+
+With the changes above, you are now ready to run the playbooks.  First, run the **install_kubernetes.yaml** playbook to install Kubernetes.
+
+`ansible-playbook install_kubernetes.yaml -i inventory.ini`
+
+!!! note "Idempotency"
+    The playbook was designed to to be idempotent so you can run it multiple times if needed.  An alternative is to reset to the **base-os** snapshot, update the `sudoers` file and run it again.
+
 <details>
+  <summary>Sample output</summary>
 
-## Install container platform (containerd)
+```text
+PLAY [Install Kubernetes on all VMs] *******************************************
 
-At this point, you will install the **containerd** runtime.
+TASK [Gathering Facts] *********************************************************
+ok: [k8smaster]
+ok: [k8snode02]
+ok: [k8snode01]
+
+TASK [Update package cache] ****************************************************
+ok: [k8snode02]
+ok: [k8snode01]
+ok: [k8smaster]
+
+TASK [Upgrade all packages] ****************************************************
+changed: [k8snode01]
+changed: [k8snode02]
+changed: [k8smaster]
+
+TASK [Add host file entries] ***************************************************
+changed: [k8smaster]
+changed: [k8snode02]
+changed: [k8snode01]
+
+TASK [Add the br_netfilter kernel module and configure for load at boot] *******
+changed: [k8smaster]
+changed: [k8snode02]
+changed: [k8snode01]
+
+TASK [Add the overlay kernel module and configure for load at boot] ************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Creating kernel modules file to load at boot] ****************************
+changed: [k8smaster]
+changed: [k8snode02]
+changed: [k8snode01]
+
+TASK [Disable swap in fstab by commenting it out] ******************************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Disable swap] ************************************************************
+changed: [k8snode01]
+changed: [k8snode02]
+changed: [k8smaster]
+
+TASK [Enable IP forwarding for iptables] ***************************************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Update sysctl parameters without reboot - bridge (ipv4)] *****************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Update sysctl parameters without reboot - bridge (ipv6)] *****************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Update sysctl parameters without reboot - IPforward] *********************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Install prerequisites] ***************************************************
+changed: [k8snode02] => (item=containerd)
+changed: [k8smaster] => (item=containerd)
+changed: [k8snode01] => (item=containerd)
+
+TASK [Add Kubernetes APT key] **************************************************
+changed: [k8snode02]
+changed: [k8smaster]
+changed: [k8snode01]
+
+TASK [Create directory for containerd configuration file] **********************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Check if containerd toml configuration file exists] **********************
+ok: [k8smaster]
+ok: [k8snode01]
+ok: [k8snode02]
+
+TASK [Create containerd configuration file if it does not exist] ***************
+changed: [k8smaster]
+changed: [k8snode02]
+changed: [k8snode01]
+
+TASK [Read config.toml file] ***************************************************
+ok: [k8smaster]
+ok: [k8snode01]
+ok: [k8snode02]
+
+TASK [Check if correct containerd.runtimes.runc line exists] *******************
+ok: [k8smaster]
+ok: [k8snode01]
+ok: [k8snode02]
+
+TASK [Error out if the incorrect or missing containerd.runtimes.runc line does not exist] ***
+skipping: [k8smaster]
+skipping: [k8snode01]
+skipping: [k8snode02]
+
+TASK [Set SystemdCgroup line in file to true if it is currently false] *********
+changed: [k8smaster]
+changed: [k8snode02]
+changed: [k8snode01]
+
+TASK [Restart containerd service] **********************************************
+changed: [k8smaster]
+changed: [k8snode02]
+changed: [k8snode01]
+
+TASK [Install prerequisites for Kubernetes] ************************************
+changed: [k8snode02] => (item=apt-transport-https)
+changed: [k8smaster] => (item=apt-transport-https)
+changed: [k8snode01] => (item=apt-transport-https)
+ok: [k8snode02] => (item=ca-certificates)
+ok: [k8snode01] => (item=ca-certificates)
+ok: [k8smaster] => (item=ca-certificates)
+ok: [k8snode02] => (item=curl)
+ok: [k8smaster] => (item=curl)
+ok: [k8snode01] => (item=curl)
+changed: [k8snode02] => (item=gnupg2)
+changed: [k8snode01] => (item=gnupg2)
+changed: [k8smaster] => (item=gnupg2)
+ok: [k8snode02] => (item=software-properties-common)
+ok: [k8snode01] => (item=software-properties-common)
+ok: [k8smaster] => (item=software-properties-common)
+changed: [k8snode02] => (item=bzip2)
+changed: [k8snode01] => (item=bzip2)
+changed: [k8smaster] => (item=bzip2)
+ok: [k8snode02] => (item=tar)
+ok: [k8snode01] => (item=tar)
+ok: [k8smaster] => (item=tar)
+ok: [k8snode02] => (item=vim)
+ok: [k8snode01] => (item=vim)
+ok: [k8smaster] => (item=vim)
+ok: [k8snode02] => (item=git)
+ok: [k8snode01] => (item=git)
+ok: [k8smaster] => (item=git)
+ok: [k8snode02] => (item=wget)
+ok: [k8snode01] => (item=wget)
+ok: [k8smaster] => (item=wget)
+changed: [k8snode02] => (item=net-tools)
+changed: [k8snode01] => (item=net-tools)
+changed: [k8smaster] => (item=net-tools)
+ok: [k8snode01] => (item=lvm2)
+ok: [k8snode02] => (item=lvm2)
+ok: [k8smaster] => (item=lvm2)
+
+TASK [Add Kubernetes APT repository] *******************************************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Install Kubernetes components] *******************************************
+changed: [k8snode01] => (item=kubelet)
+changed: [k8snode02] => (item=kubelet)
+changed: [k8smaster] => (item=kubelet)
+changed: [k8snode01] => (item=kubeadm)
+changed: [k8snode02] => (item=kubeadm)
+changed: [k8smaster] => (item=kubeadm)
+ok: [k8snode02] => (item=kubectl)
+ok: [k8snode01] => (item=kubectl)
+ok: [k8smaster] => (item=kubectl)
+
+TASK [Hold Kubernetes packages at current version] *****************************
+changed: [k8smaster]
+changed: [k8snode01]
+changed: [k8snode02]
+
+TASK [Run kubeadm reset to ensure fresh start each time.] **********************
+changed: [k8smaster]
+changed: [k8snode02]
+changed: [k8snode01]
+
+TASK [Remove any files from a previous installation attempt] *******************
+skipping: [k8snode01] => (item=/home/ubuntu/.kube) 
+skipping: [k8snode01]
+skipping: [k8snode02] => (item=/home/ubuntu/.kube) 
+skipping: [k8snode02]
+ok: [k8smaster] => (item=/home/ubuntu/.kube)
+
+TASK [Initialize Kubernetes master] ********************************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Check if k8s installation file exists] ***********************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+ok: [k8smaster]
+
+TASK [Fail if K8s installed file does not exist] *******************************
+skipping: [k8smaster]
+skipping: [k8snode01]
+skipping: [k8snode02]
+
+TASK [Create .kube directory] **************************************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Copy kubeconfig to user's home directory] ********************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Install Pod network] *****************************************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Remove taint from master node] *******************************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Retrieve join command from master and run it on the nodes] ***************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Join worker nodes to the cluster] ****************************************
+skipping: [k8snode01] => (item=k8snode01) 
+skipping: [k8snode01] => (item=k8snode02) 
+skipping: [k8snode01]
+skipping: [k8snode02] => (item=k8snode01) 
+skipping: [k8snode02] => (item=k8snode02) 
+skipping: [k8snode02]
+changed: [k8smaster -> k8snode01(192.168.163.61)] => (item=k8snode01)
+changed: [k8smaster -> k8snode02(192.168.163.62)] => (item=k8snode02)
+
+TASK [Pause for 5 seconds] *****************************************************
+Pausing for 5 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [k8smaster]
+
+TASK [Confirm flannel pods are ready] ******************************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Run confirmation command by listing nodes] *******************************
+changed: [k8snode01 -> k8smaster(192.168.163.60)]
+changed: [k8smaster]
+changed: [k8snode02 -> k8smaster(192.168.163.60)]
+
+TASK [Nodes in the cluster] ****************************************************
+ok: [k8smaster] => {
+    "nodes_command_output.stdout_lines": [
+        "NAME        STATUS   ROLES           AGE   VERSION",
+        "k8smaster   Ready    control-plane   46s   v1.27.3",
+        "k8snode01   Ready    <none>          22s   v1.27.3",
+        "k8snode02   Ready    <none>          18s   v1.27.3"
+    ]
+}
+ok: [k8snode01] => {
+    "nodes_command_output.stdout_lines": [
+        "NAME        STATUS   ROLES           AGE   VERSION",
+        "k8smaster   Ready    control-plane   46s   v1.27.3",
+        "k8snode01   Ready    <none>          22s   v1.27.3",
+        "k8snode02   Ready    <none>          18s   v1.27.3"
+    ]
+}
+ok: [k8snode02] => {
+    "nodes_command_output.stdout_lines": [
+        "NAME        STATUS   ROLES           AGE   VERSION",
+        "k8smaster   Ready    control-plane   46s   v1.27.3",
+        "k8snode01   Ready    <none>          22s   v1.27.3",
+        "k8snode02   Ready    <none>          18s   v1.27.3"
+    ]
+}
+
+TASK [Provide cluster connection information] **********************************
+skipping: [k8snode01]
+skipping: [k8snode02]
+changed: [k8smaster]
+
+TASK [Cluster information for your .kube/config file] **************************
+ok: [k8smaster] => {
+    "msg": [
+        "apiVersion: v1",
+        "clusters:",
+        "- cluster:",
+        "    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJek1EWXlOakUxTkRjeU1Gb1hEVE16TURZeU16RTFORGN5TUZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBT25YCjdiTlRKNi93TGsyM2NSUllFeVI3M2tzRzFKYmlBaVBaYlBETTNXZnJqOFRsYlNhK1QxazNoeTlzNFJBaWdzSzUKaDlnNkE2QSsxWkFxOEw4WWVzZlhYL0ZUb0I2UlN3VWJmd2FVSkpUOWNHQTRvbXZmV2JVVzlrMHp0Qkp2aHREbgo5V2t2dWp4aDhBVEg1Q0JqTVNYWjErYThlS2JkQ3hDNVI5ZWdEaGJGSDIwYmlieG1BS0JvTUhKK2tvUUVTZ212CkRack9GczRDeDlPbWYyZXVFNkRqeGNKVSs2aytxU3hjWHN4ZDJJM0JKSnVxeXFhdDFoMkl1b0ZGMFh4aXVaVWsKWHU4amZhVHZCQ2JJRFZ4SGhaaUswMEs4Q0Naakg2cGxzSnVLT2dXQ0FTcFhGTVJNL3UvRDBubUM0emN3WnhzVQp1d0NYdXQ0QW54eTJqb0hIcDJzQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZJR2w4THREalRUdkJsdGs5a05UV0dWY3dpenZNQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQmpRUy9qSWtadjI0UUp2UkllZgphQ0ZCOVlKMWltTUJSdnprY0hEQjVKSTJpYTJESWxEVS9xMklRb2dUVWIvWmVPK2p1SFJoK2VIbUx3eVZuMTBCClNXb1QzUzlHK3VyK1hDbE8xU2dUMmg2UnlLTWZ2UFpmMFBHNGJIanFWSDJFbk56MGNoTUFBK1RzSGM2WVEyTFEKVnp2OURHb0pFdEkzL0w2M1AwSVVFWEhvalVxcGNHUkZhRFliWnc1NElGUitqdGs5L1lYakhDWUhna0JkMlhjTApwcElZcG40TUpubW9BeUxONGprdVQ4Qi9pTXhjUGxCaWpyZTd0Q3YvbXlnaUp6d0hWcUN1S2FRcG1xUUFuM0MwClNDeTU5ZEJvMmp4Q3ZrNE1xSWNZS1F5eVFsVXhTeEpMc3E4VUlhWi9ZY0ZMT1pJSWJzYzUrbnJuZXNPVkl0OXEKZVhnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+        "    server: https://192.168.163.60:6443",
+        "  name: kubernetes",
+        "contexts:",
+        "- context:",
+        "    cluster: kubernetes",
+        "    user: kubernetes-admin",
+        "  name: kubernetes-admin@kubernetes",
+        "current-context: kubernetes-admin@kubernetes",
+        "kind: Config",
+        "preferences: {}",
+        "users:",
+        "- name: kubernetes-admin",
+        "  user:",
+        "    client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJVENDQWdtZ0F3SUJBZ0lJS2xBRDd6VGJmaFl3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TXpBMk1qWXhOVFEzTWpCYUZ3MHlOREEyTWpVeE5UUTNNakphTURReApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sa3dGd1lEVlFRREV4QnJkV0psY201bGRHVnpMV0ZrCmJXbHVNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQTRHRmRreEJ0U0RuWS95TFUKUVQ3QnVhMm5tT2kzZ2IvLzdLL3d3UXlqeDBSMFpWWGI3QWw5TU5GVFlUdVJQbm1jVm1CK1FPK215RExsVGlvcwpZQ0dmeHEzS1ZMOU40bXJjUTJwU3dNVTYydVh6bG9MczVZM2VLWlVqL0haZEs0N1ZzSzZBa0duZFFEMGxlRjhHCmY4T3Raek8xOXgwcDZ5WVZIYnJseUxhd1Eybm9FbXdrbWdpUlJpSVFPSDJXQ1JyL1pkeWMyaXE1UmMxMFZTODMKUFdmaEtwZGo2U2VCM3dCdGUyM2dLdzdUSXJIWk0vcWFOOFVJWnB3VE5ibkFlQ2d6VUhmK3kyby9maDNjZ0ZHOQpHUUpRRjdzd1c0MEQ4UGF4eXlZMWFlTWN0OHpBWVhkK0NZamZuNHlLWTdLcnRoTFhnWmVsTUtrcXpYaVljSHVGCjVVQ3N5d0lEQVFBQm8xWXdWREFPQmdOVkhROEJBZjhFQkFNQ0JhQXdFd1lEVlIwbEJBd3dDZ1lJS3dZQkJRVUgKQXdJd0RBWURWUjBUQVFIL0JBSXdBREFmQmdOVkhTTUVHREFXZ0JTQnBmQzdRNDAwN3daYlpQWkRVMWhsWE1Jcwo3ekFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBbFlqOXlKREIrSjRsYXhkRnZUQ01KUENlQ0lwcWFUS1FHN01LClk3OVZLbWkyazAwQWFsZGRSeHptckF3V3NLa1B5blAyMEdnS0ZST2w1dUJvZk9VUXoxU21oeEN2bmZmbStCN2wKTDQ5aTBDTTNlMStBYTgxcGh4TkROaXk0N1JmcXJTc0svSVduUVFCbzNVd0M2UXpoMm9xTzZMOHlWZUQ0MXJXSwpIeWJ6dHpRS0hzeE0yUVk1VklUazVPQVBvTzJ3ZnJ2SEFCVGxmUDRLU0E2SWVIdmlzVkdreTlTUlVsbU9paXp5CmV5YVV6VG9kZm51M3JIQ3dHWEoxN25rQjI3MVN3V0kxZGpKamJacWdGb1VaNWRWQ0RnNHZ5dVhnUiswSVNRR3IKa0orZWxndEQ3V1RDeUJVL0pHUmExRVB1RnF2T3lEbkw1T0NQSkF6THRyN0I0SnhVWFE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+        "    client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBNEdGZGt4QnRTRG5ZL3lMVVFUN0J1YTJubU9pM2diLy83Sy93d1F5angwUjBaVlhiCjdBbDlNTkZUWVR1UlBubWNWbUIrUU8rbXlETGxUaW9zWUNHZnhxM0tWTDlONG1yY1EycFN3TVU2MnVYemxvTHMKNVkzZUtaVWovSFpkSzQ3VnNLNkFrR25kUUQwbGVGOEdmOE90WnpPMTl4MHA2eVlWSGJybHlMYXdRMm5vRW13awptZ2lSUmlJUU9IMldDUnIvWmR5YzJpcTVSYzEwVlM4M1BXZmhLcGRqNlNlQjN3QnRlMjNnS3c3VElySFpNL3FhCk44VUlacHdUTmJuQWVDZ3pVSGYreTJvL2ZoM2NnRkc5R1FKUUY3c3dXNDBEOFBheHl5WTFhZU1jdDh6QVlYZCsKQ1lqZm40eUtZN0tydGhMWGdaZWxNS2txelhpWWNIdUY1VUNzeXdJREFRQUJBb0lCQUFUUzh4RVRYRlllTUVVagorWTVCakNheXpoU2loRGQ4NmtLcmNiQ2sxZXlWMHk3T2pzRGZYMXFxVlhHVXQwV3hsYVBoeFRVZU1lYkIrVjRaCjJBUmxGS3RQMXpiRk9pWnhCN1ZIVnVvZ0UyamJZc1pNb0UwN0pKaWVSVHpMU3F1Q0VhUVB6R0hPZE54SnRFR0gKUVh1RHVIbXNpZS83SjRpUHRBcUVseVllajJHVG5nUVhobU5pVTBTaGY0ekpkTytqZytTNTFRK0J3WnBIRVJaVApRM3BPVlRBUEFpS1dDQmtGMHY2VHc5d3Ywb3hVQk8weGorTGlIVE00WlFGSWE2d0U4OEhsSjhOY1hhaHlFTXprCnVVeWdQSGNJK1NvN2ZYclppNzV4ZTJnbWJ4VXlKaVZ3SjduTVJsNjFqc000ckpobmM1Y3VjVmFyTjVKaGp0MWsKMUJLb0pxa0NnWUVBNjcvMnBibVhIeWpOWTdJTmU2T0c2ZGkrZkJtRHlVUlFrRWJWMWFVNzZKYWhYd1IySkRuNgpoVXlEVHVLQ0lyWVI2QkwrZStVY2t1bTVCZlZwL3cvKzVGSjZUdDVqS0huNlhoRVI4bFh3a0ZjM1h1bjVIai9mCnAzUlB2a0ZqSXpIWjNSK1lUbkxWK0w0MDh0cFJ0ZWZKTHpCS0dqQkdpRlNCN2twbWFBY3NwUjBDZ1lFQTg2ZGsKSmQyV2t0T2JmL1doWkNVdHNrNGZFejcxbHNwUWZnNm1GditXV2VScDVzNS9HR2xDODQ2SFNTbGJVVitmS3pzUApMbW1OQWp4MS8xSGJxaEliNTNVRFliU3VQWkdMQXhNNElFWW16dmJ4S0ozNDkvc0laYnNXejRhazBMWGZZb1BGCkxMQ3VKYjloSXNBclpTckNUTkFkcWd6U0plZ2lPYkVoWXdDOWZRY0NnWUVBM3h6bUNTSUQ2L0Zwc0ppcU9nRWgKaGQ4ako3L2VBWFV0NmQyZ01ub1dvS0V1U0FhbzZOQVdVR0dCUS84S3VsOGx3MFYyb3pyS09DQUtnNkVubDhWRApya0tBam5QWjFFemNybm5wU2pnYlcvK3UzNXovcjZrenVmOVNHUFU1SmUzZ0NtNEVidm92bHlJc2FrcEVXcXZxCnMwWTRXMkNrNEJGYWhuTFRTRkRCNStFQ2dZRUFtb2ZXcDRGVFIwbjMvSDd2M2hFS1cyVGFwcDB1cTNVaStlQVcKak0yTE1QWUNDSVY4N0NHT2VlUXlmejlBa0dxQ0M2d0lZOXBEdVdCWlFoWkxxQ0NXSEFVRm9Ra3ozUTZheU5kKwpxRkYxdVp1NnRaVURXMXVXSnRjeWoyb0l5K29kaEdDb1JFREdJbUN2blplZHJpc2hVaEJJVUJxVGljRWhPOC9RCnFmYkZOeThDZ1lFQXFnN1RIcWFCREliUmZxWWZQcjZwYjltczFxQk5SM1FGL0F2QmRzZnNaU3VqWVQ1ZkZjRFoKc3pHQ2xrUTdLMUZyU0lPcEJBeUdEKzlnZE5vbDhJYU9paU1QQXdpdElMTVllYnJ0QmtUL3ZTVUJyMU5xaldQSQo0djVlbHdHN1F5ZDBrREQ1ZmhzVyt1dGlpNUg2ZEFBcTBRM1UzaWp1SVcrMDV3UEV0QXB0Q1drPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
+    ]
+}
+skipping: [k8snode01]
+skipping: [k8snode02]
+
+PLAY RECAP *********************************************************************
+k8smaster   : ok=42   changed=32   unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+k8snode01   : ok=29   changed=23   unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
+k8snode02   : ok=29   changed=23   unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
+```
+
+</details>
+
+### (Optional but recommended) Create snapshot 'k8s-installed'
+
+Halt each VM by running `sudo shutdown -h now`.
+
+Create a snapshot of each VM, naming it **k8s-installed**.
+
+Power up each VM set after taking the snapshot.
+
+## Run the components playbook
+
+Now that Kubernetes is installed, you can install the optional components.  Run the **install_others.yaml** playbook to install Kubernetes.
+
+`ansible-playbook install_others.yaml -i inventory.ini`
+
+!!! note "Idempotency"
+    The playbook was designed to to be idempotent so you can run it multiple times if needed.  An alternative is to reset to the **k8s-installed** snapshot and run it again.
+
+!!! note "Monitor progress"
+    After K9s is installed on the master, you can launch it in an SSH session and monitor the progress of the pods being instantiated while the playbook is running.
+
+<details>
+  <summary>Sample output with everything enabled other than Istio and the Istio-addons</summary>
+
+```text
+PLAY [Install Other Components in the Cluster] *********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [k8smaster]
+
+TASK [Get helm installation file] **********************************************
+changed: [k8smaster]
+
+TASK [Extract helm] ************************************************************
+changed: [k8smaster]
+
+TASK [Remove helm tarball and extracted folder] ********************************
+changed: [k8smaster] => (item=/home/ubuntu/linux-amd64)
+changed: [k8smaster] => (item=/home/ubuntu/helm-v3.12.1-linux-amd64.tar.gz)
+
+TASK [Get K9s installation file] ***********************************************
+changed: [k8smaster]
+
+TASK [Extract k9s] *************************************************************
+changed: [k8smaster]
+
+TASK [Remove k9s tarball] ******************************************************
+changed: [k8smaster]
+
+TASK [Get latest MetalLB version] **********************************************
+changed: [k8smaster]
+
+TASK [Get MetalLB installer] ***************************************************
+changed: [k8smaster]
+
+TASK [Apply MetalLB file] ******************************************************
+changed: [k8smaster]
+
+TASK [Pause for 10 seconds] ****************************************************
+Pausing for 10 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [k8smaster]
+
+TASK [Wait for MetalLB controller and speaker pods to be ready] ****************
+changed: [k8smaster] => (item=app=metallb)
+changed: [k8smaster] => (item=component=speaker)
+
+TASK [Creating MetalLB configuration file] *************************************
+changed: [k8smaster]
+
+TASK [Configure MetalLB] *******************************************************
+changed: [k8smaster]
+
+TASK [Remove MetalLB installation yaml files] **********************************
+changed: [k8smaster] => (item=/home/ubuntu/ipaddress_pool_metal.yaml)
+changed: [k8smaster] => (item=/home/ubuntu/metallb-native.yaml)
+
+TASK [Install CertManager prerequisite] ****************************************
+changed: [k8smaster]
+
+TASK [Check if rook directory exists] ******************************************
+ok: [k8smaster]
+
+TASK [Remove directory] ********************************************************
+skipping: [k8smaster]
+
+TASK [Clone Rook repository] ***************************************************
+changed: [k8smaster]
+
+TASK [Install Rook controller] *************************************************
+changed: [k8smaster]
+
+TASK [Wait for Rook controller pod to be ready] ********************************
+changed: [k8smaster]
+
+TASK [Install Rook components] *************************************************
+changed: [k8smaster]
+
+TASK [Pause for 3 1/2 minutes - wait for Rook components to get started] *******
+Pausing for 210 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [k8smaster]
+
+TASK [Confirm Rook cluster pods are ready] *************************************
+changed: [k8smaster] => (item=app=csi-cephfsplugin)
+changed: [k8smaster] => (item=app=csi-cephfsplugin-provisioner)
+changed: [k8smaster] => (item=app=csi-rbdplugin)
+changed: [k8smaster] => (item=app=rook-ceph-mgr)
+changed: [k8smaster] => (item=app=rook-ceph-mon)
+changed: [k8smaster] => (item=app=rook-ceph-crashcollector)
+changed: [k8smaster] => (item=app=csi-rbdplugin-provisioner)
+changed: [k8smaster] => (item=app=rook-ceph-osd)
+
+TASK [Creating Block Storage class] ********************************************
+changed: [k8smaster]
+
+TASK [Create block ceph storage class] *****************************************
+changed: [k8smaster]
+
+TASK [Creating script to patch storage class (globbing and substitution hack)] ***
+changed: [k8smaster]
+
+TASK [Set storage class as default] ********************************************
+changed: [k8smaster]
+
+TASK [Remove Rook installation files] ******************************************
+changed: [k8smaster] => (item=/home/ubuntu/rook)
+changed: [k8smaster] => (item=/home/ubuntu/sc-ceph-block.yaml)
+changed: [k8smaster] => (item=/home/ubuntu/patchsc.yaml)
+
+TASK [Install Ingress Nginx] ***************************************************
+changed: [k8smaster]
+
+TASK [Pause for 5 seconds] *****************************************************
+Pausing for 5 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [k8smaster]
+
+TASK [Confirm ingress controller pod is ready] *********************************
+changed: [k8smaster]
+
+TASK [Get Ingress service components for confirmation] *************************
+changed: [k8smaster]
+
+TASK [Ingress controller information] ******************************************
+ok: [k8smaster] => {
+    "msg": [
+        "NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP       PORT(S)                      AGE",
+        "ingress-nginx-controller             LoadBalancer   10.101.36.117    192.168.163.151   80:30865/TCP,443:31410/TCP   31s",
+        "ingress-nginx-controller-admission   ClusterIP      10.103.154.247   <none>            443/TCP                      31s"
+    ]
+}
+
+TASK [Get 'istioctl' installation file] ****************************************
+skipping: [k8smaster]
+
+TASK [Extract istioctl] ********************************************************
+skipping: [k8smaster]
+
+TASK [Install istio] ***********************************************************
+skipping: [k8smaster]
+
+TASK [Pause for 5 seconds] *****************************************************
+skipping: [k8smaster]
+
+TASK [Confirm Istio pods are ready] ********************************************
+skipping: [k8smaster] => (item=app=istiod) 
+skipping: [k8smaster] => (item=app=istio-ingressgateway) 
+skipping: [k8smaster] => (item=app=istio-egressgateway) 
+skipping: [k8smaster]
+
+TASK [Install Istio add-ons] ***************************************************
+skipping: [k8smaster]
+
+TASK [Confirm Istio additional pods are ready] *********************************
+skipping: [k8smaster] => (item=app=grafana) 
+skipping: [k8smaster] => (item=app=jaeger) 
+skipping: [k8smaster] => (item=app=kiali) 
+skipping: [k8smaster] => (item=app=prometheus) 
+skipping: [k8smaster] => (item=app.kubernetes.io/name=loki) 
+skipping: [k8smaster]
+
+TASK [Creating patch file for services] ****************************************
+skipping: [k8smaster]
+
+TASK [Patch istio add-on services to use load balancer] ************************
+skipping: [k8smaster] => (item=grafana) 
+skipping: [k8smaster] => (item=kiali) 
+skipping: [k8smaster] => (item=tracing) 
+skipping: [k8smaster] => (item=prometheus) 
+skipping: [k8smaster]
+
+TASK [Remove istio tarball and extracted folder] *******************************
+skipping: [k8smaster] => (item=/home/ubuntu/istio-1.18.0) 
+skipping: [k8smaster] => (item=/home/ubuntu/istio-1.18.0-linux-amd64.tar.gz) 
+skipping: [k8smaster] => (item=/home/ubuntu/patch-service.yaml) 
+skipping: [k8smaster]
+
+PLAY RECAP *********************************************************************
+k8smaster                  : ok=33   changed=27   unreachable=0    failed=0    skipped=11   rescued=0    ignored=0   
+```
+
+</details>
+
+## Snapshot 'k8sComplete'
+
+Shutdown the VMs, and snapshot each one.  See the helper script in this repository located at `99-helper-scripts/manageCluster.sh` that can be used for automating things under VMware.
+
+At this time,  your cluster is ready for use.  
+
+## Interim fix for the ingress controller
+
+At the time of this writing, the Helm charts from Ping need modification to support the latest ingress-nginx controller from Kubernetes.  Until the charts have been updated, the following instructions will update the ingress configuration so that it will work.
+
+This example assumes the MetalLB load balancer was installed.  Otherwise, you would need to port-forward and alias the Ping URLs to **localhost**.
+
+Following the steps on the [Getting Started](../get-started/getStartedExample.md), do the following tasks:
+
+* Create the namespace and change context
+* Add the DevOps secret
+* Update your **/etc/hosts** file with Ping product URLs to match the IP address of the ingress controller (192.168.163.151 in this example)
+* Deploy the helm charts as instructed by running: `helm upgrade --install demo pingidentity/ping-devops -f everything.yaml -f ingress-demo.yaml`
+
+After installation, patch the ingress definition for the service in question.  First, create a script to apply the class patch to each ingress endpoint:
+
+```bash
+#!/bin/bash
+
+targets=(
+  "demo-pingaccess-admin"
+  "demo-pingaccess-engine"
+  "demo-pingauthorize"
+  "demo-pingdataconsole"
+  "demo-pingdirectory"
+  "demo-pingfederate-admin"
+  "demo-pingfederate-engine"
+)
+
+for target in "${targets[@]}"
+do
+  echo "Patching target: ${target}..."
+  kubectl patch ingress ${target} -p '{"spec": {"ingressClassName": "nginx"}}'
+done
+```
+
+Then, run the script:
+
+```bash
+# Make the script executable
+chmod +x patch.sh
+
+# Run the script
+./patch.sh
+
+# Output
+Patching target: demo-pingaccess-admin...
+ingress.networking.k8s.io/demo-pingaccess-admin patched
+Patching target: demo-pingaccess-engine...
+ingress.networking.k8s.io/demo-pingaccess-engine patched
+Patching target: demo-pingauthorize...
+ingress.networking.k8s.io/demo-pingauthorize patched
+Patching target: demo-pingdataconsole...
+ingress.networking.k8s.io/demo-pingdataconsole patched
+Patching target: demo-pingdirectory...
+ingress.networking.k8s.io/demo-pingdirectory patched
+Patching target: demo-pingfederate-admin...
+ingress.networking.k8s.io/demo-pingfederate-admin patched
+Patching target: demo-pingfederate-engine...
+ingress.networking.k8s.io/demo-pingfederate-engine patched
+```
+
+## Manual Process
+
+This section is for reference only.  It is intended to provide context as to what is being done in ansible playbooks above.  In the manual instructions, the assumption is that you would set up the master to the point of being ready to run `kubeadm` and at that time take a snapshot.  The snapshot is cloned to create the two worker nodes prior to initializing the cluster.
+
+### Preliminary setup
+
+```bash
+# Add the IP addresses to the local hosts file for convenience
+sudo tee -a /etc/hosts >/dev/null <<-EOF
+192.168.163.60 k8smaster
+192.168.163.61 k8snode01
+192.168.163.62 k8snode02
+EOF
+
+# Update packages
+sudo apt-get update
+sudo apt-get upgrade -y
+
+# Load the overlay and br_netfilter kernel modules
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# Configure the system to load the kernel modules at each boot
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+br_netfilter
+overlay
+EOF
+
+# Enable IP forwarding for iptables
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+
+# Disable swap
+sudo sed -i '/swap/s/^\(.*\)$/#\1/g' /etc/fstab
+```
+
+### Install container platform (containerd)
+
+At this point, you will install the **containerd** runtime.  In the latest Ubuntu 22.04 installations, the containerd version available from the APT repository is **1.6.12-0ubuntu1~22.04.1**, so all that is necessary is to install it using apt: `sudo apt-get install -y containerd`
+
+#### Generate a default configuration for containerd:
+
+`containerd config default | sudo tee /etc/containerd/config.toml`
 
 #### Fix / confirm settings
 
 In order for the **etcd** pod to remain stable, the `SystemdCgroup` flag for the runc options must be set to true.  The default configuration sets this boolean to false.
 
-Modify **/etc/containerd/config.toml**.   The `runtime_type` is probably correct, but the `SystemdCgroup` default was **false**.  The two values to confirm or modify were at lines 112 and 125 at the time of this writing.
+Modify **/etc/containerd/config.toml**.   The `runtime_type` is probably correct, but `SystemdCgroup` defaults to **false**.  The two values to confirm or modify were found at lines 112 and 125 at the time of this writing.
 
 ```txt
 version = 2
@@ -245,17 +888,6 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update -y
 # Install latest (1.26.2)
 sudo apt-get install -y kubelet kubeadm kubectl
-
-################################################
-##### Optional to install specific version #####
-################################################
-# determine version available
-# curl -s https://packages.cloud.google.com/apt/dists/kubernetes-xenial/main/binary-amd64/Packages | grep Version | awk '{print $2}'
-# install version from list generated by previous command, for example:
-# sudo apt-get install -y kubelet=1.24.9-00 kubectl=1.24.9-00 kubeadm=1.24.9-00
-################################################
-#####        end optional section          #####
-################################################
 
 # Lock K8s version
 sudo apt-mark hold kubelet kubeadm kubectl
@@ -306,7 +938,7 @@ sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --upload-certs \
         --control-plane-endpoint=192.168.163.60  \
         --cri-socket unix:///run/containerd/containerd.sock
 
-# When finished, copy off the join command from the output for use on the other nodes
+# When finished, copy the join command from the output for use on the other nodes
 # Configure kubectl for the non-root user
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -321,7 +953,7 @@ kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Doc
 
 ```text
 # Sample output from init
-[init] Using Kubernetes version: v1.26.2
+[init] Using Kubernetes version: v1.27.3
 [preflight] Running pre-flight checks
 [preflight] Pulling images required for setting up a Kubernetes cluster
 [preflight] This might take a minute or two, depending on the speed of your internet connection
@@ -612,7 +1244,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1
 
 ```sh
 # Get the code
-git clone --single-branch --branch v1.11 https://github.com/rook/rook.git
+git clone --single-branch --branch release-1.11 https://github.com/rook/rook.git
 
 # Navigate to the directory with the files we need
 cd rook/deploy/examples
@@ -885,11 +1517,11 @@ ingress-nginx-controller-admission   ClusterIP      10.96.230.188   <none>      
 
 ### Istio
 
-Installation will use the demo profile; this will add the ingress and egress gateways and size the Envoy sidecar smaller.
+Installation will use the demo profile; completing this section will configure the cluster by adding the ingress and egress gateways.  In addition, the demo profile uses a smaller Envoy sidecar.
 
 #### Prerequisites
 
-In order to install Istio, you will need the `istioctl` utility.  On the Mac, you can use **brew** to install this application, or you can download the archive for your platform from the [release page](https://github.com/istio/istio/releases/tag/1.17.1).  You will need this archive to get the profile and add-on software in either case. Download the latest version (1.17.1 at the time of this writing). On the system used to develop this guide, the **_istioctl_** binary was installed using brew but the one contained in the archive can be used as an alternative. The instructions on installation are [here](https://istio.io/latest/docs/setup/getting-started/).
+In order to install Istio, you will need the `istioctl` utility.  On the Mac, you can use **brew** to install this application, or you can download the archive for your platform from the [release page](https://github.com/istio/istio/releases/tag/1.18.0).  You will need this archive to get the profile and add-on software in either case. Download the latest version (1.18.0 at the time of this writing). On the system used to develop this guide, the **_istioctl_** binary was installed using brew but the one contained in the archive can be used as an alternative. The instructions on installation are [here](https://istio.io/latest/docs/setup/getting-started/).
 
 #### Installation
 
@@ -900,13 +1532,13 @@ Extract the archive to a known location on your filesystem.
 cd ~/Downloads
 
 # Extract the archive
-tar xvzf istio-1.17.1-osx.tar.gz
+tar xvzf istio-1.18.0-osx.tar.gz
 
 # Navigate to the profile directory and install the demo profile
-cd istio-1.17.1/manifests/profiles/
+cd istio-1.18.0/manifests/profiles/
 istioctl install -f demo.yaml --skip-confirmation
 
-This will install the Istio 1.17.1 default profile with ["Istio core" "Istiod" "Ingress gateways" "Egress gateways"] components into the cluster. Proceed? (y/N) y
+This will install the Istio 1.18.0 default profile with ["Istio core" "Istiod" "Ingress gateways" "Egress gateways"] components into the cluster. Proceed? (y/N) y
 ✔ Istio core installed
 ✔ Istiod installed
 ✔ Ingress gateways installed
@@ -914,7 +1546,7 @@ This will install the Istio 1.17.1 default profile with ["Istio core" "Istiod" "
 ✔ Installation complete
 Making this installation the default for injection and validation.
 
-Thank you for installing Istio 1.17.  Please take a few minutes to tell us about your install/upgrade experience!  https://forms.gle/hMHGiwZHPU7UQRWe9
+Thank you for installing Istio 1.18.0.  Please take a few minutes to tell us about your install/upgrade experience!  https://forms.gle/hMHGiwZHPU7UQRWe9
 ```
 
 #### Add ons (optional)
@@ -923,7 +1555,7 @@ The add-ons are the Kiali UI (for Istio), Jaeger, Grafana and Prometheus. The Ku
 
 ```sh
 # Navigate to the root of the extracted archive
-cd ../..
+cd ~/istio-1.18.0/
 
 # Apply the files to install the products
 kubectl apply -f samples/addons

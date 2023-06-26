@@ -282,7 +282,7 @@
 
     - name: Confirm ingress controller pod is ready
       command: kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/name=ingress-nginx --timeout=90s
-      when: istio == True
+      when: ingress == True
 
     - name: Get Ingress service components for confirmation
       command: kubectl get svc -n ingress-nginx

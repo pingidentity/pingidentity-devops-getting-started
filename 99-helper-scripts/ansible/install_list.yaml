@@ -1,9 +1,9 @@
 ---
-helm: True
-k9s: True
-metallb: True
+helm: False
+k9s: False
+metallb: False
 storage: True
-ingress: True
+ingress: False
 istio: False
 istioaddons: False
 ...

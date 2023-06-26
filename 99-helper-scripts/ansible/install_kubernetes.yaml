@@ -10,7 +10,7 @@
     systemdcgroup_replacement_line: "            SystemdCgroup = true"
     k8smaster_ip: "192.168.163.60"
     k8snode01_ip: "192.168.163.61"
-    k8snode02_ip: "192.168.163.61"
+    k8snode02_ip: "192.168.163.62"
    
   tasks:
 
@@ -106,7 +106,7 @@
          state: present
          reload: true 
 
-    - name: Install prerequisites
+    - name: Install containerd
       apt:
         name: "{{ item }}"
         state: present
@@ -264,7 +264,7 @@
       command: "{{ join_command.stdout }}"
       delegate_to: "{{ item }}"
       loop: "{{ groups['kubernetes_nodes']}}"
-      when: inventory_hostname == 'k8smaster' and nodesjoined_file_status.stat.exists == false
+      when: inventory_hostname == 'k8smaster'
       register: nodejoin_command_result
 
     - name: Pause for 5 seconds
