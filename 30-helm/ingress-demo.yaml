@@ -8,4 +8,4 @@ global:
     defaultTlsSecret:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      spec.ingressClassName: nginx
+      kubernetes.io/ingress.class: "nginx"
