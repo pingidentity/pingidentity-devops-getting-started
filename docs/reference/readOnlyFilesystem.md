@@ -8,10 +8,10 @@ title: Running Ping product images with a read-only filesystem requirement
 In some environments, there is a requirement that the container filesystem be read-only.  Our product images are maturing to support this capability natively in the future.  In the meantime, this guide will explain the overall concepts and provide an example with PingDirectory.  The other product images will operate in a similar manner.  
 
 !!! warning "Example only"
-    This guide is intended to provide an example implementation of solving this problem; your situation might require a slightly different approach.
+    This guide is intended to provide an example implementation of solving this problem; your situation might require a different approach.
 
 !!! note "Ping image exploration"
-    An excellent starting point for understanding what goes on with our images as they are initiated can be found in [this video](https://videos.pingidentity.com/detail/videos/devops/video/6314748082112/ping-product-docker-image-exploration).  It is highly recommended that you take the time to view it prior to working through this guide.
+    An excellent starting point for understanding what goes on with our containers as they are instantiated can be found in [this video](https://videos.pingidentity.com/detail/videos/devops/video/6314748082112/ping-product-docker-image-exploration).  It is highly recommended that you take the time to view it prior to working through this guide.
 
 ### High-level process
 
@@ -19,7 +19,7 @@ In Ping product containers, the layered approach of bringing the environment and
 
 ## File explanation
 
-In the **30-helm/read-only-filesystem** folder of the Getting Started repository is a values file and kustomize directory.  First, we will explore the the `pd-values.yaml` file; inline comments explain what is going on:
+In the **30-helm/read-only-filesystem** folder of the [Getting Started repository](https://github.com/pingidentity/pingidentity-devops-getting-started) is a values file and kustomize directory.  First, we will explore the the `pd-values.yaml` file; inline comments explain what is going on:
 
 <details>
   <summary>pd-values.yaml</summary>
@@ -66,9 +66,9 @@ initContainers:
       - mountPath: /opt/handoff
         name: staging
         readOnly: false
-      # The locaion for the license file varies by product
+      # The location for the license file varies by product
       # See https://devops.pingidentity.com/how-to/existingLicense/ for more information
-      # The license file is still required for the init container to operate
+      # The license file is required for the init container to operate
       - name: pingdirectory-license
         mountPath: "/opt/staging/pd.profile/server-root/pre-setup/PingDirectory.lic"
         subPath: PingDirectory.lic
@@ -196,7 +196,7 @@ pingdirectory:
     MUTE_LICENSE_VERIFICATION: "yes"
     ORCHESTRATION_TYPE: "NONE"
     VERBOSE: "true"
- # Optional, specify a particular tag by uncommenting these two lines and naming the tag to use.
+ # (Optional) Specify a particular tag by uncommenting these two lines and naming the tag to use.
  # Otherwise, you will get the latest from Docker Hub.
  # If a particular tag is used, be sure the init container tag matches above
  # image:
@@ -228,7 +228,7 @@ pingdirectory:
 
 </details>
 
-In the same subdirectory is a kustomize script and definition file.
+In the **30-helm/read-only-filesystem/kustomize**  subdirectory is a kustomize script and definition file.
 
 The script simply runs kustomize:
 ```bash
