@@ -146,7 +146,6 @@ configMaps:
 
           run_hook "18-setup-sequence.sh"
         fi
-
   bootstrap:
     data:
       bootstrap.sh: |-
@@ -189,7 +188,6 @@ configMaps:
         # shellcheck disable=SC2086,SC2048
         exec "${BASE}/tini" ${_subReaper} -- "${BASE}/entrypoint.sh" ${*}
 
-
 pingdirectory:
   enabled: true
   envs:
@@ -228,7 +226,7 @@ pingdirectory:
 
 </details>
 
-In the **30-helm/read-only-filesystem/kustomize**  subdirectory is a kustomize script and definition file.
+In the **30-helm/read-only-filesystem/kustomize** subdirectory is a kustomize script and definition file.
 
 The script simply runs kustomize:
 ```bash
@@ -239,7 +237,7 @@ cat <&0 > kustomize/all.yaml
 kustomize build kustomize && rm kustomize/all.yaml
 ```
 
-The `kustomization.yaml` file makes the injected scripts executable and sets the securityContext for the containers to read-only:
+The `kustomization.yaml` file makes the injected scripts executable and sets the **securityContext** for the containers to read-only:
 
 ```yaml
 resources:
@@ -281,12 +279,13 @@ To use the example files to deploy PingDirectory with a readonly root filesystem
     kubectl create secret generic pingdirectory-license --from-file=./PingDirectory.lic
     ```
 
-1.  Update the **`30-helm/read-only-filesystem/pd-values.yaml`** file with the appropriate image tag and release name to be used with Helm.  Then use Helm to deploy the release:
+1.  Update the **`30-helm/read-only-filesystem/pd-values.yaml`** file with the appropriate image tag and release name to be used with Helm.  Afterward, use Helm to deploy the release:
 
     ```bash
     # For this example, the release name of 'rofs' is used
     cd 30-helm/read-only-filesystem
-    helm upgrade --install rofs pingidentity/ping-devops -f './pd-values.yaml' --post-renderer kustomize/kustomize
+    helm upgrade --install rofs pingidentity/ping-devops -f './pd-values.yaml' \
+          --post-renderer kustomize/kustomize
     ```
 
 ## Diagram

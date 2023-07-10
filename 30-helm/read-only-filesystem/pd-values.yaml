@@ -119,7 +119,6 @@ configMaps:
 
           run_hook "18-setup-sequence.sh"
         fi
-
   bootstrap:
     data:
       bootstrap.sh: |-
@@ -161,7 +160,6 @@ configMaps:
 
         # shellcheck disable=SC2086,SC2048
         exec "${BASE}/tini" ${_subReaper} -- "${BASE}/entrypoint.sh" ${*}
-
 
 pingdirectory:
   enabled: true
