@@ -58,10 +58,12 @@ initContainers:
         name: bootstrap
         readOnly: true
         subPath: bootstrap.sh
+        defaultMode: 0555
       - mountPath: /opt/staging/hooks/10-start-sequence.sh
         name: init-start
         readOnly: true
         subPath: 10-start-sequence.sh
+        defaultMode: 0555
 
 volumes:
   # The 3 emptyDir volumes referenced above

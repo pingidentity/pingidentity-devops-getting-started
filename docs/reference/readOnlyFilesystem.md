@@ -1,11 +1,11 @@
 ---
-title: Running Ping product images with a read-only filesystem requirement
+title: Running Ping product images with a read-only root filesystem requirement
 ---
-# Running product containers with a read-only filesystem
+# Running product containers with a read-only root filesystem
 
 ## Overview
 
-In some environments, there is a requirement that the container filesystem be read-only.  Our product images are maturing to support this capability natively in the future.  In the meantime, this guide will explain the overall concepts and provide an example with PingDirectory.  The other product images will operate in a similar manner.  
+In some environments, there is a requirement that the container filesystem be read-only.  Our product images are maturing to support this capability natively in the future.  In the meantime, this guide will explain the overall concepts and provide an example with PingDirectory.  The other product images can operate in a similar manner.  
 
 !!! warning "Example only"
     This guide is intended to provide an example implementation of solving this problem; your situation might require a different approach.
@@ -15,7 +15,11 @@ In some environments, there is a requirement that the container filesystem be re
 
 ### High-level process
 
-In Ping product containers, the layered approach of bringing the environment and configuration parameters into the container at launch requires merging of files from server profiles and other locations before the product is launched.  This process means that files are modified at runtime, and a read-only filesystem blocks this action.  The overall approach is to use **`emptyDir`** volumes to overlay the directories that need modification, allowing the hook scripts to run as normal, only against the volume rather than the container filesystem.  In order to get everything necessary for the scripts to be in place, an init container (using the same image as the product container) is launched and the files necessary are copied to the shared volume before starting the product container.
+In Ping product containers, the layered approach of bringing the environment and configuration parameters into the container at launch requires merging of files from server profiles and possibly other locations before the product is launched.  This process means that files are modified at runtime, and a read-only root filesystem blocks this action.  The overall approach is to use [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) volumes to overlay the directories that need modification, allowing the hook scripts to run as normal against the volume rather than the container filesystem.  In order to get everything necessary for the scripts in place, an init container (using the same image as the product container) is launched and the files necessary are copied to the shared volume before starting the product container.
+
+## Prerequisites
+
+- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/) CLI utility to serve as a [post-renderer](https://helm.sh/docs/topics/advanced/#post-rendering) for Helm.
 
 ## File explanation
 
@@ -85,10 +89,12 @@ initContainers:
         name: bootstrap
         readOnly: true
         subPath: bootstrap.sh
+        defaultMode: 0555
       - mountPath: /opt/staging/hooks/10-start-sequence.sh
         name: init-start
         readOnly: true
         subPath: 10-start-sequence.sh
+        defaultMode: 0555
 
 volumes:
   # The 3 emptyDir volumes referenced above
@@ -226,6 +232,9 @@ pingdirectory:
 
 </details>
 
+!!! note "Kustomize"
+    **Kustomize is used as the Ping helm charts do not support setting the readOnlyFileSystem value to the securityContext of a container at this time.**
+
 In the **30-helm/read-only-filesystem/kustomize** subdirectory is a kustomize script and definition file.
 
 The script simply runs kustomize:
@@ -237,7 +246,7 @@ cat <&0 > kustomize/all.yaml
 kustomize build kustomize && rm kustomize/all.yaml
 ```
 
-The `kustomization.yaml` file makes the injected scripts executable and sets the **securityContext** for the containers to read-only:
+The `kustomization.yaml` file sets the **securityContext** for the each container's root file system to read-only:
 
 ```yaml
 resources:
@@ -249,12 +258,6 @@ patches:
       version: v1
       kind: StatefulSet
     patch: |-
-      - op: add
-        path: /spec/template/spec/volumes/3/configMap/defaultMode
-        value: 0777
-      - op: add
-        path: /spec/template/spec/volumes/4/configMap/defaultMode
-        value: 0777
       - op: add
         path: /spec/template/spec/containers/0/securityContext
         value:
@@ -292,8 +295,8 @@ To use the example files to deploy PingDirectory with a readonly root filesystem
 
 This image provides an overview of what happens.  It is best viewed in a separate tab:
 
-![Read-Only Filesystem Example](../images/readOnlyFileSystem.png)
+![Read-Only Root Filesystem Example](../images/readOnlyFileSystem.png)
 
 !!! note "/etc/motd"
-    One issue we encountered is that the **`/etc/motd`** file can be modified at startup by hook scripts, but /etc/ is a read-only filesystem.  We are exploring ways to address this in some way, but at this time, it appears one possible solution is to treat `/etc/` in the same manner as /opt/staging (copying to an emptyDir) if the `motd` file is to be updated.  However, `/etc` has many more files and directories and such a solution is not practical.  Baking it into a custom image is another possibility.
+    One issue we encountered is that the **`/etc/motd`** file can be modified at startup by hook scripts, but /etc/ is read-only.  We are exploring ways to address this in some way, but at this time, it appears one possible solution is to treat `/etc/` in the same manner as /opt/staging (copying to an emptyDir) if the `motd` file is to be updated.  However, `/etc` has many more files and directories and such a solution is not practical.  Baking it into a custom image is another possibility.
 

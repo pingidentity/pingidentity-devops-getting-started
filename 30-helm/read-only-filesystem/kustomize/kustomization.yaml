@@ -8,12 +8,6 @@ patches:
       kind: StatefulSet
     patch: |-
       - op: add
-        path: /spec/template/spec/volumes/3/configMap/defaultMode
-        value: 0777
-      - op: add
-        path: /spec/template/spec/volumes/4/configMap/defaultMode
-        value: 0777
-      - op: add
         path: /spec/template/spec/containers/0/securityContext
         value:
           readOnlyRootFilesystem: true
