@@ -5,343 +5,158 @@ title: Prepare AWS EKS for Multi-Region Deployments
 
 ## Overview
 
-In this guide you will deploy two Kubernetes clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. Throughout this document, "VPC" is synonymous with "cluster".
+In this guide you will deploy two Kubernetes clusters, each in a different Amazon Web Services (AWS) region. An AWS virtual private cloud (VPC) is assigned and dedicated to each cluster. You will also add communication between these clusters, using a transit gateway. Throughout this document, "VPC" is synonymous with "cluster".
 
 ## Prerequisites
 
-Before you begin, you must have:
-
-* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-
-* [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html), the current version
+Before you begin, you must have
 
 * AWS account permissions to create clusters
 
-## Configuring the AWS CLI
-
-If you have not already done so, configure the AWS CLI to use your profile and credentials:
-
-1. To assign your profile and supply your `aws_access_key_id` and `aws_secret_access_key`, run the following command:
-
-      ```sh
-      aws configure --profile=<aws-profile>
-      ```
-
-      When prompted, provide your `aws_access_key_id` and `aws_secret_access_key`.
-
-1. Open the `~/.aws/credentials` file in a text editor and add your AWS `role_arn`.
-
-      For example:
-
-      ```sh
-      “role_arn = arn:aws:iam::xxxxxxxx4146:role/xxx”
-      ```
-
 ## Create the multi-region clusters
 
-1. Create the YAML files to configure the the clusters.
-
-      You will create the clusters in different AWS regions. For this example, we use the `ca-central-1` region and the `us-west-2` region.
-
-      * First cluster, using the `ca-central-1` region and the reserved CIDR `172.16.0.0`:
-
-         ```yaml
-         apiVersion: eksctl.io/v1alpha5
-         kind: ClusterConfig
-         metadata:
-         name: pingfed-ca-central-1
-         region: ca-central-1
-         version: "1.17"
-         vpc:
-           cidr: 172.16.0.0/16
-         managedNodeGroups:
-         - name: us-west-2a-worker-nodes
-            instanceType: t3a.2xlarge
-            labels: {}
-            tags: {}
-            minSize: 1
-            maxSize: 2
-            desiredCapacity: 1
-            volumeSize: 12
-            privateNetworking: true
-            ssh:
-               publicKeyPath: ~/.ssh/id_rsa.pub
-            iam:
-               withAddonPolicies:
-               imageBuilder: true
-               autoScaler: true
-               externalDNS: true
-               certManager: true
-               appMesh: true
-               ebs: true
-               fsx: true
-               efs: true
-               albIngress: true
-               xRay: true
-               cloudWatch: true
-         - name: us-west-2b-worker-nodes
-         instanceType: t3a.2xlarge
-         labels: {}
-         tags: {}
-         minSize: 1
-         maxSize: 2
-         desiredCapacity: 1
-         volumeSize: 12
-         privateNetworking: true
-         ssh:
-            publicKeyPath: ~/.ssh/id_rsa.pub
-         iam:
-            withAddonPolicies:
-               imageBuilder: true
-               autoScaler: true
-               externalDNS: true
-               certManager: true
-               appMesh: true
-               ebs: true
-               fsx: true
-               efs: true
-               albIngress: true
-               xRay: true
-               cloudWatch: true
-         ```
-
-         > For production purposes, select a VPC with a private IP. The `ssh` entry is optional, allowing you to SSH in to your cluster.
-
-      * Second cluster, using the `us-west-2` region and the reserved CIDR `10.0.0.0`:
-
-         ```yaml
-         apiVersion: eksctl.io/v1alpha5
-         kind: ClusterConfig
-
-         metadata:
-         name: pingfed-us-west-2
-         region: us-west-2
-         version: "1.17"
-
-         vpc:
-         cidr: 10.0.0.0/16
-
-         managedNodeGroups:
-         - name: us-west-2a-worker-nodes
-            instanceType: t3a.2xlarge
-            labels: {}
-            tags: {}
-            minSize: 1
-            maxSize: 2
-            desiredCapacity: 1
-            volumeSize: 12
-            privateNetworking: true
-            ssh:
-               publicKeyPath: ~/.ssh/id_rsa.pub
-            iam:
-               withAddonPolicies:
-               imageBuilder: true
-               autoScaler: true
-               externalDNS: true
-               certManager: true
-               appMesh: true
-               ebs: true
-               fsx: true
-               efs: true
-               albIngress: true
-               xRay: true
-               cloudWatch: true
-         - name: us-west-2b-worker-nodes
-         instanceType: t3a.2xlarge
-         labels: {}
-         tags: {}
-         minSize: 1
-         maxSize: 2
-         desiredCapacity: 1
-         volumeSize: 12
-         privateNetworking: true
-         ssh:
-            publicKeyPath: ~/.ssh/id_rsa.pub
-         iam:
-            withAddonPolicies:
-               imageBuilder: true
-               autoScaler: true
-               externalDNS: true
-               certManager: true
-               appMesh: true
-               ebs: true
-               fsx: true
-               efs: true
-               albIngress: true
-               xRay: true
-               cloudWatch: true
-         ```
+1. Create VPCs.
 
-         > For production purposes, select a VPC with a private IP. The `ssh` entry is optional, allowing you to SSH in to your cluster.
+    * Sign on to the AWS console and navigate to the **VPC** service.
 
-2. Create the clusters using `eksctl`.
+    * Toggle to the `eu-west-1` region.
 
-      * Create the first cluster: 
+    * Select **Your VPCs** (under Virtual Private Cloud) and click **Create VPC**
 
-         ```shell
-         eksctl create cluster -f ca-central-1.yaml --profile <aws-profile>
-         ```
+    * Add a name tag, such as `demo-vpc-eu-west-1`
 
-      * Create the second cluster:
+    * Add a IPv4 CIDR, such as `10.0.0.0/16`
 
-         ```shell
-         eksctl create cluster -f us-west-2.yaml --profile <aws-profile>
-         ```
+    * Click **Create VPC**.
 
-3. Sign on to the AWS console and navigate to the **VPC** service.  Select **Your VPCs** (under Virtual Private Cloud), and record the VPC details for the clusters that were just created.
+    > Make note of the `VpcId` and `IPv4 CIDR` values for the `eu-west-1` and `us-east-1` VPCs for use in subsequent steps.
 
-      > Make note of the `VpcId` values for the `ca-central-1` and `us-west-2` VPCs for use in subsequent steps.
+    * Repeat this step in `us-east-1` region.
 
-4. Set up VPC peering between the two clusters.
+2.  Create the transit gateway for each region your deployment is being hosted on. Toggle to the `eu-west-1` region.
 
-      Create a peering connection from the cluster in the `us-west-2` region to the cluster in the `ca-central-1` region, using the VPC Dashboard as in the previous step.
+    * Navigate to the **Transit gateways** section and click **Create transit gateway**.
 
-      * At the top right of the page, select the **Oregon** (us-west-2) region.
+    * Add a name tag such as `demo-tgw-eu-west-1`.
 
-      * Select **Peering Connections** and click **Create Peering Connection**.
+    * Add a unique Amazon side Autonomous System Number for each region (ex. 64512 or 64513).
 
-      * Assign a unique name for the peering connection (for example, us-west-2-to-ca-central-1).
+    * Disable both the `Default route table association` and `Default route table propagation`.
+    
+    > Make Note if you Enable the options above the default association route table and propagation route table will be created. This may not suit your more complex routing needs, so below you can see how to manually set the associations/propagation route tables.
 
-      * Under the **Select a local VPC to peer with** section, enter the `VpcId` value for the `us-west-2` VPC.
+    * Click **Create transit gateway**.
 
-      * In the **Select another VPC to peer with** list, select **My account** --> **Another region** --> **Canada Central** (ca-central-1).
+    * Repeat this step in `us-east-1` region.
 
-      * Under the **VPC (Accepter)** section, enter the `VpcId` value for the `ca-central-1` region.
+3.  Create the transit gateway peering connection attachment. Toggle to the `eu-west-1` region.
 
-      * Click **Create Peering Connection** and when you receive a confirmation message, click **OK** to continue.
+    * Navigate to the **Transit gateway attachments** section and click **Create transit gateway attachments**.
 
-      * At the top right of the page, change the region to **Canada Central**.
+    * Add a name tag such as `demo-peering-attachment-us-east-1`.
 
-      * Select **Peering Connections**.
+        > Make note that this name is refering to the region it is peering to, not the region it is being create in.
 
-         > The peering connection status for `us-west-2` will show as `Pending Acceptance`.
+    * Select the Transit gateway id that you just made in the `eu-west-1` region.
 
-      * Select the `ca-central-1` connection, click the **Actions** list, and select **Accept Request** and confirm when prompted.
+    * Change **Attachment type** to `Peering Connection`.
 
-         > The VPC peering connection status should now show as `Active`.
+    * For **Region** select `us-east-1`.
 
-5. Get the subnet information for each cluster node.
+    * For **Transit gateway (accepter)** add the Transit gateway id that you just made in the `us-east-1` region.
 
-      Each cluster node uses a different subnet, so there are three subnets assigned to each VPC. The information displayed contains the subnet ID for each subnet. Use the subnet IDs in the subsequent step to get the associated routing tables.
+    * Click **Create transit gateway attachment** .
 
-      * At the top right of the page, change the region to **Oregon**.
+4.  Accept transit gateway peering attachment.
 
-      * Go to the **EC2** service, and select **Instances**. Apply a filter, if needed, to find your nodes for the cluster.
+    * Once the transit gateway peering connection shows `pending acceptance` as its **State**, toggle to the `us-east-1` region and select **Transit gateway attachments**.
 
-      * Select each node and record the **Subnet ID** for use in a subsequent step.
+    * You should see the attachment you just made. Select **Actions** and click accept.
 
-      * At the top right of the page, change the region to **Canada Central**, and repeat these steps to find and record the subnet IDs for this VPC.
+    * Add a name to this attachment such as `demo-peering-attachment-eu-west-1`.
 
-6. Get the routing table associated with the subnets for each VPC.
+        > Make note that this name is refering to the region it is peering to, not the region it is being create in.
 
-      * Go to the **VPC** service for the Canada Central region.
+5. Attach VPCs to the transit gateways in each region. Toggle to the `eu-west-1` region.
 
-      * In the VPC Dashboard, select **Subnets**.
+    * Navigate to the **Transit gateway attachments** section and click **Create transit gateway attachments**.
 
-      * For each subnet displayed, record the **Routing Table** value. You might have a single routing table for all of your subnets. You will use the routing table ID or IDs in a subsequent step.
+    * Add a name tag such as `demo-vpc-eu-west-1`.
 
-      * At the top right of the page, change the region to **Oregon**, and repeat these steps to find and record the routing table ID or IDs for this VPC.
+    * Select the Transit gateway id that you just made in the `eu-west-1` region.
 
-7. Modify the routing table or tables for each VPC to add a route to the other VPC using the peering connection that was created.
+    * Select the Vpc Id that you made note of in step 3 for the `eu-west-1` region.
 
-      * In the VPC Dashboard, select **Route Tables** for the Oregon region.
+    * Click **Create transit gateway attachment**.
 
-      * Select the route table you recorded for the `us-west-2` (Oregon) VPC, and click the `Routes` button.
+    * Repeat this step in `us-east-1` region.
 
-         Two routes are displayed.
+6.  Accept transit gateway VPC attachments. Toggle to the `eu-west-1` region.
 
-      * Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `ca-central-1` cluster (172.16.0.0/16).
+    * Navigate to the **Transit gateway attachments** section and click **Create transit gateway attachments**.
 
-      * For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
+    * You should see the vpc attachment you just made. Select **Actions** and click accept.
 
-         A route for the `ca-central-1` cluster directed to the peering connection is displayed.
+        > Note if you are using different accounts to create transit gateways and their attachments, then the name tag will  not be visable here. If thats the case you should add an attachment name now, such as `demo-vpc-eu-west-1`.
 
-      * If more than one routing table is used for the `us-west-2` VPC, repeat the previous steps for each routing table.
+    * Repeat this step in `us-east-1` region.
 
-      * At the top right of the page, change the region to **Canada Central**.
+7. Add routes to vpc route table. Toggle to the `eu-west-1` region.
 
-      * Select the route table you recorded for the `ca-central-1` (Canada Central) VPC, and click the `Routes` button.
+    * Navigate to the **Route tables** section and select the route table for the Vpc Id you created.
 
-         Two routes are displayed.
+    * Select **Routes** in the bottom third of the page.
 
-      * Click **Edit Routes** --> **Add Route**, and for **Destination**, enter the CIDR block for the `us-west-2` cluster (10.0.0.0/16).
+    * Select **Edit routes** then click **Add route**.
 
-      * For **Target**, select the VPC peering connection you created in a prior step. Click **Save Routes**.
+    * Add a destination that is more broad than the local one that is present. For example if the local destination is `10.0.0.0/16` add `10.0.0.0/8`. 
 
-        A route for the `us-west-2` cluster directed to the peering connection is displayed.
+    * For the **Target** select `Transit Gateway` and add then add the Transit gateway id that you created in this region.
 
-      * If more than one routing table is used for the `ca-central-1` VPC, repeat the previous steps for each routing table.
+    * Click **Save changes**.
 
-8. Update the Security Groups for each VPC. Note the Security Group IDs for each VPC and add inbound and outbound rules for both the `us-west-2` VPC, and the `ca-central-1` VPC.
+    * Repeat this step in `us-east-1` region.
 
-      * In the VPC Dashboard, select **Security Groups** for the Canada Central region.
+8. Configure the transit gateway route tables. Toggle to the `eu-west-1` region.
+    
+    * Navigate to the **Transit gateway route tables** section and click **Create transit gateway route table**.
 
-      * Apply a filter to find the security groups for the `ca-central-1` cluster, and select the security group with “-nodegroup” in the name.  This security group is used for the firewall settings for all the worker nodes in the `ca-central-1` cluster.
+    * Add a name tag such as `demo-eu-west-1-route-table`.
 
-      * Click **Inbound Rules** --> **Add Rule**.
+    * Select the Transit gateway id that you created in this region.
 
-      * Select these values for the rule:
+    * Click **Create transit gateway route table**.
 
-         * Type:  Custom TCP Rule
+    * Repeat this step in `us-east-1` region.
 
-         * Protocol: TCP
+9. Associate the transit gateway. Toggle to the `eu-west-1` region.
 
-         * Port Range: 7600-7700
+    * Once the transit gateway route table has been successfully created, select that route table and click **Associations** then **Create association**.
 
-         > These ports are for are specific to PingFederate Clustering; adjust based on your products.
+    * Choose the VPC attachment for this region and click **Create association**.
 
-         * Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
+10. Add static routes to the transit gateway. Toggle to the `eu-west-1` region.
 
-      * Click **Save Rules** to save the inbound security group rule for the `ca-central-1` cluster.
+    * Select that route table that you just created an association for and click **Routes** then **Create static route**.
 
-      * Click **Outbound Rules** --> **Add Rule**.
+    * Add the`IPv4 CIDR` for the remote VPC that you made note of in step 3 for the `us-east-1` region.
 
-      * Select these values for the rule:
+    * Select the transit gateway peering connection attachment.
 
-         * Type:  Custom TCP Rule
+    * Click **Create static route**.
 
-         * Protocol: TCP
+    * Repeat this step in `us-east-1` region.
 
-         * Port Range: 7600-7700
+11. Create blackout static route to ensure the transit gateway drops any other network traffic. Toggle to the `eu-west-1` region.
 
-         > As before, these ports are for are specific to PingFederate Clustering; adjust based on your products.
+    * Select **Create static route** 
+    
+    * Add 10.0.0.0/8 as thre CIDR
 
-         * Source: Custom, and enter the CIDR block for the `us-west-2` (10.0.0.0/16) cluster.
+    * Select Blackhole
 
-      * Click **Save Rules** to save the outbound security group rule for the `ca-central-1` cluster.
+    * Click **Create static route**.
 
-      * At the top right of the page, change the region to **Oregon**. The process for configuring these security groups will mirror the previous steps.
+    * Repeat this step in `us-east-1` region.
 
-      * Apply a filter to find the security groups for the `us-west-2` cluster, and select the security group with “-nodegroup” in the name. This security group is used for the firewall settings for all the worker nodes in the `us-west-2` cluster.
-
-      * Click **Inbound Rules** --> **Add Rule**.
-
-      * Select these values for the rule:
-
-         * Type:  Custom TCP Rule
-
-         * Protocol: TCP
-
-         * Port Range: 7600-7700
-
-         > Again, PingFederate Clustering is used in this example; adjust based on your products.
-
-         * Source: Custom, and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
-
-      * Click **Save Rules** to save the inbound security group rule for the `us-west-2` cluster.
-
-      * Click **Outbound Rules** --> **Add Rule**.
-
-      * Select these values for the rule:
-
-         * Type:  Custom TCP Rule
-
-         * Protocol: TCP
-
-         * Port Range: 7600-7700
-
-         > PingFederate Clustering again
-
-         * Source: Custom and enter the CIDR block for the `ca-central-1` (172.16.0.0/16) cluster.
-
-      * Click **Save Rules** to save the outbound security group rule for the `us-west-2` cluster.
+At this point you should have a system of connected VPCs on the `us-east-1` `eu-west-1` regions. You can now deploy EC2 instances to these VPCs and communicate between them.
