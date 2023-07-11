@@ -270,7 +270,7 @@ patches:
 
 ## Process
 
-To use the example files to deploy PingDirectory with a readonly root filesystem, follow the steps here:
+To use the example files to deploy PingDirectory with a read-only root filesystem, follow the steps here:
 
 1.  Generate a license file and create a secret.  If you have an existing license file, you can use it here:
 
