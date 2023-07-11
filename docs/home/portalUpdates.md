@@ -1,6 +1,12 @@
 # Recent portal updates
 This page provides details on significant changes to this portal.
 
+# July 2023
+
+## Read-only filesystem example and explanation
+
+Some environments require the use of a read-only filesystem on containers in runtime.  As our product images mature to better align with this practice, a way to work around the situation with our images as they stand today can be found [here](../reference/readOnlyFilesystem.md).
+
 # November 2022
 
 ## Video content is arriving

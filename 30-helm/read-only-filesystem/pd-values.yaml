@@ -1,0 +1,199 @@
+initContainers:
+  pd-init:
+    name: runtime-init
+    # CHANGEMETAG TO VERSION NEEDED
+    # Init container uses the same image as the product container and therefore versions much match
+    image: pingidentity/pingdirectory:CHANGEMETAG
+    env:
+      # Override the startup command so the product is not launched in the init container
+      - name: STARTUP_COMMAND
+        value: "ls"
+      # Use a name different from /opt/staging for holding the copied files from the product image into the emptyDir volume
+      - name: STAGING_DIR
+        value: "/opt/handoff"
+      # Just in case there is a .env we will need
+      - name: CONTAINER_ENV
+        value: "/opt/handoff/.env"
+      # Another flag for preventing the product from being launched
+      - name: STARTUP_FOREGROUND_OPTS
+        value: ""
+    envFrom:
+      # CHANGEMERELEASE TO MATCH HELM RELEASE NAME
+      - configMapRef:
+          name: CHANGEMERELEASE-global-env-vars
+          optional: true
+      - configMapRef:
+          name: CHANGEMERELEASE-env-vars
+          optional: true
+      - configMapRef:
+          name: CHANGEMERELEASE-pingdirectory-env-vars
+      - secretRef:
+          name: devops-secret
+          optional: true
+      - secretRef:
+          name: CHANGEME-pingdirectory-git-secret
+          optional: true
+    volumeMounts:
+      # emptyDir volume: /opt/staging will be copied from the init container to this volume
+      # This volume will be mounted as /opt/staging in the product container
+      - mountPath: /opt/handoff
+        name: staging
+        readOnly: false
+      # The locaion for the license file varies by product
+      # See https://devops.pingidentity.com/how-to/existingLicense/ for more information
+      # The license file is still required for the init container to operate
+      - name: pingdirectory-license
+        mountPath: "/opt/staging/pd.profile/server-root/pre-setup/PingDirectory.lic"
+        subPath: PingDirectory.lic
+      # Also an emptyDir
+      - name: tmp
+        mountPath: "/tmp"
+        readOnly: false
+      # Also an emptyDir
+      - name: init-runtime
+        mountPath: "/opt/out"
+        readOnly: false
+      # Mount the slightly modified versions of the bootstrap and start sequence scripts (see below)
+      - mountPath: /opt/bootstrap.sh
+        name: bootstrap
+        readOnly: true
+        subPath: bootstrap.sh
+        defaultMode: 0555
+      - mountPath: /opt/staging/hooks/10-start-sequence.sh
+        name: init-start
+        readOnly: true
+        subPath: 10-start-sequence.sh
+        defaultMode: 0555
+
+volumes:
+  # The 3 emptyDir volumes referenced above
+  init-runtime:
+    emptyDir: {}
+  staging:
+    emptyDir: {}
+  tmp:
+    emptyDir: {}
+  # This secret is created from a license file
+  pingdirectory-license:
+    secret:
+      secretName: pingdirectory-license
+  # Make the modified bootstrap and start sequence scripts available as configMaps
+  bootstrap:
+    configMap:
+      items:
+      - key: bootstrap.sh
+        path: bootstrap.sh
+      name: bootstrap
+  init-start:
+    configMap:
+      items:
+      - key: 10-start-sequence.sh
+        path: 10-start-sequence.sh
+      name: init-start
+
+configMaps:
+  init-start:
+    data:
+      10-start-sequence.sh: |-
+        #!/usr/bin/env sh
+        echo "overwriting 10 hook"
+        #!/usr/bin/env sh
+        #
+        # Ping Identity DevOps - Docker Build Hooks
+        #
+        # Called when it has been determined that this is the first time the container has
+        # been run.
+        #
+
+        ##############################################################################
+        ####### Prevent init container from starting the product normally.  ##########
+        ####### These two lines are the only delta from the default script. ##########
+        ##############################################################################
+        if test ${STARTUP_FOREGROUND_OPTS} != "" ; then
+          test "${VERBOSE}" = "true" && set -x
+
+          # shellcheck source=./pingcommon.lib.sh
+          . "${HOOKS_DIR}/pingcommon.lib.sh"
+
+          echo "Initializing server for the first time"
+
+          run_hook "17-check-license.sh"
+
+          run_hook "18-setup-sequence.sh"
+        fi
+  bootstrap:
+    data:
+      bootstrap.sh: |-
+        #!/usr/bin/env sh
+        ######################################################################################################
+        ####### Make a copy of everything under /opt/staging in the product image to /opt/handoff.  ##########
+        ####### Primarily, this makes the hook scripts available in the emptyDir (writable) volume. ##########
+        ####### This line is the only delta from the default script.                                ##########
+        ######################################################################################################
+        cp -r /opt/staging/* /opt/handoff
+        test "${VERBOSE}" = "true" && set -x
+        # shellcheck source=./staging/hooks/pingcommon.lib.sh
+        . "${HOOKS_DIR}/pingcommon.lib.sh"
+
+        _userID=$(id -u)
+        _groupID=$(id -g)
+
+        echo "### Bootstrap"
+        if test "${_userID}" -eq 0; then
+            echo_yellow "### Warning: running container as root user"
+        else
+            echo "### Using the default container user and group"
+
+            _effectiveGroupName=$(awk 'BEGIN{FS=":"}$3~/^'"${_groupID}"'$/{print $1}' /etc/group)
+            test -z "${_effectiveGroupName}" && _effectiveGroupName="undefined group"
+
+            _effectiveUserName=$(awk 'BEGIN{FS=":"}$3~/^'"${_userID}"'$/{print $1}' /etc/passwd)
+            test -z "${_effectiveUserName}" && _effectiveUserName="undefined user"
+
+            echo "### Container user and group"
+            echo "###     user : ${_effectiveUserName} (id: ${_userID})"
+            echo "###     group: ${_effectiveGroupName} (id: ${_groupID})"
+        fi
+
+        # if the current process id is not 1, tini needs to register as sub-reaper
+        if test $$ -ne 1; then
+            _subReaper="-s"
+        fi
+
+        # shellcheck disable=SC2086,SC2048
+        exec "${BASE}/tini" ${_subReaper} -- "${BASE}/entrypoint.sh" ${*}
+
+pingdirectory:
+  enabled: true
+  envs:
+    MUTE_LICENSE_VERIFICATION: "yes"
+    ORCHESTRATION_TYPE: "NONE"
+    VERBOSE: "true"
+ # Optional, specify a particular tag by uncommenting these two lines and naming the tag to use.
+ # Otherwise, you will get the latest from Docker Hub.
+ # If a particular tag is used, be sure the init container tag matches above
+ # image:
+ #   tag: "2306"
+  includeInitContainers:
+  # Use the init container specification above at pod startup
+    - pd-init
+  # Share the volumes between the init container and the product container
+  includeVolumes:
+    - staging
+    - tmp
+    - pingdirectory-license
+    - bootstrap
+    - init-start
+    - init-runtime
+  volumeMounts:
+    # The emptyDir mounted at /opt/handoff in the init container is mounted to /opt/staging here
+    # Hook scripts and product startup will operate as with a read/write filesystem
+    - mountPath: /opt/staging
+      name: staging
+      readOnly: false
+    - name: pingdirectory-license
+      mountPath: "/opt/staging/pd.profile/server-root/pre-setup/PingDirectory.lic"
+      subPath: PingDirectory.lic
+    - name: tmp
+      mountPath: "/tmp"
+      readOnly: false

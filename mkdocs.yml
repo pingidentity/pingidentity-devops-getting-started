@@ -155,6 +155,7 @@ nav:
       - Kubernetes Basics: "reference/k8sBasics.md"
       - Helm Basics: "reference/HelmBasics.md"
       - Container Logging: "reference/containerLogging.md"
+      - Read Only Filesystem: "reference/readOnlyFilesystem.md"
       - Deprecated:
         - Docker Compose YAML: "reference/yamlFiles.md"
   - Videos:
