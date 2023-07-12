@@ -1,5 +1,5 @@
 ---
-title: Prepare AWS EKS for Multi-Region Deployments
+title: VPC Peering Configuration to Support Multi-Region AWS EKS Deployments
 ---
 # Preparing AWS EKS for Multi-Region Deployments
 
@@ -29,11 +29,11 @@ Before you begin, you must have
 
     * Click **Create VPC**.
 
-    > Make note of the `VpcId` and `IPv4 CIDR` values for the `eu-west-1` and `us-east-1` VPCs for use in subsequent steps.
+        > Make note of the `VpcId` and `IPv4 CIDR` values for the `eu-west-1` and `us-east-1` VPCs for use in subsequent steps.
 
     * Repeat this step in `us-east-1` region.
 
-2.  Create the transit gateway for each region your deployment is being hosted on. Toggle to the `eu-west-1` region.
+2.  Create the transit gateway for each region on which your deployment is being hosted. Toggle to the `eu-west-1` region.
 
     * Navigate to the **Transit gateways** section and click **Create transit gateway**.
 
@@ -43,7 +43,7 @@ Before you begin, you must have
 
     * Disable both the `Default route table association` and `Default route table propagation`.
     
-    > Make Note if you Enable the options above the default association route table and propagation route table will be created. This may not suit your more complex routing needs, so below you can see how to manually set the associations/propagation route tables.
+        > Note: If you enable the options above, the default association route table and propagation route table will be created. This action may not suit more complex routing needs; see below for details on how to manually set the associations/propagation route tables.
 
     * Click **Create transit gateway**.
 
@@ -55,7 +55,7 @@ Before you begin, you must have
 
     * Add a name tag such as `demo-peering-attachment-us-east-1`.
 
-        > Make note that this name is refering to the region it is peering to, not the region it is being create in.
+        > Note: This name refers to the region to which it is peering, not the region in which it is being created.
 
     * Select the Transit gateway id that you just made in the `eu-west-1` region.
 
@@ -69,13 +69,13 @@ Before you begin, you must have
 
 4.  Accept transit gateway peering attachment.
 
-    * Once the transit gateway peering connection shows `pending acceptance` as its **State**, toggle to the `us-east-1` region and select **Transit gateway attachments**.
+    * After the transit gateway peering connection shows `pending acceptance` as its **State**, toggle to the `us-east-1` region and select **Transit gateway attachments**.
 
     * You should see the attachment you just made. Select **Actions** and click accept.
 
     * Add a name to this attachment such as `demo-peering-attachment-eu-west-1`.
 
-        > Make note that this name is refering to the region it is peering to, not the region it is being create in.
+        > Note: This name refers to the region to which it is peering, not the region in which it is being created.
 
 5. Attach VPCs to the transit gateways in each region. Toggle to the `eu-west-1` region.
 
@@ -97,7 +97,7 @@ Before you begin, you must have
 
     * You should see the vpc attachment you just made. Select **Actions** and click accept.
 
-        > Note if you are using different accounts to create transit gateways and their attachments, then the name tag will  not be visable here. If thats the case you should add an attachment name now, such as `demo-vpc-eu-west-1`.
+        > Note: If you are using different accounts to create transit gateways and their attachments, the name tag will not be visible here. In this situation, you should add an attachment name now, such as `demo-vpc-eu-west-1`.
 
     * Repeat this step in `us-east-1` region.
 
@@ -131,7 +131,7 @@ Before you begin, you must have
 
 9. Associate the transit gateway. Toggle to the `eu-west-1` region.
 
-    * Once the transit gateway route table has been successfully created, select that route table and click **Associations** then **Create association**.
+    * After the transit gateway route table has been successfully created, select that route table and click **Associations** then **Create association**.
 
     * Choose the VPC attachment for this region and click **Create association**.
 
@@ -147,11 +147,11 @@ Before you begin, you must have
 
     * Repeat this step in `us-east-1` region.
 
-11. Create blackout static route to ensure the transit gateway drops any other network traffic. Toggle to the `eu-west-1` region.
+11. Create a blackout static route to ensure the transit gateway drops any other network traffic. Toggle to the `eu-west-1` region.
 
     * Select **Create static route** 
     
-    * Add 10.0.0.0/8 as thre CIDR
+    * Add 10.0.0.0/8 as the CIDR
 
     * Select Blackhole
 
