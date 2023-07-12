@@ -53,6 +53,8 @@ Run `rm -r /opt/out/instance/changelogDb/` on each of the pods individually, to 
 
 The data must now be exported and re-imported with the server offline. To do this, we will scale down to a single pod (however we *do not* need to delete the persistent volumes of the other pods). We will also force the final pod to export and re-import its data so that it is encrypted with the new preferred definition. The `PD_FORCE_DATA_REIMPORT` environment variable can be used to force an export and re-import of the data before the server starts up.
 
+Note that the `PD_FORCE_DATA_REIMPORT` was added in the `2307` docker image release for PingDirectory. Prior to this a custom hook script would be needed to force the data export and re-import.
+
 ```
 pingdirectory:
   enabled: true
