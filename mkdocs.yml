@@ -76,7 +76,7 @@ nav:
                   - PingData Product Considerations: "deployment/pingDataEnvironmentConsiderations.md"
                   - Operating Patterns: "deployment/deploymentPatterns.md"
                   - Cloud Kubernetes Platform Prerequisites: "deployment/deployK8sCloud.md"
-                  - Peered EKS Clusters: "deployment/deployK8s-AWS.md"
+                  - Peering VPCs for multi-region EKS deployments: "deployment/deployK8s-AWS.md"
                   - Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
                   - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
                   - Ingress on local Kind Cluster: "deployment/deployHelmLocalIngress.md"
