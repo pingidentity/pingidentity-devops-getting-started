@@ -1,6 +1,7 @@
 
 # Ping Identity DevOps `pingaccess` Hooks
 List of available hooks:
+* [04-check-variables.sh.pre](04-check-variables.sh.pre.md)
 * [20-restart-sequence.sh.pre](20-restart-sequence.sh.pre.md)
 * [50-before-post-start.sh](50-before-post-start.sh.md)
 * [51-add-engine.sh](51-add-engine.sh.md)

@@ -107,7 +107,7 @@ this image.
 | LICENSE_FILE_NAME  | pingaccess.lic  | Name of license file  |
 | LICENSE_SHORT_NAME  | PA  | Short name used when retrieving license from License Server  |
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
-| OPERATIONAL_MODE  | STANDALONE  |  |
+| OPERATIONAL_MODE  | STANDALONE  | PA_RUN_PA_OPERATIONAL_MODE will override this value for PingAccess 7.3 and later.  |
 | PA_ADMIN_PASSWORD_INITIAL  | 2Access  |  |
 | PING_IDENTITY_PASSWORD  | 2FederateM0re  | Specify a password for administrator user for interaction with admin API  |
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
@@ -115,7 +115,7 @@ this image.
 | PA_ADMIN_PORT  | 9000  | Default port for PA Admin API and console Ignored when using PingIdentity Helm charts  |
 | PA_ADMIN_CLUSTER_PORT  | 9090  | Default port when clustering PA primary administrative node Ignored when using PingIdentity Helm charts  |
 | JAVA_RAM_PERCENTAGE  | 60.0  | Percentage of the container memory to allocate to PingAccess JVM DO NOT set to 100% or your JVM will exit with OutOfMemory errors and the container will terminate  |
-| FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Bouncy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off  |
+| FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Bouncy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off PA_FIPS_MODE_PA_FIPS_MODE will override this for PingAccess 7.3 and later.  |
 | SHOW_LIBS_VER  | true  | Defines a variable to allow showing library versions in the output at startup default to true  |
 | SHOW_LIBS_VER_PRE_PATCH  | false  | Defines a variable to allow showing library version prior to patches being applied default to false This is helpful to ensure that the patch process updates all libraries affected  |
 | PA_ENGINE_PORT  | 3000  |  |

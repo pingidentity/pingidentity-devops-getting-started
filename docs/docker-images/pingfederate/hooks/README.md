@@ -1,6 +1,7 @@
 
 # Ping Identity DevOps `pingfederate` Hooks
 List of available hooks:
+* [04-check-variables.sh.pre](04-check-variables.sh.pre.md)
 * [05-expand-templates.sh.pre](05-expand-templates.sh.pre.md)
 * [20-restart-sequence.sh.pre](20-restart-sequence.sh.pre.md)
 * [80-post-start.sh](80-post-start.sh.md)
