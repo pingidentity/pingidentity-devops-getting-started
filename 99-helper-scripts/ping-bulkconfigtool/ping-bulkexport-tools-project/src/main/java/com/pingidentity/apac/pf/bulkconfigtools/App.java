@@ -246,9 +246,9 @@ public class App {
 					continue;
 				}
 
-				String resourceType = String.valueOf(configJSON.get("resourceType"));
+				String resourceType = String.valueOf(configJSON.get("resourceType")).replaceAll("\\/", "_");
 
-				if (!path.endsWith("_" + resourceType) && !("/" + path).equals(resourceType + "_items"))
+				if (!path.endsWith("_" + resourceType) && !("_" + path).equals(resourceType + "_items"))
 					continue;
 
 				JSONObject newObject = (JSONObject) configJSON.get("item");
