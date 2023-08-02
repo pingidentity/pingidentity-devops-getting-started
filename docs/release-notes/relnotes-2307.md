@@ -12,12 +12,12 @@ For information about product changes, refer to the release notes that can be fo
 ### New Product Releases
 - PingAccess 7.2.1 → 7.2.2 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingaccess))
 - PingFederate 11.3.0 → 11.3.1 and 11.2.6 → 11.2.7 ([Dockerhub](https://hub.docker.com/r/pingidentity/pingfederate))
-- [PingDirectory Terraform Provider](https://github.com/pingidentity/terraform-provider-pingdirectory/releases) v0.9.0 released
+- [PingDirectory Terraform Provider](https://github.com/pingidentity/terraform-provider-pingdirectory/releases) v0.9.0 released 
 
 ### Enhancements
-- Apache Tomcat 9.0.76 → 9.0.78
-- Apache JMeter 5.6 → 5.6.2
-- Liberica JDK11 11.0.19+7 → 11.0.20+8
+- Apache Tomcat 9.0.76 → 9.0.78 
+- Apache JMeter 5.6 → 5.6.2 
+- Liberica JDK11 11.0.19+7 → 11.0.20+8 
 - Liberica JDK17 17.0.7+7 → 17.0.8+7
 
 ### Resolved Defects
