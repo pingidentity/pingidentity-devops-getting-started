@@ -145,6 +145,7 @@ nav:
       - Adding a MOTD: "how-to/addMOTD.md"
       - Build Local Product Image: "how-to/buildLocal.md"
       - Forward Logs to Splunk: "how-to/splunkLogging.md"
+      - Re-encrypting PingDirectory Backend Data: "how-to/reEncryptPingDirectoryData.md"
   - Reference:
       - Components and Configuration: "reference/config.md"
       - Server Profile: "reference/profileStructures.md"
