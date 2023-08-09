@@ -48,7 +48,8 @@ using the Ping Devops Helm Chart.
 | PingDataConsole SSO with PingOne | Sign into PingDataConsole with PingOne         | [pingdataconsole-pingone-sso.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/pingdataconsole-pingone-sso.yaml)                                                                        |
 | Using CSI Volumes                | Mount secrets with CSI volumes                 | [csi-secrets-volume.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/csi-secrets-volume.yaml)                                                                        |
 | Splunk logging sidecar           | Forward product logs to splunk                 | See files in the [splunk folder](https://github.com/pingidentity/pingidentity-devops-getting-started/tree/master/20-kubernetes/splunk)                                                                        |
-
+| ImagePullSecrets (individual)    | Provide secret for private registry authentication    |  [image-pull-secrets-individual.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/image-pull-secrets-individual.yaml)                                                                        | Replace stubs with your values
+| ImagePullSecrets (global)    | Provide global secret for private registry authentication    |  [image-pull-secrets-global.yaml](https://raw.githubusercontent.com/pingidentity/pingidentity-devops-getting-started/master/30-helm/image-pull-secrets-global.yaml)                                                                        | Replace stubs with your values
 
 ## To Deploy
 
