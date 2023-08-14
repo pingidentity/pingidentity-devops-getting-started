@@ -52,7 +52,7 @@ this image.
 | PD_PROFILE  | ${STAGING_DIR}/pd.profile  | Directory for the profile used by the PingData manage-profile tool  |
 | FIPS_MODE_ON  | false  | Turns on FIPS mode (currently with the Bouncy Castle FIPS provider) set to exactly "true" lowercase to turn on set to anything else to turn off  |
 | FIPS_PROVIDER  | BCFIPS  | BCFIPS is the only provider currently supported -- do not edit  |
-| PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used when changes are made outside of the PD_PROFILE  |
+| PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of a PingDirectoy on restart. Used to ensure that the server configuration exactly matches the server profile. This variable will slow down startup times and should only be used when necessary.  |
 | UNBOUNDID_SKIP_START_PRECHECK_NODETACH  | true  | Setting this variable to true speeds up server startup time by skipping an unnecessary JVM check.  |
 | REPLICATION_BASE_DNS  |   | Base DNs to include when enabling replication, in addition to the always-included USER_BASE_DN. Multiple base DNs can be specified here, separated by a `;` character  |
 | RESTRICTED_BASE_DNS  |   | Base DNs to set as --restricted when enabling replication. Multiple base DNs can be specified here, separated by a `;` character. See the product documentation for more information on how to configure entry balancing.  |
