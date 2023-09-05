@@ -10,6 +10,8 @@ For information about product changes, refer to the release notes that can be fo
 ## DevOps Docker Builds, Version 2308 (Sep 5 2023)
 
 ### New Product Releases
+- PingFederate EOL 11.0.3
+- PingAccess EOL 7.0.4 and 7.1.0
 - PingData products 9.2.0.1 → 9.2.0.2 and 9.3.0.0 → 9.3.0.1
     - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
     - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
