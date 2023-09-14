@@ -50,7 +50,6 @@ this image.
 | PINGDIRECTORY_HOSTNAME  |   | Set this variable to configure Proxy for automatic backend discovery with PingDirectory hostname JOIN_PD_TOPOLOGY must be enabled for PINGDIRECTORY_HOSTNAME to take effect  |
 | PINGDIRECTORY_LDAPS_PORT  |   | Set this variable to configure Proxy for automatic backend discovery with PingDirectory LDAPS port JOIN_PD_TOPOLOGY must be enabled for PINGDIRECTORY_LDAPS_PORT to take effect  |
 | JOIN_PD_TOPOLOGY  | false  | Setting this variable to true will configure proxy to join the topology of PingDirectory  |
-| COLUMNS  | 120  | Sets the number of columns in PingDirectoryProxy command-line tool output  |
 
 ## Ports Exposed
 
