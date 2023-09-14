@@ -27,6 +27,7 @@ For information about product changes, refer to the release notes that can be fo
 
 ### Resolved Defects
 - (BRASS-1087) Update PD_FORCE_DATA_REIMPORT variable name to match documentation
+- (BRASS-1197) Fix /opt file system permissions defect
 
 ### Features
 - (BRASS-1122) Added support for imagePullSecrets in Helm charts
