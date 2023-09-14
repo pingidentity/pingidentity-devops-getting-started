@@ -1,6 +1,13 @@
 # Recent portal updates
 This page provides details on significant changes to this portal.
 
+# September 2023
+
+## A statement on AWS EFS/EBS
+
+Some of the product documentation does not explicitly explain the recommended storage solution to use when running on AWS.  Clarification was added, particularly when running Ping products in containerized environments [here](../reference/awsStorage.md).
+
+
 # July 2023
 
 ## Read-only filesystem example and explanation

@@ -4,6 +4,14 @@ title: FAQs
 
 # Frequently asked questions
 
+### AWS
+
+<details>
+  <summary>What storage option should I use for container volumes on EKS?</summary>
+
+Ping recommends the use of EBS volumes for container volumes on EKS.  EFS is not supported. For more information, please visit <a href="https://devops.pingidentity.com/reference/awsStorage/">AWS Storage Considerations</a>.
+</details>
+
 ### Docker Images
 
 <details>
