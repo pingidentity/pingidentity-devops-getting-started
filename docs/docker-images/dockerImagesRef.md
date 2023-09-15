@@ -13,6 +13,9 @@ These documents for Ping Identity Docker images include information on:
 
 The image-specific documentation is generated from each new build ensuring these documents align with any changes over time.
 
+!!! warning "Storage Considerations on AWS"
+    When deploying Ping products in containers, please consider the information found [here on storage options](../reference/awsStorage.md).
+
 Older images based on product versions that are no longer supported under our policy are removed from Docker Hub.  See the [support policy page](./imageSupport.md) for details.
 
 As with many organizations, Ping Identity uses _floating_ Docker image tags. This practice means, for example, that the **`edge`** tag does not refer to the same image over time as product updates occur. The [release tags](./releaseTags.md) page has information on the `edge` and other tags, how often they are updated, and how to ensure the use of a particular version and release of a product image.
