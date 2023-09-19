@@ -21,6 +21,9 @@ title: Upgrading PingCentral
 
    A separate MySql container is deployed manually to provide a backing store for PingCentral. In a production environment, you would likely use a managed database service.
 
+!!! warning "H2 Internal Database"
+    If you are not using an external database, and are on a version <= 1.10, you will need to be aware of possible issues with the move to the H2v2 database internally.  See the [PingCentral documentation](https://docs.pingidentity.com/r/en-us/pingcentral-112/pingcentral_upgrading_pc) for more details. It should be noted that the internal H2 database is not supported for production environments.
+
 ### The Ping-provided baseline Profile is used as a starting point for PingCentral
 
    The default baseline profile is used for this guide.  In a production environment, you would likely use a custom repository and profile.
@@ -186,6 +189,9 @@ The new pod will spin up, and when it is healthy, the old pod will be terminated
    ![PingCentral 1.12 Navigation Menu](../images/pingcentral112.png)
 
 Finally, a check of the `DATABASECHANGELOG` table in the MySQL pod should show the new version of PingCentral as the last few entries in that table (51 entries as of this writing).  These updated entries indicate the database migration was successful.
+
+!!! note "Not all versions have database migrations"
+    The 1.10 -> 1.12 upgrade involved database updates.  Not all versions will have database updates, and corresponding `DATABASECHANGELOG` entries may not be present.
 
 ## Cleanup
 
