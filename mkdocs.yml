@@ -5,212 +5,213 @@ site_url: https://devops.pingidentity.com/
 copyright: © Copyright 2023 Ping Identity
 google_analytics: ["UA-156953351-1", "devops.pingidentity.com"]
 extra_css:
-    - mkdocs/overrides/stylesheets/extra.css
+      - mkdocs/overrides/stylesheets/extra.css
 
 theme:
-    name: material
-    custom_dir: docs/mkdocs/overrides
-    favicon: images/favicon.png
+      name: material
+      custom_dir: docs/mkdocs/overrides
+      favicon: images/favicon.png
 
-    features:
-        - navigation.tabs
-        - instant
-        - navigation.top
+      features:
+            - navigation.tabs
+            - instant
+            - navigation.top
 
-    palette:
-        - media: "(prefers-color-scheme: light)"
-          accent: blue
-          scheme: default
-          toggle:
-              icon: material/weather-sunny
-              name: Switch to dark mode
-        - media: "(prefers-color-scheme: dark)"
-          accent: blue
-          scheme: slate
-          toggle:
-              icon: material/weather-night
-              name: Switch to light mode
+      palette:
+            - media: "(prefers-color-scheme: light)"
+              accent: blue
+              scheme: default
+              toggle:
+                    icon: material/weather-sunny
+                    name: Switch to dark mode
+            - media: "(prefers-color-scheme: dark)"
+              accent: blue
+              scheme: slate
+              toggle:
+                    icon: material/weather-night
+                    name: Switch to light mode
 
 edit_uri: ""
 
 markdown_extensions:
-    - attr_list
-    - pymdownx.emoji
-    - admonition
-    - codehilite
-    - pymdownx.inlinehilite
-    - pymdownx.tasklist:
-          custom_checkbox: true
-    - pymdownx.superfences
-    - pymdownx.snippets
-    - meta
-    - toc:
-          # insert a blank space before the character
-          permalink: " ¶"
+      - attr_list
+      - pymdownx.emoji
+      - admonition
+      - codehilite
+      - pymdownx.inlinehilite
+      - pymdownx.tasklist:
+              custom_checkbox: true
+      - pymdownx.superfences
+      - pymdownx.snippets
+      - meta
+      - toc:
+              # insert a blank space before the character
+              permalink: " ¶"
 
 plugins:
-    - search:
-          separator: '[\s\-\.]+'
+      - search:
+              separator: '[\s\-\.]+'
 
 nav:
-    - Welcome:
-          - Home: "./README.md"
-          - Get Started:
-                - Introduction: "get-started/introduction.md"
-                - Prerequisites: "get-started/prereqs.md"
-                - Environment Configuration: "get-started/configVars.md"
-                - Deploy Example Stack: "get-started/getStartedExample.md"
-          - Deployment Examples:
-                - Introduction: "deployment/introduction.md"
-                - Kubernetes:
-                      - Create a simple local Kubernetes Cluster: "deployment/deployLocalK8sCluster.md"
-                      - Create a robust local Kubernetes Cluster: "deployment/deployFullK8s.md"
-                      - Create a local Openshift Cluster: "deployment/deployLocalOpenshift.md"
-                      - Ping Identity Helm Charts: "deployment/deployHelm.md"
-                      - Other Kubernetes Information:
-                            - Sample Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
-                            - Utility Sidecars: "deployment/deployK8sUtilitySidecar.md"
-                            - Deploy PingFederate Across Multiple Kubernetes Clusters: "deployment/deployPFMultiRegion.md"
-                            - Deploy PingDirectory Across Multiple Kubernetes Clusters: "deployment/deployPDMultiRegion.md"
-                            - Deploy a PingAccess Cluster Without a Server Profile: "deployment/deployPACluster.md"
-                            - PingData Product Considerations: "deployment/pingDataEnvironmentConsiderations.md"
-                            - Operating Patterns: "deployment/deploymentPatterns.md"
-                            - Cloud Kubernetes Platform Prerequisites: "deployment/deployK8sCloud.md"
-                            - Peering VPCs for multi-region EKS deployments: "deployment/deployK8s-AWS.md"
-                            - Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
-                            - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
-                            - Ingress on local Kind Cluster: "deployment/deployHelmLocalIngress.md"
-                            - Restoring a Multi Region PingDirectory Deployment on Seed Region Failure: "deployment/restorePDMultiRegionSeedFailure.md"
-                - Docker Compose:
-                      - Single Product Deployments: "deployment/deployCompose.md"
-          - Support Policy: "home/supportPolicy.md"
-          - License: "home/license.md"
-          - Disclaimer: "home/disclaimer.md"
-          - Third-Party Software: "home/3rdPartySoftware.md"
-          - Portal updates: "home/portalUpdates.md"
-    - Ping Docker Images:
-          - Introduction: "docker-images/dockerImagesRef.md"
-          - Product Images:
-                - PingAccess: "docker-images/pingaccess/README.md"
-                - PingAuthorize: "docker-images/pingauthorize/README.md"
-                - PingAuthorize PAP: "docker-images/pingauthorizepap/README.md"
-                - PingBase: "docker-images/pingbase/README.md"
-                - PingCentral: "docker-images/pingcentral/README.md"
-                - PingCommon: "docker-images/pingcommon/README.md"
-                - PingDataCommon: "docker-images/pingdatacommon/README.md"
-                - PingDataConsole: "docker-images/pingdataconsole/README.md"
-                - PingDataSync: "docker-images/pingdatasync/README.md"
-                - PingDelegator: "docker-images/pingdelegator/README.md"
-                - PingDirectory: "docker-images/pingdirectory/README.md"
-                - PingDirectoryProxy: "docker-images/pingdirectoryproxy/README.md"
-                - PingFederate: "docker-images/pingfederate/README.md"
-                - PingIntelligence: "docker-images/pingintelligence/README.md"
-          - Other Images:
-                - PingToolkit: "docker-images/pingtoolkit/README.md"
-                - Apache JMeter: "docker-images/apache-jmeter/README.md"
-                - ldap-sdk-tools: "docker-images/ldap-sdk-tools/README.md"
-          - Image Details:
-                - Release Tags: "docker-images/releaseTags.md"
-                - Product & Image Release Matrix: "docker-images/productVersionMatrix.md"
-                - DevOps Image Security: "docker-images/dockerImageSecurity.md"
-          - Docker Image Support Policy: "docker-images/imageSupport.md"
-    - Tools:
-          - pingctl: "tools/pingctlUtil.md"
-          - ldap-sdk-tools: "tools/ldapsdkUtil.md"
-          - ping-devops utility (deprecated): "tools/pingDevopsUtil_Deprecated.md"
-          - PingDownloader Image (deprecated): "tools/pingDownloader_Deprecated.md"
-    - How To:
-          - DevOps Registration: "how-to/devopsRegistration.md"
-          - Use Existing Licenses: "how-to/existingLicense.md"
-          - Server Profile:
-                - Deployment: "how-to/containerAnatomy.md"
-                - Customization: "how-to/profiles.md"
-                - Saving Configurations: "how-to/saveConfigs.md"
-                - Build Your Own:
-                      - PingFederate Profile: "how-to/buildPingFederateProfile.md"
-                      - PingDirectory Profile: "how-to/buildPingDirectoryProfile.md"
-                - Layering: "how-to/profilesLayered.md"
-                - ENV Substitution: "how-to/profilesSubstitution.md"
-                - Installing Extensions with PingData Profiles: "how-to/profilesPingDataExtensions.md"
-                - Private Github Repos: "how-to/privateRepos.md"
-          - Vault/Secrets: "how-to/usingVault.md"
-          - Securing the Containers: "how-to/secureContainers.md"
-          - Upgrading Deployments:
-                - Introduction: "how-to/manage.md"
-                - Upgrading PingAccess: "how-to/upgradePingAccess.md"
-                - Upgrading PingFederate: "how-to/upgradePingfederate.md"
-                - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
-                - Migrating to Unprivileged Images: "how-to/migratingRootToUnprivileged.md"
-          - Set PingFederate Provisioner Node ID: "how-to/assignPFNodeId.md"
-          - Adding a MOTD: "how-to/addMOTD.md"
-          - Build Local Product Image: "how-to/buildLocal.md"
-          - Forward Logs to Splunk: "how-to/splunkLogging.md"
-          - Re-encrypting PingDirectory Backend Data: "how-to/reEncryptPingDirectoryData.md"
-    - Reference:
-          - Components and Configuration: "reference/config.md"
-          - Server Profile: "reference/profileStructures.md"
-          - Variables and Scope: "reference/variableScoping.md"
-          - Certificates: "reference/usingCertificates.md"
-          - Troubleshooting: "reference/troubleshooting.md"
-          - DevOps Hook Scripts: "reference/hooks.md"
-          - Kubernetes Basics: "reference/k8sBasics.md"
-          - Helm Basics: "reference/HelmBasics.md"
-          - Container Logging: "reference/containerLogging.md"
-          - Read Only Filesystem: "reference/readOnlyFilesystem.md"
-          - AWS Storage: "reference/awsStorage.md"
-          - Deprecated:
-                - Docker Compose YAML: "reference/yamlFiles.md"
-    - Videos:
-          - Introduction: "videos/videos.md"
-    - Release Notes:
-          - Current Release: "release-notes/currentRelease.md"
-          - All Releases:
-                - Version 2308.1: "release-notes/relnotes-2308-1.md"
-                - Version 2308: "release-notes/relnotes-2308.md"
-                - Version 2307.1: "release-notes/relnotes-2307-1.md"
-                - Version 2307: "release-notes/relnotes-2307.md"
-                - Version 2306: "release-notes/relnotes-2306.md"
-                - Version 2305: "release-notes/relnotes-2305.md"
-                - Version 2304: "release-notes/relnotes-2304.md"
-                - Version 2303: "release-notes/relnotes-2303.md"
-                - Version 2302: "release-notes/relnotes-2302.md"
-                - Version 2301: "release-notes/relnotes-2301.md"
-                - Version 2212: "release-notes/relnotes-2212.md"
-                - Version 2211: "release-notes/relnotes-2211.md"
-                - Version 2210: "release-notes/relnotes-2210.md"
-                - Version 2209: "release-notes/relnotes-2209.md"
-                - Version 2208: "release-notes/relnotes-2208.md"
-                - Version 2207: "release-notes/relnotes-2207.md"
-                - Version 2206: "release-notes/relnotes-2206.md"
-                - Version 2205: "release-notes/relnotes-2205.md"
-                - Version 2204: "release-notes/relnotes-2204.md"
-                - Version 2203: "release-notes/relnotes-2203.md"
-                - Version 2202: "release-notes/relnotes-2202.md"
-                - Version 2201: "release-notes/relnotes-2201.md"
-                - Version 2112: "release-notes/relnotes-2112.md"
-                - Version 2111.1: "release-notes/relnotes-2111-1.md"
-                - Version 2111: "release-notes/relnotes-2111.md"
-                - Version 2110: "release-notes/relnotes-2110.md"
-                - Version 2109: "release-notes/relnotes-2109.md"
-                - Version 2108: "release-notes/relnotes-2108.md"
-                - Version 2107: "release-notes/relnotes-2107.md"
-                - Version 2106: "release-notes/relnotes-2106.md"
-                - Version 2105: "release-notes/relnotes-2105.md"
-                - Version 2104: "release-notes/relnotes-2104.md"
-                - Version 2103: "release-notes/relnotes-2103.md"
-                - Version 2102: "release-notes/relnotes-2102.md"
-                - Version 2101: "release-notes/relnotes-2101.md"
-                - Version 2012: "release-notes/relnotes-2012.md"
-                - Version 2011: "release-notes/relnotes-2011.md"
-                - Version 2010: "release-notes/relnotes-2010.md"
-                - Version 2009: "release-notes/relnotes-2009.md"
-                - Version 2008: "release-notes/relnotes-2008.md"
-                - Version 2007: "release-notes/relnotes-2007.md"
-                - Version 2006: "release-notes/relnotes-2006.md"
-                - Version 2005: "release-notes/relnotes-2005.md"
-                - Version 2004: "release-notes/relnotes-2004.md"
-                - Version 2003: "release-notes/relnotes-2003.md"
-    - Customer FAQs: "reference/faqs.md"
-    - Contact Us:
-          - Contributing: "contact-us/contributing.md"
-          - Community: "contact-us/community.md"
+      - Welcome:
+              - Home: "./README.md"
+              - Get Started:
+                      - Introduction: "get-started/introduction.md"
+                      - Prerequisites: "get-started/prereqs.md"
+                      - Environment Configuration: "get-started/configVars.md"
+                      - Deploy Example Stack: "get-started/getStartedExample.md"
+              - Deployment Examples:
+                      - Introduction: "deployment/introduction.md"
+                      - Kubernetes:
+                              - Create a simple local Kubernetes Cluster: "deployment/deployLocalK8sCluster.md"
+                              - Create a robust local Kubernetes Cluster: "deployment/deployFullK8s.md"
+                              - Create a local Openshift Cluster: "deployment/deployLocalOpenshift.md"
+                              - Ping Identity Helm Charts: "deployment/deployHelm.md"
+                              - Other Kubernetes Information:
+                                      - Sample Monitoring Stack: "deployment/deployK8sClusterMetrics.md"
+                                      - Utility Sidecars: "deployment/deployK8sUtilitySidecar.md"
+                                      - Deploy PingFederate Across Multiple Kubernetes Clusters: "deployment/deployPFMultiRegion.md"
+                                      - Deploy PingDirectory Across Multiple Kubernetes Clusters: "deployment/deployPDMultiRegion.md"
+                                      - Deploy a PingAccess Cluster Without a Server Profile: "deployment/deployPACluster.md"
+                                      - PingData Product Considerations: "deployment/pingDataEnvironmentConsiderations.md"
+                                      - Operating Patterns: "deployment/deploymentPatterns.md"
+                                      - Cloud Kubernetes Platform Prerequisites: "deployment/deployK8sCloud.md"
+                                      - Peering VPCs for multi-region EKS deployments: "deployment/deployK8s-AWS.md"
+                                      - Azure Kubernetes Service: "deployment/deployK8s-AKS.md"
+                                      - Sizing Kubernetes Clusters: "deployment/k8sClusterSizing.md"
+                                      - Ingress on local Kind Cluster: "deployment/deployHelmLocalIngress.md"
+                                      - Restoring a Multi Region PingDirectory Deployment on Seed Region Failure: "deployment/restorePDMultiRegionSeedFailure.md"
+                      - Docker Compose:
+                              - Single Product Deployments: "deployment/deployCompose.md"
+              - Support Policy: "home/supportPolicy.md"
+              - License: "home/license.md"
+              - Disclaimer: "home/disclaimer.md"
+              - Third-Party Software: "home/3rdPartySoftware.md"
+              - Portal updates: "home/portalUpdates.md"
+      - Ping Docker Images:
+              - Introduction: "docker-images/dockerImagesRef.md"
+              - Product Images:
+                      - PingAccess: "docker-images/pingaccess/README.md"
+                      - PingAuthorize: "docker-images/pingauthorize/README.md"
+                      - PingAuthorize PAP: "docker-images/pingauthorizepap/README.md"
+                      - PingBase: "docker-images/pingbase/README.md"
+                      - PingCentral: "docker-images/pingcentral/README.md"
+                      - PingCommon: "docker-images/pingcommon/README.md"
+                      - PingDataCommon: "docker-images/pingdatacommon/README.md"
+                      - PingDataConsole: "docker-images/pingdataconsole/README.md"
+                      - PingDataSync: "docker-images/pingdatasync/README.md"
+                      - PingDelegator: "docker-images/pingdelegator/README.md"
+                      - PingDirectory: "docker-images/pingdirectory/README.md"
+                      - PingDirectoryProxy: "docker-images/pingdirectoryproxy/README.md"
+                      - PingFederate: "docker-images/pingfederate/README.md"
+                      - PingIntelligence: "docker-images/pingintelligence/README.md"
+              - Other Images:
+                      - PingToolkit: "docker-images/pingtoolkit/README.md"
+                      - Apache JMeter: "docker-images/apache-jmeter/README.md"
+                      - ldap-sdk-tools: "docker-images/ldap-sdk-tools/README.md"
+              - Image Details:
+                      - Release Tags: "docker-images/releaseTags.md"
+                      - Product & Image Release Matrix: "docker-images/productVersionMatrix.md"
+                      - DevOps Image Security: "docker-images/dockerImageSecurity.md"
+              - Docker Image Support Policy: "docker-images/imageSupport.md"
+      - Tools:
+              - pingctl: "tools/pingctlUtil.md"
+              - ldap-sdk-tools: "tools/ldapsdkUtil.md"
+              - ping-devops utility (deprecated): "tools/pingDevopsUtil_Deprecated.md"
+              - PingDownloader Image (deprecated): "tools/pingDownloader_Deprecated.md"
+      - How To:
+              - DevOps Registration: "how-to/devopsRegistration.md"
+              - Use Existing Licenses: "how-to/existingLicense.md"
+              - Server Profile:
+                      - Deployment: "how-to/containerAnatomy.md"
+                      - Customization: "how-to/profiles.md"
+                      - Saving Configurations: "how-to/saveConfigs.md"
+                      - Build Your Own:
+                              - PingFederate Profile: "how-to/buildPingFederateProfile.md"
+                              - PingDirectory Profile: "how-to/buildPingDirectoryProfile.md"
+                      - Layering: "how-to/profilesLayered.md"
+                      - ENV Substitution: "how-to/profilesSubstitution.md"
+                      - Installing Extensions with PingData Profiles: "how-to/profilesPingDataExtensions.md"
+                      - Private Github Repos: "how-to/privateRepos.md"
+              - Vault/Secrets: "how-to/usingVault.md"
+              - Securing the Containers: "how-to/secureContainers.md"
+              - Upgrading Deployments:
+                      - Introduction: "how-to/manage.md"
+                      - Upgrading PingAccess: "how-to/upgradePingAccess.md"
+                      - Upgrading PingCentral: "how-to/upgradePingCentral.md"
+                      - Upgrading PingDirectory: "how-to/upgradePingDirectory.md"
+                      - Upgrading PingFederate: "how-to/upgradePingfederate.md"
+                      - Migrating to Unprivileged Images: "how-to/migratingRootToUnprivileged.md"
+              - Set PingFederate Provisioner Node ID: "how-to/assignPFNodeId.md"
+              - Adding a MOTD: "how-to/addMOTD.md"
+              - Build Local Product Image: "how-to/buildLocal.md"
+              - Forward Logs to Splunk: "how-to/splunkLogging.md"
+              - Re-encrypting PingDirectory Backend Data: "how-to/reEncryptPingDirectoryData.md"
+      - Reference:
+              - Components and Configuration: "reference/config.md"
+              - Server Profile: "reference/profileStructures.md"
+              - Variables and Scope: "reference/variableScoping.md"
+              - Certificates: "reference/usingCertificates.md"
+              - Troubleshooting: "reference/troubleshooting.md"
+              - DevOps Hook Scripts: "reference/hooks.md"
+              - Kubernetes Basics: "reference/k8sBasics.md"
+              - Helm Basics: "reference/HelmBasics.md"
+              - Container Logging: "reference/containerLogging.md"
+              - Read Only Filesystem: "reference/readOnlyFilesystem.md"
+              - AWS Storage: "reference/awsStorage.md"
+              - Deprecated:
+                      - Docker Compose YAML: "reference/yamlFiles.md"
+      - Videos:
+              - Introduction: "videos/videos.md"
+      - Release Notes:
+              - Current Release: "release-notes/currentRelease.md"
+              - All Releases:
+                      - Version 2308.1: "release-notes/relnotes-2308-1.md"
+                      - Version 2308: "release-notes/relnotes-2308.md"
+                      - Version 2307.1: "release-notes/relnotes-2307-1.md"
+                      - Version 2307: "release-notes/relnotes-2307.md"
+                      - Version 2306: "release-notes/relnotes-2306.md"
+                      - Version 2305: "release-notes/relnotes-2305.md"
+                      - Version 2304: "release-notes/relnotes-2304.md"
+                      - Version 2303: "release-notes/relnotes-2303.md"
+                      - Version 2302: "release-notes/relnotes-2302.md"
+                      - Version 2301: "release-notes/relnotes-2301.md"
+                      - Version 2212: "release-notes/relnotes-2212.md"
+                      - Version 2211: "release-notes/relnotes-2211.md"
+                      - Version 2210: "release-notes/relnotes-2210.md"
+                      - Version 2209: "release-notes/relnotes-2209.md"
+                      - Version 2208: "release-notes/relnotes-2208.md"
+                      - Version 2207: "release-notes/relnotes-2207.md"
+                      - Version 2206: "release-notes/relnotes-2206.md"
+                      - Version 2205: "release-notes/relnotes-2205.md"
+                      - Version 2204: "release-notes/relnotes-2204.md"
+                      - Version 2203: "release-notes/relnotes-2203.md"
+                      - Version 2202: "release-notes/relnotes-2202.md"
+                      - Version 2201: "release-notes/relnotes-2201.md"
+                      - Version 2112: "release-notes/relnotes-2112.md"
+                      - Version 2111.1: "release-notes/relnotes-2111-1.md"
+                      - Version 2111: "release-notes/relnotes-2111.md"
+                      - Version 2110: "release-notes/relnotes-2110.md"
+                      - Version 2109: "release-notes/relnotes-2109.md"
+                      - Version 2108: "release-notes/relnotes-2108.md"
+                      - Version 2107: "release-notes/relnotes-2107.md"
+                      - Version 2106: "release-notes/relnotes-2106.md"
+                      - Version 2105: "release-notes/relnotes-2105.md"
+                      - Version 2104: "release-notes/relnotes-2104.md"
+                      - Version 2103: "release-notes/relnotes-2103.md"
+                      - Version 2102: "release-notes/relnotes-2102.md"
+                      - Version 2101: "release-notes/relnotes-2101.md"
+                      - Version 2012: "release-notes/relnotes-2012.md"
+                      - Version 2011: "release-notes/relnotes-2011.md"
+                      - Version 2010: "release-notes/relnotes-2010.md"
+                      - Version 2009: "release-notes/relnotes-2009.md"
+                      - Version 2008: "release-notes/relnotes-2008.md"
+                      - Version 2007: "release-notes/relnotes-2007.md"
+                      - Version 2006: "release-notes/relnotes-2006.md"
+                      - Version 2005: "release-notes/relnotes-2005.md"
+                      - Version 2004: "release-notes/relnotes-2004.md"
+                      - Version 2003: "release-notes/relnotes-2003.md"
+      - Customer FAQs: "reference/faqs.md"
+      - Contact Us:
+              - Contributing: "contact-us/contributing.md"
+              - Community: "contact-us/community.md"
