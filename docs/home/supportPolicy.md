@@ -7,7 +7,10 @@ This DevOps Support Policy is an extension of the [Ping Identity Support Policy]
 
 This Ping Identity Corporation ("Ping Identity") DevOps Support Policy (this "Policy") encompasses all support obligations that Ping Identity has toward you as Ping Identity’s Customer ("Customer").
 
-## Included in Support:
+!!! note "Docker Image Support Policy"
+    The support policy for Ping Identity product Docker images is found at [Docker Image Support Policy](../docker-images/imageSupport.md).
+
+## Included in Support
 
 * Providing base images for Ping Identity products to Customers
 * Providing documentation and basic examples for [Helm deployments](https://helm.pingidentity.com/) using Ping Identity's [Helm charts](https://github.com/pingidentity/helm-charts)
@@ -22,12 +25,12 @@ This Ping Identity Corporation ("Ping Identity") DevOps Support Policy (this "Po
 
 ## Supported orchestration tools
 
-|Tool                                                        |Description                                                                                                                         |
-|------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-|[Kubernetes](https://kubernetes.io/)                        |Also known as K8s, Kubernetes is an open-source system for automating deployment, scaling, and management of containerized software.|
-|[Helm charts](https://helm.pingidentity.com/)               |Helm is the easiest way to deploy Ping Identity software images in a Kubernetes environment.                                        |
-|[Docker images](https://hub.docker.com/u/pingidentity)      |Docker images are maintained by Ping Identity and are a collection of preconfigured environments for Ping Identity products.        |
-|[GitHub repositories](https://github.com/topics/ping-devops)|These repositories provide all of the components to build Docker images for your own development, testing and deployments.          |
+| Tool                                                         | Description                                                                                                                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| [Kubernetes](https://kubernetes.io/)                         | Also known as K8s, Kubernetes is an open-source system for automating deployment, scaling, and management of containerized software. |
+| [Helm charts](https://helm.pingidentity.com/)                | Helm is the easiest way to deploy Ping Identity software images in a Kubernetes environment.                                         |
+| [Docker images](https://hub.docker.com/u/pingidentity)       | Docker images are maintained by Ping Identity and are a collection of preconfigured environments for Ping Identity products.         |
+| [GitHub repositories](https://github.com/topics/ping-devops) | These repositories provide all of the components to build Docker images for your own development, testing and deployments.           |
 
 ## Resources
 
