@@ -3,6 +3,8 @@ title: Ping Identity Docker Image Support Policy
 ---
 # Ping Identity Docker image support policy
 
+!!! note "Ping Identity DevOps Support Policy ¶"
+    The support policy for other Ping DevOps offerings is found at [Ping Identity DevOps Support Policy](../home/supportPolicy.md).
 ## Overview
 
 Unlike software delivered as an archive, Docker images include:
