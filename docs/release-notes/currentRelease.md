@@ -11,8 +11,8 @@ For information about product changes, refer to the release notes that can be fo
 
 ### New Product Releases
 - PingFederate 11.3.1 → 11.3.2
-- PingAccess 7.3.0 → 7.3.1
-- PingCentral 1.14.0 Release. EOL 1.11.0
+- PingAccess 7.3.0 → 7.3.1. EOL 7.1.1 and 7.0.5
+- PingCentral 1.14.0 Release and PingCentral 1.11.0 no longer built. EOL 1.10.0 and 1.9.4
 - PingData products 9.2.0.2 → 9.2.0.3
     - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
     - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
