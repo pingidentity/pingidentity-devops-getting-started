@@ -34,9 +34,19 @@ spec:
       serviceAccount: deployment-pingdirectory-internal-kubectl
       restartPolicy: OnFailure
       containers:
-      - name: kubectl
-        image: bitnami/kubectl:latest
-        command: ["kubectl"]
-        # Replace "deployment" in the pod name with the name of your helm deployment
-        # Replace "2FederateM0re" with the password for the admin user
-        args: ["exec", "-ti", "deployment-pingdirectory-0", "--container", "utility-sidecar", "--", "/opt/in/restore.sh", "2FederateM0re"]
+        - name: kubectl
+          image: bitnami/kubectl:latest
+          command: ["kubectl"]
+          # Replace "deployment" in the pod name with the name of your helm deployment
+          # Replace "2FederateM0re" with the password for the admin user
+          args:
+            [
+              "exec",
+              "-ti",
+              "deployment-pingdirectory-0",
+              "--container",
+              "utility-sidecar",
+              "--",
+              "/opt/in/restore.sh",
+              "2FederateM0re",
+            ]
