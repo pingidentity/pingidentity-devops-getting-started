@@ -25,7 +25,8 @@ configMaps:
         # Assumes credentials are set as environment variables or that the Pod 
         # has an associated IAM role that allows it to write to the S3 bucket
         # userRoot is hardcoded as it is the only backend used in this example
-        aws s3 sync s3://<your-s3-bucket-name>/<path>/userRoot/ /opt/pingdirectory-backup/userRoot
+        SERVER_RESTORE_DIR=/tmp/restore
+        aws s3 sync s3://<your-s3-bucket-name>/<path>/userRoot/ ${SERVER_RESTORE_DIR}/userRoot/
   pingdirectory-archive:
     data:
       archive.sh: |-
