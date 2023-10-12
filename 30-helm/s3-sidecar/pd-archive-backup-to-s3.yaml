@@ -1,37 +1,47 @@
 ############################################################
 # Ping Identity
-#
-# This example starts up a utility sidecar along each PD
-# instance in the statefulset. The sidecar should be used
-# for running command-line tools like collect-support-data
-# and backup. Note that password files in the main PD
-# container are not available to the sidecar, so they will
-# need to be supplied directly when running CLI tools.
-#
-# This example also includes a cronJob running every six
-# hours by default to backup PD data by running the backup.sh
-# script.
-#
-# Sample backup.sh and restore.sh scripts are included in
-# the sidecar via a mounted configMap.
-#
-# If a restore is necessary, it will need to be done
-# outside of the Helm charts, as deploying Jobs via Helm
-# can only be done with certain predefined hooks. See the
-# restore-job.yaml file in this directory for an example.
-# It will run the restore.sh script on the utility sidecar
-# via a kubectl command.
+# This file is an extension of 30-helm/pingdirectory-backup/pingdirectory-periodic-backup.yaml
+# The primary changes are the addition of an archive script & the assumption that permissions exist
+# for use by the archive script either through environment variables or an IAM role.
 
 ############################################################
-# Backup file storage
+# Archiving a backup file example to S3
 ############################################################
-# Note that the storage and retrieval of those backups
-# is NOT IMPLEMENTED HERE.
-# That implementation will depend on the desired storage and
-# the cloud environment (S3, etc.).
-# See 30-helm/pd-backup-with-s3-sidecar.yaml for an example
-
+# Note that the storage of the backup files in this example
+# is shown FOR DEMONSTRATION PURPOSES ONLY.
+# Your particular implementation will depend on the desired storage
+# and the cloud environment (S3, etc.).
 configMaps:
+  pingdirectory-fetch:
+    data:
+      fetch.sh: |-
+        #!/bin/sh
+        set -e
+
+        # This script assumes it is only being run on a single pod of the topology
+        # Demonstration only - no testing or error checking is performed
+
+        # Run the fetch from archive command
+        # Assumes credentials are set as environment variables or that the Pod 
+        # has an associated IAM role that allows it to write to the S3 bucket
+        # userRoot is hardcoded as it is the only backend used in this example
+        SERVER_RESTORE_DIR=/tmp/restore
+        # Get latest backup file from S3
+        # This demonstration copies all files from the bucket.  Filtering should be used in production.
+        aws s3 sync s3://<your-s3-bucket-name>/<path>/userRoot/ ${SERVER_RESTORE_DIR}/userRoot/
+  pingdirectory-archive:
+    data:
+      archive.sh: |-
+        #!/bin/sh
+        set -e
+
+        # This script assumes it is only being run on a single pod of the topology
+
+        # Run the archive command
+        # Assumes credentials are set as environment variables or that the Pod 
+        # has an associated IAM role that allows it to write to the S3 bucket
+        # userRoot is hardcoded as it is the only backend used in this example
+        aws s3 sync /opt/pingdirectory-backup s3://<your-s3-bucket-name>/<path>/userRoot/
   pingdirectory-backup:
     data:
       backup.sh: |-
@@ -42,10 +52,9 @@ configMaps:
 
         # Create a directory for the backup
         mkdir -p /opt/pingdirectory-backup
-        # Run the backup
-        # These backup files will need to be uploaded to a persistent storage location like S3
-        # depending on your environment. They will be lost when the pod is restarted.
-        backup --backupDirectory /opt/pingdirectory-backup --backendID userRoot --retainPreviousFullBackupAge '1 day'
+        # Run the backup and archive the files
+        # DEMONSTRATION ONLY! NO ERROR CHECKING OR CONTROLS ARE IN PLACE
+        backup --backupDirectory /opt/pingdirectory-backup --backendID userRoot --retainPreviousFullBackupAge '1 day' && /opt/in/archive.sh
   pingdirectory-restore:
     data:
       restore.sh: |-
@@ -58,10 +67,14 @@ configMaps:
         fi
         _adminPassword="${1}"
 
-        # TODO implement based on the environment: pull down backup files (from S3 or other storage) to SERVER_RESTORE_DIR
-        # The files should be placed in directories under /tmp/restore based on the backend name (like /tmp/restore/userRoot/)
+        # Create a directory for the restore files
         SERVER_RESTORE_DIR=/tmp/restore
         mkdir -p "${SERVER_RESTORE_DIR}"
+
+        # Demonstration of pulling files from S3 bucket with fetch.sh script to $SERVER_RESTORE_DIR
+        # Fetch the backup files from storage to the local pod.
+        # Note that no error checking is performed in this example.
+        /opt/in/fetch.sh
 
         # Check if replication is enabled
         REPL_ENABLED=false
@@ -179,9 +192,17 @@ pingdirectory:
   volumes:
     - name: temp
       emptyDir: {}
+    - name: archive-script
+      configMap:
+        name: pingdirectory-archive
+        defaultMode: 0755
     - name: backup-script
       configMap:
         name: pingdirectory-backup
+        defaultMode: 0755
+    - name: fetch-script
+      configMap:
+        name: pingdirectory-fetch
         defaultMode: 0755
     - name: restore-script
       configMap:
@@ -193,12 +214,22 @@ pingdirectory:
 
   # Backups, restores, and other CLI tools should be run from the sidecar to prevent interfering
   # with the main PingDirectory container process.
+  # The image specification will need modification to point to the image that contains the archive script.
   utilitySidecar:
     enabled: true
+    image:
+      name: myrepository/sidecar
+      tag: "latest"
     volumes:
+      - name: archive-script
+        mountPath: /opt/in/archive.sh
+        subPath: archive.sh
       - name: backup-script
         mountPath: /opt/in/backup.sh
         subPath: backup.sh
+      - name: fetch-script
+        mountPath: /opt/in/fetch.sh
+        subPath: fetch.sh
       - name: restore-script
         mountPath: /opt/in/restore.sh
         subPath: restore.sh
