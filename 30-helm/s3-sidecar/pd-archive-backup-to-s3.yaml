@@ -12,6 +12,20 @@
 # Your particular implementation will depend on the desired storage
 # and the cloud environment (S3, etc.).
 configMaps:
+  pingdirectory-fetch:
+    data:
+      fetch.sh: |-
+        #!/bin/sh
+        set -e
+
+        # This script assumes it is only being run on a single pod of the topology
+        # Demonstration only - no testing or error checking is performed
+
+        # Run the fetch from archive command
+        # Assumes credentials are set as environment variables or that the Pod 
+        # has an associated IAM role that allows it to write to the S3 bucket
+        # userRoot is hardcoded as it is the only backend used in this example
+        aws s3 sync s3://<your-s3-bucket-name>/<path>/userRoot/ /opt/pingdirectory-backup/userRoot
   pingdirectory-archive:
     data:
       archive.sh: |-
@@ -23,7 +37,8 @@ configMaps:
         # Run the archive command
         # Assumes credentials are set as environment variables or that the Pod 
         # has an associated IAM role that allows it to write to the S3 bucket
-        aws s3 cp /opt/pingdirectory-backup s3://<your-s3-bucket-name>/<path>/ --recursive
+        # userRoot is hardcoded as it is the only backend used in this example
+        aws s3 sync /opt/pingdirectory-backup s3://<your-s3-bucket-name>/<path>/userRoot/
   pingdirectory-backup:
     data:
       backup.sh: |-
@@ -49,10 +64,14 @@ configMaps:
         fi
         _adminPassword="${1}"
 
-        # TODO implement based on the environment: pull down backup files (from S3 or other storage) to SERVER_RESTORE_DIR
-        # The files should be placed in directories under /tmp/restore based on the backend name (like /tmp/restore/userRoot/)
+        # Create a directory for the restore files
         SERVER_RESTORE_DIR=/tmp/restore
         mkdir -p "${SERVER_RESTORE_DIR}"
+
+        # Demonstration of pulling files from S3 bucket with fetch.sh script to $SERVER_RESTORE_DIR
+        # Fetch the backup files from storage to the local pod.
+        # Note that no error checking is performed in this example.
+        /opt/in/fetch.sh
 
         # Check if replication is enabled
         REPL_ENABLED=false
@@ -178,6 +197,10 @@ pingdirectory:
       configMap:
         name: pingdirectory-backup
         defaultMode: 0755
+    - name: fetch-script
+      configMap:
+        name: pingdirectory-fetch
+        defaultMode: 0755
     - name: restore-script
       configMap:
         name: pingdirectory-restore
@@ -192,7 +215,7 @@ pingdirectory:
   utilitySidecar:
     enabled: true
     image:
-      name: myregistry/sidecar
+      name: myrepository/sidecar
       tag: "latest"
     volumes:
       - name: archive-script
@@ -201,6 +224,9 @@ pingdirectory:
       - name: backup-script
         mountPath: /opt/in/backup.sh
         subPath: backup.sh
+      - name: fetch-script
+        mountPath: /opt/in/fetch.sh
+        subPath: fetch.sh
       - name: restore-script
         mountPath: /opt/in/restore.sh
         subPath: restore.sh
