@@ -26,6 +26,8 @@ configMaps:
         # has an associated IAM role that allows it to write to the S3 bucket
         # userRoot is hardcoded as it is the only backend used in this example
         SERVER_RESTORE_DIR=/tmp/restore
+        # Get latest backup file from S3
+        # This demonstration copies all files from the bucket.  Filtering should be used in production.
         aws s3 sync s3://<your-s3-bucket-name>/<path>/userRoot/ ${SERVER_RESTORE_DIR}/userRoot/
   pingdirectory-archive:
     data:

@@ -84,15 +84,35 @@ A sample run of the script is shown below:
 ```sh
 PingToolkit:demo-pingdirectory-0:/opt
 > /opt/in/restore.sh <admin-password>
-download: s3://<bucket-name>/<folder>/userRoot/backup.info to pingdirectory-backup/userRoot/backup.info
-download: s3://<bucket-name>/<folder>/userRoot/backup.info.save to pingdirectory-backup/userRoot/backup.info.save
-download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012145152Z to pingdirectory-backup/userRoot/userRoot-backup-20231012145152Z
-download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012145216Z to pingdirectory-backup/userRoot/userRoot-backup-20231012145216Z
-download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012145139Z to pingdirectory-backup/userRoot/userRoot-backup-20231012145139Z
-download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012145506Z to pingdirectory-backup/userRoot/userRoot-backup-20231012145506Z
+download: s3://<bucket-name>/<folder>/userRoot/backup.info to userRoot/backup.info
+download: s3://<bucket-name>/<folder>/userRoot/backup.info.save to userRoot/backup.info.save
+download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012191506Z to userRoot/userRoot-backup-20231012191506Z
+download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012191006Z to userRoot/userRoot-backup-20231012191006Z
+download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012192506Z to userRoot/userRoot-backup-20231012192506Z
+download: s3://<bucket-name>/<folder>/userRoot/userRoot-backup-20231012192006Z to userRoot/userRoot-backup-20231012192006Z
 Replication is not enabled
+userRoot
 Restoring to the latest backups under /tmp/restore
-Restore order of backups:
+Restore order of backups: /tmp/restore/userRoot
+
+----- Doing a restore from /tmp/restore/userRoot -----
+Restore task 2023101219275710 scheduled to start immediately
+
+NOTE:  This tool is running as a task.  Killing or interrupting this tool will not have an impact on the task
+If you wish to cancel the running task, that may be accomplished using the command:  manage-tasks --no-prompt --hostname localhost --port 1636 --bindDN "cn=administrator" --bindPassword "********" --cancel "2023101219275710"
+
+[12/Oct/2023:19:27:57 +0000] severity="SEVERE_WARNING" msgCount=0 msgID=1880227932 message="Administrative alert type=backend-disabled id=2ecdf7c6-400e-4375-bc5c-8e4795c9c868 class=com.unboundid.directory.server.core.BackendConfigManager msg='Backend userRoot is disabled'"
+[12/Oct/2023:19:27:57 +0000] severity="NOTICE" msgCount=1 msgID=1880555611 message="Administrative alert type=config-change id=6f88ec8c-56c5-4146-9c71-ed387dd02d00 class=com.unboundid.directory.server.admin.util.ConfigAuditLog msg='A configuration change has been made in the Directory Server:  [12/Oct/2023:19:27:57.316 +0000] conn=-4 op=5857 dn='cn=Internal Client,cn=Internal,cn=Root DNs,cn=config' authtype=[Internal] from=internal to=internal command='dsconfig set-backend-prop --backend-name userRoot --set enabled:false''"
+[12/Oct/2023:19:27:59 +0000] severity="NOTICE" msgCount=2 msgID=8847445 message="Restored: .environment-open from backup with id '20231012192506Z' (size 76)"
+[12/Oct/2023:19:27:59 +0000] severity="NOTICE" msgCount=3 msgID=8847445 message="Restored: 00000000.jdb from backup with id '20231012192506Z' (size 11194781)"
+[12/Oct/2023:19:27:59 +0000] severity="NOTICE" msgCount=4 msgID=8847445 message="Restored: esTokenizer.ping from backup with id '20231012192506Z' (size 39)"
+[12/Oct/2023:19:27:59 +0000] severity="SEVERE_WARNING" msgCount=5 msgID=1880227932 message="Administrative alert type=je-environment-not-closed-cleanly id=2b0418d3-5a1a-4c86-9003-c0b9c5c8828e class=com.unboundid.directory.server.backends.jeb.RootContainer msg='The server has detected that the Berkeley DB JE environment located in directory '/opt/out/instance/db/userRoot' may not have been closed cleanly the last time it was opened (or that the backend has just been restored from a backup taken with the server online).  The database environment may need to replay changes from the end of the transaction log to guarantee the integrity of the data, and in some cases this may take a significant amount of time to complete'"
+[12/Oct/2023:19:28:00 +0000] severity="NOTICE" msgCount=6 msgID=8847402 message="The database backend userRoot using Berkeley DB Java Edition 7.5.12 and containing 20008 entries has started"
+[12/Oct/2023:19:28:00 +0000] severity="NOTICE" msgCount=7 msgID=1879507338 message="Starting group processing for backend userRoot"
+[12/Oct/2023:19:28:00 +0000] severity="NOTICE" msgCount=8 msgID=1879507339 message="Completed group processing for backend userRoot"
+[12/Oct/2023:19:28:00 +0000] severity="INFORMATION" msgCount=9 msgID=1891631108 message="Starting access control processing for backend userRoot"
+[12/Oct/2023:19:28:00 +0000] severity="INFORMATION" msgCount=10 msgID=12582962 message="Added 2 Access Control Instruction (ACI) attribute types found in context 'dc=example,dc=com' to the access control evaluation engine"
+[12/Oct/2023:19:28:00 +0000] severity="NOTICE" msgCount=11 msgID=1880555611 message="Administrative alert type=config-change id=a776d141-3eb9-44b5-9066-25e6e3a79f34 class=com.unboundid.directory.server.admin.util.ConfigAuditLog msg='A configuration change has been made in the Directory Server:  [12/Oct/2023:19:28:00.106 +0000] conn=-4 op=5868 dn='cn=Internal Client,cn=Internal,cn=Root DNs,cn=config' authtype=[Internal] from=internal to=internal command='dsconfig set-backend-prop --backend-name userRoot --set enabled:true''"
+Restore task 2023101219275710 has been successfully completed
 Restore complete
-PingToolkit:demo-pingdirectory-0:/opt
 ```
