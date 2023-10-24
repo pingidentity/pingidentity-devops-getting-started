@@ -54,6 +54,23 @@ The proxy server must also be configured via `dsconfig` to enable automatic serv
 
 To associate directory servers with the load balancing algorithms configured on the proxy server, the `load-balancing-algorithm-name` property must be set. This can be done with the `LOAD_BALANCING_ALGORITHM_NAMES` environment variable in the directory Docker image. When using multiple algorithm names, separate them with a `;`. See the above yaml snippet for an example.
 
+## Removing the proxy server from the topology on pod shutdown
+
+By default the proxy server will rejoin the topology automatically on restarts. In the `ping-devops` Helm chart, proxy does not use a persistent volume, so it will fully restart and rejoin the topology during each startup.
+
+Another option, which allows for scaling down the number of proxy servers, is adding a `preStop` hook to remove the proxy server from the topology. In general this can cause slowness because it will run whenever a pod stops, but it ensures that scaling down the number of proxies does not leave outdated servers in the topology registry. For example:
+
+```
+pingdirectoryproxy:
+  container:
+    # Add the preStop hook to run the remove-defunct-server tool
+    lifecycle:
+      preStop:
+        exec:
+          command:
+          - /opt/staging/hooks/90-shutdown-sequence.sh
+```
+
 ## Automatic server discovery when directory and proxy pods are split across multiple clusters
 
 When [deploying directory pods across multiple Kubernetes clusters](./deployPDMultiRegion.md), some additional configuration needs to be added to allow proxy to join the directory topology and enable automatic server discovery.
