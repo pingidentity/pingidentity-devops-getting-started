@@ -1,0 +1,64 @@
+# Waiting for all proxy pods by waiting for the last proxy pod in the seed region.
+# This avoids contention between proxy servers joining the topology simultaneously.
+initContainers:
+  wait-for-west-proxy:
+    name: wait-for-west-proxy
+    image: pingidentity/pingtoolkit:2309
+    command: ['sh', '-c', 'echo "Waiting for PingDirectoryProxy..." && wait-for west-pingdirectoryproxy-0.west.example.com:1636 -t 300 -- echo "PingDirectoryProxy running"']
+
+# 2 PD pods per region
+pingdirectory:
+  container:
+    replicaCount: 2
+  enabled: true
+  envs:
+    LOAD_BALANCING_ALGORITHM_NAMES: dc_example_dc_com-fewest-operations;dc_example_dc_com-failover
+    ## VARIABLES TO ENABLE MULTI-REGION
+    K8S_CLUSTERS: west east
+    K8S_CLUSTER: east
+    K8S_SEED_CLUSTER: west
+    K8S_NUM_REPLICAS: "2"
+    K8S_POD_HOSTNAME_PREFIX: "east-pingdirectory-"
+    K8S_POD_HOSTNAME_SUFFIX:  ".east.example.com"
+    K8S_SEED_HOSTNAME_SUFFIX:  ".west.example.com"
+    K8S_INCREMENT_PORTS: "false"
+  services:
+    ldap:
+      servicePort: 1389
+      containerPort: 1389
+      dataService: true
+      clusterService: true
+    ldaps:
+      servicePort: 1636
+      containerPort: 1636
+      dataService: true
+      clusterService: true
+    https:
+      servicePort: 1443
+      containerPort: 1443
+      ingressPort: 443
+      dataService: true
+    clusterExternalDNSHostname: east.example.com
+    dataExternalDNSHostname: us.east.example.com
+
+# One proxy pod per region
+pingdirectoryproxy:
+  includeInitContainers:
+  - wait-for-west-proxy
+  container:
+    replicaCount: 1
+  enabled: true
+  envs:
+    ## VARIABLES TO ENABLE MULTI-REGION
+    K8S_CLUSTERS: west east
+    K8S_CLUSTER: east
+    K8S_SEED_CLUSTER: west
+    K8S_NUM_REPLICAS: "1"
+    K8S_POD_HOSTNAME_PREFIX: "east-pingdirectoryproxy-"
+    K8S_POD_HOSTNAME_SUFFIX:  ".east.example.com"
+    K8S_SEED_HOSTNAME_SUFFIX:  ".west.example.com"
+    K8S_INCREMENT_PORTS: "false"
+    ## VARIABLES TO JOIN PD TOPOLOGY
+    JOIN_PD_TOPOLOGY: "true"
+    PINGDIRECTORY_HOSTNAME: west-pingdirectory-0.west.example.com
+    PINGDIRECTORY_LDAPS_PORT: "1636"
