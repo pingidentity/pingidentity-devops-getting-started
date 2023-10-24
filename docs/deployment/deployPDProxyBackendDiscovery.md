@@ -2,7 +2,7 @@
 
 Since version 8.3 of PingDirectoryProxy, proxy servers can use [automatic server discovery](https://docs.pingidentity.com/r/en-us/pingdirectory-93/pd_proxy_auto_server_discovery) to determine the backend PingDirectory servers, rather than adding those servers individually to the configuration. This page describes how to use this feature with the PingDirectory and PingDirectoryProxy Docker images and the ping-devops Helm chart
 
-The directory and proxy Docker images added support for this feature as of the 2310 release.
+The directory and proxy Docker images added support for this feature as of the 2310 release, and the ping-devops Helm chart added support in release `0.9.20`.
 
 ## Configuring the proxy instance to join the directory topology
 
