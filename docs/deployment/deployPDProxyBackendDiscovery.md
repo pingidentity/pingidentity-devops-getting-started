@@ -18,7 +18,7 @@ If all three of these variables are set, the proxy server will join the designat
 
 The designated directory server must be running for the proxy server to join the topology. To ensure directory is running before proxy attempts to join, a `wait-for` can be used.
 
-For example, using the ping-devops Helm chart, the following values yaml instructs proxy to wait until the second `pingdirectory` pod is running before starting and attempting to join the topology. "releasename" can be replace with the Helm release name.
+For example, using the ping-devops Helm chart, the following values yaml instructs proxy to wait until the second `pingdirectory` pod is running before starting and attempting to join the topology. "releasename" can be replaced with the Helm release name.
 
 ```
 initContainers:
