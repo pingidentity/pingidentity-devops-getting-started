@@ -41,6 +41,8 @@ pingdirectoryproxy:
     replicaCount: 1
   enabled: true
   envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pingdirectoryproxy-automatic-server-discovery
     JOIN_PD_TOPOLOGY: "true"
     PINGDIRECTORY_HOSTNAME: releasename-pingdirectory-0.releasename-pingdirectory-cluster
     PINGDIRECTORY_LDAPS_PORT: "1636"
