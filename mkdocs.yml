@@ -72,6 +72,7 @@ nav:
                                                 - Utility Sidecars: "deployment/deployK8sUtilitySidecar.md"
                                                 - Deploy PingFederate Across Multiple Kubernetes Clusters: "deployment/deployPFMultiRegion.md"
                                                 - Deploy PingDirectory Across Multiple Kubernetes Clusters: "deployment/deployPDMultiRegion.md"
+                                                - Deploy PingDirectoryProxy and PingDirectory with Automatic Backend Discovery: "deployment/deployPDProxyBackendDiscovery.md"
                                                 - Deploy a PingAccess Cluster Without a Server Profile: "deployment/deployPACluster.md"
                                                 - PingData Product Considerations: "deployment/pingDataEnvironmentConsiderations.md"
                                                 - Operating Patterns: "deployment/deploymentPatterns.md"

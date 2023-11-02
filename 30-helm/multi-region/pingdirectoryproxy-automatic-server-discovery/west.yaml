@@ -1,0 +1,66 @@
+# Waiting for all PD pods by waiting for the last PD in the non-seed region.
+# This avoids contention between proxy servers and directory servers joining the topology simultaneously.
+initContainers:
+  wait-for-east-pd:
+    name: wait-for-east-pd
+    image: pingidentity/pingtoolkit:2309
+    command: ['sh', '-c', 'echo "Waiting for PingDirectory..." && wait-for east-pingdirectory-1.east.example.com:1636 -t 300 -- echo "PingDirectory running"']
+
+# 2 PD pods per region
+pingdirectory:
+  container:
+    replicaCount: 2
+  enabled: true
+  envs:
+    LOAD_BALANCING_ALGORITHM_NAMES: dc_example_dc_com-fewest-operations;dc_example_dc_com-failover
+    ## VARIABLES TO ENABLE MULTI-REGION
+    K8S_CLUSTERS: west east
+    K8S_CLUSTER: west
+    K8S_SEED_CLUSTER: west
+    K8S_NUM_REPLICAS: "2"
+    K8S_POD_HOSTNAME_PREFIX: "west-pingdirectory-"
+    K8S_POD_HOSTNAME_SUFFIX:  ".west.example.com"
+    K8S_SEED_HOSTNAME_SUFFIX:  ".west.example.com"
+    K8S_INCREMENT_PORTS: "false"
+  services:
+    ldap:
+      servicePort: 1389
+      containerPort: 1389
+      dataService: true
+      clusterService: true
+    ldaps:
+      servicePort: 1636
+      containerPort: 1636
+      dataService: true
+      clusterService: true
+    https:
+      servicePort: 1443
+      containerPort: 1443
+      ingressPort: 443
+      dataService: true
+    clusterExternalDNSHostname: west.example.com
+    dataExternalDNSHostname: us.west.example.com
+
+# One proxy pod per region
+pingdirectoryproxy:
+  includeInitContainers:
+  - wait-for-east-pd
+  container:
+    replicaCount: 1
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: pingdirectoryproxy-automatic-server-discovery
+    ## VARIABLES TO ENABLE MULTI-REGION
+    K8S_CLUSTERS: west east
+    K8S_CLUSTER: west
+    K8S_SEED_CLUSTER: west
+    K8S_NUM_REPLICAS: "1"
+    K8S_POD_HOSTNAME_PREFIX: "west-pingdirectoryproxy-"
+    K8S_POD_HOSTNAME_SUFFIX:  ".west.example.com"
+    K8S_SEED_HOSTNAME_SUFFIX:  ".west.example.com"
+    K8S_INCREMENT_PORTS: "false"
+    ## VARIABLES TO JOIN PD TOPOLOGY
+    JOIN_PD_TOPOLOGY: "true"
+    PINGDIRECTORY_HOSTNAME: west-pingdirectory-0.west.example.com
+    PINGDIRECTORY_LDAPS_PORT: "1636"
