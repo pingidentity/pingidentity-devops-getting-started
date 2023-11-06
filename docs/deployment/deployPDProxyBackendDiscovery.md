@@ -32,6 +32,8 @@ pingdirectory:
     replicaCount: 2
   enabled: true
   envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: baseline/pingdirectory
     LOAD_BALANCING_ALGORITHM_NAMES:dc_example_dc_com-fewest-operations;dc_example_dc_com-failover
 
 pingdirectoryproxy:
