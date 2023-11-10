@@ -195,6 +195,14 @@ You can mount the license in the container's <mark><b>opt/in</b></mark> director
 </details>
 
 <details>
+  <summary>Where do I get a license?  How do I obtain a trial license?</summary>
+<p></p>
+The DevOps team at Ping is not responsible for issuing supported product licenses.  We provide a temporary license through the DevOps program. <a href="https://devops.pingidentity.com/how-to/devopsRegistration/">After signing up</a>, you can use the provided credentials to get a short-term license to use in evaluating Ping products running in containers.
+<p></p>
+If you want to use Ping products in production environments, you are required to purchase a valid license. <a href="https://www.pingidentity.com/en/company/contact-sales.html">Contact our sales department</a> for more information.
+</details>
+
+<details>
   <summary>How do I turn off the license verification?</summary>
 
 Set the environment variable in PingBase to: <mark><b>MUTE_LICENSE_VERIFICATION="true"</b></mark>

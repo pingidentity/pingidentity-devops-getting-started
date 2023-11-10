@@ -33,7 +33,7 @@ title: DevOps Docker Builds, Version 2109 (October 06 2021)
 ### Enhancements
 
 - **Documentation**
-    - Improved [Introduction to Image/Container anatomy](../../reference/config/)
+    - Improved [Introduction to Image/Container anatomy](../reference/config.md)
 
 
 
