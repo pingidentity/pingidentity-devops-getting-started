@@ -14,8 +14,10 @@ instances.
 > This image inherits, and can use, Environment Variables from [pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)
 - `pingidentity/pingdatacommon` - Common Ping files (i.e. hook scripts)\
 
+
 ## Environment Variables
-The following environment `ENV` variables can be used with
+In addition to environment variables inherited from **[pingidentity/pingbase](https://devops.pingidentity.com/docker-images/pingbase/)**,
+the following environment `ENV` variables can be used with
 this image.
 
 | ENV Variable  | Default     | Description
