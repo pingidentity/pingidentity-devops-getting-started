@@ -26,7 +26,10 @@ This section will cover the **kind** installation process. See the [section furt
 * ports 80 and 443 available on machine
 
 !!! note "Kubernetes Version"
-    For this guide, the kind implementation of Kubernetes 1.25.3 is used.
+    For this guide, the kind implementation of Kubernetes 1.27.3 is used. It is deployed using version 0.20.0 of kind.
+
+!!! note "Docker Desktop Version"
+    At the time of the writing of this guide, Docker Desktop was version `4.25.2 (129061)`, which used Docker Engine `24.0.6`.
 
 ### Install and confirm the cluster
 
@@ -48,33 +51,33 @@ This section will cover the **kind** installation process. See the [section furt
     kubectl cluster-info
 
     # Output - port will vary
-    Kubernetes control plane is running at https://127.0.0.1:63657
-    CoreDNS is running at https://127.0.0.1:63657/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+    Kubernetes control plane is running at https://127.0.0.1:57627
+    CoreDNS is running at https://127.0.0.1:57627/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
     To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
     ------------------
 
-    kubectl version --short
+    kubectl version
 
     < output clipped >
-    Server Version: v1.27.1
+    Server Version: v1.27.3
 
     ------------------
 
     kubectl get nodes
 
     NAME                 STATUS   ROLES           AGE     VERSION
-    ping-control-plane   Ready    control-plane   2m40s   v1.27.1
+    ping-control-plane   Ready    control-plane   38s     v1.27.3
     ```
 
 ### Enable ingress
 
-1. Next, install the nginx-ingress-controller for `kind` (version 1.8.0 at the time of this writing). In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
+1. Next, install the nginx-ingress-controller for `kind` (version 1.9.4 at the time of this writing). In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
 
 To use the Github file:
     ```sh
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/kind/deploy.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/kind/deploy.yaml
     ```
 
 To use the local copy:
@@ -102,6 +105,7 @@ Output:
     job.batch/ingress-nginx-admission-create created
     job.batch/ingress-nginx-admission-patch created
     ingressclass.networking.k8s.io/nginx created
+    networkpolicy.networking.k8s.io/ingress-nginx-admission created
     validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
     ```
 
@@ -155,7 +159,7 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
 !!! note "Minikube and Kubernetes Version"
-    At the time of the writing of this guide, minikube was version `1.30.1`, which installs Kubernetes version `1.26.3`.
+    At the time of the writing of this guide, minikube was version `1.32.0`, which installs Kubernetes version `1.28.3`.
 
 ### Install and configure minikube
 
@@ -172,9 +176,9 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     !!! note "Configuration"
         See [the documentation](https://minikube.sigs.k8s.io/docs/handbook/config/) for more details on configuring minikube.
 
-1. Start the cluster.  Optionally you can include a profile flag (`--profile <name>`). Naming the cluster enables you to run multiple minikube clusters simultaneously, if so desired.  If you use a profile name, you will need to include it on other minikube commands.
+1. Start the cluster.  Optionally you can include a profile flag (`--profile <name>`). Naming the cluster enables you to run multiple minikube clusters simultaneously.  If you use a profile name, you will need to include it on other minikube commands.
     ```sh
-    minikube start --addons=ingress
+    minikube start --addons=ingress --kubernetes-version=v1.28.3
     ```
     
     Output:
@@ -186,7 +190,7 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     ```sh
     kubectl cluster-info
 
-    # Output - IP will vary
+    # Output - Port will vary
     Kubernetes control plane is running at https://127.0.0.1:62531
     CoreDNS is running at https://127.0.0.1:62531/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
@@ -194,17 +198,17 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 
     ------------------
 
-    kubectl version --short
+    kubectl version
 
     < output clipped >
-    Server Version: v1.26.3
+    Server Version: v1.28.3
 
     ------------------
 
     kubectl get nodes
 
     NAME       STATUS   ROLES           AGE    VERSION
-    minikube   Ready    control-plane   173m   v1.26.3
+    minikube   Ready    control-plane   4m6s   v1.28.3
     ```
 
 ### Confirm ingress

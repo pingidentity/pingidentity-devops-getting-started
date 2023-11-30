@@ -11,13 +11,13 @@
 #######################  Helm ##############
     - name: Get helm installation file
       get_url:
-        url: "https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/helm-v3.12.1-linux-amd64.tar.gz"
-        checksum: sha256:1a7074f58ef7190f74ce6db5db0b70e355a655e2013c4d5db2317e63fa9e3dea
+        url: "https://get.helm.sh/helm-v3.13.2-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/helm-v3.13.2-linux-amd64.tar.gz"
+        checksum: sha256:55a8e6dce87a1e52c61e0ce7a89bf85b38725ba3e8deb51d4a08ade8a2c70b2d
       when: helm == True
 
     - name: Extract helm
-      shell: tar xzvf /home/ubuntu/helm-v3.12.1-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
+      shell: tar xzvf /home/ubuntu/helm-v3.13.2-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
       args:
         executable: /bin/bash
         creates: /usr/local/bin/helm
@@ -29,15 +29,15 @@
         state: absent
       with_items:
         - /home/ubuntu/linux-amd64
-        - /home/ubuntu/helm-v3.12.1-linux-amd64.tar.gz
+        - /home/ubuntu/helm-v3.13.2-linux-amd64.tar.gz
       when: helm == True
 
 ########################  K9S ##############
     - name: Get K9s installation file
       get_url:
-        url: "https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz"
+        url: "https://github.com/derailed/k9s/releases/download/v0.28.2/k9s_Linux_amd64.tar.gz"
         dest: "/home/ubuntu/k9s_Linux_amd64.tar.gz"
-        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.27.4/checksums.txt
+        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.28.2/checksums.sha256
       when: k9s == True
 
     - name: Extract k9s
@@ -123,7 +123,7 @@
 ###################  ROOK / CEPH  #################
 
     - name: Install CertManager prerequisite
-      shell: kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.11.4/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
+      shell: kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.13.2/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
       args:
         creates: /etc/.certManagerInstalled
         executable: /bin/bash
@@ -147,7 +147,7 @@
         repo: https://github.com/rook/rook.git
         dest: /home/ubuntu/rook
         single_branch: yes
-        version: release-1.11
+        version: release-1.12
       when: storage == True
 
     - name: Install Rook controller
@@ -169,9 +169,9 @@
       when: storage == True
 
     # Ugly hack
-    - name: Pause for 3 1/2 minutes - wait for Rook components to get started
+    - name: Pause for 4 minutes - wait for Rook components to get started
       pause:
-        seconds: 210
+        seconds: 240
       when: storage == True
 
     - name: Confirm Rook cluster pods are ready
@@ -298,20 +298,20 @@
 
     - name: Get 'istioctl' installation file
       get_url:
-        url: "https://github.com/istio/istio/releases/download/1.18.0/istio-1.18.0-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/istio-1.18.0-linux-amd64.tar.gz"
-        checksum: sha256:https://github.com/istio/istio/releases/download/1.18.0/istio-1.18.0-linux-amd64.tar.gz.sha256
+        url: "https://github.com/istio/istio/releases/download/1.20.0/istio-1.20.0-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/istio-1.20.0-linux-amd64.tar.gz"
+        checksum: sha256:https://github.com/istio/istio/releases/download/1.20.0/istio-1.20.0-linux-amd64.tar.gz.sha256
       when: istio == True
 
     - name: Extract istioctl
-      shell: tar xzvf /home/ubuntu/istio-1.18.0-linux-amd64.tar.gz && sudo mv istio-1.18.0/bin/istioctl /usr/local/bin/istioctl
+      shell: tar xzvf /home/ubuntu/istio-1.20.0-linux-amd64.tar.gz && sudo mv istio-1.20.0/bin/istioctl /usr/local/bin/istioctl
       args:
         executable: /bin/bash
         creates: /usr/local/bin/istioctl
       when: istio == True
 
     - name: Install istio
-      shell: istioctl install -f /home/ubuntu/istio-1.18.0/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
+      shell: istioctl install -f /home/ubuntu/istio-1.20.0/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioInstalled
@@ -331,7 +331,7 @@
       when: istio == True
 
     - name: Install Istio add-ons
-      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.18.0/samples/addons && sudo touch /etc/.istioAddonsInstalled
+      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.20.0/samples/addons && sudo touch /etc/.istioAddonsInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioAddonsInstalled
@@ -369,8 +369,8 @@
         path: "{{ item }}"
         state: absent
       with_items:
-        - /home/ubuntu/istio-1.18.0
-        - /home/ubuntu/istio-1.18.0-linux-amd64.tar.gz
+        - /home/ubuntu/istio-1.20.0
+        - /home/ubuntu/istio-1.20.0-linux-amd64.tar.gz
         - /home/ubuntu/patch-service.yaml
       when: istio == True
 ...

@@ -4,14 +4,14 @@ title: Deploy a robust local Kubernetes Cluster
 # Deploy a robust local Kubernetes Cluster
 
 !!! note "Video Demonstration"
-    A video demonstrating the manual process outlined on this page is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6324019967112/robust-test-kubernetes-cluster).  An updated video using the ansible playbooks will be added soon.
+    A video demonstrating the manual process outlined on this page is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6324019967112/robust-test-kubernetes-cluster).  An updated video using the ansible playbooks is planned.
 
 In some cases, a single-node cluster is insufficient for more complex testing scenarios.  If you do not have access to a managed Kubernetes cluster and want something more similar to what you would find in a production environment, this guide can help.
 
-This document describes deploying a multi-node cluster using [ansible](https://docs.ansible.com/) along with the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
+This document describes deploying a multi-node cluster using [ansible](https://docs.ansible.com/) and the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
 
 - 3 nodes, a master with two worker nodes (to conserve resources, the master will also be configured to run workloads)
-- Kubernetes 1.27.3 (at the time of this writing) using the **containerd** runtime (no Docker installed)
+- (At the time of this writing) Kubernetes 1.28.2 using the **containerd** runtime (no Docker installed)
 - (Optional but recommended) Load balancer
 - Block storage support for PVC/PV needed by some Ping products
 - (Optional) Ingress controller (ingress-nginx)
@@ -30,13 +30,13 @@ In order to complete this guide, you will need:
 - Modern processor with multiple cores
 - Ansible-playbook CLI tool. You can use brew by running `brew install ansible` or see [the ansible site](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for instructions on how to install and configure this application.
 - Virtualization solution.  For this guide, VMware Fusion is used, but other means of creating and running a VM (Virtualbox, KVM) can be adapted.
-- Access to [Ubuntu LTS 22.04.2 server](https://ubuntu.com/download/server) installation media
+- Access to [Ubuntu LTS 22.04.3 server](https://ubuntu.com/download/server) installation media
 - **A working knowledge of Kubernetes**, such as knowing how to port-forward, install objects using YAML files, and so on. Details on performing some actions will be omitted, and it is assumed the reader will know what to do.
 - Patience
 
 ## Virtual machines
 
-First, create 3 VMs as described here, using a default installation of Ubuntu 22.04.  For this guide, the user created is `ubuntu` with a password of your choice.
+First, create 3 VMs as described here, using a default installation of Ubuntu 22.04.  For this guide, the user created was `ubuntu`. You can use any name with a password of your choice.
 
 - 4 vCPU
 - 16 GB RAM
@@ -46,11 +46,11 @@ First, create 3 VMs as described here, using a default installation of Ubuntu 22
 !!! info "IP Space"
     192.168.163.0/24 was the IP space used in this guide; adjust to your environment accordingly.
 
-  | VM | Hostname | IP address |
-  | --- | --- | --- |
+  | VM          | Hostname  | IP address     |
+  | ----------- | --------- | -------------- |
   | Master node | k8smaster | 192.168.163.60 |
-  | Worker | k8snode01 | 192.168.163.61 |
-  | Worker | k8snode02 | 192.168.163.62 |
+  | Worker      | k8snode01 | 192.168.163.61 |
+  | Worker      | k8snode02 | 192.168.163.62 |
 
 ## Preliminary Operating System setup
 
@@ -123,7 +123,7 @@ k8smaster
 <The output above is repeated for each node.>
 ```
 
-After installation and reboot, perform the basic configuration needed for ansible support on the VMs.  Primarily, the change required is to allow `sudo` commands without requiring a password:
+After installation and reboot, perform the basic configuration needed for ansible support on the VMs.  The primary change required is to allow `sudo` commands without requiring a password:
 
 !!! note "Per-VM"
     Run these commands on each VM.
@@ -186,7 +186,7 @@ At this point, you are ready to modify the ansible playbooks for creating your c
     k8snode02_ip: "192.168.163.62"
    ```
 
-   Finally, update the **install_list.yaml** file.  By default, no additional components are installed other than block storage, which is needed for some Ping products.  To install other optional components, set the value to **_True_**.  Note that helm is required to install the Ingress controller, and adding K9s, metallb and ingress will provide the most production-like implementation:
+   Finally, update the **install_list.yaml** file.  By default, no additional components are installed other than block storage, which is needed for some Ping products.  To install other optional components, set the value to **_True_**.  Note that helm is required to install the Ingress controller, and adding K9s, metallb and ingress will provide additional tools for the most production-like implementation:
 
    ```yaml
    ---
@@ -470,25 +470,25 @@ TASK [Nodes in the cluster] ****************************************************
 ok: [k8smaster] => {
     "nodes_command_output.stdout_lines": [
         "NAME        STATUS   ROLES           AGE   VERSION",
-        "k8smaster   Ready    control-plane   46s   v1.27.3",
-        "k8snode01   Ready    <none>          22s   v1.27.3",
-        "k8snode02   Ready    <none>          18s   v1.27.3"
+        "k8smaster   Ready    control-plane   46s   v1.28.2",
+        "k8snode01   Ready    <none>          22s   v1.28.2",
+        "k8snode02   Ready    <none>          18s   v1.28.2"
     ]
 }
 ok: [k8snode01] => {
     "nodes_command_output.stdout_lines": [
         "NAME        STATUS   ROLES           AGE   VERSION",
-        "k8smaster   Ready    control-plane   46s   v1.27.3",
-        "k8snode01   Ready    <none>          22s   v1.27.3",
-        "k8snode02   Ready    <none>          18s   v1.27.3"
+        "k8smaster   Ready    control-plane   46s   v1.28.2",
+        "k8snode01   Ready    <none>          22s   v1.28.2",
+        "k8snode02   Ready    <none>          18s   v1.28.2"
     ]
 }
 ok: [k8snode02] => {
     "nodes_command_output.stdout_lines": [
         "NAME        STATUS   ROLES           AGE   VERSION",
-        "k8smaster   Ready    control-plane   46s   v1.27.3",
-        "k8snode01   Ready    <none>          22s   v1.27.3",
-        "k8snode02   Ready    <none>          18s   v1.27.3"
+        "k8smaster   Ready    control-plane   46s   v1.28.2",
+        "k8snode01   Ready    <none>          22s   v1.28.2",
+        "k8snode02   Ready    <none>          18s   v1.28.2"
     ]
 }
 
@@ -741,70 +741,9 @@ Shutdown the VMs, and snapshot each one.  See the helper script in this reposito
 
 At this time,  your cluster is ready for use.  
 
-## Interim fix for the ingress controller
-
-At the time of this writing, the Helm charts from Ping need modification to support the latest ingress-nginx controller from Kubernetes.  Until the charts have been updated, the following instructions will update the ingress configuration so that it will work.
-
-This example assumes the MetalLB load balancer was installed.  Otherwise, you would need to port-forward and alias the Ping URLs to **localhost**.
-
-Following the steps on the [Getting Started](../get-started/getStartedExample.md), do the following tasks:
-
-* Create the namespace and change context
-* Add the DevOps secret
-* Update your **/etc/hosts** file with Ping product URLs to match the IP address of the ingress controller (192.168.163.151 in this example)
-* Deploy the helm charts as instructed by running: `helm upgrade --install demo pingidentity/ping-devops -f everything.yaml -f ingress-demo.yaml`
-
-After installation, patch the ingress definition for the service in question.  First, create a script to apply the class patch to each ingress endpoint:
-
-```bash
-#!/bin/bash
-
-targets=(
-  "demo-pingaccess-admin"
-  "demo-pingaccess-engine"
-  "demo-pingauthorize"
-  "demo-pingdataconsole"
-  "demo-pingdirectory"
-  "demo-pingfederate-admin"
-  "demo-pingfederate-engine"
-)
-
-for target in "${targets[@]}"
-do
-  echo "Patching target: ${target}..."
-  kubectl patch ingress ${target} -p '{"spec": {"ingressClassName": "nginx"}}'
-done
-```
-
-Then, run the script:
-
-```bash
-# Make the script executable
-chmod +x patch.sh
-
-# Run the script
-./patch.sh
-
-# Output
-Patching target: demo-pingaccess-admin...
-ingress.networking.k8s.io/demo-pingaccess-admin patched
-Patching target: demo-pingaccess-engine...
-ingress.networking.k8s.io/demo-pingaccess-engine patched
-Patching target: demo-pingauthorize...
-ingress.networking.k8s.io/demo-pingauthorize patched
-Patching target: demo-pingdataconsole...
-ingress.networking.k8s.io/demo-pingdataconsole patched
-Patching target: demo-pingdirectory...
-ingress.networking.k8s.io/demo-pingdirectory patched
-Patching target: demo-pingfederate-admin...
-ingress.networking.k8s.io/demo-pingfederate-admin patched
-Patching target: demo-pingfederate-engine...
-ingress.networking.k8s.io/demo-pingfederate-engine patched
-```
-
 ## Manual Process
 
-This section is for reference only.  It is intended to provide context as to what is being done in ansible playbooks above.  In the manual instructions, the assumption is that you would set up the master to the point of being ready to run `kubeadm` and at that time take a snapshot.  The snapshot is cloned to create the two worker nodes prior to initializing the cluster.
+This section is for reference only, and the versions of products might be older than above as this section is not being actively maintained.  It is intended to provide context to what is being done in ansible playbooks.  In the manual instructions, the assumption is that you would set up the master to the point of being ready to run `kubeadm` and at that time take a snapshot.  The snapshot is cloned to create the two worker nodes prior to initializing the cluster.
 
 ### Preliminary setup
 
@@ -953,7 +892,7 @@ kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Doc
 
 ```text
 # Sample output from init
-[init] Using Kubernetes version: v1.27.3
+[init] Using Kubernetes version: v1.28.2
 [preflight] Running pre-flight checks
 [preflight] Pulling images required for setting up a Kubernetes cluster
 [preflight] This might take a minute or two, depending on the speed of your internet connection
