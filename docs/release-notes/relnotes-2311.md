@@ -40,7 +40,7 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 ### Resolved Defects
 
 - (BRASS-1331) Fixed issue in our Helm charts where the replicas field was being set when autoscaling was enabled.
-- (BRASS-1334) Updated the Helm Chart checks for semantic version for apiVersion to use a capability check rather than
+- (BRASS-1334) Updated the Helm Chart checks for semantic version for apiVersion to use a capability check rather than 
   verifying specific versions. This fixes issues with comparing prerelease versions.
 - (BRASS-1345) Update the PingAuthorizePAP readiness check.
 
