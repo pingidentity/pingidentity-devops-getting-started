@@ -15,7 +15,7 @@ title: Upgrading PingCentral
 
 ### This document will become outdated
 
-   The examples referenced in this document point to a specific tag. This tag may not exist at the time of reading. To correct the issue, update the tag on your files appropriately.  This example uses versions **1.10** and **1.12**, but the process should be similar for other versions in the future.
+   The examples referenced in this document point to a specific tag. This tag may not exist at the time of reading. To correct the issue, update the tag on your files appropriately.  This example uses versions **1.10** and **1.14**, but the process should be similar for other versions in the future.
 
 ### MySQL is used as the PingCentral Datastore
 
@@ -35,7 +35,7 @@ Steps:
 1. Deploy the old (1.10) version of PingCentral with the baseline server profile
 1. Create a test user in PingCentral and perform other validation steps
 1. Copy the `pingcentral.jwk` file to your server profile
-1. Deploy the new (1.12) PingCentral version with a custom server profile
+1. Deploy the new (1.14) PingCentral version with a custom server profile
 1. Validate the upgrade
 
 ## Prerequisites
@@ -43,13 +43,14 @@ Steps:
 Assumptions and requirements:
 
 * You have set up your DevOps environment and can run a test deployment of the products. For more information, see [Get Started](../get-started/introduction.md).
-* This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used was `4.23.0 (120376)`, which includes Docker Engine `v24.0.6` and Kubernetes `v1.27.2`.  The ingress-nginx controller version was `1.8.2`, deployed from Helm chart version `4.7.2`.
+* This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used was `4.25.2 (129061)`, which includes Docker Engine `v24.0.6` and Kubernetes `v1.28.2`.  The ingress-nginx controller version was `1.9.4`, deployed from Helm chart version `4.8.3`.
 
 ## Environment Preparation
 
 ### Clone the `getting-started` repository
 
 1. Clone the `pingidentity-devops-getting-started` repository to your local `${PING_IDENTITY_DEVOPS_HOME}` directory.
+
     !!! note "pingctl utility"
         The `${PING_IDENTITY_DEVOPS_HOME}` environment variable was set by running `pingctl config`.
 
@@ -184,14 +185,14 @@ select * from DATABASECHANGELOG;
 helm upgrade --install demo pingidentity/ping-devops -f pingcentral-upgrade/02-upgraded.yaml
 ```
 
-The new pod will spin up, and when it is healthy, the old pod will be terminated.  At this time, you should have an upgraded PingCentral instance.  Log in to the administrative console as before.  The user you created earlier should still exist, and the version information at the lower left should indicate version 1.12.0.  In addition, a new left navigation item (Management) will be present that was not there before:
+The new pod will spin up, and when it is healthy, the old pod will be terminated.  At this time, you should have an upgraded PingCentral instance.  Log in to the administrative console as before.  The user you created earlier should still exist, and the version information at the lower left should indicate version 1.14.0.  In addition, a new left navigation item (Management) will be present that was not there before:
 
-   ![PingCentral 1.12 Navigation Menu](../images/pingcentral112.png)
+   ![PingCentral 1.14 Navigation Menu](../images/pingcentral114.png)
 
 Finally, a check of the `DATABASECHANGELOG` table in the MySQL pod should show the new version of PingCentral as the last few entries in that table (51 entries as of this writing).  These updated entries indicate the database migration was successful.
 
 !!! note "Not all versions have database migrations"
-    The 1.10 -> 1.12 upgrade involved database updates.  Not all versions will have database updates, and corresponding `DATABASECHANGELOG` entries may not be present.
+    The 1.10 -> 1.14 upgrade involved database updates.  Not all versions will have database updates, and corresponding `DATABASECHANGELOG` entries might not be present.
 
 ## Cleanup
 
