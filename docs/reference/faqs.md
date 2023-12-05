@@ -15,6 +15,12 @@ Ping recommends the use of EBS volumes for container volumes on EKS.  EFS is not
 ### Docker Images
 
 <details>
+  <summary>What OS and Java versions are included in Ping Docker images?</summary>
+
+The operating system (OS) shims used for our images are Alpine and Red Hat UBI.  The UBI-based images are intended for Openshift deployments, while Alpine should be used in most other situations. For more information on the choice of Alpine, please visit <a href="https://devops.pingidentity.com/docker-images/imageSupport/#supported-os-shim">Supported OS Shim</a>.  The Java version currently included in our images is OpenJDK 11 and the distribution used is <a href="https://bell-sw.com/libericajdk/">BellSoft Liberica.</a>
+</details>
+
+<details>
   <summary>When are new Ping product Docker images released?</summary>
 
 Typically, Docker images are released on a monthly basis during the first full week of the month.  The images are tagged YYMM, with the month indicating the complete month prior.  So, tag "2303", representing the work from March 2023, would be released in early April.  As we mature our processes, the frequency and timing of these images will more closely align with product releases.
