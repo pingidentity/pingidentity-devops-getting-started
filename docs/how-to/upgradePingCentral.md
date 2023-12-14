@@ -7,6 +7,10 @@ title: Upgrading PingCentral
 !!! warning "Example Only"
     This example is for demonstration purposes only. It is not intended to reflect the complexities of a full production environment and will need to be adapted accordingly.
 
+!!! note "Video walkthrough"
+    A video demonstration of this process can be found [here](https://videos.pingidentity.com/detail/videos/devops/video/6343093748112/pingcentral-upgrade-demonstration).
+
+
 ## Caveats
 
 ### Kubernetes and Helm
