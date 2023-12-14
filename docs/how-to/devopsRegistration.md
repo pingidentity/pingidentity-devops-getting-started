@@ -3,7 +3,7 @@ title: Ping Identity DevOps Registration
 ---
 # Ping Identity DevOps Registration
 
-Registering for Ping Identity's DevOps Program provides you with credentials that enable you to easily deploy and evaluate Ping Identity products using trial licenses automatically via platforms such as Helm or Kubernetes.
+Registering for Ping Identity's DevOps Program provides you with credentials that enable you to easily deploy and evaluate Ping Identity products using trial licenses automatically using tools and plaforms like Helm or Kubernetes.
 
 To register for the DevOps Program:
 
@@ -11,7 +11,7 @@ To register for the DevOps Program:
   * If you don't have an account, create one [here](https://www.pingidentity.com/en/account/register.html).
   * When signing on, select **Support and Community** in the **Select Account** list.
   * After you're signed on, you're directed to your profile [page](https://support.pingidentity.com/s/).
-  * In the right-side menu, click **REGISTER FOR DEVOPS PROGRAM**.
+  * In the right-side menu, click **Register for DevOps Program**.
   ![Register for DevOps](../images/DEVOPS_REGISTRATION.png)
 
 A confirmation message will be shown and the DevOps credentials will be forwarded to the email address associated with your Ping Identity account.
@@ -57,6 +57,4 @@ If you have misplaced or lost your DevOps User/Key, there are two convenient way
   * Navigate to [Sign On](https://www.pingidentity.com/en/account/sign-on.html) and follow the instructions to access your account.
   * When signing on, select **Support and Community** in the **Select Account** list.
   * After you're signed on, you're directed to your profile [page](https://support.pingidentity.com/s/).
-  * In the right-side menu, click **RESEND DEVOPS CREDENTIALS**.
-
-A confirmation message will be shown and the DevOps credentials will be resent to the email address associated with your Ping Identity account.
+  * In the right-side menu, click **Register for DevOps Program** again.  A confirmation message will be shown and the same DevOps credentials will be resent to the email address associated with your Ping Identity account.
