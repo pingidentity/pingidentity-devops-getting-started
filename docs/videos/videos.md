@@ -17,7 +17,7 @@ You can also find all of these devops videos on the [Ping Website](https://video
 ## Product Docker Images
 
 * [Upgrade PingCentral](https://videos.pingidentity.com/detail/videos/devops/video/6343093748112/pingcentral-upgrade-demonstration)
-    * This video demonstrates demonstrates the upgrade of PingCentral in a containerized environment.
+    * This video demonstrates the upgrade of PingCentral in a containerized environment.
 * [Build a Ping product image locally](https://videos.pingidentity.com/detail/videos/devops/video/6313573601112/build-a-product-image)
     * This video demonstrates building a custom Ping product image using the Ping-provided build scripts and a downloaded product .zip file.
 * [Ping product Docker image exploration](https://videos.pingidentity.com/detail/videos/devops/video/6314748082112/ping-product-docker-image-exploration)
