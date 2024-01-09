@@ -7,6 +7,8 @@ global:
 #############################################################
 pingfederate-admin:
   enabled: true
+ # image:
+  #  tag: 11.0.3-fsoverride-alpine_3.18.4-al11-master-8851-x86_64
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: getting-started/pingfederate
@@ -16,6 +18,8 @@ pingfederate-admin:
 #############################################################
 pingfederate-engine:
   enabled: true
+  #image: 
+  #  tag: 11.0.3-fsoverride-alpine_3.18.4-al11-master-8851-x86_64
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: getting-started/pingfederate

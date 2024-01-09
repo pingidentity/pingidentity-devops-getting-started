@@ -18,7 +18,8 @@ version: "3.9"
 
 services:
   pingfederate:
-    image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingfederate:${PING_IDENTITY_DEVOPS_TAG:-edge}
+    #image: ${PING_IDENTITY_DEVOPS_REGISTRY:-docker.io/pingidentity}/pingfederate:${PING_IDENTITY_DEVOPS_TAG:-edge}
+    image: pingidentity/pingfederate:11.0.3-fsoverride-alpine_3.18.4-al11-master-8851-x86_64
     # You may need to comment this tmpfs line if you run containers on windows
     tmpfs: /run/secrets
     environment:

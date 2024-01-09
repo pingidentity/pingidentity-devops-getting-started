@@ -8,4 +8,4 @@ title: Ping Identity DevOps `pingdataconsole` Hook - `02-get-remote-server-profi
 ---
 This document is auto-generated from _[pingdataconsole/opt/staging/hooks/02-get-remote-server-profile.sh.post](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdataconsole/opt/staging/hooks/02-get-remote-server-profile.sh.post)_
 
-Copyright © 2023 Ping Identity Corporation. All rights reserved.
+Copyright © 2024 Ping Identity Corporation. All rights reserved.

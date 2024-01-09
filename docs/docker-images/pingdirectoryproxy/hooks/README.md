@@ -10,4 +10,4 @@ These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdat
 ---
 This document is auto-generated from _[pingdirectoryproxy/opt/staging/hooks](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectoryproxy/opt/staging/hooks)_
 
-Copyright © 2023 Ping Identity Corporation. All rights reserved.
+Copyright © 2024 Ping Identity Corporation. All rights reserved.
