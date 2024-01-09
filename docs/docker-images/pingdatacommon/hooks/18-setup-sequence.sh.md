@@ -9,4 +9,4 @@ title: Ping Identity DevOps `pingdatacommon` Hook - `18-setup-sequence.sh`
 ---
 This document is auto-generated from _[pingdatacommon/opt/staging/hooks/18-setup-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/opt/staging/hooks/18-setup-sequence.sh)_
 
-Copyright © 2023 Ping Identity Corporation. All rights reserved.
+Copyright © 2024 Ping Identity Corporation. All rights reserved.
