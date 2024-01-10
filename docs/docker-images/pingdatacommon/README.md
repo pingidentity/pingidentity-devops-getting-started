@@ -15,9 +15,9 @@ the Ping Identity DevOps PingData product images.
 The following environment `ENV` variables can be used with
 this image.
 
-|               ENV Variable | Default | Description                                                                                                                                                                                                                                                        |
-| -------------------------: | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| REGENERATE_JAVA_PROPERTIES | false   | Flag to force a run of dsjavaproperties --initialize. When this is false, the java.properties file will only be regenerated on a restart when there is a change in JVM or a change in the product-specific java options, such as changing the MAX_HEAP_SIZE value. |
+| ENV Variable  | Default     | Description
+| ------------: | ----------- | ---------------------------------
+| REGENERATE_JAVA_PROPERTIES  | false  | Flag to force a run of dsjavaproperties --initialize. When this is false, the java.properties file will only be regenerated on a restart when there is a change in JVM or a change in the product-specific java options, such as changing the MAX_HEAP_SIZE value.  |
 
 ## Docker Container Hook Scripts
 
@@ -26,4 +26,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document is auto-generated from _[pingdatacommon/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/Dockerfile)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

@@ -13,4 +13,4 @@ title: Ping Identity DevOps `pingaccess` Hook - `85-import-configuration.sh`
 ---
 This document is auto-generated from _[pingaccess/opt/staging/hooks/85-import-configuration.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/opt/staging/hooks/85-import-configuration.sh)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

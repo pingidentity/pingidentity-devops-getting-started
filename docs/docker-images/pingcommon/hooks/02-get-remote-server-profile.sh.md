@@ -27,4 +27,4 @@ title: Ping Identity DevOps `pingcommon` Hook - `02-get-remote-server-profile.sh
 ---
 This document is auto-generated from _[pingcommon/opt/staging/hooks/02-get-remote-server-profile.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/opt/staging/hooks/02-get-remote-server-profile.sh)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

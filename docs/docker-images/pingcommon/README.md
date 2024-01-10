@@ -17,4 +17,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document is auto-generated from _[pingcommon/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcommon/Dockerfile)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

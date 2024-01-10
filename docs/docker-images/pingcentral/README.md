@@ -19,24 +19,24 @@ In addition to environment variables inherited from **[pingidentity/pingbase](ht
 the following environment `ENV` variables can be used with
 this image.
 
-|                 ENV Variable | Default                                | Description                                                                                 |
-| ---------------------------: | -------------------------------------- | ------------------------------------------------------------------------------------------- |
-|                         SHIM | ${SHIM}                                |                                                                                             |
-|                IMAGE_VERSION | ${IMAGE_VERSION}                       |                                                                                             |
-|                IMAGE_GIT_REV | ${IMAGE_GIT_REV}                       |                                                                                             |
-|                         DATE | ${DATE}                                |                                                                                             |
-|         PING_PRODUCT_VERSION | ${VERSION}                             |                                                                                             |
-|     PING_CENTRAL_SERVER_PORT | 9022                                   |                                                                                             |
-|                 PING_PRODUCT | PingCentral                            | Ping product name                                                                           |
-|                  LICENSE_DIR | ${SERVER_ROOT_DIR}/conf                | License directory                                                                           |
-|            LICENSE_FILE_NAME | pingcentral.lic                        | Name of license file                                                                        |
-|           LICENSE_SHORT_NAME | PC                                     | Short name used when retrieving license from License Server                                 |
-|              LICENSE_VERSION | ${LICENSE_VERSION}                     | Version used when retrieving license from License Server                                    |
-|              STARTUP_COMMAND | ${SERVER_ROOT_DIR}/bin/run.sh          | The command that the entrypoint will execute in the foreground to instantiate the container |
-|               TAIL_LOG_FILES | ${SERVER_ROOT_DIR}/log/application.log | Files tailed once container has started                                                     |
-|       PING_CENTRAL_LOG_LEVEL | INFO                                   |                                                                                             |
-|     PING_CENTRAL_BLIND_TRUST | false                                  |                                                                                             |
-| PING_CENTRAL_VERIFY_HOSTNAME | true                                   |                                                                                             |
+| ENV Variable  | Default     | Description
+| ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
+| PING_CENTRAL_SERVER_PORT  | 9022  |  |
+| PING_PRODUCT  | PingCentral  | Ping product name  |
+| LICENSE_DIR  | ${SERVER_ROOT_DIR}/conf  | License directory  |
+| LICENSE_FILE_NAME  | pingcentral.lic  | Name of license file  |
+| LICENSE_SHORT_NAME  | PC  | Short name used when retrieving license from License Server  |
+| LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/application.log  | Files tailed once container has started  |
+| PING_CENTRAL_LOG_LEVEL  | INFO  |  |
+| PING_CENTRAL_BLIND_TRUST  | false  |  |
+| PING_CENTRAL_VERIFY_HOSTNAME  | true  |  |
 
 ## Ports Exposed
 
@@ -101,4 +101,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document is auto-generated from _[pingcentral/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingcentral/Dockerfile)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.

@@ -15,20 +15,20 @@ deployed to be used in configuration of the PingData products.
 The following environment `ENV` variables can be used with
 this image.
 
-|            ENV Variable | Default                             | Description                                                                                                                                                                 |
-| ----------------------: | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                    SHIM | ${SHIM}                             |                                                                                                                                                                             |
-|           IMAGE_VERSION | ${IMAGE_VERSION}                    |                                                                                                                                                                             |
-|           IMAGE_GIT_REV | ${IMAGE_GIT_REV}                    |                                                                                                                                                                             |
-|                    DATE | ${DATE}                             |                                                                                                                                                                             |
-|    PING_PRODUCT_VERSION | ${VERSION}                          |                                                                                                                                                                             |
-|            PING_PRODUCT | PingDataConsole                     | Ping product name                                                                                                                                                           |
-|               HTTP_PORT | 8080                                | PingDataConsole HTTP listen port                                                                                                                                            |
-|              HTTPS_PORT | 8443                                | PingDataConsole HTTPS listen port                                                                                                                                           |
-|         STARTUP_COMMAND | ${SERVER_ROOT_DIR}/bin/catalina.sh  | The command that the entrypoint will execute in the foreground to instantiate the container                                                                                 |
-| STARTUP_FOREGROUND_OPTS | run                                 | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container |
-| STARTUP_BACKGROUND_OPTS | start                               | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
-|          TAIL_LOG_FILES | ${SERVER_ROOT_DIR}/logs/console.log | Files tailed once container has started                                                                                                                                     |
+| ENV Variable  | Default     | Description
+| ------------: | ----------- | ---------------------------------
+| SHIM  | ${SHIM}  |  |
+| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
+| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
+| DATE  | ${DATE}  |  |
+| PING_PRODUCT_VERSION  | ${VERSION}  |  |
+| PING_PRODUCT  | PingDataConsole  | Ping product name  |
+| HTTP_PORT  | 8080  | PingDataConsole HTTP listen port  |
+| HTTPS_PORT  | 8443  | PingDataConsole HTTPS listen port  |
+| STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/catalina.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
+| STARTUP_FOREGROUND_OPTS  | run  | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
+| STARTUP_BACKGROUND_OPTS  | start  | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/logs/console.log  | Files tailed once container has started  |
 
 ## Run
 To run a PingDataConsole container:
@@ -68,4 +68,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document is auto-generated from _[pingdataconsole/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdataconsole/Dockerfile)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2023 Ping Identity Corporation. All rights reserved.
