@@ -168,6 +168,7 @@ nav:
         - Release Notes:
                   - Current Release: "release-notes/currentRelease.md"
                   - All Releases:
+                            - Version 2401: "release-notes/relnotes-2401.md"
                             - Version 2312: "release-notes/relnotes-2312.md"
                             - Version 2311: "release-notes/relnotes-2311.md"
                             - Version 2310: "release-notes/relnotes-2310.md"
