@@ -1,6 +1,6 @@
 # Ping Identity DevOps
 
-This repository is intended to hold various declarative code deployment examples for commonly used orchestration tools.
+This repository is intended to hold various declarative code deployment examples for commonly used orchestration tools only authorize usage.
 
 The complete collection of documentation for our Docker images and DevOps resources is located [Here](https://devops.pingidentity.com).
 
