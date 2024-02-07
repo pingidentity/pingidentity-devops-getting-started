@@ -1,3 +1,7 @@
+# Copied from 
+# https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.6/deploy/static/provider/kind/deploy.yaml
+# as a backup in case the user has Github access issues while working on our examples
+
 apiVersion: v1
 kind: Namespace
 metadata:
