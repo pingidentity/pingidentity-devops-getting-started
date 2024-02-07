@@ -1,4 +1,4 @@
-/---
+---
 title: Deploy a local Kubernetes Cluster
 ---
 # Deploy a local Kubernetes Cluster
