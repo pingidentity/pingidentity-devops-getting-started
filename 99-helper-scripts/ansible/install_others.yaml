@@ -11,13 +11,13 @@
 #######################  Helm ##############
     - name: Get helm installation file
       get_url:
-        url: "https://get.helm.sh/helm-v3.13.2-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/helm-v3.13.2-linux-amd64.tar.gz"
-        checksum: sha256:55a8e6dce87a1e52c61e0ce7a89bf85b38725ba3e8deb51d4a08ade8a2c70b2d
+        url: "https://get.helm.sh/helm-v3.14.0-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/helm-v3.14.0-linux-amd64.tar.gz"
+        checksum: sha256:f43e1c3387de24547506ab05d24e5309c0ce0b228c23bd8aa64e9ec4b8206651
       when: helm == True
 
     - name: Extract helm
-      shell: tar xzvf /home/ubuntu/helm-v3.13.2-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
+      shell: tar xzvf /home/ubuntu/helm-v3.14.0-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
       args:
         executable: /bin/bash
         creates: /usr/local/bin/helm
@@ -29,15 +29,15 @@
         state: absent
       with_items:
         - /home/ubuntu/linux-amd64
-        - /home/ubuntu/helm-v3.13.2-linux-amd64.tar.gz
+        - /home/ubuntu/helm-v3.14.0-linux-amd64.tar.gz
       when: helm == True
 
 ########################  K9S ##############
     - name: Get K9s installation file
       get_url:
-        url: "https://github.com/derailed/k9s/releases/download/v0.28.2/k9s_Linux_amd64.tar.gz"
+        url: "https://github.com/derailed/k9s/releases/download/v0.31.7/k9s_Linux_amd64.tar.gz"
         dest: "/home/ubuntu/k9s_Linux_amd64.tar.gz"
-        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.28.2/checksums.sha256
+        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.31.7/checksums.sha256
       when: k9s == True
 
     - name: Extract k9s
@@ -298,20 +298,20 @@
 
     - name: Get 'istioctl' installation file
       get_url:
-        url: "https://github.com/istio/istio/releases/download/1.20.0/istio-1.20.0-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/istio-1.20.0-linux-amd64.tar.gz"
-        checksum: sha256:https://github.com/istio/istio/releases/download/1.20.0/istio-1.20.0-linux-amd64.tar.gz.sha256
+        url: "https://github.com/istio/istio/releases/download/1.20.2/istio-1.20.2-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/istio-1.20.2-linux-amd64.tar.gz"
+        checksum: sha256:https://github.com/istio/istio/releases/download/1.20.2/istio-1.20.2-linux-amd64.tar.gz.sha256
       when: istio == True
 
     - name: Extract istioctl
-      shell: tar xzvf /home/ubuntu/istio-1.20.0-linux-amd64.tar.gz && sudo mv istio-1.20.0/bin/istioctl /usr/local/bin/istioctl
+      shell: tar xzvf /home/ubuntu/istio-1.20.2-linux-amd64.tar.gz && sudo mv istio-1.20.2/bin/istioctl /usr/local/bin/istioctl
       args:
         executable: /bin/bash
         creates: /usr/local/bin/istioctl
       when: istio == True
 
     - name: Install istio
-      shell: istioctl install -f /home/ubuntu/istio-1.20.0/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
+      shell: istioctl install -f /home/ubuntu/istio-1.20.2/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioInstalled
@@ -331,7 +331,7 @@
       when: istio == True
 
     - name: Install Istio add-ons
-      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.20.0/samples/addons && sudo touch /etc/.istioAddonsInstalled
+      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.20.2/samples/addons && sudo touch /etc/.istioAddonsInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioAddonsInstalled
@@ -369,8 +369,8 @@
         path: "{{ item }}"
         state: absent
       with_items:
-        - /home/ubuntu/istio-1.20.0
-        - /home/ubuntu/istio-1.20.0-linux-amd64.tar.gz
+        - /home/ubuntu/istio-1.20.2
+        - /home/ubuntu/istio-1.20.2-linux-amd64.tar.gz
         - /home/ubuntu/patch-service.yaml
       when: istio == True
 ...
