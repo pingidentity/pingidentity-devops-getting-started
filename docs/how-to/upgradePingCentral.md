@@ -47,7 +47,7 @@ Steps:
 Assumptions and requirements:
 
 * You have set up your DevOps environment and can run a test deployment of the products. For more information, see [Get Started](../get-started/introduction.md).
-* This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used was `4.25.2 (129061)`, which includes Docker Engine `v24.0.6` and Kubernetes `v1.28.2`.  The ingress-nginx controller version was `1.9.4`, deployed from Helm chart version `4.8.3`.
+* This example was written using Docker Desktop with Kubernetes enabled on the Mac platform.  The version used was `4.27.1 (136059)`, which includes Docker Engine `v25.0.2` and Kubernetes `v1.29.1`.  The ingress-nginx controller version was `1.9.6`, deployed from Helm chart version `4.9.1`.
 
 ## Environment Preparation
 
