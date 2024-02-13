@@ -198,7 +198,11 @@ kubectl cp pingdirectory-0:/tmp/userRoot.ldif \
 
 **schema**
 
-Schema belongs in your profile strcuture because you might want to manage your schema as code, and `pd.profile/server-root/pre-setup/config/schema` is where to do that.
+Schema belongs in your profile structure because you might want to manage your schema as code, and `pd.profile/server-root/pre-setup/config/schema` is where to do that.
+
+**java.properties**
+
+The `config/java.properties` file in the server root is used by PingDirectory to manage arguments passed to Java for the server process and for any command-line utilities. If you need to set any custom values in this file, provide the entire file in your server profile at `instance/config/java.properties`. Note that this is outside of the `pd.profile` folder.
 
 **encryption keys, keystores, truststores, and other secrets**
 
