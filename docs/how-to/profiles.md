@@ -67,7 +67,7 @@ Modify a server profile by either:
 
 In this example PingFederate installation, using the Github Repository uses a server profile provided through a Github URL and assigned to the `SERVER_PROFILE_PATH` environment variable, such as `--env SERVER_PROFILE_PATH=getting-started/pingfederate`).
 
-1. Export a [configuration archive](https://support.pingidentity.com/s/document-item?bundleId=pingfederate-84&topicId=adminGuide%2Fpf_c_configurationArchive.html) as a *.zip file from a PingFederate installation to a local directory.
+1. Export a [configuration archive](https://docs.pingidentity.com/r/en-us/pingfederate-120/help_configurationarchivetasklet_selectimportexportstate) as a *.zip file from a PingFederate installation to a local directory.
 
     > Make sure this is *exported* as a .zip rather than compressing it yourself.
 
