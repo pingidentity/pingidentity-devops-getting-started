@@ -14,6 +14,12 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 
 - PingFederate 12.0.0 → 12.0.1
 - PingFederate 11.3.4 → 11.3.5
+- - PingData products 10.0.0.0 → 10.0.0.1
+    - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
+    - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
+    - PingDataSync ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
+    - PingAuthorize ([Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize))
+    - PingDataConsole ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdataconsole))
 - PingData products 9.3.0.4 → 9.3.0.5
     - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
     - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
