@@ -145,6 +145,7 @@ this image.
 | BULK_CONFIG_DIR  | ${OUT_DIR}/instance/bulk-config  |  |
 | BULK_CONFIG_FILE  | data.json  |  |
 | ADMIN_WAITFOR_TIMEOUT  | 300  | wait-for timeout for 80-post-start.sh hook script How long to wait for the PF Admin console to be available  |
+| CREATE_INITIAL_ADMIN_USER  | false  | Set to true to create the initial admin user after PingFederate starts up. The initial admin user will only be created on the first startup of the server after the license is accepted.  |
 
 ## Ports Exposed
 
