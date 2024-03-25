@@ -114,7 +114,7 @@ this image.
 | PF_LOG_LEVEL  | INFO  | General log level -- provide custom log4j2.xml in profile for more detailed control valid values are OFF, ERROR, WARN, INFO, DEBUG NOTE: PF_LOG_LEVEL only applies to PF versions before 11.2.0  |
 | PF_ADMIN_PORT  | 9999  | Defines the port on which the PingFederate administrative console and API runs. PF_RUN_PF_ADMIN_HTTPS_PORT will override this for PingFederate 11.3 and later.  |
 | PF_ENGINE_PORT  | 9031  | Defines the port on which PingFederate listens for encrypted HTTPS (SSL/TLS) traffic. PF_RUN_PF_HTTPS_PORT will override this for PingFederate 11.3 and later.  |
-| PF_ENGINE_SECONDARY_PORT  | -1  | Defines a secondary HTTPS port that can be used for mutual SSL/TLS (client X.509 certificate) authentication for both end users and protocol requests. PF_RUN_PF_HTTPS_SECONDARY_PORT (default 9032) will override this value. The default value of -1 disables the port in the product.  |
+| PF_ENGINE_SECONDARY_PORT  | -1  | Defines a secondary HTTPS port that can be used for mutual SSL/TLS (client X.509 certificate) authentication for both end users and protocol requests. PF_RUN_PF_SECONDARY_HTTPS_PORT (default 9032) will override this value. The default value of -1 disables the port in the product.  |
 | PF_ENGINE_DEBUG  | false  | Flag to turn on PingFederate Engine debugging Used in run.sh  |
 | PF_ADMIN_DEBUG  | false  | Flag to turn on PingFederate Admin debugging Used in run.sh  |
 | PF_DEBUG_PORT  | 9030  | Defines the port on which PingFederate opens up a java debugging port. Used in run.sh  |
