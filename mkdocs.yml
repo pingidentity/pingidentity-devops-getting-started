@@ -134,6 +134,7 @@ nav:
                             - ENV Substitution: "how-to/profilesSubstitution.md"
                             - Installing Extensions with PingData Profiles: "how-to/profilesPingDataExtensions.md"
                             - Private Github Repos: "how-to/privateRepos.md"
+                  - PingDirectory and Prometheus: "how-to/prometheus.md"
                   - Vault/Secrets: "how-to/usingVault.md"
                   - Securing the Containers: "how-to/secureContainers.md"
                   - Upgrading Deployments:
