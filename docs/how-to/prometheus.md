@@ -7,4 +7,4 @@ In the past, enabling metrics for PingDirectory required a manual process to set
 
 You can refer to the [documentation](https://docs.pingidentity.com/r/en-us/pingdirectory-92/pd_ds_monitor_server_metrics_prometheus) for the `dsconfig` commands to enable the Prometheus metrics.  The link above is for PingDirectory 9.2, but the process is the same for newer versions.
 
-These `dsconfig` commands can be included in a server profile to ensure that the configuration is applied when the server is started.
+These `dsconfig` commands can be included in a server profile to ensure that the configuration is applied when the server is started. See [here](https://github.com/pingidentity/pingidentity-server-profiles/blob/master/monitoring/pingdirectory/jolokia/pd.profile/dsconfig/15-prometheus.dsconfig) for an example.
