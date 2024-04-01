@@ -26,6 +26,10 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 - Apache Tomcat 9.0.86 → 9.0.87
 - LDAPSDK 6.0.11 -> 7.0.0
 
+### Resolved Defects
+
+- (PDI-1505) Fixed an issue where environment variables pulled in from Vault secrets were not available to the server process
+
 ### Documentation
 
 - (PDI-1475) Remove example for setting up Prometheus in GitHub server profile
