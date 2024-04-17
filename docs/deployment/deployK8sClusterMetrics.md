@@ -11,11 +11,6 @@ This document demonstrates the process of deploying and using a sample open-sour
 !!! warning "Not For Production"
     The resulting environment is not production-ready.  It is only intended to show how Ping software can produce metrics for consumption by a popular open-source monitoring system. This example stack is not maintained or directly supported by Ping.
 
-!!! error "Kubernetes version notice"
-    The *Prometheus operator* used for this example is incompatible with Kubernetes v1.25 or later due to the removal of the deprecated [PodSecurityPolicy](https://kubernetes.io/docs/concepts/security/pod-security-policy/) object with that release.  As of September 2022, the operator only supports up through Kubernetes v1.24.  Until this is updated, your Kubernetes cluster must be V1.24 or lower to follow the example on this page.
-
-    See the compatibility chart at the [Prometheus operator](https://github.com/prometheus-operator/kube-prometheus) repository for more information.
-
 ## Stack Components
 
 **Open Source Tools**
