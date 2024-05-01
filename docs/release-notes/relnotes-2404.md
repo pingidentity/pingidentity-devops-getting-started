@@ -12,15 +12,14 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 
 ### New Product Releases
 
-- PingAccess 8.0.0 → 8.0.2
-- PingAccess 7.3.2 → 7.3.3
+- PingAccess 8.0.1 → 8.0.2
 - PingFederate 12.0.1 → 12.0.2
 - PingFederate 11.3.5 → 11.3.6
 - PingCentral 2.0.1 → 2.0.2
 
 ### Enhancements
 
-- Apache Tomcat 9.0.86 → 9.0.88
+- Apache Tomcat 9.0.87 → 9.0.88
 - Liberica JDK17 17.0.10+13 → 17.0.11+10
 - Liberica JDK11 11.0.22+12 → 11.0.23+10
 
