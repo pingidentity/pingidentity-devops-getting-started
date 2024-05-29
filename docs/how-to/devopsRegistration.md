@@ -1,9 +1,13 @@
 ---
 title: Ping Identity DevOps Registration
 ---
+
+!!! info "Getting Support"
+    The team responsible for the Ping DevOps program does not have access to the user account system on the Ping Identity website.  If you have trouble with your account and are unable to follow these instructions to enroll, the issue is probably with your credentials in our system.  Please contact your sales representative at [Ping Identity Support](https://support.pingidentity.com/s/).
+
 # Ping Identity DevOps Registration
 
-Registering for Ping Identity's DevOps Program provides you with credentials that enable you to easily deploy and evaluate Ping Identity products using trial licenses automatically using tools and plaforms like Helm or Kubernetes.
+Registering for Ping Identity's DevOps Program provides you with credentials that enable you to easily deploy and evaluate Ping Identity products using trial licenses automatically using tools and platforms like Helm or Kubernetes.
 
 To register for the DevOps Program:
 
