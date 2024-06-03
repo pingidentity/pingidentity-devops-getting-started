@@ -15,7 +15,7 @@ title: Deploy a Local Openshift Cluster
 Some customers are using Openshift as their platform for running Ping containerized applications.  If this is the case, access to an Openshift cluster is assumed.  Even in those cases, there are times where a local implementation of Openshift for development and testing is convenient.  
 
 !!! note "Platform"
-    For this guide, the Apple MacBook Pro platform is used, and the release of the _Red Hat Openshift Local_ offering is version 2.29.0
+    For this guide, the Apple MacBook Pro platform is used, and the release of the _Red Hat Openshift Local_ offering is version 2.36.0, which installs Openshift 4.15.12.
 
 The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.29) offering is used in this guide. This page was derived from the [documentation](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.29/html/getting_started_guide/index) provided by Red Hat.
 
@@ -38,8 +38,8 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc version
 
     # Output
-    CRC version: 2.29.0+da5f55
-    OpenShift version: 4.14.1
+    CRC version: 2.36.0+27c493
+    OpenShift version: 4.15.12
     Podman version: 4.4.4
 
     # Set configuration
@@ -63,26 +63,29 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc setup
 
     # Output
-    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.14.1_amd64.crcbundle
+    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
+    INFO Checking if running macOS version >= 13.x
     INFO Checking if running as non-root
     INFO Checking if crc-admin-helper executable is cached
     INFO Checking if running on a supported CPU architecture
     INFO Checking if crc executable symlink exists
-    INFO Creating symlink for crc executable
     INFO Checking minimum RAM requirements
+    INFO Check if Podman binary exists in: /Users/userjoe/.crc/bin/oc
+    INFO Removing Podman binary from: /Users/userjoe/.crc/bin/oc
     INFO Checking if running emulated on Apple silicon
     INFO Checking if vfkit is installed
     INFO Checking if CRC bundle is extracted in '$HOME/.crc'
-    INFO Checking if /Users/userjoe/.crc/cache/crc_vfkit_4.14.1_amd64.crcbundle exists
+    INFO Checking if /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle exists
     INFO Getting bundle for the CRC executable
-    INFO Downloading bundle: /Users/userjoe/.crc/cache/crc_vfkit_4.14.1_amd64.crcbundle...
-    4.61 GiB / 4.61 GiB [----------------------------------------------------------------------------] 100.00% 76.61 MiB/s
-    INFO Uncompressing /Users/userjoe/.crc/cache/crc_vfkit_4.14.1_amd64.crcbundle
-    crc.img:  31.00 GiB / 31.00 GiB [----------------------------------------------------------------] 100.00%
-    oc:  115.75 MiB / 115.75 MiB [-------------------------------------------------------------------] 100.00%
+    INFO Downloading bundle: /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle...
+    4.98 GiB / 4.98 GiB [--------------------------------------------------------------------------------] 100.00% 15.22 MiB/s
+    INFO Uncompressing /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
+    crc.img:  31.00 GiB / 31.00 GiB [--------------------------------------------------------------------------------] 100.00%
+    oc:  118.78 MiB / 118.78 MiB [-----------------------------------------------------------------------------------] 100.00%
     INFO Checking if old launchd config for tray and/or daemon exists
     INFO Checking if crc daemon plist file is present and loaded
     INFO Adding crc daemon plist file and loading it
+    INFO Checking SSH port availability
     Your system is correctly setup for using CRC. Use 'crc start' to start the instance
     ```
 
@@ -92,26 +95,29 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc start
  
     # Output
- 
-    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.14.1_amd64.crcbundle
+    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
+    INFO Checking if running macOS version >= 13.x
     INFO Checking if running as non-root
     INFO Checking if crc-admin-helper executable is cached
     INFO Checking if running on a supported CPU architecture
     INFO Checking if crc executable symlink exists
     INFO Checking minimum RAM requirements
+    INFO Check if Podman binary exists in: /Users/userjoe/.crc/bin/oc
     INFO Checking if running emulated on Apple silicon
     INFO Checking if vfkit is installed
     INFO Checking if old launchd config for tray and/or daemon exists
     INFO Checking if crc daemon plist file is present and loaded
-    INFO Loading bundle: crc_vfkit_4.14.1_amd64...
-    INFO Creating CRC VM for OpenShift 4.14.1...
+    INFO Checking SSH port availability
+    INFO Loading bundle: crc_vfkit_4.15.12_amd64...
+    INFO Creating CRC VM for OpenShift 4.15.12...
     INFO Generating new SSH key pair...
     INFO Generating new password for the kubeadmin user
-    INFO Starting CRC VM for openshift 4.14.1...
+    INFO Starting CRC VM for openshift 4.15.12...
     INFO CRC instance is running with IP 127.0.0.1
     INFO CRC VM is running
     INFO Updating authorized keys...
     INFO Resizing /dev/vda4 filesystem
+    INFO Configuring shared directories
     INFO Check internal and public DNS query...
     INFO Check DNS query from host...
     INFO Verifying validity of the kubelet certificates...
@@ -124,14 +130,8 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     INFO Updating cluster ID...
     INFO Updating root CA cert to admin-kubeconfig-client-ca configmap...
     INFO Starting openshift instance... [waiting for the cluster to stabilize]
-    INFO 2 operators are progressing: image-registry, ingress
-    INFO 2 operators are progressing: image-registry, ingress
-    INFO Operator image-registry is progressing
-    INFO Operator image-registry is progressing
-    INFO Operator image-registry is progressing
-    INFO Operator image-registry is progressing
-    INFO Operator image-registry is progressing
-    INFO Operator image-registry is progressing
+    E0531 14:12:45.233915   69684 request.go:1116] Unexpected error when reading response body: net/http: request canceled (Client.Timeout or context cancellation while reading body)
+    INFO 2 operators are progressing: console, network
     INFO All operators are available. Ensuring stability...
     INFO Operators are stable (2/3)...
     INFO Operators are stable (3/3)...
@@ -147,14 +147,14 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     
     Log in as user:
       Username: developer
-      Password: developer
+      Password: <password>
     
     Use the 'oc' command line interface:
       $ eval $(crc oc-env)
       $ oc login -u developer https://api.crc.testing:6443
     ```
 
-    Depending on the speed of your system, this will take 8 to 15 minutes.  There is a 10 minute timeout on checking the stability of operators deployed by Openshift.  It might be the case that the tool reports these have not reached full stability in that window.  In the writing of this guide, no issues were found using Openshift deployed in this manner, even if the error occurs.  Each time these steps were tested, everything eventually reached a healthy status, but just not in the window expected on some occasions.
+    Depending on the speed of your system, this will take 8 to 15 minutes.  There is a 10 minute timeout on checking the stability of operators deployed by Openshift.  It might be the case that the tool reports these have not reached full stability in that window.  In the writing of this guide, no issues were found using Openshift deployed in this manner, even if the error occurs.  Each time the steps in this guide were tested, everything eventually reached a healthy status, even if not in the window expected on some occasions.
 
 Setup is complete.  This local environment should be ready to deploy our [Helm examples](./deployHelm.md)
 
