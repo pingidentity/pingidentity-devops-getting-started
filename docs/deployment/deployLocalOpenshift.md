@@ -63,23 +63,23 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc setup
 
     # Output
-    INFO Using bundle path /Users/davidross/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
+    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
     INFO Checking if running macOS version >= 13.x
     INFO Checking if running as non-root
     INFO Checking if crc-admin-helper executable is cached
     INFO Checking if running on a supported CPU architecture
     INFO Checking if crc executable symlink exists
     INFO Checking minimum RAM requirements
-    INFO Check if Podman binary exists in: /Users/davidross/.crc/bin/oc
-    INFO Removing Podman binary from: /Users/davidross/.crc/bin/oc
+    INFO Check if Podman binary exists in: /Users/userjoe/.crc/bin/oc
+    INFO Removing Podman binary from: /Users/userjoe/.crc/bin/oc
     INFO Checking if running emulated on Apple silicon
     INFO Checking if vfkit is installed
     INFO Checking if CRC bundle is extracted in '$HOME/.crc'
-    INFO Checking if /Users/davidross/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle exists
+    INFO Checking if /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle exists
     INFO Getting bundle for the CRC executable
-    INFO Downloading bundle: /Users/davidross/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle...
+    INFO Downloading bundle: /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle...
     4.98 GiB / 4.98 GiB [--------------------------------------------------------------------------------] 100.00% 15.22 MiB/s
-    INFO Uncompressing /Users/davidross/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
+    INFO Uncompressing /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
     crc.img:  31.00 GiB / 31.00 GiB [--------------------------------------------------------------------------------] 100.00%
     oc:  118.78 MiB / 118.78 MiB [-----------------------------------------------------------------------------------] 100.00%
     INFO Checking if old launchd config for tray and/or daemon exists
@@ -95,14 +95,14 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc start
  
     # Output
-    INFO Using bundle path /Users/davidross/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
+    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
     INFO Checking if running macOS version >= 13.x
     INFO Checking if running as non-root
     INFO Checking if crc-admin-helper executable is cached
     INFO Checking if running on a supported CPU architecture
     INFO Checking if crc executable symlink exists
     INFO Checking minimum RAM requirements
-    INFO Check if Podman binary exists in: /Users/davidross/.crc/bin/oc
+    INFO Check if Podman binary exists in: /Users/userjoe/.crc/bin/oc
     INFO Checking if running emulated on Apple silicon
     INFO Checking if vfkit is installed
     INFO Checking if old launchd config for tray and/or daemon exists
@@ -154,7 +154,7 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
       $ oc login -u developer https://api.crc.testing:6443
     ```
 
-    Depending on the speed of your system, this will take 8 to 15 minutes.  There is a 10 minute timeout on checking the stability of operators deployed by Openshift.  It might be the case that the tool reports these have not reached full stability in that window.  In the writing of this guide, no issues were found using Openshift deployed in this manner, even if the error occurs.  Each time these steps were tested, everything eventually reached a healthy status, but just not in the window expected on some occasions.
+    Depending on the speed of your system, this will take 8 to 15 minutes.  There is a 10 minute timeout on checking the stability of operators deployed by Openshift.  It might be the case that the tool reports these have not reached full stability in that window.  In the writing of this guide, no issues were found using Openshift deployed in this manner, even if the error occurs.  Each time the steps in this guide were tested, everything eventually reached a healthy status, even if not in the window expected on some occasions.
 
 Setup is complete.  This local environment should be ready to deploy our [Helm examples](./deployHelm.md)
 
