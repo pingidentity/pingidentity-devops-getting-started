@@ -4,7 +4,7 @@ This section will discuss deploying a single PingFederate cluster that spans acr
 
 Deploying PingFederate in multiple regions should not imply that spanning a single PingFederate cluster across multiple Kubernetes clusters is necessary or optimal.  This scenario makes sense when you have:
 
-* Traffic that can cross between regions at any time. For example, west-west and west-east and users may be routed to either location.
+* Traffic that can cross between regions at any time. For example, *west* and *east* and users may be routed to either location.
 * Configuration that needs to be the same in multiple regions **and** there is no reliable automation to ensure this is the case
 
 If all configuration changes are delivered via a pipeline, and traffic will not cross regions, having separate PingFederate clusters can work.
