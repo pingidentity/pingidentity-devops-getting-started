@@ -18,9 +18,9 @@ pingdirectory:
     # SKIP WAIT FOR DNS WHEN USING LOADBALANCER PER POD
     SKIP_WAIT_FOR_DNS: "true"
     ## CHANGEME
-    K8S_POD_HOSTNAME_SUFFIX:  ".example.east.ping-multi-cluster.com"
+    K8S_POD_HOSTNAME_SUFFIX: ".example.east.ping-multi-cluster.com"
     ## CHANGEME
-    K8S_SEED_HOSTNAME_SUFFIX:  ".example.west.ping-multi-cluster.com"
+    K8S_SEED_HOSTNAME_SUFFIX: ".example.west.ping-multi-cluster.com"
     K8S_INCREMENT_PORTS: "false"
   services:
     loadBalancerServicePerPod: true

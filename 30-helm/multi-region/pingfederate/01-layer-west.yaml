@@ -4,11 +4,12 @@ pingfederate-admin:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingfederate
     ## CHANGEME
-    DNS_QUERY_LOCATION: "example-pingfederate-cluster.my-namespace.svc.cluster.local,example-pingfederate.demo.usa.ping-multi-cluster.com"
+    DNS_QUERY_LOCATION: "pingfederate-cluster.namespace.svc.cluster.local,pingfed-east.ping-devops.com"
     OPERATIONAL_MODE: CLUSTERED_CONSOLE
-    PF_NODE_GROUP_ID: EUR
+    PF_NODE_GROUP_ID: WES
   services:
-    clusterExternalDNSHostname: example-pingfederate.demo.eur.ping-multi-cluster.com
+    ## CHANGEME
+    clusterExternalDNSHostname: pingfed-west.ping-devops.com
 
 pingfederate-engine:
   enabled: true
@@ -16,8 +17,8 @@ pingfederate-engine:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: baseline/pingfederate
     ## CHANGEME
-    DNS_QUERY_LOCATION: "example-pingfederate-cluster.my-namespace.svc.cluster.local,example-pingfederate.demo.usa.ping-multi-cluster.com"
-    PF_NODE_GROUP_ID: EUR
+    DNS_QUERY_LOCATION: "pingfederate-cluster.namespace.svc.cluster.local,pingfed-east.ping-devops.com"
+    PF_NODE_GROUP_ID: WES
   container:
     waitFor:
       pingfederate-admin:

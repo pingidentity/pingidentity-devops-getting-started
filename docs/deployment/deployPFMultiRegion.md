@@ -4,7 +4,7 @@ This section will discuss deploying a single PingFederate cluster that spans acr
 
 Deploying PingFederate in multiple regions should not imply that spanning a single PingFederate cluster across multiple Kubernetes clusters is necessary or optimal.  This scenario makes sense when you have:
 
-* Traffic that can cross between regions at any time. For example, us-west and us-east and users may be routed to either location.
+* Traffic that can cross between regions at any time. For example, west-west and west-east and users may be routed to either location.
 * Configuration that needs to be the same in multiple regions **and** there is no reliable automation to ensure this is the case
 
 If all configuration changes are delivered via a pipeline, and traffic will not cross regions, having separate PingFederate clusters can work.
@@ -27,6 +27,7 @@ Static engine lists, which may be used to extend traditional, on-premise PingFed
 * Helm client installed
 
 ## Overview
+
 ![PingFederate DNS PING MultiRegion Deployment Diagram](../images/pf_dns_ping_overview_diagram.png)
 
 The PingFederate Docker image default `instance/server/default/conf/tcp.xml` file points to DNS_PING. After you have two peered Kubernetes clusters, spanning a PingFederate cluster across the two becomes easy. A single PingFederate cluster uses DNS_PING to query a local headless service. In this example we use [externalDNS](https://github.com/kubernetes-sigs/external-dns) to give an externalName to the headless service. The `externalDNS` feature from the Kubernetes special interest group (SIG) creates a corresponding record on AWS Route53 and constantly updates it with container IP addresses of the backend PF engines.
@@ -36,51 +37,53 @@ The PingFederate Docker image default `instance/server/default/conf/tcp.xml` fil
 
 ## What You Will Do
 
-- Clone the example files from the `getting-started` [Repository](https://github.com/pingidentity/pingidentity-devops-getting-started)
-- Edit the externalName of the pingfederate-cluster service and the DNS_QUERY_LOCATION variable as needed
+* Clone the example files from the `getting-started` [Repository](https://github.com/pingidentity/pingidentity-devops-getting-started)
+* Edit the externalName of the pingfederate-cluster service and the DNS_QUERY_LOCATION variable as needed
   > Search the files for `# CHANGEME` comments to find where these changes need to be made.
-- Deploy the clusters
-- Cleanup
+* Deploy the clusters
+* Cleanup
 
 ## Example deployment
 
-Clone this `getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) to get the Helm values yaml for the exercise. The files are located under the folder `30-helm/multi-region/pingfederate`.  After cloning: 
+Clone this `getting-started` [repository](https://github.com/pingidentity/pingidentity-devops-getting-started) to get the Helm values yaml for the exercise. The files are located under the folder `30-helm/multi-region/pingfederate`.  
+
+After cloning:
 
 1. Update the first uncommented line under any `## CHANGEME` comment in the files. The changes will indicate the Kubernetes namespace and the externalName of the pingfederate-cluster service.
 
-2. Deploy the first cluster (the example here uses [kubectx](https://github.com/ahmetb/kubectx) to set the kubectl context))
+1. Deploy the first cluster (the example here uses [kubectx](https://github.com/ahmetb/kubectx) to set the kubectl context))
 
     ```sh
-    kubectx us
-    helm upgrade --install example pingidentity/ping-devops -f base.yaml -f 01-layer-usa.yaml
+    kubectx west
+    helm upgrade --install example pingidentity/ping-devops -f base.yaml -f 01-layer-west.yaml
     ```
 
-3. Deploy the second cluster
+1. Deploy the second cluster
 
     ```sh
-    kubectx eu
-    helm upgrade --install example pingidentity/ping-devops -f base.yaml -f 01-layer-eur.yaml
+    kubectx east
+    helm upgrade --install example pingidentity/ping-devops -f base.yaml -f 01-layer-east.yaml
     ```
 
-4. Switch back to the first cluster, and simulate a regional failure by removing the PingFederate cluster entirely:
+1. Switch back to the first cluster, and simulate a regional failure by removing the PingFederate cluster entirely:
 
     ```sh
-    kubectx us
+    kubectx west
     helm uninstall example
     ```
 
-5. Switch back to the second cluster and switch failover to active
+1. Switch back to the second cluster and switch failover to active
 
     ```sh
-    kubectx eu
-    helm upgrade --install example pingidentity/ping-devops -f base.yaml -f 02-layer-eur.yaml
+    kubectx east
+    helm upgrade --install example pingidentity/ping-devops -f base.yaml -f 02-layer-east.yaml
     ```
 
 ## Cleanup
 
 ```sh
-kubectx eu
+kubectx east
 helm uninstall example
-kubectx us
+kubectx west
 helm uninstall example
 ```
