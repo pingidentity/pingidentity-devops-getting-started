@@ -16,9 +16,9 @@ pingdirectory:
     K8S_NUM_REPLICAS: "3"
     K8S_POD_HOSTNAME_PREFIX: "example-pingdirectory-"
     ## CHANGEME
-    K8S_POD_HOSTNAME_SUFFIX: ".example.east.ping-devops.com"
+    K8S_POD_HOSTNAME_SUFFIX: ".example.east.ping-multi-cluster.com"
     ## CHANGEME
-    K8S_SEED_HOSTNAME_SUFFIX: ".example.west.ping-devops.com"
+    K8S_SEED_HOSTNAME_SUFFIX: ".example.west.ping-multi-cluster.com"
     K8S_INCREMENT_PORTS: "false"
     VERBOSE: "true"
   services:
@@ -37,6 +37,6 @@ pingdirectory:
       ingressPort: 443
       dataService: true
     ## CHANGEME
-    clusterExternalDNSHostname: example.east.ping-devops.com
+    clusterExternalDNSHostname: example.east.ping-multi-cluster.com
     ## CHANGEME
-    dataExternalDNSHostname: us.east.ping-devops.com
+    dataExternalDNSHostname: us.east.ping-multi-cluster.com
