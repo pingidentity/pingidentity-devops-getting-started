@@ -49,6 +49,7 @@ this image.
 | SKIP_WAIT_FOR_DNS  | false  | Set to true to skip the waiting for DNS step that is normally done just before attempting to join the topology.  |
 | CERTIFICATE_NICKNAME  |   | There is an additional certificate-based variable used to identity the certificate alias used within the `KEYSTORE_FILE`. That variable is called `CERTIFICATE_NICKNAME`, which identifies the certificate to use by the server in the `KEYSTORE_FILE`. If a value is not provided, the container will look at the list certs found in the `KEYSTORE_FILE` and if one - and only one - certificate is found of type `PrivateKeyEntry`, that alias will be used.  |
 | COLUMNS  | 120  | Sets the number of columns in PingDataSync command-line tool output  |
+| PD_REBUILD_ON_RESTART  | false  | Force a rebuild (replace-profile) of PingDataSync on restart. Used to ensure that the server configuration exactly matches the server profile. This variable will slow down startup times and should only be used when necessary.  |
 
 ## Ports Exposed
 
