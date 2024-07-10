@@ -1,0 +1,49 @@
+{
+  "clientId": "test789",
+  "enabled": false,
+  "redirectUris": [],
+  "grantTypes": [
+    "CLIENT_CREDENTIALS"
+  ],
+  "name": "Test 789",
+  "description": "Curl create test789",
+  "modificationDate": "2024-07-02T01:32:45.338Z",
+  "creationDate": "2024-07-02T01:32:45.338Z",
+  "refreshRolling": "SERVER_DEFAULT",
+  "refreshTokenRollingIntervalType": "SERVER_DEFAULT",
+  "persistentGrantExpirationType": "SERVER_DEFAULT",
+  "persistentGrantIdleTimeoutType": "SERVER_DEFAULT",
+  "persistentGrantIdleTimeout": 0,
+  "persistentGrantIdleTimeoutTimeUnit": "DAYS",
+  "persistentGrantReuseType": "SERVER_DEFAULT",
+  "allowAuthenticationApiInit": false,
+  "bypassApprovalPage": false,
+  "restrictScopes": false,
+  "requirePushedAuthorizationRequests": false,
+  "requireJwtSecuredAuthorizationResponseMode": false,
+  "restrictedScopes": [],
+  "exclusiveScopes": [],
+  "restrictedResponseTypes": [],
+  "authorizationDetailTypes": [],
+  "restrictToDefaultAccessTokenManager": true,
+  "validateUsingAllEligibleAtms": false,
+  "oidcPolicy": {
+    "grantAccessSessionRevocationApi": false,
+    "grantAccessSessionSessionManagementApi": false,
+    "logoutMode": "NONE",
+    "pingAccessLogoutCapable": false,
+    "pairwiseIdentifierUserType": false
+  },
+  "clientAuth": {
+    "type": "SECRET",
+    "secret": "test789",
+    "secondarySecrets": []
+  },
+  "deviceFlowSettingType": "SERVER_DEFAULT",
+  "requireProofKeyForCodeExchange": false,
+  "refreshTokenRollingGracePeriodType": "SERVER_DEFAULT",
+  "clientSecretRetentionPeriodType": "SERVER_DEFAULT",
+  "clientSecretChangedTime": "2024-07-02T01:32:45.000Z",
+  "requireDpop": false,
+  "requireSignedRequests": false
+}

@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+#
+# Ping Identity DevOps - Docker Build Hooks
+#
+#- This script is started in the background immediately before
+#- the server within the container is started
+#-
+#- This is useful to implement any logic that needs to occur after the
+#- server is up and running
+#-
+#- For example, enabling replication in PingDirectory, initializing Sync
+#- Pipes in PingDataSync or issuing admin API calls to PingFederate or PingAccess
+
+# Pull the data.json file from the configmap
+export APISERVER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
+export SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
+export NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
+export TOKEN=$(cat ${SERVICEACCOUNT}/token)
+export CACERT=${SERVICEACCOUNT}/ca.crt
+curl -v --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" \
+  -X GET ${APISERVER}/api/v1/namespaces/${NAMESPACE}/configmaps/pingfederate-data \
+  | jq -r '.data."data.json"' \
+  > "${STAGING_DIR}/instance/bulk-config/data.json"
+
+curl_status="${?}"
+
+if [ "${curl_status}" -ne 0 ]; then
+  echo "Mount ConfigMap didn't work - exit code: [${curl_status}]"
+  exit "${curl_status}"
+fi
+
+curl -v --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" \
+  -X GET ${APISERVER}/api/v1/namespaces/${NAMESPACE}/secrets/pingfederate-jwk \
+  | jq -r '.data."pf.jwk"' | base64 -d \
+  > "${STAGING_DIR}/instance/server/default/data/pf.jwk"
+
+curl_status="${?}"
+
+if [ "${curl_status}" -ne 0 ]; then
+  echo "Mount Secrets didn't work - exit code: [${curl_status}]"
+  exit "${curl_status}"
+fi
+
+exit 0

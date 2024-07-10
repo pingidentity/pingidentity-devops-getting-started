@@ -1,0 +1,804 @@
+{
+  "version": "8.0.3.0",
+  "data": {
+    "acmeDefaultServer": {
+      "id": "8572f98e-482e-41c2-8a3d-6a0b2fc99734",
+      "location": "https://demo-pingaccess-admin.pingdemo.example:443/pa-admin-api/v3/acme/servers/8572f98e-482e-41c2-8a3d-6a0b2fc99734"
+    },
+    "acmeServers": [
+      {
+        "id": "08eb4cbc-20ed-409b-82c6-12fd0c92eb71",
+        "name": "Let's Encrypt",
+        "url": "https://acme-v02.api.letsencrypt.org/directory",
+        "acmeAccounts": []
+      },
+      {
+        "id": "8572f98e-482e-41c2-8a3d-6a0b2fc99734",
+        "name": "Let's Encrypt Staging Environment",
+        "url": "https://acme-staging-v02.api.letsencrypt.org/directory",
+        "acmeAccounts": []
+      }
+    ],
+    "adminAuthBasic": {
+      "enabled": true
+    },
+    "adminAuthWebSession": {
+      "sessionPollIntervalInSeconds": 10,
+      "expirationWarningInMinutes": 1,
+      "idleTimeoutInMinutes": 30,
+      "sessionTimeoutInMinutes": 240,
+      "timeoutGroovyScript": null,
+      "audience": "PingAccessUI",
+      "cookieDomain": null,
+      "cookieType": "Encrypted"
+    },
+    "adminConfig": {
+      "hostPort": "demo-pingaccess-admin:9090",
+      "httpProxyId": 0,
+      "httpsProxyId": 0,
+      "staleEngineTimeout": 60,
+      "staleEngineTimeoutEnabled": false
+    },
+    "agents": [
+      {
+        "id": 1,
+        "name": "PRODAGENT",
+        "description": "ddsff",
+        "hostname": "demo-pingaccess-admin-0",
+        "port": 9090,
+        "sharedSecretIds": [
+          1
+        ],
+        "overrideIpSource": false,
+        "ipSource": null,
+        "failoverHosts": [],
+        "failedRetryTimeout": 60,
+        "maxRetries": 2,
+        "unknownResourceMode": null,
+        "selectedCertificateId": 1,
+        "certificateHash": {
+          "algorithm": "SHA1",
+          "hexValue": "b6b0a4915229c536c03f098fc454cac3613253fd"
+        }
+      }
+    ],
+    "applicationDefaults": {
+      "defaultAuthnChallengePolicyId": null
+    },
+    "applications": [
+      {
+        "id": 1,
+        "enabled": true,
+        "agentCacheInvalidatedResponseDuration": 900,
+        "agentCacheInvalidatedExpiration": 1720567571004,
+        "lastModified": 1720566671004,
+        "requireHTTPS": false,
+        "name": "anything",
+        "description": "",
+        "manualOrderingEnabled": false,
+        "resourceOrder": [],
+        "applicationType": "Web",
+        "defaultAuthType": "Web",
+        "spaSupportEnabled": true,
+        "fallbackPostEncoding": "UTF-8",
+        "destination": "Site",
+        "contextRoot": "/anything",
+        "realm": null,
+        "caseSensitivePath": false,
+        "allowEmptyPathSegments": false,
+        "webSessionId": 0,
+        "issuer": null,
+        "siteId": 1,
+        "agentId": 0,
+        "sidebandClientId": null,
+        "virtualHostIds": [
+          2
+        ],
+        "identityMappingIds": {
+          "Web": 0,
+          "API": 0
+        },
+        "accessValidatorId": 0,
+        "policy": {
+          "Web": [
+            {
+              "type": "Rule",
+              "id": 1
+            }
+          ],
+          "API": []
+        },
+        "authenticationChallengePolicyId": null,
+        "riskPolicyId": 0,
+        "deployReservedResources": false,
+        "dpopSettings": {
+          "overrideDpopSettings": false,
+          "dpopType": "OFF",
+          "nonceRequired": false,
+          "dpopProofLifetime": 120
+        }
+      },
+      {
+        "id": 2,
+        "enabled": true,
+        "agentCacheInvalidatedResponseDuration": 900,
+        "agentCacheInvalidatedExpiration": 1720567571016,
+        "lastModified": 1720566671016,
+        "requireHTTPS": true,
+        "name": "pingdirectory_rest_api",
+        "description": "",
+        "manualOrderingEnabled": false,
+        "resourceOrder": [],
+        "applicationType": "API",
+        "defaultAuthType": "Web",
+        "spaSupportEnabled": false,
+        "fallbackPostEncoding": "UTF-8",
+        "destination": "Site",
+        "contextRoot": "/directory/v1",
+        "realm": null,
+        "caseSensitivePath": false,
+        "allowEmptyPathSegments": false,
+        "webSessionId": 0,
+        "issuer": null,
+        "siteId": 3,
+        "agentId": 0,
+        "sidebandClientId": null,
+        "virtualHostIds": [
+          2
+        ],
+        "identityMappingIds": {
+          "Web": 0,
+          "API": 0
+        },
+        "accessValidatorId": 1,
+        "policy": {
+          "Web": [],
+          "API": []
+        },
+        "authenticationChallengePolicyId": null,
+        "riskPolicyId": 0,
+        "deployReservedResources": false,
+        "dpopSettings": {
+          "overrideDpopSettings": false,
+          "dpopType": "OFF",
+          "nonceRequired": false,
+          "dpopProofLifetime": 120
+        }
+      }
+    ],
+    "authTokenMgmt": {
+      "keyRollEnabled": true,
+      "keyRollPeriodInHours": 24,
+      "issuer": "PingAccessAuthToken",
+      "signingAlgorithm": "P-256"
+    },
+    "availabilityProfiles": [
+      {
+        "className": "com.pingidentity.pa.ha.availability.ondemand.OnDemandAvailabilityPlugin",
+        "id": 1,
+        "name": "Default Availability Profile",
+        "configuration": {
+          "connectTimeout": 10000,
+          "pooledConnectionTimeout": -1,
+          "readTimeout": -1,
+          "maxRetries": 2,
+          "retryDelay": 250,
+          "failedRetryTimeout": 60,
+          "failureHttpStatusCodes": []
+        }
+      }
+    ],
+    "engineListeners": [
+      {
+        "id": 1,
+        "name": "Default Engine Listener",
+        "port": 3000,
+        "secure": true,
+        "trustedCertificateGroupId": 0
+      }
+    ],
+    "engines": [
+      {
+        "id": 6,
+        "name": "demo-pingaccess-engine-85574b7b8d-9j5vx",
+        "description": null,
+        "configReplicationEnabled": true,
+        "keys": [
+          {
+            "jwk": {
+              "kty": "EC",
+              "kid": "0607802c-873a-4bda-bd28-a2af84787ee9",
+              "x": "JgS7vaF3k6IFZCx4QhlNX18l3batSgQGr4EhOZAwiSo",
+              "y": "fEhK4NSEDSUlOspspvpd30h5MqGTe0-GwPbLPDr8wII",
+              "crv": "P-256"
+            },
+            "created": 1720574846769
+          }
+        ],
+        "httpProxyId": 0,
+        "httpsProxyId": 0,
+        "selectedCertificateId": 1,
+        "certificateHash": {
+          "algorithm": "SHA1",
+          "hexValue": "b6b0a4915229c536c03f098fc454cac3613253fd"
+        }
+      }
+    ],
+    "environment": {
+      "name": null
+    },
+    "httpHostSource": {
+      "headerNameList": [
+        "X-Forwarded-Host",
+        "Host"
+      ],
+      "listValueLocation": "LAST"
+    },
+    "httpIpSource": {
+      "headerNameList": [
+        "X-Forwarded-For"
+      ],
+      "listValueLocation": "LAST",
+      "fallbackToLastHopIp": true
+    },
+    "httpMonitoring": {
+      "auditLevel": "OFF"
+    },
+    "httpProtocolSource": {
+      "headerName": "X-Forwarded-Proto"
+    },
+    "httpsListeners": [
+      {
+        "id": 1,
+        "name": "ADMIN",
+        "keyPairId": 1,
+        "useServerCipherSuiteOrder": true,
+        "restartRequired": false
+      },
+      {
+        "id": 2,
+        "name": "ENGINE",
+        "keyPairId": 1,
+        "useServerCipherSuiteOrder": true,
+        "restartRequired": false
+      },
+      {
+        "id": 3,
+        "name": "AGENT",
+        "keyPairId": 1,
+        "useServerCipherSuiteOrder": true,
+        "restartRequired": false
+      },
+      {
+        "id": 4,
+        "name": "CONFIG QUERY",
+        "keyPairId": 1,
+        "useServerCipherSuiteOrder": true,
+        "restartRequired": false
+      },
+      {
+        "id": 5,
+        "name": "SIDEBAND",
+        "keyPairId": 1,
+        "useServerCipherSuiteOrder": true,
+        "restartRequired": false
+      }
+    ],
+    "keyPairs": [
+      {
+        "id": 1,
+        "alias": "PRIVATE HOSTNAME CERT",
+        "fileData": "T0JGOkpXRTpleUpoYkdjaU9pSmthWElpTENKbGJtTWlPaUpCTVRJNFEwSkRMVWhUTWpVMklpd2lhMmxrSWpvaWNWZFpOWEJpUkZwVGRUazRVMUF4ZENKOS4uY0JaUFpaMXlnZElmOFhGdE42MlRKUS5YeHRKWmFQdmdFUmdWTkR3RWt1T3hMSjd3MEIxR2d3UlhzQllma3ozWS02bzhYRjhkZXhnZmZ4MVZaSDB4bGhUeUVQcnVNM04tcndoNm1GNEplenk1SVVVMTdlSS1lSHVsUWFUS0lWc0VsZ3Vvdl9VYWYxbHZoMzRIRFRvdlhFMVhuQW1xYmEwVm56RnR0Zi1yc013dEdUN3hFSjlfN2ZNWEt2X19NV0FLcERyM1NudWNHeWt5LVU3eEYwRlFySjVzV1ZpTmZQZV82azR5SDRBVVNNMDdPNXp1VEswU1Qtd2xzTE9oUUZQX1BBamtSTlhmbjRRUkVES0ZGNEpKb1JldHpkU0xaSWhNeWJ3cEE3YTllUlJwakxDelFzM3g2T3RJcmtDU1IwRzBzalRWcWswUmhSNFY3YjN1UDk3Xzk4UmJ0OUdNQnpNZlYxSmxUWEpCS0VZU1FFaWhKR2FhQ1M5cy14azBUUlpmekFGUlFTZGd1b3ViSWJhdWo0Slh5TG0wWldjWVJNRmNpY29URTNDR2x3b09ZUXJfcWRwWTJaRkJpZ3A1WXRxaWQ1LXFyVF9Ld0RRZnVOM1JTdXpjaEJUMG5CMnBLczMxUWhmZFdnVE9PdGowSmhxTXNFY0NRX0ZuM01sV1lPc0FWZFhuZjNPQ3hrZVNEa3FGM3ljdlU1YlVfX2NkOUFISFNoaEJEUlNiWFUtOVQybFgyblhJVDJkTGdTNlpZdy0tTjNvTDk0cVpVbEVJdVc2Sks0UHhqZERlR0ZZLTJGQjZ2dkVFcW9MM0tsYnVFM3BxQVVSaGhmUW1mbGFhSnhwTm9nZnhIQUZvUW9xLTRndno4T09RUHFCMGtNOEJhbGhRaTZwbWtRMVA3SDdsYV9HZFlqT3prSGJLUTh2emVlVDdXbmF1dldDUHBaWnltSmh6Zk11bkJtaVNZdF9sWmp0cnZBR1FwTWlkSFIyZm9renU4WnR1TVNERW1VZWNScDJsajV0ZTdlSXFYZnlnd1c1RFdxT3AwaEVTZ0RNVlN3UWkwWUtyQlEzaG5MaExDaU53Rjl5VFNIOXlIcGtrUkhjd1ZkdFkyQmNWZDYzM3JTSWpVSWc2X3pMRTNCRXNSVG5SaDlaUW01TnhxVVdCdGxNVm9pbXo3NEZFX2RXbHJOQ3NsMG5nWkg3bWlNTmdOMlNNZzBJc2lEaEY4TFY1a3FTbER2aVdaUnFDeW5Xb282OFFDTmVlZEtyeGxrZWZiLWVoT3pES1JPWXRYMDVqZE5ycUZhUnBPa2VnQ0N6TlNxZ3M5cFFnZnRGQ1V5NFdERXFQTGhLVmYteHJJWWhUV0RYZG8wZFFySzJCMnB4eXcwbVpKR3VPc0pkeTBWV0s5Nkt1emsydXlwdXF0c0lFTjR6eDRqQUg0Y3BhUlJzd0gtVGpMdzhMWmNYS3RjUURaTmlFWmMzelhrLV85WjBDOGhra053VmMtMkRkU2dTdTVBRnltWnBvd3VPNGs0dWJocnRHSF94ZG9ybjJGMnNDdnFPUW5ManVBVE1aQ1VjM040dFpIM1ROdkVhcW5BYVI0NDYydWYwTml3S21yZjdMX0dBYTV1aG1DUEVOdDFBenJVeFdLclNtd2cwMEVNZmVocFdZZlNtQktwUlpXYlQ4UC1zbEQyWXY4TFRWemktSDRGQ3RXS1c2TDd0V3puWHdGQm1IbWl2V3hldkZvWFNVem5OVlFIamN1dWZUdXB3NzQxQkJRNkoteWNaX3pVTjNfdHFZLWJpLXZFaDhvT1lGUWo3QjVCRTZhUTJCMFJ1NGNQYmN1RDVUUjBNMHlZRUtCZENCbXdQOTRISjFuQjROU0pUNG1laUpvWTgxSXN0MmtyVVBOT2MwZXo2Y0lUMlBOLVVpbjJIa1BXaFFYbF9fODUzWFZSaFgyYlhnTzRKYXhVQWNDUTE1Y1hqQkktQUVFOVFLcWRzdDFhVzJHMzhSRDFhdmlGZFpPa0VKNTFDeE1GLUU5aDZHM0hSa09tc3cxbDVTekpKejFsWEFFd3NJQnJGMEd6RjJLc1Q1NXJ6alNyZk1RbXlZYm5QanVDSHhKbmppbFZFX2Nzb2NPSFVfcTJ2MmJJRVpjTEdYWnQtcGpqb21TbU9LanpHTmdRbWVzMy1RWHFZZGYzVUlnUVVLeEgwYzhnbUFGa19Vbk9IUk41dC1YMTJLdE5jTF91cmFnZVF3ZlVXVUZSSl9XWTRjNEoxbkR1cWpZRy1RdTF4Wmp1SXN2V3EyR2o1bXFQXzVncTh4UnB3eldKa3pXSjNGZm9mNkxZY1ZnNzhYNnFLeVg3OTdpZXdubDNwWTA3cmNFM0pEaFNOYXRyNjNheXBaU1NtQTlSc1BtRzVIRFFrYnRpNmhJQ2FfZzhWRDFXTGZDX3hHaXk2Rlo2blBNQ0hhekcyVThLWTNwZnhkWnRqMjRDSnlTSVY4eVd6MUtBMkx0Zm1YMTVxQkRCTDRGaHRVLWJRWXBScXRoZW5seGlmR29lbTlXUHRBVUtxbzVTQk1sTTBXcGFCbjZLMDlLTmtsdWd5eEpIMF94NFUwdXM2WE5WZkFrLTZUQXdFNjJNMXVmRXgzczBKeExuMkZoN0JSbnphWmJ4b2FGU090WTJJcXltWjZiMjgtR00tVi1QY1RoZ19lQ0dwekRvbEUtRVFRcnB1NGFiRmpHYzh5Qk8zNHEwQ2wzRTBrYm8wNFJVSG1vMHB5OXV2cGpDRHV5ckNCUVNpNXNUSXBoRjloekdQUGtVSENCdnk3OUl1cGJrVWdocWhRVkxrSHVheHlrc3g2bGJEQlgzcTRtby15N2dKUlJUd3ZxM0dpMWRvZTVRbE5xeVZRU3ZQRmgyQVBrbU9QQ1NCbHZIeUpMQ0dIc1p5LTkzTlFSSXh5Zm1VNU5kcWxXYWNBcUdEWml4MnFpMFFaQkhoLVZJN3RQYUZTRDRIbDlSYzFVSGlydk1lVjI3NThjLUZIVG4tN2NvMExrZGVma2d4YU82ZlNVNlRvT1JvUVIzeVZWT1pQTkotcGJIek5pb212UXN0VWw4OUVmLTYwaF9iSUpteEhmbU9zZEtUUi1WODQzN0xEanZ5VFlVaC1OaG1FU3dLMFJRM0N2VFlrdlpScnI2SnMxeEx6X3ZkaDQ5WHdRb28wZGF4azh1U2FiQWI1amNWWWVrWXpKLTlwZDNYU0Q3RVdOTG5obHNJZ3hSZ0dLZVh5dFI5WkFXaHBTUGp6bUNLb0g1QmZqUkVJYjduSC1qNlJfRllFUE9jOGt5b1VnNGVOWW9GelBjZW5kTFJFQ05CZnRJSVQwSkYxTjZhanZfYlpsMVJ5WUMxQ2RiSkVnWFAtcmJVUEl3cTR2WUZXRWsyaERyc3RnT29IbnJWckZkYkRaeEhrTEU4bzFBU3RYR0RQRHhhcldGSnhEU0hLUjhpbm92QkNZQy1sdXlxMndOUmJnQy05amowazNLQUxfWkZoWElnX0dYdElVYXFSUzZPLXpYTTNIOGdMLTV5S0FpRHVLWkNfTUxKNlRGMjVfd2tkendldkMwQlRJT3pxT2Z5clVHNVBSYjhQU01XeVZfX3VRV24xRmJGcGZ1WnJscjlaX2hRZXpNMjlHUFBsaTFZQnBTRWNNRThDak56ckdIMTNJblpIU1dnRk5HR0R0YUVUUVBtRXA0SmxCZnh0OWRraEZyeGlTbnBwdTZoTmdheE9jWWVTTTVUeWg3NFE2aENaYlFJTS14SXZEVmxoa3UwY0lKOHZkemxFdzRlMUhEWUVRakNob3gtcjdiN1hkN1FaR1FvNkw1bmEtbTV6dGNVSmRielVUMi1DeC1QdF9LZG11SXloekZBaUtLOWNaOEcyeXBFdDVaYUJHeko4SUt6SnVXT2p4dUh5TmhCRF9YX0Z3eHBBQXdCUDA4WnBIeU93RUJoR3A1Q1dtNmNmSFpwYWltN0g5V0RaMTh6Nlh0NTVkTVMxT05Ja1o0R3ktdURkeWs3a3kxZHdqM0RWcFdSanBpYUtqeUdCRnlvV01xNUFFZGpUeVFCVmszckt6d0g2NW54UkVnMjd1ZDFZR3NYNXhJWkt3Y19yX1BndklyVXRxZ21qV1VIeHh4V3BIQVBnem53VjJuMEdUQ0NVSEdDMS1QaVl1RHktd0hUVTU5UUNjU1RDcTl3M2Z3YjhwVUNnQ0xxTFY5SWdfZkpMd3ZzQk5hNHdodnpBU1VIb0RHSmRiYXpVYUxKSndUcTF1eHZDUVA1WTZRNk04cDlhLXNLampFNEtPZUJsRy1Kb0syTk1BRXVwVkZDSFR2LTJweDdmd2VOM1d2OC0tcl8zVDMwZzltX1NSRE9PanZPeDEzRk1lZUdySU5FNVFFSUVhZGN2SmdpLWZ4Vmtnc0RsMnk1VlFIbjV1b2M0YThCajMza1ZjeGZkODhvWnFVYWRGRXp6bFBHank2X0RzRDdpeWxlX0N1UW1zU2duRHQ1R28xb0E5a0JTc3NmanJMb29WRFFSQ2dfZjVUWFFxY3pRUjl3U2lnb2lKcGhOVG9hY0dEVVNIZUFyeXh1MHE4LXpDb0NJWEEwZm9SdkhSSGd1cEN4T05PNFdweXNHbUwwRXI5WWhEU29ZRklaOGpnTVRMWTR2bno2akt1UThnN1ZnejluZWVOU1JxTXpmNXJSRU5mcDh3S0cyMnNKNlA1STM4anVzS0JueDF0cERYRWpIcngxWGU5Z0R6bmlrUTlMMkJLaDltQVF2b2ZNSGw4dGk0alU1SjlFdWZOdmoyRllnRld4ODA1a256QXpjT1Q2UkpEei1rNWVXR25MclBRcGpUcGUzaUNMUFR2TWdaQnpaTlNKNzlvZlVWZ25obExIZkxTLUh3M3FSdWVMakhSQkp2RUNFcmdFQWRjekFBM0drZ3prZG5YbFAtOFA2eTlWbzdWQWxscEMwUDdLby1tWFBXNncxLVA5c3Z2QllFRTd0dGdES2RNMUpUcTlCdVRtXzdFVUZCNHZwU0tsb2xqZXExdk9MTlFaUTlFMV9sQ2kzMzl5RHZFZE1VQ1dUQzY2R0FabE8xUVlWLVRkb0EudU54WUpCLTNSNkx2S1VjVDBvaDR1Zw==",
+        "password": null,
+        "hsmProviderId": 0
+      }
+    ],
+    "loadBalancingStrategies": [
+      {
+        "className": "com.pingidentity.pa.ha.lb.roundrobin.CookieBasedRoundRobinPlugin",
+        "id": 1,
+        "name": "Default Round Robin Strategy",
+        "configuration": {
+          "stickySessionEnabled": true,
+          "cookieName": "PA_S"
+        }
+      }
+    ],
+    "logSettings": {
+      "logCategories": [
+        {
+          "id": "core",
+          "enabled": false,
+          "name": "Core",
+          "description": "Debug logging for core components."
+        },
+        {
+          "id": "clusterreplication",
+          "enabled": false,
+          "name": "Cluster Replication",
+          "description": "Log configuration replication details."
+        },
+        {
+          "id": "requestheaders",
+          "enabled": false,
+          "name": "HTTP Request Headers",
+          "description": "Log HTTP request headers. Sensitive information, such as passwords, may be logged when this category is enabled."
+        },
+        {
+          "id": "requestparams",
+          "enabled": false,
+          "name": "HTTP Request Parameters",
+          "description": "Log HTTP GET request parameters. Sensitive information, such as passwords, may be logged when this category is enabled."
+        },
+        {
+          "id": "httpclient",
+          "enabled": false,
+          "name": "HTTP Client",
+          "description": "HTTP client provides information about requests and responses made to PingAccess by clients. Sensitive information, such as passwords, may be logged when this category is enabled."
+        },
+        {
+          "id": "httpapplication",
+          "enabled": false,
+          "name": "HTTP Application",
+          "description": "HTTP application provides information about requests and responses made by PingAccess to other tools or services. Sensitive information, such as passwords, may be logged when this category is enabled."
+        },
+        {
+          "id": "cookie",
+          "enabled": false,
+          "name": "Cookie",
+          "description": "Log both incoming and outgoing cookies."
+        },
+        {
+          "id": "networkevents",
+          "enabled": false,
+          "name": "Network Events",
+          "description": "Analyze the state of connections to PingAccess."
+        },
+        {
+          "id": "confmgmt",
+          "enabled": false,
+          "name": "Configuration Management",
+          "description": "Log details related to loading the administrative configuration from disk into the runtime as well as ordering of resources."
+        },
+        {
+          "id": "crlhandling",
+          "enabled": false,
+          "name": "CRL Handling",
+          "description": "Log certificate revocation checking and validation."
+        },
+        {
+          "id": "groovyrule",
+          "enabled": false,
+          "name": "Groovy Rule",
+          "description": "Logging from within a Groovy rule script."
+        },
+        {
+          "id": "apiaudit",
+          "enabled": true,
+          "name": "API Audit",
+          "description": "API audit logging, including request and responses."
+        },
+        {
+          "id": "engineaudit",
+          "enabled": true,
+          "name": "Engine Audit",
+          "description": "Engine audit logging, including requests and responses."
+        },
+        {
+          "id": "agentaudit",
+          "enabled": true,
+          "name": "Agent Audit",
+          "description": "Agent audit logging, including requests and responses."
+        },
+        {
+          "id": "sidebandclientaudit",
+          "enabled": true,
+          "name": "Sideband Client Audit",
+          "description": "Sideband client audit logging, including requests and responses."
+        },
+        {
+          "id": "sidebandaudit",
+          "enabled": true,
+          "name": "Sideband Audit",
+          "description": "Sideband audit logging, including requests and responses."
+        }
+      ]
+    },
+    "oauthKeyMgmt": {
+      "keyRollEnabled": true,
+      "keyRollPeriodInHours": 24,
+      "signingAlgorithm": null
+    },
+    "pingFederateAdmin": {
+      "authenticationType": "Basic",
+      "adminUsername": "administrator",
+      "adminPassword": {
+        "encryptedValue": "OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoicVdZNXBiRFpTdTk4U1AxdCJ9..e-vjm6Y7-mpLxQgnfj81EA.F6oickuqAfSiuKEN3V0HxA.1f8f2oHz3J2pgonwgoKwzw"
+      },
+      "skipHostnameVerification": false,
+      "expectedHostname": null,
+      "basePath": "",
+      "trustedCertificateGroupId": 2,
+      "auditLevel": "OFF",
+      "secure": true,
+      "useProxy": false,
+      "host": "demo-pingfederate-admin",
+      "port": 9999,
+      "oAuthAuthenticationConfig": null
+    },
+    "pingFederateOAuth": {
+      "clientCredentials": {
+        "clientId": "rs_client",
+        "clientSecret": {
+          "encryptedValue": "OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoicVdZNXBiRFpTdTk4U1AxdCJ9..tDb7Mhv1DciVzQPp__6PPQ.NP0v_0ZnRAHwdZL4iEKGlg.r8lQ-RUSPTR1IwLX-ZKILg"
+        },
+        "keyPairId": 0,
+        "credentialsType": "SECRET",
+        "signingAlgorithm": null
+      },
+      "cacheTokens": false,
+      "tokenTimeToLiveSeconds": -1,
+      "subjectAttributeName": "Username",
+      "sendAudience": false,
+      "useTokenIntrospection": false,
+      "dpopSettings": {
+        "dpopType": "OFF",
+        "nonceRequired": false,
+        "dpopProofLifetime": 120
+      },
+      "accessValidatorId": 1,
+      "name": "PingFederate",
+      "clientId": "rs_client",
+      "clientSecret": {
+        "encryptedValue": "OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoicVdZNXBiRFpTdTk4U1AxdCJ9..tDb7Mhv1DciVzQPp__6PPQ.NP0v_0ZnRAHwdZL4iEKGlg.r8lQ-RUSPTR1IwLX-ZKILg"
+      }
+    },
+    "pingFederateRuntime": {
+      "description": null,
+      "issuer": "https://demo-pingfederate-engine:9031",
+      "trustedCertificateGroupId": 2,
+      "useProxy": false,
+      "useSlo": false,
+      "stsTokenExchangeEndpoint": null,
+      "skipHostnameVerification": true
+    },
+    "rejectionHandlers": [
+      {
+        "className": "com.pingidentity.pa.policy.rejectionhandler.errortemplate.ErrorTemplateRejectionHandlerPlugin",
+        "id": 1,
+        "name": "Default Web Rejection Handler",
+        "configuration": {
+          "responseCode": 403,
+          "templateFile": "policy.error.page.template.html",
+          "contentType": "HTML"
+        }
+      },
+      {
+        "className": "com.pingidentity.pa.policy.rejectionhandler.errortemplate.ErrorTemplateRejectionHandlerPlugin",
+        "id": 2,
+        "name": "Default API Rejection Handler",
+        "configuration": {
+          "responseCode": 403,
+          "templateFile": "oauth.error.json",
+          "contentType": "JSON"
+        }
+      },
+      {
+        "className": "com.pingidentity.pa.policy.rejectionhandler.errortemplate.ErrorTemplateRejectionHandlerPlugin",
+        "id": 3,
+        "name": "Default Rate Limiting Rejection Handler",
+        "configuration": {
+          "responseCode": 429,
+          "templateFile": "oauth.error.json",
+          "contentType": "JSON"
+        }
+      }
+    ],
+    "reservedApplication": {
+      "contextRoot": "/pa"
+    },
+    "resources": [
+      {
+        "id": 1,
+        "name": "Root Resource",
+        "methods": [
+          "*"
+        ],
+        "pathPatterns": [
+          {
+            "pattern": "/*",
+            "type": "WILDCARD"
+          }
+        ],
+        "pathPrefixes": [
+          "/*"
+        ],
+        "auditLevel": "ON",
+        "rootResource": true,
+        "anonymous": false,
+        "enabled": true,
+        "unprotected": false,
+        "policy": {
+          "Web": [],
+          "API": []
+        },
+        "defaultAuthTypeOverride": null,
+        "applicationId": 1,
+        "queryParamConfig": null,
+        "resourceType": "Standard",
+        "resourceTypeConfiguration": {
+          "responseGenerator": null
+        },
+        "authenticationChallengePolicyId": null,
+        "riskPolicyId": 0,
+        "dpopSettings": {
+          "overrideDpopSettings": false,
+          "dpopType": "OFF",
+          "nonceRequired": false,
+          "dpopProofLifetime": 120
+        }
+      },
+      {
+        "id": 2,
+        "name": "Root Resource",
+        "methods": [
+          "*"
+        ],
+        "pathPatterns": [
+          {
+            "pattern": "/*",
+            "type": "WILDCARD"
+          }
+        ],
+        "pathPrefixes": [
+          "/*"
+        ],
+        "auditLevel": "ON",
+        "rootResource": true,
+        "anonymous": false,
+        "enabled": true,
+        "unprotected": false,
+        "policy": {
+          "Web": [],
+          "API": []
+        },
+        "defaultAuthTypeOverride": null,
+        "applicationId": 2,
+        "queryParamConfig": null,
+        "resourceType": "Standard",
+        "resourceTypeConfiguration": {
+          "responseGenerator": null
+        },
+        "authenticationChallengePolicyId": null,
+        "riskPolicyId": 0,
+        "dpopSettings": {
+          "overrideDpopSettings": false,
+          "dpopType": "OFF",
+          "nonceRequired": false,
+          "dpopProofLifetime": 120
+        }
+      }
+    ],
+    "rules": [
+      {
+        "className": "com.pingidentity.pa.policy.rewrite.SynapseURLRewritePolicyInterceptor",
+        "id": 1,
+        "name": "echo to root",
+        "supportedDestinations": [
+          "Site"
+        ],
+        "configuration": {
+          "mapFrom": "/echo/(.*)",
+          "mapTo": "/$1"
+        }
+      },
+      {
+        "className": "com.pingidentity.pa.policy.RejectionRule",
+        "id": 2,
+        "name": "json error",
+        "supportedDestinations": [
+          "Site",
+          "Agent"
+        ],
+        "configuration": {
+          "rejectionHandler": "2"
+        }
+      }
+    ],
+    "sharedSecrets": [
+      {
+        "id": 1,
+        "created": 1720574981257,
+        "secret": {
+          "encryptedValue": "OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoicVdZNXBiRFpTdTk4U1AxdCJ9..po4VyAMi1wxGN6WYS6Nfgw.OW19Xfb7pSFtoO3RYWkBkGwrlDNm_wPnJwOnhV0tPuI.mE8qw5nogvGcD89_lzvroQ"
+        }
+      }
+    ],
+    "siteAuthenticators": [
+      {
+        "className": "com.pingidentity.pa.siteauthenticators.BasicAuthTargetSiteAuthenticator",
+        "id": 1,
+        "name": "pingdirectory_rest_api_authn",
+        "configuration": {
+          "username": "cn=administrator",
+          "password": {
+            "encryptedValue": "OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoicVdZNXBiRFpTdTk4U1AxdCJ9..oTK0TBJjekFaI9R5CJIMuw.pjayACfooDUJzHXXiDDZKw.b4YKePdUUEv0t2FKuBY0nQ"
+          }
+        }
+      }
+    ],
+    "sites": [
+      {
+        "id": 1,
+        "name": "anything",
+        "targets": [
+          "httpbin:80",
+          "httpbin.org:80"
+        ],
+        "secure": false,
+        "trustedCertificateGroupId": 0,
+        "sendPaCookie": true,
+        "useTargetHostHeader": false,
+        "keepAliveTimeout": 0,
+        "maxConnections": -1,
+        "maxWebSocketConnections": -1,
+        "siteAuthenticatorIds": [],
+        "skipHostnameVerification": false,
+        "expectedHostname": null,
+        "availabilityProfileId": 1,
+        "loadBalancingStrategyId": 0,
+        "useProxy": false
+      },
+      {
+        "id": 2,
+        "name": "pingfederate_docker",
+        "targets": [
+          "demo-pingfederate-engine:9031"
+        ],
+        "secure": true,
+        "trustedCertificateGroupId": 2,
+        "sendPaCookie": true,
+        "useTargetHostHeader": false,
+        "keepAliveTimeout": 0,
+        "maxConnections": -1,
+        "maxWebSocketConnections": -1,
+        "siteAuthenticatorIds": [],
+        "skipHostnameVerification": false,
+        "expectedHostname": null,
+        "availabilityProfileId": 1,
+        "loadBalancingStrategyId": 0,
+        "useProxy": false
+      },
+      {
+        "id": 3,
+        "name": "pingdirectory_rest_api",
+        "targets": [
+          "demo-pingdirectory:443"
+        ],
+        "secure": true,
+        "trustedCertificateGroupId": 2,
+        "sendPaCookie": false,
+        "useTargetHostHeader": true,
+        "keepAliveTimeout": 0,
+        "maxConnections": -1,
+        "maxWebSocketConnections": -1,
+        "siteAuthenticatorIds": [
+          1
+        ],
+        "skipHostnameVerification": true,
+        "expectedHostname": null,
+        "availabilityProfileId": 1,
+        "loadBalancingStrategyId": 0,
+        "useProxy": false
+      }
+    ],
+    "staticOAuthOIDCKeys ": {
+      "enabled": false,
+      "rsa256ActiveCertRef": 0,
+      "rsa256PreviousCertRef": 0,
+      "rsa256PublishX5cParameter": false,
+      "rsa384ActiveCertRef": 0,
+      "rsa384PreviousCertRef": 0,
+      "rsa384PublishX5cParameter": false,
+      "rsa512ActiveCertRef": 0,
+      "rsa512PreviousCertRef": 0,
+      "rsa512PublishX5cParameter": false,
+      "p256ActiveCertRef": 0,
+      "p256PreviousCertRef": 0,
+      "p256PublishX5cParameter": false,
+      "p384ActiveCertRef": 0,
+      "p384PreviousCertRef": 0,
+      "p384PublishX5cParameter": false,
+      "p521ActiveCertRef": 0,
+      "p521PreviousCertRef": 0,
+      "p521PublishX5cParameter": false,
+      "ps256ActiveCertRef": 0,
+      "ps256PreviousCertRef": 0,
+      "ps256PublishX5cParameter": false,
+      "ps384ActiveCertRef": 0,
+      "ps384PreviousCertRef": 0,
+      "ps384PublishX5cParameter": false,
+      "ps512ActiveCertRef": 0,
+      "ps512PreviousCertRef": 0,
+      "ps512PublishX5cParameter": false
+    },
+    "tokenProvider": {
+      "useThirdParty": false,
+      "type": "PingFederate"
+    },
+    "unknownResources": {
+      "errorStatusCode": 403,
+      "errorTemplateFile": "general.error.page.template.html",
+      "errorContentType": "HTML",
+      "agentDefaultMode": "DENY",
+      "agentDefaultCacheTTL": 900,
+      "auditLevel": "ON"
+    },
+    "virtualHosts": [
+      {
+        "id": 2,
+        "host": "*",
+        "port": 3000,
+        "agentResourceCacheTTL": 900,
+        "keyPairId": 0,
+        "trustedCertificateGroupId": 0
+      }
+    ],
+    "webSessionMgmt": {
+      "keyRollEnabled": true,
+      "keyRollPeriodInHours": 24,
+      "issuer": "PingAccess",
+      "signingAlgorithm": "P-256",
+      "cookieName": "PA",
+      "sessionStateCookieName": "PA_STATE",
+      "updateTokenWindowInSeconds": 60,
+      "encryptionAlgorithm": "A128CBC-HS256",
+      "nonceCookieTimeToLiveInMinutes": 5
+    },
+    "webSessions": [
+      {
+        "id": 1,
+        "name": "pingaccess_global",
+        "pkceChallengeType": "SHA256",
+        "refreshUserInfoClaimsInterval": 60,
+        "requestPreservationType": "POST",
+        "cacheUserAttributes": false,
+        "enableRefreshUser": true,
+        "sendRequestedUrlToProvider": true,
+        "validateSessionIsAlive": false,
+        "enablePushAuthorization": false,
+        "oidcLoginType": "Code",
+        "webStorageType": "SessionStorage",
+        "requestProfile": true,
+        "scopes": [
+          "address",
+          "email",
+          "phone",
+          "profile"
+        ],
+        "promptParameter": [],
+        "provideAuthenticationFeedback": false,
+        "failOnUnsupportedPreservationContentType": false,
+        "clientCredentials": {
+          "clientId": "pingaccessAc",
+          "clientSecret": {
+            "encryptedValue": "OBF:JWE:eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2Iiwia2lkIjoicVdZNXBiRFpTdTk4U1AxdCJ9..1k2oWt-CFRTl_fvLSwtI8g.28nzuXTB4b1OA1CYAowJGQ.7Hus1_FdIL2N2FqiVZ9o0A"
+          },
+          "keyPairId": 0,
+          "credentialsType": "SECRET",
+          "signingAlgorithm": null
+        },
+        "httpOnlyCookie": true,
+        "idleTimeoutInMinutes": 60,
+        "sessionTimeoutInMinutes": 240,
+        "timeoutGroovyScript": null,
+        "secureCookie": true,
+        "sameSite": "Lax",
+        "audience": "PingAccess",
+        "cookieDomain": "",
+        "cookieType": "Encrypted",
+        "pfsessionStateCacheInSeconds": 60
+      }
+    ]
+  }
+}

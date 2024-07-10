@@ -1,0 +1,67 @@
+{
+  "type": "SP",
+  "name": "sp123",
+  "id": "sp123",
+  "entityId": "sp123",
+  "active": false,
+  "contactInfo": {},
+  "baseUrl": "https://demo-pingfederate-engine.pingdemo.example",
+  "loggingMode": "STANDARD",
+  "virtualEntityIds": [],
+  "credentials": {
+    "certs": [],
+    "signingSettings": {
+      "signingKeyPairRef": {
+        "id": "devsigningcert",
+        "location": "https://demo-pingfederate-admin.pingdemo.example/pf-admin-api/v1/keyPairs/signing/devsigningcert"
+      },
+      "algorithm": "SHA256withRSA",
+      "includeCertInSignature": false,
+      "includeRawKeyInSignature": false
+    }
+  },
+  "modificationDate": "2024-07-03T00:01:49.015Z",
+  "creationDate": "2024-07-03T00:01:49.015Z",
+  "replicationStatus": "REPLICATED",
+  "wsTrust": {
+    "partnerServiceIds": [
+      "localhost:default:sp123"
+    ],
+    "oAuthAssertionProfiles": true,
+    "defaultTokenType": "SAML20",
+    "generateKey": false,
+    "encryptSaml2Assertion": false,
+    "minutesBefore": 5,
+    "minutesAfter": 30,
+    "attributeContract": {
+      "coreAttributes": [
+        {
+          "name": "TOKEN_SUBJECT"
+        }
+      ],
+      "extendedAttributes": []
+    },
+    "tokenProcessorMappings": [
+      {
+        "attributeSources": [],
+        "attributeContractFulfillment": {
+          "TOKEN_SUBJECT": {
+            "source": {
+              "type": "TOKEN"
+            },
+            "value": "username"
+          }
+        },
+        "issuanceCriteria": {
+          "conditionalCriteria": []
+        },
+        "idpTokenProcessorRef": {
+          "id": "UsernameTokenProcessor",
+          "location": "https://demo-pingfederate-admin.pingdemo.example/pf-admin-api/v1/idp/tokenProcessors/UsernameTokenProcessor"
+        },
+        "restrictedVirtualEntityIds": []
+      }
+    ]
+  },
+  "connectionTargetType": "STANDARD"
+}

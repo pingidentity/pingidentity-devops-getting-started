@@ -1,0 +1,80 @@
+{
+  "failIfNoSelection": false,
+  "authnSelectionTrees": [
+    {
+      "rootNode": {
+        "action": {
+          "type": "AUTHN_SOURCE",
+          "authenticationSource": {
+            "type": "IDP_ADAPTER",
+            "sourceRef": {
+              "id": "HTMLFormPD",
+              "location": "https://demo-pingfederate-admin.pingdemo.example/pf-admin-api/v1/idp/adapters/HTMLFormPD"
+            }
+          }
+        },
+        "children": [
+          {
+            "action": {
+              "type": "DONE",
+              "context": "Fail"
+            }
+          },
+          {
+            "action": {
+              "type": "LOCAL_IDENTITY_MAPPING",
+              "context": "Success",
+              "localIdentityRef": {
+                "id": "RBSQIwi5KWYN9ZGK",
+                "location": "https://demo-pingfederate-admin.pingdemo.example/pf-admin-api/v1/localIdentity/identityProfiles/RBSQIwi5KWYN9ZGK"
+              },
+              "inboundMapping": {
+                "attributeSources": [],
+                "attributeContractFulfillment": {
+                  "pf.local.identity.unique.id": {
+                    "source": {
+                      "type": "ADAPTER",
+                      "id": "HTMLFormPD"
+                    },
+                    "value": "username"
+                  }
+                },
+                "issuanceCriteria": {
+                  "conditionalCriteria": []
+                }
+              },
+              "outboundAttributeMapping": {
+                "attributeSources": [],
+                "attributeContractFulfillment": {
+                  "mail": {
+                    "source": {
+                      "type": "LOCAL_IDENTITY_PROFILE",
+                      "id": "RBSQIwi5KWYN9ZGK"
+                    },
+                    "value": "mail"
+                  },
+                  "subject": {
+                    "source": {
+                      "type": "LOCAL_IDENTITY_PROFILE",
+                      "id": "RBSQIwi5KWYN9ZGK"
+                    },
+                    "value": "entryUUID"
+                  }
+                },
+                "issuanceCriteria": {
+                  "conditionalCriteria": []
+                }
+              }
+            }
+          }
+        ]
+      },
+      "id": "FR1SMr4fvA5gPih9llBNxIJC3",
+      "name": "Default AuthN Policy",
+      "enabled": true,
+      "handleFailuresLocally": false
+    }
+  ],
+  "defaultAuthenticationSources": [],
+  "trackedHttpParameters": []
+}
