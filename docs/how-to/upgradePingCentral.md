@@ -165,7 +165,7 @@ select * from DATABASECHANGELOG;
     kubectl cp demo-pingcentral-6d4bb97c98-m7vwb:/opt/out/instance/conf/pingcentral.jwk ${HOME}/projects/test-server-profiles/baseline/pingcentral/external-mysql-db/instance/conf/pingcentral.jwk
     ```
 
-1. Check to see that the `pingcentral.jwk` file has been updated in your server-profile and push these changes to your repository.
+1. Check to see that the `pingcentral.jwk` file has been placed in your server-profile and push these changes to your repository.
 
     ```sh
     cd "${HOME}/projects/test-server-profiles"
@@ -178,6 +178,8 @@ select * from DATABASECHANGELOG;
     The pod name from which you copy will vary.
 !!! note "JWK Unique to PingCentral Instance"
     The `pingcentral.jwk` file is used to encrypt and decrypt the PingCentral configuration.  It is unique to each PingCentral instance and must be copied to the new server profile.  Otherwise, the new pod will fail to start.
+!!! note "File copy error"
+    If you receive an notification `tar: removing leading '/' from member names` when copying the file, it can be ignored.
 !!! warning "Security Warning"
     Storing the `pingcentral.jwk` file in the server profile **is not recommended** for production environments.  In a production environment, you would likely use a managed key store service, vault, or other encrypted mechanism.
 
