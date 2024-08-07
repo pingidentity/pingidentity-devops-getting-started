@@ -4,6 +4,9 @@ title: Ping Identity DevOps Docker Image - `pingintelligence`
 
 # Ping Identity DevOps Docker Image - `pingintelligence-ase`
 
+**DEPRECATION NOTICE**: As of July 2024, the PingIntelligence Docker Image is deprecated. No new image versions will be published.
+Existing versions will be available as indicated in the [Docker Image Support Policy](https://devops.pingidentity.com/docker-images/imageSupport/).
+
 This docker image includes the Ping Identity PingIntelligence API Security Enforcer product binaries
 and associated hook scripts to create and run PingIntelligence ASE instances.
 
