@@ -11,8 +11,8 @@ metadata:
   name: mysql-external
 spec:
   ports:
-  - name: https
-    port: 3306
+    - name: https
+      port: 3306
   selector:
     app: mysql
 ---
@@ -25,8 +25,8 @@ metadata:
     app.kubernetes.io/name: mysql
 spec:
   ports:
-  - name: mysql
-    port: 3306
+    - name: mysql
+      port: 3306
   clusterIP: None
   selector:
     app: mysql
@@ -52,12 +52,12 @@ spec:
         app.kubernetes.io/name: mysql
     spec:
       containers:
-      - image: mysql:latest
-        name: mysql
-        args: ["--default-authentication-plugin=mysql_native_password"]
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: 2Federate
-        ports:
-        - containerPort: 3306
-          name: https
+        - image: mysql:8.4
+          name: mysql
+          args: ["--mysql-native-password=ON"]
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: 2Federate
+          ports:
+            - containerPort: 3306
+              name: https
