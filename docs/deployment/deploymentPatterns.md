@@ -43,7 +43,7 @@ These items are stored in the [Server Profile](../how-to/containerAnatomy.md) an
 
 ### 3) Application Configuration (App Config)
 
-This pattern can be oversimplified to the `/instance/server/default/data` folder or `/instance/bulk-config/data.json`.
+Application configuration can be managed via the [PingFederate Terraform provider](https://terraform.pingidentity.com/getting-started/pingfederate/), the `/instance/server/default/data` folder in the server profile, or the `/instance/bulk-config/data.json` file in the server profile. Each of these manage the same configuration.
 
 #### Managed components
 
@@ -51,6 +51,14 @@ This category is the core PingFederate configuration. This pattern incorporates 
 
 #### Orchestration
 Depending on your operating pattern, changes here may be delivered through a rolling update or by configuration replication.
+
+## Using the PingFederate Terraform provider
+
+A persistent volume for configuration is recommended when using Terraform to avoid synchronization of engine config. See the below section for details on how to configure a persistent volume.
+
+The terraform configuration should be managed in a repository separate from infrastructure and server profile configuration. Changes to the PingFederate configuration via terraform won't require a rolling update to the PingFederate deployment.
+
+For more information on using the PingFederate Terraform provider, see the [getting started guide](https://terraform.pingidentity.com/getting-started/pingfederate/).
 
 ## PingFederate Data Mount
 
