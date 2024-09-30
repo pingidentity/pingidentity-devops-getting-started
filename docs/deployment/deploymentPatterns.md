@@ -43,7 +43,11 @@ These items are stored in the [Server Profile](../how-to/containerAnatomy.md) an
 
 ### 3) Application Configuration (App Config)
 
-Application configuration can be managed via the [PingFederate Terraform provider](https://terraform.pingidentity.com/getting-started/pingfederate/), the `/instance/server/default/data` folder in the server profile, or the `/instance/bulk-config/data.json` file in the server profile. Each of these manage the same configuration.
+Application configuration can be managed via any combination of the following, according to customer internal configuration management requirements:
+
+- The [PingFederate Terraform provider](https://terraform.pingidentity.com/getting-started/pingfederate/) - a way to declare the "end state" of configuration of a PingFederate server. Terraform can be used to identify and correct configuration drift in an environment ad-hoc or on a schedule. Configuration managed through Terraform uses the PingFederate administration API and requires the server to have successfully started. Configuration changes typically require replication to the engine nodes, but do not require a restart of the PingFederate service to take effect.
+- The `/instance/server/default/data` folder in the server profile - a way to declare the initial start-up configuration of PingFederate admin and engine nodes by providing a foundational filesystem structure. The configuration is pulled from Git and applied during container start-up, while changes to this configuration typically requires servers to be restarted to take effect. This configuration method is typically used when deploying new adapter JAR files or deployments to the PingFederate server's built-in Jetty container.
+- The `/instance/bulk-config/data.json` file in the server profile - a way to declare the initial start-up configuration of the PingFederate service by providing a foundational configuration package. The configuration is pulled from Git and applied during container start-up, while changes to this configuration typically requires a server restart to take effect.
 
 #### Managed components
 
@@ -54,9 +58,11 @@ Depending on your operating pattern, changes here may be delivered through a rol
 
 ## Using the PingFederate Terraform provider
 
-A persistent volume for configuration is recommended when using Terraform to avoid synchronization of engine config. See the below section for details on how to configure a persistent volume.
+Terraform updates should trigger server replication to the engine nodes at the end of the PingFederate configuration pipeline.
 
-The terraform configuration should be managed in a repository separate from infrastructure and server profile configuration. Changes to the PingFederate configuration via terraform won't require a rolling update to the PingFederate deployment.
+The admin server should use a persistent volume so it can recover the same admin configuration as before if the pod is restarted. If the clustered engine pods are restarted, they'll refresh their configuration from the admin server during startup. See the below section for details on how to configure a persistent volume.
+
+The Terraform configuration should be managed in a repository separate from infrastructure and server profile configuration. Changes made to the PingFederate server via Terraform require replication to PingFederate engine nodes as the final step of configuration and don't require rolling restarts to the PingFederate deployment for changes to take effect.
 
 For more information on using the PingFederate Terraform provider, see the [getting started guide](https://terraform.pingidentity.com/getting-started/pingfederate/).
 
