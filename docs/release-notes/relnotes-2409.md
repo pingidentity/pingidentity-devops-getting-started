@@ -16,11 +16,11 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 - PingAccess 8.1.1 → 8.1.2
 - PingAccess 8.0.4 → 8.0.5
 - PingData products 10.1.0.0 → 10.1.0.2
-  - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
-  - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
-  - PingDataSync ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
-  - PingAuthorize ([Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize))
-  - PingDataConsole ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdataconsole))
+    - PingDirectory ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectory))
+    - PingDirectory Proxy ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdirectoryproxy))
+    - PingDataSync ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdatasync))
+    - PingAuthorize ([Dockerhub](https://hub.docker.com/r/pingidentity/pingauthorize))
+    - PingDataConsole ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdataconsole))
 
 ### Enhancements
 
