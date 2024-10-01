@@ -75,7 +75,8 @@ Docker Compose is often used for development, demonstrations, and lightweight or
 
 For configuration management, we use:
 
-- Server profiles, for runtime configuration of containers.
+- Server profiles, providing initial runtime configuration when containers are started. Server profile configuration is pulled from a provided Git repository and applied to the server during container start up.
+- Terraform, to manage runtime server configuration after containers have successfully started and server profiles have been successfully applied. Terraform can manage the ongoing state of configuration in a running service without the need for rolling restart.
 - YAML files for runtime configuration of stacks. YAML file configuration settings complement those provided through server profiles.
 - Environment variables. These can be included in YAML files or called from external files.
 - Shell scripts (hooks) to automate certain operations for a product.
@@ -95,5 +96,11 @@ More information about how server profiles, variables and these other options co
     <img class="assets" src="./images/logos/helm.png"/>
     <span class="caption">
         <a class="assetlinks" href="https://helm.pingidentity.com" target=”_blank”>Ping Helm Charts</a>
+    </span>
+</div>
+<div class="banner" onclick="window.open('https://terraform.pingidentity.com','');">
+    <img class="assets" src="./images/logos/tf-logo.svg"/>
+    <span class="caption">
+        <a class="assetlinks" href="https://terraform.pingidentity.com" target=”_blank”>Ping Terraform Providers</a>
     </span>
 </div>
