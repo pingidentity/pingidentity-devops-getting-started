@@ -158,7 +158,14 @@ public class App {
 				try {
 					processBulkJSONNode(newPath, currentJSON, jsonObject, null);
 				} catch (RemoveNodeException e) {
-					jsonObject.remove(key);
+					if(key.equalsIgnoreCase("dataStoreRef"))
+					{
+						throw new RemoveNodeException();
+					}
+					else
+					{
+						jsonObject.remove(key);
+					}
 				}
 			} else if (jsonObject.get(key) instanceof JSONArray) {
 				String newPath = path + "_" + key;
