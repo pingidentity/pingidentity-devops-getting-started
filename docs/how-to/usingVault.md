@@ -5,6 +5,8 @@ title: Using Hashicorp Vault
 
 This documentation provides details for using Hashicorp Vault and secrets with Ping Identity DevOps images.
 
+> Note: the PingIdentity DevOps images and Helm chart only support version 2 of the KV secrets engine API for Vault secrets. PingDirectory itself currently only supports KV version 1 for password storage schemes. Learn more in the [Vault KV secrets engine documentation](https://developer.hashicorp.com/vault/api-docs/secret/kv).
+
 ## Before you begin
 
 You must:
