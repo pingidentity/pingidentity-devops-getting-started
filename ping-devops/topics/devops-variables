@@ -1,0 +1,31 @@
+
+----------------------------------------------------------------------------------------------------------------------
+Variable                      | Purpose
+----------------------------------------------------------------------------------------------------------------------
+PING_IDENTITY_ACCEPT_EULA     | Indication that user has accepted the terms of license.
+                              | https://www.pingidentity.com/en/legal/subscription-agreement.html
+                              |
+PING_IDENTITY_DEVOPS_USER     | A user's email address who has registered with 
+                              | PingIdentity.com and accepted the EULA and Devlopers program.  
+                              | Used to obtain evaluation Ping Identity product licenses.
+                              |
+PING_IDENTITY_DEVOPS_KEY      | A key used to obtain evaluation Ping Identity product licenses.
+                              |
+PING_IDENTITY_DEVOPS_HOME     | Location of local Ping Identity DevOps repos.  
+                              | Recommended: ~/project/devops
+                              |
+PING_IDENTITY_DEVOPS_REGISTRY | Docker Registry used with DevOps Tools.  
+                              | Recommended: docker.io/pingidentity
+                              | 
+PING_IDENTITY_DEVOPS_TAG      | Docker Image Tag used with DevOps Tools. 
+                              | Recommended: edge
+                              |
+PING_IDENTITY_DEVOPS_DNS_ZONE | DNS Zone used when deploying Kubernetes Ingresses for hostnames
+                              |
+PING_IDENTITY_DEVOPS_REGION   | DevOps Cloud location used when deploying Kubernetes resources.  
+                              | Examples include:
+                              |   - AWS: us-west-1
+                              |
+PING_IDENTITY_K8S_CLUSTER_NAME| Kubernetes Cluster Name used with DevOps Tools.
+                              |
+PING_IDENTITY_K8S_NAMESPACE   | Kubernetes Namespace used with DevOps Tools.
