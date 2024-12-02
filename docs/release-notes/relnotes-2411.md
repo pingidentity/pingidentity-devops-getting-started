@@ -12,7 +12,7 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 
 ### New Product Releases
 
-- PingFederate 12.1.3 → 12.1.4 
+- PingFederate 12.1.3 → 12.1.4
 - PingFederate 12.0.5 → 12.0.6
 
 ### Enhancements
