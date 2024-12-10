@@ -49,7 +49,6 @@ this image.
 | UNSAFE_CONTINUE_ON_ERROR  |   | If this is set to true, then the container will provide a hard warning and continue.  |
 | LICENSE_DIR  | ${SERVER_ROOT_DIR}  | License directory  |
 | PD_LICENSE_DIR  | ${STAGING_DIR}/pd.profile/server-root/pre-setup  | PD License directory. Separating from above LICENSE_DIR to differentiate for different products  |
-| STARTUP_COMMAND  |   | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | STARTUP_FOREGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the foreground. This is the normal start flow for the container  |
 | STARTUP_BACKGROUND_OPTS  |   | The command-line options to provide to the the startup command when the container starts with the server in the background. This is the debug start flow for the container  |
 | PING_IDENTITY_DEVOPS_KEY_REDACT  | true  |  |
@@ -111,7 +110,6 @@ this image.
 | TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | Files tailed once container has started  |
 | PF_LOG_SIZE_MAX  | 10000 KB  | Defines the log file size max for ALL appenders  |
 | PF_LOG_NUMBER  | 2  | Defines the maximum of log files to retain upon rotation  |
-| PF_LOG_LEVEL  | INFO  | General log level -- provide custom log4j2.xml in profile for more detailed control valid values are OFF, ERROR, WARN, INFO, DEBUG NOTE: PF_LOG_LEVEL only applies to PF versions before 11.2.0  |
 | PF_ADMIN_PORT  | 9999  | Defines the port on which the PingFederate administrative console and API runs. PF_RUN_PF_ADMIN_HTTPS_PORT will override this for PingFederate 11.3 and later.  |
 | PF_ENGINE_PORT  | 9031  | Defines the port on which PingFederate listens for encrypted HTTPS (SSL/TLS) traffic. PF_RUN_PF_HTTPS_PORT will override this for PingFederate 11.3 and later.  |
 | PF_ENGINE_SECONDARY_PORT  | -1  | Defines a secondary HTTPS port that can be used for mutual SSL/TLS (client X.509 certificate) authentication for both end users and protocol requests. PF_RUN_PF_SECONDARY_HTTPS_PORT (default 9032) will override this value. The default value of -1 disables the port in the product.  |
@@ -146,6 +144,7 @@ this image.
 | BULK_CONFIG_FILE  | data.json  |  |
 | ADMIN_WAITFOR_TIMEOUT  | 300  | wait-for timeout for 80-post-start.sh hook script How long to wait for the PF Admin console to be available  |
 | CREATE_INITIAL_ADMIN_USER  | false  | Set to true to create the initial admin user after PingFederate starts up. The initial admin user will only be created on the first startup of the server after the license is accepted.  |
+| ENABLE_AUTOMATIC_HEAP_DUMP  | true  | Set to true to add the following Java flags and enable memory dumps -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$PF_HOME_ESC/log"  |
 
 ## Ports Exposed
 
