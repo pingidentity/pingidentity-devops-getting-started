@@ -9,4 +9,4 @@ title: Ping Identity DevOps `pingdirectory` Hook - `20-restart-sequence.sh`
 ---
 This document is auto-generated from _[pingdirectory/opt/staging/hooks/20-restart-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdirectory/opt/staging/hooks/20-restart-sequence.sh)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2025 Ping Identity Corporation. All rights reserved.

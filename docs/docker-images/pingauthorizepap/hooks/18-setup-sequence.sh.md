@@ -9,4 +9,4 @@ title: Ping Identity DevOps `pingauthorizepap` Hook - `18-setup-sequence.sh`
 ---
 This document is auto-generated from _[pingauthorizepap/opt/staging/hooks/18-setup-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingauthorizepap/opt/staging/hooks/18-setup-sequence.sh)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2025 Ping Identity Corporation. All rights reserved.

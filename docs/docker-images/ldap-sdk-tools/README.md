@@ -14,15 +14,15 @@ SDK tools to be used against other PingDirectory instances.
 The following environment `ENV` variables can be used with
 this image.
 
-| ENV Variable  | Default     | Description
-| ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |  |
-| IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
-| IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
-| DATE  | ${DATE}  |  |
-| PING_PRODUCT_VERSION  | ${VERSION}  |  |
-| PATH  | /opt/tools:${PATH}  |  |
-| PING_PRODUCT  | ldap-sdk-tools  | Ping product name  |
+|         ENV Variable | Default            | Description       |
+| -------------------: | ------------------ | ----------------- |
+|                 SHIM | ${SHIM}            |                   |
+|        IMAGE_VERSION | ${IMAGE_VERSION}   |                   |
+|        IMAGE_GIT_REV | ${IMAGE_GIT_REV}   |                   |
+|                 DATE | ${DATE}            |                   |
+| PING_PRODUCT_VERSION | ${VERSION}         |                   |
+|                 PATH | /opt/tools:${PATH} |                   |
+|         PING_PRODUCT | ldap-sdk-tools     | Ping product name |
 
 ## List all available tools
 `docker run -it --rm pingidentity/ldap-sdk-tools:edge ls`
@@ -76,4 +76,4 @@ Please go [here](https://github.com/pingidentity/pingidentity-devops-getting-sta
 ---
 This document is auto-generated from _[ldap-sdk-tools/Dockerfile](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/ldap-sdk-tools/Dockerfile)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2025 Ping Identity Corporation. All rights reserved.
