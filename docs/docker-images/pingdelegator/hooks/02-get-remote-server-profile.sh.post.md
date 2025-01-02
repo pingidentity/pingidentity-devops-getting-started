@@ -10,4 +10,4 @@ title: Ping Identity DevOps `pingdelegator` Hook - `02-get-remote-server-profile
 ---
 This document is auto-generated from _[pingdelegator/opt/staging/hooks/02-get-remote-server-profile.sh.post](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdelegator/opt/staging/hooks/02-get-remote-server-profile.sh.post)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2025 Ping Identity Corporation. All rights reserved.

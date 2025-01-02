@@ -13,4 +13,4 @@ title: Ping Identity DevOps `pingaccess` Hook - `51-add-engine.sh`
 ---
 This document is auto-generated from _[pingaccess/opt/staging/hooks/51-add-engine.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingaccess/opt/staging/hooks/51-add-engine.sh)_
 
-Copyright © 2024 Ping Identity Corporation. All rights reserved.
+Copyright © 2025 Ping Identity Corporation. All rights reserved.
