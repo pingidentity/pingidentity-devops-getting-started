@@ -32,7 +32,7 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 
 ### Features
 
-- (PDI-2154) Ping product images are now built with Liberica JDK17 installed, replacing Liberica JDK11.
+- (PDI-2154) Ping product images are now built with Liberica JDK17 installed, replacing Liberica JDK11. 
 - (PDI-2151) Package managers are no longer removed from Ping product images.
 
 ### Resolved Defects
