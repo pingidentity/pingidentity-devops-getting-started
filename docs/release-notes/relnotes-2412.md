@@ -22,11 +22,6 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
     - PingDataConsole ([Dockerhub](https://hub.docker.com/r/pingidentity/pingdataconsole))
 - PingFederate 12.2.0 and EOL 12.0.x
 
-- - PingFederate 11.3.3 → 11.3.4
-- PingAccess 8.0.0 and EOL 7.2.x
-- PingCentral 2.0.0 and EOL 1.12.x
-- PingDelegator 5.0.0 and EOL 4.8.x
-
 
 ### Enhancements
 
