@@ -26,10 +26,10 @@ This section will cover the **kind** installation process. See the [section furt
 * ports 80 and 443 available on machine
 
 !!! note "Kubernetes Version"
-    For this guide, the kind implementation of Kubernetes 1.29.1 is used. It is deployed using version 0.21.0 of kind.
+    For this guide, the kind implementation of Kubernetes 1.32.0 is used. It is deployed using version 0.26.0 of kind.
 
 !!! note "Docker Desktop Version"
-    At the time of the writing of this guide, Docker Desktop was version `4.27.1 (136059)`, which used Docker Engine `25.0.2`.
+    At the time of the writing of this guide, Docker Desktop was version `4.37.1 (178610)`, which used Docker Engine `27.4.0`.
 
 ### Install and confirm the cluster
 
@@ -51,8 +51,8 @@ This section will cover the **kind** installation process. See the [section furt
     kubectl cluster-info
 
     # Output - port will vary
-    Kubernetes control plane is running at https://127.0.0.1:50766
-    CoreDNS is running at https://127.0.0.1:50766/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+    Kubernetes control plane is running at https://127.0.0.1:59235
+    CoreDNS is running at https://127.0.0.1:59235/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
     To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
@@ -61,23 +61,23 @@ This section will cover the **kind** installation process. See the [section furt
     kubectl version
 
     < output clipped >
-    Server Version: v1.29.1
+    Server Version: v1.32.0
 
     ------------------
 
     kubectl get nodes
 
     NAME                 STATUS   ROLES           AGE     VERSION
-    ping-control-plane   Ready    control-plane   38s     v1.29.1
+    ping-control-plane   Ready    control-plane   38s     v1.32.0
     ```
 
 ### Enable ingress
 
-1. Next, install the nginx-ingress-controller for `kind` (version 1.9.6 at the time of this writing). In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
+1. Next, install the nginx-ingress-controller for `kind` (version 1.12.0 at the time of this writing). In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
 
 To use the Github file:
     ```sh
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.6/deploy/static/provider/kind/deploy.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/refs/tags/controller-v1.12.0/deploy/static/provider/kind/deploy.yaml
     ```
 
 To use the local copy:
@@ -158,7 +158,7 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
 !!! note "Minikube and Kubernetes Version"
-    At the time of the writing of this guide, minikube was version `1.32.0`, which installs Kubernetes version `1.28.3`.
+    At the time of the writing of this guide, minikube was version `1.34.0`, which installs Kubernetes version `1.31.0`.
 
 ### Install and configure minikube
 
@@ -177,7 +177,7 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 
 1. Start the cluster.  Optionally you can include a profile flag (`--profile <name>`). Naming the cluster enables you to run multiple minikube clusters simultaneously.  If you use a profile name, you will need to include it on other minikube commands.
     ```sh
-    minikube start --addons=ingress --kubernetes-version=v1.28.3
+    minikube start --addons=ingress --kubernetes-version=v1.31.0
     ```
     
     Output:
@@ -200,14 +200,14 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl version
 
     < output clipped >
-    Server Version: v1.28.3
+    Server Version: v1.31.0
 
     ------------------
 
     kubectl get nodes
 
     NAME       STATUS   ROLES           AGE    VERSION
-    minikube   Ready    control-plane   4m6s   v1.28.3
+    minikube   Ready    control-plane   4m6s   v1.31.0
     ```
 
 ### Confirm ingress
@@ -336,7 +336,6 @@ minikube start --nodes 3
 ```
 !!! warning "Resources"
     Keep in mind that each node will receive the RAM/CPU/Disk configured for minikube.  Using the example configuration provided above, a 3-node cluster would need 36GB of RAM and 18 CPUs.
-
 
 ### Stop the cluster
 

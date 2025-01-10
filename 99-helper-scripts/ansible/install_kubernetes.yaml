@@ -5,15 +5,14 @@
   become: true
   vars:
     containerd_file_path: /etc/containerd/config.toml
-    containerd_search_line: "          runtime_type = \"io.containerd.runc.v2\""
+    containerd_search_line: '          runtime_type = "io.containerd.runc.v2"'
     systemdcgroup_search_line: "            SystemdCgroup = false"
     systemdcgroup_replacement_line: "            SystemdCgroup = true"
-    k8smaster_ip: "192.168.163.60"
-    k8snode01_ip: "192.168.163.61"
-    k8snode02_ip: "192.168.163.62"
-   
-  tasks:
+    k8smaster_ip: "192.168.163.70"
+    k8snode01_ip: "192.168.163.71"
+    k8snode02_ip: "192.168.163.72"
 
+  tasks:
     - name: Update package cache
       apt:
         update_cache: yes
@@ -35,7 +34,7 @@
             msg: "Package upgrade failed."
 
     - name: Add host file entries
-      blockinfile: 
+      blockinfile:
         state: present
         insertafter: EOF
         dest: /etc/hosts
@@ -66,7 +65,7 @@
     - name: Disable swap in fstab by commenting it out
       lineinfile:
         path: /etc/fstab
-        regexp: '(?i)^(/swap.*)'
+        regexp: "(?i)^(/swap.*)"
         line: '# \1'
         backrefs: true
         state: present
@@ -85,26 +84,26 @@
     - name: Update sysctl parameters without reboot - bridge (ipv4)
       sysctl:
         name: net.bridge.bridge-nf-call-iptables
-        value: '1'
+        value: "1"
         sysctl_set: true
         state: present
         reload: true
-  
+
     - name: Update sysctl parameters without reboot - bridge (ipv6)
       sysctl:
-         name: net.bridge.bridge-nf-call-ip6tables
-         value: '1'
-         sysctl_set: true
-         state: present
-         reload: true
-   
+        name: net.bridge.bridge-nf-call-ip6tables
+        value: "1"
+        sysctl_set: true
+        state: present
+        reload: true
+
     - name: Update sysctl parameters without reboot - IPforward
       sysctl:
-         name: net.ipv4.ip_forward
-         value: '1'
-         sysctl_set: true
-         state: present
-         reload: true 
+        name: net.ipv4.ip_forward
+        value: "1"
+        sysctl_set: true
+        state: present
+        reload: true
 
     - name: Install containerd
       apt:
@@ -132,7 +131,7 @@
       register: configuration_file_status
 
     - name: Create containerd configuration file if it does not exist
-      shell: 
+      shell:
         cmd: containerd config default | sudo tee /etc/containerd/config.toml
       args:
         executable: /usr/bin/bash
@@ -184,10 +183,16 @@
         - net-tools
         - lvm2
 
+    - name: Get Kubernetes package signing key
+      shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/k8s.gpg
+
     - name: Add Kubernetes APT repository
-      apt_repository:
-        repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
-        state: present
+      shell: echo 'deb [signed-by=/etc/apt/keyrings/k8s.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | tee /etc/apt/sources.list.d/k8s.list
+
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      changed_when: false
 
     - name: Install Kubernetes components
       apt:
@@ -214,7 +219,7 @@
       when: inventory_hostname == 'k8smaster'
 
     - name: Initialize Kubernetes master
-      command: kubeadm init --pod-network-cidr=10.244.0.0/16 --upload-certs --apiserver-advertise-address={{ k8smaster_ip }} --control-plane-endpoint={{ k8smaster_ip }} --cri-socket unix:///run/containerd/containerd.sock 
+      command: kubeadm init --pod-network-cidr=10.244.0.0/16 --upload-certs --apiserver-advertise-address={{ k8smaster_ip }} --control-plane-endpoint={{ k8smaster_ip }} --cri-socket unix:///run/containerd/containerd.sock
       when: inventory_hostname == 'k8smaster'
 
     - name: Check if k8s installation file exists
@@ -281,7 +286,7 @@
       command: kubectl get nodes
       register: nodes_command_output
       delegate_to: k8smaster
- 
+
     - name: Nodes in the cluster
       debug:
         var: nodes_command_output.stdout_lines
@@ -296,4 +301,3 @@
       debug:
         msg: "{{clusterinfo_command_output.stdout_lines}}"
       when: inventory_hostname == 'k8smaster'
-...

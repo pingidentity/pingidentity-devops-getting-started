@@ -5,19 +5,18 @@
   become_user: ubuntu
   vars_files:
     - install_list.yaml
-  
-  tasks:
 
-#######################  Helm ##############
+  tasks:
+    #######################  Helm ##############
     - name: Get helm installation file
       get_url:
-        url: "https://get.helm.sh/helm-v3.14.0-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/helm-v3.14.0-linux-amd64.tar.gz"
-        checksum: sha256:f43e1c3387de24547506ab05d24e5309c0ce0b228c23bd8aa64e9ec4b8206651
+        url: "https://get.helm.sh/helm-v3.16.4-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/helm-v3.16.4-linux-amd64.tar.gz"
+        checksum: sha256:fc307327959aa38ed8f9f7e66d45492bb022a66c3e5da6063958254b9767d179
       when: helm == True
 
     - name: Extract helm
-      shell: tar xzvf /home/ubuntu/helm-v3.14.0-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
+      shell: tar xzvf /home/ubuntu/helm-v3.16.4-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
       args:
         executable: /bin/bash
         creates: /usr/local/bin/helm
@@ -29,15 +28,15 @@
         state: absent
       with_items:
         - /home/ubuntu/linux-amd64
-        - /home/ubuntu/helm-v3.14.0-linux-amd64.tar.gz
+        - /home/ubuntu/helm-v3.16.4-linux-amd64.tar.gz
       when: helm == True
 
-########################  K9S ##############
+    ########################  K9S ##############
     - name: Get K9s installation file
       get_url:
-        url: "https://github.com/derailed/k9s/releases/download/v0.31.7/k9s_Linux_amd64.tar.gz"
+        url: "https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_Linux_amd64.tar.gz"
         dest: "/home/ubuntu/k9s_Linux_amd64.tar.gz"
-        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.31.7/checksums.sha256
+        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.32.7/checksums.sha256
       when: k9s == True
 
     - name: Extract k9s
@@ -51,7 +50,7 @@
         path: /home/ubuntu/k9s_Linux_amd64.tar.gz
         state: absent
       when: k9s == True
-#########################  MetalLB  ##############
+    #########################  MetalLB  ##############
 
     - name: Get latest MetalLB version
       shell: curl -s https://api.github.com/repos/metallb/metallb/releases/latest | grep tag_name | cut -d '"' -f 4|sed 's/v//'
@@ -120,10 +119,10 @@
         - /home/ubuntu/metallb-native.yaml
       when: metallb == True
 
-###################  ROOK / CEPH  #################
+    ###################  ROOK / CEPH  #################
 
     - name: Install CertManager prerequisite
-      shell: kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.13.2/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
+      shell: kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
       args:
         creates: /etc/.certManagerInstalled
         executable: /bin/bash
@@ -141,13 +140,13 @@
         path: "/home/ubuntu/rook"
         state: absent
       when: rook_dir_stat.stat.exists and storage == True
- 
+
     - name: Clone Rook repository
       ansible.builtin.git:
         repo: https://github.com/rook/rook.git
         dest: /home/ubuntu/rook
         single_branch: yes
-        version: release-1.12
+        version: release-1.16
       when: storage == True
 
     - name: Install Rook controller
@@ -205,6 +204,7 @@
           kind: StorageClass
           metadata:
              name: rook-ceph-block
+          # Change "rook-ceph" provisioner prefix to match the operator namespace if needed
           provisioner: rook-ceph.rbd.csi.ceph.com
           parameters:
               # clusterID is the namespace where the rook cluster is running
@@ -212,9 +212,34 @@
               # Ceph pool into which the RBD image shall be created
               pool: replicapool
 
+              # (optional) mapOptions is a comma-separated list of map options.
+              # For krbd options refer
+              # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
+              # For nbd options refer
+              # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
+              # mapOptions: lock_on_read,queue_depth=1024
+
+              # (optional) unmapOptions is a comma-separated list of unmap options.
+              # For krbd options refer
+              # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
+              # For nbd options refer
+              # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
+              # unmapOptions: force
+
               # RBD image format. Defaults to "2".
               imageFormat: "2"
 
+              # RBD image features
+              # Available for imageFormat: "2". Older releases of CSI RBD
+              # support only the `layering` feature. The Linux kernel (KRBD) supports the
+              # full complement of features as of 5.4
+              # `layering` alone corresponds to Ceph's bitfield value of "2" ;
+              # `layering` + `fast-diff` + `object-map` + `deep-flatten` + `exclusive-lock` together
+              # correspond to Ceph's OR'd bitfield value of "63". Here we use
+              # a symbolic, comma-separated format:
+              # For 5.4 or later kernels:
+              #imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
+              # For 5.3 or earlier kernels:
               imageFeatures: layering
 
               # The secrets contain Ceph admin credentials.
@@ -226,13 +251,15 @@
               csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
 
               # Specify the filesystem type of the volume. If not specified, csi-provisioner
+              # will set default as `ext4`. Note that `xfs` is not recommended due to potential deadlock
+              # in hyperconverged settings where the volume is mounted on the same node as the osds.
               csi.storage.k8s.io/fstype: ext4
 
           # Delete the rbd volume when a PVC is deleted
           reclaimPolicy: Delete
 
-          # For now only ext3, ext4, xfs resize support provided, like in Kubernetes itself.
           # Optional, if you want to add dynamic resize for PVC.
+          # For now only ext3, ext4, xfs resize support provided, like in Kubernetes itself.
           allowVolumeExpansion: true
       when: storage == True
 
@@ -242,7 +269,6 @@
         creates: /etc/.storageClassCreated
         executable: /bin/bash
       when: storage == True
-
 
     - name: Creating script to patch storage class (globbing and substitution hack)
       copy:
@@ -261,14 +287,14 @@
         path: "{{ item }}"
         state: absent
       loop:
-          - /home/ubuntu/rook
-          - /home/ubuntu/sc-ceph-block.yaml
-          - /home/ubuntu/patchsc.yaml
+        - /home/ubuntu/rook
+        - /home/ubuntu/sc-ceph-block.yaml
+        - /home/ubuntu/patchsc.yaml
       when: storage == True
 
-#######################  Ingress  ##############
+    #######################  Ingress  ##############
 
-    - name: Install Ingress Nginx 
+    - name: Install Ingress Nginx
       shell: helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace && sudo touch /etc/.ingressInstalled
       args:
         creates: /etc/.ingressInstalled
@@ -294,24 +320,24 @@
         msg: "{{ingress_status_output.stdout_lines}}"
       when: ingress == True
 
-#######################  Istio  ##############
+    #######################  Istio  ##############
 
     - name: Get 'istioctl' installation file
       get_url:
-        url: "https://github.com/istio/istio/releases/download/1.20.2/istio-1.20.2-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/istio-1.20.2-linux-amd64.tar.gz"
-        checksum: sha256:https://github.com/istio/istio/releases/download/1.20.2/istio-1.20.2-linux-amd64.tar.gz.sha256
+        url: "https://github.com/istio/istio/releases/download/1.24.2/istio-1.24.2-linux-amd64.tar.gz"
+        dest: "/home/ubuntu/istio-1.24.2-linux-amd64.tar.gz"
+        checksum: sha256:https://github.com/istio/istio/releases/download/1.24.2/istio-1.24.2-linux-amd64.tar.gz.sha256
       when: istio == True
 
     - name: Extract istioctl
-      shell: tar xzvf /home/ubuntu/istio-1.20.2-linux-amd64.tar.gz && sudo mv istio-1.20.2/bin/istioctl /usr/local/bin/istioctl
+      shell: tar xzvf /home/ubuntu/istio-1.24.2-linux-amd64.tar.gz && sudo mv istio-1.24.2/bin/istioctl /usr/local/bin/istioctl
       args:
         executable: /bin/bash
         creates: /usr/local/bin/istioctl
       when: istio == True
 
     - name: Install istio
-      shell: istioctl install -f /home/ubuntu/istio-1.20.2/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
+      shell: istioctl install -f /home/ubuntu/istio-1.24.2/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioInstalled
@@ -331,7 +357,7 @@
       when: istio == True
 
     - name: Install Istio add-ons
-      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.20.2/samples/addons && sudo touch /etc/.istioAddonsInstalled
+      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.24.2/samples/addons && sudo touch /etc/.istioAddonsInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioAddonsInstalled
@@ -340,10 +366,10 @@
     - name: Confirm Istio additional pods are ready
       shell: kubectl wait --namespace istio-system --for=condition=ready pod --selector="{{ item }}" --timeout=90s
       loop:
-        - app=grafana
+        - app.kubernetes.io/name=grafana
         - app=jaeger
         - app=kiali
-        - app=prometheus
+        - app.kubernetes.io/name=prometheus
         - app.kubernetes.io/name=loki
       when: istioaddons == True
 
@@ -369,8 +395,7 @@
         path: "{{ item }}"
         state: absent
       with_items:
-        - /home/ubuntu/istio-1.20.2
-        - /home/ubuntu/istio-1.20.2-linux-amd64.tar.gz
+        - /home/ubuntu/istio-1.24.2
+        - /home/ubuntu/istio-1.24.2-linux-amd64.tar.gz
         - /home/ubuntu/patch-service.yaml
       when: istio == True
-...
