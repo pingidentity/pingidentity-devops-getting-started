@@ -96,55 +96,61 @@ The [Openshift Local](https://developers.redhat.com/products/openshift-local/ove
     crc start
  
     # Output
-    INFO Using bundle path /Users/davidross/.crc/cache/crc_vfkit_4.17.7_amd64.crcbundle 
-    INFO Checking if running macOS version >= 13.x    
-    INFO Checking if running as non-root              
-    INFO Checking if crc-admin-helper executable is cached 
-    INFO Checking if running on a supported CPU architecture 
-    INFO Checking if crc executable symlink exists    
-    INFO Checking minimum RAM requirements            
-    INFO Check if Podman binary exists in: /Users/davidross/.crc/bin/oc 
-    INFO Checking if running emulated on Apple silicon 
-    INFO Checking if vfkit is installed               
-    INFO Checking if old launchd config for tray and/or daemon exists 
-    INFO Checking if crc daemon plist file is present and loaded 
-    INFO Checking SSH port availability               
-    INFO Loading bundle: crc_vfkit_4.17.7_amd64...    
-    INFO Starting CRC VM for openshift 4.17.7...      
-    INFO CRC instance is running with IP 127.0.0.1    
-    INFO CRC VM is running                            
-    INFO Updating authorized keys...                  
-    INFO Configuring shared directories               
-    INFO Check internal and public DNS query...       
-    INFO Check DNS query from host...                 
-    INFO Verifying validity of the kubelet certificates... 
-    INFO Starting kubelet service                     
-    INFO Waiting for kube-apiserver availability... [takes around 2min] 
-    INFO Waiting until the user's pull secret is written to the instance disk... 
+    INFO Using bundle path /Users/davidross/.crc/cache/crc_vfkit_4.17.7_amd64.crcbundle
+    INFO Checking if running macOS version >= 13.x
+    INFO Checking if running as non-root
+    INFO Checking if crc-admin-helper executable is cached
+    INFO Checking if running on a supported CPU architecture
+    INFO Checking if crc executable symlink exists
+    INFO Checking minimum RAM requirements
+    INFO Check if Podman binary exists in: /Users/davidross/.crc/bin/oc
+    INFO Checking if running emulated on Apple silicon
+    INFO Checking if vfkit is installed
+    INFO Checking if old launchd config for tray and/or daemon exists
+    INFO Checking if crc daemon plist file is present and loaded
+    INFO Checking SSH port availability
+    INFO Loading bundle: crc_vfkit_4.17.7_amd64...
+    INFO Creating CRC VM for OpenShift 4.17.7...
+    INFO Generating new SSH key pair...
+    INFO Generating new password for the kubeadmin user
+    INFO Starting CRC VM for openshift 4.17.7...
+    INFO CRC instance is running with IP 127.0.0.1
+    INFO CRC VM is running
+    INFO Updating authorized keys...
+    INFO Resizing /dev/vda4 filesystem
+    INFO Configuring shared directories
+    INFO Check internal and public DNS query...
+    INFO Check DNS query from host...
+    INFO Verifying validity of the kubelet certificates...
+    INFO Starting kubelet service
+    INFO Waiting for kube-apiserver availability... [takes around 2min]
+    INFO Adding user's pull secret to the cluster...
     INFO Updating SSH key to machine config resource...
     INFO Waiting until the user's pull secret is written to the instance disk...
     INFO Changing the password for the kubeadmin user
     INFO Updating cluster ID...
     INFO Updating root CA cert to admin-kubeconfig-client-ca configmap...
     INFO Starting openshift instance... [waiting for the cluster to stabilize]
-    INFO 2 operators are progressing: console, network
+    INFO 2 operators are progressing: image-registry, ingress
+    INFO Operator console is progressing
+    INFO Operator console is progressing
     INFO All operators are available. Ensuring stability...
     INFO Operators are stable (2/3)...
     INFO Operators are stable (3/3)...
     INFO Adding crc-admin and crc-developer contexts to kubeconfig...
     Started the OpenShift cluster.
-    
+
     The server is accessible via web console at:
       https://console-openshift-console.apps-crc.testing
-    
+
     Log in as administrator:
       Username: kubeadmin
       Password: <password>
-    
+
     Log in as user:
       Username: developer
       Password: <password>
-    
+
     Use the 'oc' command line interface:
       $ eval $(crc oc-env)
       $ oc login -u developer https://api.crc.testing:6443
