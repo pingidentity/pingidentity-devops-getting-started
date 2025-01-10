@@ -6,4 +6,3 @@ storage: True
 ingress: False
 istio: False
 istioaddons: False
-...

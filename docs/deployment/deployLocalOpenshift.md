@@ -15,15 +15,15 @@ title: Deploy a Local Openshift Cluster
 Some customers are using Openshift as their platform for running Ping containerized applications.  If this is the case, access to an Openshift cluster is assumed.  Even in those cases, there are times where a local implementation of Openshift for development and testing is convenient.  
 
 !!! note "Platform"
-    For this guide, the Apple MacBook Pro platform is used, and the release of the _Red Hat Openshift Local_ offering is version 2.36.0, which installs Openshift 4.15.12.
+    For this guide, the Apple MacBook Pro platform is used, and the release of the _Red Hat Openshift Local_ offering is version 2.45.0, which installs Openshift 4.17.7.
 
-The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.29) offering is used in this guide. This page was derived from the [documentation](https://access.redhat.com/documentation/en-us/red_hat_openshift_local/2.29/html/getting_started_guide/index) provided by Red Hat.
+The [Openshift Local](https://developers.redhat.com/products/openshift-local/overview) offering is used in this guide.
 
 ## Prerequisites
 
 * Entitlement for Openshift code.  If you have registered for the Red Hat developer program, you can obtain your entitlement for the free trial [from the portal](https://developers.redhat.com/products/openshift/download) after logging in.
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-* [Openshift client (oc)](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.14/html-single/cli_tools/index#cli-getting-started)
+* [Openshift client (oc)](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.17/html-single/cli_tools/index#cli-getting-started)
 * ports 80, 443 and 6443 available on machine. If you have Docker Desktop installed, you must either disable Kubernetes or stop Docker in order for the installation to work.
 * **sudo** privileges on your hosting environment
 
@@ -38,15 +38,16 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc version
 
     # Output
-    CRC version: 2.36.0+27c493
-    OpenShift version: 4.15.12
-    Podman version: 4.4.4
+    CRC version: 2.45.0+7aeb3b
+    OpenShift version: 4.17.7
+    MicroShift version: 4.17.7
 
     # Set configuration
     crc config set memory 16384
     crc config set cpus 7
     crc config set consent-telemetry no
     crc config set disk-size 80
+    crc config set pull-secret-file <path>/pull-secret.txt
 
     # Confirm
     crc config view
@@ -55,6 +56,7 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     - cpus                                  : 7
     - disk-size                             : 80
     - memory                                : 16384
+    - pull-secret-file                      : <path>/pull-secret.txt
     ```
 
 1. Set up your local machine for running Red Hat Openshift Local by running **crc setup**:
@@ -63,29 +65,28 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc setup
 
     # Output
-    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
-    INFO Checking if running macOS version >= 13.x
-    INFO Checking if running as non-root
-    INFO Checking if crc-admin-helper executable is cached
-    INFO Checking if running on a supported CPU architecture
-    INFO Checking if crc executable symlink exists
-    INFO Checking minimum RAM requirements
-    INFO Check if Podman binary exists in: /Users/userjoe/.crc/bin/oc
-    INFO Removing Podman binary from: /Users/userjoe/.crc/bin/oc
-    INFO Checking if running emulated on Apple silicon
-    INFO Checking if vfkit is installed
-    INFO Checking if CRC bundle is extracted in '$HOME/.crc'
-    INFO Checking if /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle exists
-    INFO Getting bundle for the CRC executable
-    INFO Downloading bundle: /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle...
-    4.98 GiB / 4.98 GiB [--------------------------------------------------------------------------------] 100.00% 15.22 MiB/s
-    INFO Uncompressing /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
-    crc.img:  31.00 GiB / 31.00 GiB [--------------------------------------------------------------------------------] 100.00%
-    oc:  118.78 MiB / 118.78 MiB [-----------------------------------------------------------------------------------] 100.00%
-    INFO Checking if old launchd config for tray and/or daemon exists
-    INFO Checking if crc daemon plist file is present and loaded
-    INFO Adding crc daemon plist file and loading it
-    INFO Checking SSH port availability
+    INFO Using bundle path /Users/davidross/.crc/cache/crc_vfkit_4.17.7_amd64.crcbundle 
+    INFO Checking if running macOS version >= 13.x    
+    INFO Checking if running as non-root              
+    INFO Checking if crc-admin-helper executable is cached 
+    INFO Checking if running on a supported CPU architecture 
+    INFO Checking if crc executable symlink exists    
+    INFO Checking minimum RAM requirements            
+    INFO Check if Podman binary exists in: /Users/davidross/.crc/bin/oc 
+    INFO Checking if running emulated on Apple silicon 
+    INFO Checking if vfkit is installed               
+    INFO Checking if CRC bundle is extracted in '$HOME/.crc' 
+    INFO Checking if /Users/davidross/.crc/cache/crc_vfkit_4.17.7_amd64.crcbundle exists 
+    INFO Getting bundle for the CRC executable        
+    INFO Downloading bundle: /Users/davidross/.crc/cache/crc_vfkit_4.17.7_amd64.crcbundle... 
+    5.17 GiB / 5.17 GiB [---------------------------------------------------------------------------------] 100.00% 44.75 MiB/s
+    INFO Uncompressing /Users/davidross/.crc/cache/crc_vfkit_4.17.7_amd64.crcbundle 
+    crc.img:  31.00 GiB / 31.00 GiB [---------------------------------------------------------------------------------] 100.00%
+    oc:  128.23 MiB / 128.23 MiB [------------------------------------------------------------------------------------] 100.00%
+    INFO Checking if old launchd config for tray and/or daemon exists 
+    INFO Checking if crc daemon plist file is present and loaded 
+    INFO Adding crc daemon plist file and loading it  
+    INFO Checking SSH port availability               
     Your system is correctly setup for using CRC. Use 'crc start' to start the instance
     ```
 
@@ -95,42 +96,37 @@ The [Openshift Local](https://access.redhat.com/documentation/en-us/red_hat_open
     crc start
  
     # Output
-    INFO Using bundle path /Users/userjoe/.crc/cache/crc_vfkit_4.15.12_amd64.crcbundle
-    INFO Checking if running macOS version >= 13.x
-    INFO Checking if running as non-root
-    INFO Checking if crc-admin-helper executable is cached
-    INFO Checking if running on a supported CPU architecture
-    INFO Checking if crc executable symlink exists
-    INFO Checking minimum RAM requirements
-    INFO Check if Podman binary exists in: /Users/userjoe/.crc/bin/oc
-    INFO Checking if running emulated on Apple silicon
-    INFO Checking if vfkit is installed
-    INFO Checking if old launchd config for tray and/or daemon exists
-    INFO Checking if crc daemon plist file is present and loaded
-    INFO Checking SSH port availability
-    INFO Loading bundle: crc_vfkit_4.15.12_amd64...
-    INFO Creating CRC VM for OpenShift 4.15.12...
-    INFO Generating new SSH key pair...
-    INFO Generating new password for the kubeadmin user
-    INFO Starting CRC VM for openshift 4.15.12...
-    INFO CRC instance is running with IP 127.0.0.1
-    INFO CRC VM is running
-    INFO Updating authorized keys...
-    INFO Resizing /dev/vda4 filesystem
-    INFO Configuring shared directories
-    INFO Check internal and public DNS query...
-    INFO Check DNS query from host...
-    INFO Verifying validity of the kubelet certificates...
-    INFO Starting kubelet service
-    INFO Waiting for kube-apiserver availability... [takes around 2min]
-    INFO Adding user's pull secret to the cluster...
+    INFO Using bundle path /Users/davidross/.crc/cache/crc_vfkit_4.17.7_amd64.crcbundle 
+    INFO Checking if running macOS version >= 13.x    
+    INFO Checking if running as non-root              
+    INFO Checking if crc-admin-helper executable is cached 
+    INFO Checking if running on a supported CPU architecture 
+    INFO Checking if crc executable symlink exists    
+    INFO Checking minimum RAM requirements            
+    INFO Check if Podman binary exists in: /Users/davidross/.crc/bin/oc 
+    INFO Checking if running emulated on Apple silicon 
+    INFO Checking if vfkit is installed               
+    INFO Checking if old launchd config for tray and/or daemon exists 
+    INFO Checking if crc daemon plist file is present and loaded 
+    INFO Checking SSH port availability               
+    INFO Loading bundle: crc_vfkit_4.17.7_amd64...    
+    INFO Starting CRC VM for openshift 4.17.7...      
+    INFO CRC instance is running with IP 127.0.0.1    
+    INFO CRC VM is running                            
+    INFO Updating authorized keys...                  
+    INFO Configuring shared directories               
+    INFO Check internal and public DNS query...       
+    INFO Check DNS query from host...                 
+    INFO Verifying validity of the kubelet certificates... 
+    INFO Starting kubelet service                     
+    INFO Waiting for kube-apiserver availability... [takes around 2min] 
+    INFO Waiting until the user's pull secret is written to the instance disk... 
     INFO Updating SSH key to machine config resource...
     INFO Waiting until the user's pull secret is written to the instance disk...
     INFO Changing the password for the kubeadmin user
     INFO Updating cluster ID...
     INFO Updating root CA cert to admin-kubeconfig-client-ca configmap...
     INFO Starting openshift instance... [waiting for the cluster to stabilize]
-    E0531 14:12:45.233915   69684 request.go:1116] Unexpected error when reading response body: net/http: request canceled (Client.Timeout or context cancellation while reading body)
     INFO 2 operators are progressing: console, network
     INFO All operators are available. Ensuring stability...
     INFO Operators are stable (2/3)...
