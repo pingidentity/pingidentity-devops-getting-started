@@ -7,6 +7,7 @@ List of available hooks:
 * [183-run-setup.sh](183-run-setup.sh.md)
 * [185-apply-tools-properties.sh](185-apply-tools-properties.sh.md)
 * [20-restart-sequence.sh](20-restart-sequence.sh.md)
+* [LICENSE](LICENSE.md)
 * [pingdata.lib.sh](pingdata.lib.sh.md)
 
 These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)

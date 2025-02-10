@@ -2,6 +2,7 @@
 # Ping Identity DevOps `pingtoolkit` Hooks
 List of available hooks:
 * [17-check-license.sh](17-check-license.sh.md)
+* [LICENSE](LICENSE.md)
 
 These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
 

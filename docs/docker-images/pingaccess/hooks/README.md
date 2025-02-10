@@ -9,6 +9,7 @@ List of available hooks:
 * [81-after-start-process.sh](81-after-start-process.sh.md)
 * [83-change-password.sh](83-change-password.sh.md)
 * [85-import-configuration.sh](85-import-configuration.sh.md)
+* [LICENSE](LICENSE.md)
 
 These hooks will replace hooks defined by parent images (i.e. pingcommon/pingdatacommon)
 
