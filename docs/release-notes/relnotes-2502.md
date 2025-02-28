@@ -12,13 +12,13 @@ product's [download page](https://www.pingidentity.com/en/resources/downloads.ht
 
 ### New Product Releases
 
-- PingFederate 12.2.0 → 12.2.1
+- PingFederate 12.2.0 → 12.2.1 
 - PingFederate 12.1.5 → 12.1.6
 
 ### Enhancements
 
-- Apache Tomcat 9.0.98 → 9.0.100
-- Redhat UBI9-minimal 9.5-1736404155 → 9.5-1739420147
+- Apache Tomcat 9.0.98 → 9.0.100 
+- Redhat UBI9-minimal 9.5-1736404155 → 9.5-1739420147 
 - Alpine 3.21.2 → 3.21.3
 
 ### Features
