@@ -17,7 +17,7 @@ Ping recommends the use of EBS volumes for container volumes on EKS.  EFS is not
 <details>
   <summary>I see Ping product container images hosted in Iron Bank. What are the differences between these images and those found on Docker Hub?</summary>
 
-<a href="https://docs-ironbank.dso.mil/">Iron Bank</a> is a container image repository intended to host images for those environments requiring additional security, such as for FedRAMP certification and similar situations. Ping does not build these images, but rather they are created by <a href="https://uberether.com/">UberEther</a>, a Ping partner. These images contain the same product code as found on Docker Hub; however, the OS and JDK used in building the container images are chosen by UberEther as per their requirements.  You can have full confidence in these images.  If you encounter a problem related to an image provided through Iron Bank, you can open a ticket through your normal Ping support channels, indicating that it is an Iron Bank image in question.
+<a href="https://docs-ironbank.dso.mil/">Iron Bank</a> is a container image repository intended to host images for those environments requiring additional security, such as for FedRAMP certification and similar situations. Ping does not build these images, but rather they are created by a Ping partner. These images contain the same product code as found on Docker Hub; however, the OS and JDK used in building the container images are chosen by the partner as per their requirements.  You can have full confidence in these images.  If you encounter a problem related to an image provided through Iron Bank, you can open a ticket through your normal Ping support channels, indicating that it is an Iron Bank image in question.
 </details>
 
 
