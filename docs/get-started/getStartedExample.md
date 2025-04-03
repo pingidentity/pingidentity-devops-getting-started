@@ -7,7 +7,7 @@ title: Deploy an Example Stack
     A video demonstration of this example is available [here](https://videos.pingidentity.com/detail/videos/devops/video/6313575361112/getting-started-walkthrough).
 
 !!! note "Versions Used"
-    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform using the Intel x86 chip.  The Docker Desktop version used for this guide was `4.37.1 (178610)`, which includes Docker Engine `v27.4.0` and Kubernetes `v1.30.5`.  The ingress-nginx controller version was `1.12.0`, deployed from Helm chart version `4.12.1`.
+    This example was written using Docker Desktop with Kubernetes enabled on the Mac platform using the Apple M4 chip.  The Docker Desktop version used for this guide was `4.39.0 (184744)`, which includes Docker Engine `v28.0.1` and Kubernetes `v1.32.2`.  The ingress-nginx controller version was `1.12.1`, deployed from Helm chart version `4.12.1`.
 
 !!! note "Kubernetes Services Kubernetes versus Server-Deployed Applications"
 
@@ -106,8 +106,9 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
         Sample output:
 
          ```text
+         Release "demo" does not exist. Installing it now.
          NAME: demo
-         LAST DEPLOYED: Wed Jan  8 11:12:59 2025
+         LAST DEPLOYED: Tue Apr  1 09:14:20 2025
          NAMESPACE: pinghelm
          STATUS: deployed
          REVISION: 1
@@ -116,30 +117,30 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
          #-------------------------------------------------------------------------------------
          # Ping DevOps
          #
-         # Description: Ping Identity helm charts - 01/03/2024
+         # Description: Ping Identity helm charts - 03/03/2025
          #-------------------------------------------------------------------------------------
          #
          #           Product          tag   typ  #  cpu R/L   mem R/L  Ing
          #    --------------------- ------- --- -- --------- --------- ---
-         #    global                2412              0/0       0/0     √ 
+         #    global                2502              0/0       0/0     √
          #
-         #  √ pingaccess-admin      2412    sts  1    0/2     1Gi/4Gi   √ 
-         #  √ pingaccess-engine     2412    dep  1    0/2     1Gi/4Gi   √ 
-         #  √ pingauthorize         2412    dep  1    0/2    1.5G/4Gi   √ 
-         #    pingauthorizepap                                            
-         #    pingcentral                                                 
-         #  √ pingdataconsole       2412    dep  1    0/2    .5Gi/2Gi   √ 
-         #    pingdatasync                                                
-         #    pingdelegator                                               
-         #  √ pingdirectory         2412    sts  1  50m/2     2Gi/8Gi   √ 
-         #    pingdirectoryproxy                                          
-         #  √ pingfederate-admin    2412    dep  1    0/2     1Gi/4Gi   √ 
-         #  √ pingfederate-engine   2412    dep  1    0/2     1Gi/4Gi   √ 
-         #    pingintelligence                                            
+         #  √ pingaccess-admin      2502    sts  1    0/2     1Gi/4Gi   √
+         #  √ pingaccess-engine     2502    dep  1    0/2     1Gi/4Gi   √
+         #  √ pingauthorize         2502    dep  1    0/2    1.5G/4Gi   √
+         #    pingauthorizepap
+         #    pingcentral
+         #  √ pingdataconsole       2502    dep  1    0/2    .5Gi/2Gi   √
+         #    pingdatasync
+         #    pingdelegator
+         #  √ pingdirectory         2502    sts  1  50m/2     2Gi/8Gi   √
+         #    pingdirectoryproxy
+         #  √ pingfederate-admin    2502    dep  1    0/2     1Gi/4Gi   √
+         #  √ pingfederate-engine   2502    dep  1    0/2     1Gi/4Gi   √
+         #    pingintelligence
          #
-         #    ldap-sdk-tools                                              
-         #    pd-replication-timing                                       
-         #    pingtoolkit                                                 
+         #    ldap-sdk-tools
+         #    pd-replication-timing
+         #    pingtoolkit
          #
          #-------------------------------------------------------------------------------------
          # To see values info, simply set one of the following on your helm install/upgrade
@@ -160,43 +161,43 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
            ```text
            NAME                            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                   AGE
-           demo-pingaccess-admin           ClusterIP   10.106.227.103   <none>        9090/TCP,9000/TCP         15m
-           demo-pingaccess-admin-cluster   ClusterIP   None             <none>        <none>                    15m
-           demo-pingaccess-engine          ClusterIP   10.108.102.245   <none>        3000/TCP                  15m
-           demo-pingauthorize              ClusterIP   10.110.95.132    <none>        443/TCP                   15m
-           demo-pingauthorize-cluster      ClusterIP   None             <none>        1636/TCP                  15m
-           demo-pingdataconsole            ClusterIP   10.97.81.22      <none>        8443/TCP                  15m
-           demo-pingdirectory              ClusterIP   10.102.91.214    <none>        443/TCP,389/TCP,636/TCP   15m
-           demo-pingdirectory-cluster      ClusterIP   None             <none>        1636/TCP                  15m
-           demo-pingfederate-admin         ClusterIP   10.99.145.24     <none>        9999/TCP                  15m
-           demo-pingfederate-cluster       ClusterIP   None             <none>        7600/TCP,7700/TCP         15m
-           demo-pingfederate-engine        ClusterIP   10.108.240.203   <none>        9031/TCP                  15m
+           demo-pingaccess-admin           ClusterIP   10.105.30.25     <none>        9090/TCP,9000/TCP         6m33s
+           demo-pingaccess-admin-cluster   ClusterIP   None             <none>        <none>                    6m33s
+           demo-pingaccess-engine          ClusterIP   10.100.1.136     <none>        3000/TCP                  6m33s
+           demo-pingauthorize              ClusterIP   10.101.98.228    <none>        443/TCP                   6m33s
+           demo-pingauthorize-cluster      ClusterIP   None             <none>        1636/TCP                  6m33s
+           demo-pingdataconsole            ClusterIP   10.103.181.27    <none>        8443/TCP                  6m33s
+           demo-pingdirectory              ClusterIP   10.106.174.162   <none>        443/TCP,389/TCP,636/TCP   6m33s
+           demo-pingdirectory-cluster      ClusterIP   None             <none>        1636/TCP                  6m33s
+           demo-pingfederate-admin         ClusterIP   10.96.52.217     <none>        9999/TCP                  6m33s
+           demo-pingfederate-cluster       ClusterIP   None             <none>        7600/TCP,7700/TCP         6m33s
+           demo-pingfederate-engine        ClusterIP   10.103.84.196    <none>        9031/TCP                  6m33s
            ```
 
            * To view the pods, run `kubectl get pods --selector=app.kubernetes.io/instance=demo` - you will need to run this at intervals until all pods have started (** Running ** status):
 
            ```text
            NAME                                        READY   STATUS    RESTARTS   AGE
-           demo-pingaccess-admin-0                     1/1     Running   0          7m29s
-           demo-pingaccess-engine-cf9987bb5-npspz      1/1     Running   0          7m52s
-           demo-pingauthorize-8bdfd4fd8-j82zg          1/1     Running   0          7m43s
-           demo-pingdataconsole-7c875985d4-mfjbq       1/1     Running   0          17m
-           demo-pingdirectory-0                        1/1     Running   0          7m38s
-           demo-pingfederate-admin-5786787dfd-5b5s5    1/1     Running   0          7m36s
-           demo-pingfederate-engine-5ff6546f4f-7jfnt   1/1     Running   0          7m31s
+           demo-pingaccess-admin-0                    1/1     Running   0          7m7s
+           demo-pingaccess-engine-59cfb85b9d-7l6tz    1/1     Running   0          7m7s
+           demo-pingauthorize-5696dd6b67-hsxnw        1/1     Running   0          7m7s
+           demo-pingdataconsole-56b75f9ffb-wld5k      1/1     Running   0          7m7s
+           demo-pingdirectory-0                       1/1     Running   0          7m7s
+           demo-pingfederate-admin-67cdb47bb4-h88zr   1/1     Running   0          7m7s
+           demo-pingfederate-engine-d9889b494-pdhv8   1/1     Running   0          7m7s
            ```
 
            * To see the ingresses you will use to access the product, run `kubectl get ingress`. If the ingress controller is configured properly, you should see `localhost` as the address as shown here:
 
            ```text
            NAME                       CLASS    HOSTS                                     ADDRESS     PORTS     AGE
-           demo-pingaccess-admin      nginx   demo-pingaccess-admin.pingdemo.example      localhost   80, 443   9m50s
-           demo-pingaccess-engine     nginx   demo-pingaccess-engine.pingdemo.example     localhost   80, 443   9m50s
-           demo-pingauthorize         nginx   demo-pingauthorize.pingdemo.example         localhost   80, 443   9m50s
-           demo-pingdataconsole       nginx   demo-pingdataconsole.pingdemo.example       localhost   80, 443   9m50s
-           demo-pingdirectory         nginx   demo-pingdirectory.pingdemo.example         localhost   80, 443   9m50s
-           demo-pingfederate-admin    nginx   demo-pingfederate-admin.pingdemo.example    localhost   80, 443   9m50s
-           demo-pingfederate-engine   nginx   demo-pingfederate-engine.pingdemo.example   localhost   80, 443   9m50s
+           demo-pingaccess-admin      nginx   demo-pingaccess-admin.pingdemo.example      localhost   80, 443   7m28s
+           demo-pingaccess-engine     nginx   demo-pingaccess-engine.pingdemo.example     localhost   80, 443   7m28s
+           demo-pingauthorize         nginx   demo-pingauthorize.pingdemo.example         localhost   80, 443   7m28s
+           demo-pingdataconsole       nginx   demo-pingdataconsole.pingdemo.example       localhost   80, 443   7m28s
+           demo-pingdirectory         nginx   demo-pingdirectory.pingdemo.example         localhost   80, 443   7m28s
+           demo-pingfederate-admin    nginx   demo-pingfederate-admin.pingdemo.example    localhost   80, 443   7m28s
+           demo-pingfederate-engine   nginx   demo-pingfederate-engine.pingdemo.example   localhost   80, 443   7m28s
            ```
 
         !!! error "Address must be localhost"
@@ -207,44 +208,44 @@ After using Git to clone the `pingidentity-devops-getting-started` repository, y
 
            ```text
            NAME                                            READY   STATUS    RESTARTS   AGE
-           pod/demo-pingaccess-admin-0                     1/1     Running   0          107m
-           pod/demo-pingaccess-engine-cf9987bb5-npspz      1/1     Running   0          107m
-           pod/demo-pingauthorize-8bdfd4fd8-j82zg          1/1     Running   0          107m
-           pod/demo-pingdataconsole-7c875985d4-mfjbq       1/1     Running   0          116m
-           pod/demo-pingdirectory-0                        1/1     Running   0          107m
-           pod/demo-pingfederate-admin-5786787dfd-5b5s5    1/1     Running   0          107m
-           pod/demo-pingfederate-engine-5ff6546f4f-7jfnt   1/1     Running   0          107m
+           pod/demo-pingaccess-admin-0                    1/1     Running   0          8m23s
+           pod/demo-pingaccess-engine-59cfb85b9d-7l6tz    1/1     Running   0          8m23s
+           pod/demo-pingauthorize-5696dd6b67-hsxnw        1/1     Running   0          8m23s
+           pod/demo-pingdataconsole-56b75f9ffb-wld5k      1/1     Running   0          8m23s
+           pod/demo-pingdirectory-0                       1/1     Running   0          8m23s
+           pod/demo-pingfederate-admin-67cdb47bb4-h88zr   1/1     Running   0          8m23s
+           pod/demo-pingfederate-engine-d9889b494-pdhv8   1/1     Running   0          8m23s
            
            NAME                                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                   AGE
-           service/demo-pingaccess-admin           ClusterIP   10.96.234.72     <none>        9090/TCP,9000/TCP         116m
-           service/demo-pingaccess-admin-cluster   ClusterIP   None             <none>        <none>                    116m
-           service/demo-pingaccess-engine          ClusterIP   10.106.190.217   <none>        3000/TCP                  116m
-           service/demo-pingauthorize              ClusterIP   10.104.246.123   <none>        443/TCP                   116m
-           service/demo-pingauthorize-cluster      ClusterIP   None             <none>        1636/TCP                  116m
-           service/demo-pingdataconsole            ClusterIP   10.96.166.28     <none>        8443/TCP                  116m
-           service/demo-pingdirectory              ClusterIP   10.107.42.8      <none>        443/TCP,389/TCP,636/TCP   116m
-           service/demo-pingdirectory-cluster      ClusterIP   None             <none>        1636/TCP                  116m
-           service/demo-pingfederate-admin         ClusterIP   10.105.26.94     <none>        9999/TCP                  116m
-           service/demo-pingfederate-cluster       ClusterIP   None             <none>        7600/TCP,7700/TCP         116m
-           service/demo-pingfederate-engine        ClusterIP   10.99.223.48     <none>        9031/TCP                  116m
+           service/demo-pingaccess-admin           ClusterIP   10.105.30.25     <none>        9090/TCP,9000/TCP         8m23s
+           service/demo-pingaccess-admin-cluster   ClusterIP   None             <none>        <none>                    8m23s
+           service/demo-pingaccess-engine          ClusterIP   10.100.1.136     <none>        3000/TCP                  8m23s
+           service/demo-pingauthorize              ClusterIP   10.101.98.228    <none>        443/TCP                   8m23s
+           service/demo-pingauthorize-cluster      ClusterIP   None             <none>        1636/TCP                  8m23s
+           service/demo-pingdataconsole            ClusterIP   10.103.181.27    <none>        8443/TCP                  8m23s
+           service/demo-pingdirectory              ClusterIP   10.106.174.162   <none>        443/TCP,389/TCP,636/TCP   8m23s
+           service/demo-pingdirectory-cluster      ClusterIP   None             <none>        1636/TCP                  8m23s
+           service/demo-pingfederate-admin         ClusterIP   10.96.52.217     <none>        9999/TCP                  8m23s
+           service/demo-pingfederate-cluster       ClusterIP   None             <none>        7600/TCP,7700/TCP         8m23s
+           service/demo-pingfederate-engine        ClusterIP   10.103.84.196    <none>        9031/TCP                  8m23s
            
            NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-           deployment.apps/demo-pingaccess-engine     1/1     1            1           116m
-           deployment.apps/demo-pingauthorize         1/1     1            1           116m
-           deployment.apps/demo-pingdataconsole       1/1     1            1           116m
-           deployment.apps/demo-pingfederate-admin    1/1     1            1           116m
-           deployment.apps/demo-pingfederate-engine   1/1     1            1           116m
+           deployment.apps/demo-pingaccess-engine     1/1     1            1           8m23s
+           deployment.apps/demo-pingauthorize         1/1     1            1           8m23s
+           deployment.apps/demo-pingdataconsole       1/1     1            1           8m23s
+           deployment.apps/demo-pingfederate-admin    1/1     1            1           8m23s
+           deployment.apps/demo-pingfederate-engine   1/1     1            1           8m23s
            
-           NAME                                                  DESIRED   CURRENT   READY   AGE
-           replicaset.apps/demo-pingaccess-engine-cf9987bb5      1         1         1       116m
-           replicaset.apps/demo-pingauthorize-8bdfd4fd8          1         1         1       116m
-           replicaset.apps/demo-pingdataconsole-7c875985d4       1         1         1       116m
-           replicaset.apps/demo-pingfederate-admin-5786787dfd    1         1         1       116m
-           replicaset.apps/demo-pingfederate-engine-5ff6546f4f   1         1         1       116m
+           NAME                                                 DESIRED   CURRENT   READY   AGE
+           replicaset.apps/demo-pingaccess-engine-59cfb85b9d    1         1         1       8m23s
+           replicaset.apps/demo-pingauthorize-5696dd6b67        1         1         1       8m23s
+           replicaset.apps/demo-pingdataconsole-56b75f9ffb      1         1         1       8m23s
+           replicaset.apps/demo-pingfederate-admin-67cdb47bb4   1         1         1       8m23s
+           replicaset.apps/demo-pingfederate-engine-d9889b494   1         1         1       8m23s
            
            NAME                                     READY   AGE
-           statefulset.apps/demo-pingaccess-admin   1/1     116m
-           statefulset.apps/demo-pingdirectory      1/1     116m
+           statefulset.apps/demo-pingaccess-admin   1/1     8m23s
+           statefulset.apps/demo-pingdirectory      1/1     8m23s
            ```
 
            * To view logs, look at the logs for the deployment of the product in question.  For example:

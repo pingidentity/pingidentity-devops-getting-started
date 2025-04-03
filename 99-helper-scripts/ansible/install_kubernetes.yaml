@@ -13,6 +13,10 @@
     k8snode02_ip: "192.168.163.72"
 
   tasks:
+    - name: Gather architecture info
+      setup:
+        filter: ansible_architecture
+
     - name: Update package cache
       apt:
         update_cache: yes
@@ -184,10 +188,10 @@
         - lvm2
 
     - name: Get Kubernetes package signing key
-      shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/k8s.gpg
+      shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/k8s.gpg
 
     - name: Add Kubernetes APT repository
-      shell: echo 'deb [signed-by=/etc/apt/keyrings/k8s.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | tee /etc/apt/sources.list.d/k8s.list
+      shell: echo 'deb [signed-by=/etc/apt/keyrings/k8s.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | tee /etc/apt/sources.list.d/k8s.list
 
     - name: Update package cache
       apt:
