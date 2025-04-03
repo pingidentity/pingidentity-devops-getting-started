@@ -11,7 +11,7 @@ In some cases, a single-node cluster is insufficient for more complex testing sc
 This document describes deploying a multi-node cluster using [ansible](https://docs.ansible.com/) and the [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm//) utility, running under virtual machines. When completed, the cluster will consist of:
 
 - 3 nodes, a master with two worker nodes (to conserve resources, the master will also be configured to run workloads)
-- (At the time of this writing) Kubernetes 1.30.8 using the **containerd** runtime (no Docker installed)
+- (At the time of this writing) Kubernetes 1.32.3 using the **containerd** runtime (no Docker installed)
 - (Optional but recommended) Load balancer
 - Block storage support for PVC/PV needed by some Ping products
 - (Optional) Ingress controller (ingress-nginx)
@@ -20,6 +20,9 @@ This document describes deploying a multi-node cluster using [ansible](https://d
 
 !!! warning "Demo Use Only"
     While the result is a full Kubernetes installation, the instructions in this document only create an environment sufficient for testing and learning.  The cluster is not intended for use in production environments.
+
+!!! note "ARM Architecture"
+    The ansible playbooks for this guide assume the ARM chip set as found on the Apple M-series chip.  If you are running on an Intel-based processor, you will have to adjust some file packages and names accordingly.
 
 ## Prerequisites
 
@@ -30,7 +33,7 @@ In order to complete this guide, you will need:
 - Modern processor with multiple cores
 - Ansible-playbook CLI tool. You can use brew by running `brew install ansible` or see [the ansible site](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for instructions on how to install and configure this application.
 - Virtualization solution.  For this guide, VMware Fusion is used, but other means of creating and running a VM (Virtualbox, KVM) can be adapted.
-- Access to [Ubuntu Server 24.04.1 LTS](https://ubuntu.com/download/server) installation media
+- Access to [Ubuntu Server 24.04.2 LTS](https://ubuntu.com/download/server) installation media
 - **A working knowledge of Kubernetes**, such as knowing how to port-forward, install objects using YAML files, and so on. Details on performing some actions will be omitted, and it is assumed the reader will know what to do.
 - Patience
 
@@ -213,297 +216,312 @@ With the changes above, you are now ready to run the playbooks.  First, run the 
   <summary>Sample output</summary>
 
 ```text
-PLAY [Install Kubernetes on all VMs] *******************************************
+PLAY [Install Kubernetes on all VMs] ******************************************************************************************************************************************************
 
-TASK [Gathering Facts] *********************************************************
+TASK [Gathering Facts] ********************************************************************************************************************************************************************
+ok: [k8smaster]
+ok: [k8snode01]
+ok: [k8snode02]
+
+TASK [Gather architecture info] ***********************************************************************************************************************************************************
+ok: [k8smaster]
+ok: [k8snode01]
+ok: [k8snode02]
+
+TASK [Update package cache] ***************************************************************************************************************************************************************
 ok: [k8smaster]
 ok: [k8snode02]
 ok: [k8snode01]
 
-TASK [Update package cache] ****************************************************
-ok: [k8snode02]
-ok: [k8snode01]
-ok: [k8smaster]
+TASK [Upgrade all packages] ***************************************************************************************************************************************************************
+changed: [k8snode02]
+changed: [k8snode01]
+changed: [k8smaster]
 
-TASK [Upgrade all packages] ****************************************************
+TASK [Add host file entries] **************************************************************************************************************************************************************
+changed: [k8snode02]
+changed: [k8snode01]
+changed: [k8smaster]
+
+TASK [Add the br_netfilter kernel module and configure for load at boot] ******************************************************************************************************************
+changed: [k8snode02]
+changed: [k8snode01]
+changed: [k8smaster]
+
+TASK [Add the overlay kernel module and configure for load at boot] ***********************************************************************************************************************
 changed: [k8snode01]
 changed: [k8snode02]
 changed: [k8smaster]
 
-TASK [Add host file entries] ***************************************************
-changed: [k8smaster]
+TASK [Creating kernel modules file to load at boot] ***************************************************************************************************************************************
 changed: [k8snode02]
-changed: [k8snode01]
-
-TASK [Add the br_netfilter kernel module and configure for load at boot] *******
-changed: [k8smaster]
-changed: [k8snode02]
-changed: [k8snode01]
-
-TASK [Add the overlay kernel module and configure for load at boot] ************
 changed: [k8smaster]
 changed: [k8snode01]
-changed: [k8snode02]
 
-TASK [Creating kernel modules file to load at boot] ****************************
-changed: [k8smaster]
-changed: [k8snode02]
-changed: [k8snode01]
-
-TASK [Disable swap in fstab by commenting it out] ******************************
-changed: [k8smaster]
-changed: [k8snode01]
-changed: [k8snode02]
-
-TASK [Disable swap] ************************************************************
+TASK [Disable swap in fstab by commenting it out] *****************************************************************************************************************************************
 changed: [k8snode01]
 changed: [k8snode02]
 changed: [k8smaster]
 
-TASK [Enable IP forwarding for iptables] ***************************************
+TASK [Disable swap] ***********************************************************************************************************************************************************************
+changed: [k8snode02]
+changed: [k8snode01]
+changed: [k8smaster]
+
+TASK [Enable IP forwarding for iptables] **************************************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode01]
 changed: [k8snode02]
 
-TASK [Update sysctl parameters without reboot - bridge (ipv4)] *****************
+TASK [Update sysctl parameters without reboot - bridge (ipv4)] ****************************************************************************************************************************
+changed: [k8snode02]
+changed: [k8snode01]
+changed: [k8smaster]
+
+TASK [Update sysctl parameters without reboot - bridge (ipv6)] ****************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode01]
 changed: [k8snode02]
 
-TASK [Update sysctl parameters without reboot - bridge (ipv6)] *****************
+TASK [Update sysctl parameters without reboot - IPforward] ********************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode01]
 changed: [k8snode02]
 
-TASK [Update sysctl parameters without reboot - IPforward] *********************
-changed: [k8smaster]
-changed: [k8snode01]
-changed: [k8snode02]
-
-TASK [Install prerequisites] ***************************************************
+TASK [Install containerd] *****************************************************************************************************************************************************************
 changed: [k8snode02] => (item=containerd)
-changed: [k8smaster] => (item=containerd)
 changed: [k8snode01] => (item=containerd)
+changed: [k8smaster] => (item=containerd)
 
-TASK [Add Kubernetes APT key] **************************************************
-changed: [k8snode02]
-changed: [k8smaster]
-changed: [k8snode01]
-
-TASK [Create directory for containerd configuration file] **********************
-changed: [k8smaster]
-changed: [k8snode01]
-changed: [k8snode02]
-
-TASK [Check if containerd toml configuration file exists] **********************
-ok: [k8smaster]
-ok: [k8snode01]
-ok: [k8snode02]
-
-TASK [Create containerd configuration file if it does not exist] ***************
+TASK [Add Kubernetes APT key] *************************************************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode02]
 changed: [k8snode01]
 
-TASK [Read config.toml file] ***************************************************
+TASK [Create directory for containerd configuration file] *********************************************************************************************************************************
+changed: [k8snode02]
+changed: [k8snode01]
+changed: [k8smaster]
+
+TASK [Check if containerd toml configuration file exists] *********************************************************************************************************************************
 ok: [k8smaster]
 ok: [k8snode01]
 ok: [k8snode02]
 
-TASK [Check if correct containerd.runtimes.runc line exists] *******************
+TASK [Create containerd configuration file if it does not exist] **************************************************************************************************************************
+changed: [k8snode01]
+changed: [k8smaster]
+changed: [k8snode02]
+
+TASK [Read config.toml file] **************************************************************************************************************************************************************
+ok: [k8snode01]
+ok: [k8snode02]
+ok: [k8smaster]
+
+TASK [Check if correct containerd.runtimes.runc line exists] ******************************************************************************************************************************
 ok: [k8smaster]
 ok: [k8snode01]
 ok: [k8snode02]
 
-TASK [Error out if the incorrect or missing containerd.runtimes.runc line does not exist] ***
+TASK [Error out if the incorrect or missing containerd.runtimes.runc line does not exist] *************************************************************************************************
 skipping: [k8smaster]
 skipping: [k8snode01]
 skipping: [k8snode02]
 
-TASK [Set SystemdCgroup line in file to true if it is currently false] *********
+TASK [Set SystemdCgroup line in file to true if it is currently false] ********************************************************************************************************************
 changed: [k8smaster]
+changed: [k8snode01]
 changed: [k8snode02]
+
+TASK [Restart containerd service] *********************************************************************************************************************************************************
+changed: [k8snode02]
+changed: [k8smaster]
 changed: [k8snode01]
 
-TASK [Restart containerd service] **********************************************
-changed: [k8smaster]
-changed: [k8snode02]
-changed: [k8snode01]
-
-TASK [Install prerequisites for Kubernetes] ************************************
-changed: [k8snode02] => (item=apt-transport-https)
-changed: [k8smaster] => (item=apt-transport-https)
+TASK [Install prerequisites for Kubernetes] ***********************************************************************************************************************************************
 changed: [k8snode01] => (item=apt-transport-https)
-ok: [k8snode02] => (item=ca-certificates)
-ok: [k8snode01] => (item=ca-certificates)
+changed: [k8smaster] => (item=apt-transport-https)
+changed: [k8snode02] => (item=apt-transport-https)
 ok: [k8smaster] => (item=ca-certificates)
+ok: [k8snode01] => (item=ca-certificates)
+ok: [k8snode02] => (item=ca-certificates)
 ok: [k8snode02] => (item=curl)
 ok: [k8smaster] => (item=curl)
 ok: [k8snode01] => (item=curl)
+changed: [k8smaster] => (item=gnupg2)
 changed: [k8snode02] => (item=gnupg2)
 changed: [k8snode01] => (item=gnupg2)
-changed: [k8smaster] => (item=gnupg2)
 ok: [k8snode02] => (item=software-properties-common)
-ok: [k8snode01] => (item=software-properties-common)
 ok: [k8smaster] => (item=software-properties-common)
-changed: [k8snode02] => (item=bzip2)
+ok: [k8snode01] => (item=software-properties-common)
 changed: [k8snode01] => (item=bzip2)
+changed: [k8snode02] => (item=bzip2)
 changed: [k8smaster] => (item=bzip2)
 ok: [k8snode02] => (item=tar)
 ok: [k8snode01] => (item=tar)
 ok: [k8smaster] => (item=tar)
 ok: [k8snode02] => (item=vim)
-ok: [k8snode01] => (item=vim)
 ok: [k8smaster] => (item=vim)
+ok: [k8snode01] => (item=vim)
 ok: [k8snode02] => (item=git)
 ok: [k8snode01] => (item=git)
 ok: [k8smaster] => (item=git)
 ok: [k8snode02] => (item=wget)
-ok: [k8snode01] => (item=wget)
 ok: [k8smaster] => (item=wget)
-changed: [k8snode02] => (item=net-tools)
-changed: [k8snode01] => (item=net-tools)
-changed: [k8smaster] => (item=net-tools)
-ok: [k8snode01] => (item=lvm2)
+ok: [k8snode01] => (item=wget)
+ok: [k8smaster] => (item=net-tools)
+ok: [k8snode02] => (item=net-tools)
+ok: [k8snode01] => (item=net-tools)
 ok: [k8snode02] => (item=lvm2)
 ok: [k8smaster] => (item=lvm2)
+ok: [k8snode01] => (item=lvm2)
 
-TASK [Add Kubernetes APT repository] *******************************************
+TASK [Get Kubernetes package signing key] *************************************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode01]
 changed: [k8snode02]
 
-TASK [Install Kubernetes components] *******************************************
-changed: [k8snode01] => (item=kubelet)
-changed: [k8snode02] => (item=kubelet)
+TASK [Add Kubernetes APT repository] ******************************************************************************************************************************************************
+changed: [k8snode01]
+changed: [k8smaster]
+changed: [k8snode02]
+
+TASK [Update package cache] ***************************************************************************************************************************************************************
+ok: [k8smaster]
+ok: [k8snode02]
+ok: [k8snode01]
+
+TASK [Install Kubernetes components] ******************************************************************************************************************************************************
 changed: [k8smaster] => (item=kubelet)
+changed: [k8snode02] => (item=kubelet)
+changed: [k8snode01] => (item=kubelet)
+changed: [k8smaster] => (item=kubeadm)
 changed: [k8snode01] => (item=kubeadm)
 changed: [k8snode02] => (item=kubeadm)
-changed: [k8smaster] => (item=kubeadm)
-ok: [k8snode02] => (item=kubectl)
-ok: [k8snode01] => (item=kubectl)
-ok: [k8smaster] => (item=kubectl)
+changed: [k8smaster] => (item=kubectl)
+changed: [k8snode01] => (item=kubectl)
+changed: [k8snode02] => (item=kubectl)
 
-TASK [Hold Kubernetes packages at current version] *****************************
+TASK [Hold Kubernetes packages at current version] ****************************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode01]
 changed: [k8snode02]
 
-TASK [Run kubeadm reset to ensure fresh start each time.] **********************
+TASK [Run kubeadm reset to ensure fresh start each time.] *********************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode02]
 changed: [k8snode01]
 
-TASK [Remove any files from a previous installation attempt] *******************
-skipping: [k8snode01] => (item=/home/ubuntu/.kube) 
+TASK [Remove any files from a previous installation attempt] ******************************************************************************************************************************
+skipping: [k8snode01] => (item=/home/ubuntu/.kube)
 skipping: [k8snode01]
-skipping: [k8snode02] => (item=/home/ubuntu/.kube) 
+skipping: [k8snode02] => (item=/home/ubuntu/.kube)
 skipping: [k8snode02]
 ok: [k8smaster] => (item=/home/ubuntu/.kube)
 
-TASK [Initialize Kubernetes master] ********************************************
+TASK [Initialize Kubernetes master] *******************************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Check if k8s installation file exists] ***********************************
+TASK [Check if k8s installation file exists] **********************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 ok: [k8smaster]
 
-TASK [Fail if K8s installed file does not exist] *******************************
+TASK [Fail if K8s installed file does not exist] ******************************************************************************************************************************************
 skipping: [k8smaster]
 skipping: [k8snode01]
 skipping: [k8snode02]
 
-TASK [Create .kube directory] **************************************************
+TASK [Create .kube directory] *************************************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Copy kubeconfig to user's home directory] ********************************
+TASK [Copy kubeconfig to user's home directory] *******************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Install Pod network] *****************************************************
+TASK [Install Pod network] ****************************************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Remove taint from master node] *******************************************
+TASK [Remove taint from master node] ******************************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Retrieve join command from master and run it on the nodes] ***************
+TASK [Retrieve join command from master and run it on the nodes] **************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Join worker nodes to the cluster] ****************************************
-skipping: [k8snode01] => (item=k8snode01) 
-skipping: [k8snode01] => (item=k8snode02) 
+TASK [Join worker nodes to the cluster] ***************************************************************************************************************************************************
+skipping: [k8snode01] => (item=k8snode01)
+skipping: [k8snode01] => (item=k8snode02)
 skipping: [k8snode01]
-skipping: [k8snode02] => (item=k8snode01) 
-skipping: [k8snode02] => (item=k8snode02) 
+skipping: [k8snode02] => (item=k8snode01)
+skipping: [k8snode02] => (item=k8snode02)
 skipping: [k8snode02]
-changed: [k8smaster -> k8snode01(192.168.163.61)] => (item=k8snode01)
-changed: [k8smaster -> k8snode02(192.168.163.62)] => (item=k8snode02)
+changed: [k8smaster -> k8snode01(192.168.163.71)] => (item=k8snode01)
+changed: [k8smaster -> k8snode02(192.168.163.72)] => (item=k8snode02)
 
-TASK [Pause for 5 seconds] *****************************************************
+TASK [Pause for 5 seconds] ****************************************************************************************************************************************************************
 Pausing for 5 seconds
 (ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
 ok: [k8smaster]
 
-TASK [Confirm flannel pods are ready] ******************************************
+TASK [Confirm flannel pods are ready] *****************************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Run confirmation command by listing nodes] *******************************
-changed: [k8snode01 -> k8smaster(192.168.163.70)]
+TASK [Run confirmation command by listing nodes] ******************************************************************************************************************************************
 changed: [k8smaster]
 changed: [k8snode02 -> k8smaster(192.168.163.70)]
+changed: [k8snode01 -> k8smaster(192.168.163.70)]
 
-TASK [Nodes in the cluster] ****************************************************
+TASK [Nodes in the cluster] ***************************************************************************************************************************************************************
 ok: [k8smaster] => {
     "nodes_command_output.stdout_lines": [
         "NAME        STATUS   ROLES           AGE   VERSION",
-        "k8smaster   Ready    control-plane   46s   v1.30.8",
-        "k8snode01   Ready    <none>          22s   v1.30.8",
-        "k8snode02   Ready    <none>          18s   v1.30.8"
+        "k8smaster   Ready    control-plane   36s   v1.32.3",
+        "k8snode01   Ready    <none>          25s   v1.32.3",
+        "k8snode02   Ready    <none>          24s   v1.32.3"
     ]
 }
 ok: [k8snode01] => {
     "nodes_command_output.stdout_lines": [
         "NAME        STATUS   ROLES           AGE   VERSION",
-        "k8smaster   Ready    control-plane   46s   v1.30.8",
-        "k8snode01   Ready    <none>          22s   v1.30.8",
-        "k8snode02   Ready    <none>          18s   v1.30.8"
+        "k8smaster   Ready    control-plane   36s   v1.32.3",
+        "k8snode01   Ready    <none>          25s   v1.32.3",
+        "k8snode02   Ready    <none>          24s   v1.32.3"
     ]
 }
 ok: [k8snode02] => {
     "nodes_command_output.stdout_lines": [
         "NAME        STATUS   ROLES           AGE   VERSION",
-        "k8smaster   Ready    control-plane   46s   v1.30.8",
-        "k8snode01   Ready    <none>          22s   v1.30.8",
-        "k8snode02   Ready    <none>          18s   v1.30.8"
+        "k8smaster   Ready    control-plane   36s   v1.32.3",
+        "k8snode01   Ready    <none>          25s   v1.32.3",
+        "k8snode02   Ready    <none>          24s   v1.32.3"
     ]
 }
 
-TASK [Provide cluster connection information] **********************************
+TASK [Provide cluster connection information] *********************************************************************************************************************************************
 skipping: [k8snode01]
 skipping: [k8snode02]
 changed: [k8smaster]
 
-TASK [Cluster information for your .kube/config file] **************************
+TASK [Cluster information for your .kube/config file] *************************************************************************************************************************************
 ok: [k8smaster] => {
     "msg": [
         "apiVersion: v1",
         "clusters:",
         "- cluster:",
-        "    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJek1EWXlOakUxTkRjeU1Gb1hEVE16TURZeU16RTFORGN5TUZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBT25YCjdiTlRKNi93TGsyM2NSUllFeVI3M2tzRzFKYmlBaVBaYlBETTNXZnJqOFRsYlNhK1QxazNoeTlzNFJBaWdzSzUKaDlnNkE2QSsxWkFxOEw4WWVzZlhYL0ZUb0I2UlN3VWJmd2FVSkpUOWNHQTRvbXZmV2JVVzlrMHp0Qkp2aHREbgo5V2t2dWp4aDhBVEg1Q0JqTVNYWjErYThlS2JkQ3hDNVI5ZWdEaGJGSDIwYmlieG1BS0JvTUhKK2tvUUVTZ212CkRack9GczRDeDlPbWYyZXVFNkRqeGNKVSs2aytxU3hjWHN4ZDJJM0JKSnVxeXFhdDFoMkl1b0ZGMFh4aXVaVWsKWHU4amZhVHZCQ2JJRFZ4SGhaaUswMEs4Q0Naakg2cGxzSnVLT2dXQ0FTcFhGTVJNL3UvRDBubUM0emN3WnhzVQp1d0NYdXQ0QW54eTJqb0hIcDJzQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZJR2w4THREalRUdkJsdGs5a05UV0dWY3dpenZNQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQmpRUy9qSWtadjI0UUp2UkllZgphQ0ZCOVlKMWltTUJSdnprY0hEQjVKSTJpYTJESWxEVS9xMklRb2dUVWIvWmVPK2p1SFJoK2VIbUx3eVZuMTBCClNXb1QzUzlHK3VyK1hDbE8xU2dUMmg2UnlLTWZ2UFpmMFBHNGJIanFWSDJFbk56MGNoTUFBK1RzSGM2WVEyTFEKVnp2OURHb0pFdEkzL0w2M1AwSVVFWEhvalVxcGNHUkZhRFliWnc1NElGUitqdGs5L1lYakhDWUhna0JkMlhjTApwcElZcG40TUpubW9BeUxONGprdVQ4Qi9pTXhjUGxCaWpyZTd0Q3YvbXlnaUp6d0hWcUN1S2FRcG1xUUFuM0MwClNDeTU5ZEJvMmp4Q3ZrNE1xSWNZS1F5eVFsVXhTeEpMc3E4VUlhWi9ZY0ZMT1pJSWJzYzUrbnJuZXNPVkl0OXEKZVhnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
+        "    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJSnVJVlgvY2Y2UkF3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TlRBME1ETXhOREU0TkRoYUZ3MHpOVEEwTURFeE5ESXpORGhhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUURLeEpzQW9GNld3eWtkWWJnekZKNDZyc2Q2aVJEenduamRrUlJKaXgzY0k0NU1PUE5PV1NDODB6SUMKZWRyWEtZR2wrWFM3Zk5WK3kyUmJTN1A3STdUcDhRQTRqVXA1VXlCZXVtamN4NnFSc3R4MEFYVTQ3T0tJNHM5UApId2lrczFJQ1ZZV1ZNM3ZkN0c0dWdtNTJjYjRrOFBLbnR6MmREWUVlUXVvUFpPYVJwNEVNRmdzM0RMS2JRZ01mCitnSWFwdm9PUGxwVnlJanRQVFJuRnA2ME41eVgzcGp0ejBsRFZYcDJQU3F3aEtCK3hsYVVaeUQ4RytibmJiRncKUTRLWFIxWjlpazJaQ3JuS2k3VFVXUnZKUGdrZ0poVmdidzhBZlArbUgxUGt6dGxaSDZBbGkyaFZnOFpRQnZkbAppd3l6QUVQbmk2VlBDVTN0Z0drVTJYa0pLbzdCQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJSb29KcDJIbTk0S09KUXRhb2tjTG45WEpVRzdqQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQ3ZIa0ZmZVhKRwpQdlpOMFBjUTJ0Wm81SzVVQ1ZCQytBaVQwUnp5SmU4WTAyT1FPVUlRc1owZ25Ca3I2OXJncEhuSWJLTlVPaktHCmM1a2QydEJJaW5lclBnS2hzS2tKblZYY2hINDMrdDRwS05KUis2Z1ByL1ZQeWRrSW1GUzZrSTRsc291bUZHc1kKL1NBeGZCdGdKL0Z6MXM5aFByZzZFR0xTeXFtSmZaK2RwT2oxZ0tCSUpta2tHaEV4REova2xxZk02OFpXbnU0Vwo2UEZ0SVNiTGM1dzk0Q3NTdnNUVkdLVnNlcVMrSmtPS1g4UE5MTjN5ZVp3RzhoMHRTMkFDbUlmN1grSmE5Y0xNClhib2VjRzFiVmgxMWdNMU1NckNEdjcwTGUvOWw5T3lEOGY1MFpBcVVVck5XazZmRzF5dkpIcnIvY2E3OGNCaHQKcmFFeUk0SG56Z1p5Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
         "    server: https://192.168.163.70:6443",
         "  name: kubernetes",
         "contexts:",
@@ -517,17 +535,17 @@ ok: [k8smaster] => {
         "users:",
         "- name: kubernetes-admin",
         "  user:",
-        "    client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJVENDQWdtZ0F3SUJBZ0lJS2xBRDd6VGJmaFl3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TXpBMk1qWXhOVFEzTWpCYUZ3MHlOREEyTWpVeE5UUTNNakphTURReApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sa3dGd1lEVlFRREV4QnJkV0psY201bGRHVnpMV0ZrCmJXbHVNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQTRHRmRreEJ0U0RuWS95TFUKUVQ3QnVhMm5tT2kzZ2IvLzdLL3d3UXlqeDBSMFpWWGI3QWw5TU5GVFlUdVJQbm1jVm1CK1FPK215RExsVGlvcwpZQ0dmeHEzS1ZMOU40bXJjUTJwU3dNVTYydVh6bG9MczVZM2VLWlVqL0haZEs0N1ZzSzZBa0duZFFEMGxlRjhHCmY4T3Raek8xOXgwcDZ5WVZIYnJseUxhd1Eybm9FbXdrbWdpUlJpSVFPSDJXQ1JyL1pkeWMyaXE1UmMxMFZTODMKUFdmaEtwZGo2U2VCM3dCdGUyM2dLdzdUSXJIWk0vcWFOOFVJWnB3VE5ibkFlQ2d6VUhmK3kyby9maDNjZ0ZHOQpHUUpRRjdzd1c0MEQ4UGF4eXlZMWFlTWN0OHpBWVhkK0NZamZuNHlLWTdLcnRoTFhnWmVsTUtrcXpYaVljSHVGCjVVQ3N5d0lEQVFBQm8xWXdWREFPQmdOVkhROEJBZjhFQkFNQ0JhQXdFd1lEVlIwbEJBd3dDZ1lJS3dZQkJRVUgKQXdJd0RBWURWUjBUQVFIL0JBSXdBREFmQmdOVkhTTUVHREFXZ0JTQnBmQzdRNDAwN3daYlpQWkRVMWhsWE1Jcwo3ekFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBbFlqOXlKREIrSjRsYXhkRnZUQ01KUENlQ0lwcWFUS1FHN01LClk3OVZLbWkyazAwQWFsZGRSeHptckF3V3NLa1B5blAyMEdnS0ZST2w1dUJvZk9VUXoxU21oeEN2bmZmbStCN2wKTDQ5aTBDTTNlMStBYTgxcGh4TkROaXk0N1JmcXJTc0svSVduUVFCbzNVd0M2UXpoMm9xTzZMOHlWZUQ0MXJXSwpIeWJ6dHpRS0hzeE0yUVk1VklUazVPQVBvTzJ3ZnJ2SEFCVGxmUDRLU0E2SWVIdmlzVkdreTlTUlVsbU9paXp5CmV5YVV6VG9kZm51M3JIQ3dHWEoxN25rQjI3MVN3V0kxZGpKamJacWdGb1VaNWRWQ0RnNHZ5dVhnUiswSVNRR3IKa0orZWxndEQ3V1RDeUJVL0pHUmExRVB1RnF2T3lEbkw1T0NQSkF6THRyN0I0SnhVWFE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
-        "    client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBNEdGZGt4QnRTRG5ZL3lMVVFUN0J1YTJubU9pM2diLy83Sy93d1F5angwUjBaVlhiCjdBbDlNTkZUWVR1UlBubWNWbUIrUU8rbXlETGxUaW9zWUNHZnhxM0tWTDlONG1yY1EycFN3TVU2MnVYemxvTHMKNVkzZUtaVWovSFpkSzQ3VnNLNkFrR25kUUQwbGVGOEdmOE90WnpPMTl4MHA2eVlWSGJybHlMYXdRMm5vRW13awptZ2lSUmlJUU9IMldDUnIvWmR5YzJpcTVSYzEwVlM4M1BXZmhLcGRqNlNlQjN3QnRlMjNnS3c3VElySFpNL3FhCk44VUlacHdUTmJuQWVDZ3pVSGYreTJvL2ZoM2NnRkc5R1FKUUY3c3dXNDBEOFBheHl5WTFhZU1jdDh6QVlYZCsKQ1lqZm40eUtZN0tydGhMWGdaZWxNS2txelhpWWNIdUY1VUNzeXdJREFRQUJBb0lCQUFUUzh4RVRYRlllTUVVagorWTVCakNheXpoU2loRGQ4NmtLcmNiQ2sxZXlWMHk3T2pzRGZYMXFxVlhHVXQwV3hsYVBoeFRVZU1lYkIrVjRaCjJBUmxGS3RQMXpiRk9pWnhCN1ZIVnVvZ0UyamJZc1pNb0UwN0pKaWVSVHpMU3F1Q0VhUVB6R0hPZE54SnRFR0gKUVh1RHVIbXNpZS83SjRpUHRBcUVseVllajJHVG5nUVhobU5pVTBTaGY0ekpkTytqZytTNTFRK0J3WnBIRVJaVApRM3BPVlRBUEFpS1dDQmtGMHY2VHc5d3Ywb3hVQk8weGorTGlIVE00WlFGSWE2d0U4OEhsSjhOY1hhaHlFTXprCnVVeWdQSGNJK1NvN2ZYclppNzV4ZTJnbWJ4VXlKaVZ3SjduTVJsNjFqc000ckpobmM1Y3VjVmFyTjVKaGp0MWsKMUJLb0pxa0NnWUVBNjcvMnBibVhIeWpOWTdJTmU2T0c2ZGkrZkJtRHlVUlFrRWJWMWFVNzZKYWhYd1IySkRuNgpoVXlEVHVLQ0lyWVI2QkwrZStVY2t1bTVCZlZwL3cvKzVGSjZUdDVqS0huNlhoRVI4bFh3a0ZjM1h1bjVIai9mCnAzUlB2a0ZqSXpIWjNSK1lUbkxWK0w0MDh0cFJ0ZWZKTHpCS0dqQkdpRlNCN2twbWFBY3NwUjBDZ1lFQTg2ZGsKSmQyV2t0T2JmL1doWkNVdHNrNGZFejcxbHNwUWZnNm1GditXV2VScDVzNS9HR2xDODQ2SFNTbGJVVitmS3pzUApMbW1OQWp4MS8xSGJxaEliNTNVRFliU3VQWkdMQXhNNElFWW16dmJ4S0ozNDkvc0laYnNXejRhazBMWGZZb1BGCkxMQ3VKYjloSXNBclpTckNUTkFkcWd6U0plZ2lPYkVoWXdDOWZRY0NnWUVBM3h6bUNTSUQ2L0Zwc0ppcU9nRWgKaGQ4ako3L2VBWFV0NmQyZ01ub1dvS0V1U0FhbzZOQVdVR0dCUS84S3VsOGx3MFYyb3pyS09DQUtnNkVubDhWRApya0tBam5QWjFFemNybm5wU2pnYlcvK3UzNXovcjZrenVmOVNHUFU1SmUzZ0NtNEVidm92bHlJc2FrcEVXcXZxCnMwWTRXMkNrNEJGYWhuTFRTRkRCNStFQ2dZRUFtb2ZXcDRGVFIwbjMvSDd2M2hFS1cyVGFwcDB1cTNVaStlQVcKak0yTE1QWUNDSVY4N0NHT2VlUXlmejlBa0dxQ0M2d0lZOXBEdVdCWlFoWkxxQ0NXSEFVRm9Ra3ozUTZheU5kKwpxRkYxdVp1NnRaVURXMXVXSnRjeWoyb0l5K29kaEdDb1JFREdJbUN2blplZHJpc2hVaEJJVUJxVGljRWhPOC9RCnFmYkZOeThDZ1lFQXFnN1RIcWFCREliUmZxWWZQcjZwYjltczFxQk5SM1FGL0F2QmRzZnNaU3VqWVQ1ZkZjRFoKc3pHQ2xrUTdLMUZyU0lPcEJBeUdEKzlnZE5vbDhJYU9paU1QQXdpdElMTVllYnJ0QmtUL3ZTVUJyMU5xaldQSQo0djVlbHdHN1F5ZDBrREQ1ZmhzVyt1dGlpNUg2ZEFBcTBRM1UzaWp1SVcrMDV3UEV0QXB0Q1drPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
+        "    client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLVENDQWhHZ0F3SUJBZ0lJVnZqM2xzNFFSMWd3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TlRBME1ETXhOREU0TkRoYUZ3MHlOakEwTURNeE5ESXpORGhhTUR3eApIekFkQmdOVkJBb1RGbXQxWW1WaFpHMDZZMngxYzNSbGNpMWhaRzFwYm5NeEdUQVhCZ05WQkFNVEVHdDFZbVZ5CmJtVjBaWE10WVdSdGFXNHdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEY1BGa1QKdzNtWGlvaHVjWFgvOGFxdS9NYVBFYU5lMWNEOCs2K1p3R3I4T1FzSGZCOHRQQjdHTUd2VXgwUmh1cTlINkw0YQpxTWttdHc0NUVySTZWWjVQYjBvVkpScjdBVzRUQXFPd3ZnT21KN1VUTmlhSjhoQVp3ZElQZGh5akJsMDVEZG51CmdPdVR2ZncyUFlZbDNXMWRzZWxnemQ4Ym1NS0wrMlBNTWErdjhwZUVITVNkTnRsUGFWOWFjMUt0MlQ2b2o0OGsKTXN4dkhJNS85L3NLUlVyMmhmMzR1b2RCa3FHK0JHMllJNGhXUlloVmphMGZEYVJiUG95OTF2TlEwb0graDFjZQp5MjVXV1hkTkQxdk9hQWp5OWwrUXlnL2hSQWJ4Um9IcGJoUTJLejdpeE9RcTVTWUJ0MFdORlZmc3F5MUYyQzdHCk95L0dLNVkyZ0ZnWGhzc3JBZ01CQUFHalZqQlVNQTRHQTFVZER3RUIvd1FFQXdJRm9EQVRCZ05WSFNVRUREQUsKQmdnckJnRUZCUWNEQWpBTUJnTlZIUk1CQWY4RUFqQUFNQjhHQTFVZEl3UVlNQmFBRkdpZ21uWWViM2dvNGxDMQpxaVJ3dWYxY2xRYnVNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUJCVUk3UnRCd3ZsQXdpeEZVOEw4cW44LzZXCnZQb2NQT1psM2IwYXdxeHdaMlozTkcrVGp3Uk43UldxR3RFSEs3M0RoT3cySFloeTJQZDZlMFVXb3JWZ0tIeVYKcE1pREh0VW5rcE45QlUvZjJrNUhNNlpyRjR3ZVJ4QUYySEN6RDAxR1hDTzFlbWVsQnMyVjFPMzRnQmh6K0VZNwp1TkhkS0NTayt5Yk13RTEvZ1BaUzJqQm92UDhZdUhuU2w5VXJ1ODB5d2Z0czk0ejNvTjE5ZzNTV3FSeGxUejZNCktLNC9YNE4yTnRhS2VWQUFIZXRtY29zSWdka085S1NvakZkUEtXVWdnY1NRcXhNWkl3SFluSDFqMWpaQS94U04KWnhOTlZrODEwSDJydklwMjZrSUxOUTZPZDJBMld1RXVyaDRySVAwWi9saHBIa2JRZlplU2pDU0hLSnZ2Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+        "    client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBM0R4WkU4TjVsNHFJYm5GMS8vR3FydnpHanhHalh0WEEvUHV2bWNCcS9Ea0xCM3dmCkxUd2V4akJyMU1kRVlicXZSK2krR3FqSkpyY09PUkt5T2xXZVQyOUtGU1VhK3dGdUV3S2pzTDREcGllMUV6WW0KaWZJUUdjSFNEM1ljb3daZE9RM1o3b0RyazczOE5qMkdKZDF0WGJIcFlNM2ZHNWpDaS90anpER3ZyL0tYaEJ6RQpuVGJaVDJsZlduTlNyZGsrcUkrUEpETE1ieHlPZi9mN0NrVks5b1g5K0xxSFFaS2h2Z1J0bUNPSVZrV0lWWTJ0Ckh3MmtXejZNdmRielVOS0Ivb2RYSHN0dVZsbDNUUTliem1nSTh2WmZrTW9QNFVRRzhVYUI2VzRVTmlzKzRzVGsKS3VVbUFiZEZqUlZYN0tzdFJkZ3V4anN2eGl1V05vQllGNGJMS3dJREFRQUJBb0lCQUE2bEhLOUp3bDRuWWljbAorRmpLc3pUcnJqQjVWY25Lb1FpeG05MjNnK1c5elZQMEZ3YWxCczdiRFhDYXg1dFFGTFBOY0ViSmpvYTZpWUdXCkVxLzZYWXFldGVodURUcy92eGdZaHRZTDdLWXg0Y0tqU1RESEhmYjRnb1Z3cnpyUUE0YjF1dFkzVUhNRW9TN2kKTEhkOEgvZXBDd0hhN3NraEFWN1ptcXRMYW9saWtzUDRpQURCNFFCTXQwQ0xpYUtlTU9iZEkzNTBELzJCWnpvaApJSG9mNS9wY0dIT2hReVYxNEx6blNoTGkxMFFHQjJPb0lwRHFsQjhxd2k3SDRHK09nOGtyZS9BU0JRYnRuaWlmCnBoS3ZxbjF5YUhSb1FPVHRHekNpanYvZVRMK3Aza09QYUpLWUM4Q1lzR3ZqRzVHTFREUXRKeEJnd2p0TDVXM1AKU3N1SlovRUNnWUVBNWFhR1VvUE9VNzJMSWxldE80L2RsOWZtSkR0TTNCWjcvTXAyQTB6M0NvVmgrdGpxVVloVwpvUzE0QlRUcE5wOEhoN21SeW1MOE5oWFZJQjlSTTFrNjdNMVlJN2lzSU9ESm50VlNUclFJL1BSUmU5cXZLbzRLCkFKVGROTnhSR0xvM2VFY0M1eTZDNWNLZ2hXdStZNFZHMGVIc016TTN2amxhRFRPTlAyYmRRNmNDZ1lFQTlZRkoKSkYyc2owK0JjNUU4bjBYd0twSkdXMDdtdkRWTXdtQVRRdHM5Nms5TTk0Sm1iWHlOU2t5ajl3RVM4K2x6STkrUQoxL3RUUjJZRlhYMmZobTdJbk5qZzVBRlNsRDgrODdYSUs5MUxXNVdQUnl4ZTlmQk4zMzBXUXEvOUc0OU5FWmoxCkZpQ21mVTBMTFZ1RnZ1anRYQUkyUnlVT3pjWEtqNXVqU2Q0ZC9OMENnWUJqR3B2NDIveWNVcjNLVWovbDVrM2cKaTBFNy9ZTkxyMEJPZFNpOGYraFVWLzlTZTIyVFJkenNyV3lRQXFkcDlQTVE5Vm9mRnR4MGtyTm9xMXNsWjZwdwpLcVdRdE05RFdQNXBWdkd3R1MyUHkvZW1GVmRtYSttUkdxempkUGhpVFdwR3M0NWpLY1UvVmVCajgzMDBBWDN3CmNTaTNaN0QwbkZkcVB3Y0RoMmFSSFFLQmdRQ2JBQnBPeEhtckxYWThvY2pWZ2xHRWZ6KytiRTFQTEpPZThRdVkKSFZXMDlvWlFpbHJpNjAxRlNLZ0l6ZnZLVld6bGpFUWxxTDdHaUVvQTRjeHpFc1RFQ2tYS2ptODF1OHlpRC9ZbQpnNXdOWVpySlErRmNnM0NYRnFHVVR3cU5lT2Nlb2lTeTZNQlV3ZXk1b1Z3SzBZTHlvVTdsa2ljTGtjSTI4dnVnCktvVmlYUUtCZ1FEWSttN2JxYjVXSDA3NE5mWTV6dUR6M3lENHdMOXBaa0x3M0VrUWtXby9TNldkbUhqQzdoeW8KYmJsc0U2NXQzZFFqZll2V0xjWUhWR1NVaDIyL0NuQnVYMXE3a3pLNnZZK2hSSjdSaDFpUVZpRW9TYWdza3QzQwpvRjZsdk1qZTl4azZUNkNEUThNQ3Aza3IxSUtLMWE4VEZJVFhLUWpyZDl5L1hXWDdmTkU5Y3c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
     ]
 }
 skipping: [k8snode01]
 skipping: [k8snode02]
 
-PLAY RECAP *********************************************************************
-k8smaster   : ok=42   changed=32   unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
-k8snode01   : ok=29   changed=23   unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
-k8snode02   : ok=29   changed=23   unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
+PLAY RECAP ********************************************************************************************************************************************************************************
+k8smaster                  : ok=45   changed=33   unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+k8snode01                  : ok=32   changed=24   unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
+k8snode02                  : ok=32   changed=24   unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
 ```
 
 </details>

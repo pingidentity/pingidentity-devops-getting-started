@@ -7,16 +7,42 @@
     - install_list.yaml
 
   tasks:
+    ####################### Architecture #######
+    - name: Gather architecture info
+      setup:
+        filter: ansible_architecture
+
+    - name: Print system architecture
+      debug:
+        msg: "System architecture is: {{ ansible_architecture }}"
+
+    - name: Set architecture-specific variables
+      set_fact:
+        arch_suffix: >-
+          {{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}
+
+    - name: Print Ansible architecture designation
+      debug:
+        msg: "System architecture is: {{ ansible_architecture }}"
+
     #######################  Helm ##############
+    - name: Set Helm checksum based on architecture
+      set_fact:
+        helm_checksum: >-
+          {{ 'sha256:90c28792a1eb5fb0b50028e39ebf826531ebfcf73f599050dbd79bab2f277241'
+             if arch_suffix == 'amd64'
+             else 'sha256:d78d76ec7625a94991e887ac049d93f44bd70e4876200b945f813c9e1ed1df7c' }}
+      when: helm == True
+
     - name: Get helm installation file
       get_url:
-        url: "https://get.helm.sh/helm-v3.16.4-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/helm-v3.16.4-linux-amd64.tar.gz"
-        checksum: sha256:fc307327959aa38ed8f9f7e66d45492bb022a66c3e5da6063958254b9767d179
+        url: "https://get.helm.sh/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz"
+        dest: "/home/ubuntu/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz"
+        checksum: "{{ helm_checksum }}"
       when: helm == True
 
     - name: Extract helm
-      shell: tar xzvf /home/ubuntu/helm-v3.16.4-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
+      shell: tar xzvf /home/ubuntu/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz && sudo mv linux-{{ arch_suffix }}/helm /usr/local/bin/helm
       args:
         executable: /bin/bash
         creates: /usr/local/bin/helm
@@ -27,27 +53,27 @@
         path: "{{ item }}"
         state: absent
       with_items:
-        - /home/ubuntu/linux-amd64
-        - /home/ubuntu/helm-v3.16.4-linux-amd64.tar.gz
+        - /home/ubuntu/linux-{{ arch_suffix }}
+        - /home/ubuntu/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz
       when: helm == True
 
     ########################  K9S ##############
     - name: Get K9s installation file
       get_url:
-        url: "https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_Linux_amd64.tar.gz"
-        dest: "/home/ubuntu/k9s_Linux_amd64.tar.gz"
-        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.32.7/checksums.sha256
+        url: "https://github.com/derailed/k9s/releases/download/v0.40.10/k9s_Linux_{{ arch_suffix }}.tar.gz"
+        dest: "/home/ubuntu/k9s_Linux_{{ arch_suffix }}.tar.gz"
+        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.40.10/checksums.sha256
       when: k9s == True
 
     - name: Extract k9s
-      command: sudo tar Cxzvf /usr/local/bin /home/ubuntu/k9s_Linux_amd64.tar.gz
+      command: sudo tar Cxzvf /usr/local/bin /home/ubuntu/k9s_Linux_{{ arch_suffix }}.tar.gz
       args:
         creates: /usr/local/bin/k9s
       when: k9s == True
 
     - name: Remove k9s tarball
       file:
-        path: /home/ubuntu/k9s_Linux_amd64.tar.gz
+        path: /home/ubuntu/k9s_Linux_{{ arch_suffix }}.tar.gz
         state: absent
       when: k9s == True
     #########################  MetalLB  ##############
@@ -122,7 +148,7 @@
     ###################  ROOK / CEPH  #################
 
     - name: Install CertManager prerequisite
-      shell: kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
+      shell: kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.1/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
       args:
         creates: /etc/.certManagerInstalled
         executable: /bin/bash
@@ -324,20 +350,20 @@
 
     - name: Get 'istioctl' installation file
       get_url:
-        url: "https://github.com/istio/istio/releases/download/1.24.2/istio-1.24.2-linux-amd64.tar.gz"
-        dest: "/home/ubuntu/istio-1.24.2-linux-amd64.tar.gz"
-        checksum: sha256:https://github.com/istio/istio/releases/download/1.24.2/istio-1.24.2-linux-amd64.tar.gz.sha256
+        url: "https://github.com/istio/istio/releases/download/1.25.1/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz"
+        dest: "/home/ubuntu/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz"
+        checksum: sha256:https://github.com/istio/istio/releases/download/1.25.1/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz.sha256
       when: istio == True
 
     - name: Extract istioctl
-      shell: tar xzvf /home/ubuntu/istio-1.24.2-linux-amd64.tar.gz && sudo mv istio-1.24.2/bin/istioctl /usr/local/bin/istioctl
+      shell: tar xzvf /home/ubuntu/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz && sudo mv istio-1.25.1/bin/istioctl /usr/local/bin/istioctl
       args:
         executable: /bin/bash
         creates: /usr/local/bin/istioctl
       when: istio == True
 
     - name: Install istio
-      shell: istioctl install -f /home/ubuntu/istio-1.24.2/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
+      shell: istioctl install -f /home/ubuntu/istio-1.25.1/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioInstalled
@@ -357,7 +383,7 @@
       when: istio == True
 
     - name: Install Istio add-ons
-      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.24.2/samples/addons && sudo touch /etc/.istioAddonsInstalled
+      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.25.1/samples/addons && sudo touch /etc/.istioAddonsInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioAddonsInstalled
@@ -395,7 +421,7 @@
         path: "{{ item }}"
         state: absent
       with_items:
-        - /home/ubuntu/istio-1.24.2
-        - /home/ubuntu/istio-1.24.2-linux-amd64.tar.gz
+        - /home/ubuntu/istio-1.25.1
+        - /home/ubuntu/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz
         - /home/ubuntu/patch-service.yaml
       when: istio == True

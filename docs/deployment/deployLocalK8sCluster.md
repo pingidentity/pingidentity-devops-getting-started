@@ -16,7 +16,7 @@ This document describes deploying a cluster with [kind](https://kind.sigs.k8s.io
     To use the both examples below, you will need to ensure the Kubernetes feature of Docker Desktop is turned off, as it will conflict.
 
 !!! info "Docker System Resources"
-    This note applies only if using Docker as a backing for either solution. kind uses Docker by default, and it is also an option for minikube.  Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to Docker. For this documentation, a Macbook Pro was configured to use 6 CPUs and 12 GB Memory. You can adjust these values as necessary for your needs.
+    This note applies only if using Docker as a backing for either solution. kind uses Docker by default, and it is also an option for minikube.  Docker on Linux is typically installed with root privileges and thus has access to the full resources of the machine. Docker Desktop for Mac and Windows provides a way to set the resources allocated to Docker. For this documentation, a Macbook Pro with the M4 chipset was configured to use 6 CPUs and 12 GB Memory. You can adjust these values as necessary for your needs.
 ## Kind cluster
 This section will cover the **kind** installation process. See the [section further down](#minikube-cluster) for minikube instructions.
 ### Prerequisites
@@ -26,10 +26,10 @@ This section will cover the **kind** installation process. See the [section furt
 * ports 80 and 443 available on machine
 
 !!! note "Kubernetes Version"
-    For this guide, the kind implementation of Kubernetes 1.32.0 is used. It is deployed using version 0.26.0 of kind.
+    For this guide, the kind implementation of Kubernetes 1.32.2 is used. It is deployed using version 0.27.0 of kind.
 
 !!! note "Docker Desktop Version"
-    At the time of the writing of this guide, Docker Desktop was version `4.37.1 (178610)`, which used Docker Engine `27.4.0`.
+    At the time of the writing of this guide, Docker Desktop was version `4.39.0 (184744)`, running Docker Engine `28.0.1`.
 
 ### Install and confirm the cluster
 
@@ -43,7 +43,7 @@ This section will cover the **kind** installation process. See the [section furt
 
     Output:
 
-    <img src="/../images/kindDeployOutput.png"/>
+    <img src="/../images/kindDeployOutput.png" alt="kind cluster start output"/>
 
 1. Test cluster health by running the following commands:
 
@@ -51,8 +51,8 @@ This section will cover the **kind** installation process. See the [section furt
     kubectl cluster-info
 
     # Output - port will vary
-    Kubernetes control plane is running at https://127.0.0.1:59235
-    CoreDNS is running at https://127.0.0.1:59235/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+    Kubernetes control plane is running at https://127.0.0.1:64129
+    CoreDNS is running at https://127.0.0.1:64129/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
     To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
@@ -61,23 +61,23 @@ This section will cover the **kind** installation process. See the [section furt
     kubectl version
 
     < output clipped >
-    Server Version: v1.32.0
+    Server Version: v1.32.2
 
     ------------------
 
     kubectl get nodes
 
     NAME                 STATUS   ROLES           AGE     VERSION
-    ping-control-plane   Ready    control-plane   38s     v1.32.0
+    ping-control-plane   Ready    control-plane   55m     v1.32.2
     ```
 
 ### Enable ingress
 
-1. Next, install the nginx-ingress-controller for `kind` (version 1.12.0 at the time of this writing). In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
+1. Next, install the nginx-ingress-controller for `kind` (version 1.12.1 at the time of this writing). In the event the Github file is unavailable, a copy has been made to this repository [here](https://github.com/pingidentity/pingidentity-devops-getting-started/blob/master/20-kubernetes/kind-nginx.yaml).
 
 To use the Github file:
     ```sh
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/refs/tags/controller-v1.12.0/deploy/static/provider/kind/deploy.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/refs/heads/release-1.12/deploy/static/provider/kind/deploy.yaml
     ```
 
 To use the local copy:
@@ -108,7 +108,7 @@ Output:
     validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
     ```
 
-1. To wait for the Nginx ingress to reach a healthy state, run the following command.  You can also observe the pod status using k9s or by running `kubectl get pods --namespace ingress-nginx`. You should see one controller pod running when the ingress controller is ready.  This command should exit after no more than 90 seconds or so, depending on the speed of your computer:
+1. To wait for the Nginx ingress to reach a healthy state, run the following command.  You can also observe the pod status using k9s or by running `kubectl get pods --namespace ingress-nginx`. You should see one controller pod running when the ingress controller is ready.  This command should exit after no more than 90 seconds or so, depending on the speed of your computer and internet connection to pull the image:
 
     ```sh
     kubectl wait --namespace ingress-nginx \
@@ -124,6 +124,7 @@ Output:
     ```
 
     Output:
+
     ```sh
     <html>
     <head><title>404 Not Found</title></head>
@@ -142,6 +143,36 @@ echo '127.0.0.1 myping-pingaccess-admin.pingdemo.example myping-pingaccess-engin
 
 Setup is complete.  This local Kubernetes environment should be ready to deploy our [Helm examples](./deployHelm.md)
 
+### Deploy the Example Stack
+
+1. Create a namespace for running the stack in your Kubernetes cluster:
+
+    ```sh
+    # Create the namespace
+    kubectl create ns pinghelm
+    
+    # Set the kubectl context to the namespace
+    kubectl config set-context --current --namespace=pinghelm
+    
+    # Confirm
+    kubectl config view --minify | grep namespace:
+    ```
+
+1. Create a secret in the namespace you will be using to run the example (pinghelm) using the `pingctl` utility. This secret will obtain an evaluation license based on your Ping DevOps username and key:
+
+    ```sh
+    pingctl k8s generate devops-secret | kubectl apply -f -
+    ```
+
+1. To install the chart, go to your local `"${PING_IDENTITY_DEVOPS_HOME}"/pingidentity-devops-getting-started/30-helm` directory and run the command shown here.  In this example, the release (deployment into Kubernetes by Helm) is called `myping`, forming the prefix for all objects created. The `ingress-demo.yaml` file configures the ingresses for the products to use the **_ping-local_** domain:
+
+    ```sh
+    helm upgrade --install myping pingidentity/ping-devops \
+    -f everything.yaml -f ingress-demo.yaml
+    ```
+
+At this point, the flow will be the same as found in the [Getting Started Example](../get-started/getStartedExample.md) after the products are deployed using helm.  The URLs will be prefaced with `myping` rather than `demo`.
+
 ### Stop the cluster
 
 When you are finished, you can remove the cluster by running the following command, which removes the cluster completely.  You will be required to recreate the cluster and reinstall the ingress controller to use `kind` again.
@@ -158,7 +189,7 @@ In this section, a minikube installation with ingress is created.  Minikube is s
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
 !!! note "Minikube and Kubernetes Version"
-    At the time of the writing of this guide, minikube was version `1.34.0`, which installs Kubernetes version `1.31.0`.
+    At the time of the writing of this guide, minikube was version `1.35.0`, which installs Kubernetes version `1.32.0`.
 
 ### Install and configure minikube
 
@@ -176,13 +207,14 @@ In this section, a minikube installation with ingress is created.  Minikube is s
         See [the documentation](https://minikube.sigs.k8s.io/docs/handbook/config/) for more details on configuring minikube.
 
 1. Start the cluster.  Optionally you can include a profile flag (`--profile <name>`). Naming the cluster enables you to run multiple minikube clusters simultaneously.  If you use a profile name, you will need to include it on other minikube commands.
+
     ```sh
-    minikube start --addons=ingress --kubernetes-version=v1.31.0
+    minikube start --addons=ingress --kubernetes-version=v1.32.0
     ```
-    
+
     Output:
 
-    <img src="/../images/minikubeStartOutput.png"/>
+    <img src="/../images/minikubeStartOutput.png" alt="minikube start output"/>
 
 1. Test cluster health by running the following commands:
 
@@ -190,8 +222,8 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl cluster-info
 
     # Output - Port will vary
-    Kubernetes control plane is running at https://127.0.0.1:62531
-    CoreDNS is running at https://127.0.0.1:62531/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+    Kubernetes control plane is running at https://127.0.0.1:51042
+    CoreDNS is running at https://127.0.0.1:51042/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
     To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
@@ -200,14 +232,14 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl version
 
     < output clipped >
-    Server Version: v1.31.0
+    Server Version: v1.32.0
 
     ------------------
 
     kubectl get nodes
 
     NAME       STATUS   ROLES           AGE    VERSION
-    minikube   Ready    control-plane   4m6s   v1.31.0
+    minikube   Ready    control-plane   6m2s   v1.32.0
     ```
 
 ### Confirm ingress
@@ -218,9 +250,9 @@ In this section, a minikube installation with ingress is created.  Minikube is s
     kubectl get po -n ingress-nginx
     
     NAME                                        READY   STATUS      RESTARTS   AGE
-    ingress-nginx-admission-create-lr2x2        0/1     Completed   0          174m
-    ingress-nginx-admission-patch-bjgnn         0/1     Completed   1          174m
-    ingress-nginx-controller-6cc5ccb977-9n66n   1/1     Running     0          174m
+    ingress-nginx-admission-create-hnmhx        0/1     Completed   0          6m14s
+    ingress-nginx-admission-patch-c4mct         0/1     Completed   1          6m14s
+    ingress-nginx-controller-56d7c84fd4-qqffn   1/1     Running     0          6m14s
     ```
 
 1.  Deploy a test application
@@ -352,7 +384,7 @@ minikube pause
 minikube unpause
 ```
 
-Alternatively, you can delete the minikube environment, which will recreate everything the next time.
+Alternatively, you can delete the minikube environment, which will do a reset and recreate everything the next time it is started.
 
 ```sh
 minikube delete 
