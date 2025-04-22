@@ -188,7 +188,8 @@ pingdirectory:
   workload:
     # Share process namespace for sidecar to get a view inside the main container
     shareProcessNamespace: true
-  # Share /tmp so sidecar can see Java processes. Don't keep /tmp around between restarts though.
+  # Share /tmp so sidecar can see Java processes
+  # Do not keep /tmp around between restarts.
   volumes:
     - name: temp
       emptyDir: {}

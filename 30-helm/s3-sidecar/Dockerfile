@@ -6,10 +6,14 @@ FROM pingidentity/pingtoolkit:latest
 USER root
 
 # Install AWS CLI
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-  && unzip awscliv2.zip \
-  && ./aws/install \
-  && sleep 5 \
-  && rm -rf ./aws*
+RUN apk add --no-cache \
+    aws-cli \
+    bash \
+    curl \
+    less \
+    groff \
+    shadow \
+    sudo \
+    unzip
 
 USER 9031:0
