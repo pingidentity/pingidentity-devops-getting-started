@@ -105,26 +105,29 @@ Typically, the `replace-certificate` tool will edit your keystore and truststore
 #### Rotating certificates when they are all signed by the same issuer certificate
 If all your listener certs will be signed by the same certificate authority, you can add this CA to your server instance listeners to make rotation easier, as the servers will automatically trust certificates signed by the CA.
 
-1. Add the issuer certificate to the server instance listeners in the topology
-    - Copy a PEM file of the your issuer certificate onto your pods. For this example the path will be `/opt/out/instance/config/ca.crt`.
-    - On each server, use `replace-certificate` to add the issuer certificate to the server instance listener for that server. This will make the servers trust each other provided they are using a cert signed by this issuer. *Note* that this must be done with all servers online, so that the change gets replicated to the other servers.
+##### Add the issuer certificate to the server instance listeners in the topology
+
+- Copy a PEM file of the your issuer certificate onto your pods. For this example the path will be `/opt/out/instance/config/ca.crt`.
+- On each server, use `replace-certificate` to add the issuer certificate to the server instance listener for that server. This will make the servers trust each other provided they are using a cert signed by this issuer. *Note* that this must be done with all servers online, so that the change gets replicated to the other servers.
     
 ```
 replace-certificate add-topology-registry-listener-certificate \
     --certificate-file /opt/out/instance/config/ca.crt
 ```
 
-2. Point the server's key manager provider at your new certificate
-    - Ensure your new certificate has been added to your keystore in whatever external storage method you are using (Vault, etc.), and note the alias you have given the new cert. For this example the alias will be `newcert`.
-    - Set `CERTIFICATE_NICKNAME=newcert` and perform a rolling update. `manage-profile replace-profile` will run and point your connection handlers to `newcert`, while the servers will continue to trust each other since that cert was signed by the trusted CA you added in the previous step.
+##### Point the server's key manager provider at your new certificate
 
-3. Removing the old certs
-    - If desired, you can now remove unused certs from the server instance listeners in the topology registry. You can also remove the old certs from your keystores in your external storage. To remove the old certs from the topology registry, use `replace-certificate`, running the following command on each server in the topology. *Note* that again this must be done with all servers online, so that the config change gets mirrored across the topology.
+- Ensure your new certificate has been added to your keystore in whatever external storage method you are using (Vault, etc.), and note the alias you have given the new cert. For this example the alias will be `newcert`.
+- Set `CERTIFICATE_NICKNAME=newcert` and perform a rolling update. `manage-profile replace-profile` will run and point your connection handlers to `newcert`, while the servers will continue to trust each other since that cert was signed by the trusted CA you added in the previous step.
+
+##### Removing the old certs
+
+- If desired, you can now remove unused certs from the server instance listeners in the topology registry. You can also remove the old certs from your keystores in your external storage. To remove the old certs from the topology registry, use `replace-certificate`, running the following command on each server in the topology. *Note* that again this must be done with all servers online, so that the config change gets mirrored across the topology.
 ```
 replace-certificate purge-retired-listener-certificates
 ```
 
-It is also possible to purge the retired certificates from a single server rather than running a command on each pod, but it requires some configuration changes since it relies on an extended operation and a specific topology admin permission, so it will likely be easier to simply run the previous command on each server. Via dsconfig the necessary changes would be:
+- It is also possible to purge the retired certificates from a single server rather than running a command on each pod, but it requires some configuration changes since it relies on an extended operation and a specific topology admin permission, so it will likely be easier to simply run the previous command on each server. Via dsconfig the necessary changes would be:
 
 ```
 dsconfig create-extended-operation-handler \
@@ -136,17 +139,20 @@ dsconfig set-topology-admin-user-prop \
    --user-name admin  \
    --add privilege:permit-replace-certificate-request 
 ```
-Once these changes are in place on the other servers, the following command can be used to purge retired listener certificates from remote instances:
+
+- Once these changes are in place on the other servers, the following command can be used to purge retired listener certificates from remote instances:
+
 ```
 replace-certificate purge-remote-retired-listener-certificates
 ```
 
 #### Rotating certificates without the assumption that they are all signed by the same issuer certificate
 
-1. Add the new cert to the server instance listeners in the topology
-    - Add the new desired certificate to your keystore and truststore, in whatever external storage method you are using. Note that you are just adding the new cert, not removing the old one yet. Note the alias that you have given the new cert in the keystore. In these examples the new cert's alias will be `newcert` and the previous one `server-cert`.
-    - Ensure the pods have the updated keystore and truststore on the filesystem, via a rolling update. At this point the keystores and truststores will have both the old cert and the new cert, but the new one is not yet being used.
-    - On each server, export the PEM file of the new certificate to a writable location, using the `manage-certificates` tool. This is necessary because the subsequent command can only use a PEM file, it can’t read from a keystore directly.
+##### Add the new cert to the server instance listeners in the topology
+    
+- Add the new desired certificate to your keystore and truststore, in whatever external storage method you are using. Note that you are just adding the new cert, not removing the old one yet. Note the alias that you have given the new cert in the keystore. In these examples the new cert's alias will be `newcert` and the previous one `server-cert`.
+- Ensure the pods have the updated keystore and truststore on the filesystem, via a rolling update. At this point the keystores and truststores will have both the old cert and the new cert, but the new one is not yet being used.
+- On each server, export the PEM file of the new certificate to a writable location, using the `manage-certificates` tool. This is necessary because the subsequent command can only use a PEM file, it can’t read from a keystore directly.
 
 ```
 manage-certificates export-certificate \
@@ -157,20 +163,20 @@ manage-certificates export-certificate \
     --output-format PEM
 ```
 
-On each server, use `replace-certificate` to add the exported certificate PEM file to the server instance listener in the topology. *Note* that this step must be done with all servers online, so that the config change is mirrored to the other servers in the topology.
+- On each server, use `replace-certificate` to add the exported certificate PEM file to the server instance listener in the topology. *Note* that this step must be done with all servers online, so that the config change is mirrored to the other servers in the topology.
 
 ```
 replace-certificate add-topology-registry-listener-certificate \
     --certificate-file /opt/out/instance/config/newcert.crt
 ```
 
-Now the server will have both the previous cert and the new cert in its server instance listener.
+- Now the server will have both the previous cert and the new cert in its server instance listener.
 
-2. Point the server’s key manager provider at the new cert
+##### Point the server’s key manager provider at the new cert
 
-    - There are two ways to do this - first is to change the `CERTIFICATE_NICKNAME` environment variable to point to your new certificate's alias, and then just restart your pods, allowing `manage-profile replace-profile` to apply the change on startup.
-    - The second is to edit your keystore and truststore and rename your new cert to the same alias as the previous one (in the case of this document, renaming `newcert` to `server-cert` - the previous cert will have to be either renamed or removed from the keystores). This way, the key manager provider for the server will load in the new cert. Then you can restart the pods and the new cert will be loaded on server startup.
+- There are two ways to do this - first is to change the `CERTIFICATE_NICKNAME` environment variable to point to your new certificate's alias, and then just restart your pods, allowing `manage-profile replace-profile` to apply the change on startup.
+- The second is to edit your keystore and truststore and rename your new cert to the same alias as the previous one (in the case of this document, renaming `newcert` to `server-cert` - the previous cert will have to be either renamed or removed from the keystores). This way, the key manager provider for the server will load in the new cert. Then you can restart the pods and the new cert will be loaded on server startup.
 
-3. Removing the old certs
+##### Removing the old certs
 
-    - This is identical to step three in the previous section.
+- Refer to the removal step in the previous section.
