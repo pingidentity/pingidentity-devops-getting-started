@@ -1,0 +1,24 @@
+
+In order to communicate to an AWS EKS cluster, you need to pair your 
+AWS EKS Cluster with your AWS profile.   This information is all kept 
+in a kubectl file:
+
+  ~/.kube/config
+
+Values needed for this command are:
+
+  - AWS Region  - Where is the cluster located (i.e. us-east-2)
+  - AWS Profile - Profile name used when setting up aws-credentials
+  - K8S Cluster - Name and alias used to setup local context
+
+  aws eks update-kubeconfig \
+      --region  {aws-region}} \
+      --name    {k8s-cluster} \
+      --alias   {k8s-cluster} \
+      --profile {aws-profile}
+
+Once complete list available contexts and namespaces with the
+commands:
+
+  kubectx
+  kubens
