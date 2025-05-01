@@ -127,7 +127,7 @@ replace-certificate add-topology-registry-listener-certificate \
 replace-certificate purge-retired-listener-certificates
 ```
 
-- It is also possible to purge the retired certificates from a single server rather than running a command on each pod, but it requires some configuration changes since it relies on an extended operation and a specific topology admin permission, so it will likely be easier to simply run the previous command on each server. Via dsconfig the necessary changes would be:
+- It is also possible to purge the retired certificates from a single server rather than running a command on each pod, but it requires some configuration changes since it relies on an extended operation and a specific topology admin permission, so it will likely be easier to simply run the previous command on each server. Using dsconfig, the necessary changes would be:
 
 ```
 dsconfig create-extended-operation-handler \
@@ -140,7 +140,7 @@ dsconfig set-topology-admin-user-prop \
    --add privilege:permit-replace-certificate-request 
 ```
 
-- Once these changes are in place on the other servers, the following command can be used to purge retired listener certificates from remote instances:
+- After these changes are in place on the other servers, the following command can be used to purge retired listener certificates from remote instances:
 
 ```
 replace-certificate purge-remote-retired-listener-certificates
@@ -152,7 +152,7 @@ replace-certificate purge-remote-retired-listener-certificates
     
 - Add the new desired certificate to your keystore and truststore, in whatever external storage method you are using. Note that you are just adding the new cert, not removing the old one yet. Note the alias that you have given the new cert in the keystore. In these examples the new cert's alias will be `newcert` and the previous one `server-cert`.
 - Ensure the pods have the updated keystore and truststore on the filesystem, via a rolling update. At this point the keystores and truststores will have both the old cert and the new cert, but the new one is not yet being used.
-- On each server, export the PEM file of the new certificate to a writable location, using the `manage-certificates` tool. This is necessary because the subsequent command can only use a PEM file, it can’t read from a keystore directly.
+- On each server, export the PEM file of the new certificate to a writable location, using the `manage-certificates` tool. This action is necessary because the subsequent command can only use a PEM file, it can’t read from a keystore directly.
 
 ```
 manage-certificates export-certificate \
