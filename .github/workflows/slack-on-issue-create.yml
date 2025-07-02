@@ -1,0 +1,45 @@
+name: Notify Slack on Issue Creation
+
+permissions:
+  issues: read
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  send-notification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Send notification to Slack
+        env:
+          SLACK_NOTIFY_TO_PDI_JIRA_WEBHOOK: ${{ secrets.SLACK_NOTIFY_TO_PDI_JIRA_WEBHOOK }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          REPOSITORY_NAME: ${{ github.repository }}
+          GITHUB_EVENT_ISSUE_HTML_URL: ${{ github.event.issue.html_url }}
+        run: |
+          python <<EOF
+          import os
+          import requests
+          import json
+          headers = {'Content-Type': 'application/json'}
+          message = {
+              "text": f"New issue created in {os.environ['REPOSITORY_NAME']}: *{os.environ['ISSUE_TITLE']}*\n{os.environ['GITHUB_EVENT_ISSUE_HTML_URL']}",
+              "REPOSITORY_NAME": os.environ['REPOSITORY_NAME'],
+              "GITHUB_ISSUE": os.environ['GITHUB_EVENT_ISSUE_HTML_URL'],
+              "ISSUE_TITLE": os.environ['ISSUE_TITLE']
+          }
+          response = requests.post(os.environ['SLACK_NOTIFY_TO_PDI_JIRA_WEBHOOK'], headers=headers, data=json.dumps(message))
+          EOF
