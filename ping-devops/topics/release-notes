@@ -1,0 +1,51 @@
+v0.7.3
+ - Fix an issue with incorrect tls-secret key/crt generation
+ - Add pingauthorize and pingauthorizepolicyeditor to list of products allowing generation of eval licenses
+
+v0.7.2 (skipped)
+
+v0.7.1
+ - Added inclusion of PING_IDENTITY_ACCEPT_EULA variable to the devops-secret generated using
+  ping-devops generate devops-secret
+
+ - Added helm aliases, and over helm help hhelp
+
+v0.7.0
+ - Added ability to generate kubenetes license-secrets directly from tool by only providing
+   the product/version.  This will also create the secret with the productname in the secret
+   name.
+ - Added ability to generate licenses for particular product verions.
+
+     Example:
+
+     $ ping-devops generate license-secret pingfederate 9.3
+
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: pingfederate-secret
+        labels:
+          pingidentity.com/generated-by: ping-devops
+      data:
+        license: |
+           SUQ...NDg3
+
+v0.6.7
+ - Added Hashicorp Vault support
+   - ping-devops config
+     - Added VAULT_ADDR url to vault
+     - Added VAULT_SECRET_PREFIX to help naming secrets
+     - Added VAULT_CACERT file if required with your vault
+   - ping-devops vault get-token
+     - If a VAULT_ADDR is provided along with a Kubernetes context and namespace, this will login to the vault and obtain a short lived (typically 1 hr) vault token.
+   - ping-devops vault create_annotations {secret}
+     - Returns Kubernetes annotations that can be cut/paste into a Kubernetes pod, deployment or statefulset that will inject vault secrets into a container.
+   - Adding Hashicorp Vault Aliases - Short aliases to assist with listing and managing Hashicorp Vault secrets. See vhelp for more information.
+ - Usage Help - Clean up and added usage help for ping-devops vault
+ - Fixed a bug with the base64 encodeing of some strings
+ - Fixed issue with clean of docker/k8s
+ - Added 'ping-devops clean'.  Removes ~/.pingidentity/ping-devops
+ - Relocated cached docker/k8s/topics to directories
+
+v0.6.6
+ - Fixed issue with creation of k8s devops-secret
