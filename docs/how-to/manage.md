@@ -1,6 +1,6 @@
 ---
-title: Managing Deployments
+title: Content Moved
 ---
-# Managing Deployments
+# Content Moved
 
-In addition to [Customizing Deployments](../reference/config.md), you must maintain your deployments over time as new versions of our products are released and as you tune your deployments to better reflect your changing needs.
+This content has moved to [developer.pingidentity.com/devops/how-to/manage.html](https://developer.pingidentity.com/devops/how-to/manage.html).

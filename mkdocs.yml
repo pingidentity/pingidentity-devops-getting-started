@@ -3,9 +3,13 @@ repo_name: pingidentity/pingidentity-devops-getting-started
 repo_url: https://github.com/pingidentity/pingidentity-devops-getting-started
 site_url: https://devops.pingidentity.com/
 copyright: © Copyright 2025 Ping Identity
-google_analytics: ["UA-156953351-1", "devops.pingidentity.com"]
 extra_css:
         - mkdocs/overrides/stylesheets/extra.css
+
+extra:
+  analytics:
+    provider: google
+    property: UA-156953351-1
 
 theme:
         name: material
