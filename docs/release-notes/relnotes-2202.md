@@ -1,30 +1,6 @@
 ---
-title: DevOps Docker Builds, Version 2202 (March 03 2022)
+title: Content Moved
 ---
-# Version 2202 Release Notes
+# Content Moved
 
-## DevOps Docker Builds, Version 2202 (March 03 2022)
-
-### New Product Releases
-
-- **PingCentral**
-    - PingCentral 1.9.3 is now available on [Dockerhub](https://hub.docker.com/r/pingidentity/pingcentral).
-
-### Enhancements
-- **Docker Images**
-    - Apache Tomcat to Version 9.0.59
-    - Liberica JDK to 11.0.14.1+1
-
-- **Documentation**
-    - [DevOps Getting Started GitHub Repo](https://github.com/pingidentity/pingidentity-devops-getting-started) has been updated
-        - Complex Docker Compose examples deprecated and removed
-
-- **Helm Charts**
-    [Release 0.8.6](https://helm.pingidentity.com/release-notes/currentRelease)
-    - Issues Resolved
-      - Update default global.image.tag to 2202
-
-### Supported Product Releases
-- See the [Product Version, Image Release Matrix](../docker-images/productVersionMatrix.md)
-  for currently supported image and product versions.
-
+This content has moved to [developer.pingidentity.com/devops/release-notes/relnotes-2202.html](https://developer.pingidentity.com/devops/release-notes/relnotes-2202.html).
