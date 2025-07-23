@@ -151,6 +151,7 @@ plugins:
                           'reference/readOnlyFilesystem.md': 'https://developer.pingidentity.com/devops/reference/readOnlyFilesystem.html'
                           'reference/awsStorage.md': 'https://developer.pingidentity.com/devops/reference/awsStorage.html'
                           'reference/yamlFiles.md': 'https://developer.pingidentity.com/devops/reference/yamlFiles.html'
+                          'reference/pingone-config.md': 'https://developer.pingidentity.com/devops/reference/pingone-config.html'
                           'reference/faqs.md': 'https://developer.pingidentity.com/devops/reference/faqs.html'
                           'videos/videos.md': 'https://developer.pingidentity.com/devops/videos/videos.html'
                           'release-notes/currentRelease.md': 'https://developer.pingidentity.com/devops/release-notes/currentRelease.html'
@@ -292,8 +293,6 @@ nav:
         - Tools:
                   - pingctl: "tools/pingctlUtil.md"
                   - ldap-sdk-tools: "tools/ldapsdkUtil.md"
-                  - ping-devops utility (deprecated): "tools/pingDevopsUtil_Deprecated.md"
-                  - PingDownloader Image (deprecated): "tools/pingDownloader_Deprecated.md"
         - How To:
                   - DevOps Registration: "how-to/devopsRegistration.md"
                   - Use Existing Licenses: "how-to/existingLicense.md"
