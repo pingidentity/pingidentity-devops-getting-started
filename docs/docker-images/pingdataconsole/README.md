@@ -9,7 +9,7 @@ This docker image provides a tomcat image with the PingDataConsole
 deployed to be used in configuration of the PingData products.
 
 ## Related Docker Images
-- `tomcat:9-jre8` - Tomcat engine to serve PingDataConsole .war file
+- `tomcat:11-jre17` - Tomcat engine to serve PingDataConsole .war file
 
 ## Environment Variables
 The following environment `ENV` variables can be used with
