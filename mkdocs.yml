@@ -155,6 +155,7 @@ plugins:
                           'reference/faqs.md': 'https://developer.pingidentity.com/devops/reference/faqs.html'
                           'videos/videos.md': 'https://developer.pingidentity.com/devops/videos/videos.html'
                           'release-notes/currentRelease.md': 'https://developer.pingidentity.com/devops/release-notes/currentRelease.html'
+                          'release-notes/relnotes-2507.md': 'https://developer.pingidentity.com/devops/release-notes/relnotes-2507.html'
                           'release-notes/relnotes-2506.md': 'https://developer.pingidentity.com/devops/release-notes/relnotes-2506.html'
                           'release-notes/relnotes-2505.md': 'https://developer.pingidentity.com/devops/release-notes/relnotes-2505.html'
                           'release-notes/relnotes-2504.md': 'https://developer.pingidentity.com/devops/release-notes/relnotes-2504.html'
