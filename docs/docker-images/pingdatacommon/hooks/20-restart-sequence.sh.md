@@ -9,4 +9,4 @@ title: Ping Identity DevOps `pingdatacommon` Hook - `20-restart-sequence.sh`
 ---
 This document is auto-generated from _[pingdatacommon/opt/staging/hooks/20-restart-sequence.sh](https://github.com/pingidentity/pingidentity-docker-builds/blob/master/pingdatacommon/opt/staging/hooks/20-restart-sequence.sh)_
 
-Copyright © 2025 Ping Identity Corporation. All rights reserved.
+Copyright © 2026 Ping Identity Corporation
