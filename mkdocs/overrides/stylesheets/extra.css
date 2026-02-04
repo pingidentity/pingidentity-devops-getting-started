@@ -1,0 +1,273 @@
+[data-md-color-scheme="slate"] {
+    /* Ping 'firebrick' red */
+    --ping-red: #b8232f;
+    /* Accent color (used for permalink icons) */
+    --md-accent-fg-color: #f4f7bc;
+    /* Content background color */
+    --md-default-bg-color: #474f51;
+    /* H1 text color */
+    --md-typeset-h1-color: #d9dddd;
+    /* Default text color */
+    --md-default-fg-color: white;
+    /* Hyperlink color */
+    --md-link-highlight-color: #f4f7bc;
+    /* Hyperlink hover color */
+    --md-link-hover: #e9eda4;
+    /* Footer background color */
+    --md-footer-bg-color: #3f4447;
+    /* MkDocs footer background color */
+    --md-mkdocs-footer-bg-color: #232629;
+    /* Code block background color */
+    --md-code-bg-color: #232629;
+    /* Code block text color */
+    --md-code-fg-color: #eeeeee;
+    /* Icon boxes with images border color */
+    --md-icon-box-border-color: black;
+    /* Icon box background color */
+    --md-icon-box-background-color: #51585b;
+    /* Icon boxes shadow color */
+    --md-hover-box-hover-shadow-color: #616161;
+    /* Header background color */
+    --md-header-background-color: #3e4547;
+    /* Header text color */
+    --md-header-fg-color: white;
+    /* Header menubar background color */
+    --md-header-menu-background-color: #3e4547;
+    /* Search result teaser color  */
+    --search-result-teaser-color: white;
+    /* Search result more summary color  */
+    --search-result-more-summary: var(--md-default-fg-color--light);
+    /* Search box background color */
+    --search-box-background-color: #51585b;
+    /* Search box background hover color */
+    --search-box-background-hover-color: #5f6568;
+    /* Github repo text */
+    --github-repo-fg-color: var(--md-default-fg-color);
+    /* Github repo icon color */
+    --github-repo-icon-color: white;
+    /* slide out menu git repo background */
+    --github-slide-out-background-color: #242629;
+    /* hamburger icon color*/
+    --hamburger-icon-color: white;
+}
+
+[data-md-color-scheme="default"] {
+    /* Ping 'firebrick' red */
+    --ping-red: #b8232f;
+    /* Accent color (used for permalink icons) */
+    --md-accent-fg-color: var(--ping-red);
+    /* Content background color */
+    --md-default-bg-color: white;
+    /* H1 text color */
+    --md-typeset-h1-color: var(--ping-red);
+    /* Hyperlink color */
+    --md-link-highlight-color: var(--ping-red);
+    /* Hyperlink hover color */
+    --md-link-hover: #d02735;
+    /* Footer background color */
+    --md-footer-bg-color: #3f4447;
+    /* MkDocs footer background color */
+    --md-mkdocs-footer-bg-color: #232629;
+    /* Icon boxes with images border color */
+    --md-icon-box-border-color: black;
+    /* Icon box background color */
+    --md-icon-box-background-color: white;
+    /* Icon boxes shadow color */
+    --md-hover-box-hover-shadow-color: #616161;
+    /* Header background color */
+    --md-header-background-color: #3e4547;
+    /* Header text color */
+    --md-header-fg-color: white;
+    /* Header menubar background color */
+    --md-header-menu-background-color: #3e4547;
+    /* Search result teaser color  */
+    --search-result-teaser-color: var(--md-default-fg-color--light);
+    /* Search result more summary color  */
+    --search-result-more-summary: var(--md-typeset-a-color);
+    /* Search box background color */
+    --search-box-background-color: #babbbb;
+    /* Search box background hover color */
+    --search-box-background-hover-color: #c4c8c9;
+    /* Github repo text */
+    --github-repo-fg-color: white;
+    /* Github repo icon color */
+    --github-repo-icon-color: white;
+    /* slide out menu git repo background */
+    --github-slide-out-background-color: hsla(193, 7%, 26%, 1);
+    /* hamburger icon color*/
+    --hamburger-icon-color: white;
+}
+
+.md-typeset h1 {
+    /* H1 header color */
+    color: var(--md-typeset-h1-color)
+}
+
+.md-header {
+    /* Top white bar */
+    background-color: var(--md-header-background-color);
+    height: 62px;
+    color: var(--md-header-fg-color);
+    padding-top: 6px;
+}
+
+.md-tabs {
+    /* Horizontal menu bar */
+    background-color: var(--md-header-menu-background-color);
+}
+
+.md-header-nav__title,
+.md-search,
+.md-header-nav__source {
+    /* Header top padding (excludes logo) */
+    padding-top: 3px;
+}
+
+.md-header__button.md-logo,
+.md-header-nav__button.md-logo {
+    /* Ping Identity logo */
+    background-image: url('https://www.pingidentity.com/content/dam/ping-6-2-assets/topnav-json-configs/Ping-Logo.svg');
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+}
+
+.md-header-nav__ellipsis.md-ellipsis,
+.md-header-nav__topic.md-ellipsis {
+    /* Site title */
+    font-size: 110%;
+}
+
+.md-source__repository {
+    /* Repository text color */
+    color: var(--github-repo-fg-color);
+}
+
+.md-source__icon {
+    /* Github icon color */
+    color: var(--github-repo-icon-color);
+}
+
+.md-search__input {
+    /* Search box hover background color */
+    background-color: var(--search-box-background-color);
+}
+
+.md-search__input:hover {
+    background-color: var(--search-box-background-hover-color)
+}
+
+.md-nav__item .md-nav__link--active {
+    /* Selected left side menu item */
+    color: var(--md-link-highlight-color);
+    font-weight: bold;
+}
+
+.md-nav__item .md-nav__link:hover {
+    /* Left side menu hover link color */
+    color: var(--md-link-highlight-color);
+}
+
+.md-typeset a {
+    /* Hyperlink link color */
+    color: var(--md-link-highlight-color);
+    word-break: break-word;
+}
+
+.md-typeset a:hover {
+    /* Hyperlink link color */
+    color: var(--md-link-hover);
+}
+
+.md-tabs__link--active {
+    /* Left menu font */
+    font-weight: bold;
+}
+
+.md-footer-meta.md-typeset {
+    /* MKDocs footer background color */
+    background-color: var(--md-mkdocs-footer-bg-color)
+}
+
+.md-footer__inner:not([hidden]) {
+    display: none
+}
+
+.md-clipboard.md-icon:hover {
+    /* Copy to clipboard hover color */
+    color: var(--md-link-highlight-color)
+}
+
+.highlight .m {
+    /* Code highlight color */
+    color: #808499
+}
+
+.md-header-nav__button.md-icon {
+    /* Menu hamburger icon */
+    color: var(--hamburger-icon-color);
+    padding-top: 10px;
+}
+
+div.banner,
+div.iconbox {
+    border-color: var(--md-icon-box-border-color);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 8px 6px -6px var(--md-icon-box-border-color);
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 20px;
+    min-width: 120px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: top;
+    width: 20%;
+    background-color: var(--md-icon-box-background-color);
+}
+
+div.iconbox {
+    margin-bottom: 20px;
+    min-width: 180px;
+    max-width: 280px;
+    width: 30%;
+}
+
+div.banner:hover,
+div.iconbox:hover {
+    border-color: var(--md-link-hover);
+    box-shadow: 0 8px 6px -6px var(--md-icon-box-hover-shadow-color);
+}
+
+.caption {
+    display: block;
+}
+
+.assets {
+    height: 105px;
+    width: 105px;
+}
+
+.md-nav--primary .md-nav__title[for=__drawer] {
+    --md-primary-fg-color: hsla(0, 0%, 38%, 1);
+}
+
+.md-nav__source {
+    --md-primary-fg-color--dark: var(--github-slide-out-background-color)
+}
+
+.md-nav--primary .md-nav__item--active>.md-nav__link {
+    /* Slider active menu */
+    --md-typeset-a-color: var(--md-link-highlight-color)
+}
+
+.md-search-result__teaser {
+    color: var(--search-result-teaser-color)
+}
+
+.md-search-result__more summary {
+    color: var(--search-result-more-summary)
+}
