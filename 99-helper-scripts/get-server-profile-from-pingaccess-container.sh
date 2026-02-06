@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# Copyright © 2026 Ping Identity Corporation
+
 if test -z "${1}" ; then
     echo the first argument must be a container id
     exit 1

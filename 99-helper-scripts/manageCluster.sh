@@ -1,4 +1,6 @@
 #!/bin/sh
+# Copyright © 2026 Ping Identity Corporation
+
 
 export vmMaster="/Users/davidross/Virtual Machines.localized/k8s126master.vmwarevm/k8s126master.vmx"
 export vmNode01="/Users/davidross/Virtual Machines.localized/k8s126node1.vmwarevm/k8s126node1.vmx"

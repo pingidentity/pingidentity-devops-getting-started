@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# Copyright © 2026 Ping Identity Corporation
+
 TOOL_NAME=$( basename "${0}" )
 cd "$( dirname "${0}" )" || exit 1
 
