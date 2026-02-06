@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# Copyright © 2026 Ping Identity Corporation
+
 ################################################################################
 # Utility script to convert 1906 style pingdirectory server profiles to new
 # PingDirectory 7.3 native server profile support.

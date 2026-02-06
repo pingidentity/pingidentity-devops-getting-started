@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright © 2026 Ping Identity Corporation
+
 THIS=`basename ${0}`
 CMD="${1}"
 
