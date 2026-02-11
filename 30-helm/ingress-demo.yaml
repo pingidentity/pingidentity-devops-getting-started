@@ -7,7 +7,4 @@ global:
     defaultDomain: "pingdemo.example"
     defaultTlsSecret:
     annotations:
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    spec:
-      # Must match the name of the IngressClass resource
-      ingressClassName: nginx
+      traefik.ingress.kubernetes.io/service.serverstransport: "default-pf-localhost@kubernetescrd"
