@@ -1,0 +1,11 @@
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  ingress:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: "pingdemo.example"
+    defaultTlsSecret:
+    annotations:
+      traefik.ingress.kubernetes.io/service.serverstransport: "default-pf-localhost@kubernetescrd"
+      kubernetes.io/ingress.class: "traefik"
