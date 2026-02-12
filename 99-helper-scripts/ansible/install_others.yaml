@@ -14,35 +14,27 @@
 
     - name: Print system architecture
       debug:
-        msg: "System architecture is: {{ ansible_architecture }}"
+        msg: "System architecture is: {{ ansible_facts['architecture'] }}"
 
     - name: Set architecture-specific variables
       set_fact:
         arch_suffix: >-
-          {{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}
+          {{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else 'arm64' }}
 
     - name: Print Ansible architecture designation
       debug:
-        msg: "System architecture is: {{ ansible_architecture }}"
+        msg: "System architecture is: {{ ansible_facts['architecture'] }}"
 
     #######################  Helm ##############
-    - name: Set Helm checksum based on architecture
-      set_fact:
-        helm_checksum: >-
-          {{ 'sha256:90c28792a1eb5fb0b50028e39ebf826531ebfcf73f599050dbd79bab2f277241'
-             if arch_suffix == 'amd64'
-             else 'sha256:d78d76ec7625a94991e887ac049d93f44bd70e4876200b945f813c9e1ed1df7c' }}
-      when: helm == True
-
     - name: Get helm installation file
       get_url:
-        url: "https://get.helm.sh/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz"
-        dest: "/home/ubuntu/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz"
-        checksum: "{{ helm_checksum }}"
+        url: "https://get.helm.sh/helm-v{{ helm_version }}-linux-{{ arch_suffix }}.tar.gz"
+        dest: "/home/ubuntu/helm-v{{ helm_version }}-linux-{{ arch_suffix }}.tar.gz"
+        checksum: "sha256:https://get.helm.sh/helm-v{{ helm_version }}-linux-{{ arch_suffix }}.tar.gz.sha256"
       when: helm == True
 
     - name: Extract helm
-      shell: tar xzvf /home/ubuntu/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz && sudo mv linux-{{ arch_suffix }}/helm /usr/local/bin/helm
+      shell: tar xzvf /home/ubuntu/helm-v{{ helm_version }}-linux-{{ arch_suffix }}.tar.gz && sudo mv linux-{{ arch_suffix }}/helm /usr/local/bin/helm
       args:
         executable: /bin/bash
         creates: /usr/local/bin/helm
@@ -54,15 +46,15 @@
         state: absent
       with_items:
         - /home/ubuntu/linux-{{ arch_suffix }}
-        - /home/ubuntu/helm-v3.17.2-linux-{{ arch_suffix }}.tar.gz
+        - /home/ubuntu/helm-v{{ helm_version }}-linux-{{ arch_suffix }}.tar.gz
       when: helm == True
 
     ########################  K9S ##############
     - name: Get K9s installation file
       get_url:
-        url: "https://github.com/derailed/k9s/releases/download/v0.40.10/k9s_Linux_{{ arch_suffix }}.tar.gz"
+        url: "https://github.com/derailed/k9s/releases/download/v{{ k9s_version }}/k9s_Linux_{{ arch_suffix }}.tar.gz"
         dest: "/home/ubuntu/k9s_Linux_{{ arch_suffix }}.tar.gz"
-        checksum: sha256:https://github.com/derailed/k9s/releases/download/v0.40.10/checksums.sha256
+        checksum: "sha256:https://github.com/derailed/k9s/releases/download/v{{ k9s_version }}/checksums.sha256"
       when: k9s == True
 
     - name: Extract k9s
@@ -78,16 +70,26 @@
       when: k9s == True
     #########################  MetalLB  ##############
 
+    - name: Resolve MetalLB version
+      set_fact:
+        metallb_version_resolved: "{{ metallb_version | default('latest') }}"
+      when: metallb == True
+
     - name: Get latest MetalLB version
-      shell: curl -s https://api.github.com/repos/metallb/metallb/releases/latest | grep tag_name | cut -d '"' -f 4|sed 's/v//'
+      shell: curl -s https://api.github.com/repos/metallb/metallb/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//'
       args:
         executable: /bin/bash
-      register: metalLB_version
-      when: metallb == True
+      register: metallb_latest_version
+      when: metallb == True and metallb_version_resolved == "latest"
+
+    - name: Set MetalLB version from latest
+      set_fact:
+        metallb_version_resolved: "{{ metallb_latest_version.stdout }}"
+      when: metallb == True and metallb_version_resolved == "latest"
 
     - name: Get MetalLB installer
       get_url:
-        url: "https://raw.githubusercontent.com/metallb/metallb/v{{ metalLB_version.stdout }}/config/manifests/metallb-native.yaml"
+        url: "https://raw.githubusercontent.com/metallb/metallb/v{{ metallb_version_resolved }}/config/manifests/metallb-native.yaml"
         dest: "/home/ubuntu/metallb-native.yaml"
       when: metallb == True
 
@@ -148,7 +150,7 @@
     ###################  ROOK / CEPH  #################
 
     - name: Install CertManager prerequisite
-      shell: kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.1/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
+      shell: kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v{{ cert_manager_version }}/cert-manager.yaml && sudo touch /etc/.certManagerInstalled
       args:
         creates: /etc/.certManagerInstalled
         executable: /bin/bash
@@ -172,11 +174,11 @@
         repo: https://github.com/rook/rook.git
         dest: /home/ubuntu/rook
         single_branch: yes
-        version: release-1.16
+        version: "v{{ rook_version }}"
       when: storage == True
 
     - name: Install Rook controller
-      shell: cd /home/ubuntu/rook/deploy/examples && kubectl apply -f crds.yaml -f common.yaml -f operator.yaml && sudo touch /etc/.rookOperatorInstalled
+      shell: cd /home/ubuntu/rook/deploy/examples && kubectl apply -f crds.yaml -f common.yaml -f csi-operator.yaml -f operator.yaml && sudo touch /etc/.rookOperatorInstalled
       args:
         creates: /etc/.rookOperatorInstalled
         executable: /bin/bash
@@ -199,18 +201,26 @@
         seconds: 240
       when: storage == True
 
-    - name: Confirm Rook cluster pods are ready
-      shell: kubectl wait --namespace rook-ceph --for=condition=ready pod --selector="{{ item }}" --timeout=300s
+    - name: Check for Rook pods by selector
+      command: kubectl get pods --namespace rook-ceph --selector="{{ item }}" -o name
+      register: rook_pod_checks
+      changed_when: false
+      failed_when: false
       loop:
-        - app=csi-cephfsplugin
-        - app=csi-cephfsplugin-provisioner
-        - app=csi-rbdplugin
+        - app=rook-ceph.cephfs.csi.ceph.com-ctrlplugin
+        - app=rook-ceph.cephfs.csi.ceph.com-nodeplugin
+        - app=rook-ceph.rbd.csi.ceph.com-ctrlplugin
+        - app=rook-ceph.rbd.csi.ceph.com-nodeplugin
         - app=rook-ceph-mgr
         - app=rook-ceph-mon
         - app=rook-ceph-crashcollector
-        - app=csi-rbdplugin-provisioner
         - app=rook-ceph-osd
       when: storage == True
+
+    - name: Confirm Rook cluster pods are ready (if present)
+      command: kubectl wait --namespace rook-ceph --for=condition=ready pod --selector="{{ item.item }}" --timeout=300s
+      loop: "{{ rook_pod_checks.results }}"
+      when: storage == True and item.stdout != ""
 
     - name: Creating Block Storage class
       copy:
@@ -320,11 +330,80 @@
 
     #######################  Ingress  ##############
 
-    - name: Install Ingress Nginx
-      shell: helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace && sudo touch /etc/.ingressInstalled
+    - name: Copy Traefik Helm values
+      copy:
+        src: "{{ playbook_dir }}/../../30-helm/ingress-traefik-values.yaml"
+        dest: /home/ubuntu/ingress-traefik-values.yaml
+        mode: "0644"
+      when: ingress == True
+
+    - name: Set Traefik chart version args
+      set_fact:
+        traefik_chart_version_arg: "{{ '--version ' ~ traefik_chart_version if (traefik_chart_version | default('') | length > 0) else '' }}"
+      when: ingress == True
+
+    - name: Install Traefik Ingress
+      shell: helm upgrade --install traefik traefik --repo https://traefik.github.io/charts {{ traefik_chart_version_arg }} --namespace traefik --create-namespace -f /home/ubuntu/ingress-traefik-values.yaml && sudo touch /etc/.traefikInstalled
       args:
-        creates: /etc/.ingressInstalled
+        creates: /etc/.traefikInstalled
         executable: /bin/bash
+      when: ingress == True
+
+    - name: Set default Traefik ServersTransport settings
+      set_fact:
+        traefik_serverstransport_name: "{{ traefik_serverstransport_name | default('default-pf-localhost') }}"
+        traefik_serverstransport_namespace: "{{ traefik_serverstransport_namespace | default('pinghelm') }}"
+      when: ingress == True
+
+    - name: Check for Traefik ServersTransport CRD (traefik.io)
+      command: kubectl get crd serverstransports.traefik.io
+      register: traefik_crd_io
+      failed_when: false
+      changed_when: false
+      when: ingress == True
+
+    - name: Check for Traefik ServersTransport CRD (traefik.containo.us)
+      command: kubectl get crd serverstransports.traefik.containo.us
+      register: traefik_crd_containo
+      failed_when: false
+      changed_when: false
+      when: ingress == True
+
+    - name: Set Traefik ServersTransport API group
+      set_fact:
+        traefik_api_group: "{{ 'traefik.io' if traefik_crd_io.rc == 0 else ('traefik.containo.us' if traefik_crd_containo.rc == 0 else '') }}"
+      when: ingress == True
+
+    - name: Fail if Traefik ServersTransport CRD not found
+      fail:
+        msg: "Traefik ServersTransport CRD not found. Verify Traefik installation and CRDs."
+      when: ingress == True and traefik_api_group == ""
+
+    - name: Create Traefik ServersTransport manifest
+      copy:
+        dest: /home/ubuntu/traefik-serverstransport.yaml
+        mode: "0644"
+        content: |
+          apiVersion: {{ traefik_api_group }}/v1alpha1
+          kind: ServersTransport
+          metadata:
+            name: {{ traefik_serverstransport_name }}
+            namespace: {{ traefik_serverstransport_namespace }}
+          spec:
+            serverName: localhost
+            insecureSkipVerify: true
+      when: ingress == True
+
+    - name: Ensure Traefik ServersTransport namespace exists
+      shell: kubectl create namespace {{ traefik_serverstransport_namespace }} --dry-run=client -o yaml | kubectl apply -f -
+      args:
+        executable: /bin/bash
+      register: traefik_serverstransport_namespace_apply
+      changed_when: "'created' in traefik_serverstransport_namespace_apply.stdout or 'configured' in traefik_serverstransport_namespace_apply.stdout"
+      when: ingress == True
+
+    - name: Apply Traefik ServersTransport
+      command: kubectl apply -f /home/ubuntu/traefik-serverstransport.yaml
       when: ingress == True
 
     - name: Pause for 5 seconds
@@ -333,11 +412,11 @@
       when: ingress == True
 
     - name: Confirm ingress controller pod is ready
-      command: kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/name=ingress-nginx --timeout=90s
+      command: kubectl wait --namespace traefik --for=condition=ready pod --selector=app.kubernetes.io/name=traefik --timeout=90s
       when: ingress == True
 
     - name: Get Ingress service components for confirmation
-      command: kubectl get svc -n ingress-nginx
+      command: kubectl get svc -n traefik
       register: ingress_status_output
       when: ingress == True
 
@@ -348,22 +427,28 @@
 
     #######################  Istio  ##############
 
-    - name: Get 'istioctl' installation file
+    - name: Get Istio release bundle
       get_url:
-        url: "https://github.com/istio/istio/releases/download/1.25.1/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz"
-        dest: "/home/ubuntu/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz"
-        checksum: sha256:https://github.com/istio/istio/releases/download/1.25.1/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz.sha256
-      when: istio == True
+        url: "https://github.com/istio/istio/releases/download/{{ istio_version }}/istio-{{ istio_version }}-linux-{{ arch_suffix }}.tar.gz"
+        dest: "/home/ubuntu/istio-{{ istio_version }}-linux-{{ arch_suffix }}.tar.gz"
+        checksum: "sha256:https://github.com/istio/istio/releases/download/{{ istio_version }}/istio-{{ istio_version }}-linux-{{ arch_suffix }}.tar.gz.sha256"
+      when: istio == True or istioaddons == True
 
-    - name: Extract istioctl
-      shell: tar xzvf /home/ubuntu/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz && sudo mv istio-1.25.1/bin/istioctl /usr/local/bin/istioctl
+    - name: Extract Istio bundle
+      shell: tar xzvf /home/ubuntu/istio-{{ istio_version }}-linux-{{ arch_suffix }}.tar.gz -C /home/ubuntu
       args:
         executable: /bin/bash
+        creates: /home/ubuntu/istio-{{ istio_version }}
+      when: istio == True or istioaddons == True
+
+    - name: Install istioctl
+      command: sudo install -m 0755 /home/ubuntu/istio-{{ istio_version }}/bin/istioctl /usr/local/bin/istioctl
+      args:
         creates: /usr/local/bin/istioctl
       when: istio == True
 
     - name: Install istio
-      shell: istioctl install -f /home/ubuntu/istio-1.25.1/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
+      shell: istioctl install -f /home/ubuntu/istio-{{ istio_version }}/manifests/profiles/demo.yaml --skip-confirmation && sudo touch /etc/.istioInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioInstalled
@@ -382,8 +467,15 @@
         - app=istio-egressgateway
       when: istio == True
 
+    - name: Ensure Istio is installed when enabling add-ons
+      command: kubectl get deploy istiod -n istio-system
+      register: istiod_check
+      changed_when: false
+      failed_when: istioaddons == True and istio == False and istiod_check.rc != 0
+      when: istioaddons == True
+
     - name: Install Istio add-ons
-      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-1.25.1/samples/addons && sudo touch /etc/.istioAddonsInstalled
+      shell: kubectl apply -n istio-system -f /home/ubuntu/istio-{{ istio_version }}/samples/addons && sudo touch /etc/.istioAddonsInstalled
       args:
         executable: /bin/bash
         creates: /etc/.istioAddonsInstalled
@@ -421,7 +513,7 @@
         path: "{{ item }}"
         state: absent
       with_items:
-        - /home/ubuntu/istio-1.25.1
-        - /home/ubuntu/istio-1.25.1-linux-{{ arch_suffix }}.tar.gz
+        - /home/ubuntu/istio-{{ istio_version }}
+        - /home/ubuntu/istio-{{ istio_version }}-linux-{{ arch_suffix }}.tar.gz
         - /home/ubuntu/patch-service.yaml
-      when: istio == True
+      when: istio == True or istioaddons == True

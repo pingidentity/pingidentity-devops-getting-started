@@ -11,6 +11,8 @@
     k8smaster_ip: "192.168.163.70"
     k8snode01_ip: "192.168.163.71"
     k8snode02_ip: "192.168.163.72"
+  vars_files:
+    - install_list.yaml
 
   tasks:
     - name: Gather architecture info
@@ -188,10 +190,10 @@
         - lvm2
 
     - name: Get Kubernetes package signing key
-      shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/k8s.gpg
+      shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/k8s.gpg
 
     - name: Add Kubernetes APT repository
-      shell: echo 'deb [signed-by=/etc/apt/keyrings/k8s.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | tee /etc/apt/sources.list.d/k8s.list
+      shell: echo 'deb [signed-by=/etc/apt/keyrings/k8s.gpg] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/ /' | tee /etc/apt/sources.list.d/k8s.list
 
     - name: Update package cache
       apt:
