@@ -6,3 +6,13 @@ storage: True
 ingress: False
 istio: False
 istioaddons: False
+traefik_serverstransport_name: default-pf-localhost
+traefik_serverstransport_namespace: pinghelm
+helm_version: "4.1.1"
+k9s_version: "0.50.18"
+metallb_version: "latest"
+cert_manager_version: "1.19.3"
+rook_version: "1.19.1"
+istio_version: "1.28.3"
+traefik_chart_version: ""
+kubernetes_version: "1.35"

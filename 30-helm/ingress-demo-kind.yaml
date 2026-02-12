@@ -8,3 +8,4 @@ global:
     defaultTlsSecret:
     annotations:
       traefik.ingress.kubernetes.io/service.serverstransport: "default-pf-localhost@kubernetescrd"
+      kubernetes.io/ingress.class: "traefik"

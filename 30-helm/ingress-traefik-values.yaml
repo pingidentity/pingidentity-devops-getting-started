@@ -1,0 +1,16 @@
+# Dev-only: skip backend TLS verification so Ping consoles with self-signed certs work via Traefik.
+# NOT FOR PRODUCTION USE!
+additionalArguments:
+  - "--serversTransport.insecureSkipVerify=true"
+
+# Keep both providers enabled (defaults, but explicit here).
+providers:
+  kubernetesCRD:
+    enabled: true
+  kubernetesIngress:
+    enabled: true
+
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+  name: traefik
