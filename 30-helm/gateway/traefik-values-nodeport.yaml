@@ -1,0 +1,13 @@
+# Exposure override for local clusters (Docker Desktop, kind, etc.).
+# Use with:
+# helm upgrade --install traefik traefik/traefik -n traefik --create-namespace \
+#   -f sample/traefik-values.yaml -f sample/traefik-values-nodeport.yaml
+
+service:
+  type: NodePort
+
+ports:
+  web:
+    nodePort: 30080
+  websecure:
+    nodePort: 30443

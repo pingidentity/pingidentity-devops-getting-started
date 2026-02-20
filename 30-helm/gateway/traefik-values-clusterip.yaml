@@ -1,0 +1,10 @@
+# Exposure override for local port-forward workflows.
+# Use with:
+# helm upgrade --install traefik traefik/traefik -n traefik --create-namespace \
+#   -f sample/traefik-values.yaml -f sample/traefik-values-clusterip.yaml
+# Then expose locally:
+# kubectl -n traefik port-forward svc/traefik 8443:443
+# or (to keep hostname URLs on :443) sudo kubectl -n traefik port-forward svc/traefik 443:443
+
+service:
+  type: ClusterIP

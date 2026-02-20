@@ -1,0 +1,13 @@
+# Dev-only: skip upstream TLS verification so self-signed Ping certs work behind Traefik.
+# NOT FOR PRODUCTION USE.
+additionalArguments:
+  - "--serversTransport.insecureSkipVerify=true"
+
+providers:
+  kubernetesGateway:
+    enabled: true
+
+ingressClass:
+  enabled: true
+  isDefaultClass: false
+  name: traefik
