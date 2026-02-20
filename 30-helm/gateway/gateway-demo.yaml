@@ -1,0 +1,86 @@
+# Gateway overlay values for the demo deployment.
+# Use with:
+# helm upgrade --install demo charts/ping-devops \
+#   --namespace pinghelm \
+#   -f sample/everything.yaml \
+#   -f sample/gateway-demo.yaml
+
+global:
+  gateway:
+    enabled: true
+    addReleaseNameToHost: prepend
+    defaultDomain: pingdemo.example
+    parentRefs:
+    - name: ping-devops-gateway
+      namespace: pinghelm
+      sectionName: https
+
+pingaccess-admin:
+  gateway:
+    hosts:
+    - host: pingaccess-admin._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          serviceName: https
+
+pingaccess-engine:
+  gateway:
+    hosts:
+    - host: pingaccess-engine._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          serviceName: https
+
+pingdataconsole:
+  gateway:
+    hosts:
+    - host: pingdataconsole._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          serviceName: https
+
+pingauthorize:
+  gateway:
+    hosts:
+    - host: pingauthorize._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          serviceName: https
+
+pingdirectory:
+  gateway:
+    hosts:
+    - host: pingdirectory._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          serviceName: https
+
+pingfederate-admin:
+  gateway:
+    hosts:
+    - host: pingfederate-admin._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          serviceName: https
+
+pingfederate-engine:
+  gateway:
+    hosts:
+    - host: pingfederate-engine._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          serviceName: https

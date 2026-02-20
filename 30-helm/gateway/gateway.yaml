@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: ping-devops-gateway
+  namespace: pinghelm
+spec:
+  gatewayClassName: traefik
+  listeners:
+  - name: https
+    protocol: HTTPS
+    port: 8443
+    hostname: "*.pingdemo.example"
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: pingdemo-example-tls
+    allowedRoutes:
+      namespaces:
+        from: Same
