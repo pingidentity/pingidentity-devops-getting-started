@@ -1,0 +1,62 @@
+# PingDirectory utility sidecar example using the new fields added by this change.
+
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+
+configMaps:
+  sidecar-scripts:
+    data:
+      collect-support.sh: |
+        #!/bin/sh
+        set -eu
+        /opt/out/instance/bin/collect-support-data --archive /opt/out/sidecar/collect-support.zip
+
+pingdirectory:
+  enabled: true
+
+  workload:
+    shareProcessNamespace: true
+
+  utilitySidecar:
+    enabled: true
+
+    # Inherits repository and pull policy from the main PingDirectory image
+    # unless overridden here.
+    image:
+      tag: "2602"
+
+    command:
+      - /bin/sh
+      - -c
+    args:
+      - |
+        chmod +x /opt/in/collect-support.sh
+        tail -f /dev/null
+
+    env:
+      - name: SIDECAREXAMPLE_MODE
+        value: collect-support
+
+    envFrom:
+      - configMapRef:
+          name: sidecar-runtime-env
+      - secretRef:
+          name: sidecar-runtime-secret
+
+    volumes:
+      - name: sidecar-scripts
+        mountPath: /opt/in/collect-support.sh
+        subPath: collect-support.sh
+
+  volumes:
+    - name: temp
+      emptyDir: {}
+    - name: sidecar-scripts
+      configMap:
+        name: sidecar-scripts
+        defaultMode: 0755
+
+  volumeMounts:
+    - name: temp
+      mountPath: /tmp
