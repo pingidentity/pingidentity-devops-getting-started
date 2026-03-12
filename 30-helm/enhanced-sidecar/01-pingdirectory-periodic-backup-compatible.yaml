@@ -1,0 +1,52 @@
+# Backward-compatible utility sidecar example.
+# Mirrors the style of the getting-started PingDirectory backup example.
+
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+
+pingdirectory:
+  enabled: true
+
+  cronjob:
+    enabled: true
+    spec:
+      schedule: "0 */6 * * *"
+      successfulJobsHistoryLimit: 0
+      failedJobsHistoryLimit: 1
+    args:
+      - /opt/in/backup.sh
+
+  envs:
+    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: getting-started/pingdirectory
+
+  workload:
+    shareProcessNamespace: true
+
+  # This explicit temp volume matches the historical backup examples.
+  volumes:
+    - name: temp
+      emptyDir: {}
+    - name: backup-script
+      configMap:
+        name: pingdirectory-backup
+        defaultMode: 0755
+    - name: restore-script
+      configMap:
+        name: pingdirectory-restore
+        defaultMode: 0755
+
+  volumeMounts:
+    - name: temp
+      mountPath: /tmp
+
+  utilitySidecar:
+    enabled: true
+    volumes:
+      - name: backup-script
+        mountPath: /opt/in/backup.sh
+        subPath: backup.sh
+      - name: restore-script
+        mountPath: /opt/in/restore.sh
+        subPath: restore.sh
