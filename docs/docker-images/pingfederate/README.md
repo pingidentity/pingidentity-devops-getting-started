@@ -106,7 +106,7 @@ this image.
 | LICENSE_VERSION  | ${LICENSE_VERSION}  | Version used when retrieving license from License Server  |
 | STARTUP_COMMAND  | ${SERVER_ROOT_DIR}/bin/run.sh  | The command that the entrypoint will execute in the foreground to instantiate the container  |
 | PING_IDENTITY_PASSWORD  | 2FederateM0re  | Specify a password for administrator user for interaction with admin API  |
-| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log  | Files tailed once container has started  |
+| TAIL_LOG_FILES  | ${SERVER_ROOT_DIR}/log/server.log ${SERVER_ROOT_DIR}/log/init.log  | Files tailed once container has started  |
 | PF_LOG_SIZE_MAX  | 10000 KB  | Defines the log file size max for ALL appenders  |
 | PF_LOG_NUMBER  | 2  | Defines the maximum of log files to retain upon rotation  |
 | PF_ADMIN_PORT  | 9999  | Defines the port on which the PingFederate administrative console and API runs. PF_RUN_PF_ADMIN_HTTPS_PORT will override this for PingFederate 11.3 and later.  |
