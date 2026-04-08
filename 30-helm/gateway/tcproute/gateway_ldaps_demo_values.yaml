@@ -1,0 +1,59 @@
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  gateway:
+    enabled: true
+    # HTTPRoute stays on the released v1 API.
+    httpRouteApiVersion: gateway.networking.k8s.io/v1
+    # TCPRoute still uses the released experimental v1alpha2 API.
+    tcpRouteApiVersion: gateway.networking.k8s.io/v1alpha2
+    # Hostnames rendered from *_defaultDomain_ become *.pingdemo.example.
+    addReleaseNameToHost: prepend
+    defaultDomain: pingdemo.example
+    # Both HTTPRoute and TCPRoute attach to the same Gateway object.
+    parentRefs:
+    - name: ping-devops-gateway
+      namespace: ping-gateway
+
+pingdirectory:
+  enabled: true
+  gateway:
+    # This renders an HTTPRoute for the PingDirectory HTTPS service.
+    hosts:
+    - host: pingdirectory._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          # Resolve to the pingdirectory Service on servicePort 443.
+          serviceName: https
+    # This renders a TCPRoute for raw LDAPS traffic.
+    tcpRoutes:
+    - name: ldaps
+      # Must match the TCP listener name on the Gateway manifest.
+      sectionName: ldaps-1636
+      backend:
+        # Resolve to the pingdirectory Service on servicePort 636.
+        serviceName: ldaps
+
+pingdataconsole:
+  enabled: true
+  defaultLogin:
+    server:
+      # PingDataConsole connects in-cluster to the headless PingDirectory cluster Service.
+      # The application prepends the release name, so this becomes
+      # gateway-ldaps-demo-pingdirectory-cluster at runtime.
+      host: pingdirectory-cluster
+      # The cluster Service exposes LDAPS on 1636, which matches the docs workflow.
+      port: 636
+    username: administrator
+  gateway:
+    # This renders an HTTPRoute for the browser-facing console.
+    hosts:
+    - host: pingdataconsole._defaultDomain_
+      paths:
+      - path: /
+        pathType: PathPrefix
+        backend:
+          # Resolve to the pingdataconsole Service on servicePort 8443.
+          serviceName: https

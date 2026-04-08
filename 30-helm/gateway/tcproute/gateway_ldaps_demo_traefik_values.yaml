@@ -1,0 +1,48 @@
+deployment:
+  replicas: 1
+
+providers:
+  kubernetesGateway:
+    enabled: true
+    # TCPRoute support is still in the Gateway API experimental channel.
+    experimentalChannel: true
+    # Publish the Traefik Service address into Gateway status so the Gateway
+    # can transition to Programmed=True with an ADDRESS value.
+    statusAddress:
+      service:
+        namespace: traefik
+        name: traefik
+
+gateway:
+  # This example supplies its own Gateway manifest rather than using the chart default.
+  enabled: false
+
+service:
+  # Docker Desktop exposes the LoadBalancer back to the host on 127.0.0.1.
+  type: LoadBalancer
+
+ports:
+  websecure:
+    # Traefik listens internally on 8443 and exposes that as host port 443.
+    port: 8443
+    expose:
+      default: true
+    exposedPort: 443
+    protocol: TCP
+    http:
+      tls:
+        # This enables TLS handling on the websecure entryPoint.
+        enabled: true
+  ldaps:
+    # Dedicated TCP entryPoint for the Gateway TCP listener and TCPRoute.
+    port: 1636
+    expose:
+      default: true
+    exposedPort: 1636
+    protocol: TCP
+
+additionalArguments:
+# Explicitly create the ldaps entryPoint Traefik must map to the Gateway TCP listener.
+- --entryPoints.ldaps.address=:1636/tcp
+# Demo-only setting so Traefik accepts the self-signed HTTPS certs on the Ping backends.
+- --serversTransport.insecureSkipVerify=true
