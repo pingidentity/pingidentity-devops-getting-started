@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: ping-devops-gateway
+  namespace: ping-gateway
+spec:
+  # Traefik installs a GatewayClass named "traefik".
+  gatewayClassName: traefik
+  listeners:
+  # Browser traffic lands on the HTTPS listener.
+  - name: https
+    protocol: HTTPS
+    # For the current Traefik chart, the Gateway listener port must match the
+    # entryPoint port configured in Traefik, not only the exposed Service port.
+    port: 8443
+    hostname: "*.pingdemo.example"
+    tls:
+      mode: Terminate
+      certificateRefs:
+      # Traefik terminates TLS here with the wildcard browser cert.
+      - kind: Secret
+        name: gateway-demo-tls
+  # Raw LDAPS traffic lands on the TCP listener.
+  - name: ldaps-1636
+    protocol: TCP
+    port: 1636
+    allowedRoutes:
+      namespaces:
+        # Keep the example simple: only routes from this namespace may attach.
+        from: Same
