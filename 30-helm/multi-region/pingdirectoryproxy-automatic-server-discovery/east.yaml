@@ -1,7 +1,7 @@
 global:
   image:
     # Support was added in release 2310
-    tag: 2603
+    tag: "2603"
 
 # Waiting for all proxy pods by waiting for the last proxy pod in the seed region.
 # This avoids contention between proxy servers joining the topology simultaneously.
@@ -26,9 +26,11 @@ pingdirectory:
     K8S_SEED_CLUSTER: west
     K8S_NUM_REPLICAS: "2"
     K8S_POD_HOSTNAME_PREFIX: "east-pingdirectory-"
+    K8S_SEED_HOSTNAME_PREFIX: "west-pingdirectory-"
     K8S_POD_HOSTNAME_SUFFIX:  ".east.example.com"
     K8S_SEED_HOSTNAME_SUFFIX:  ".west.example.com"
     K8S_INCREMENT_PORTS: "false"
+    SKIP_WAIT_FOR_DNS: "true"
   services:
     ldap:
       servicePort: 1389
@@ -68,9 +70,11 @@ pingdirectoryproxy:
     K8S_SEED_CLUSTER: west
     K8S_NUM_REPLICAS: "1"
     K8S_POD_HOSTNAME_PREFIX: "east-pingdirectoryproxy-"
+    K8S_SEED_HOSTNAME_PREFIX: "west-pingdirectoryproxy-"
     K8S_POD_HOSTNAME_SUFFIX:  ".east.example.com"
     K8S_SEED_HOSTNAME_SUFFIX:  ".west.example.com"
     K8S_INCREMENT_PORTS: "false"
+    SKIP_WAIT_FOR_DNS: "true"
     ## VARIABLES TO JOIN PD TOPOLOGY
     # The multi-region location configuration is applied during startup before
     # the proxy joins the PingDirectory topology for automatic discovery.

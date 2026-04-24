@@ -22,6 +22,8 @@ Required proxy environment variables for this example:
 - `K8S_SEED_CLUSTER`
 - `PINGDIRECTORY_HOSTNAME`
 - `PINGDIRECTORY_LDAPS_PORT`
+- `SKIP_WAIT_FOR_DNS: "true"` when the advertised pod hostnames resolve to external LoadBalancer
+  addresses rather than pod IPs.
 
 Optional proxy environment variable:
 
