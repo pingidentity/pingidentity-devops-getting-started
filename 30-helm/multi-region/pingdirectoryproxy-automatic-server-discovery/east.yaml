@@ -81,3 +81,18 @@ pingdirectoryproxy:
     JOIN_PD_TOPOLOGY: "true"
     PINGDIRECTORY_HOSTNAME: west-pingdirectory-0.west.example.com
     PINGDIRECTORY_LDAPS_PORT: "1636"
+  services:
+    ldap:
+      servicePort: 1389
+      containerPort: 1389
+      dataService: true
+    ldaps:
+      servicePort: 1636
+      containerPort: 1636
+      dataService: true
+      clusterService: true
+    https:
+      servicePort: 1443
+      containerPort: 1443
+      ingressPort: 443
+      dataService: true
