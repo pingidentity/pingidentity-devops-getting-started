@@ -1,14 +1,19 @@
-# Deploy PingDirectory (file-based secrets) and PingFederate (env var secrets)
-# using the Secrets Store CSI Driver with HashiCorp Vault as the provider.
+# Deploy PingDirectory and PingFederate using the Secrets Store CSI Driver
+# with HashiCorp Vault as the provider.
 #
-# See the walkthrough at docs/vault-spc-walkthrough.adoc for full setup steps,
+# Secrets are delivered as *.env files mounted at /run/vault-secrets.
+# Setting SECRETS_DIR to that path tells the Ping startup hooks to source
+# those files, injecting all KEY=VALUE pairs as environment variables.
+# No Kubernetes Secret objects are created.
+#
+# See the walkthrough in the ping-devops Helm chart docs for full setup steps,
 # including installing the CSI driver, deploying Vault, seeding secrets, and
 # configuring Kubernetes auth.
 #
 # Prerequisites:
-#   - Secrets Store CSI Driver installed in kube-system (syncSecret.enabled=true)
+#   - Secrets Store CSI Driver installed in kube-system
 #   - Vault deployed in the vault namespace with the CSI provider enabled
-#   - Vault seeded with secrets at ping/devops, ping/pingdirectory, ping/pingfederate
+#   - Vault seeded with secrets at ping/pd-env and ping/pf-env (content key, KEY=VALUE format)
 #   - Kubernetes auth configured with a ping-role bound to the ping-vault-auth ServiceAccount
 #   - Namespace and ServiceAccount created:
 #       kubectl create namespace ping
@@ -18,121 +23,59 @@ global:
   rbac:
     serviceAccountName: ping-vault-auth
 
-# ---------------------------------------------------------------------------
-# PingDirectory: file-based secret delivery
-#
-# The CSI driver writes each fetched secret as a file under /run/secrets.
-# The Ping container startup scripts scan that directory at boot and source
-# any file whose name matches a known variable (PING_IDENTITY_DEVOPS_USER,
-# ROOT_USER_PASSWORD, etc.).  No Kubernetes Secret or envFrom is required.
-# ---------------------------------------------------------------------------
 pingdirectory:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: getting-started/pingdirectory
+    SECRETS_DIR: /run/vault-secrets
   secretProviderClass:
     enabled: true
     create: true
     provider: vault
+    mountPath: /run/vault-secrets
     parameters:
       vaultAddress: http://vault.vault:8200
       roleName: ping-role
       objects: |
-        - objectName: "PING_IDENTITY_DEVOPS_USER"
-          secretPath: "ping/data/devops"
-          secretKey: "PING_IDENTITY_DEVOPS_USER"
-        - objectName: "PING_IDENTITY_DEVOPS_KEY"
-          secretPath: "ping/data/devops"
-          secretKey: "PING_IDENTITY_DEVOPS_KEY"
-        - objectName: "ROOT_USER_PASSWORD"
-          secretPath: "ping/data/pingdirectory"
-          secretKey: "ROOT_USER_PASSWORD"
-        - objectName: "ROOT_USER_DN"
-          secretPath: "ping/data/pingdirectory"
-          secretKey: "ROOT_USER_DN"
+        - objectName: "pingdirectory.env"
+          secretPath: "ping/data/pd-env"
+          secretKey: "content"
 
-# ---------------------------------------------------------------------------
-# PingFederate admin: environment variable delivery via Kubernetes Secret sync
-#
-# secretObjects instructs the CSI driver to create a Kubernetes Secret whose
-# keys mirror the mounted files.  container.envFrom then injects that Secret
-# as environment variables.  The files are still written to /run/secrets, but
-# the product reads configuration from env vars instead.
-# ---------------------------------------------------------------------------
 pingfederate-admin:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: getting-started/pingfederate
+    SECRETS_DIR: /run/vault-secrets
   secretProviderClass:
     enabled: true
     create: true
     provider: vault
+    mountPath: /run/vault-secrets
     parameters:
       vaultAddress: http://vault.vault:8200
       roleName: ping-role
       objects: |
-        - objectName: "PING_IDENTITY_DEVOPS_USER"
-          secretPath: "ping/data/devops"
-          secretKey: "PING_IDENTITY_DEVOPS_USER"
-        - objectName: "PING_IDENTITY_DEVOPS_KEY"
-          secretPath: "ping/data/devops"
-          secretKey: "PING_IDENTITY_DEVOPS_KEY"
-        - objectName: "ADMINISTRATOR_PASSWORD"
-          secretPath: "ping/data/pingfederate"
-          secretKey: "ADMINISTRATOR_PASSWORD"
-    secretObjects:
-      - secretName: ping-pf-admin-env
-        type: Opaque
-        data:
-          - objectName: PING_IDENTITY_DEVOPS_USER
-            key: PING_IDENTITY_DEVOPS_USER
-          - objectName: PING_IDENTITY_DEVOPS_KEY
-            key: PING_IDENTITY_DEVOPS_KEY
-          - objectName: ADMINISTRATOR_PASSWORD
-            key: ADMINISTRATOR_PASSWORD
-  container:
-    envFrom:
-      - secretRef:
-          name: ping-pf-admin-env
+        - objectName: "pingfederate.env"
+          secretPath: "ping/data/pf-env"
+          secretKey: "content"
 
-# ---------------------------------------------------------------------------
-# PingFederate engine: same env var pattern as admin
-# ---------------------------------------------------------------------------
 pingfederate-engine:
   enabled: true
   envs:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: getting-started/pingfederate
+    SECRETS_DIR: /run/vault-secrets
   secretProviderClass:
     enabled: true
     create: true
     provider: vault
+    mountPath: /run/vault-secrets
     parameters:
       vaultAddress: http://vault.vault:8200
       roleName: ping-role
       objects: |
-        - objectName: "PING_IDENTITY_DEVOPS_USER"
-          secretPath: "ping/data/devops"
-          secretKey: "PING_IDENTITY_DEVOPS_USER"
-        - objectName: "PING_IDENTITY_DEVOPS_KEY"
-          secretPath: "ping/data/devops"
-          secretKey: "PING_IDENTITY_DEVOPS_KEY"
-        - objectName: "ADMINISTRATOR_PASSWORD"
-          secretPath: "ping/data/pingfederate"
-          secretKey: "ADMINISTRATOR_PASSWORD"
-    secretObjects:
-      - secretName: ping-pf-engine-env
-        type: Opaque
-        data:
-          - objectName: PING_IDENTITY_DEVOPS_USER
-            key: PING_IDENTITY_DEVOPS_USER
-          - objectName: PING_IDENTITY_DEVOPS_KEY
-            key: PING_IDENTITY_DEVOPS_KEY
-          - objectName: ADMINISTRATOR_PASSWORD
-            key: ADMINISTRATOR_PASSWORD
-  container:
-    envFrom:
-      - secretRef:
-          name: ping-pf-engine-env
+        - objectName: "pingfederate.env"
+          secretPath: "ping/data/pf-env"
+          secretKey: "content"
