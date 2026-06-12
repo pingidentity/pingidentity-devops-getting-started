@@ -14,6 +14,7 @@
 #   - Secrets Store CSI Driver installed in kube-system
 #   - Vault deployed in the vault namespace with the CSI provider enabled
 #   - Vault seeded with secrets at ping/pd-env and ping/pf-env (content key, KEY=VALUE format)
+#     and ping/pdpwd (individual keys including root-user-password)
 #   - Kubernetes auth configured with a ping-role bound to the ping-vault-auth ServiceAccount
 #   - Namespace and ServiceAccount created:
 #       kubectl create namespace ping
@@ -29,6 +30,7 @@ pingdirectory:
     SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
     SERVER_PROFILE_PATH: getting-started/pingdirectory
     SECRETS_DIR: /run/vault-secrets
+    ROOT_USER_PASSWORD_FILE: "/run/vault-secrets/root-user-password"
   secretProviderClass:
     enabled: true
     create: true
@@ -41,6 +43,9 @@ pingdirectory:
         - objectName: "pingdirectory.env"
           secretPath: "ping/data/pd-env"
           secretKey: "content"
+        - objectName: "root-user-password"
+          secretPath: "ping/data/pdpwd"
+          secretKey: "root-user-password"
 
 pingfederate-admin:
   enabled: true

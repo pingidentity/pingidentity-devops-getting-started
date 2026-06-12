@@ -2,14 +2,9 @@
 
 This example deploys PingDirectory and PingFederate with all secrets sourced from HashiCorp Vault via the [Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/).
 
-The two products use different delivery mechanisms intentionally:
+Secrets are delivered as mounted files at `/run/vault-secrets`. Setting `SECRETS_DIR` to that path tells the Ping startup hooks to source `*.env` files there, injecting all `KEY=VALUE` pairs as environment variables. No Kubernetes `Secret` objects are created.
 
-| Product | Mechanism | How it works |
-|---------|-----------|--------------|
-| PingDirectory | Mounted files | Secrets written to `/run/secrets`; startup scripts source them automatically |
-| PingFederate (admin + engine) | Environment variables | `secretObjects` syncs secrets into a Kubernetes `Secret`; `container.envFrom` injects them as env vars |
-
-See the full walkthrough at `docs/vault-spc-walkthrough.adoc` for step-by-step instructions including cluster setup, Vault installation, secret seeding, and Kubernetes auth configuration.
+See the [full walkthrough](https://developer.pingidentity.com/helm/examples/vault-spc-walkthrough.html) for step-by-step instructions including cluster setup, Vault installation, secret seeding, and Kubernetes auth configuration.
 
 ## Quick start
 
@@ -18,6 +13,8 @@ After completing the setup steps in the walkthrough:
 ```bash
 helm install ping pingidentity/ping-devops \
   -n ping \
+  --set global.rbac.serviceAccountName=ping-vault-auth \
+  --set global.rbac.applyServiceAccountToWorkload=true \
   -f ping-values.yaml
 ```
 
@@ -29,16 +26,23 @@ helm install ping pingidentity/ping-devops \
 
 ## Verify
 
-**PingDirectory — secrets as files:**
+**Mounted secret files:**
 ```bash
 kubectl exec -n ping \
   $(kubectl get pod -n ping -l app.kubernetes.io/name=pingdirectory -o name | head -1) \
-  -- ls /run/secrets
+  -- ls /run/vault-secrets
 ```
 
-**PingFederate — secrets as environment variables:**
+**PingDirectory — env vars sourced from mounted file:**
+```bash
+kubectl exec -n ping \
+  $(kubectl get pod -n ping -l app.kubernetes.io/name=pingdirectory -o name | head -1) \
+  -- env | grep -E 'SECRETS_DIR|ROOT_USER_PASSWORD_FILE'
+```
+
+**PingFederate — env vars sourced from mounted file:**
 ```bash
 kubectl exec -n ping \
   $(kubectl get pod -n ping -l app.kubernetes.io/name=pingfederate-admin -o name | head -1) \
-  -- env | grep -E 'ADMINISTRATOR_PASSWORD|PING_IDENTITY_DEVOPS'
+  -- env | grep SECRETS_DIR
 ```
