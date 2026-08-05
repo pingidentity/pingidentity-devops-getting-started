@@ -13,8 +13,8 @@
 # this file.
 #
 # Before installing, in the target namespace:
-#   1-3. Same as 01-standalone.yaml (license Secret, devops secret /
-#        masterPassword, flex-bootstrap-script ConfigMap).
+#   1-3. Same as 01-standalone.yaml (license Secret, devops secret,
+#        flex-bootstrap-script ConfigMap, --set global.envs.PING_IDENTITY_PASSWORD).
 #   4. Create the cluster-config ConfigMap using the release name and
 #      namespace you will install with (the admin cluster Service FQDN
 #      must match exactly or DNS_PING will not find peers):
