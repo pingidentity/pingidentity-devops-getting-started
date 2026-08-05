@@ -31,7 +31,7 @@ pingfederate-admin:
     tag: 13.1.1-alpine-flex
 
   # Flex ships no /opt/liveness.sh / /opt/readiness.sh - flex.enabled
-  # swaps in the flex-image probe paths (chart default since 0.14.0).
+  # swaps in the flex-image probe paths (chart default since 0.15.0).
   flex:
     enabled: true
 
@@ -44,7 +44,7 @@ pingfederate-admin:
 
   # Mount the bootstrap script and run it as a sidecar. envFrom pulls in
   # PING_IDENTITY_PASSWORD from the release's global-env-vars ConfigMap -
-  # {{ .Release.Name }} is resolved by the chart (0.14.0+ pipes
+  # {{ .Release.Name }} is resolved by the chart (0.15.0+ pipes
   # sidecars/initContainers values through `tpl`).
   includeSidecars:
     - flex-bootstrap
