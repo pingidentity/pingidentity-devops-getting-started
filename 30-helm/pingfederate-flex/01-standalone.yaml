@@ -1,0 +1,116 @@
+############################################################
+# Ping Identity
+#
+# PingFederate flex image, standalone admin console.
+#
+# The flex image ships no DevOps hook-script system, so the chart cannot
+# rely on the usual server-profile/hook mechanism to accept the license
+# agreement or create the initial administrator user. This example wires
+# up a sidecar that does that over the admin API instead, using only
+# existing chart features (container.probes, secretVolumes,
+# configMapVolumes, sidecars/includeSidecars) - no PingFederate-flex-
+# specific chart template is required beyond the flex.enabled probe
+# convenience.
+#
+# Before installing, in the target namespace:
+#   1. Create the devops-secret (see other examples in this repo), or rely
+#      on global.masterPassword.enabled: true (chart default) to generate
+#      PING_IDENTITY_PASSWORD automatically.
+#   2. Create the pingfederate-license Secret from a valid license file:
+#        kubectl create secret generic pingfederate-license \
+#          --from-file=license=./pingfederate.lic
+#   3. Create the flex-bootstrap-script ConfigMap from flex-bootstrap.sh
+#      (in this directory):
+#        kubectl create configmap flex-bootstrap-script \
+#          --from-file=flex-bootstrap.sh=./flex-bootstrap.sh
+############################################################
+
+pingfederate-admin:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  # Flex ships no /opt/liveness.sh / /opt/readiness.sh - flex.enabled
+  # swaps in the flex-image probe paths (chart default since 0.14.0).
+  flex:
+    enabled: true
+
+  # Flex has no built-in devops-license-server integration; it only
+  # copies a license file mounted at /opt/staging/license.
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  # Mount the bootstrap script and run it as a sidecar. envFrom pulls in
+  # PING_IDENTITY_PASSWORD from the release's global-env-vars ConfigMap -
+  # {{ .Release.Name }} is resolved by the chart (0.14.0+ pipes
+  # sidecars/initContainers values through `tpl`).
+  includeSidecars:
+    - flex-bootstrap
+
+  configMapVolumes:
+    flex-bootstrap-script:
+      items:
+        flex-bootstrap.sh: /opt/flex-bootstrap.sh
+
+  container:
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+sidecars:
+  flex-bootstrap:
+    image: pingidentity/pingtoolkit:latest
+    command:
+      - /bin/sh
+      - /opt/flex-bootstrap.sh
+    # configMapVolumes only auto-mounts into the main product container;
+    # sidecars need their own explicit volumeMounts entry for the same
+    # pod-level volume (named after the configMapVolumes key above).
+    volumeMounts:
+      - name: flex-bootstrap-script
+        mountPath: /opt/flex-bootstrap.sh
+        subPath: flex-bootstrap.sh
+        readOnly: true
+    envFrom:
+      - configMapRef:
+          name: "{{ .Release.Name }}-global-env-vars"
+          optional: true
+    env:
+      - name: ROOT_USER
+        value: administrator
+      - name: PF_ADMIN_PORT
+        value: "9999"
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+    resources:
+      requests:
+        cpu: 0
+        memory: 128Mi
+      limits:
+        cpu: 1
+        memory: 256Mi
+
+pingfederate-engine:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+  flex:
+    enabled: true
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+  container:
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi

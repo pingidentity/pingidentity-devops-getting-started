@@ -1,0 +1,113 @@
+############################################################
+# Ping Identity
+#
+# PingFederate flex image, clustered admin console (2 replicas).
+#
+# Builds on 01-standalone.yaml. Clustering the admin console additionally
+# requires delivering jgroups.properties (DNS_PING discovery pointed at
+# the admin cluster Service) and cluster-admin-nodes-sync.conf to the
+# container - flex has no hook that writes these, and PF_<FILE>_<property>
+# env-var overrides do NOT work on either file (confirmed empirically).
+# Without a working DNS_PING config, every admin pod self-promotes ACTIVE
+# (split-brain) - this is the single most important thing to get right in
+# this file.
+#
+# Before installing, in the target namespace:
+#   1-3. Same as 01-standalone.yaml (license Secret, devops secret /
+#        masterPassword, flex-bootstrap-script ConfigMap).
+#   4. Create the cluster-config ConfigMap using the release name and
+#      namespace you will install with (the admin cluster Service FQDN
+#      must match exactly or DNS_PING will not find peers):
+#        ./create-cluster-config.sh <release-name> <namespace>
+############################################################
+
+pingfederate-admin:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  flex:
+    enabled: true
+
+  container:
+    replicaCount: 2
+    env:
+      - name: PF_RUN_pf_operational_mode
+        value: CLUSTERED_CONSOLE
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  configMapVolumes:
+    flex-bootstrap-script:
+      items:
+        flex-bootstrap.sh: /opt/flex-bootstrap.sh
+    # Must be created manually (see step 4 above) - the chart does not
+    # generate this ConfigMap. A generated jgroups.properties would have
+    # no auth/encryption and would not be production-usable, so this
+    # stays a user-authored ConfigMap rather than chart-generated.
+    pingfederate-cluster-config:
+      items:
+        cluster-admin-nodes-sync.conf: /opt/pingidentity/runtime/server/default/conf/cluster-admin-nodes-sync.conf
+        jgroups.properties: /opt/pingidentity/runtime/bin/jgroups.properties
+
+  includeSidecars:
+    - flex-bootstrap
+
+sidecars:
+  flex-bootstrap:
+    image: pingidentity/pingtoolkit:latest
+    command:
+      - /bin/sh
+      - /opt/flex-bootstrap.sh
+    volumeMounts:
+      - name: flex-bootstrap-script
+        mountPath: /opt/flex-bootstrap.sh
+        subPath: flex-bootstrap.sh
+        readOnly: true
+    envFrom:
+      - configMapRef:
+          name: "{{ .Release.Name }}-global-env-vars"
+          optional: true
+    env:
+      - name: ROOT_USER
+        value: administrator
+      - name: PF_ADMIN_PORT
+        value: "9999"
+      - name: OPERATIONAL_MODE
+        value: CLUSTERED_CONSOLE
+    resources:
+      requests:
+        cpu: 0
+        memory: 128Mi
+      limits:
+        cpu: 1
+        memory: 256Mi
+
+pingfederate-engine:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+  flex:
+    enabled: true
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+  container:
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
