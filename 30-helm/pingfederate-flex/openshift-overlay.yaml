@@ -1,0 +1,28 @@
+############################################################
+# Ping Identity
+#
+# OpenShift overlay for PingFederate flex examples.
+#
+# OpenShift assigns a dynamic UID/GID to containers rather than
+# allowing containers to set their own. The chart defaults include
+# hardcoded runAsUser and fsGroup values that OpenShift rejects.
+# This overlay nulls them out so OpenShift can assign its own values.
+#
+# The pingtoolkit override is required for any product that uses a
+# waitFor initContainer (e.g. pingfederate-engine waiting for admin)
+# since initContainer security context is set at the container level,
+# not the pod level.
+#
+# Usage: add -f openshift-overlay.yaml to any helm install/upgrade
+# command alongside the main example values file.
+############################################################
+
+global:
+  workload:
+    securityContext:
+      fsGroup: null
+      runAsUser: null
+  externalImage:
+    pingtoolkit:
+      securityContext:
+        runAsUser: null

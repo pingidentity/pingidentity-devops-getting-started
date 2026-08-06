@@ -1,0 +1,246 @@
+############################################################
+# Ping Identity
+#
+# PingFederate flex image with server profile via init container.
+#
+# Demonstrates how a customer migrating from the v1 image (which used
+# SERVER_PROFILE_URL + hook scripts to pull and render config) can
+# deliver the same server profile to a flex image using an init
+# container. The flex image has no hook system, so the profile must
+# be staged before PingFederate starts.
+#
+# Works with the current released chart (0.14.0+). No chart changes
+# are required — only existing chart features are used:
+#   - container.probes: override the default /opt/liveness.sh paths
+#     with the flex image paths (/opt/pingidentity/runtime/bin/liveness.sh)
+#   - includeInitContainers / includeVolumes / volumeMounts: stage the
+#     server profile before PingFederate starts
+#   - sidecars / includeSidecars: run flex-bootstrap after PF is up
+#
+# Init container pattern:
+#   1. The PF flex image is used as the init container so it already
+#      contains the full runtime tree. It copies that tree into a shared
+#      emptyDir, then downloads and overlays the server profile on top
+#      using curl (git is not present in the flex image).
+#   2. PingFederate starts with the emptyDir mounted at
+#      /opt/pingidentity/runtime — base runtime + profile in place.
+#   3. flex-bootstrap sidecar accepts the license and creates the
+#      initial administrator user over the admin API.
+#
+# This example uses the public baseline PingFederate server profile
+# from pingidentity/pingidentity-server-profiles. Replace the curl URL
+# and cp path in the init container command to point at a custom profile.
+#
+# Before installing, in the target namespace:
+#   1. Create the devops-secret:
+#        kubectl create secret generic devops-secret \
+#          --from-literal=PING_IDENTITY_ACCEPT_EULA='YES'
+#   2. Create the license Secret:
+#        kubectl create secret generic pingfederate-license \
+#          --from-file=license=./pingfederate.lic
+#   3. Create the bootstrap ConfigMap:
+#        kubectl create configmap flex-bootstrap-script \
+#          --from-file=flex-bootstrap.sh=./flex-bootstrap.sh
+#   4. Set PING_IDENTITY_PASSWORD via --set on install (see below).
+#
+# OpenShift: add -f openshift-overlay.yaml to the install command.
+############################################################
+
+# Top-level named volume shared between the init container and the
+# main product container. Referenced via includeVolumes in each product.
+volumes:
+  server-profile:
+    emptyDir: {}
+
+pingfederate-admin:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  # The flex image ships /opt/pingidentity/runtime/bin/liveness.sh
+  # instead of the v1 /opt/liveness.sh and /opt/readiness.sh paths.
+  # Override all three probes explicitly (flex.enabled is not available
+  # until chart 0.15.0).
+  container:
+    probes:
+      livenessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 90
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  configMapVolumes:
+    flex-bootstrap-script:
+      items:
+        flex-bootstrap.sh: /opt/flex-bootstrap.sh
+
+  includeVolumes:
+    - server-profile
+
+  volumeMounts:
+    - name: server-profile
+      mountPath: /opt/pingidentity/runtime
+
+  includeInitContainers:
+    - profile-staging
+
+  includeSidecars:
+    - flex-bootstrap
+
+pingfederate-engine:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  container:
+    probes:
+      livenessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 90
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  includeVolumes:
+    - server-profile
+
+  volumeMounts:
+    - name: server-profile
+      mountPath: /opt/pingidentity/runtime
+
+  includeInitContainers:
+    - profile-staging
+
+initContainers:
+  profile-staging:
+    # Use the same PF flex image — it already contains the full runtime
+    # tree. The init container copies it into the shared volume, then
+    # overlays the server profile. curl is used instead of git because
+    # the flex image does not include git.
+    image: pingidentity/pingfederate:13.1.1-alpine-flex
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        echo "Copying base runtime into shared volume..."
+        cp -r /opt/pingidentity/runtime/. /mnt/runtime/
+        echo "Downloading server profile..."
+        curl --silent --location \
+          https://github.com/pingidentity/pingidentity-server-profiles/archive/refs/heads/master.tar.gz \
+          | tar -xz -C /tmp
+        echo "Overlaying profile instance files..."
+        cp -r /tmp/pingidentity-server-profiles-master/baseline/pingfederate/instance/. /mnt/runtime/
+        echo "Profile staged."
+    volumeMounts:
+      - name: server-profile
+        mountPath: /mnt/runtime
+    resources:
+      requests:
+        cpu: 0
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 512Mi
+
+sidecars:
+  flex-bootstrap:
+    image: pingidentity/pingtoolkit:latest
+    command:
+      - /bin/sh
+      - /opt/flex-bootstrap.sh
+    volumeMounts:
+      - name: flex-bootstrap-script
+        mountPath: /opt/flex-bootstrap.sh
+        subPath: flex-bootstrap.sh
+        readOnly: true
+    env:
+      - name: ROOT_USER
+        value: administrator
+      - name: PF_ADMIN_PORT
+        value: "9999"
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+      # Read password from the devops-secret. Chart 0.14.x does not render
+      # sidecars through tpl so the global-env-vars ConfigMap cannot be
+      # referenced dynamically. On chart 0.15.0+ replace with envFrom
+      # referencing <release-name>-global-env-vars.
+      - name: PING_IDENTITY_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: devops-secret
+            key: PING_IDENTITY_PASSWORD
+    resources:
+      requests:
+        cpu: 0
+        memory: 128Mi
+      limits:
+        cpu: 1
+        memory: 256Mi
