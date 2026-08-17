@@ -26,8 +26,7 @@
 
 pingfederate-admin:
   enabled: true
-  flex:
-    enabled: true            # flex-compatible probes (no /opt/liveness.sh in flex)
+  # Explicit Flex probes are required by chart 0.14.0.
   image:
     tag: 13.1.1-alpine-flex  # keep profile exports version-aligned with this
 
@@ -100,8 +99,6 @@ pingfederate-admin:
 
 pingfederate-engine:
   enabled: true
-  flex:
-    enabled: true
   image:
     tag: 13.1.1-alpine-flex
 
