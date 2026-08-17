@@ -7,9 +7,12 @@ These example values files demonstrate running PingFederate's "flex" image varia
 
 ## PRE-REQUISITES
 
-- Helm chart version `0.15.0` or later (for the `flex.enabled` probe convenience and `tpl`-templated
-  `sidecars`/`initContainers`).
+- Released Helm chart version `0.14.0` or later.
+- Chart 0.14.0 requires explicit Flex probe commands and literal Secret/ConfigMap names in
+  sidecars
 - A valid PingFederate license file.
+- A credential Secret named `pingfederate-admin-creds` containing `PING_IDENTITY_PASSWORD` for
+  Examples 1 and 2 (Example 3 uses `devops-secret`; Example 4 uses the credential Secret).
 
 Files:
 - `01-standalone.yaml`

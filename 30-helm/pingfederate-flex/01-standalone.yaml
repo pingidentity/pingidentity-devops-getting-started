@@ -13,18 +13,20 @@
 # convenience.
 #
 # Before installing, in the target namespace:
-#   1. Create the devops-secret (see other examples in this repo). Set
-#      PING_IDENTITY_PASSWORD via `--set global.envs.PING_IDENTITY_PASSWORD=<password>`
-#      on the helm install/upgrade command so the bootstrap sidecar can read it
-#      from the release's global-env-vars ConfigMap. masterPassword is not used
-#      in this demonstration as it generates a unique password each time.
-#   2. Create the pingfederate-license Secret from a valid license file:
+#   1. Create the devops-secret (see other examples in this repo), including
+#      PING_IDENTITY_ACCEPT_EULA='YES'.
+#   2. Create pingfederate-admin-creds with the bootstrap administrator password:
+#        kubectl create secret generic pingfederate-admin-creds \
+#          --from-literal=PING_IDENTITY_PASSWORD='<admin-password>'
+#   3. Create the pingfederate-license Secret from a valid license file:
 #        kubectl create secret generic pingfederate-license \
 #          --from-file=license=./pingfederate.lic
-#   3. Create the flex-bootstrap-script ConfigMap from flex-bootstrap.sh
+#   4. Create the flex-bootstrap-script ConfigMap from flex-bootstrap.sh
 #      (in this directory):
 #        kubectl create configmap flex-bootstrap-script \
 #          --from-file=flex-bootstrap.sh=./flex-bootstrap.sh
+#
+#   Chart 0.14.0 does not tpl-render sidecar values, so keep Secret names literal.
 ############################################################
 
 pingfederate-admin:
@@ -32,10 +34,39 @@ pingfederate-admin:
   image:
     tag: 13.1.1-alpine-flex
 
-  # Flex ships no /opt/liveness.sh / /opt/readiness.sh - flex.enabled
-  # swaps in the flex-image probe paths (chart default since 0.15.0).
-  flex:
-    enabled: true
+  # Flex ships no /opt/liveness.sh / /opt/readiness.sh - override all
+  # probes explicitly for chart 0.14.0.
+  container:
+    probes:
+      livenessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 90
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
 
   # Flex has no built-in devops-license-server integration; it only
   # copies a license file mounted at /opt/staging/license.
@@ -44,10 +75,8 @@ pingfederate-admin:
       items:
         license: /opt/staging/license
 
-  # Mount the bootstrap script and run it as a sidecar. envFrom pulls in
-  # PING_IDENTITY_PASSWORD from the release's global-env-vars ConfigMap -
-  # {{ .Release.Name }} is resolved by the chart (0.15.0+ pipes
-  # sidecars/initContainers values through `tpl`).
+  # Mount the bootstrap script and run it as a sidecar. The sidecar reads
+  # PING_IDENTITY_PASSWORD from the literal credential Secret below.
   includeSidecars:
     - flex-bootstrap
 
@@ -55,15 +84,6 @@ pingfederate-admin:
     flex-bootstrap-script:
       items:
         flex-bootstrap.sh: /opt/flex-bootstrap.sh
-
-  container:
-    resources:
-      requests:
-        cpu: 1
-        memory: 2Gi
-      limits:
-        cpu: 1
-        memory: 2Gi
 
 sidecars:
   flex-bootstrap:
@@ -79,10 +99,10 @@ sidecars:
         mountPath: /opt/flex-bootstrap.sh
         subPath: flex-bootstrap.sh
         readOnly: true
+    # Chart 0.14.0 does not tpl-render sidecar values. Use a literal Secret.
     envFrom:
-      - configMapRef:
-          name: "{{ .Release.Name }}-global-env-vars"
-          optional: true
+      - secretRef:
+          name: pingfederate-admin-creds
     env:
       - name: ROOT_USER
         value: administrator
@@ -102,13 +122,30 @@ pingfederate-engine:
   enabled: true
   image:
     tag: 13.1.1-alpine-flex
-  flex:
-    enabled: true
-  secretVolumes:
-    pingfederate-license:
-      items:
-        license: /opt/staging/license
   container:
+    probes:
+      livenessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 90
     resources:
       requests:
         cpu: 1
@@ -116,3 +153,7 @@ pingfederate-engine:
       limits:
         cpu: 1
         memory: 2Gi
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
