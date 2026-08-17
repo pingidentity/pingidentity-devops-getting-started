@@ -1,0 +1,248 @@
+#################################################################
+# PingFederate "flex" image with env-first configuration and minimal file delivery
+#
+# Prefer container.env for scalar settings supported by flex. Keep this profile
+# repository limited to artifacts that cannot be represented as environment
+# variables (for example drop-in data.zip or custom XML). This is not a copy of
+# the legacy server-profile/runtime tree.
+#
+# Create these before `helm install`:
+#
+#   kubectl create secret generic pingfederate-license \
+#     --from-file=license=<your-pf-license-file>
+#
+#   kubectl create secret generic pingfederate-admin-creds \
+#     --from-literal=PING_IDENTITY_PASSWORD=<admin-password>
+#
+#   kubectl create configmap flex-bootstrap-script \
+#     --from-file=flex-bootstrap.sh=flex-bootstrap.sh
+#   # (the script from helm-tests/smoke-tests/pingfederate/flex-bootstrap.sh,
+#   #  also published in pingidentity-devops-getting-started 30-helm/pingfederate-flex/)
+#
+#   # Only if the profile repo is private:
+#   kubectl create secret generic pf-profile-git \
+#     --from-literal=token=<git-token>
+#################################################################
+
+pingfederate-admin:
+  enabled: true
+  flex:
+    enabled: true            # flex-compatible probes (no /opt/liveness.sh in flex)
+  image:
+    tag: 13.1.1-alpine-flex  # keep profile exports version-aligned with this
+
+  container:
+    replicaCount: 1
+    probes:
+      livenessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+      readinessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+      startupProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        failureThreshold: 90
+        periodSeconds: 10
+    env:
+      - name: PF_RUN_pf_operational_mode
+        value: CLUSTERED_CONSOLE
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  includeInitContainers:
+    - stage-server-profile
+  includeVolumes:
+    - pf-profile
+  # Ordinary containers are long-lived. flex-bootstrap.sh must stay alive after
+  # one-time initialization; this helper is transitional until flex owns
+  # license acceptance and initial-admin bootstrap.
+  includeSidecars:
+    - flex-bootstrap
+
+  volumeMounts:
+    # Minimal profile: the repo carries only
+    #   <SERVER_PROFILE_PATH>/instance/server/default/deploy/OAuthPlayground.war
+    # and this single mount delivers it. Mount the drop-in-deployer DIRECTORY,
+    # not the data.zip file itself: PF renames data.zip -> data.zip.deployed
+    # after import, which fails if the file is a mount point. The stock dir is
+    # empty, so nothing is shadowed.
+    - name: pf-profile
+      mountPath: /opt/pingidentity/runtime/server/default/deploy/OAuthPlayground.war
+      subPath: instance/server/default/deploy/OAuthPlayground.war
+    # One entry per additional profile file — subPath mirrors the repo path,
+    # mountPath is the same path under /opt/pingidentity/runtime. Individual
+    # FILES only for dirs shared with stock image content (conf/, bin/, lib/)
+    # — a directory mount would hide the image's own files:
+    - name: pf-profile
+      mountPath: /opt/pingidentity/runtime/server/default/conf/service-points.conf
+      subPath: instance/server/default/conf/service-points.conf
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  configMapVolumes:
+    flex-bootstrap-script:
+      items:
+        flex-bootstrap.sh: /opt/flex-bootstrap.sh
+    pingfederate-cluster-config:
+      items:
+        cluster-admin-nodes-sync.conf: /opt/pingidentity/runtime/server/default/conf/cluster-admin-nodes-sync.conf
+        jgroups.properties: /opt/pingidentity/runtime/bin/jgroups.properties
+
+pingfederate-engine:
+  enabled: true
+  flex:
+    enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  container:
+    replicaCount: 2
+    probes:
+      livenessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+      readinessProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+      startupProbe:
+        exec:
+          command: [/opt/pingidentity/runtime/bin/liveness.sh]
+        failureThreshold: 90
+        periodSeconds: 10
+    env:
+      - name: PF_RUN_pf_operational_mode
+        value: CLUSTERED_ENGINE
+      # The flex liveness.sh script reads this uppercase variable when it
+      # selects the engine heartbeat port; PF_RUN_pf_operational_mode is the
+      # PingFederate property override above.
+      - name: RUN_PF_OPERATIONAL_MODE
+        value: CLUSTERED_ENGINE
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+    # waitFor pingfederate-admin:https is already a chart default
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  # Engines need discovery too, so they join the cluster and receive
+  # replicated config from the admin. No drop-in data.zip on engines —
+  # the admin's imported config reaches them via cluster replication.
+  configMapVolumes:
+    pingfederate-cluster-config:
+      items:
+        jgroups.properties: /opt/pingidentity/runtime/bin/jgroups.properties
+
+#################################################################
+# Shared definitions referenced by include* above
+#################################################################
+
+volumes:
+  pf-profile:
+    emptyDir: {}
+
+initContainers:
+  stage-server-profile:
+    # Minimal git image — only needs sh + git for the clone.
+    image: alpine/git:2.47.2
+    env:
+      - name: SERVER_PROFILE_URL
+        value: https://github.com/pingidentity/pingidentity-server-profiles.git
+      - name: SERVER_PROFILE_BRANCH
+        value: master
+      - name: SERVER_PROFILE_PATH
+        value: baseline/pingfederate
+      # For a private repo, uncomment and clone via
+      # https://oauth2:${GIT_TOKEN}@github.com/... instead:
+      # - name: GIT_TOKEN
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: pf-profile-git
+      #       key: token
+    command:
+      - /bin/sh
+      - -c
+      - >-
+        git clone --depth 1 --single-branch
+        --branch "${SERVER_PROFILE_BRANCH}"
+        "${SERVER_PROFILE_URL}" /tmp/profile &&
+        cp -r "/tmp/profile/${SERVER_PROFILE_PATH}/." /opt/profile/ &&
+        echo "Server profile staged"
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+    resources:
+      requests:
+        cpu: 0
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 128Mi
+    volumeMounts:
+      - name: pf-profile
+        mountPath: /opt/profile
+
+sidecars:
+  flex-bootstrap:
+    # Accepts the license agreement, creates the initial admin user, and
+    # promotes exactly one admin node to ACTIVE — the things the legacy
+    # image's post-start hooks did that flex no longer does.
+    image: pingidentity/pingtoolkit:latest
+    command:
+      - /bin/sh
+      - /opt/flex-bootstrap.sh
+    env:
+      - name: ROOT_USER
+        value: administrator
+      - name: PF_ADMIN_PORT
+        value: "9999"
+      - name: OPERATIONAL_MODE
+        value: CLUSTERED_CONSOLE   # must match PF_RUN_pf_operational_mode above
+    envFrom:
+      - secretRef:
+          name: pingfederate-admin-creds   # provides PING_IDENTITY_PASSWORD
+    volumeMounts:
+      - name: flex-bootstrap-script
+        mountPath: /opt/flex-bootstrap.sh
+        subPath: flex-bootstrap.sh
+        readOnly: true
+    resources:
+      requests:
+        cpu: 0
+        memory: 128Mi
+      limits:
+        cpu: 1
+        memory: 256Mi
+
+#################################################################
+# Cluster discovery config, delivered as real files —
+# PF_CLUSTER_ADMIN_NODES_SYNC_ENABLED does not work on flex.
+# EDIT the dns_query: <release>-pingfederate-cluster.<namespace> must match
+# your actual release name and namespace (values are not tpl-rendered here).
+#################################################################
+configMaps:
+  pingfederate-cluster-config:
+    data:
+      cluster-admin-nodes-sync.conf: |
+        enabled=true
+      jgroups.properties: |
+        pf.cluster.discovery.protocol=DNS_PING
+        pf.cluster.DNS_PING.dns_query=pf-flex-demo-03-pingfederate-cluster.pf-flex-demo-03.svc.cluster.local
