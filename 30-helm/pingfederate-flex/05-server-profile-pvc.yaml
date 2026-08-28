@@ -1,0 +1,263 @@
+############################################################
+# Ping Identity
+#
+# Example 5: PingFederate flex with server profile via init container,
+# plus a PVC-backed data volume.
+#
+# This is the migration starting point for customers coming from the
+# v1 image who keep their full Git-hosted server profile AND persist
+# PingFederate runtime data at /opt/out/instance/server/default/data.
+# It is the same full-runtime staging pattern as 03-server-profile.yaml
+# with two changes:
+#
+#   1. The admin console runs as a StatefulSet so chart-generated
+#      persistence is available (chart 0.14.0 ties StatefulSet
+#      persistentvolume to StatefulSet workloads only; PingFederate
+#      admin defaults to a Deployment).
+#   2. The PVC is remapped from the default /opt/out mount to exactly
+#      /opt/out/instance/server/default/data — the single durable path
+#      customers use. Staging remains an ephemeral emptyDir and never
+#      becomes the persistence mechanism.
+#
+# The PVC data volume and the staging emptyDir are deliberately
+# separate: profile staging is rebuilt on every pod creation, while
+# the PVC survives pod deletion and helm upgrades.
+#
+# Trade-offs (why this example is a bridge, not a destination):
+#   - The init container copies the image's entire runtime into an
+#     emptyDir and overlays the profile on top. That masks the image
+#     runtime with pod-local copies: image upgrades do not reach
+#     PingFederate until the profile tree is also compatible.
+#   - The profile contents are coupled to the image tag. Update both
+#     together.
+#
+# Use 06-minimal-server-profile-pvc.yaml as the destination once the
+# profile has been reduced to filesystem-only artifacts.
+#
+# Prerequisites (see the walkthrough Common Setup):
+#   - devops-secret with PING_IDENTITY_ACCEPT_EULA=YES and
+#     PING_IDENTITY_PASSWORD
+#   - pingfederate-license Secret
+#   - flex-bootstrap-script ConfigMap
+#   - A default StorageClass capable of ReadWriteOnce volumes.
+#
+# OpenShift: add -f openshift-overlay.yaml to the install command.
+############################################################
+
+volumes:
+  # Ephemeral startup staging. Dies with the pod; never persistence.
+  server-profile:
+    emptyDir: {}
+
+pingfederate-admin:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  # StatefulSet is required for chart-generated persistence. The PVC
+  # volume below is remapped to the customer data path.
+  workload:
+    type: StatefulSet
+    statefulSet:
+      persistentvolume:
+        enabled: true
+        volumes:
+          out-dir:
+            mountPath: /opt/out/instance/server/default/data
+            persistentVolumeClaim:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 4Gi
+
+  container:
+    # Standalone demo mode; both env vars are needed because chart 0.14.0
+    # hardcodes OPERATIONAL_MODE in the product env ConfigMap.
+    env:
+      - name: PF_RUN_pf_operational_mode
+        value: STANDALONE
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+    probes:
+      livenessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 90
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  configMapVolumes:
+    flex-bootstrap-script:
+      items:
+        flex-bootstrap.sh: /opt/flex-bootstrap.sh
+
+  includeVolumes:
+    - server-profile
+
+  volumeMounts:
+    - name: server-profile
+      mountPath: /opt/pingidentity/runtime
+
+  includeInitContainers:
+    - profile-staging
+
+  includeSidecars:
+    - flex-bootstrap
+
+pingfederate-engine:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  container:
+    env:
+      - name: PF_RUN_pf_operational_mode
+        value: STANDALONE
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+    probes:
+      livenessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 90
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  includeVolumes:
+    - server-profile
+
+  volumeMounts:
+    - name: server-profile
+      mountPath: /opt/pingidentity/runtime
+
+  includeInitContainers:
+    - profile-staging
+
+initContainers:
+  profile-staging:
+    # Same pattern as 03-server-profile.yaml: the PF flex image already
+    # contains the full runtime tree; copy it into the shared volume and
+    # overlay the server profile on top (later copy wins).
+    image: pingidentity/pingfederate:13.1.1-alpine-flex
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        echo "Copying base runtime into shared volume..."
+        cp -r /opt/pingidentity/runtime/. /mnt/runtime/
+        echo "Downloading server profile..."
+        curl --silent --location \
+          https://github.com/pingidentity/pingidentity-server-profiles/archive/refs/heads/master.tar.gz \
+          | tar -xz -C /tmp
+        echo "Overlaying profile instance files..."
+        cp -r /tmp/pingidentity-server-profiles-master/baseline/pingfederate/instance/. /mnt/runtime/
+        echo "Profile staged."
+    volumeMounts:
+      - name: server-profile
+        mountPath: /mnt/runtime
+    resources:
+      requests:
+        cpu: 0
+        memory: 256Mi
+      limits:
+        cpu: 1
+        memory: 512Mi
+
+sidecars:
+  flex-bootstrap:
+    image: pingidentity/pingtoolkit:latest
+    command:
+      - /bin/sh
+      - /opt/flex-bootstrap.sh
+    volumeMounts:
+      - name: flex-bootstrap-script
+        mountPath: /opt/flex-bootstrap.sh
+        subPath: flex-bootstrap.sh
+        readOnly: true
+    env:
+      - name: ROOT_USER
+        value: administrator
+      - name: PF_ADMIN_PORT
+        value: "9999"
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+      - name: PING_IDENTITY_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: devops-secret
+            key: PING_IDENTITY_PASSWORD
+    resources:
+      requests:
+        cpu: 0
+        memory: 128Mi
+      limits:
+        cpu: 1
+        memory: 256Mi

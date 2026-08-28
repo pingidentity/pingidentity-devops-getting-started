@@ -1,0 +1,305 @@
+############################################################
+# Ping Identity
+#
+# Example 6: flex-native configuration (env-first, minimal file
+# delivery) with a PVC-backed data volume — the destination of the
+# 05-server-profile-pvc migration.
+#
+# Differences from 05 (and from the legacy server-profile model):
+#   - The Flex image's /opt/pingidentity/runtime is NEVER mounted over.
+#     The image stays authoritative for the runtime; only verified
+#     profile artifacts are delivered as individual file mounts.
+#   - Scalar settings move to environment variables where supported:
+#     PF_RUN_<property> for run.properties settings, PF_<FILE>_<property>
+#     for other config files. The chart renders envs into its env-vars
+#     ConfigMaps, consumed via envFrom by the product containers.
+#   - Profile staging stays an ephemeral emptyDir; only the PVC (exactly
+#     /opt/out/instance/server/default/data) is durable.
+#
+# File-mounting rules (critical):
+#   - One volumeMounts entry per file. mountPath is the same path under
+#     /opt/pingidentity/runtime; subPath mirrors the repo path.
+#   - NEVER mount a directory over image-populated dirs (conf/, bin/,
+#     lib/) — a directory mount hides the image's own files. Directory
+#     mounts are safe only where the image dir is empty.
+#   - For drop-in deployer artifacts, mount the drop-in-deployer
+#     DIRECTORY, not data.zip itself: PingFederate renames the file to
+#     data.zip.deployed after import, which fails if the file is a
+#     mount point.
+#   - The init container must create every subPath source before the
+#     main container starts.
+#
+# The sample profile here uses only two files, both verified in the
+# pinned public profile revision. Replace the URL/ref/path and the
+# volumeMounts list with your own reduced profile inventory.
+#
+# Prerequisites (see the walkthrough Common Setup):
+#   - pingfederate-admin-creds Secret with PING_IDENTITY_PASSWORD
+#   - pingfederate-license Secret
+#   - flex-bootstrap-script ConfigMap
+#   - A default StorageClass capable of ReadWriteOnce volumes.
+#
+# OpenShift: add -f openshift-overlay.yaml to the install command.
+############################################################
+
+volumes:
+  # Startup staging only. Never the durable data volume.
+  pf-profile:
+    emptyDir: {}
+
+pingfederate-admin:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  workload:
+    type: StatefulSet
+    statefulSet:
+      persistentvolume:
+        enabled: true
+        volumes:
+          out-dir:
+            mountPath: /opt/out/instance/server/default/data
+            persistentVolumeClaim:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 4Gi
+
+  container:
+    replicaCount: 1
+    env:
+      # Scalar settings belong in the Flex environment path whenever
+      # possible. Both env vars are needed because chart 0.14.0
+      # hardcodes OPERATIONAL_MODE in the product env ConfigMap.
+      - name: PF_RUN_pf_operational_mode
+        value: STANDALONE
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+    # envs: land in the chart-managed <release>-pingfederate-admin-env-vars
+    # ConfigMap. Add PF_<FILE>_<property> entries here as the profile is
+    # reduced further.
+    envs: {}
+    probes:
+      livenessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 90
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  includeInitContainers:
+    - stage-server-profile
+  includeVolumes:
+    - pf-profile
+
+  volumeMounts:
+    # Only files verified in the pinned public profile are mounted. The
+    # Flex image remains authoritative for the rest of
+    # /opt/pingidentity/runtime. subPath mirrors the repo path;
+    # mountPath is the same path under the runtime.
+    - name: pf-profile
+      mountPath: /opt/pingidentity/runtime/server/default/deploy/OAuthPlayground.war
+      subPath: instance/server/default/deploy/OAuthPlayground.war
+      readOnly: true
+    - name: pf-profile
+      mountPath: /opt/pingidentity/runtime/server/default/conf/service-points.conf
+      subPath: instance/server/default/conf/service-points.conf
+      readOnly: true
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+  configMapVolumes:
+    flex-bootstrap-script:
+      items:
+        flex-bootstrap.sh: /opt/flex-bootstrap.sh
+
+  includeSidecars:
+    - flex-bootstrap
+
+pingfederate-engine:
+  enabled: true
+  image:
+    tag: 13.1.1-alpine-flex
+
+  container:
+    replicaCount: 1
+    env:
+      - name: PF_RUN_pf_operational_mode
+        value: STANDALONE
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+    probes:
+      livenessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 30
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      readinessProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 30
+        periodSeconds: 5
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 4
+      startupProbe:
+        exec:
+          command:
+            - /opt/pingidentity/runtime/bin/liveness.sh
+        initialDelaySeconds: 0
+        periodSeconds: 10
+        timeoutSeconds: 5
+        successThreshold: 1
+        failureThreshold: 90
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+
+  secretVolumes:
+    pingfederate-license:
+      items:
+        license: /opt/staging/license
+
+volumes:
+  pf-profile:
+    emptyDir: {}
+
+initContainers:
+  stage-server-profile:
+    # Minimal git image — only needs sh + git for the clone. The commit
+    # is pinned (not a branch) so reruns are deterministic; the
+    # rev-parse assertion fails the pod before startup if the pin no
+    # longer matches.
+    image: alpine/git:2.47.2
+    env:
+      - name: SERVER_PROFILE_URL
+        value: https://github.com/pingidentity/pingidentity-server-profiles.git
+      - name: SERVER_PROFILE_REF
+        value: 804766b0720d0bcdd2e0b0270b0e711d66e6f601
+      - name: SERVER_PROFILE_PATH
+        value: baseline/pingfederate
+      # For a private repo, uncomment and add a Git credential Secret:
+      # - name: GIT_USERNAME
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: pf-profile-git
+      #       key: username
+      # - name: GIT_PASSWORD
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: pf-profile-git
+      #       key: password
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -eu
+        test -n "${SERVER_PROFILE_URL}" && test -n "${SERVER_PROFILE_REF}"
+        rm -rf /tmp/profile
+        git init /tmp/profile >/dev/null
+        git -C /tmp/profile remote add origin "${SERVER_PROFILE_URL}"
+        # For a private repo, also set GIT_TERMINAL_PROMPT=0 and a
+        # credential.helper reading GIT_USERNAME/GIT_PASSWORD.
+        git -C /tmp/profile fetch --depth 1 origin "${SERVER_PROFILE_REF}" >/dev/null
+        test "$(git -C /tmp/profile rev-parse FETCH_HEAD)" = "${SERVER_PROFILE_REF}"
+        git -C /tmp/profile checkout --detach FETCH_HEAD >/dev/null
+        source="/tmp/profile/${SERVER_PROFILE_PATH}"
+        test -f "${source}/instance/server/default/deploy/OAuthPlayground.war"
+        test -f "${source}/instance/server/default/conf/service-points.conf"
+        mkdir -p /opt/profile/instance/server/default/deploy
+        mkdir -p /opt/profile/instance/server/default/conf
+        cp "${source}/instance/server/default/deploy/OAuthPlayground.war" \
+          /opt/profile/instance/server/default/deploy/OAuthPlayground.war
+        cp "${source}/instance/server/default/conf/service-points.conf" \
+          /opt/profile/instance/server/default/conf/service-points.conf
+        test -s /opt/profile/instance/server/default/deploy/OAuthPlayground.war
+        test -s /opt/profile/instance/server/default/conf/service-points.conf
+        echo "Selected public profile files staged."
+    volumeMounts:
+      - name: pf-profile
+        mountPath: /opt/profile
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+    resources:
+      requests:
+        cpu: 0
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 128Mi
+
+sidecars:
+  flex-bootstrap:
+    # Accepts the license agreement and creates the initial admin user —
+    # the post-start API operations the legacy image's hooks performed.
+    image: pingidentity/pingtoolkit:latest
+    command:
+      - /bin/sh
+      - /opt/flex-bootstrap.sh
+    env:
+      - name: ROOT_USER
+        value: administrator
+      - name: PF_ADMIN_PORT
+        value: "9999"
+      - name: OPERATIONAL_MODE
+        value: STANDALONE
+    envFrom:
+      - secretRef:
+          name: pingfederate-admin-creds
+    volumeMounts:
+      - name: flex-bootstrap-script
+        mountPath: /opt/flex-bootstrap.sh
+        subPath: flex-bootstrap.sh
+        readOnly: true
+    resources:
+      requests:
+        cpu: 0
+        memory: 128Mi
+      limits:
+        cpu: 1
+        memory: 256Mi
