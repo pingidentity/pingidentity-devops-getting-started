@@ -136,11 +136,25 @@ _configureAdmin() {
     jq -n --arg username "${ROOT_USER}" --rawfile password "${_password_file}" \
         '{username:$username,password:($password | rtrimstr("\n")),description:"Initial administrator user.",auditor:false,active:true,roles:["ADMINISTRATOR","USER_ADMINISTRATOR","CRYPTO_ADMINISTRATOR","EXPRESSION_ADMINISTRATOR","DATA_COLLECTION_ADMINISTRATOR"]}' \
         > "${_request_file}"
-    _adminCode=$(_api_status --request POST \
-        --netrc-file "${_auth_file}" \
-        --header 'Content-Type: application/json' \
-        --data-binary "@${_request_file}" \
-        "https://localhost:${PF_ADMIN_PORT}/pf-admin-api/v1/administrativeAccounts")
+    # PingFederate can report the heartbeat before the administrative-account
+    # resource has finished initializing. Retry only that transient validation
+    # response; other failures remain fatal and the response body stays private.
+    _adminCode=422
+    _adminAttempt=0
+    while test "${_adminAttempt}" -lt 12 && test "${_adminCode}" = "422"; do
+        _adminCode=$(_api_status --request POST \
+            --netrc-file "${_auth_file}" \
+            --header 'Content-Type: application/json' \
+            --data-binary "@${_request_file}" \
+            "https://localhost:${PF_ADMIN_PORT}/pf-admin-api/v1/administrativeAccounts")
+        if test "${_adminCode}" = "422"; then
+            _adminAttempt=$((_adminAttempt + 1))
+            if test "${_adminAttempt}" -lt 12; then
+                echo "Administrator endpoint is still initializing (attempt ${_adminAttempt}/12); retrying in 5s..."
+                sleep 5
+            fi
+        fi
+    done
     case "${_adminCode}" in
         200|201|204)
             echo "Administrator created."
