@@ -21,7 +21,7 @@ this image.
 
 | ENV Variable  | Default     | Description
 | ------------: | ----------- | ---------------------------------
-| SHIM  | ${SHIM}  |           --shm-size 256m \  |
+| SHIM  | ${SHIM}  |  |
 | IMAGE_VERSION  | ${IMAGE_VERSION}  |  |
 | IMAGE_GIT_REV  | ${IMAGE_GIT_REV}  |  |
 | DATE  | ${DATE}  |  |
