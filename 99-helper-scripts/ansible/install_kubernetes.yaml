@@ -119,11 +119,6 @@
       with_items:
         - containerd
 
-    - name: Add Kubernetes APT key
-      apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        state: present
-
     - name: Create directory for containerd configuration file
       file:
         path: /etc/containerd
@@ -151,7 +146,8 @@
 
     - name: Check if correct containerd.runtimes.runc line exists
       set_fact:
-        containerd_line_exists: "{{ containerd_search_line in (containerd_file_content.content | b64decode).split('\n') }}"
+        # Quote-agnostic: containerd 2.x emits single-quoted values, older versions double-quoted
+        containerd_line_exists: "{{ (containerd_search_line in (containerd_file_content.content | b64decode).split('\n')) or (containerd_search_line | replace('\"', \"'\") in (containerd_file_content.content | b64decode).split('\n')) }}"
 
     - name: Error out if the incorrect or missing containerd.runtimes.runc line does not exist
       fail:
