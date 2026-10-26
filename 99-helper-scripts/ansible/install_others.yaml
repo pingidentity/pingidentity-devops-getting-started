@@ -76,7 +76,7 @@
       when: metallb == True
 
     - name: Get latest MetalLB version
-      shell: curl -s https://api.github.com/repos/metallb/metallb/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//'
+      shell: curl -s https://api.github.com/repos/metallb/metallb/releases/latest | grep tag_name | cut -d '"' -f 4 | sed -e 's/v//' -e 's/metallb-chart-//'
       args:
         executable: /bin/bash
       register: metallb_latest_version
@@ -178,7 +178,15 @@
       when: storage == True
 
     - name: Install Rook controller
-      shell: cd /home/ubuntu/rook/deploy/examples && kubectl apply -f crds.yaml -f common.yaml -f csi-operator.yaml -f operator.yaml && sudo touch /etc/.rookOperatorInstalled
+      # Apply CRDs first, then wait briefly for the API server to register them
+      # before applying the operator resources (client-side validation of
+      # csi.ceph.io resources fails otherwise on a fresh cluster).
+      shell: |
+        cd /home/ubuntu/rook/deploy/examples
+        kubectl apply -f crds.yaml -f common.yaml
+        sleep 15
+        kubectl apply -f csi-operator.yaml -f operator.yaml
+        sudo touch /etc/.rookOperatorInstalled
       args:
         creates: /etc/.rookOperatorInstalled
         executable: /bin/bash
