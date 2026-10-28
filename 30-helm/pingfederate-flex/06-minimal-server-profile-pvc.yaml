@@ -14,7 +14,11 @@
 #     for other config files. The chart renders envs into its env-vars
 #     ConfigMaps, consumed via envFrom by the product containers.
 #   - Profile staging stays an ephemeral emptyDir; only the PVC (exactly
-#     /opt/out/instance/server/default/data) is durable.
+#     /opt/pingidentity/runtime/server/default/data) is durable. This is
+#     the data directory the flex image actually writes — verified
+#     against 13.1.4, which has no /opt/out convention. The mount is a
+#     leaf data directory the image creates empty, so the
+#     "never mount over the runtime" rule still holds.
 #
 # File-mounting rules (critical):
 #   - One volumeMounts entry per file. mountPath is the same path under
@@ -33,7 +37,8 @@
 # pinned public profile revision. Replace the URL/ref/path and the
 # volumeMounts list with your own reduced profile inventory.
 #
-# Prerequisites (see the walkthrough Common Setup):
+# Prerequisites (see the walkthrough Common Setup at
+# https://developer.pingidentity.com/devops/docker-images/migratePingFederateFlex.html):
 #   - pingfederate-admin-creds Secret with PING_IDENTITY_PASSWORD
 #   - pingfederate-license Secret
 #   - flex-bootstrap-script ConfigMap
@@ -50,7 +55,7 @@ volumes:
 pingfederate-admin:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
 
   workload:
     type: StatefulSet
@@ -59,7 +64,7 @@ pingfederate-admin:
         enabled: true
         volumes:
           out-dir:
-            mountPath: /opt/out/instance/server/default/data
+            mountPath: /opt/pingidentity/runtime/server/default/data
             persistentVolumeClaim:
               accessModes:
                 - ReadWriteOnce
@@ -71,7 +76,7 @@ pingfederate-admin:
     replicaCount: 1
     env:
       # Scalar settings belong in the Flex environment path whenever
-      # possible. Both env vars are needed because chart 0.14.0
+      # possible. Both env vars are needed because charts through 0.16.0
       # hardcodes OPERATIONAL_MODE in the product env ConfigMap.
       - name: PF_RUN_pf_operational_mode
         value: STANDALONE
@@ -118,6 +123,7 @@ pingfederate-admin:
         memory: 2Gi
 
   includeInitContainers:
+    - seed-pvc-data
     - stage-server-profile
   includeVolumes:
     - pf-profile
@@ -152,7 +158,7 @@ pingfederate-admin:
 pingfederate-engine:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
 
   container:
     replicaCount: 1
@@ -260,6 +266,28 @@ initContainers:
     volumeMounts:
       - name: pf-profile
         mountPath: /opt/profile
+
+  seed-pvc-data:
+    # The flex image ships a populated server/default/data seed (base
+    # config-store, hypersonic DB). An empty PVC mounted at that path
+    # hides the seed and PF fails at startup ("Unable to locate
+    # configuration list value"). Copy the seed into the PVC exactly
+    # once; later pods leave existing data intact.
+    image: docker.io/pingidentity/pingfederate:13.1.4-alpine-flex
+    command:
+      - /bin/sh
+      - -c
+      - |
+        if test -f /mnt/data/config-store/org.sourceid.config.CoreConfig.xml; then
+            echo "PVC data directory already seeded; leaving contents intact."
+        else
+            echo "Seeding PVC data directory from image..."
+            cp -r /opt/pingidentity/runtime/server/default/data/. /mnt/data/
+            echo "PVC data seeded."
+        fi
+    volumeMounts:
+      - name: out-dir
+        mountPath: /mnt/data
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
@@ -277,7 +305,7 @@ sidecars:
   flex-bootstrap:
     # Accepts the license agreement and creates the initial admin user —
     # the post-start API operations the legacy image's hooks performed.
-    image: pingidentity/pingtoolkit:latest
+    image: docker.io/pingidentity/pingtoolkit:latest
     command:
       - /bin/sh
       - /opt/flex-bootstrap.sh

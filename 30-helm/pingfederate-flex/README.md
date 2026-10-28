@@ -7,8 +7,8 @@ These example values files demonstrate running PingFederate's "flex" image varia
 
 ## PRE-REQUISITES
 
-- Released Helm chart version `0.14.0` or later.
-- Chart 0.14.0 requires explicit Flex probe commands and literal Secret/ConfigMap names in
+- Released Helm chart version `0.14.0` or later (tested through `0.16.0`, the current release).
+- Charts through `0.16.0` require explicit Flex probe commands and literal Secret/ConfigMap names in
   sidecars
 - A valid PingFederate license file.
 - A credential Secret named `pingfederate-admin-creds` containing `PING_IDENTITY_PASSWORD` for
@@ -32,12 +32,12 @@ Files:
 - `05-server-profile-pvc.yaml`
   - Migration starting point for v1 profile users who keep PVC-backed runtime data: the full
     runtime + profile staging of Example 3, with the admin console as a StatefulSet whose PVC
-    mounts exactly at `/opt/out/instance/server/default/data`. Staging stays a separate
+    mounts exactly at `/opt/pingidentity/runtime/server/default/data`. Staging stays a separate
     ephemeral `emptyDir`. Labeled temporary: masks the image runtime and couples the profile
     to the image tag.
 - `06-minimal-server-profile-pvc.yaml`
   - Destination of the migration: Example 4's env-first/selected-file model with the same
-    StatefulSet PVC at `/opt/out/instance/server/default/data`. The Flex image owns
+    StatefulSet PVC at `/opt/pingidentity/runtime/server/default/data`. The Flex image owns
     `/opt/pingidentity/runtime`; only verified profile files are overlaid via `subPath` mounts
     from an init-staged `emptyDir`.
 - `flex-bootstrap.sh`
@@ -50,5 +50,9 @@ Files:
 Migration path (Git-hosted profile + PVC-backed data): start with 05 to keep the existing
 profile working, then reduce the profile toward 06 by moving scalar settings to
 `PF_<FILE>_<property>` environment variables and delivering only filesystem-required artifacts.
-The PVC stays mounted only at `/opt/out/instance/server/default/data` throughout; staging is
+The PVC stays mounted only at `/opt/pingidentity/runtime/server/default/data` throughout; staging is
 rebuilt on every pod while the PVC survives pod deletion and helm upgrades.
+
+For the full step-by-step migration walkthrough — common setup, verification, profile
+reduction, clustering, and OpenShift — see
+[Migrating PingFederate Deployments to Flex Images](https://developer.pingidentity.com/devops/docker-images/migratePingFederateFlex.html).

@@ -9,7 +9,7 @@
 # container. The flex image has no hook system, so the profile must
 # be staged before PingFederate starts.
 #
-# Works with the current released chart (0.14.0+). No chart changes
+# Works with the current released chart (0.14.0+, tested through 0.16.0). No chart changes
 # are required — only existing chart features are used:
 #   - container.probes: override the default /opt/liveness.sh paths
 #     with the flex image paths (/opt/pingidentity/runtime/bin/liveness.sh)
@@ -55,7 +55,7 @@ volumes:
 pingfederate-admin:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
 
   # The flex image ships /opt/pingidentity/runtime/bin/liveness.sh
   # instead of the v1 /opt/liveness.sh and /opt/readiness.sh paths.
@@ -124,7 +124,7 @@ pingfederate-admin:
 pingfederate-engine:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
 
   container:
     probes:
@@ -184,7 +184,7 @@ initContainers:
     # tree. The init container copies it into the shared volume, then
     # overlays the server profile. curl is used instead of git because
     # the flex image does not include git.
-    image: pingidentity/pingfederate:13.1.1-alpine-flex
+    image: docker.io/pingidentity/pingfederate:13.1.4-alpine-flex
     command:
       - /bin/sh
       - -c
@@ -212,7 +212,7 @@ initContainers:
 
 sidecars:
   flex-bootstrap:
-    image: pingidentity/pingtoolkit:latest
+    image: docker.io/pingidentity/pingtoolkit:latest
     command:
       - /bin/sh
       - /opt/flex-bootstrap.sh
