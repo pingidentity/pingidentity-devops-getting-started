@@ -6,18 +6,20 @@
 #
 # This is the migration starting point for customers coming from the
 # v1 image who keep their full Git-hosted server profile AND persist
-# PingFederate runtime data at /opt/out/instance/server/default/data.
-# It is the same full-runtime staging pattern as 03-server-profile.yaml
-# with two changes:
+# PingFederate runtime data. It is the same full-runtime staging
+# pattern as 03-server-profile.yaml with two changes:
 #
 #   1. The admin console runs as a StatefulSet so chart-generated
-#      persistence is available (chart 0.14.0 ties StatefulSet
+#      persistence is available (charts through 0.16.0 tie StatefulSet
 #      persistentvolume to StatefulSet workloads only; PingFederate
 #      admin defaults to a Deployment).
-#   2. The PVC is remapped from the default /opt/out mount to exactly
-#      /opt/out/instance/server/default/data — the single durable path
-#      customers use. Staging remains an ephemeral emptyDir and never
-#      becomes the persistence mechanism.
+#   2. The PVC is remapped from the chart's default /opt/out mount to
+#      exactly /opt/pingidentity/runtime/server/default/data — the
+#      single durable path the flex image actually writes (verified
+#      against 13.1.4: the image has no /opt/out convention; all live
+#      state, including pf.jwk, config-store/, and the hypersonic
+#      backend, lives under the runtime data dir). Staging remains an
+#      ephemeral emptyDir and never becomes the persistence mechanism.
 #
 # The PVC data volume and the staging emptyDir are deliberately
 # separate: profile staging is rebuilt on every pod creation, while
@@ -34,7 +36,8 @@
 # Use 06-minimal-server-profile-pvc.yaml as the destination once the
 # profile has been reduced to filesystem-only artifacts.
 #
-# Prerequisites (see the walkthrough Common Setup):
+# Prerequisites (see the walkthrough Common Setup at
+# https://developer.pingidentity.com/devops/docker-images/migratePingFederateFlex.html):
 #   - devops-secret with PING_IDENTITY_ACCEPT_EULA=YES and
 #     PING_IDENTITY_PASSWORD
 #   - pingfederate-license Secret
@@ -52,7 +55,7 @@ volumes:
 pingfederate-admin:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
 
   # StatefulSet is required for chart-generated persistence. The PVC
   # volume below is remapped to the customer data path.
@@ -63,7 +66,7 @@ pingfederate-admin:
         enabled: true
         volumes:
           out-dir:
-            mountPath: /opt/out/instance/server/default/data
+            mountPath: /opt/pingidentity/runtime/server/default/data
             persistentVolumeClaim:
               accessModes:
                 - ReadWriteOnce
@@ -72,7 +75,7 @@ pingfederate-admin:
                   storage: 4Gi
 
   container:
-    # Standalone demo mode; both env vars are needed because chart 0.14.0
+    # Standalone demo mode; both env vars are needed because charts through 0.16.0
     # hardcodes OPERATIONAL_MODE in the product env ConfigMap.
     env:
       - name: PF_RUN_pf_operational_mode
@@ -133,6 +136,7 @@ pingfederate-admin:
       mountPath: /opt/pingidentity/runtime
 
   includeInitContainers:
+    - seed-pvc-data
     - profile-staging
 
   includeSidecars:
@@ -141,7 +145,7 @@ pingfederate-admin:
 pingfederate-engine:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
 
   container:
     env:
@@ -197,15 +201,48 @@ pingfederate-engine:
     - name: server-profile
       mountPath: /opt/pingidentity/runtime
 
+  # The engine is a Deployment with no PVC (the chart ties
+  # persistentvolume to StatefulSet workloads only), so it neither
+  # seeds nor mounts out-dir. Its runtime comes fully from
+  # profile-staging; only the admin (StatefulSet) persists state.
   includeInitContainers:
     - profile-staging
 
 initContainers:
+  seed-pvc-data:
+    # The flex image ships a populated server/default/data seed (base
+    # config-store, hypersonic DB). An empty PVC mounted at that path
+    # hides the seed and PF fails at startup ("Unable to locate
+    # configuration list value"). Copy the seed into the PVC exactly
+    # once; later pods leave existing data intact.
+    image: docker.io/pingidentity/pingfederate:13.1.4-alpine-flex
+    command:
+      - /bin/sh
+      - -c
+      - |
+        if test -f /mnt/data/config-store/org.sourceid.config.CoreConfig.xml; then
+            echo "PVC data directory already seeded; leaving contents intact."
+        else
+            echo "Seeding PVC data directory from image..."
+            cp -r /opt/pingidentity/runtime/server/default/data/. /mnt/data/
+            echo "PVC data seeded."
+        fi
+    volumeMounts:
+      - name: out-dir
+        mountPath: /mnt/data
+    resources:
+      requests:
+        cpu: 0
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 128Mi
+
   profile-staging:
     # Same pattern as 03-server-profile.yaml: the PF flex image already
     # contains the full runtime tree; copy it into the shared volume and
     # overlay the server profile on top (later copy wins).
-    image: pingidentity/pingfederate:13.1.1-alpine-flex
+    image: docker.io/pingidentity/pingfederate:13.1.4-alpine-flex
     command:
       - /bin/sh
       - -c
@@ -233,7 +270,7 @@ initContainers:
 
 sidecars:
   flex-bootstrap:
-    image: pingidentity/pingtoolkit:latest
+    image: docker.io/pingidentity/pingtoolkit:latest
     command:
       - /bin/sh
       - /opt/flex-bootstrap.sh

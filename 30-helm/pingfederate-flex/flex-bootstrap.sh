@@ -139,6 +139,10 @@ _configureAdmin() {
     # PingFederate can report the heartbeat before the administrative-account
     # resource has finished initializing. Retry only that transient validation
     # response; other failures remain fatal and the response body stays private.
+    # A 422 can ALSO mean "username already in use" (validation id
+    # admin_account_already_exists) - the expected case when a PVC preserved
+    # the administrator from a previous pod - so that response is inspected
+    # and treated as success-after-credential-verification, not as a retry.
     _adminCode=422
     _adminAttempt=0
     while test "${_adminAttempt}" -lt 12 && test "${_adminCode}" = "422"; do
@@ -148,6 +152,12 @@ _configureAdmin() {
             --data-binary "@${_request_file}" \
             "https://localhost:${PF_ADMIN_PORT}/pf-admin-api/v1/administrativeAccounts")
         if test "${_adminCode}" = "422"; then
+            if jq -e '.validationErrors[]? | select(.errorId == "admin_account_already_exists")' "${_response_file}" >/dev/null 2>&1; then
+                echo "Administrator already exists (persisted data); verifying credentials..."
+                _admin_exists_with_credentials
+                echo "Administrator already exists and credentials were verified."
+                return 0
+            fi
             _adminAttempt=$((_adminAttempt + 1))
             if test "${_adminAttempt}" -lt 12; then
                 echo "Administrator endpoint is still initializing (attempt ${_adminAttempt}/12); retrying in 5s..."

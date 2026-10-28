@@ -20,13 +20,13 @@
 #      must match exactly or DNS_PING will not find peers):
 #        ./create-cluster-config.sh <release-name> <namespace>
 #
-# Chart 0.14.0 does not tpl-render sidecar values, so keep Secret names literal.
+# Charts through 0.16.0 do not tpl-render sidecar values, so keep Secret names literal.
 ############################################################
 
 pingfederate-admin:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
 
   container:
     replicaCount: 2
@@ -87,7 +87,7 @@ pingfederate-admin:
 
 sidecars:
   flex-bootstrap:
-    image: pingidentity/pingtoolkit:latest
+    image: docker.io/pingidentity/pingtoolkit:latest
     command:
       - /bin/sh
       - /opt/flex-bootstrap.sh
@@ -96,7 +96,7 @@ sidecars:
         mountPath: /opt/flex-bootstrap.sh
         subPath: flex-bootstrap.sh
         readOnly: true
-    # Chart 0.14.0 does not tpl-render sidecar values. Use a literal Secret.
+    # Charts through 0.16.0 do not tpl-render sidecar values. Use a literal Secret.
     envFrom:
       - secretRef:
           name: pingfederate-admin-creds
@@ -118,7 +118,7 @@ sidecars:
 pingfederate-engine:
   enabled: true
   image:
-    tag: 13.1.1-alpine-flex
+    tag: 13.1.4-alpine-flex
   container:
     probes:
       livenessProbe:
